@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment'
 export class CatalogosService {
   
     constructor(private http: Http) {
-      
+
     }
     
     //Servicios para marcas
@@ -77,6 +77,10 @@ export class CatalogosService {
 
   public buscarCargo(buscador) {
     return this.http.get(environment.urlService  + "api/Cargo/buscarMarca/" + buscador).map(res => res.json());
+  }
+
+  public validarCargo(idCargo, cargo) {
+    return this.http.get(environment.urlService + "api/Cargo/validarCargo/" + idCargo + "/" + cargo).map(res=>res.json());
   }
 
   //Service Donantes
