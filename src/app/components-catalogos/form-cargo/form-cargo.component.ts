@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-form-cargo',
   templateUrl: './form-cargo.component.html',
@@ -24,8 +25,8 @@ export class FormCargoComponent implements OnInit {
 
       'idcargo': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'cargo': new FormControl("", [Validators.required, Validators.maxLength(25)]),
-      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(100)])
+      'cargo': new FormControl("", [Validators.required, Validators.maxLength(25)], this.noRepetirCargo.bind(this)),
+      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(50)])
 
     });
  
@@ -132,6 +133,30 @@ eliminar(idcargo) {
 buscar(buscador) {
   this.p = 1;
   this.catalogoService.buscarCargo(buscador.value).subscribe(res => this.cargos = res);
+}
+
+noRepetirCargo(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarCargo(this.cargo.controls["idcargo"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteCargo: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
+
+
+  });
+
+  return promesa;
 }
 
 }

@@ -9,6 +9,7 @@ export class CatalogosService {
     constructor(private http: Http) {
 
     }
+    
     //Servicios para marcas
     public getMarcas() {
         return this.http.get(environment.urlService + "api/Marcas/listarMarcas").map(res => res.json());
@@ -76,6 +77,10 @@ export class CatalogosService {
 
   public buscarCargo(buscador) {
     return this.http.get(environment.urlService  + "api/Cargo/buscarMarca/" + buscador).map(res => res.json());
+  }
+
+  public validarCargo(idCargo, cargo) {
+    return this.http.get(environment.urlService + "api/Cargo/validarCargo/" + idCargo + "/" + cargo).map(res=>res.json());
   }
 
   //Service Donantes
