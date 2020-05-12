@@ -5,7 +5,7 @@
     <div class="col-lg-6">
 
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nueva Sucursal</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Cargo</button>
       </header>
     </div>
     <div class="col-lg-3">
@@ -70,26 +70,33 @@
 
           <div class="form-group">
             <label for="exampleInputEmail1">Cargo:</label>
-            <input type="text" class="form-control" formControlName="cargo" id="exampleInputEmail3" placeholder="Agregue cargo" autocomplete="off">
+            <input type="text" class="form-control" formControlName="cargo" id="exampleInputEmail3" placeholder="Ingrese cargo" autocomplete="off" maxlength="26">
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.yaExisteCargo">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ADVERTENCIA!</strong> El nombre de cargo ya está en uso. Prueba con otro.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> Ha superado el número máximo de caracteres
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
           </div>
 
           <div class="form-group">
             <label for="exampleInputEmail1">Descripción:</label>
-            <input type="text" class="form-control" formControlName="descripcion" id="exampleInputEmail3" placeholder="Agregue descripción" autocomplete="off">
+            <input type="text" class="form-control" formControlName="descripcion" id="exampleInputEmail3" placeholder="Ingrese descripción" autocomplete="off" maxlength="51">
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> Ha superado el número máximo de caracteres
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
           </div>
          
                           <!--  WARNING-->
@@ -97,7 +104,7 @@
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
-                            <strong>Cuidado!</strong> Todos los campos son obligatorios
+                            <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
                           </div>
                 
                            <!--  END-WARNING-->
@@ -105,7 +112,7 @@
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
-                            <strong>Exelente!</strong> Datos ingresados correctamente
+                            <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
                           </div>
 
 

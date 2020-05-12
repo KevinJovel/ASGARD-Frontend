@@ -61,7 +61,7 @@ export class FormDonantesComponent implements OnInit {
          });
         
         Swal.fire({
-          position: 'top-end',
+          position: 'center',
           icon: 'success',
           title: 'Dato guardado con éxito',
           showConfirmButton: false,
@@ -76,9 +76,11 @@ export class FormDonantesComponent implements OnInit {
 
       this.donantes.controls["bandera"].setValue("0");
       if (this.donantes.valid == true) {
-        this.catalogoService.updateDonante(this.donantes.value).subscribe(data => { });
+        this.catalogoService.updateDonante(this.donantes.value).subscribe(data => {
+          this.catalogoService.getDonantes().subscribe(data => { this.dontes = data });
+         });
         Swal.fire({
-          position: 'top-end',
+          position: 'center',
           icon: 'success',
           title: 'Dato modificado con éxito',
           showConfirmButton: false,
