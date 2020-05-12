@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment'
 export class CatalogosService {
   
     constructor(private http: Http) {
-      
+
     }
     //Servicios para marcas
     public getMarcas() {
