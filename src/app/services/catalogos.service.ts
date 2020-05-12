@@ -9,6 +9,7 @@ export class CatalogosService {
     constructor(private http: Http) {
       
     }
+    
     //Servicios para marcas
     public getMarcas() {
         return this.http.get(environment.urlService + "api/Marcas/listarMarcas").map(res => res.json());
