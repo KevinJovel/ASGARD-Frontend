@@ -79,8 +79,8 @@
 
 <!--modal para ingresar y editar-->
 <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog">
-    <div class="modal-content">
+  <div class="modal-dialog modal-lg modal-dialog-centered" >
+    <div class="modal-content"  >
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
         <h4 class="modal-title">{{titulo}}</h4>
@@ -88,99 +88,87 @@
       <div class="modal-body">
         <form role="form" [formGroup]="empleado" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
-          <td>
+        <!--<td>-->  <td>
+
+          <div class="form-group">
+          
+            <label for="exampleInputEmail1">Nombres:</label>
+            <input  size=40 type="text" class="form-control" formControlName="nombres" id="exampleInputEmail3" placeholder="Ingrese nombres" autocomplete="off" maxlength="11">
+          </div>
+
 		  <div class="form-group">
             <label for="exampleInputEmail1">DUI:</label>
             <input type="text" class="form-control" formControlName="dui" id="exampleInputEmail3" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
           </div>
-          <div class="alert alert-warning fade in" *ngIf="empleado.controls['dui'].errors?.required">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Advertencia!</strong> El campo es obligatorio
-          </div>
+          
+          <div class="form-group" formControlName="idcargo">
+            <label for="exampleFormControlTextarea2" >Area de negocio:</label>
+            <select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2"  maxlength="51">
+              <option value="">--Seleccione--</option>
+            </select>
+            </div>
+          
           <div class="form-group">
-            <div class="top-row">
-            <label for="exampleInputEmail1">Nombres:</label>
-            <input type="text" class="form-control" formControlName="nombres" id="exampleInputEmail3" placeholder="Ingrese nombres" autocomplete="off" maxlength="11">
+            <label for="exampleFormControlTextarea2">Teléfono:</label>
+            <input type="text"  mask="0000-0000" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
           </div>
-          <div class="alert alert-warning fade in" *ngIf="empleado.controls['nombres'].errors?.required">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Advertencia!</strong> El campo es obligatorio
-          </div>
+          
+      
+           
+        
          
-         
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2">Apellidos:</label>
-            <input type="text" class="form-control" formControlName="apellidos" id="exampleFormControlTextarea2" placeholder="Ingrese apelidos" autocomplete="off"  maxlength="51">
-          </div>
-          <div class="alert alert-warning fade in" *ngIf="empleado.controls['apellidos'].errors?.required">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Advertencia!</strong> El campo es obligatorio
-          </div>
-          </div>
-        </td>
-       
-        <td>
+        </td>  
+
+
+          <td>
+
+            <div class="form-group">
+              <label for="exampleFormControlTextarea2">Apellidos:</label>
+              <input  size=40 type="text" class="form-control" formControlName="apellidos" id="exampleFormControlTextarea2" placeholder="Ingrese apelidos" autocomplete="off"  maxlength="51">
+            </div>
+             
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Dirección:</label>
             <input class="form-control rounded-0" formControlName="direccion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101">
           </div>
-          <div class="alert alert-warning fade in" *ngIf="empleado.controls['direccion'].errors?.required">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Advertencia!</strong> El campo es obligatorio
-          </div>
-       
-		  <div class="form-group">
-			<label for="exampleFormControlTextarea2">Teléfono:</label>
-			<input type="text"  mask="0000-0000" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
-    </div>
-    <div class="alert alert-warning fade in" *ngIf="empleado.controls['telefono'].errors?.required">
-      <button data-dismiss="alert" class="close close-sm" type="button">
-        <i class="icon-remove"></i>
-      </button>
-      <strong>Advertencia!</strong> El campo es obligatorio
-    </div>
-		<div class="form-group">
-			<label for="exampleFormControlTextarea2">Teléfono personal:</label>
-			<input type="text"  mask="0000-0000" class="form-control" formControlName="telefonopersonal" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
-		</div>
-		<div class="form-group" formControlName="idcargo">
-			<label for="exampleFormControlTextarea2" >Area de negocio:</label>
-			<select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2"  maxlength="51">
-			  <option value="">--Seleccione--</option>
-			  
-			</select>
-      </div>
-      <div class="alert alert-warning fade in" *ngIf="empleado.controls['idareadenegocio'].errors?.required">
-        <button data-dismiss="alert" class="close close-sm" type="button">
-          <i class="icon-remove"></i>
-        </button>
-        <strong>Advertencia!</strong> El campo es obligatorio
-      </div>
-
+      
+	
+	
+    
+ 
+	
+   
 		  <div class="form-group" formControlName="idcargo">
 			<label for="exampleFormControlTextarea2" >Cargo:</label>
 			<select class="form-control" formControlName="idcargo"  id="exampleFormControlTextarea2"  maxlength="51">
-			  <option value="">--Seleccione--</option>
-			  
+			  <option value="">--Seleccione--</option>		  
 			</select>
       </div>
+      	<div class="form-group">
+			<label for="exampleFormControlTextarea2">Teléfono personal:</label>
+			<input type="text"  mask="0000-0000" class="form-control" formControlName="telefonopersonal" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+    </div>
+
+    </td>
       <div class="alert alert-warning fade in" *ngIf="empleado.controls['idcargo'].errors?.required">
         <button data-dismiss="alert" class="close close-sm" type="button">
           <i class="icon-remove"></i>
         </button>
-        <strong>Advertencia!</strong> El campo es obligatorio
+        <strong>Advertencia!</strong> Todos los campos son obligatorios
       </div>
-      
-    </td>
+      <div class="alert alert-success fade in" *ngIf="empleado.valid&&empleado.controls['bandera'].value==0">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <i class="icon-remove"></i>
+        </button>
+        <strong>Exelente!</strong> Datos ingresados correctamente
+      </div>
 
+      
+  
+
+
+ 
+ 
           <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
         </form>

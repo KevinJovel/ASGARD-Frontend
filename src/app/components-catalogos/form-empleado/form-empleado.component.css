@@ -6,7 +6,7 @@ table {
   
   .mat-form-field {
 	font-size: 14px;
-	width: 100%;
+	width: 130%;
   }
   
   thead {
@@ -29,6 +29,8 @@ table {
   .modal-content {
 	animation-name: modal;
 	animation-duration: 1s;
+	border-collapse: separate;
+	border-spacing:  15px;
 	box-shadow: 0 5px 15px rgba(0,0,0,.5);
   }
   
