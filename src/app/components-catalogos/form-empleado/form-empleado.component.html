@@ -1,2 +1,189 @@
-<br /><br /><br />
+
+<br><br><br><br>
+<section class="panel">
+  <h1>Empleados</h1>
+  <div class="row">
+    <div class="col-lg-6">
+
+      <header class="panel-heading form-in-line">
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo empleado</button>
+      </header>
+    </div>
+    <div class="col-lg-3">
+
+    </div>
+    
+    <div class="col-md-3">
+      <input type="search" class="form-control"  placeholder="Buscar">
+    </div>
+   
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
+        <header class="panel-heading">
+          <h5>Registro de empleados</h5>
+        </header>
+        <div class="panel-body">
+          <div class="adv-table">
+            <table class="display table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="row">N°</th>
+                  <!--<th>Id Clasificación</th>-->
+                  <th>Dui</th>
+                  <th>Nombres</th>
+				  <th>Apellidos</th>
+				  <th>Dirección</th>
+				  <th>Teléfono</th>
+				  <th>Teléfono personal</th>
+				  <th>Cargo</th>
+				  <th>Área de negocio</th>
+                  <th  class="hidden-phone">Opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+     
+                <tr *ngFor="let empleado of empleados | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                  <td>{{empleado.dui}}</td>
+                  <td>{{empleado.nombres}}</td>
+				  <td>{{empleado.apellidos}}</td>
+				  <td>{{empleado.direccion}}</td>
+				  <td>{{empleado.telefono}}</td>
+				  <td>{{empleado.telefonopersonal}}</td>
+				  <td>{{empleado.cargo}}</td>
+				  <td>{{empleado.areadenegocio}}</td>
+				  
+				  
+                  <td class="center hidden-phone">
+                    <button class="btn btn-primary btn-xs" (click)="modif(empleado.dui)"><i class="icon-pencil"></i></button>
+                    <button class="btn btn-danger btn-xs" (click)="eliminar(empleado.dui)"><i class="icon-trash "></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+              
+            <!--darle color al cuadro que rellena el número-->
+        
+           
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!--modal para ingresar y editar-->
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" [formGroup]="empleado" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <td>
+		  <div class="form-group">
+            <label for="exampleInputEmail1">DUI:</label>
+            <input type="text" class="form-control" formControlName="dui" id="exampleInputEmail3" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="empleado.controls['dui'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> El campo es obligatorio
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nombres:</label>
+            <input type="text" class="form-control" formControlName="nombres" id="exampleInputEmail3" placeholder="Ingrese nombres" autocomplete="off" maxlength="11">
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="empleado.controls['nombres'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> El campo es obligatorio
+          </div>
+         
+         
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">Apellidos:</label>
+            <input type="text" class="form-control" formControlName="apellidos" id="exampleFormControlTextarea2" placeholder="Ingrese apelidos" autocomplete="off"  maxlength="51">
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="empleado.controls['apellidos'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> El campo es obligatorio
+          </div>
+        </td>
+       
+        <td>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">Dirección:</label>
+            <input class="form-control rounded-0" formControlName="direccion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101">
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="empleado.controls['direccion'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> El campo es obligatorio
+          </div>
+       
+		  <div class="form-group">
+			<label for="exampleFormControlTextarea2">Teléfono:</label>
+			<input type="text"  mask="0000-0000" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+    </div>
+    <div class="alert alert-warning fade in" *ngIf="empleado.controls['telefono'].errors?.required">
+      <button data-dismiss="alert" class="close close-sm" type="button">
+        <i class="icon-remove"></i>
+      </button>
+      <strong>Advertencia!</strong> El campo es obligatorio
+    </div>
+		<div class="form-group">
+			<label for="exampleFormControlTextarea2">Teléfono personal:</label>
+			<input type="text"  mask="0000-0000" class="form-control" formControlName="telefonopersonal" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+		</div>
+		<div class="form-group" formControlName="idcargo">
+			<label for="exampleFormControlTextarea2" >Area de negocio:</label>
+			<select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2"  maxlength="51">
+			  <option value="">--Seleccione--</option>
+			  
+			</select>
+      </div>
+      <div class="alert alert-warning fade in" *ngIf="empleado.controls['idareadenegocio'].errors?.required">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <i class="icon-remove"></i>
+        </button>
+        <strong>Advertencia!</strong> El campo es obligatorio
+      </div>
+
+		  <div class="form-group" formControlName="idcargo">
+			<label for="exampleFormControlTextarea2" >Cargo:</label>
+			<select class="form-control" formControlName="idcargo"  id="exampleFormControlTextarea2"  maxlength="51">
+			  <option value="">--Seleccione--</option>
+			  
+			</select>
+      </div>
+      <div class="alert alert-warning fade in" *ngIf="empleado.controls['idcargo'].errors?.required">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <i class="icon-remove"></i>
+        </button>
+        <strong>Advertencia!</strong> El campo es obligatorio
+      </div>
+      
+    </td>
+
+          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
