@@ -89,6 +89,10 @@ export class CatalogosService {
     return this.http.post(environment.urlService + "api/Tecnico/guardarTecnico", tecnico).map(res=>res.json());
   }
 
+  public getTecnico() {
+    return this.http.get(environment.urlService + "api/Tenico/listarTenico").map(res=>res.json());
+  }
+
   //Service Donantes
 
   public agregarDonante(donante) {

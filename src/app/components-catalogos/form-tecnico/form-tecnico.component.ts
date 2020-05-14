@@ -30,7 +30,8 @@ export class FormTecnicoComponent implements OnInit {
     });
    }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
   }
   //Métodos   
 
@@ -52,7 +53,7 @@ guardarDatos() {
  if ((this.tecnico.controls["bandera"].value) == "0") {
     if (this.tecnico.valid == true) {
       this.catalogoService.agregarTecnico(this.tecnico.value).subscribe(data => {
-       //Método get tecnico
+        this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
           });
          
           Swal.fire({
@@ -83,7 +84,7 @@ guardarDatos() {
   this.tecnico.controls["nombre"].setValue("");
   this.tecnico.controls["empresa"].setValue("");
   this.display = 'none';
- //Método get técnico
+  this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
 }
 
 }
