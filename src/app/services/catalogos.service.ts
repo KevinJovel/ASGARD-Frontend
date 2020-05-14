@@ -179,6 +179,37 @@ export class CatalogosService {
     return this.http.post(environment.urlService  + "api/Proveedor/modificarProveedor", proveedor).map(res => res.json());
   }
 
+//servicios exclusivos para catálogo de  empleados
+
+public listarCargoCombo(){
+  return this.http.get(environment.urlService + "api/Empleado/listarCargoCombo" ).map(res=>res.json());
+}
+public listarAreaCombo(){
+  return this.http.get(environment.urlService + "api/Empleado/listarAreaCombo" ).map(res=>res.json());
+}
+
+public guardarEmpleado(empleado) {
+  return this.http.post(environment.urlService  + "api/Empleado/guardarEmpleado", empleado).map(res => res.json());
+}
+
+public getEmpleado() {
+  return this.http.get(environment.urlService  + "api/Empleado/listarEmpleado").map(res => res.json());
+}
+
+public modificarEmpleado(empleado){
+  return this.http.post(environment.urlService  + "api/Empleado/modificarEmpleado", empleado).map(res => res.json());
+}
+public RecuperarEmpleado(dui) {
+  return this.http.get(environment.urlService  + "api/Empleado/RecuperarEmpleado/" + dui).map(res => res.json());
+}
+
+
+buscarEmpleado(buscador) {
+  return this.http.get(environment.urlService  + "api/Empleado/buscarEmpleado/" + buscador).map(res => res.json());
+}
+public eliminarEmpleado(dui) {
+  return this.http.get(environment.urlService  + "api/Empleado/eliminarEmpleado/" + dui).map(res => res.json());
+}
 
 
 }
