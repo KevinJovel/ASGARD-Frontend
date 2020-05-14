@@ -83,6 +83,12 @@ export class CatalogosService {
     return this.http.get(environment.urlService + "api/Cargo/validarCargo/" + idCargo + "/" + cargo).map(res=>res.json());
   }
 
+  // Service Técnicos
+
+  public agregarTecnico(tecnico) {
+    return this.http.post(environment.urlService + "api/Tecnico/guardarTecnico", tecnico).map(res=>res.json());
+  }
+
   //Service Donantes
 
   public agregarDonante(donante) {

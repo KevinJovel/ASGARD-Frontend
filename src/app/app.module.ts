@@ -34,6 +34,7 @@ import { FormCargoComponent } from './components-catalogos/form-cargo/form-cargo
 import { ReactiveFormsModule } from "@angular/forms";
 import { FormClasificacionComponent } from './components-catalogos/form-clasificacion/form-clasificacion.component';
 import { FormAreasNegocioComponent } from './components-catalogos/form-areas-negocio/form-areas-negocio.component';
+import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-tecnico.component';
 
 
 
@@ -56,7 +57,8 @@ import { FormAreasNegocioComponent } from './components-catalogos/form-areas-neg
     FormClasificacionComponent,
     FormProveedorComponent,
     FormCargoComponent,
-    FormAreasNegocioComponent
+    FormAreasNegocioComponent,
+    FormTecnicoComponent
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -81,7 +83,8 @@ import { FormAreasNegocioComponent } from './components-catalogos/form-areas-neg
       { path: 'form-proveedor', component: FormProveedorComponent },
       { path: 'form-clasificacion', component: FormClasificacionComponent },
       { path: 'form-cargo', component: FormCargoComponent },
-      {path: 'form-area-negocio', component: FormAreasNegocioComponent}
+      {path: 'form-area-negocio', component: FormAreasNegocioComponent},
+      {path: 'form-tecnico', component: FormTecnicoComponent}
 
     ])
     ],

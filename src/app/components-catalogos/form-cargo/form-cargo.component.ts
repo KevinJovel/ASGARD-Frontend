@@ -62,7 +62,7 @@ guardarDatos() {
           });
          
           Swal.fire({
-              position: 'top-end',
+              position: 'center',
               icon: 'success',
               title: 'Dato Guardado con éxito',
               showConfirmButton: false,
@@ -77,7 +77,7 @@ guardarDatos() {
       if (this.cargo.valid == true) {
           this.catalogoService.updateCargo(this.cargo.value).subscribe(data => { });
           Swal.fire({
-              position: 'top-end',
+              position: 'center',
               icon: 'success',
               title: 'Dato Modificado con éxito',
               showConfirmButton: false,
