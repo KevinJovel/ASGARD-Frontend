@@ -19,13 +19,13 @@ export class FormEmpleadoComponent implements OnInit {
   titulo: string;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
     this.empleado = new FormGroup({
-      'dui': new FormControl("",[Validators.required]),
+      'dui': new FormControl("",[Validators.required], this.noRepetirDui.bind(this)),
       'bandera': new FormControl("0"),
-      'nombres': new FormControl("",[Validators.required]),
-      'apellidos': new FormControl("",[Validators.required]),
-      'direccion': new FormControl("",[Validators.required]),
+      'nombres': new FormControl("",[Validators.required,Validators.maxLength(50)]),
+      'apellidos': new FormControl("",[Validators.required,Validators.maxLength(50)]),
+      'direccion': new FormControl("",[Validators.required,Validators.maxLength(100)]),
       'telefono': new FormControl("",[Validators.required]),
-      'telefonopersonal': new FormControl(""),
+      'telefonopersonal': new FormControl("",[Validators.required]),
       'idareadenegocio': new FormControl("",[Validators.required]),
       'idcargo': new FormControl("",[Validators.required])
 
@@ -161,5 +161,29 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
   buscar(buscador) {
     this.p = 1;
     this.catalogosServices.buscarEmpleado(buscador.value).subscribe(res => {this.empleados = res});
+  }
+
+  noRepetirDui(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) {
+
+        this.catalogosServices.validardui(this.empleado.controls["dui"].value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteDui: true });
+            } else {
+              resolve(null);
+            }
+
+          })
+
+      }
+
+
+    });
+
+    return promesa;
   }
 }

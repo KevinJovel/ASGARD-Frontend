@@ -93,17 +93,23 @@
           <div class="form-group">
           
             <label for="exampleInputEmail1">Nombres:</label>
-            <input  size=40 type="text" class="form-control" formControlName="nombres" id="exampleInputEmail3" placeholder="Ingrese nombres" autocomplete="off" maxlength="11">
+            <input  size=40 type="text" class="form-control" formControlName="nombres" id="exampleInputEmail3" placeholder="Ingrese nombres" autocomplete="off" maxlength="51">
           </div>
 
 		  <div class="form-group">
             <label for="exampleInputEmail1">DUI:</label>
-            <input type="text" class="form-control" formControlName="dui" id="exampleInputEmail3" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
+            <input type="text" [dropSpecialCharacters]="false" mask="00000000-0" class="form-control" formControlName="dui" id="exampleInputEmail3" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['dui'].errors?.yaExisteDui">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> ya existe el "DUI" ingresada, por favor intente con una nuevo.
           </div>
           
           <div class="form-group" formControlName="idareadenegocio">
             <label for="exampleFormControlTextarea2" >Area de negocio:</label>
-            <select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2"  maxlength="51">
+            <select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2">
               <option value="">---Seleccione---</option>
               <option [value]="area.idareadenegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
             </select>
@@ -111,16 +117,10 @@
           
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Teléfono:</label>
-            <input type="text"  mask="0000-0000" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
-          </div>
-          
-      
-           
-        
+            <input type="text" [dropSpecialCharacters]="false" mask="0000-0000" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+          </div> 
          
         </td>  
-
-
           <td>
 
             <div class="form-group">
@@ -132,13 +132,7 @@
             <label for="exampleFormControlTextarea2">Dirección:</label>
             <input class="form-control rounded-0" formControlName="direccion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101">
           </div>
-      
-	
-	
-    
- 
-	
-   
+
 		  <div class="form-group" formControlName="idcargo">
 			<label for="exampleFormControlTextarea2" >Cargo:</label>
 			<select class="form-control" formControlName="idcargo"  id="exampleFormControlTextarea2"  maxlength="51">
@@ -148,19 +142,28 @@
       </div>
       	<div class="form-group">
 			<label for="exampleFormControlTextarea2">Teléfono personal:</label>
-			<input type="text"  mask="0000-0000" class="form-control" formControlName="telefonopersonal" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+			<input type="text" [dropSpecialCharacters]="false"  mask="0000-0000" class="form-control" formControlName="telefonopersonal" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
     </div>
 
     </td>
+       <!--  WARNING-->
+       <div class="alert alert-warning fade in" *ngIf="!empleado.valid&&!empleado.controls['dui'].errors?.yaExisteDui">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <i class="icon-remove"></i>
+        </button>
+        <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
+      </div>
      
-
-      
-  
-
-
+      <!--  END-WARNING-->
+      <div class="alert alert-success fade in" *ngIf="empleado.valid&&empleado.controls['bandera'].value==0">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <i class="icon-remove"></i>
+        </button>
+        <strong>¡Exelente!</strong> Datos ingresados correctamente.
+      </div>
  
  
-          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button  type="submit" [disabled]="!empleado.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
         </form>
       </div>
