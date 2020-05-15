@@ -25,6 +25,8 @@ import { FormSucursalComponent } from './components-catalogos/form-sucursal/form
 
 import { CargarScriptsService } from './services/cargar-scripts.service';
 import { CatalogosService } from './services/catalogos.service';
+import { UsuarioService } from './services/usuario.service';
+
 import { TablaMarcasComponent } from './components-catalogos/tabla-marcas/tabla-marcas.component';
 import { FormDonantesComponent } from './components-catalogos/form-donantes/form-donantes.component';
 import { FormProveedorComponent } from './components-catalogos/form-proveedor/form-proveedor.component';
@@ -35,6 +37,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { FormClasificacionComponent } from './components-catalogos/form-clasificacion/form-clasificacion.component';
 import { FormAreasNegocioComponent } from './components-catalogos/form-areas-negocio/form-areas-negocio.component';
 import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-tecnico.component';
+import { FormUsuarioComponent } from './components-usuarios/form-usuario/form-usuario.component';
+import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuario/form-tipo-usuario.component';
+
 
 
 
@@ -58,7 +63,9 @@ import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-t
     FormProveedorComponent,
     FormCargoComponent,
     FormAreasNegocioComponent,
-    FormTecnicoComponent
+    FormTecnicoComponent,
+    FormUsuarioComponent,
+    FormTipoUsuarioComponent
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -84,11 +91,13 @@ import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-t
       { path: 'form-clasificacion', component: FormClasificacionComponent },
       { path: 'form-cargo', component: FormCargoComponent },
       {path: 'form-area-negocio', component: FormAreasNegocioComponent},
-      {path: 'form-tecnico', component: FormTecnicoComponent}
+      {path: 'form-tecnico', component: FormTecnicoComponent},
+      {path: 'form-tipo-usuario', component: FormAreasNegocioComponent},
+      {path: 'form-usuario', component: FormAreasNegocioComponent}
 
     ])
     ],
-    providers: [CargarScriptsService, CatalogosService],
+    providers: [CargarScriptsService, CatalogosService, UsuarioService],
 
     bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
 })
