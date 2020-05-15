@@ -76,7 +76,7 @@ export class CatalogosService {
   }
 
   public buscarCargo(buscador) {
-    return this.http.get(environment.urlService  + "api/Cargo/buscarMarca/" + buscador).map(res => res.json());
+    return this.http.get(environment.urlService  + "api/Cargo/buscarCargo/" + buscador).map(res => res.json());
   }
 
   public validarCargo(idCargo, cargo) {
@@ -103,6 +103,10 @@ export class CatalogosService {
 
   public eliminarTecnico(idTecnico) {
     return this.http.get(environment.urlService + "api/Tecnico/eliminarTecnico/" + idTecnico).map(res=>res.json());
+  }
+
+  public buscarTecnico(buscador) {
+    return this.http.get(environment.urlService  + "api/Tecnico/buscarTecnico/" + buscador).map(res => res.json());
   }
 
   //Service Donantes

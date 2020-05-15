@@ -125,4 +125,9 @@ eliminar(idtecnico) {
   })
 }
 
+buscar(buscador) {
+  this.p = 1;
+  this.catalogoService.buscarTecnico(buscador.value).subscribe(res => this.tecnicos = res);
+}
+
 }
