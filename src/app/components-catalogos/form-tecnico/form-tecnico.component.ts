@@ -37,7 +37,7 @@ export class FormTecnicoComponent implements OnInit {
 
   open() {
     //limpia cache  
-    this.titulo = "Formulario Cargo";
+    this.titulo = "Formulario Técnico";
     this.tecnico.controls["idtecnico"].setValue("0");
     this.tecnico.controls["bandera"].setValue("0");
     this.tecnico.controls["nombre"].setValue("");
@@ -68,7 +68,9 @@ guardarDatos() {
   } else {
       this.tecnico.controls["bandera"].setValue("0");
       if (this.tecnico.valid == true) {
-          // Método update técnico
+        this.catalogoService.updateTecnico(this.tecnico.value).subscribe(data => { 
+          this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
+        });
           Swal.fire({
               position: 'center',
               icon: 'success',
@@ -85,6 +87,42 @@ guardarDatos() {
   this.tecnico.controls["empresa"].setValue("");
   this.display = 'none';
   this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
+}
+
+modif(id) {
+  this.titulo = "Modificar Técnico";
+  this.display = 'block';
+  this.catalogoService.recuperarTecnico(id).subscribe(data => {
+    this.tecnico.controls["idtecnico"].setValue(data.idtecnico);
+    this.tecnico.controls["bandera"].setValue("1");
+    this.tecnico.controls["nombre"].setValue(data.nombre);
+    this.tecnico.controls["empresa"].setValue(data.empresa);
+    this.catalogoService.getTecnico().subscribe(data => { this.tecnicos = data });  
+  });
+}
+
+eliminar(idtecnico) { 
+  Swal.fire({
+      title: '¿Estas seguro de eliminar este registro?',
+      text: "No podras revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+  }).then((result) => {
+      if (result.value) {
+          this.catalogoService.eliminarTecnico(idtecnico).subscribe(data => {
+              Swal.fire(
+                  'Dato eliminado!',
+                  'Tu archivo ha sido eliminado con éxito.',
+                  'success'
+              )
+              this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
+          });
+         
+      }
+  })
 }
 
 }

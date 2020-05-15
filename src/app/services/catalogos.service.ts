@@ -90,7 +90,19 @@ export class CatalogosService {
   }
 
   public getTecnico() {
-    return this.http.get(environment.urlService + "api/Tenico/listarTenico").map(res=>res.json());
+    return this.http.get(environment.urlService + "api/Tecnico/listarTenico").map(res=>res.json());
+  }
+
+  public recuperarTecnico(id) {
+    return this.http.get(environment.urlService + "api/Tecnico/recuperarTecnico/" + id).map(res=>res.json());
+  }
+
+  public updateTecnico(tecnico) {
+    return this.http.post(environment.urlService + "api/Tecnico/modificarTecnico", tecnico).map(res=>res.json());
+  }
+
+  public eliminarTecnico(idTecnico) {
+    return this.http.get(environment.urlService + "api/Tecnico/eliminarTecnico/" + idTecnico).map(res=>res.json());
   }
 
   //Service Donantes

@@ -75,7 +75,9 @@ guardarDatos() {
 
       this.cargo.controls["bandera"].setValue("0");
       if (this.cargo.valid == true) {
-          this.catalogoService.updateCargo(this.cargo.value).subscribe(data => { });
+          this.catalogoService.updateCargo(this.cargo.value).subscribe(data => {
+            this.catalogoService.getCargo().subscribe(data => { this.cargos = data }); 
+           });
           Swal.fire({
               position: 'center',
               icon: 'success',
@@ -83,7 +85,7 @@ guardarDatos() {
               showConfirmButton: false,
               timer: 3000
           })
-          this.catalogoService.getCargo().subscribe(data => { this.cargos = data });        
+                 
       }
   }
   this.cargo.controls["idcargo"].setValue("0");

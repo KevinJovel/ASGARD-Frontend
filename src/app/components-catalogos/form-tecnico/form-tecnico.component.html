@@ -42,8 +42,8 @@
                     <td>{{tecnico.nombre}}</td>
                     <td>{{tecnico.empresa}}</td>
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" ><i class="icon-pencil" title="Editar"></i></button>
-                      <button class="btn btn-danger btn-xs" ><i class="icon-trash " title="Eliminar"></i></button>
+                      <button class="btn btn-primary btn-xs" (click)="modif(tecnico.idtecnico)"><i class="icon-pencil" title="Editar"></i></button>
+                      <button class="btn btn-danger btn-xs" (click)="eliminar(tecnico.idtecnico)"><i class="icon-trash " title="Eliminar"></i></button>
                     </td>
                   </tr>
 
@@ -61,14 +61,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" >×</button>
-        <h4 class="modal-title"></h4>
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
 
         <form role="form" [formGroup]="tecnico" (ngSubmit)="guardarDatos()" >
-          <input type="text" class="form-control" formControlName="idtecnico" id="exampleInputEmail3" autocomplete="off">
-          <input type="text" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idtecnico" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
 
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre:</label>
@@ -103,7 +103,7 @@
                           </div>
                 
                            <!--  END-WARNING-->
-                           <div class="alert alert-success fade in" *ngIf="tecnico.valid">
+                           <div class="alert alert-success fade in" *ngIf="tecnico.valid&&tecnico.controls['bandera'].value==0">
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
