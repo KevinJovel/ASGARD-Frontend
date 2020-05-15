@@ -204,12 +204,20 @@ public RecuperarEmpleado(dui) {
 }
 
 
-buscarEmpleado(buscador) {
+public buscarEmpleado(buscador) {
   return this.http.get(environment.urlService  + "api/Empleado/buscarEmpleado/" + buscador).map(res => res.json());
 }
 public eliminarEmpleado(dui) {
   return this.http.get(environment.urlService  + "api/Empleado/eliminarEmpleado/" + dui).map(res => res.json());
 }
 
+public validardui(dui)
+{
+  return this.http.get(environment.urlService  + "api/Empleado/validardui/" + dui).map(res => res.json());
+}
 
 }
+
+
+
+
