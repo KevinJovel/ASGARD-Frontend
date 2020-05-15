@@ -49,7 +49,7 @@
 
               </tbody>
             </table>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
           </div>
         </div>
       </section>
@@ -72,7 +72,7 @@
 
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre:</label>
-            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off" maxlength="101">
+            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off" maxlength="61">
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="tecnico.controls['nombre'].errors?.maxlength">
