@@ -92,8 +92,8 @@ import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuari
       { path: 'form-cargo', component: FormCargoComponent },
       {path: 'form-area-negocio', component: FormAreasNegocioComponent},
       {path: 'form-tecnico', component: FormTecnicoComponent},
-      {path: 'form-tipo-usuario', component: FormAreasNegocioComponent},
-      {path: 'form-usuario', component: FormAreasNegocioComponent}
+      {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent},
+      {path: 'form-usuario', component: FormUsuarioComponent}
 
     ])
     ],
