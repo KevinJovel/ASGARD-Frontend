@@ -10,6 +10,7 @@ export class UsuarioService {
 
     }
 
+    //SERVICIOS PARA USUARIO
   public getUsuario() {
     return this.http.get(environment.urlService+ "api/Usuario/listarUsuario")
       .map(res => res.json());
@@ -18,8 +19,8 @@ export class UsuarioService {
     return this.http.post(environment.urlService + "api/Usuario/guardarUsuario", usuario).map(res => res.json());
   }
 
-  public validarUsuario(iidusuario, nombre) {
-    return this.http.get(environment.urlService + "api/Usuario/validarUsuario/" + iidusuario + "/" + nombre)
+  public validarUsuario(iidusuario, tipo) {
+    return this.http.get(environment.urlService + "api/Usuario/validarUsuario/" + iidusuario + "/" + tipo)
       .map(res => res.json());
   }
 
@@ -38,12 +39,43 @@ export class UsuarioService {
   public recuperarUsuario(id) {
     return this.http.get(environment.urlService + "api/Usuario/RecuperarUsuario/" + id).map(res => res.json());
   }
+  
+  public listarEmpleadoCombo(){
+    return this.http.get(environment.urlService + "api/Usuario/listarEmpleadoCombo" ).map(res=>res.json());
+  }
+
+  public listarTipoCombo(){
+    return this.http.get(environment.urlService + "api/Usuario/listarTipoCombo" ).map(res=>res.json());
+  }
+
 
   ////////////////////////////////////////////////////////////////////////
+  //SERVICIOS PARA TIPO USUARIO
 
   public listarTipoUsuarios() {
-    return this.http.get(environment.urlService + "api/TipoUsuario/listarTipoUsuarios")
+    return this.http.get(environment.urlService + "api/TipoUsuario/ListarTipoUsuarios")
       .map(res => res.json());
   }
+
+  public agregarTipoUsuario(tipousuario) {
+    return this.http.post(environment.urlService + "api/TipoUsuario/guardarTipoUsuario", tipousuario).map(res => res.json());
+  }
+
+  public eliminarTipoUsuario(iidTipoUsuario) {
+    return this.http.get(environment.urlService + "api/TipoUsuario/eliminarTipoUsuario/" + iidTipoUsuario)
+      .map(res => res.json());
+  }
+  public ActualizarTipoUsuario(tipousuario) {
+    return this.http.post(environment.urlService + "api/TipoUsuario/modificarTipoUsuario", tipousuario).map(res => res.json());
+  }
+
+  public recuperarTipoUsuario(id) {
+    return this.http.get(environment.urlService  + "api/TipoUsuario/RecuperarTipoUsuario" + id).map(res => res.json());
+  }
+
+  public buscarTipoUsuario(buscador) {
+    return this.http.get(environment.urlService  + "api/TipoUsuario/buscarTipoUsuario/" + buscador).map(res => res.json());
+  }
+ 
 
 }

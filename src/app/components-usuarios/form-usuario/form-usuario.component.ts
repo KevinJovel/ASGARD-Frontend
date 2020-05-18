@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 //importamos
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from './../../services/usuario.service';
@@ -42,7 +42,21 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
+
+    this.usuarioService.getUsuario().subscribe(data => { 
+      this.usuarios = data;
+     });
+      //llenamos los combo
+    //lo qu esta en data lo guardamos en usuario
+    this.usuarioService.listarTipoCombo().subscribe(data => {
+      this.tipoUsuarios = data;
+    });
+
+    //llenamos la lista de persona
+    //lo que esta en data lo guardamos en empleado
+    this.usuarioService.listarEmpleadoCombo().subscribe(data => {
+     this.empleados = data;
+    });
   }
 
   open() {
