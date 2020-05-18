@@ -231,6 +231,13 @@ public validardui(dui)
 {
   return this.http.get(environment.urlService  + "api/Empleado/validardui/" + dui).map(res => res.json());
 }
+//Services Areas de negcio
+public getAreas() {
+  return this.http.get(environment.urlService  + "api/AreasNegocios/listarAreas").map(res => res.json());
+}
+public getComboSucursal() {
+  return this.http.get(environment.urlService  + "api/AreasNegocios/comboSucursal").map(res => res.json());
+}
 
 }
 
