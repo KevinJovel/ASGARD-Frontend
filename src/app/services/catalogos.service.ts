@@ -238,6 +238,9 @@ public getAreas() {
 public getComboSucursal() {
   return this.http.get(environment.urlService  + "api/AreasNegocios/comboSucursal").map(res => res.json());
 }
+public setArea(area) {
+  return this.http.post(environment.urlService + "api/AreasNegocios/agregarSucursal", area).map(res => res.json());
+}
 
 }
 

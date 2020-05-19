@@ -38,7 +38,21 @@ export class FormAreasNegocioComponent implements OnInit {
     this.display ="none";
   }
   guardarDatos(){
-
+    if ((this.area.controls["bandera"].value) == "0") {
+      if (this.area.valid == true) {
+        this.catalogosServices.setArea(this.area.value).subscribe(data => {
+          this.catalogosServices.getAreas().subscribe(res => {this.areas = res});
+         });
+       
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Registro Guardado con exito',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    }
   }
   modificar(id){
 
