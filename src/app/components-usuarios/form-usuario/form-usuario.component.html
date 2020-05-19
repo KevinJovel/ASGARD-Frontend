@@ -94,7 +94,7 @@
             <strong>Error!</strong>  Ya existe el nombre de Usuario, por favor intente con uno nuevo.
           </div>
 
-          <div class="form-group" >
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
             <label for="exampleInputEmail1">Ingrese Contraseña</label>
             <input type="password" class="form-control" formControlName="contra" id="contra" placeholder="Ingrese Contraseña" maxlength="51" autocomplete="off">
           </div>
@@ -105,7 +105,7 @@
             <strong>Error!</strong> Tamaño máximo permitido en este campo.
           </div>
 
-          <div class="form-group" >
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
             <label for="exampleInputEmail1">Repita Contraseña</label>
             <input type="text" class="form-control" formControlName="contra2" id="nombreusuario" placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
           </div>
@@ -122,7 +122,7 @@
             <strong>Error!</strong> La contraseña no es igual.
           </div>
 
-          <div class="form-group" formControlName="iidEmpleado" >
+          <div class="form-group" formControlName="iidEmpleado" *ngIf="usuario.controls['bandera'].value==0">
             <label for="exampleFormControlTextarea2">Empleado:</label>
             <select class="form-control" formControlName="iidEmpleado" id="exampleFormControlTextarea2" maxlength="51">
               <option value="">--Seleccione--</option>

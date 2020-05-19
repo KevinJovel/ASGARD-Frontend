@@ -1,14 +1,12 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 //importamos
-
 import { UsuarioService } from '../../services/usuario.service';
-import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-form-tipo-usuario',
+  selector: 'form-tipo-usuario',
   templateUrl: './form-tipo-usuario.component.html',
   styleUrls: ['./form-tipo-usuario.component.css']
 })
@@ -26,7 +24,8 @@ export class FormTipoUsuarioComponent implements OnInit {
     private router: Router) {
 
     this.tipoUsuario = new FormGroup({
-      "iidtipousuario": new FormControl(""),
+      "iidtipousuario": new FormControl("0"),
+      'bandera': new FormControl("0"),
       "tipo": new FormControl("", [Validators.required, Validators.maxLength(50)]),
       "descripcion": new FormControl("", [Validators.required, Validators.maxLength(100)]),
       //creamos una variable opcional

@@ -57,8 +57,8 @@ export class UsuarioService {
       .map(res => res.json());
   }
 
-  public agregarTipoUsuario(tipousuario) {
-    return this.http.post(environment.urlService + "api/TipoUsuario/guardarTipoUsuario", tipousuario).map(res => res.json());
+  public agregarTipoUsuario(tipoU) {
+    return this.http.post(environment.urlService + "api/TipoUsuario/guardarTipoUsuario", tipoU).map(res => res.json());
   }
 
   public eliminarTipoUsuario(iidTipoUsuario) {
