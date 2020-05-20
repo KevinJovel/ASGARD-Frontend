@@ -87,6 +87,20 @@
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
         <a href="javascript:;" [routerLink]='["/fetch-data"]' (click)='collapse()'>
+          <i class="icon-unlock-alt"></i>
+          <span>Seguridad</span>
+        </a>
+        <ul class="sub">
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-usuario"]' (click)='collapse()'>Usuarios</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-tipo-usuario"]' (click)='collapse()'>Tipos de Usuarios</a></li>
+          <li><a href="gallery.html">Bitacora</a></li>
+
+        </ul>
+      </li>
+
+
+      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
+        <a href="javascript:;" [routerLink]='["/fetch-data"]' (click)='collapse()'>
           <i class="icon-file-text"></i>
           <span>Reportes</span>
         </a>
@@ -98,18 +112,6 @@
         </ul>
       </li>
 
-      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
-        <a href="javascript:;" [routerLink]='["/fetch-data"]' (click)='collapse()'>
-          <i class="icon-unlock-alt"></i>
-          <span>Seguridad</span>
-        </a>
-        <ul class="sub">
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-usuario"]' (click)='collapse()'>Usuarios</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-tipo-usuario"]' (click)='collapse()'>Tipos de Usuarios</a></li>
-          <li><a href="gallery.html">Bitacora</a></li>
-
-        </ul>
-      </li>
 
 
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>

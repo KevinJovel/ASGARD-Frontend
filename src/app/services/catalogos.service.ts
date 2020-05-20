@@ -76,7 +76,7 @@ export class CatalogosService {
   }
 
   public buscarCargo(buscador) {
-    return this.http.get(environment.urlService  + "api/Cargo/buscarMarca/" + buscador).map(res => res.json());
+    return this.http.get(environment.urlService  + "api/Cargo/buscarCargo/" + buscador).map(res => res.json());
   }
 
   public validarCargo(idCargo, cargo) {
@@ -90,7 +90,23 @@ export class CatalogosService {
   }
 
   public getTecnico() {
-    return this.http.get(environment.urlService + "api/Tenico/listarTenico").map(res=>res.json());
+    return this.http.get(environment.urlService + "api/Tecnico/listarTenico").map(res=>res.json());
+  }
+
+  public recuperarTecnico(id) {
+    return this.http.get(environment.urlService + "api/Tecnico/recuperarTecnico/" + id).map(res=>res.json());
+  }
+
+  public updateTecnico(tecnico) {
+    return this.http.post(environment.urlService + "api/Tecnico/modificarTecnico", tecnico).map(res=>res.json());
+  }
+
+  public eliminarTecnico(idTecnico) {
+    return this.http.get(environment.urlService + "api/Tecnico/eliminarTecnico/" + idTecnico).map(res=>res.json());
+  }
+
+  public buscarTecnico(buscador) {
+    return this.http.get(environment.urlService  + "api/Tecnico/buscarTecnico/" + buscador).map(res => res.json());
   }
 
   //Service Donantes
@@ -214,6 +230,16 @@ public eliminarEmpleado(dui) {
 public validardui(dui)
 {
   return this.http.get(environment.urlService  + "api/Empleado/validardui/" + dui).map(res => res.json());
+}
+//Services Areas de negcio
+public getAreas() {
+  return this.http.get(environment.urlService  + "api/AreasNegocios/listarAreas").map(res => res.json());
+}
+public getComboSucursal() {
+  return this.http.get(environment.urlService  + "api/AreasNegocios/comboSucursal").map(res => res.json());
+}
+public setArea(area) {
+  return this.http.post(environment.urlService + "api/AreasNegocios/agregarSucursal", area).map(res => res.json());
 }
 
 }

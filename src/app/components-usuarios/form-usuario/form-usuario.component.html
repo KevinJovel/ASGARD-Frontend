@@ -1,3 +1,7 @@
+<br>
+<br>
+<br>
+<br>
 <section class="panel">
   <h1>Usuarios</h1>
   <div class="row">
@@ -55,6 +59,9 @@
   </div>
 </section>
 
+
+
+
 <!--modal para ingresar y editar-->
 <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
   <div class="modal-dialog">
@@ -87,7 +94,7 @@
             <strong>Error!</strong>  Ya existe el nombre de Usuario, por favor intente con uno nuevo.
           </div>
 
-          <div class="form-group" >
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
             <label for="exampleInputEmail1">Ingrese Contraseña</label>
             <input type="password" class="form-control" formControlName="contra" id="contra" placeholder="Ingrese Contraseña" maxlength="51" autocomplete="off">
           </div>
@@ -98,7 +105,7 @@
             <strong>Error!</strong> Tamaño máximo permitido en este campo.
           </div>
 
-          <div class="form-group" >
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
             <label for="exampleInputEmail1">Repita Contraseña</label>
             <input type="text" class="form-control" formControlName="contra2" id="nombreusuario" placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
           </div>
@@ -115,25 +122,23 @@
             <strong>Error!</strong> La contraseña no es igual.
           </div>
 
-
-          <div class="form-group" formControlName="iidEmpleado" >
+          <div class="form-group" formControlName="iidEmpleado" *ngIf="usuario.controls['bandera'].value==0">
             <label for="exampleFormControlTextarea2">Empleado:</label>
             <select class="form-control" formControlName="iidEmpleado" id="exampleFormControlTextarea2" maxlength="51">
               <option value="">--Seleccione--</option>
-              <!--<option [value]="empleado.dui" *ngFor="let empleado of empleados>{ {empleado.nombres}}</option>-->
-
-            </select>
+              <option [value]="empleado.dui" *ngFor="let empleado of empleados">{{empleado.nombres}}</option>
+              </select>
           </div>
 
           <div class="form-group" formControlName="iidTipousuario">
             <label for="exampleFormControlTextarea2">Tipo Usuario:</label>
             <select class="form-control" formControlName="iidTipousuario" id="exampleFormControlTextarea2" maxlength="51">
               <option value="">--Seleccione--</option>
-              <!--<option [value]="tipoUsuario.iidtipousuario" *ngFor="let tipousuario off tipousuarios">{{tipousuario.nombre}}</option>-->
+            <option [value]="tipoUsuario.iidtipousuario" *ngFor="let tipoUsuario off tipoUsuarios">{{tipoUsuario.tipo}}</option>
             </select>
           </div>
 
-          <div class="alert alert-warning fade in" *ngIf="usuario.controls['nombreusuario'].errors?.required">
+          <div class="alert alert-warning fade in" *ngIf="usuario.controls['iidTipousuario'].errors?.required">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
@@ -146,7 +151,6 @@
             </button>
             <strong>Exelente!</strong> Datos ingresados correctamente
           </div>
-
 
           <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>

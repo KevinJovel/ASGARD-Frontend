@@ -51,7 +51,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
                     </div>
                 </div>
             </section>
@@ -91,7 +91,7 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlTextarea2">Teléfono:</label>
-                        <input type="text"  mask="0000-0000" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+                        <input type="text"  mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
                     </div>
 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['telefono'].errors?.maxlength">
@@ -122,7 +122,7 @@
           </div>
 
            <!--  END-WARNING-->
-           <div class="alert alert-success fade in" *ngIf="donantes.valid">
+           <div class="alert alert-success fade in" *ngIf="donantes.valid&&donantes.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>

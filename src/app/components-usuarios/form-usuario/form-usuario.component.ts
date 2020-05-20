@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 //importamos
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UsuarioService } from '../../services/usuario.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -14,11 +14,11 @@ import Swal from 'sweetalert2';
 export class FormUsuarioComponent implements OnInit {
 
   usuario: FormGroup;
-  @Input() usuarios: any;
+   usuarios: any;
   titulo: string = "";
   display = 'none';
   p: number = 1;
-  tipoUsuarios: any;
+  tipoUsuarios2: any;
   empleados: any;
   //variable para el formulario dinamico
   //ver: boolean = true;
@@ -32,7 +32,7 @@ export class FormUsuarioComponent implements OnInit {
         
         'iidusuario': new FormControl("0"),
         'bandera': new FormControl("0"),
-        'nombreusuario': new FormControl("", [Validators.required, Validators.maxLength(50), this.noRepetirUsuario.bind(this)]),
+        'nombreusuario': new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirUsuario.bind(this)),
         'contra': new FormControl("", [Validators.required, Validators.maxLength(30)]),
         'contra2': new FormControl("", [Validators.required, Validators.maxLength(30), this.validarContraIguales.bind(this)]),
         'iidEmpleado': new FormControl("", [Validators.required]),
@@ -42,7 +42,22 @@ export class FormUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
+
+    this.usuarioService.getUsuario().subscribe(data => { 
+      this.usuarios = data;
+     });
+    //llenamos la lista de persona
+    //lo que esta en data lo guardamos en empleado
+    this.usuarioService.listarEmpleadoCombo().subscribe(data => {
+     this.empleados = data;
+
+         //llenamos los combo
+    //lo qu esta en data lo guardamos en usuario
+    this.usuarioService.listarTipoCombo().subscribe(data => {
+      this.tipoUsuarios2 = data;
+    });
+
+    });
   }
 
   open() {
@@ -99,9 +114,9 @@ export class FormUsuarioComponent implements OnInit {
     this.usuario.controls["iidusuario"].setValue("0");
     this.usuario.controls["bandera"].setValue("0");
     this.usuario.controls["nombreusuario"].setValue("");
-    this.usuario.controls["contra"].setValue("");
-    this.usuario.controls["contra2"].setValue("");
-    this.usuario.controls["iidEmpleado"].setValue("");
+    this.usuario.controls["contra"].setValue("1");
+    this.usuario.controls["contra2"].setValue("1");
+    this.usuario.controls["iidEmpleado"].setValue("1");
     this.usuario.controls["iidTipousuario"].setValue("");
 
     this.display = 'none';
@@ -117,14 +132,22 @@ export class FormUsuarioComponent implements OnInit {
     this.usuarioService.recuperarUsuario(id).subscribe(data => {
       this.usuario.controls["iidusuario"].setValue(data.iidusuario);
       this.usuario.controls["nombreusuario"].setValue(data.nombreusuario);
-      this.usuario.controls["contra"].setValue(data.contra);
-      this.usuario.controls["contra2"].setValue(data.contra2);
-      this.usuario.controls["iidEmpleado"].setValue(data.iidEmpleado);
+      //this.usuario.controls["contra"].setValue(data.contra);
+      //this.usuario.controls["contra2"].setValue(data.contra2);
+      //this.usuario.controls["iidEmpleado"].setValue(data.iidEmpleado);
       this.usuario.controls["iidTipousuario"].setValue(data.iidTipousuario);
       this.usuario.controls["bandera"].setValue("1");
 
+
+      //se pone valor por defecto xq no se pueden editar estos campos
+     //y para q permita habilitar el boton de guardar
+    this.usuario.controls["contra"].setValue("1");
+    this.usuario.controls["contra2"].setValue("1");
+    this.usuario.controls["iidEmpleado"].setValue("1");
+
       this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
     });
+     
   }
 
 
