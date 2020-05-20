@@ -34,12 +34,12 @@
                   <!--<th>Id Clasificación</th>-->
                   <th>Dui</th>
                   <th>Nombres</th>
-				  <th>Apellidos</th>
-				  <th>Dirección</th>
-				  <th>Teléfono</th>
-				  <th>Teléfono personal</th>
-				  <th>Cargo</th>
-				  <th>Área de negocio</th>
+				          <th>Apellidos</th>
+				          <th>Dirección</th>
+				          <th>Teléfono</th>
+				          <th>Teléfono personal</th>
+				          <th>Cargo</th>
+				          <th>Área de negocio</th>
                   <th  class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
@@ -100,12 +100,6 @@
             <label for="exampleInputEmail1">DUI:</label>
             <input type="text" [dropSpecialCharacters]="false" mask="00000000-0" class="form-control" formControlName="dui" id="exampleInputEmail3" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['dui'].errors?.yaExisteDui">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Advertencia!</strong> ya existe el "DUI" ingresada, por favor intente con una nuevo.
-          </div>
           
           <div class="form-group" formControlName="idareadenegocio">
             <label for="exampleFormControlTextarea2" >Area de negocio:</label>
@@ -146,22 +140,53 @@
     </div>
 
     </td>
-       <!--  WARNING-->
-       <div class="alert alert-warning fade in" *ngIf="!empleado.valid&&!empleado.controls['dui'].errors?.yaExisteDui">
-        <button data-dismiss="alert" class="close close-sm" type="button">
-          <i class="icon-remove"></i>
-        </button>
-        <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
-      </div>
+
+  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.maxlength">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>Error!</strong> Tamaño máximo permitido en este campo
+  </div>
+
+  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.maxlength">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>Error!</strong> Tamaño máximo permitido en este campo
+  </div>
+  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.maxlength">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>Error!</strong> Tamaño máximo permitido en este campo
+  </div>
+  
+  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['dui'].errors?.yaExisteDui">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>Advertencia!</strong> ya existe el "DUI" ingresado, por favor intente con un nuevo.
+  </div>
+
+  
+          <!--  WARNING-->
+         <div class="alert alert-warning fade in" *ngIf="!empleado.valid&&!empleado.controls['dui'].errors?.yaExisteDui">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
+          </div>
+      
      
-      <!--  END-WARNING-->
+
+
       <div class="alert alert-success fade in" *ngIf="empleado.valid&&empleado.controls['bandera'].value==0">
         <button data-dismiss="alert" class="close close-sm" type="button">
           <i class="icon-remove"></i>
         </button>
-        <strong>¡Exelente!</strong> Datos ingresados correctamente.
+        <strong>Exelente!</strong> Datos ingresados correctamente
       </div>
- 
+   
  
           <button  type="submit" [disabled]="!empleado.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>

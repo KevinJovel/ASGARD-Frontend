@@ -17,6 +17,7 @@ export class FormEmpleadoComponent implements OnInit {
   empleado: FormGroup;
   display = 'none';
   titulo: string;
+  Observable: any;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
     this.empleado = new FormGroup({
       'dui': new FormControl("",[Validators.required], this.noRepetirDui.bind(this)),
@@ -34,6 +35,9 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   }
+  /*trackByFn(index: number, dui:string): string{
+   return dui;
+  }*/
 
   ngOnInit() {
  this.catalogosServices.getEmpleado().subscribe(data =>{
@@ -127,7 +131,7 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
     this.empleado.controls["idareadenegocio"].setValue(data.idareadenegocio);
     this.empleado.controls["idcargo"].setValue(data.idcargo);
     this.empleado.controls["bandera"].setValue("1");
-      
+        
       this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
     });
    
@@ -163,20 +167,48 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
     this.catalogosServices.buscarEmpleado(buscador.value).subscribe(res => {this.empleados = res});
   }
 
+ /* duiExist(control: FormControl): Promise<any>  {
+    return new Promise((resolv, reject) => {
+      setTimeout(() => {
+        this.catalogosServices.validardui(this.empleado.controls["dui"].value)
+        if (control.value === 'dui') {
+          
+          resolv({ existedui: true });
+        } else {
+          resolv(null);
+        }
+      }, 3000);
+    });
+  }*/
+
   noRepetirDui(control: FormControl) {
 
     var promesa = new Promise((resolve, reject) => {
 
       if (control.value != "" && control.value != null) {
 
-        this.catalogosServices.validardui(this.empleado.controls["dui"].value)
+        if((this.empleado.controls["bandera"].value) == "1")
+        {
+          this.catalogosServices.validardui(this.empleado.controls["nombres"].value,control.value)
           .subscribe(data => {
             if (data == 1) {
               resolve({ yaExisteDui: true });
             } else {
               resolve(null);
             }
-
+          //  this.empleado.controls["dui"]!=this.empleado.controls["id"]
+          })
+        }
+      }
+      if((this.empleado.controls["bandera"].value) == "0"){
+        this.catalogosServices.validardui(this.empleado.controls["dui"].value,control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteDui: true });
+            } else {
+              resolve(null);
+            }
+          //  this.empleado.controls["dui"]!=this.empleado.controls["id"]
           })
 
       }
@@ -186,4 +218,7 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
 
     return promesa;
   }
+ 
+
+  
 }
