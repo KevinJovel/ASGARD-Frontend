@@ -47,6 +47,7 @@
      
                 <tr *ngFor="let empleado of empleados | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                  <td>{{empleado.idempleado}}</td>
                   <td>{{empleado.dui}}</td>
                   <td>{{empleado.nombres}}</td>
 				          <td>{{empleado.apellidos}}</td>
@@ -58,8 +59,8 @@
 				  
 				  
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modif(empleado.dui)"><i class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(empleado.dui)"><i class="icon-trash "></i></button>
+                    <button class="btn btn-primary btn-xs" (click)="modif(empleado.idempleado)"><i class="icon-pencil"></i></button>
+                    <button class="btn btn-danger btn-xs" (click)="eliminar(empleado.idempleado)"><i class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -88,6 +89,7 @@
       <div class="modal-body">
         <form role="form" [formGroup]="empleado" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idempleado" id="exampleInputEmail3" autocomplete="off">
         <!--<td>-->  <td>
 
           <div class="form-group">

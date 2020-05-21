@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'form-empleado',
   templateUrl: './form-empleado.component.html',
@@ -20,7 +21,8 @@ export class FormEmpleadoComponent implements OnInit {
   Observable: any;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
     this.empleado = new FormGroup({
-      'dui': new FormControl("",[Validators.required], this.noRepetirDui.bind(this)),
+      'idempleado': new FormControl("0"),
+      'dui': new FormControl("",[Validators.required],this.noRepetirDui.bind(this)),
       'bandera': new FormControl("0"),
       'nombres': new FormControl("",[Validators.required,Validators.maxLength(50)]),
       'apellidos': new FormControl("",[Validators.required,Validators.maxLength(50)]),
@@ -55,6 +57,7 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
   open() {
     //limpia cache
     this.titulo = "Formulario registro de empleados";
+    this.empleado.controls["idempleado"].setValue("0");
     this.empleado.controls["dui"].setValue("");
     this.empleado.controls["bandera"].setValue("0");
     this.empleado.controls["nombres"].setValue("");
@@ -102,9 +105,10 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
         })
       }
     }
-
-    this.empleado.controls["dui"].setValue("");
+    
+    this.empleado.controls["idempleado"].setValue("0");
     this.empleado.controls["bandera"].setValue("0");
+    this.empleado.controls["dui"].setValue("");
     this.empleado.controls["nombres"].setValue("");
     this.empleado.controls["apellidos"].setValue("");
     this.empleado.controls["direccion"].setValue("");
@@ -122,6 +126,7 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
     this.titulo = "Modificar Empleado";
     this.display = 'block';
     this.catalogosServices.RecuperarEmpleado(id).subscribe(data => {
+    this.empleado.controls["idempleado"].setValue(data.idempleado);  
     this.empleado.controls["dui"].setValue(data.dui);
     this.empleado.controls["nombres"].setValue(data.nombres);
     this.empleado.controls["apellidos"].setValue(data.apellidos);
@@ -167,29 +172,14 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
     this.catalogosServices.buscarEmpleado(buscador.value).subscribe(res => {this.empleados = res});
   }
 
- /* duiExist(control: FormControl): Promise<any>  {
-    return new Promise((resolv, reject) => {
-      setTimeout(() => {
-        this.catalogosServices.validardui(this.empleado.controls["dui"].value)
-        if (control.value === 'dui') {
-          
-          resolv({ existedui: true });
-        } else {
-          resolv(null);
-        }
-      }, 3000);
-    });
-  }*/
 
   noRepetirDui(control: FormControl) {
 
     var promesa = new Promise((resolve, reject) => {
 
-      if (control.value != "" && control.value != null) {
-
-        if((this.empleado.controls["bandera"].value) == "1")
-        {
-          this.catalogosServices.validardui(this.empleado.controls["nombres"].value,control.value)
+      if (control.value != "" && control.value != null) { 
+        
+          this.catalogosServices.validardui(this.empleado.controls["idempleado"].value,control.value)
           .subscribe(data => {
             if (data == 1) {
               resolve({ yaExisteDui: true });
@@ -197,22 +187,9 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
               resolve(null);
             }
           //  this.empleado.controls["dui"]!=this.empleado.controls["id"]
-          })
+          });
         }
-      }
-      if((this.empleado.controls["bandera"].value) == "0"){
-        this.catalogosServices.validardui(this.empleado.controls["dui"].value,control.value)
-          .subscribe(data => {
-            if (data == 1) {
-              resolve({ yaExisteDui: true });
-            } else {
-              resolve(null);
-            }
-          //  this.empleado.controls["dui"]!=this.empleado.controls["id"]
-          })
-
-      }
-
+      
 
     });
 

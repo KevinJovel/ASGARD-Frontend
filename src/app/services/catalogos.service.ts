@@ -215,21 +215,21 @@ public getEmpleado() {
 public modificarEmpleado(empleado){
   return this.http.post(environment.urlService  + "api/Empleado/modificarEmpleado", empleado).map(res => res.json());
 }
-public RecuperarEmpleado(dui) {
-  return this.http.get(environment.urlService  + "api/Empleado/RecuperarEmpleado/" + dui).map(res => res.json());
+public RecuperarEmpleado(idempleado) {
+  return this.http.get(environment.urlService  + "api/Empleado/RecuperarEmpleado/" + idempleado).map(res => res.json());
 }
 
 
 public buscarEmpleado(buscador) {
   return this.http.get(environment.urlService  + "api/Empleado/buscarEmpleado/" + buscador).map(res => res.json());
 }
-public eliminarEmpleado(dui) {
-  return this.http.get(environment.urlService  + "api/Empleado/eliminarEmpleado/" + dui).map(res => res.json());
+public eliminarEmpleado(idempleado) {
+  return this.http.get(environment.urlService  + "api/Empleado/eliminarEmpleado/" + idempleado).map(res => res.json());
 }
 
-public validardui(dui)
+public validardui(idempleado, dui)
 {
-  return this.http.get(environment.urlService  + "api/Empleado/validardui/" + dui).map(res => res.json());
+  return this.http.get(environment.urlService  + "api/Empleado/validardui/" + idempleado +"/"+ dui).map(res => res.json());
 }
 //Services Areas de negcio
 public getAreas() {
