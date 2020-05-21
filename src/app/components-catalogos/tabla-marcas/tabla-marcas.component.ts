@@ -1,8 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
+import { CargarScriptsService} from './../../services/cargar-scripts.service';
 import { style } from '@angular/animations'
 import { FormGroup, FormControl } from '@angular/forms';
-
+declare var jQuery:any;
+declare var $;
 @Component({
     selector: 'app-tabla-marcas',
     templateUrl: './tabla-marcas.component.html',
@@ -14,7 +16,8 @@ export class TablaMarcasComponent implements OnInit {
 
     p: number = 1;
     display = 'none';
-    constructor(private catalogoService: CatalogosService) {
+    constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService) {
+        this._cargarScript.cargar(["/jquery.stepy","/SortingTable"]);
        
     }
     ngOnInit() {
@@ -46,4 +49,5 @@ export class TablaMarcasComponent implements OnInit {
     guardarDatos(){
         
     }
+
 }

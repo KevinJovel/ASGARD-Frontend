@@ -1,5 +1,6 @@
+
 #sidebar {
-    width: 210px;
+    width: 250px;
     height: 100%;
     position: fixed;
     background: #2a3542;
@@ -164,7 +165,8 @@ li .glyphicon {
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
-    background-color: #FF6C60;
+   background: #35404d;
+    ;
     color: white;
 }
 
