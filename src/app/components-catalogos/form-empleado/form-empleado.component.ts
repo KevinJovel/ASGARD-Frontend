@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input, OnInit, ViewChild } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,12 +18,11 @@ export class FormEmpleadoComponent implements OnInit {
   empleado: FormGroup;
   display = 'none';
   titulo: string;
-  Observable: any;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
     this.empleado = new FormGroup({
       'idempleado': new FormControl("0"),
-      'dui': new FormControl("",[Validators.required],this.noRepetirDui.bind(this)),
       'bandera': new FormControl("0"),
+      'dui': new FormControl("", [Validators.required],this.noRepetirDui.bind(this)),    
       'nombres': new FormControl("",[Validators.required,Validators.maxLength(50)]),
       'apellidos': new FormControl("",[Validators.required,Validators.maxLength(50)]),
       'direccion': new FormControl("",[Validators.required,Validators.maxLength(100)]),
@@ -37,9 +36,6 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   }
-  /*trackByFn(index: number, dui:string): string{
-   return dui;
-  }*/
 
   ngOnInit() {
  this.catalogosServices.getEmpleado().subscribe(data =>{
@@ -58,8 +54,8 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
     //limpia cache
     this.titulo = "Formulario registro de empleados";
     this.empleado.controls["idempleado"].setValue("0");
-    this.empleado.controls["dui"].setValue("");
     this.empleado.controls["bandera"].setValue("0");
+    this.empleado.controls["dui"].setValue("");
     this.empleado.controls["nombres"].setValue("");
     this.empleado.controls["apellidos"].setValue("");
     this.empleado.controls["direccion"].setValue("");
@@ -135,13 +131,12 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
     this.empleado.controls["telefonopersonal"].setValue(data.telefonopersonal);
     this.empleado.controls["idareadenegocio"].setValue(data.idareadenegocio);
     this.empleado.controls["idcargo"].setValue(data.idcargo);
-    this.empleado.controls["bandera"].setValue("1");
-        
-      this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
+    this.empleado.controls["bandera"].setValue("1");     
+    this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
     });
    
   }
-  eliminar(dui) {
+  eliminar(idempleado) {
     Swal.fire({
       title: '¿Estas seguro de eliminar este registro?',
       text: "No podras revertir esta accion!",
@@ -152,7 +147,7 @@ this.catalogosServices.listarAreaCombo().subscribe(data =>{
       confirmButtonText: 'Si, eliminar!'
     }).then((result) => {
       if (result.value) {
-        this.catalogosServices.eliminarEmpleado(dui).subscribe(data => {
+        this.catalogosServices.eliminarEmpleado(idempleado).subscribe(data => {
           Swal.fire(
             'Registro eliminado!',
             'Tu archivo ha sido eliminado con exito.',

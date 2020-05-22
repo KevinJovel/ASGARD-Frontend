@@ -204,16 +204,16 @@ public listarAreaCombo(){
   return this.http.get(environment.urlService + "api/Empleado/listarAreaCombo" ).map(res=>res.json());
 }
 
-public guardarEmpleado(empleado) {
-  return this.http.post(environment.urlService  + "api/Empleado/guardarEmpleado", empleado).map(res => res.json());
+public guardarEmpleado(idempleado) {
+  return this.http.post(environment.urlService  + "api/Empleado/guardarEmpleado", idempleado).map(res => res.json());
 }
 
 public getEmpleado() {
   return this.http.get(environment.urlService  + "api/Empleado/listarEmpleado").map(res => res.json());
 }
 
-public modificarEmpleado(empleado){
-  return this.http.post(environment.urlService  + "api/Empleado/modificarEmpleado", empleado).map(res => res.json());
+public modificarEmpleado(idempleado){
+  return this.http.post(environment.urlService  + "api/Empleado/modificarEmpleado", idempleado).map(res => res.json());
 }
 public RecuperarEmpleado(idempleado) {
   return this.http.get(environment.urlService  + "api/Empleado/RecuperarEmpleado/" + idempleado).map(res => res.json());
