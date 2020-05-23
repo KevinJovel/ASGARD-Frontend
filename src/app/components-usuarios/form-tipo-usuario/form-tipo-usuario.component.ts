@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 //importamos
 import { UsuarioService } from '../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class FormTipoUsuarioComponent implements OnInit {
 
   tipoUsuario: FormGroup;
-  @Input() tipoUsuarios: any;
+  tipoUsuarios: any;
   titulo: string = "";
   display = 'none';
   p: number = 1;
@@ -109,6 +109,7 @@ export class FormTipoUsuarioComponent implements OnInit {
       this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
     });
   }
+
   eliminar(iidtipousuario) {
     Swal.fire({
       title: '¿Esta seguro de eliminar este registro?',
