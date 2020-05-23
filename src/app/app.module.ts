@@ -11,6 +11,28 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxMaskModule } from 'ngx-mask'; 
 import {NgxSpinnerModule} from 'ngx-spinner'
 
+//Angular material
+import { MatBadgeModule } from '@angular/material/badge';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
+//Form Wizard
+import { FormWizardModule } from 'angular2-wizard';
 
 //Registrar o declarar el componente creado
 import { HttpModule } from '@angular/http';
@@ -39,6 +61,8 @@ import { FormAreasNegocioComponent } from './components-catalogos/form-areas-neg
 import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-tecnico.component';
 import { FormUsuarioComponent } from './components-usuarios/form-usuario/form-usuario.component';
 import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuario/form-tipo-usuario.component';
+import { FormNuevoBienComponent } from './components-control/form-nuevo-bien/form-nuevo-bien.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -65,7 +89,8 @@ import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuari
     FormAreasNegocioComponent,
     FormTecnicoComponent,
     FormUsuarioComponent,
-    FormTipoUsuarioComponent
+    FormTipoUsuarioComponent,
+    FormNuevoBienComponent
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -77,6 +102,27 @@ import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuari
     FormsModule,
         ReactiveFormsModule,
       NgxPaginationModule,NgxSpinnerModule,
+
+      MatBadgeModule,
+      FormWizardModule,
+      MatButtonModule,
+      MatButtonToggleModule,
+      MatIconModule,
+      MatProgressSpinnerModule,
+      MatToolbarModule,
+      MatSidenavModule,
+      MatMenuModule,
+      MatListModule,
+      MatDividerModule,
+      MatGridListModule,
+      MatExpansionModule,
+      MatCardModule,
+      MatTabsModule,
+      MatStepperModule,
+      MatFormFieldModule,
+      MatSliderModule,
+      MatSlideToggleModule,
+
       NgxMaskModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -93,9 +139,11 @@ import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuari
       {path: 'form-area-negocio', component: FormAreasNegocioComponent},
       {path: 'form-tecnico', component: FormTecnicoComponent},
       {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent},
-      {path: 'form-usuario', component: FormUsuarioComponent}
+      {path: 'form-usuario', component: FormUsuarioComponent},
+      {path: 'form-nuevoBien', component: FormNuevoBienComponent}
 
-    ])
+    ]),
+    NoopAnimationsModule
     ],
     providers: [CargarScriptsService, CatalogosService, UsuarioService],
 
