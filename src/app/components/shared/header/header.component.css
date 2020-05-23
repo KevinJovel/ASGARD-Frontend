@@ -1,5 +1,7 @@
 body {
-  background: hsl(102, 100%, 50%);
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
 }
 @media (min-width: 980px) {
   /*-----*/
