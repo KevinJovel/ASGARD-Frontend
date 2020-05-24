@@ -59,12 +59,34 @@ export class FormAreasNegocioComponent implements OnInit {
 
  
   }
-  eliminar(id){
+  eliminar(idArea){
 
+    Swal.fire({
+      title: '¿Estas seguro de eliminar este registro?',
+      text: "No podras revertir esta accion!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+  }).then((result) => {
+      if (result.value) {
+          this.catalogosServices.DeleteArea(idArea).subscribe(data => {
+              Swal.fire(
+                  'Dato eliminado!',
+                  'Tu archivo ha sido eliminado con exito.',
+                  'success'
+              )
+              this.catalogosServices.getAreas().subscribe(res => {this.areas = res});
+          });
+         
+      }
+  })
 
   }
   buscar(buscador){
-
+    this.p=1;
+    this.catalogosServices.buscarArea(buscador.value).subscribe(res => this.areas = res);
   }
 
 }

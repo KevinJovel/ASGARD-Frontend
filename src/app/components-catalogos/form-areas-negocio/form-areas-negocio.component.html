@@ -35,6 +35,7 @@
                     <th>Correlativo</th>
                     <th>Nombre de Área</th>
                     <th>Nombre de Sucursal</th>
+                    <th>Ubicacion</th>
                     <th class="hidden-phone">Opciones</th>
                   </tr>
                 </thead>
@@ -45,6 +46,7 @@
                     <td>{{area.correlativo}}</td>
                     <td>{{area.nombre}}</td>
                     <td>{{area.nombreSucursal}}</td>
+                    <td>{{area.ubicacion}}</td>
                     <td class="center hidden-phone">
                       <button class="btn btn-primary btn-xs" (click)="modificar(area.idAreaNegocio)" ><i class="icon-pencil"></i></button>
                       <button class="btn btn-danger btn-xs" (click)="eliminar(area.idAreaNegocio)"><i class="icon-trash "></i></button>
@@ -89,7 +91,7 @@
             <label for="exampleFormControlTextarea2" >Sucursal:</label>
             <select class="form-control" formControlName="idSucursal"  id="exampleFormControlTextarea2">
               <option value="">---Seleccione---</option>
-              <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre}}</option>	
+              <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
             </select>
             </div>
           <!-- <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['ubicacion'].errors?.maxlength">

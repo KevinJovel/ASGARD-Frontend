@@ -115,3 +115,9 @@ input, select, textarea,::placeholder {
   color: #797474;
 }
 
+.my-cuadro /deep/ .ngx-pagination .current {
+  /*background: rgb(64, 64, 64);*/
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  } 
