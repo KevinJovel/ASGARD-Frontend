@@ -14,7 +14,7 @@
     </div>
     
     <div class="col-md-3">
-      <input type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
 </div>
   </div>
 
@@ -32,9 +32,9 @@
                 <thead>
                   <tr>
                     <th>N°</th>
-                    <th>Sucursal</th>
-                    <th>Ubicacion</th>
                     <th>Correlativo</th>
+                    <th>Nombre de Sucursal</th>
+                    <th>Ubicacion</th>
                     <th class="hidden-phone">Opciones</th>
                   </tr>
                 </thead>
@@ -42,9 +42,9 @@
                   <tr *ngFor="let sucursal of sucursales | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                     <!-- <td>{{sucursal.idSucursal}}</td> -->
                     <th scope="col">{{i+(5*p)-4}}</th>
+                    <td>{{sucursal.correlativo}}</td>
                     <td>{{sucursal.nombre}}</td>
                     <td>{{sucursal.ubicacion}}</td>
-                    <td>{{sucursal.correlativo}}</td>
                     <td class="center hidden-phone">
                       <button class="btn btn-primary btn-xs" (click)="modificar(sucursal.idSucursal)" ><i class="icon-pencil"></i></button>
                       <button class="btn btn-danger btn-xs" (click)="eliminar(sucursal.idSucursal)"><i class="icon-trash "></i></button>

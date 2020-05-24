@@ -33,6 +33,13 @@ export class FormAreasNegocioComponent implements OnInit {
   open(){
     this.titulo= "Formulario Áreas de Negocio"
     this.display ='block';
+    this.area.controls["idArea"].setValue("0");
+    this.area.controls["bandera"].setValue("0");
+    this.area.controls["nombre"].setValue("");
+    this.area.controls["idSucursal"].setValue("");
+    this.area.controls["correlativo"].setValue("");
+    this.display ='block';
+
   }
   close(){
     this.display ="none";
@@ -52,10 +59,39 @@ export class FormAreasNegocioComponent implements OnInit {
           timer: 3000
         })
       }
-    }
+    }else{
+
+      this.area.controls["bandera"].setValue("0");
+      if (this.area.valid == true) {
+          this.catalogosServices.updateArea(this.area.value).subscribe(data => {
+              this.catalogosServices.getAreas().subscribe(res => {this.areas = res});
+           });
+          Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Dato Modificado con exito',
+              showConfirmButton: false,
+              timer: 3000
+          })        
+      }
+  }
+  this.area.controls["idArea"].setValue("0");
+    this.area.controls["bandera"].setValue("0");
+    this.area.controls["nombre"].setValue("");
+    this.area.controls["idSucursal"].setValue("");
+    this.area.controls["correlativo"].setValue("");
+    this.display ='none';
   }
   modificar(id){
-
+    this.titulo = "Modificar Área de Negocio";
+    this.display = 'block';
+    this.catalogosServices.RecuperarArea(id).subscribe(data => {
+        this.area.controls["idArea"].setValue(data.idArea);
+        this.area.controls["nombre"].setValue(data.nombre);
+        this.area.controls["idSucursal"].setValue(data.idSucursal);
+        this.area.controls["correlativo"].setValue(data.correlativo);
+        this.area.controls["bandera"].setValue("1");
+    });
 
  
   }

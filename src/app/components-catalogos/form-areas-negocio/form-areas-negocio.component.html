@@ -3,18 +3,21 @@
   <h1>Áreas de Negocio</h1>
 
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-3">
 
       <header class="panel-heading form-in-line">
         <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nueva Área de Negocio</button>
+        
       </header>
+    </div>
+    <div class="col-lg-3">
+      
     </div>
     <div class="col-lg-3">
 
     </div>
-    
     <div class="col-md-3">
-      <input type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
 </div>
   </div>
 
@@ -23,7 +26,7 @@
       <section class="panel panel-default">
 
         <header class="panel-heading">
-          <h5>Registro de Areas de Negocio</h5>
+          <h5>Registro de Áreas de Negocio</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">

@@ -247,6 +247,12 @@ public DeleteArea(idArea){
 public buscarArea(buscador) {
   return this.http.get(environment.urlService  + "api/AreasNegocio/buscarArea/" + buscador).map(res => res.json());
 }
+public RecuperarArea(id) {
+  return this.http.get(environment.urlService  + "api/AreasNegocios/RecuperarAreaNegocio/" + id).map(res => res.json());
+}
+public updateArea(area) {
+  return this.http.post(environment.urlService  + "api/AreasNegocios/modificarArea", area).map(res => res.json());
+}
 
 }
 

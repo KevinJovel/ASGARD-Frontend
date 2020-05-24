@@ -25,7 +25,7 @@ export class FormSucursalComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
+    ngOnInit() { 
         this.catalogoService.getSucursales().subscribe(res => {this.sucursales = res});
     }
     open() {
