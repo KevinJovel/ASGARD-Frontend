@@ -1,19 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from "@angular/forms";
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { NgxPaginationModule } from 'ngx-pagination';
+ 
 
+//Importaciones personales
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxMaskModule } from 'ngx-mask'; 
 import {NgxSpinnerModule} from 'ngx-spinner'
-
-
 //Registrar o declarar el componente creado
-import { HttpModule } from '@angular/http';
 import { SharedComponent } from './components/shared/shared.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeaderComponent } from './components/shared/header/header.component';
@@ -21,19 +22,11 @@ import { TablaActivosComponent } from './components-control/tabla-activos/tabla-
 import { FormEmpleadoComponent } from './components-catalogos/form-empleado/form-empleado.component';
 import { FormMarcaComponent } from './components-catalogos/form-marca/form-marca.component';
 import { FormSucursalComponent } from './components-catalogos/form-sucursal/form-sucursal.component';
-//servicios hay que procurar llevar el orden
-
-import { CargarScriptsService } from './services/cargar-scripts.service';
-import { CatalogosService } from './services/catalogos.service';
-import { UsuarioService } from './services/usuario.service';
-
 import { TablaMarcasComponent } from './components-catalogos/tabla-marcas/tabla-marcas.component';
 import { FormDonantesComponent } from './components-catalogos/form-donantes/form-donantes.component';
 import { FormProveedorComponent } from './components-catalogos/form-proveedor/form-proveedor.component';
 import { FormCargoComponent } from './components-catalogos/form-cargo/form-cargo.component';
 
-//Import para trabajar con formularios 
-import { ReactiveFormsModule } from "@angular/forms";
 import { FormClasificacionComponent } from './components-catalogos/form-clasificacion/form-clasificacion.component';
 import { FormAreasNegocioComponent } from './components-catalogos/form-areas-negocio/form-areas-negocio.component';
 import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-tecnico.component';
@@ -41,12 +34,11 @@ import { FormUsuarioComponent } from './components-usuarios/form-usuario/form-us
 import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuario/form-tipo-usuario.component';
 import { FormNuevoBienComponent } from './components-control/form-nuevo-bien/form-nuevo-bien.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+//servicios hay que procurar llevar el orden
 
-
-
-
-
-
+import { CargarScriptsService } from './services/cargar-scripts.service';
+import { CatalogosService } from './services/catalogos.service';
+import { UsuarioService } from './services/usuario.service';
 @NgModule({
   declarations: [
     AppComponent,
