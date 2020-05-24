@@ -3,6 +3,7 @@ import {FormGroup, Validators, FormControl} from '@angular/forms';
 import { CatalogosService } from './../../services/catalogos.service';
 import { Router, ActivatedRoute } from '@angular/router'
 
+
 @Component({
   selector: 'app-form-nuevo-bien',
   templateUrl: './form-nuevo-bien.component.html',
@@ -40,7 +41,7 @@ export class FormNuevoBienComponent implements OnInit {
 
   guardarDatos() {
 
-
+    alert("entra");
       //Siempre tiene que estar valido antes de agregar o editar
 
 
