@@ -3,6 +3,7 @@ import { CatalogosService } from './../../services/catalogos.service';
 import { CargarScriptsService} from './../../services/cargar-scripts.service';
 import { style } from '@angular/animations'
 import { FormGroup, FormControl } from '@angular/forms';
+import Swal from 'sweetalert2';
 declare var jQuery:any;
 declare var $;
 @Component({
@@ -13,12 +14,18 @@ declare var $;
 export class TablaMarcasComponent implements OnInit {
     @Input() marcas: any;
     marca: FormGroup;
-
+    sucursal: FormGroup;
     p: number = 1;
     display = 'none';
     constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService) {
-        this._cargarScript.cargar(["/jquery.stepy","/SortingTable"]);
-       
+        this._cargarScript.cargar(["/jquery.stepy","/sortingTable"]);
+        this.sucursal = new FormGroup({
+            'idSucursal': new FormControl("0"),
+        
+            'nombre': new FormControl(""),
+            'ubicacion': new FormControl(""),
+            'correlativo': new FormControl("")
+        });
     }
     ngOnInit() {
         this.catalogoService.getMarcas().subscribe(res => this.marcas = res);
@@ -46,8 +53,22 @@ export class TablaMarcasComponent implements OnInit {
             
         });
     }
-    guardarDatos(){
+    guardarDatos() {
+        //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
+        
+           
+            if (this.sucursal.valid == true) {
+                this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
+                });
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Dato Guardado con exito',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            }
         
     }
-
+  
 }

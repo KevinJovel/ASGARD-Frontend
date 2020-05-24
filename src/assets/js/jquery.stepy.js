@@ -324,7 +324,7 @@
 
 	$.fn.stepy.defaults = {
 		back:			undefined,
-		backLabel:		'&lt; Back',
+		backLabel:		'&lt; Atras',
 		block:			false,
 		description:	true,
 		errorImage:		false,
@@ -333,7 +333,7 @@
 		legend:			true,
 		ignore:			'',
 		next:			undefined,
-		nextLabel:		'Next &gt;',
+		nextLabel:		'Siguiente &gt;',
 		titleClick:		false,
 		titleTarget:	undefined,
 		validate:		false,
