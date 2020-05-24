@@ -1,8 +1,8 @@
 $(function() {
   $('#default').stepy({
-      backLabel: 'Previous',
+      backLabel: 'Atras',
       block: true,
-      nextLabel: 'Next',
+      nextLabel: 'Siguiente',
       titleClick: true,
       titleTarget: '.stepy-tab'
   });

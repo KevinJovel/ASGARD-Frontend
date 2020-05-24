@@ -10,15 +10,15 @@
                   <div>Step 1</div>
               </li>
               <li id="default-title-1" class="">
-                  <div>segundo</div>
+                  <div>Step 2</div>
               </li>
               <li id="default-title-2" class="">
-                  <div>tercero</div>
+                  <div>Step 3</div>
               </li>
           </ul>
       </div>
       <form class="form-horizontal" id="default" [formGroup]="sucursal" (ngSubmit)="guardarDatos()">
-          <fieldset title="Step1" class="step" id="default-step-0">
+          <fieldset title="1" class="step" id="default-step-0">
               <legend> </legend>
               <input type="hidden" class="form-control" formControlName="idSucursal" id="exampleInputEmail3" autocomplete="off">
           
@@ -31,7 +31,7 @@
             
 
           </fieldset>
-          <fieldset title="Step 2" class="step" id="default-step-1" >
+          <fieldset title="2" class="step" id="default-step-1" >
               <legend> </legend>
               <div class="form-group">
                   <label class="col-lg-2 control-label">Ubicacion</label>
@@ -48,7 +48,7 @@
               
 
           </fieldset>
-          <fieldset title="Step 3" class="step" id="default-step-2" >
+          <fieldset title="3" class="step" id="default-step-2" >
               <legend> </legend>
               <div class="form-group">
                   <label class="col-lg-2 control-label">Full Name</label>
@@ -90,7 +90,7 @@
                   </div>
               </div>
           </fieldset>
-          <input type="submit" class="finish btn btn-danger" value="Finish"/>
+          <input type="submit" class="finish btn btn-danger" value="Guardar"/>
       </form>
   </div>
 </section>

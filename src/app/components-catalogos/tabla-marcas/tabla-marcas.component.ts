@@ -19,6 +19,7 @@ export class TablaMarcasComponent implements OnInit {
     display = 'none';
     constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService) {
         this._cargarScript.cargar(["/jquery.stepy","/sortingTable"]);
+
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
         

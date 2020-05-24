@@ -3583,7 +3583,7 @@ table.sliders tr td {
     color: #757575;
     cursor: pointer;
     float: left;
-    margin: 10px 15px;
+    margin: 10px 90px;
 }
 
 .stepy-titles li span { display: block; }
@@ -3591,22 +3591,23 @@ table.sliders tr td {
 .stepy-titles li.current-step div {
     color: #fff;
     cursor: auto;
-    background: #A9D86E;
+    background:  #414c5a;
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     line-height: 100px;
 }
 
 .stepy-titles li div{
-    font-size:16px;
+    font-size:20px;
+    font-style: bold;
     font-weight: 300;
-    background: #eee;
+    background: #f2faf1;
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     line-height: 100px;
 }
 
