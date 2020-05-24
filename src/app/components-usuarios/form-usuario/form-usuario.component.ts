@@ -18,7 +18,7 @@ export class FormUsuarioComponent implements OnInit {
   titulo: string = "";
   display = 'none';
   p: number = 1;
-  tipoUsuarios2: any;
+  tipoUsuarios: any;
   empleados: any;
   //variable para el formulario dinamico
   //ver: boolean = true;
@@ -54,7 +54,7 @@ export class FormUsuarioComponent implements OnInit {
          //llenamos los combo
     //lo qu esta en data lo guardamos en usuario
     this.usuarioService.listarTipoCombo().subscribe(data => {
-      this.tipoUsuarios2 = data;
+      this.tipoUsuarios = data;
     });
 
     });
