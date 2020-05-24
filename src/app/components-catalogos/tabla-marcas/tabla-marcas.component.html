@@ -1,7 +1,7 @@
 <br><br><br><br>
 <section class="panel">
   <header class="panel-heading">
-      Forms Wizard
+      Registro de nuevo bien
   </header>
   <div class="panel-body">
       <div class="stepy-tab">
@@ -10,56 +10,42 @@
                   <div>Step 1</div>
               </li>
               <li id="default-title-1" class="">
-                  <div>Step 2</div>
+                  <div>segundo</div>
               </li>
               <li id="default-title-2" class="">
-                  <div>Step 3</div>
+                  <div>tercero</div>
               </li>
           </ul>
       </div>
-      <form class="form-horizontal" id="default">
+      <form class="form-horizontal" id="default" [formGroup]="sucursal" (ngSubmit)="guardarDatos()">
           <fieldset title="Step1" class="step" id="default-step-0">
               <legend> </legend>
+              <input type="hidden" class="form-control" formControlName="idSucursal" id="exampleInputEmail3" autocomplete="off">
+          
               <div class="form-group">
-                  <label class="col-lg-2 control-label">Full Name</label>
-                  <div class="col-lg-10">
-                      <input type="text" class="form-control" placeholder="Full Name">
+                  <label class="col-lg-2 control-label">Sucursal</label>
+                  <div class="col-lg-6">
+                      <input type="text" class="form-control" formControlName="nombre"  placeholder="Full Name">
                   </div>
               </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Email Address</label>
-                  <div class="col-lg-10">
-                      <input type="text" class="form-control" placeholder="Email Address">
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">User Name</label>
-                  <div class="col-lg-10">
-                      <input type="text" class="form-control" placeholder="Username">
-                  </div>
-              </div>
+            
 
           </fieldset>
           <fieldset title="Step 2" class="step" id="default-step-1" >
               <legend> </legend>
               <div class="form-group">
-                  <label class="col-lg-2 control-label">Phone</label>
+                  <label class="col-lg-2 control-label">Ubicacion</label>
                   <div class="col-lg-10">
-                      <input type="text" class="form-control" placeholder="Phone">
+                      <input type="text" class="form-control" formControlName="ubicacion" placeholder="Phone">
                   </div>
               </div>
               <div class="form-group">
-                  <label class="col-lg-2 control-label">Mobile</label>
+                  <label class="col-lg-2 control-label">Correlativo</label>
                   <div class="col-lg-10">
-                      <input type="text" class="form-control" placeholder="Mobile">
+                      <input type="text" class="form-control" formControlName="correlativo" placeholder="Mobile">
                   </div>
               </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Address</label>
-                  <div class="col-lg-10">
-                      <textarea class="form-control" cols="60" rows="5"></textarea>
-                  </div>
-              </div>
+              
 
           </fieldset>
           <fieldset title="Step 3" class="step" id="default-step-2" >
