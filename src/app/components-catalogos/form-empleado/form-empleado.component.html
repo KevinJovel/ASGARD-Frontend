@@ -37,9 +37,10 @@
 				          <th>Apellidos</th>
 				          <th>Dirección</th>
 				          <th>Teléfono</th>
-				          <th>Teléfono personal</th>
+                  <th>Teléfono personal</th>
+                  <th>Área de negocio</th>
 				          <th>Cargo</th>
-				          <th>Área de negocio</th>
+				          
                   <th  class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
@@ -89,8 +90,8 @@
       <div class="modal-body">
         <form role="form" [formGroup]="empleado" (ngSubmit)="guardarDatos()">
           <td>
-          <input type="text" class="form-control" formControlName="idempleado" id="exampleInputEmail3" autocomplete="off">
-          <input type="text" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idempleado" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
           
         <!--<td>--> 
 
@@ -105,13 +106,14 @@
             <input type="text" [dropSpecialCharacters]="false" mask="00000000-0" class="form-control" formControlName="dui" id="exampleInputEmail3" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
           </div>
           
-          <div class="form-group" formControlName="idareadenegocio">
+          <div class="form-group">
             <label for="exampleFormControlTextarea2" >Area de negocio:</label>
             <select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2">
               <option value="">---Seleccione---</option>
               <option [value]="area.idareadenegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
             </select>
             </div>
+          
           
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Teléfono:</label>
@@ -131,7 +133,7 @@
             <input class="form-control rounded-0" formControlName="direccion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101">
           </div>
 
-		  <div class="form-group" formControlName="idcargo">
+		  <div class="form-group">
 			<label for="exampleFormControlTextarea2" >Cargo:</label>
 			<select class="form-control" formControlName="idcargo"  id="exampleFormControlTextarea2"  maxlength="51">
         <option value="">---Seleccione---</option>	

@@ -12,9 +12,9 @@ import Swal from 'sweetalert2';
 })
 export class FormEmpleadoComponent implements OnInit {
   empleados: any;
+  areas: any;
   cargos: any;
-  areas:any;
-  p: number = 1;
+  p: number = 1; 
   empleado: FormGroup;
   display = 'none';
   titulo: string;
@@ -41,11 +41,11 @@ export class FormEmpleadoComponent implements OnInit {
  this.catalogosServices.getEmpleado().subscribe(data =>{
   this.empleados =data;
 });
-this.catalogosServices.listarCargoCombo().subscribe(data =>{
-  this.cargos =data;
-});
 this.catalogosServices.listarAreaCombo().subscribe(data =>{
   this.areas =data;
+});
+this.catalogosServices.listarCargoCombo().subscribe(data =>{
+  this.cargos =data;
 });
 
   
