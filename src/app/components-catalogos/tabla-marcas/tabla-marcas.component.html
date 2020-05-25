@@ -1,7 +1,9 @@
 <br><br><br><br>
 <section class="panel">
   <header class="panel-heading">
-      Registro de nuevo bien
+      <h1>Nuevo Bien</h1>
+      <button type="button" class="btn btn-success"><i
+        class="icon-plus-sign-alt"></i> Ver Registros</button>
   </header>
   <div class="panel-body">
       <div class="stepy-tab">
@@ -12,85 +14,134 @@
               <li id="default-title-1" class="">
                   <div>Step 2</div>
               </li>
-              <li id="default-title-2" class="">
-                  <div>Step 3</div>
-              </li>
+              
           </ul>
       </div>
-      <form class="form-horizontal" id="default" [formGroup]="sucursal" (ngSubmit)="guardarDatos()">
+      <form class="form-inline" id="default" [formGroup]="sucursal" (ngSubmit)="guardarDatos()">
           <fieldset title="1" class="step" id="default-step-0">
               <legend> </legend>
               <input type="hidden" class="form-control" formControlName="idSucursal" id="exampleInputEmail3" autocomplete="off">
-          
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Sucursal</label>
-                  <div class="col-lg-6">
-                      <input type="text" class="form-control" formControlName="nombre"  placeholder="Full Name">
+              
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label  for="formGroupExampleInput2"># de Formulario</label>
+                    <input type="email" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese # de formulario">
+                    </div>
+                    <div class="form-group col-md-6">
+                    <label for="inputPassword4">Fecha de Ingreso</label>
+                    <input type="date" class="form-control" >
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label  for="formGroupExampleInput2">Estado</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Seleccione...</option>
+                        <option>...</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                    <label for="inputPassword4">Proveedor o Donante</label>
+                    <input type="date" class="form-control" id="inputPassword4" formControlName="#" placeholder="Ingrese fecha de ingreso">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputCity">Clasificación</label>
+                      <input type="text" class="form-control" id="inputCity" placeholder="Ingrese clasificación">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputState">Marca</label>
+                      <input type="text" class="form-control" id="inputCity" placeholder="Ingrese marca">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputZip">Modelo</label>
+                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo">
+                    </div>
                   </div>
-              </div>
-            
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label  for="formGroupExampleInput2">Descripción </label>
+                    <textarea class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2"
+                     rows="3" placeholder="Descripcion" autocomplete="off"></textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                    <label for="inputPassword4">Cantidad</label>
+                    <input type="text" class="form-control" id="inputPassword4" formControlName="#" placeholder="Ingrese cantidad">
+                    </div>                 
+                </div>
+
+                 <!-- Este div es para que el botón siguiente baje, ya que en el jQuery esta en block:true 
+                y si lo muevo se distorcionan los botones de anterior y siguiente  -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label  for="formGroupExampleInput2"> </label>
+                        <input type="hidden">
+                        </div>
+                    </div>
+
 
           </fieldset>
           <fieldset title="2" class="step" id="default-step-1" >
               <legend> </legend>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Ubicacion</label>
-                  <div class="col-lg-10">
-                      <input type="text" class="form-control" formControlName="ubicacion" placeholder="Phone">
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Correlativo</label>
-                  <div class="col-lg-10">
-                      <input type="text" class="form-control" formControlName="correlativo" placeholder="Mobile">
-                  </div>
-              </div>
-              
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                <label  for="formGroupExampleInput2"># de Factura</label>
+                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese # de factura">
+                </div>
+                <div class="form-group col-md-6">
+                <label for="inputPassword4">Costo</label>
+                <input type="text" class="form-control"formControlName="#" placeholder="Ingrese costo" >
+                </div>
+            </div>
 
-          </fieldset>
-          <fieldset title="3" class="step" id="default-step-2" >
-              <legend> </legend>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Full Name</label>
-                  <div class="col-lg-10">
-                      <p class="form-control-static">Tawseef Ahmed</p>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Email Address</label>
-                  <div class="col-lg-10">
-                      <p class="form-control-static">tawseef@vectorlab.com</p>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">User Name</label>
-                  <div class="col-lg-10">
-                      <p class="form-control-static">tawseef</p>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Phone</label>
-                  <div class="col-lg-10">
-                      <p class="form-control-static">01234567</p>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Mobile</label>
-                  <div class="col-lg-10">
-                      <p class="form-control-static">01234567</p>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="col-lg-2 control-label">Address</label>
-                  <div class="col-lg-10">
-                      <p class="form-control-static">
-                          Dreamland Ave, Suite 73
-                          AU, PC 1361
-                          P: (123) 456-7891 </p>
-                  </div>
-              </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label  for="formGroupExampleInput2">Plazo</label>
+                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese plazo">
+                </div>
+                <div class="form-group col-md-6">
+                    <label  for="formGroupExampleInput2">Cuota</label>
+                    <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese cuota">
+                    </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label  for="formGroupExampleInput2">Persona que entrega</label>
+                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese persona que entrega">
+                </div>
+                <div class="form-group col-md-6">
+                <label for="inputPassword4">Persona que recibe</label>
+                <input type="text" class="form-control"formControlName="#" placeholder="Ingrese persona que recibe" >
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Foto</label>
+                    <input type="file" id="futFoto" class="form-control" accept="image/*" />
+                </div>
+            </div>
+             
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label  for="formGroupExampleInput2">Observaciones </label>
+                <textarea class="form-control" formControlName="observaciones" id="exampleFormControlTextarea2"
+                 rows="3" placeholder="Ingrese observaciones" autocomplete="off"></textarea>
+                </div>
+                                
+            </div>
+              
           </fieldset>
           <input type="submit" class="finish btn btn-danger" value="Guardar"/>
       </form>
+
+      <br><br><br>
   </div>
 </section>
