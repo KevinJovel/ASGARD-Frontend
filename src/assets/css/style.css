@@ -3583,7 +3583,8 @@ table.sliders tr td {
     color: #757575;
     cursor: pointer;
     float: left;
-    margin: 10px 90px;
+    margin: 0px 160px;
+    margin-bottom: 0px;
 }
 
 .stepy-titles li span { display: block; }
@@ -3594,21 +3595,21 @@ table.sliders tr td {
     background:  #414c5a;
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    line-height: 100px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
 }
 
 .stepy-titles li div{
-    font-size:20px;
+    font-size:13px;
     font-style: bold;
     font-weight: 300;
     background: #f2faf1;
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    line-height: 100px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
 }
 
 

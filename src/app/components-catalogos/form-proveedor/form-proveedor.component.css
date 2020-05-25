@@ -3,7 +3,9 @@
 table {
   width: 100%;
 }
-
+.panel-body {
+  padding: 12px 0px;
+}
 .mat-form-field {
   font-size: 14px;
   width: 100%;
@@ -47,6 +49,7 @@ thead {
 h1{
   color: #797979;
   font-family: 'Open Sans', sans-serif;
+  margin-left: 35px;
 }
  h5, label {
   color: #797979;
@@ -89,17 +92,18 @@ th, td {
   border-color: #faebcc;
 }
 .panel {
-  padding: 15px;
-  padding-bottom: 0px;
-  height: 90%;
-  margin-bottom: 20px;
-  margin-left: -5px;;
-  margin-right: 10px;
-  background-color: #fff;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  padding: 5px;
+  padding-bottom: 5px;
+padding-bottom: 0px;
+height: 80%;
+margin-bottom: 0px;
+margin-left: 0px;
+margin-right: 15px;
+background-color: #fff;
+border: 1px solid transparent;
+border-radius: 15px;
+box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  
 }
 .form-control {
   border: 1px solid #e2e2e4;
@@ -114,11 +118,17 @@ input, select, textarea,::placeholder {
   line-height: inherit;
   color: #797474;
 }
-
-  /*cuadro de paginación*/
-  .my-cuadro /deep/ .ngx-pagination .current {
-    /*background: rgb(64, 64, 64);*/
-    color: #fff;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-  }
+input[type=search] {
+  border: 1px solid #e2e2e4;
+  box-shadow: none;
+  color: #797474;
+  border-radius: 10px;
+  font-size: 15px;
+  margin-left: -25px;
+}
+.my-cuadro /deep/ .ngx-pagination .current {
+  /*background: rgb(64, 64, 64);*/
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  } 

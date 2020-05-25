@@ -1,9 +1,18 @@
 <br><br><br><br>
 <section class="panel">
   <header class="panel-heading">
-      <h1>Nuevo Bien</h1>
-      <button type="button" class="btn btn-success"><i
+    <div class="row">
+        <div class="col-lg-6">
+      <h1>Formulario nuevo bien</h1>
+    </div>
+    <div class="col-lg-3">
+        
+    </div>
+    <div class="col-lg-3">
+      <button style="margin-top: 15px;" type="button" class="btn btn-success"><i
         class="icon-plus-sign-alt"></i> Ver Registros</button>
+    </div>
+</div>
   </header>
   <div class="panel-body">
       <div class="stepy-tab">
@@ -25,7 +34,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label  for="formGroupExampleInput2"># de Formulario</label>
-                    <input type="email" class="form-control" id="inputEmail4"  placeholder="Ingrese # de formulario">
+                    <input type="email" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese # de formulario">
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Fecha de Ingreso</label>
@@ -43,46 +52,56 @@
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Proveedor o Donante</label>
-                    <input type="date" class="form-control" id="inputPassword4"  placeholder="Ingrese fecha de ingreso">
+                    <select id="inputState" class="form-control">
+                        <option selected>Seleccione...</option>
+                        <option>...</option>
+                      </select>
                     </div>
                 </div>
-
-                <div class="form-row">
+                <div class="row">
+                   
+                    <div class="col-lg-6">
+                    <label  for="formGroupExampleInput2">Descripción </label>
+                    <textarea class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2"
+                     rows="1" placeholder="Descripcion" autocomplete="off"></textarea>
+                    </div>
+                    <div class="col-lg-6">
+                    <label for="inputPassword4">Cantidad</label>
+                    <input type="text" class="form-control" id="inputPassword4" formControlName="#" placeholder="Ingrese cantidad">
+                    </div>  
+                </div>   
+              
+                <div></div>     
+                <div class="row">
                     <div class="form-group col-md-4">
                       <label for="inputCity">Clasificación</label>
-                      <input type="text" class="form-control" id="inputCity" placeholder="Ingrese clasificación">
-                    </div>
+                      <select id="inputState" class="form-control">
+                        <option selected>Seleccione...</option>
+                        <option>...</option>
+                      </select>
+                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputState">Marca</label>
-                      <input type="text" class="form-control" id="inputCity" placeholder="Ingrese marca">
+                      <select id="inputState" class="form-control">
+                        <option selected>Seleccione...</option>
+                        <option>...</option>
+                      </select>  
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputZip">Modelo</label>
                       <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo">
                     </div>
                   </div>
-
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                    <label  for="formGroupExampleInput2">Descripción </label>
-                    <textarea class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2"
-                     rows="3" placeholder="Descripcion" autocomplete="off"></textarea>
-                    </div>
-                    <div class="form-group col-md-6">
-                    <label for="inputPassword4">Cantidad</label>
-                    <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad">
-                    </div>                 
+                  <div class="form-row">
+                    <div class="form-group col-lg-12"
+                    ></div>
                 </div>
+
+                
 
                  <!-- Este div es para que el botón siguiente baje, ya que en el jQuery esta en block:true 
                 y si lo muevo se distorcionan los botones de anterior y siguiente  -->
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label  for="formGroupExampleInput2"> </label>
-                        <input type="hidden">
-                        </div>
-                    </div>
+                
 
 
           </fieldset>
@@ -91,57 +110,91 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                 <label  for="formGroupExampleInput2"># de Factura</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese # de factura">
+                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese # de factura">
                 </div>
                 <div class="form-group col-md-6">
                 <label for="inputPassword4">Costo</label>
-                <input type="text" class="form-control" placeholder="Ingrese costo" >
+                <input type="text" class="form-control"formControlName="#" placeholder="Ingrese costo" >
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label  for="formGroupExampleInput2">Plazo</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese plazo">
+                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese plazo">
                 </div>
                 <div class="form-group col-md-6">
                     <label  for="formGroupExampleInput2">Cuota</label>
-                    <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese cuota">
+                    <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese cuota">
                     </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label  for="formGroupExampleInput2">Persona que entrega</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que entrega">
+                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese persona que entrega">
                 </div>
                 <div class="form-group col-md-6">
                 <label for="inputPassword4">Persona que recibe</label>
-                <input type="text" class="form-control" placeholder="Ingrese persona que recibe" >
+                <select id="inputState" class="form-control">
+                    <option selected>Seleccione...</option>
+                    <option>...</option>
+                  </select>
                 </div>
             </div>
 
             <div class="form-row">
 
                 <div class="form-group col-md-6">
+                    
+                                          
                     <label for="inputPassword4">Foto</label>
                     <input type="file" id="futFoto" class="form-control" accept="image/*" />
-                </div>
-            </div>
+                 </div>
+          
              
-            <div class="form-row">
+            
                 <div class="form-group col-md-6">
                 <label  for="formGroupExampleInput2">Observaciones </label>
                 <textarea class="form-control" formControlName="observaciones" id="exampleFormControlTextarea2"
-                 rows="3" placeholder="Ingrese observaciones" autocomplete="off"></textarea>
+                 rows="1" placeholder="Ingrese observaciones" autocomplete="off"></textarea>
                 </div>
                                 
             </div>
+            <div class="form-row">
+                <div class="form-group col-lg-12"
+                ></div>
+            </div>
               
           </fieldset>
+          <br><br><br>
           <input type="submit" class="finish btn btn-danger" value="Guardar"/>
       </form>
 
       <br><br><br>
   </div>
 </section>
+<!-- 
+<label class="control-label col-md-2">Foto</label>
+                                          <div class="col-md-4">
+                                              <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                  <div class="fileupload-new thumbnail" style="width: 200px; height: 100px;">
+                                                      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                                  </div>
+                                                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 100px; line-height: 20px;"></div>
+                                                  <div>
+                                                   <span class="btn btn-white btn-file">
+                                                   <span class="fileupload-new"><i class="icon-paper-clip"></i> Select image</span>
+                                                   <span class="fileupload-exists"><i class="icon-undo"></i> Change</span>
+                                                   <input type="file" class="default" />
+                                                   </span>
+                                                      <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="icon-trash"></i> Remove</a>
+                                                  </div>
+                                              </div>
+                                              <span class="label label-danger">NOTE!</span>
+                                             <span>
+                                             Attached image thumbnail is
+                                             supported in Latest Firefox, Chrome, Opera,
+                                             Safari and Internet Explorer 10 only
+                                             </span>
+                                          </div>  -->
