@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -18,7 +18,7 @@ export class FormAreasNegocioComponent implements OnInit {
   titulo: string;
   constructor(private catalogosServices: CatalogosService) { 
     this.area=new FormGroup({
-      'idArea': new FormControl("0"),
+      'idAreaNegocio': new FormControl("0"),
       'bandera': new FormControl("0"),
       'nombre': new FormControl(""),
       'idSucursal': new FormControl(""),
@@ -33,7 +33,7 @@ export class FormAreasNegocioComponent implements OnInit {
   open(){
     this.titulo= "Formulario Áreas de Negocio"
     this.display ='block';
-    this.area.controls["idArea"].setValue("0");
+    this.area.controls["idAreaNegocio"].setValue("0");
     this.area.controls["bandera"].setValue("0");
     this.area.controls["nombre"].setValue("");
     this.area.controls["idSucursal"].setValue("");
@@ -75,7 +75,7 @@ export class FormAreasNegocioComponent implements OnInit {
           })        
       }
   }
-  this.area.controls["idArea"].setValue("0");
+  this.area.controls["idAreaNegocio"].setValue("0");
     this.area.controls["bandera"].setValue("0");
     this.area.controls["nombre"].setValue("");
     this.area.controls["idSucursal"].setValue("");
@@ -86,11 +86,12 @@ export class FormAreasNegocioComponent implements OnInit {
     this.titulo = "Modificar Área de Negocio";
     this.display = 'block';
     this.catalogosServices.RecuperarArea(id).subscribe(data => {
-        this.area.controls["idArea"].setValue(data.idArea);
+        this.area.controls["idAreaNegocio"].setValue(data.idAreaNegocio);
         this.area.controls["nombre"].setValue(data.nombre);
         this.area.controls["idSucursal"].setValue(data.idSucursal);
         this.area.controls["correlativo"].setValue(data.correlativo);
         this.area.controls["bandera"].setValue("1");
+        
     });
 
  
