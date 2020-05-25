@@ -76,6 +76,11 @@ export class UsuarioService {
   public buscarTipoUsuario(buscador) {
     return this.http.get(environment.urlService  + "api/TipoUsuario/buscarTipoUsuario/" + buscador).map(res => res.json());
   }
+
+  public validarTipoUsuario(iidtipousuario, tipo) {
+    return this.http.get(environment.urlService + "api/TipoUsuario/validarTipoUsuario/" + iidtipousuario + "/" + tipo)
+      .map(res => res.json());
+  }
  
 
 }

@@ -77,6 +77,7 @@
           <input type="hidden" class="form-control" formControlName="iidusuario" id="exampleInputEmail3" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
 
+
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre Usuario</label>
             <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario" placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
@@ -107,7 +108,7 @@
 
           <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
             <label for="exampleInputEmail1">Repita Contraseña</label>
-            <input type="text" class="form-control" formControlName="contra2" id="nombreusuario" placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
+            <input type="text" class="form-control" formControlName="contra2" id="contra2" placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">

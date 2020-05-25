@@ -86,6 +86,13 @@
             </button>
             <strong>Advertencia!</strong> El campo es obligatorio
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="tipoUsuario.controls['tipo'].errors?.yaExiste">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Ya existe el Tipo de Usuario, por favor intente con uno nuevo.
+          </div>
+
           <div class="alert alert-block alert-danger fade in" *ngIf="tipoUsuario.controls['tipo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -105,7 +112,7 @@
             <strong>Exelente!</strong> Datos ingresados correctamente
           </div>
 
-          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button [disabled]="!tipoUsuario.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
 
         </form>

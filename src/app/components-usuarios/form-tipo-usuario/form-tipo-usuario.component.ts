@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input, ViewChild } from '@angular/core';
 //importamos
 import { UsuarioService } from '../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -26,7 +26,7 @@ export class FormTipoUsuarioComponent implements OnInit {
     this.tipoUsuario = new FormGroup({
       "iidtipousuario": new FormControl("0"),
       'bandera': new FormControl("0"),
-      "tipo": new FormControl("", [Validators.required, Validators.maxLength(50)]),
+      "tipo": new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirTipoUsuario.bind(this)),
       "descripcion": new FormControl("", [Validators.required, Validators.maxLength(100)]),
       //creamos una variable opcional
       //"valores": new FormControl("")
@@ -140,4 +140,23 @@ export class FormTipoUsuarioComponent implements OnInit {
     this.p = 1;
     this.usuarioService.buscarTipoUsuario(buscador.value).subscribe(res => { this.tipoUsuarios = res });
   }
+
+  noRepetirTipoUsuario(control: FormControl) {
+    var promesa = new Promise((resolve, reject) => {
+      if (control.value != "" && control.value != null) {
+        this.usuarioService.validarTipoUsuario(this.tipoUsuario.controls["iidtipousuario"].value, control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              //retornamos
+              resolve({ yaExiste: true });
+            } else {
+              //si todo esta bien
+              resolve(null);
+            }
+          });
+      }
+    });
+    return promesa;
+  }
+
 }

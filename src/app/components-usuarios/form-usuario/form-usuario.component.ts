@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-form-usuario',
+  selector: 'form-usuario',
   templateUrl: './form-usuario.component.html',
   styleUrls: ['./form-usuario.component.css']
 })
@@ -36,7 +36,7 @@ export class FormUsuarioComponent implements OnInit {
         'contra': new FormControl("", [Validators.required, Validators.maxLength(30)]),
         'contra2': new FormControl("", [Validators.required, Validators.maxLength(30), this.validarContraIguales.bind(this)]),
         'iidEmpleado': new FormControl("", [Validators.required]),
-        'iidTipousuario': new FormControl("", [Validators.required])
+        'iidTipousuario': new FormControl("")
       }
     );
   }
@@ -132,12 +132,8 @@ export class FormUsuarioComponent implements OnInit {
     this.usuarioService.recuperarUsuario(id).subscribe(data => {
       this.usuario.controls["iidusuario"].setValue(data.iidusuario);
       this.usuario.controls["nombreusuario"].setValue(data.nombreusuario);
-      //this.usuario.controls["contra"].setValue(data.contra);
-      //this.usuario.controls["contra2"].setValue(data.contra2);
-      //this.usuario.controls["iidEmpleado"].setValue(data.iidEmpleado);
       this.usuario.controls["iidTipousuario"].setValue(data.iidTipousuario);
       this.usuario.controls["bandera"].setValue("1");
-
 
       //se pone valor por defecto xq no se pueden editar estos campos
      //y para q permita habilitar el boton de guardar
