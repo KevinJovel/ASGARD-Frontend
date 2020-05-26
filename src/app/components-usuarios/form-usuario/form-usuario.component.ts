@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 //importamos
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsuarioService } from './../../services/usuario.service';
@@ -145,34 +145,7 @@ export class FormUsuarioComponent implements OnInit {
     });
      
   }
-
-
-  eliminar(iidusuario) {
-    Swal.fire({
-      title: '¿Esta seguro de eliminar este registro?',
-      text: "No podra revertir esta accion!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
-    }).then((result) => {
-      if (result.value) {
-        this.usuarioService.eliminarUsuario(iidusuario).subscribe(data => {
-          Swal.fire(
-            'Dato eliminado!',
-            'El registro ha sido eliminado con exito.',
-            'success'
-          )
-          this.usuarioService.getUsuario().subscribe(
-            data => { this.usuarios = data }
-          );
-        });
-
-      }
-    })
-  }
-
+  
 
   buscar(buscador) {
     this.p = 1;
@@ -191,10 +164,8 @@ export class FormUsuarioComponent implements OnInit {
               //si todo esta bien
               resolve(null);
             }
-
           });
       }
-
 
     });
     return promesa;

@@ -44,9 +44,10 @@
                   <td>{{usuario.nombreEmpleado}}</td>
                   <td>{{usuario.nombreTipoUsuario}}</td>
                   <!--son los atributos de la clase-->
+
                   <td class="center hidden-phone">
                     <button class="btn btn-primary btn-xs" (click)="modificar(usuario.iidusuario)"><i class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(usuario.iidusuario)"><i class="icon-trash "></i></button>
+                    <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -58,8 +59,6 @@
     </div>
   </div>
 </section>
-
-
 
 
 <!--modal para ingresar y editar-->
@@ -108,7 +107,7 @@
 
           <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
             <label for="exampleInputEmail1">Repita Contraseña</label>
-            <input type="text" class="form-control" formControlName="contra2" id="contra2" placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
+            <input type="password" class="form-control" formControlName="contra2" id="contra2" placeholder="Repita Contraseña" maxlength="51" autocomplete="off">
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">

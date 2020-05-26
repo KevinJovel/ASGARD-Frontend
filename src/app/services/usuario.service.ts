@@ -25,14 +25,10 @@ export class UsuarioService {
   }
 
 
-  public eliminarUsuario(iidusuario) {
-    return this.http.get(environment.urlService + "api/Usuario/eliminarUsuario" + iidusuario)
-      .map(res => res.json());
-  }
-
   public buscarUsuario(buscador) {
     return this.http.get(environment.urlService + "api/Usuario/buscarUsuario/" + buscador).map(res => res.json());
   }
+  
   public ActualizarUsuario(usuario) {
     return this.http.post(environment.urlService + "api/Usuario/modificarUsuario", usuario).map(res => res.json());
   }
@@ -65,13 +61,15 @@ export class UsuarioService {
     return this.http.get(environment.urlService + "api/TipoUsuario/eliminarTipoUsuario/" + iidTipoUsuario)
       .map(res => res.json());
   }
-  public ActualizarTipoUsuario(tipousuario) {
+
+  public RecuperarTipoUsuario(id) {
+    return this.http.get(environment.urlService  + "api/TipoUsuario/RecuperarTipoUsuario/" + id).map(res => res.json());
+  }
+
+  public modificarTipoUsuario(tipousuario) {
     return this.http.post(environment.urlService + "api/TipoUsuario/modificarTipoUsuario", tipousuario).map(res => res.json());
   }
 
-  public recuperarTipoUsuario(id) {
-    return this.http.get(environment.urlService  + "api/TipoUsuario/RecuperarTipoUsuario" + id).map(res => res.json());
-  }
 
   public buscarTipoUsuario(buscador) {
     return this.http.get(environment.urlService  + "api/TipoUsuario/buscarTipoUsuario/" + buscador).map(res => res.json());
