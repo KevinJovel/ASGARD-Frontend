@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CargarScriptsService} from './../services/cargar-scripts.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -6,8 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  constructor() {
-   
+  constructor( private _cargarScript:CargarScriptsService) {
+    this._cargarScript.cargar(["/jquery.nicescroll"]);
    }
   isExpanded = false;
 
