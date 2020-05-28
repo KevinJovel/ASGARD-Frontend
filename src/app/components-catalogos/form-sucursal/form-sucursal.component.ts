@@ -88,12 +88,11 @@ export class FormSucursalComponent implements OnInit {
         this.catalogoService.validarDependeArea(idSucursal).subscribe(data=>{
            if(data==1){
             Swal.fire({
-                position: 'center',
-                icon: 'warning',
-                title: 'ERROR.! El regisro que desea eliminar ya esta siendo utilizado en una Área de negocio.',
-                showConfirmButton: false,
-                timer: 3000
-            })     
+                icon: 'error',
+                title: 'ERROR',
+                text: 'No es posible eliminar este dato, esta sucursal ya tiene areas de negocio asignadas',
+              
+              })    
            }else{
             Swal.fire({
             title: '¿Estas seguro de eliminar este registro?',
