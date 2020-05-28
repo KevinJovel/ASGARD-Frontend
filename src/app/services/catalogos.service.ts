@@ -53,6 +53,10 @@ export class CatalogosService {
   public updateSucursal(sucursal) {
     return this.http.post(environment.urlService  + "api/Sucursal/modificarSucursal", sucursal).map(res => res.json());
 }
+public validarDependeArea(idSucursal) {
+  return this.http.get(environment.urlService  + "api/Sucursal/validarArea/" + idSucursal).map(res => res.json());
+}
+
   //Service Cargo
 
   public agregarCargo(cargo) {

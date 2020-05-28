@@ -15,7 +15,7 @@ export class FormSucursalComponent implements OnInit {
     sucursal: FormGroup;
     display = 'none';
     titulo: string;
-    constructor(private catalogoService: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
+    constructor(private catalogoService: CatalogosService) {
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
             'bandera': new FormControl("0"),
@@ -51,7 +51,7 @@ export class FormSucursalComponent implements OnInit {
                 this.display = 'none';
                 });
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'success',
                     title: 'Dato Guardado con exito',
                     showConfirmButton: false,
@@ -68,7 +68,7 @@ export class FormSucursalComponent implements OnInit {
                     this.catalogoService.getSucursales().subscribe(res => {this.sucursales = res});
                  });
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'success',
                     title: 'Dato Modificado con exito',
                     showConfirmButton: false,
@@ -85,7 +85,17 @@ export class FormSucursalComponent implements OnInit {
       
     }
     eliminar(idSucursal) {
-        Swal.fire({
+        this.catalogoService.validarDependeArea(idSucursal).subscribe(data=>{
+           if(data==1){
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'ERROR.! El regisro que desea eliminar ya esta siendo utilizado en una Área de negocio.',
+                showConfirmButton: false,
+                timer: 3000
+            })     
+           }else{
+            Swal.fire({
             title: '¿Estas seguro de eliminar este registro?',
             text: "No podras revertir esta accion!",
             icon: 'warning',
@@ -106,6 +116,9 @@ export class FormSucursalComponent implements OnInit {
 
             }
         })
+           }
+        })
+        
     }
     modificar(id){
         this.titulo = "Modificar Sucursal";
