@@ -27,7 +27,7 @@ export class FormTipoUsuarioComponent implements OnInit {
       "iidtipousuario": new FormControl("0"),
       'bandera': new FormControl("0"),
       "tipo": new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirTipoUsuario.bind(this)),
-      "descripcion": new FormControl("", [Validators.required, Validators.maxLength(100)]),
+      "descripcion": new FormControl("", [Validators.maxLength(100)]),
       //creamos una variable opcional
       //"valores": new FormControl("")
     });
@@ -68,11 +68,12 @@ export class FormTipoUsuarioComponent implements OnInit {
       }
     }
     else {
+
       //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
 
       this.tipoUsuario.controls["bandera"].setValue("0");
       if (this.tipoUsuario.valid == true) {
-        this.usuarioService.ActualizarTipoUsuario(this.tipoUsuario.value).subscribe(data => {
+        this.usuarioService.modificarTipoUsuario(this.tipoUsuario.value).subscribe(data => {
           this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
         });
         Swal.fire({
@@ -89,25 +90,9 @@ export class FormTipoUsuarioComponent implements OnInit {
     this.tipoUsuario.controls["bandera"].setValue("0");
     this.tipoUsuario.controls["tipo"].setValue("");
     this.tipoUsuario.controls["descripcion"].setValue(""); 
-
     this.display = 'none';
     this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
 
-  }
-
-  modificar(id) {
-
-    this.titulo = "Modificar Tipo Usuario";
-    this.display = 'block';
-    this.usuarioService.recuperarTipoUsuario(id).subscribe(data => {
-
-      this.tipoUsuario.controls["iidtipousuario"].setValue(data.iidtipousuario);
-      this.tipoUsuario.controls["tipo"].setValue(data.tipo);
-      this.tipoUsuario.controls["descripcion"].setValue(data.descripcion);
-      this.tipoUsuario.controls["bandera"].setValue("1");
-
-      this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
-    });
   }
 
   eliminar(iidtipousuario) {
@@ -139,6 +124,21 @@ export class FormTipoUsuarioComponent implements OnInit {
   buscar(buscador) {
     this.p = 1;
     this.usuarioService.buscarTipoUsuario(buscador.value).subscribe(res => { this.tipoUsuarios = res });
+  }
+
+  modificar(id) {
+
+    this.titulo = "Modificar Tipo Usuario";
+    this.display = 'block';
+    this.usuarioService.RecuperarTipoUsuario(id).subscribe(data => {
+
+      this.tipoUsuario.controls["iidtipousuario"].setValue(data.iidtipousuario);
+      this.tipoUsuario.controls["tipo"].setValue(data.tipo);
+      this.tipoUsuario.controls["descripcion"].setValue(data.descripcion);
+      this.tipoUsuario.controls["bandera"].setValue("1");
+
+      this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
+    });
   }
 
   noRepetirTipoUsuario(control: FormControl) {
