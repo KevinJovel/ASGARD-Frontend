@@ -39,6 +39,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CargarScriptsService } from './services/cargar-scripts.service';
 import { CatalogosService } from './services/catalogos.service';
 import { UsuarioService } from './services/usuario.service';
+import { FormAsignancionComponent } from './components-control/form-asignancion/form-asignancion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { UsuarioService } from './services/usuario.service';
     FormTecnicoComponent,
     FormUsuarioComponent,
     FormTipoUsuarioComponent,
-    FormNuevoBienComponent
+    FormNuevoBienComponent,
+    FormAsignancionComponent
    
     //Aqui vamos a agregar los compoenentes del proyecto
 

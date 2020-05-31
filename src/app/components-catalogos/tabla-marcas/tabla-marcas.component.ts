@@ -18,7 +18,7 @@ export class TablaMarcasComponent implements OnInit {
     p: number = 1;
     display = 'none';
     constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService) {
-        this._cargarScript.cargar(["/jquery.stepy","/sortingTable"]);
+        this._cargarScript.cargar(["/jquery.stepy","/sortingTable","/barCode"]);
 
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
@@ -69,6 +69,7 @@ export class TablaMarcasComponent implements OnInit {
                     timer: 3000
                 })
             }
+            
         
     }
   
