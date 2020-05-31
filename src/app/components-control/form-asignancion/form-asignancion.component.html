@@ -5,9 +5,9 @@
   <div class="row">
     <div class="col-lg-6">
 
-      <header class="panel-heading form-in-line">
+      <!-- <header class="panel-heading form-in-line">
         <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nueva Sucursal</button>
-      </header>
+      </header> -->
     </div>
     <div class="col-lg-3">
 
@@ -44,13 +44,13 @@
                   <tr *ngFor="let activo of activos | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                    
                     <td>{{activo.noFormulario}}</td>
-                    <td>{{activo.fechaIngreso}}</td>
+                    <td>{{activo.fechacadena}}</td>
                     <td>{{activo.desripcion}}</td>
                     <td>{{activo.marca}}</td>
                     <td>{{activo.clasificacion}}</td>
                     
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" (click)="asignar(activo.idBien)" ><i class="icon-pencil"></i></button>
+                      <button class="btn btn-primary btn-xs" (click)="asignar(activo.idBien)" ><i class="icon-edit"></i></button>
                      </td>
                   </tr>
                 </tbody>
@@ -64,3 +64,67 @@
   </div>
 </section>
 
+<!--modal para ingresar y editar-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" [formGroup]="activo" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
+            autocomplete="off">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Numero de Serie:</label>
+              <input type="text" class="form-control" formControlName="noSerie" id="exampleInputEmail3"
+                placeholder="Ingrese numero de serie" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Vida util estimada:</label>
+              <input type="text" class="form-control" formControlName="vidaUtil" id="exampleInputEmail3"
+                placeholder="Agregue vidaUtil" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea2" >Asignar Responsable:</label>
+              <select class="form-control" formControlName="idSucursal"  id="exampleFormControlTextarea2">
+                <option value="">---Seleccione---</option>
+                <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
+              </select>
+              </div>
+              <div class="form-group" style="text-align: center;">
+                <button  type="button" (click)="Gcodigo()" class="btn btn-default"><i class="icon-remove-sign"></i>
+                  Generar Codigo</button>
+                </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Codigo:</label>
+              <input type="text" class="form-control" formControlName="codigo" id="exampleInputEmail3"
+                placeholder="Agregue vidaUtil" autocomplete="off" readonly>
+            </div>
+            <div class="form-group" style="text-align: center;">
+            <button  type="button" (click)="GcodigoBarras()" class="btn btn-default"><i class="icon-remove-sign"></i>
+              Generar Codigo de Barras</button>
+            </div>
+            <button [disabled]="!activo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
+              Guardar</button>
+            <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+              Cancelar</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">{{titulo2}}</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+    </div>
+  </div>
+</div>

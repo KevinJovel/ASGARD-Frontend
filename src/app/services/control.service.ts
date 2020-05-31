@@ -13,4 +13,7 @@ export class ControlService {
 public getActivosSinAsignar() {
   return this.http.get(environment.urlService + "api/ActivoFIjo/listarActivosNoAsignados").map(res => res.json());
 }
+public listarComboAsigar() {
+  return this.http.get(environment.urlService + "api/ActivoFijo/listarEmpleadosCombo").map(res => res.json());
+}
 }
