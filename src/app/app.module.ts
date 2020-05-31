@@ -32,14 +32,17 @@ import { FormAreasNegocioComponent } from './components-catalogos/form-areas-neg
 import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-tecnico.component';
 import { FormUsuarioComponent } from './components-usuarios/form-usuario/form-usuario.component';
 import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuario/form-tipo-usuario.component';
+//componentes control
+
 import { FormNuevoBienComponent } from './components-control/form-nuevo-bien/form-nuevo-bien.component';
+import { FormAsignancionComponent } from './components-control/form-asignancion/form-asignancion.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 //servicios hay que procurar llevar el orden
 
 import { CargarScriptsService } from './services/cargar-scripts.service';
 import { CatalogosService } from './services/catalogos.service';
 import { UsuarioService } from './services/usuario.service';
-import { FormAsignancionComponent } from './components-control/form-asignancion/form-asignancion.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +94,8 @@ import { FormAsignancionComponent } from './components-control/form-asignancion/
       {path: 'form-tecnico', component: FormTecnicoComponent},
       {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent},
       {path: 'form-usuario', component: FormUsuarioComponent},
-      {path: 'form-nuevoBien', component: FormNuevoBienComponent}
+      {path: 'form-nuevoBien', component: FormNuevoBienComponent},
+      {path: 'form-asignacion', component: FormAsignancionComponent}
 
     ]),
     NoopAnimationsModule

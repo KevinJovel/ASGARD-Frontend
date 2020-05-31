@@ -1,1 +1,66 @@
-<p>form-asignancion works!</p>
+<br><br><br><br>
+<section class="panel">
+  <h1>Asignacion de Bienes</h1>
+
+  <div class="row">
+    <div class="col-lg-6">
+
+      <header class="panel-heading form-in-line">
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nueva Sucursal</button>
+      </header>
+    </div>
+    <div class="col-lg-3">
+
+    </div>
+    
+    <div class="col-md-3">
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
+</div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
+
+        <header class="panel-heading">
+          <h5>Bienes sin asignacion</h5>
+        </header>
+        <div class="panel-body">
+          <div class="adv-table">
+            <div class="adv-table">
+              <table class="display table table-bordered table-striped">
+                <thead>
+                  <tr>
+                   
+                    <th>Formulario</th>
+                    <th>Fecha de Ingreso</th>
+                    <th>Descripcion</th>
+                    <th>Marca</th>
+                    <th>Clasificación</th>
+                    <th class="hidden-phone">Asignar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let activo of activos | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
+                   
+                    <td>{{activo.noFormulario}}</td>
+                    <td>{{activo.fechaIngreso}}</td>
+                    <td>{{activo.desripcion}}</td>
+                    <td>{{activo.marca}}</td>
+                    <td>{{activo.clasificacion}}</td>
+                    
+                    <td class="center hidden-phone">
+                      <button class="btn btn-primary btn-xs" (click)="asignar(activo.idBien)" ><i class="icon-pencil"></i></button>
+                     </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+

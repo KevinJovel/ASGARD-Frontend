@@ -10,5 +10,7 @@ export class ControlService {
 
   constructor(private http: Http) { }
 //servicios dividamolos por form o por la parte que nos tocó
-
+public getActivosSinAsignar() {
+  return this.http.get(environment.urlService + "api/ActivoFIjo/listarActivosNoAsignados").map(res => res.json());
+}
 }
