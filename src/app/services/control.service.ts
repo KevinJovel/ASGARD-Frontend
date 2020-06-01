@@ -16,4 +16,7 @@ public getActivosSinAsignar() {
 public listarComboAsigar() {
   return this.http.get(environment.urlService + "api/ActivoFijo/listarEmpleadosCombo").map(res => res.json());
 }
+public GenerarCodigo(idempleado,idbien) {
+  return this.http.get(environment.urlService + "api/Empleado/GenerarCodigo/"+idempleado+"/"+idbien).map(res => res.json());
+}
 }

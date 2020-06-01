@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
+import { CargarScriptsService} from './../../services/cargar-scripts.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-form-asignancion',
@@ -16,11 +17,13 @@ export class FormAsignancionComponent implements OnInit {
   display2 = 'none';
   titulo: string;
   titulo2: string;
-  constructor(private controlService: ControlService) { 
+  constructor(private controlService: ControlService, private _cargarScript:CargarScriptsService) { 
+    this._cargarScript.cargar(["/barCode"]);
     this.activo = new FormGroup({
       'idBien': new FormControl("0"),
       'noSerie': new FormControl(""),
       'vidaUtil': new FormControl(""),
+      'idEmpleado':new FormControl("0"),
       'Responsable': new FormControl(""),
       'codigo': new FormControl(""),
       'codigoBarras':new FormControl(""),
@@ -36,11 +39,37 @@ close2(){
   this.display2 = 'none';
 }
 Gcodigo(){
+  if(this.activo.controls["idEmpleado"].value==0){
+    Swal.fire({
+      icon: 'error',
+      title: 'ERROR',
+      text: 'Seleccione un empleado para generar el codigos',
+    
+    })  
+  }else{
+    var idempleado=this.activo.controls["idEmpleado"].value;
+    var idbien=this.activo.controls["idBien"].value;
+    this.controlService.GenerarCodigo(idempleado,idbien).subscribe(data=>{
+      var correlativoSucursal=data.correlativoSucursal;
+      var correlativoArea=data.correlativoArea;
+      var correlativoClasificacion=data.correlativoClasificacion;
+      var correlativo=data.correlativo;
+
+      this.activo.controls["codigo"].setValue(correlativoSucursal+"-"+correlativoArea+"-"+correlativoClasificacion+"-"+correlativo);
+    });
+  }
   
 }
 GcodigoBarras(){
-  this.titulo2= "Codigo de Barras ";
-  this.display2 = 'block';
+  if(this.activo.controls["codigo"].value==""){
+    Swal.fire({
+      icon: 'error',
+      title: 'ERROR',
+      text: 'Se requiere generar un codigo antes de generar el codigo de barras',
+    
+    })  
+  }
+ 
 }
 close(){
   this.display = 'none';
@@ -48,6 +77,8 @@ close(){
 asignar(id){
   //limpia cache
   this.titulo = "Asignar nuevo bien ";
+  this.activo.controls["idBien"].setValue(id);
+  this.activo.controls["codigo"].setValue("");
   this.display = 'block';
 }
 

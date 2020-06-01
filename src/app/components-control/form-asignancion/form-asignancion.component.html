@@ -77,34 +77,45 @@
           <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
             autocomplete="off">
             <div class="form-group">
+            <div class="col-lg-6">
               <label for="exampleInputEmail1">Numero de Serie:</label>
               <input type="text" class="form-control" formControlName="noSerie" id="exampleInputEmail3"
                 placeholder="Ingrese numero de serie" autocomplete="off">
+              </div>
+              <div class="col-lg-6">
+                <label for="exampleInputEmail1">Vida util estimada:</label>
+                <input type="text" class="form-control" formControlName="vidaUtil" id="exampleInputEmail3"
+                  placeholder="Agregue vida Util" autocomplete="off">
+              </div>
             </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Vida util estimada:</label>
-              <input type="text" class="form-control" formControlName="vidaUtil" id="exampleInputEmail3"
-                placeholder="Agregue vidaUtil" autocomplete="off">
-            </div>
+        
+            
+            <!-- (change)="filtrar(tipo)" -->
             <div class="form-group">
               <label for="exampleFormControlTextarea2" >Asignar Responsable:</label>
-              <select class="form-control" formControlName="idSucursal"  id="exampleFormControlTextarea2">
-                <option value="">---Seleccione---</option>
+              <select class="form-control" formControlName="idEmpleado"  id="exampleFormControlTextarea2" (change)="Gcodigo()">
+                <option value="0">---Seleccione---</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
               </select>
               </div>
-              <div class="form-group" style="text-align: center;">
-                <button  type="button" (click)="Gcodigo()" class="btn btn-default"><i class="icon-remove-sign"></i>
+              <!-- <div class="form-group" style="text-align: center;">
+                <button  type="button" (click)="Gcodigo()"  class="btn btn-default"><i class="icon-remove-sign"></i>
                   Generar Codigo</button>
-                </div>
+                </div> -->
+                
             <div class="form-group">
               <label for="exampleInputEmail1">Codigo:</label>
-              <input type="text" class="form-control" formControlName="codigo" id="exampleInputEmail3"
-                placeholder="Agregue vidaUtil" autocomplete="off" readonly>
+              <input style="text-align: center;" type="text" class="form-control" formControlName="codigo" id="cadena"
+                placeholder="" autocomplete="off" readonly>
             </div>
             <div class="form-group" style="text-align: center;">
-            <button  type="button" (click)="GcodigoBarras()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            <button  type="button" id="saluda" class="btn btn-default"><i class="icon-remove-sign"></i>
               Generar Codigo de Barras</button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+              <svg id="barcode" width="30px" height="30px"></svg>
+              <br>
+                      <p style="text-align: center;"> Registro de activos fijos ACAASS de R.L</p>
             </div>
             <button [disabled]="!activo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
               Guardar</button>
@@ -122,9 +133,7 @@
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
         <h4 class="modal-title">{{titulo2}}</h4>
       </div>
-      <div class="modal-body">
-        
-      </div>
+      
     </div>
   </div>
 </div>
