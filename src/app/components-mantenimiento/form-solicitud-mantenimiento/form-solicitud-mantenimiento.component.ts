@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MantenimientoService } from './../../services/mantenimiento.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Component({
