@@ -1,0 +1,58 @@
+<br><br><br><br>
+<section class="panel">
+  <h1>Solicitudes de Mantenimiento</h1>
+
+  <div class="row">
+ 
+    
+    <div class="col-md-3">
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
+
+     
+        <div class="panel-body">
+          <div class="adv-table">
+            <div class="adv-table">
+              <table class="display table table-bordered table-striped">
+                <thead>
+                  <tr>
+				   
+					<th>N°</th>
+                    <th>Formulario</th>
+                    <th>Fecha de solicitud</th>
+                    <th>folio</th>
+                    <th>Estado</th>
+                    <th>Clasificación</th>
+                    <th class="hidden-phone">Ver solicitud</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let soliticud of solicitudes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
+                   
+                    <td>{{soliticud.noFormulario}}</td>
+                    <td>{{soliticud.fechaIngreso}}</td>
+                    <td>{{soliticud.desripcion}}</td>
+                    <td>{{soliticud.marca}}</td>
+                    <td>{{soliticud.clasificacion}}</td>
+                    
+                    <td class="center hidden-phone">
+                      <button class="btn btn-primary btn-xs" (click)="crearinforme()" ><i class="icon-pencil"></i></button>
+                     </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+

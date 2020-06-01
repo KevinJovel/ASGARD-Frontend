@@ -37,11 +37,20 @@ import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuari
 import { FormNuevoBienComponent } from './components-control/form-nuevo-bien/form-nuevo-bien.component';
 import { FormAsignancionComponent } from './components-control/form-asignancion/form-asignancion.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+
+//componentes mantenimiento
+import { FormSolicitudMantenimientoComponent } from './components-mantenimiento/form-solicitud-mantenimiento/form-solicitud-mantenimiento.component';
+import { TablaSolicitudComponent } from './components-mantenimiento/tabla-solicitud/tabla-solicitud.component';
+import { FormInformeMantenimientoComponent } from './components-mantenimiento/form-informe-mantenimiento/form-informe-mantenimiento.component';
+import { TablaInformeComponent } from './components-mantenimiento/tabla-informe/tabla-informe.component';
+
 //servicios hay que procurar llevar el orden
 
 import { CargarScriptsService } from './services/cargar-scripts.service';
 import { CatalogosService } from './services/catalogos.service';
 import { UsuarioService } from './services/usuario.service';
+import { MantenimientoService } from './services/mantenimiento.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +74,11 @@ import { UsuarioService } from './services/usuario.service';
     FormUsuarioComponent,
     FormTipoUsuarioComponent,
     FormNuevoBienComponent,
-    FormAsignancionComponent
+    FormAsignancionComponent,
+    FormSolicitudMantenimientoComponent,
+    TablaSolicitudComponent,
+    FormInformeMantenimientoComponent,
+    TablaInformeComponent
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -95,12 +108,20 @@ import { UsuarioService } from './services/usuario.service';
       {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent},
       {path: 'form-usuario', component: FormUsuarioComponent},
       {path: 'form-nuevoBien', component: FormNuevoBienComponent},
-      {path: 'form-asignacion', component: FormAsignancionComponent}
+      {path: 'form-asignacion', component: FormAsignancionComponent},
+      {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},
+      {path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent},
+      {path: 'tabla-solicitud', component: TablaSolicitudComponent},
+      
+
+
+
+      
 
     ]),
     NoopAnimationsModule
     ],
-    providers: [CargarScriptsService, CatalogosService, UsuarioService],
+    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService],
 
     bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
 })
