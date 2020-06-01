@@ -10,6 +10,16 @@ export class ControlService {
 
   constructor(private http: Http) { }
 //servicios dividamolos por form o por la parte que nos tocó
+//ingreso de bienes
+public listarComboProveedor() {
+  return this.http.get(environment.urlService + "api/ActivoFijo/listarProveedoresCombo").map(res => res.json());
+}
+public listarComboDonante() {
+  return this.http.get(environment.urlService + "api/ActivoFijo/listarDonantesCombo").map(res => res.json());
+}
+
+
+//asignacion de bienes
 public getActivosSinAsignar() {
   return this.http.get(environment.urlService + "api/ActivoFIjo/listarActivosNoAsignados").map(res => res.json());
 }
