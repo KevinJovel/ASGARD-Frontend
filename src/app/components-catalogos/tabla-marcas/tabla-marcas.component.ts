@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
 import { CargarScriptsService} from './../../services/cargar-scripts.service';
+import { ControlService } from './../../services/control.service';
 import { style } from '@angular/animations'
 import { FormGroup, FormControl } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -13,16 +14,18 @@ declare var $;
 })
 export class TablaMarcasComponent implements OnInit {
     @Input() marcas: any;
+    comboProvDon:any;
     marca: FormGroup;
     sucursal: FormGroup;
     p: number = 1;
     display = 'none';
-    constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService) {
+    constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService,private controlService: ControlService) {
         this._cargarScript.cargar(["/jquery.stepy","/sortingTable","/barCode"]);
 
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
-        
+            'idTipo': new FormControl("0"),
+            'idCombo': new FormControl("0"),
             'nombre': new FormControl(""),
             'ubicacion': new FormControl(""),
             'correlativo': new FormControl("")
@@ -30,6 +33,7 @@ export class TablaMarcasComponent implements OnInit {
     }
     ngOnInit() {
         this.catalogoService.getMarcas().subscribe(res => this.marcas = res);
+        this.controlService.listarComboDonante().subscribe(res=> {this.comboProvDon=res});
     }
     open() {
         this.display = 'block';
@@ -71,6 +75,13 @@ export class TablaMarcasComponent implements OnInit {
             }
             
         
+    }
+    ProveedorDonante(){
+        var idempleado=this.sucursal.controls["idTipo"].value;
+        if(idempleado==1){
+            this.controlService.listarComboProveedor().subscribe(res=> {this.comboProvDon=res});
+        }
+       
     }
   
 }
