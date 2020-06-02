@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {FormGroup, Validators, FormControl} from '@angular/forms';
 import { CatalogosService } from './../../services/catalogos.service';
+import { ControlService } from './../../services/control.service';
 import { Router, ActivatedRoute } from '@angular/router'
 import { CargarScriptsService} from './../../services/cargar-scripts.service';
 import { style } from '@angular/animations'
@@ -15,54 +16,75 @@ declare var $;
 })
 export class FormNuevoBienComponent implements OnInit {
   //Variables 
-  @Input() marcas: any;
+  comboProvDon:any;
+  id:any;
+  tipocombo:string;
+  combo: FormGroup;
   marca: FormGroup;
   sucursal: FormGroup;
   p: number = 1;
   display = 'none';
-  constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService) {
+  disabled: boolean;
+
+  //Variables de etiqueta
+  disabledPrima:string;
+  disabledPlazo:string;
+  disabledCuota:string;
+  disabledInteres:string;
+
+  constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService, private controlService: ControlService) {
     this._cargarScript.cargar(["/jquery.stepy","/sortingTable"]);
 
-    this.sucursal = new FormGroup({
-        'idSucursal': new FormControl("0"),
-    
-        'nombre': new FormControl(""),
-        'ubicacion': new FormControl(""),
-        'correlativo': new FormControl("")
+    this.combo = new FormGroup({
+        'idTipo': new FormControl("0"),
+        'idCombo': new FormControl("0"),
+        'fech': new FormControl(""),
+        'plazo': new FormControl(""),
+        'cuota': new FormControl(""),
+        'interes': new FormControl(""),
+        'prima': new FormControl("")
+        
     });
-
-
    }
 
   ngOnInit() {
-    this.catalogoService.getMarcas().subscribe(res => this.marcas = res);
+    this.tipocombo="Proveedor o Donante:";
+    this.disabledPrima="Ingrese prima"
+    this.disabledPlazo="Ingrese plazo"
+    this.disabledCuota="Ingrese cuota"
+    this.disabledInteres="Ingrese interes"
   }
-  open() {
-    this.display = 'block';
+  //Método para cargar combo
+  ProveedorDonante(){
+    
+    var idempleado=this.combo.controls["idTipo"].value;
+    if(idempleado==1||idempleado==2){
+      this.tipocombo="Proveedor:";
+      this.disabledPrima="Inhabilitado";
+      this.disabledPlazo="Inhabilitado";
+      this.disabledCuota="Inhabilitado";
+      this.disabledInteres="Inhabilitado";
+      if(idempleado==1){
+        this.disabled=true;
+      }else{
+        this.disabled=false;
+        this.disabledPrima="Ingrese prima"
+        this.disabledPlazo="Ingrese plazo"
+        this.disabledCuota="Ingrese cuota"
+        this.disabledInteres="Ingrese interes"
+      }
+      this.controlService.listarComboProveedor().subscribe(res=> {this.comboProvDon=res});
+    }else{
+      this.disabled=true;
+      this.tipocombo="Donante:";
+      this.controlService.listarComboDonante().subscribe(res=> {this.comboProvDon=res});
+    }
+   
 }
-close() {
-    this.display = 'none';
-}
-modif(id) {
 
-    this.display = 'block';
-    this.catalogoService.recuperarMarcas(id).subscribe(data => {
-        alert(data.idMarca);
-        alert(data.marca);
-        alert(data.descripcion);
-        this.marca = new FormGroup({
-            'marc': new FormControl(""+data.marca)
-        });
-        
-        //this.marca.controls["idMarca"].setValue(data.idMarca);
-        //this.marca.controls["marc"].setValue("123");
-        //this.marca.controls["descripcion"].setValue(data.descripcion);
-        
-    });
-}
+
 guardarDatos() {
     //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
-    
        
         if (this.sucursal.valid == true) {
             this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {

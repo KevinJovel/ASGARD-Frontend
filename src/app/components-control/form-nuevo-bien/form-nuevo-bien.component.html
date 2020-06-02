@@ -10,7 +10,7 @@
     </div>
     <div class="col-lg-3">
       <button style="margin-top: 15px;" type="button" class="btn btn-success"><i
-        class="icon-plus-sign-alt"></i> Ver Registros</button>
+        class="icon-book"></i> Ver Registros</button>
     </div>
 </div>
   </header>
@@ -26,7 +26,7 @@
               
           </ul>
       </div>
-      <form class="form-inline" id="default" [formGroup]="sucursal" (ngSubmit)="guardarDatos()">
+      <form class="form-inline" id="default" [formGroup]="combo">
           <fieldset title="1" class="step" id="default-step-0">
               <legend> </legend>
               <input type="hidden" class="form-control" formControlName="idSucursal" id="exampleInputEmail3" autocomplete="off">
@@ -34,41 +34,58 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label  for="formGroupExampleInput2"># de Formulario</label>
-                    <input type="email" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese # de formulario">
+                    <input type="email" class="form-control" id="inputEmail4"  placeholder="Ingrese # de formulario">
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6" >
                     <label for="inputPassword4">Fecha de Ingreso</label>
-                    <input type="date" class="form-control" >
+                    <input type="text" class="form-control" formControlName="fech">
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                     <label  for="formGroupExampleInput2">Estado</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>Seleccione...</option>
-                        <option>...</option>
+                    <select name="miselect"  class="form-control">
+                        <option value="0">Seleccione...</option>
+                        <option value="1">Nuevo</option>
+                        <option value="2">Usado</option>
+                        <option value="3">Usado mal estado</option>                  
                       </select>
                     </div>
-                    <div class="form-group col-md-6">
-                    <label for="inputPassword4">Proveedor o Donante</label>
-                    <select id="inputState" class="form-control">
+
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">Tipo Adquisición</label>
+                      <select id="inputState" formControlName="idTipo" class="form-control" (change)="ProveedorDonante()">
                         <option selected>Seleccione...</option>
-                        <option>...</option>
+                        <option value="1">Contado</option>
+                        <option value="2">Crédito</option>
+                        <option value="3">Donado</option>
+                        </select>
+                      </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">{{tipocombo}}</label>
+                    <select id="inputState" class="form-control">
+                      <option selected>Seleccione...</option>
+                      <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
                       </select>
                     </div>
                 </div>
                 <div class="row">
                    
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                     <label  for="formGroupExampleInput2">Descripción </label>
-                    <textarea class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2"
+                    <textarea class="form-control" id="exampleFormControlTextarea2"
                      rows="1" placeholder="Descripcion" autocomplete="off"></textarea>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                     <label for="inputPassword4">Cantidad</label>
-                    <input type="text" class="form-control" id="inputPassword4" formControlName="#" placeholder="Ingrese cantidad">
-                    </div>  
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad">
+                    </div> 
+                    
+                    <div class="col-lg-4">
+                      <label for="inputPassword4">Color</label>
+                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad">
+                      </div>
                 </div>   
               
                 <div></div>     
@@ -98,42 +115,43 @@
                     ></div>
                 </div>
 
-                
-
-                 <!-- Este div es para que el botón siguiente baje, ya que en el jQuery esta en block:true 
-                y si lo muevo se distorcionan los botones de anterior y siguiente  -->
-                
-
-
           </fieldset>
           <fieldset title="2" class="step" id="default-step-1" >
               <legend> </legend>
               <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                 <label  for="formGroupExampleInput2"># de Factura</label>
-                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese # de factura">
+                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese # de factura">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                 <label for="inputPassword4">Costo</label>
-                <input type="text" class="form-control"formControlName="#" placeholder="Ingrese costo" >
+                <input type="text" class="form-control" placeholder="Ingrese costo" >
                 </div>
+                <div class="form-group col-md-4">
+                  <label for="inputPassword4">Prima</label>
+                  <input type="text" class="form-control" placeholder="{{disabledPrima}}" formControlName="prima" [attr.disabled]="disabled ? '' : null">
+                  </div>
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                 <label  for="formGroupExampleInput2">Plazo</label>
-                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese plazo">
+                <input type="text" class="form-control" id="inputEmail4" formControlName="plazo" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label  for="formGroupExampleInput2">Cuota</label>
-                    <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese cuota">
+                    <input type="text" class="form-control" id="inputEmail4" formControlName="cuota" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null">
                     </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">Interes</label>
+                      <input type="text" class="form-control" placeholder="{{disabledInteres}}" formControlName="interes" [attr.disabled]="disabled ? '' : null">
+                      </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label  for="formGroupExampleInput2">Persona que entrega</label>
-                <input type="text" class="form-control" id="inputEmail4" formControlName="#" placeholder="Ingrese persona que entrega">
+                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que entrega">
                 </div>
                 <div class="form-group col-md-6">
                 <label for="inputPassword4">Persona que recibe</label>
