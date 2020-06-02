@@ -14,6 +14,9 @@ export class MantenimientoService {
  }
  public listarAreaCombo(){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarAreaCombo" ).map(res=>res.json());
+ } 
+ public getSolicitudMantenimiento(){
+   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarSolicitudMante").map(res=>res.json());
  }
 
 }
