@@ -11,44 +11,36 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-solicitud-mantenimiento.component.css']
 })
 export class FormSolicitudMantenimientoComponent implements OnInit {
+
+  //Variables 
+  //Con estas variables tenes el FormGroup donde agregas los campos para el formulario, el display es para el modal
+  solicitudes: FormGroup;
+  titulo:String;
   display = 'none';
-  solicitudes: any;
-  empleados: any;
-  areas: any;
-  solicitud: FormGroup;
-  titulo: string;
-  p: number = 1; 
-  constructor( private mantenimientoServices:MantenimientoService) {
-    this.solicitud= new FormGroup({
-      'idsolicitud': new FormControl("0"),
-      'personasolicitante': new FormControl("")
 
+  constructor() { 
+    this.solicitudes=new FormGroup({
+      'nombre': new FormControl(""),
+      'telefono': new FormControl(""),
+      'direccion': new FormControl("")
 
-    });
-
-   }
+    }); 
+  }
 
   ngOnInit(): void {
-    this.mantenimientoServices.listarEmpleadosCombo().subscribe(data =>{
-      this.empleados= data;
-    });
-    this.mantenimientoServices.listarAreaCombo().subscribe(data=>{
-      this.areas= data;
-    })
   }
-  guardarDatos(){
-    
-  }
-
+// No tenías estos métodos para abrir y cerrar el modal
   open() {
-    this.titulo = "Formulario ingreso de bienes a mantenimiento";
-    this.solicitud.controls["idsolicitud"].setValue("0");
-    this.solicitud.controls["personasolicitante"].setValue("");
-    
-
-
+    this.solicitudes.controls["nombre"].setValue("0");
+    this.solicitudes.controls["telefono"].setValue("0");
+    this.solicitudes.controls["direccion"].setValue(""); 
+    this.display = 'block';
   }
   close() {
     this.display = 'none';
+  }
+
+  guardarDatos(){
+    
   }
 }

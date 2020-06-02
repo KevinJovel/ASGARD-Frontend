@@ -1,10 +1,9 @@
-
 <br><br><br><br>
-<section class="panel">
+<section class="panel"></section>
   <header class="panel-heading">
     <div class="row">
         <div class="col-lg-6">
-      <h1>Nueva solicitud de mantenimiento</h1>
+      <h1>Formulario nueva solicitud de mantenimiento</h1>
     </div>
     <div class="col-lg-3">
         
@@ -19,30 +18,15 @@
               
           </ul>
       </div>
-      <form class="form-inline" id="default" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
+      <form class="form-inline" id="default" [formGroup]="" (ngSubmit)="guardarDatos()">
           <fieldset title="1" class="step" id="default-step-0">
               <legend> </legend>
               <input type="hidden" class="form-control"  id="exampleInputEmail3" autocomplete="off">
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                <label  for="formGroupExampleInput2">Área de negocio solicitante</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Seleccione Area de negocio, Sucursal</option>
-                    <option [value]="area.IdAreaNegocio" *ngFor="let area of areas">{{area.nombre+" , "+area.nombreSucursal}}</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputPassword4">Jefe o encargado de la unidad de negocio solicitante</label>
-                  <select id="inputState" class="form-control"  formControlName="personasolicitante">
-                    <option value="">Seleccione Empleado</option>
-                    <option [value]="empleado.idempleado" *ngFor="let empleado of  empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
-                    </select>
-                  </div>
-              </div>
+              
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label  for="formGroupExampleInput2">Número de Solicutd</label>
-                    <input type="email" class="form-control" formControlName="idsolicitud" id="inputEmail4"  readonly="of">
+                    <input type="email" class="form-control" id="inputEmail4"  readonly="of">
                     </div>
                     <div class="form-group col-md-6">
                     <label for="inputPassword4">Fecha</label>
@@ -50,20 +34,41 @@
                     </div>
                 </div>
 
-             
-                 
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label  for="formGroupExampleInput2">Unidad de negocio solicitante</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Seleccione...</option>
+                        <option>...</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                    <label for="inputPassword4">Jefe de la unidad de negocio solicitante</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Seleccione...</option>
+                        <option>...</option>
+                      </select>
+                    </div>
+                </div>
 
                 <!-- aqui empieza la tabla-->
-                <br><br><br><br>
                 <br><br><br><br>
 <section class="panel">
   <div class="row">
     <div class="col-lg-6">
+
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo bien</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Activo</button>
       </header>
     </div>
- 
+    <div class="col-lg-3">
+
+    </div>
+    
+    <div class="col-md-3">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control"  placeholder="Buscar">
+    </div>
+   
   </div>
 
   <div class="row">
@@ -87,16 +92,16 @@
               </thead>
               <tbody>
      
-               <tr *ngFor="let solicitud of solicitudes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+               <!-- <tr *ngFor="let clasificacion of clasificaciones | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{solicitud.correlativo}}</td>
-                  <td>{{solicitud.clasificacion}}</td>
-                  <td>{{solicitud.descripcion}}</td>
+                  <td>{{clasificacion.correlativo}}</td>
+                  <td>{{clasificacion.clasificacion}}</td>
+                  <td>{{clasificacion.descripcion}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" ><i class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" ><i class="icon-trash "></i></button>
+                    <button class="btn btn-primary btn-xs" (click)="modif(clasificacion.idclasificacion)"><i class="icon-pencil"></i></button>
+                    <button class="btn btn-danger btn-xs" (click)="eliminar(clasificacion.idclasificacion)"><i class="icon-trash "></i></button>
                   </td>
-                </tr>
+                </tr>-->
               </tbody>
             </table>
           <!--  <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>-->
@@ -112,62 +117,43 @@
   </div>
   <input type="submit" class="finish btn btn-danger" value="Enviar solictud"/>
 </section>
+ <!--aqui termina la tabla -->
 
+  <!--Inicio del modal -->
+    <!--No tenias el modal, al final de la tabla se agrega este código -->            
+  <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close"  type="button" (click)="close()">×</button>
+                <h4 class="modal-title">Formulario Solicitud de Mantenimiento</h4>
+            </div>
+            <div class="modal-body">
 
-                <!--aqui termina la tabla -->
-     <!-- modal para agregar bienes a mantenimiento-->
-     <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-      <div class="modal-dialog modal-lg modal-dialog-centered" >
-        <div class="modal-content"  >
-          <div class="modal-header">
-            <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-            <h4 class="modal-title">{{titulo}}</h4>
-          </div>
-          <div class="modal-body">
-            <form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
-              
-              <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
-              <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
-              
-            <!--<td>--> 
-    
-              <div class="form-group">
-              
-                <label for="exampleInputEmail1">Código del bien:</label>
-                <input  type="text" class="form-control" formControlName="#"  id="exampleInputEmail3" placeholder="Ingrese nombres" autocomplete="off" maxlength="51">
-              </div>
-    
-        
-              
-              <div class="form-group">
-                <label for="exampleFormControlTextarea1" >Descripcion del bien:</label>
-                <select class="form-control" formControlName="#"  id="exampleFormControlTextarea1"  maxlength="51">
-                  <option value="">---Seleccione---</option>	
-                  <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	 
-                </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">razones del mantenimiento:</label>
-                  <input type="text" class="form-control" formControlName="#" id="exampleInputEmail3" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
-                </div>
-              
-        
-    
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea2">Apellidos:</label>
-                  <input  size=40 type="text" class="form-control"  id="exampleFormControlTextarea2" placeholder="Ingrese apelidos" autocomplete="off"  maxlength="51">
-                </div>
-                 
-              <div class="form-group">
-                <label for="exampleFormControlTextarea2">Periodo del mantenimiento:</label>
-                <input class="form-control"  id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101">
-              </div>
+                <form role="form" [formGroup]="solicitudes">
 
-              <button  type="submit" [disabled]="!solicitud.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-              <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
-            </form>
-          </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre:</label>
+                        <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Teléfono:</label>
+                        <input type="text"  mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Dirección:</label>
+                        <textarea class="form-control rounded-0" formControlName="direccion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"></textarea>
+                    </div>
+         
+          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="button" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+
+                </form>
+            </div>
         </div>
-      </div>
     </div>
-    
+</div>
+  <!--Fin del modal del modal -->     
+                
