@@ -11,12 +11,44 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-solicitud-mantenimiento.component.css']
 })
 export class FormSolicitudMantenimientoComponent implements OnInit {
+  display = 'none';
+  solicitudes: any;
+  empleados: any;
+  areas: any;
+  solicitud: FormGroup;
+  titulo: string;
+  p: number = 1; 
+  constructor( private mantenimientoServices:MantenimientoService) {
+    this.solicitud= new FormGroup({
+      'idsolicitud': new FormControl("0"),
+      'personasolicitante': new FormControl("")
 
-  constructor() { }
+
+    });
+
+   }
 
   ngOnInit(): void {
+    this.mantenimientoServices.listarEmpleadosCombo().subscribe(data =>{
+      this.empleados= data;
+    });
+    this.mantenimientoServices.listarAreaCombo().subscribe(data=>{
+      this.areas= data;
+    })
   }
   guardarDatos(){
     
+  }
+
+  open() {
+    this.titulo = "Formulario ingreso de bienes a mantenimiento";
+    this.solicitud.controls["idsolicitud"].setValue("0");
+    this.solicitud.controls["personasolicitante"].setValue("");
+    
+
+
+  }
+  close() {
+    this.display = 'none';
   }
 }
