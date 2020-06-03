@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { HashLocationStrategy } from '@angular/common';
 
 
+
 @Component({
   selector: 'app-form-solicitud-mantenimiento',
   templateUrl: './form-solicitud-mantenimiento.component.html',
@@ -24,8 +25,10 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   constructor( private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
-       'folio': new FormControl("0"),
+       'bandera': new FormControl("0"),
+       'folio': new FormControl(""),
        'fechacadena': new FormControl(""),
+       'fechasolicitud': new FormControl(""),
        'personasolicitante':new FormControl(""),
        'codigobien':new FormControl(""),
        'descripcionbien':new FormControl(""),
@@ -54,8 +57,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   open() {
     this.titulo = "Formulario bienes mantenimiento";
     this.solicitud.controls["idsolicitud"].setValue("0");
+    this.solicitud.controls["bandera"].setValue("0");
     this.solicitud.controls["folio"].setValue("");
-    this.solicitud.controls["fechacadena"].setValue("");
+    this.solicitud.controls["fechasolicitud"].setValue("");
     this.solicitud.controls["personasolicitante"].setValue("");
     this.solicitud.controls["codigobien"].setValue("");
     this.solicitud.controls["descripcionbien"].setValue("");
@@ -68,7 +72,33 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.display = 'none';
   }
 
-  guardarDatos(){
+  guardarDatos() {
+   // if ((this.solicitud.controls["bandera"].value) == "0") {
+      if (this.solicitud.valid == true) {
+        this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(data => {
+          this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
+         });
+       
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Registro Guardado con exito',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+   // } 
+    this.solicitud.controls["idsolicitud"].setValue("0");
+  //  this.solicitud.controls["bandera"].setValue("0");
+    this.solicitud.controls["folio"].setValue("");
+    this.solicitud.controls["fechasolicitud"].setValue("");
+    this.solicitud.controls["idareadenegocio"].setValue("");
+    this.solicitud.controls["idsucursal"].setValue("");
+    this.solicitud.controls["idresponsable"].setValue("");
     
+
+    this.display = 'none';
+    this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
+
   }
 }
