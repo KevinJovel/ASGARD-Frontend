@@ -118,6 +118,7 @@ table {
     line-height: inherit;
     color: #797474;
   }
+  
   input[type=search] {
     border: 1px solid #e2e2e4;
     box-shadow: none;

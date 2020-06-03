@@ -18,7 +18,7 @@ export class FormAsignancionComponent implements OnInit {
   titulo: string;
   titulo2: string;
   constructor(private controlService: ControlService, private _cargarScript:CargarScriptsService) { 
-    this._cargarScript.cargar(["/barCode"]);
+    this._cargarScript.cargar(["/barCode","/ClearBarcode"]);
     this.activo = new FormGroup({
       'idBien': new FormControl("0"),
       'noSerie': new FormControl(""),
@@ -60,13 +60,13 @@ Gcodigo(){
   }
   
 }
-GcodigoBarras(){
+validar(){
   if(this.activo.controls["codigo"].value==""){
     Swal.fire({
       icon: 'error',
       title: 'ERROR',
-      text: 'Se requiere generar un codigo antes de generar el codigo de barras',
-    
+      text: 'Seleccione un empleado para generar el codigo',
+     
     })  
   }
  
@@ -75,10 +75,11 @@ close(){
   this.display = 'none';
 }
 asignar(id){
-  //limpia cache
+ 
   this.titulo = "Asignar nuevo bien ";
   this.activo.controls["idBien"].setValue(id);
   this.activo.controls["codigo"].setValue("");
+  this.activo.controls["idEmpleado"].setValue("0");
   this.display = 'block';
 }
 
