@@ -51,6 +51,7 @@ import { CargarScriptsService } from './services/cargar-scripts.service';
 import { CatalogosService } from './services/catalogos.service';
 import { UsuarioService } from './services/usuario.service';
 import { MantenimientoService } from './services/mantenimiento.service';
+import { SafePipe } from './components-control/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { MantenimientoService } from './services/mantenimiento.service';
     FormSolicitudMantenimientoComponent,
     TablaSolicitudComponent,
     FormInformeMantenimientoComponent,
-    TablaInformeComponent
+    TablaInformeComponent,
+    SafePipe
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
