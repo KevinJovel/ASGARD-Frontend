@@ -102,7 +102,7 @@
 
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese Descripcion" autocomplete="off"></textarea>
+            <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese Descripcion" maxlength="101" autocomplete="off"></textarea>
           </div>
 
           <div class="alert alert-success fade in" *ngIf="tipoUsuario.valid&&tipoUsuario.controls['bandera'].value==0">

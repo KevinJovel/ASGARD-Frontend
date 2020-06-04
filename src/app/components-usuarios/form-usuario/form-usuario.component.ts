@@ -146,6 +146,32 @@ export class FormUsuarioComponent implements OnInit {
      
   }
   
+  eliminar(idUsuario) {
+    Swal.fire({
+      title: '¿Esta seguro de eliminar este registro?',
+      text: "No podra revertir esta accion!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.value) {
+        this.usuarioService.eliminarUsuario(idUsuario).subscribe(data => {
+          Swal.fire(
+            'Dato eliminado!',
+            'El registro ha sido eliminado con exito.',
+            'success'
+          )
+          this.usuarioService.getUsuario().subscribe(
+            data => { this.usuarios = data }
+          );
+        });
+
+      }
+    })
+  }
+
 
   buscar(buscador) {
     this.p = 1;
