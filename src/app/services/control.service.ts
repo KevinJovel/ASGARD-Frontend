@@ -32,7 +32,7 @@ public GenerarCodigo(idempleado,idbien) {
 
 //
 public getBienes() {
-  return this.http.get(environment.urlService  + "api/ActivoFIjo/listarBienes").map(res => res.json());
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivos").map(res => res.json());
 }
 
 public recuperarBienes(id) {

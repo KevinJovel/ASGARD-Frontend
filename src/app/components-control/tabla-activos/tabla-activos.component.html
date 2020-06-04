@@ -53,7 +53,7 @@
                             <th>Código</th>
                             <th>Fecha Ingreso</th>
                             <th>Descripción</th>
-                            <th>TipoActivo</th>
+                            <th>Clasificación</th>
                             <th>Área de Negocio</th>
                             <th>Responsable</th>
                             
@@ -63,12 +63,12 @@
                         <tbody>
                           <tr *ngFor="let combo of comboAreaSucur | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                             <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                            <td>{{combo.correlativobien}}</td>
+                            <td>{{combo.Codigo}}</td>
                             <td>{{combo.fechacadena}}</td>
-                            <td>{{combo.descripcion}}</td>
-                            <td>{{combo.tipoactivo}}</td>
-                            <td>{{combo.responsable}}</td>
-                            <td>{{combo.responsable}}</td>
+                            <td>{{combo.Desripcion}}</td>
+                            <td>{{combo.Clasificacion}}</td>
+                            <td>{{combo.AreaDeNegocio}}</td>
+                            <td>{{combo.Resposnsable}}</td>
                             <td class="center hidden-phone">
                               <button class="btn btn-primary btn-xs"  ><i class="icon-pencil"></i></button>
                               <button class="btn btn-success btn-xs" (click)="mostrar(combo.idbien)" ><span class="glyphicon glyphicon-eye-open"></span></button>
@@ -98,14 +98,14 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <p>
-                        <span class="text-bold">Correlativo: </span> {{ bienObj.correlativobien }} <br/>
+                        <span class="text-bold">Correlativo: </span> {{ bienObj.Codigo }} <br/>
                         <span class="text-bold">Codigo de Barra: </span> {{ bienObj.codigobarra }} <br/>
                         <span class="text-bold">Tipo de Activo: </span> {{ bienObj.tipoactivo }} <br/>
                         <span class="text-bold">Area: </span> {{ bienObj.area }} <br/>
                         <span class="text-bold">Responsable: </span> {{ bienObj.correlativobien }} <br/>
                         <span class="text-bold">Modelo: </span> {{ bienObj.modelo }} <br/>
                         <span class="text-bold">Tipo de Adquisicion: </span> {{ bienObj.tipoadquisicion }} <br/>
-                        <span class="text-bold">Color: </span> {{ bienObj.color }} <br/>
+                        <span class="text-bold">Color: </span> {{ bienObj.Color }} <br/>
                         <span class="text-bold">Fecha: </span> {{ bienObj.fechacadena }} <br/>
                       </p>
                    

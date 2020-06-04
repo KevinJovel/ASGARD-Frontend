@@ -30,9 +30,7 @@ export class TablaActivosComponent implements OnInit {
       /////////////////////////////////////////////////
       'idbien': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'descripcion': new FormControl(""),
-      'numformulario': new FormControl(""),
-      'idclasificacion': new FormControl("")                                          
+                                              
   });
    }
  
@@ -62,9 +60,7 @@ mostrar(id) {
   //this.titulo = "Modificar Proveedor";
   this.display = 'block';
   
-  this.controlService.recuperarBienes(id).subscribe(data => {console.log(data);})
- 
-
+  this.controlService.recuperarBienes(id).subscribe(data => {this.bienObj = data})
   // {
 
     // this.combo.controls["idbien"].setValue(data.idbien);
