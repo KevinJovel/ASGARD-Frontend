@@ -32,13 +32,20 @@ public GenerarCodigo(idempleado,idbien) {
 
 //
 public getBienes() {
-  return this.http.get(environment.urlService  + "api/Bienes/listarBienes").map(res => res.json());
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/listarBienes").map(res => res.json());
 }
 
 public recuperarBienes(id) {
-  return this.http.get(environment.urlService  + "api/Bienes/RecuperarBienes/" + id).map(res => res.json());
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/RecuperarBienes/" + id).map(res => res.json());
 }
 
+public listarComboArea() {
+  return this.http.get(environment.urlService + "api/ActivoFIjo/listarAreaCombo").map(res => res.json());
+}
+
+public listarComboSucursal() {
+  return this.http.get(environment.urlService + "api/ActivoFIjo/listarSucursalCombo").map(res => res.json());
+}
 
 }
 

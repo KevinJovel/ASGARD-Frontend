@@ -9,7 +9,7 @@ import { ControlService } from './../../services/control.service';
 })
 export class TablaActivosComponent implements OnInit {
 
-    comboProvDon:any;
+    comboAreaSucur:any;
     bienes: any;
     id:any;
     tipocombo:string;
@@ -38,17 +38,17 @@ export class TablaActivosComponent implements OnInit {
  
   ngOnInit() {
     this.tipocombo="Filtro";
-     this.controlService.getBienes().subscribe(res=> {this.comboProvDon=res});
+     this.controlService.getBienes().subscribe(res=> {this.comboAreaSucur=res});
   }
-  ProveedorDonante(){
-    var idempleado=this.combo.controls["idTipo"].value;
-    if(idempleado==1||idempleado==2){
-      this.tipocombo="Proveedor:";
-        this.controlService.listarComboProveedor().subscribe(res=> {this.comboProvDon=res});
+  FiltroCombo(){
+    var idarea=this.combo.controls["idTipo"].value;
+    if(idarea==1||idarea==2){
+      this.tipocombo="Sucursal:";
+        this.controlService.listarComboSucursal().subscribe(res=> {this.comboAreaSucur=res});
         
     }else{
-      this.tipocombo="Donante:";
-      this.controlService.listarComboDonante().subscribe(res=> {this.comboProvDon=res});
+      this.tipocombo="Area:";
+      this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
     }
    
 }

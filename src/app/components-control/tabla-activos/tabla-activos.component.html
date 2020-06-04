@@ -16,13 +16,11 @@
               </div>
 
           <div class="form-group col-md-3">
-           <label  for="formGroupExampleInput2">Filtro</label>
-           <select id="inputState" formControlName="idTipo" class="form-control" (change)="ProveedorDonante()">
-              <option selected>Seleccione</option>
+           <label  for="formGroupExampleInput2">Filtro Sucursal y Area </label>
+           <select id="inputState" formControlName="idTipo" class="form-control" (change)="FiltroCombo()">
+              <option selected>--Seleccione--</option>
               <option value="1">Sucursal</option>
-              <option value="2">N° Formulario</option>
-              <option value="3">N° Factura</option>
-              <option value="4">Area de negocio</option>
+              <option value="2">Area de negocio</option>
             </select>
           </div>
           <div class="form-group col-md-3">
@@ -30,7 +28,7 @@
           <select id="inputState" class="form-control" formControlName="idCombo">
             <option selected>Seleccione</option>
 
-            <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>	
+            <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option>	
           </select>
         </div>
               <div class="col-lg-3">
@@ -63,7 +61,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let combo of comboProvDon | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                          <tr *ngFor="let combo of comboAreaSucur | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                             <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                             <td>{{combo.correlativobien}}</td>
                             <td>{{combo.fechacadena}}</td>
