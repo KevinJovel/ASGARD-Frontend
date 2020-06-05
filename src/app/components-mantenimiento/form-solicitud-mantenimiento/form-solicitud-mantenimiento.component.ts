@@ -16,6 +16,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
 
   solicitudes: any;
   empleados: any;
+  codigos: any;
   areas: any;
   solicitud: FormGroup;
   titulo:String;
@@ -30,7 +31,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
        'fechacadena': new FormControl(""),
        'fechasolicitud': new FormControl(""),
        'personasolicitante':new FormControl(""),
-       'codigobien':new FormControl(""),
+       'codigobien':new FormControl("0"),
        'descripcionbien':new FormControl(""),
        'razonesmantenimiento':new FormControl(""),
        'periodomantenimiento':new FormControl(""),
@@ -51,6 +52,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     });
     this.mantenimientoService.listarEmpleadosCombo().subscribe(data =>{
       this.empleados =data;
+    });
+    this.mantenimientoService.listarCodigoCombo().subscribe(data =>{
+      this.codigos =data;
     });
   }
 // No tenías estos métodos para abrir y cerrar el modal
