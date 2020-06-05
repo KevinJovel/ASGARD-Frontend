@@ -21,6 +21,9 @@ export class MantenimientoService {
  public guardarSolicitud(idsolicitud) {
   return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarSolicitud", idsolicitud).map(res => res.json());
 }
+public guardarBienesSolicitud(idsolicitud) {
+  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarBienesSolicitud", idsolicitud).map(res => res.json());
+}
 
  
 }

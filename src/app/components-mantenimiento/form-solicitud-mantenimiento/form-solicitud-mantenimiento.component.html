@@ -12,12 +12,12 @@
     </div>
   </header>
 
-    <form class="form-inline" id="default" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
+   <form class="form-inline" id="default" [formGroup]="solicitud" (ngSubmit)="guardarDatos()"></form>
       <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
       <fieldset title="1" class="step" id="default-step-0">
         <legend> </legend>
         <input type="hidden" class="form-control" id="exampleInputEmail3" autocomplete="off">
-
+      
         <div class="form-row">
           <div class="form-group col-md-6">           
             <label for="formGroupExampleInput2">Área de negocio solicitante</label>
@@ -66,6 +66,8 @@
 
           </div>
 
+         
+
           <div class="row">
             <div class="col-lg-12">
               <section class="panel panel-default">
@@ -113,7 +115,9 @@
               </section>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <br><br><br>
+          <input type="submit" class="finish btn btn-danger" value="Guardar"/>
+        
          
         </section>
         <!--aqui termina la tabla -->
@@ -131,15 +135,26 @@
  
                 <form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
                   <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
+                  
 
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Codigo del bien:</label>
-                    <input size="80" type="text" class="form-control" formControlName="codigobien" id="exampleInputEmail3" placeholder="codigo del bien" autocomplete="off" maxlength="51">
+                
+                  
+                  <div class="form-group ">           
+                    <label size="80"  form="formGroupExampleInput2">codigo del bien</label>
+                    <select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2" >
+                      <option value="0">---Seleccione---</option>
+                      <!--<option [value]="area.IdAreaNegocio" *ngFor="let area of areas">{{area.nombre+" , "+area.nombreSucursal}}
+                      </option>-->
+                    </select>
                   </div>
                   <br>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Descripcion:</label>
-                    <input size="80" type="text" class="form-control" formControlName="descripcionbien" id="exampleInputEmail3"  placeholder="Ingrese nombre" autocomplete="off">
+                  <div class="form-group ">           
+                    <label size="80"  for="formGroupExampleInput2">Descripcion</label>
+                    <select  class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2" >
+                      <option value="0">---Seleccione---</option>
+                      <!--<option [value]="area.IdAreaNegocio" *ngFor="let area of areas">{{area.nombre+" , "+area.nombreSucursal}}
+                      </option>-->
+                    </select>
                   </div>
                   <br>
 
@@ -159,11 +174,11 @@
                   <div>
                   <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
                   <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
-                </div>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
-        
+      
         <!--Fin del modal del modal -->
