@@ -15,16 +15,21 @@ declare var $;
   styleUrls: ['./form-nuevo-bien.component.css']
 })
 export class FormNuevoBienComponent implements OnInit {
-  //Variables 
+  //Variables para combos
   comboProvDon:any;
-  id:any;
+  clasificaciones: any;
   tipocombo:string;
+  marcas: any;
+
+  //Variables
+  id:any;
   combo: FormGroup;
   marca: FormGroup;
   sucursal: FormGroup;
   p: number = 1;
   display = 'none';
   disabled: boolean;
+  
 
   //Variables de etiqueta
   disabledPrima:string;
@@ -53,6 +58,14 @@ export class FormNuevoBienComponent implements OnInit {
     this.disabledPlazo="Ingrese plazo"
     this.disabledCuota="Ingrese cuota"
     this.disabledInteres="Ingrese interes"
+
+    this.controlService.listarComboClasificacion().subscribe(data=>{
+      this.clasificaciones=data;
+    });
+
+    this.controlService.listarComboMarca().subscribe(data=>{
+      this.marcas=data;
+    });
   }
   //Método para cargar combo
   ProveedorDonante(){
@@ -81,7 +94,6 @@ export class FormNuevoBienComponent implements OnInit {
     }
    
 }
-
 
 guardarDatos() {
     //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar

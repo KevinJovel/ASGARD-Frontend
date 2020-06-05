@@ -1,6 +1,7 @@
 import { Injectable, Inject  } from '@angular/core';
 import { Http } from '@angular/http'
 import 'rxjs/add/operator/map'
+import { EmitterVisitorContext } from '@angular/compiler';
 import { Observable } from 'rxjs/Observable';
 import {environment} from '../../environments/environment'
 @Injectable({
@@ -17,6 +18,18 @@ public listarComboProveedor() {
 public listarComboDonante() {
   return this.http.get(environment.urlService + "api/ActivoFijo/listarDonantesCombo").map(res => res.json());
 }
+
+public agregarNuevoBien(nuevoBien, formularioIngreso) {
+  return this.http.post(environment.urlService + "api/ActivoFijo/guardarnuevoBien", nuevoBien, formularioIngreso).map(res=>res.json());
+  }
+  
+  public listarComboClasificacion() {
+    return this.http.get(environment.urlService + "api/ActivoFijo/listarClasificacionCombo").map(res=>res.json());
+  }
+  
+  public listarComboMarca() {
+    return this.http.get(environment.urlService + "api/ActivoFijo/listarMarcasCombo").map(res=>res.json());
+  }
 
 
 //asignacion de bienes
