@@ -26,26 +26,26 @@
               
           </ul>
       </div>
-      <form class="form-inline" id="default" [formGroup]="combo">
+      <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarDatoss()">
           <fieldset title="1" class="step" id="default-step-0">
               <legend> </legend>
-              <input type="hidden" class="form-control" formControlName="idSucursal" id="exampleInputEmail3" autocomplete="off">
-              
+              <input type="hidden" class="form-control" formControlName="IdBien" id="exampleInputEmail3" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label  for="formGroupExampleInput2"># de Formulario</label>
-                    <input type="email" class="form-control" id="inputEmail4"  placeholder="Ingrese # de formulario">
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Ingrese # de formulario">
                     </div>
                     <div class="form-group col-md-6" >
                     <label for="inputPassword4">Fecha de Ingreso</label>
-                    <input type="text" class="form-control" formControlName="fech">
+                    <input type="text" class="form-control">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-4">
                     <label  for="formGroupExampleInput2">Estado</label>
-                    <select name="miselect"  class="form-control">
+                    <select name="miselect"  class="form-control" formControlName="estadoingreso">
                         <option value="0">Seleccione...</option>
                         <option value="1">Nuevo</option>
                         <option value="2">Usado</option>
@@ -55,7 +55,7 @@
 
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Tipo Adquisición</label>
-                      <select id="inputState" formControlName="idTipo" class="form-control" (change)="ProveedorDonante()">
+                      <select formControlName="idTipo" class="form-control" (change)="ProveedorDonante()">
                         <option selected>Seleccione...</option>
                         <option value="1">Contado</option>
                         <option value="2">Crédito</option>
@@ -64,7 +64,7 @@
                       </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">{{tipocombo}}</label>
-                    <select id="inputState" class="form-control">
+                    <select  class="form-control" formControlName="idproveedor">
                       <option selected>Seleccione...</option>
                       <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
                       </select>
@@ -75,7 +75,7 @@
                     <div class="col-lg-4">
                     <label  for="formGroupExampleInput2">Descripción </label>
                     <textarea class="form-control" id="exampleFormControlTextarea2"
-                     rows="1" placeholder="Descripcion" autocomplete="off"></textarea>
+                     rows="1" placeholder="Descripcion" autocomplete="off" formControlName="descripcion"></textarea>
                     </div>
                     <div class="col-lg-4">
                     <label for="inputPassword4">Cantidad</label>
@@ -84,7 +84,7 @@
                     
                     <div class="col-lg-4">
                       <label for="inputPassword4">Color</label>
-                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad">
+                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad" formControlName="color">
                       </div>
                 </div>   
               
@@ -92,21 +92,21 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                       <label for="inputCity">Clasificación</label>
-                      <select id="inputState" class="form-control">
+                      <select  class="form-control" formControlName="idclasificacion">
                         <option selected>Seleccione...</option>
                         <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.correlativo}}-{{clasificacion.clasificacion}}</option>
                       </select>
                      </div>
                     <div class="form-group col-md-4">
                       <label for="inputState">Marca</label>
-                      <select id="inputState" class="form-control">
+                      <select id="inputState" class="form-control" formControlName="idmarca">
                         <option selected>Seleccione...</option>
                         <option [value]="marca.idMarca" *ngFor="let marca of marcas">{{marca.marca}}</option>
                       </select>  
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputZip">Modelo</label>
-                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo">
+                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo" formControlName="modelo">
                     </div>
                     
                   </div>
@@ -125,7 +125,7 @@
                 </div>
                 <div class="form-group col-md-4">
                 <label for="inputPassword4">Costo</label>
-                <input type="text" class="form-control" placeholder="Ingrese costo" >
+                <input type="text" class="form-control" placeholder="Ingrese costo" formControlName="costo">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputPassword4">Prima</label>
@@ -169,10 +169,10 @@
                  </div>
           
              
-            
+                 
                 <div class="form-group col-md-6">
                 <label  for="formGroupExampleInput2">Observaciones </label>
-                <textarea class="form-control" formControlName="observaciones" id="exampleFormControlTextarea2"
+                <textarea class="form-control" id="exampleFormControlTextarea2"
                  rows="1" placeholder="Ingrese observaciones" autocomplete="off"></textarea>
                 </div>
                                 
