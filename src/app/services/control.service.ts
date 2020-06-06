@@ -19,8 +19,8 @@ public listarComboDonante() {
   return this.http.get(environment.urlService + "api/ActivoFijo/listarDonantesCombo").map(res => res.json());
 }
 
-public agregarNuevoBien(nuevoBien, formularioIngreso) {
-  return this.http.post(environment.urlService + "api/ActivoFijo/guardarnuevoBien", nuevoBien, formularioIngreso).map(res=>res.json());
+public agregarNuevoBien(nuevoBien) {
+  return this.http.post(environment.urlService + "api/ActivoFijo/guardarnuevoBien", nuevoBien).map(res=>res.json());
   }
   
   public listarComboClasificacion() {

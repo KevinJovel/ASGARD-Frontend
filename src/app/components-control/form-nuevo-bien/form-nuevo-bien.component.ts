@@ -23,7 +23,7 @@ export class FormNuevoBienComponent implements OnInit {
 
   //Variables
   id:any;
-  combo: FormGroup;
+  nuevobien: FormGroup;
   marca: FormGroup;
   sucursal: FormGroup;
   p: number = 1;
@@ -40,14 +40,33 @@ export class FormNuevoBienComponent implements OnInit {
   constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService, private controlService: ControlService) {
     this._cargarScript.cargar(["/jquery.stepy","/sortingTable"]);
 
-    this.combo = new FormGroup({
-        'idTipo': new FormControl("0"),
-        'idCombo': new FormControl("0"),
-        'fech': new FormControl(""),
+    this.nuevobien = new FormGroup({
+        'IdBien': new FormControl("0"),
+        'bandera': new FormControl("0"),
+        'noformulario': new FormControl(""),
+        'descripcion': new FormControl(""),
+        'modelo': new FormControl(""),
+        'idTipo': new FormControl(""),
+        'color': new FormControl(""),
+        'idmarca': new FormControl(""),
+        'idclasificacion': new FormControl(""),
+        'idproveedor': new FormControl(""),
+        'iddonante': new FormControl(""),
+        'estadoingreso': new FormControl(""),
+        'costo': new FormControl(""),
         'plazo': new FormControl(""),
+        'prima': new FormControl(""),
         'cuota': new FormControl(""),
         'interes': new FormControl(""),
-        'prima': new FormControl("")
+        'foto': new FormControl("")
+        //Variables para la tabla formularioIngreso
+       // 'noformularioF': new FormControl(""),
+        // 'nofactura': new FormControl(""),
+      //  'fechaingreso': new FormControl(""),
+      //  'personaentrega': new FormControl(""),
+      //  'personarecibe': new FormControl(""),
+        //'observaciones': new FormControl("")
+        
         
     });
    }
@@ -70,7 +89,7 @@ export class FormNuevoBienComponent implements OnInit {
   //Método para cargar combo
   ProveedorDonante(){
     
-    var idempleado=this.combo.controls["idTipo"].value;
+    var idempleado=this.nuevobien.controls["idTipo"].value;
     if(idempleado==1||idempleado==2){
       this.tipocombo="Proveedor:";
       this.disabledPrima="Inhabilitado";
@@ -95,21 +114,35 @@ export class FormNuevoBienComponent implements OnInit {
    
 }
 
-guardarDatos() {
-    //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
-       
-        if (this.sucursal.valid == true) {
-            this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
-            });
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Dato Guardado con exito',
-                showConfirmButton: false,
-                timer: 3000
-            })
-        }
-    
+guardarDatoss() {
+  if ((this.nuevobien.controls["bandera"].value) == "0") {
+    if (this.nuevobien.valid == true) {
+      this.controlService.agregarNuevoBien(this.nuevobien.value).subscribe(data => {
+       });
+     
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registro Guardado con éxito',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+  } else {
+    //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
+    this.nuevobien.controls["bandera"].setValue("0");
+    if (this.nuevobien.valid == true) {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registro no guardado',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+  }
+  
+
 }
 
 }
