@@ -42,6 +42,9 @@ public listarComboAsigar() {
 public GenerarCodigo(idempleado,idbien) {
   return this.http.get(environment.urlService + "api/Empleado/GenerarCodigo/"+idempleado+"/"+idbien).map(res => res.json());
 }
+public AsignarBien(bien) {
+  return this.http.post(environment.urlService + "api/ActivoFIjo/asignarBien", bien).map(res => res.json());
+}
 
 //
 public getBienes() {

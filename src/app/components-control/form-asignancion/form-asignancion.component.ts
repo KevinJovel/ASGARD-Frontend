@@ -26,7 +26,7 @@ export class FormAsignancionComponent implements OnInit {
       'idEmpleado':new FormControl("0"),
       'Responsable': new FormControl(""),
       'codigo': new FormControl(""),
-      'codigoBarras':new FormControl(""),
+      'codigoBarras':new FormControl("")
   });
 
   }
@@ -60,6 +60,11 @@ Gcodigo(){
   }
   
 }
+ver(){
+  var canvas=<HTMLInputElement>document.getElementById("barcode");
+
+  
+}
 validar(){
   if(this.activo.controls["codigo"].value==""){
     Swal.fire({
@@ -83,7 +88,21 @@ asignar(id){
   this.display = 'block';
 }
 
-guardarDatos(){
+AsignarBienes(){
+  if (this.activo.valid == true) {
+    this.controlService.AsignarBien(this.activo.value).subscribe(data => { 
+    this.display = 'none';
+    this.controlService.getActivosSinAsignar().subscribe(res => {this.activos = res});
+    });
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Bien asignado con exito',
+        showConfirmButton: false,
+        timer: 3000
+    })
+    
+}
 
 }
 buscar(nombre){}

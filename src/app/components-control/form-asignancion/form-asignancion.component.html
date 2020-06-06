@@ -73,7 +73,7 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form role="form" [formGroup]="activo" (ngSubmit)="guardarDatos()">
+        <form role="form" [formGroup]="activo" (ngSubmit)="AsignarBienes()">
           <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
             autocomplete="off">
             <div class="form-group">
@@ -84,7 +84,7 @@
               </div>
               <div class="col-lg-6">
                 <label for="exampleInputEmail1">Vida util estimada:</label>
-                <input type="text" class="form-control" formControlName="vidaUtil" id="exampleInputEmail3"
+                <input type="number" class="form-control" formControlName="vidaUtil" id="exampleInputEmail3"
                   placeholder="Vida util en años" autocomplete="off">
               </div>
             </div>
@@ -113,7 +113,7 @@
               Generar Codigo de Barras</button>
             </div>
             <div class="modal-body" style="text-align: center;">
-              <svg id="barcode" width="30px" height="30px"></svg>
+              <svg id="barcode" width="400px" height="150px"></svg>
               <br>
                       <p style="text-align: center;"> Registro de activos fijos ACAASS de R.L</p>
             </div>
@@ -126,14 +126,4 @@
     </div>
   </div>
 </div>
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
-        <h4 class="modal-title">{{titulo2}}</h4>
-      </div>
-      
-    </div>
-  </div>
-</div>
+
