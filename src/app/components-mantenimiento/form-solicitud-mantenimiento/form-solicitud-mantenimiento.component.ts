@@ -26,12 +26,13 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   constructor( private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
+       'idmantenimiento': new FormControl("0"),
        'bandera': new FormControl("0"),
        'folio': new FormControl(""),
        'fechacadena': new FormControl(""),
        'fechasolicitud': new FormControl(""),
        'personasolicitante':new FormControl(""),
-       'codigobien':new FormControl("0"),
+       'codigobien':new FormControl(""),
        'descripcionbien':new FormControl(""),
        'razonesmantenimiento':new FormControl(""),
        'periodomantenimiento':new FormControl(""),
@@ -108,8 +109,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       }
     }
     
-    this.solicitud.controls["idsolicitud"].setValue("0");
-    this.solicitud.controls["bandera"].setValue("0");
+      this.solicitud.controls["idsolicitud"].setValue("0");
+      this.solicitud.controls["bandera"].setValue("0");
       this.solicitud.controls["folio"].setValue("");
       this.solicitud.controls["fechasolicitud"].setValue("");
       this.solicitud.controls["idareadenegocio"].setValue("");
@@ -122,7 +123,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       
   
       this.display = 'none';
-      this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
+      //this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
   
   }
 
