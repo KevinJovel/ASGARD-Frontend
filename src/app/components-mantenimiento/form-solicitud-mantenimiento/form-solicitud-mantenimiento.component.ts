@@ -21,6 +21,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   solicitud: FormGroup;
   titulo:String;
   display = 'none';
+  display2 = 'none';
   p: number = 1;
 
   constructor( private mantenimientoService: MantenimientoService) { 
@@ -58,7 +59,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       this.codigos =data;
     });
   }
-// No tenías estos métodos para abrir y cerrar el modal
+
   open() {
     this.titulo = "Formulario bienes mantenimiento";
     this.solicitud.controls["idsolicitud"].setValue("0");
@@ -66,15 +67,24 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   //  this.solicitud.controls["folio"].setValue("");
     //this.solicitud.controls["fechasolicitud"].setValue("");
     this.solicitud.controls["personasolicitante"].setValue("");
+  
+     
+    this.display = 'block';
+  }
+  open2() {
+    this.titulo = "tabla";
     this.solicitud.controls["codigobien"].setValue("");
     this.solicitud.controls["descripcionbien"].setValue("");
     this.solicitud.controls["razonesmantenimiento"].setValue("");
     this.solicitud.controls["periodomantenimiento"].setValue("");
-     
-    this.display = 'block';
+   
+    this.display2 = 'block';
   }
   close() {
     this.display = 'none';
+  }
+  close2() {
+    this.display2 = 'none';
   }
 
   guardarDatos() {
