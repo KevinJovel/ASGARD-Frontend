@@ -3,7 +3,7 @@
   <header class="panel-heading">
     <div class="row">
       <div class="col-lg-6">
-        <h1>Formulario nueva solicitud de mantenimiento</h1>
+        <h1>Solicitud mantenimiento</h1>
       </div>
       <div class="col-lg-3">
 
@@ -20,7 +20,7 @@
         <legend> </legend>
         <input type="hidden" class="form-control" id="exampleInputEmail3" autocomplete="off">
       
-        <div class="form-row">
+      <!--  <div class="form-row">
           <div class="form-group col-md-6">           
             <label for="formGroupExampleInput2">Área de negocio solicitante</label>
             <select  class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea2" >
@@ -38,8 +38,8 @@
               <option [value]="empleado.idempleado" *ngFor="let empleado of  empleados">
                 {{empleado.nombres+" "+empleado.apellidos}}</option>
             </select>
-          </div>
-        </div>
+          </div>-
+        </div>-->
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="formGroupExampleInput2">Folio</label>
@@ -80,7 +80,7 @@
                   <div class="adv-table">
                     <table class="display table table-bordered table-striped">
                      <!----> <thead>
-                        <tr>
+                     <tr>
                           <th scope="row">N°</th>
                      
                           <th scope="row">Código del bien</th>
@@ -93,8 +93,8 @@
                       <tbody>
 
                   <tr *ngFor="let solicitud of solicitudes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                
+                 <!--  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                  
                   <td>{{solicitud.codigobien}}</td>
                   <td>{{solicitud.descripcionbien}}</td>
                   <td>{{solicitud.razonesmantenimiento}}</td>
@@ -103,7 +103,7 @@
 
                     <button class="btn btn-danger btn-xs" ><i class="icon-trash "></i></button>
                   </td>
-                </tr>
+                </tr>-->
                       </tbody>
                     </table>
                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>

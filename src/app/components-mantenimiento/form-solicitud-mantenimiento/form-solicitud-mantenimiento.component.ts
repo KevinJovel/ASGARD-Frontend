@@ -37,9 +37,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
        'razonesmantenimiento':new FormControl(""),
        'periodomantenimiento':new FormControl(""),
        'nombrecompleto':new FormControl(""),
-       'idareadenegocio':new FormControl("0"),
-       'idresponsable': new FormControl("0"),
-       'idsucursal':new FormControl("0")
+       'idareadenegocio':new FormControl(""),
+       'idresponsable': new FormControl(""),
+       'idsucursal':new FormControl("")
       
     }); 
   }
