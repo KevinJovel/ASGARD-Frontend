@@ -15,6 +15,7 @@ export class FormSucursalComponent implements OnInit {
     sucursal: FormGroup;
     display = 'none';
     titulo: string;
+    matriz:(string | number)[][]=new Array();
     constructor(private catalogoService: CatalogosService) {
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
@@ -84,7 +85,29 @@ export class FormSucursalComponent implements OnInit {
         this.display = 'none';
       
     }
+    arrayMostrar(dato,dato2){
+        this.matriz.push([dato,dato2,dato]);
+  
+      
+        console.log(this.matriz);
+
+
+        // let datos: (string | number)[]  = []; 
+        // datos.sort(); 
+        // datos.splice(1);
+        // datos.splice(2);
+        // datos.splice(3);
+      
+//prueba
+        // function addToArray(datos: (string | number)[],x:number) {
+        // const index= datos.length;
+        // datos[index]=x;
+     
+        // }
+        // console.log(datos);
+    }
     eliminar(idSucursal) {
+        
         this.catalogoService.validarDependeArea(idSucursal).subscribe(data=>{
            if(data==1){
             Swal.fire({
