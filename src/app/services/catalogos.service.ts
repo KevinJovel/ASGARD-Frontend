@@ -50,6 +50,10 @@ export class CatalogosService {
   public validarCorrelativoSucursal(idSucursal, correlativo){
     return this.http.get(environment.urlService  + "api/Sucursal/validarCorrelativo/" + idSucursal+ "/"+ correlativo).map(res => res.json());
   }
+  public validarSucursalUbicacion(idSucursal, correlativo,ubicacion){
+    return this.http.get(environment.urlService  + "api/Sucursal/validarCorrelativo/" + idSucursal+ "/"+ correlativo+"/"+ubicacion).map(res => res.json());
+  }
+ 
   public updateSucursal(sucursal) {
     return this.http.post(environment.urlService  + "api/Sucursal/modificarSucursal", sucursal).map(res => res.json());
 }
@@ -256,6 +260,12 @@ public RecuperarArea(id) {
 }
 public updateArea(area) {
   return this.http.post(environment.urlService  + "api/AreasNegocios/modificarArea", area).map(res => res.json());
+}
+public validarCorrelativoArea(idArea, correlativo){
+  return this.http.get(environment.urlService  + "api/AreasNegocios/validarCorrelativo/" + idArea+ "/"+ correlativo).map(res => res.json());
+}
+public existenEmpleadosAsignados(idArea){
+  return this.http.get(environment.urlService  + "api/AreasNegocios/validarEmpleados/" + idArea).map(res => res.json());
 }
 
 }

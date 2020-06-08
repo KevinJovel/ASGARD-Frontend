@@ -19,8 +19,8 @@ export class FormSucursalComponent implements OnInit {
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
             'bandera': new FormControl("0"),
-            'nombre': new FormControl("", [Validators.required,Validators.maxLength(50)]),
-            'ubicacion': new FormControl("", [Validators.required,Validators.maxLength(50)]),
+            'nombre': new FormControl("", [Validators.required,Validators.maxLength(50)], this.noRepetirSucursalUbicacion.bind(this)),
+            'ubicacion': new FormControl("", [Validators.required,Validators.maxLength(50)], this.noRepetirSucursalUbicacion.bind(this)),
             'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10)], this.noRepetirCorrelativo.bind(this))
         });
     }
@@ -145,6 +145,29 @@ export class FormSucursalComponent implements OnInit {
               .subscribe(data => {
                 if (data == 1) {
                   resolve({ yaExisteCorrelativo: true });
+                } else {
+                  resolve(null);
+                }
+    
+              })
+    
+          }
+    
+    
+        });
+    
+        return promesa;
+      }
+      noRepetirSucursalUbicacion(control: FormControl) {
+
+        var promesa = new Promise((resolve, reject) => {
+    
+          if (control.value != "" && control.value != null) {
+    
+            this.catalogoService.validarSucursalUbicacion(this.sucursal.controls["idSucursal"].value,this.sucursal.controls["nombre"].value,this.sucursal.controls["ubicacion"].value )
+              .subscribe(data => {
+                if (data == 1) {
+                  resolve({ yaExisteConvinacion: true });
                 } else {
                   resolve(null);
                 }

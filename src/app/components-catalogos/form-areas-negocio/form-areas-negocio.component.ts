@@ -20,9 +20,9 @@ export class FormAreasNegocioComponent implements OnInit {
     this.area=new FormGroup({
       'idAreaNegocio': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl(""),
-      'idSucursal': new FormControl(""),
-      'correlativo': new FormControl("")
+      'nombre': new FormControl("",[Validators.required,Validators.maxLength(50)]),
+      'idSucursal': new FormControl("0"),
+      'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10)], this.noRepetirCorrelativo.bind(this))
     });
   }
 
@@ -98,7 +98,16 @@ export class FormAreasNegocioComponent implements OnInit {
   }
   eliminar(idArea){
 
-    Swal.fire({
+    this.catalogosServices.existenEmpleadosAsignados(idArea).subscribe(data=>{
+      if(data==1){
+       Swal.fire({
+           icon: 'error',
+           title: 'ERROR',
+           text: 'No es posible eliminar este dato, esta área de negocio ya tiene empleados asignados',
+         
+         })    
+      }else{
+      Swal.fire({
       title: '¿Estas seguro de eliminar este registro?',
       text: "No podras revertir esta accion!",
       icon: 'warning',
@@ -115,15 +124,40 @@ export class FormAreasNegocioComponent implements OnInit {
                   'success'
               )
               this.catalogosServices.getAreas().subscribe(res => {this.areas = res});
-          });
-         
-      }
-  })
+            });
 
+          }
+      })
+         }
+      })
+      
   }
   buscar(buscador){
     this.p=1;
     this.catalogosServices.buscarArea(buscador.value).subscribe(res => this.areas = res);
+  }
+  noRepetirCorrelativo(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) {
+
+        this.catalogosServices.validarCorrelativoArea(this.area.controls["idAreaNegocio"].value, control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteCorrelativo: true });
+            } else {
+              resolve(null);
+            }
+
+          })
+
+      }
+
+
+    });
+
+    return promesa;
   }
 
 }

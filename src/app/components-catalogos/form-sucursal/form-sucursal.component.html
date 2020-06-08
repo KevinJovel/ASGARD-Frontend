@@ -89,6 +89,12 @@
             <label for="exampleInputEmail1">Ubicación:</label>
             <input type="text" class="form-control" formControlName="ubicacion" id="exampleInputEmail3" placeholder="Ubicación de sucursal" autocomplete="off" maxlength="51">
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.yaExisteConvinacion||sucursal.controls['nombre'].errors?.yaExisteConvinacion">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Esta convinacion de aucursal y ubicacion ya existe
+          </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>

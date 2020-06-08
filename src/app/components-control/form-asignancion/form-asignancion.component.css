@@ -3,6 +3,12 @@
 table {
     width: 100%;
   }
+  .col-lg-6 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 4px;
+    padding-left: 5px;
+}
   .panel-body {
     padding: 12px 0px;
   }
@@ -32,6 +38,10 @@ table {
     animation-name: modal;
     animation-duration: 1s;
     box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  }
+  .modal-body{
+    position: relative;
+padding: 10px;
   }
   
   
@@ -111,6 +121,7 @@ table {
     color: #797474;
     border-radius: 10px;
     font-size: 15px;
+    margin-bottom: 12px;
   }
   input, select, textarea,::placeholder {
     font-family: inherit;
