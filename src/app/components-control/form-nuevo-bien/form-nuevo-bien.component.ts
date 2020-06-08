@@ -41,7 +41,7 @@ export class FormNuevoBienComponent implements OnInit {
     this._cargarScript.cargar(["/jquery.stepy","/sortingTable"]);
 
     this.nuevobien = new FormGroup({
-        'IdBien': new FormControl("0"),
+        'idbien': new FormControl("0"),
         'bandera': new FormControl("0"),
         'noformulario': new FormControl(""),
         'descripcion': new FormControl(""),
@@ -58,14 +58,14 @@ export class FormNuevoBienComponent implements OnInit {
         'prima': new FormControl(""),
         'cuota': new FormControl(""),
         'interes': new FormControl(""),
-        'foto': new FormControl("")
-        //Variables para la tabla formularioIngreso
-       // 'noformularioF': new FormControl(""),
-        // 'nofactura': new FormControl(""),
-      //  'fechaingreso': new FormControl(""),
-      //  'personaentrega': new FormControl(""),
-      //  'personarecibe': new FormControl(""),
-        //'observaciones': new FormControl("")
+        'foto': new FormControl(""),
+        // Variables para la tabla formularioIngreso
+         'noformularioF': new FormControl(""),
+         'noFactura': new FormControl(""),
+        'fechaingreso': new FormControl(""),
+        'personaentrega': new FormControl(""),
+        'personarecibe': new FormControl(""),
+        'observaciones': new FormControl("")
         
         
     });
