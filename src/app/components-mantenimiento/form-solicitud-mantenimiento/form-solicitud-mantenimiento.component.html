@@ -26,8 +26,7 @@
         </div>
         
       
-        <input type="submit" class="finish btn btn-danger" value="Guardar"/>
-        <!-- aqui empieza la tabla-->
+      
         <br><br><br><br>
   
           <div class="row">
@@ -36,6 +35,8 @@
               <header class="panel-heading form-in-line">
                 <button type="button" class="btn btn-success" (click)="open2()" data-toggle="modal"
                   data-target="#myModal"><i class="icon-plus-sign-alt"></i> ver tabla</button>
+                  <input type="submit" class="finish btn btn-danger" value="Guardar"/>
+              
               </header>
             </div>
         
@@ -182,6 +183,8 @@
                 <!-- <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off"> -->
                 <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
                 autocomplete="off">
+                <input type="hidden" class="form-control" formControlName="idMantenimiento" id="exampleInputEmail3"
+                autocomplete="off">
                  <input type="hidden" class="form-control" formControlName="codigobien" id="exampleInputEmail3" autocomplete="off">  
                 <input type="hidden" class="form-control" formControlName="descripcionbien" id="exampleInputEmail3" autocomplete="off">  
                 <!--<form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
@@ -195,12 +198,12 @@
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">razones del mantenimiento:</label>
-                    <input size="80" type="text" class="form-control" formControlName="razonesmantenimiento" id="exampleInputEmail3" placeholder="Razones del mantenimiento" autocomplete="off">
+                    <input size="80" type="text" class="form-control" formControlName="razonesMantenimiento" id="exampleInputEmail3" placeholder="Razones del mantenimiento" autocomplete="off">
                   </div>
                   <br>
                   <div class="form-group">
                     <label for="exampleInputEmail1">periodo del mantenimiento:</label>
-                    <input size="80" type="text" class="form-control" formControlName="periodomantenimiento" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
+                    <input size="80" type="text" class="form-control" formControlName="periodoMantenimiento" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
                   </div>
                   <br>
                   <br>

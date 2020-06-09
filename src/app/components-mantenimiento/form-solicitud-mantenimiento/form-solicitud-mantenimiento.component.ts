@@ -34,11 +34,12 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       
     }); 
     this.datosArray=new FormGroup({
+      'idMantenimiento': new FormControl("0"),
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
-      'razonesmantenimiento':new FormControl(""),
-      'periodomantenimiento':new FormControl("")
+      'razonesMantenimiento':new FormControl(""),
+      'periodoMantenimiento':new FormControl("")
     });
   }
 
@@ -71,8 +72,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.datosArray.controls["idBien"].setValue(id);
     this.datosArray.controls["codigobien"].setValue(codigo);
     this.datosArray.controls["descripcionbien"].setValue(descripcion);
-    this.datosArray.controls["razonesmantenimiento"].setValue("");
-    this.datosArray.controls["periodomantenimiento"].setValue("");
+    this.datosArray.controls["razonesMantenimiento"].setValue("");
+    this.datosArray.controls["periodoMantenimiento"].setValue("");
     this.display = 'block';
 
   }
@@ -84,8 +85,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
   arrayMostrar(){
     this.matriz.push([this.datosArray.controls["idBien"].value,this.datosArray.controls["codigobien"].value, 
-    this.datosArray.controls["descripcionbien"].value,this.datosArray.controls["razonesmantenimiento"].value,
-    this.datosArray.controls["periodomantenimiento"].value]);
+    this.datosArray.controls["descripcionbien"].value,this.datosArray.controls["razonesMantenimiento"].value,
+    this.datosArray.controls["periodoMantenimiento"].value]);
     this.display = 'none';
     this.display2 = 'none';
   
@@ -93,10 +94,39 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   guardarDatos() {
-
+this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(res=>{
+  if(res==1){
     for (let datos of this.matriz) {
-        console.log(datos[1]);
+      this.datosArray.controls["idBien"].setValue(datos[0]);
+      this.datosArray.controls["razonesMantenimiento"].setValue(datos[3]);
+      this.datosArray.controls["periodoMantenimiento"].setValue(datos[4]);
+     this.mantenimientoService.setSolicitud(this.datosArray.value).subscribe(data => {
+    
+     });
+
     }
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Solicitud Guardado con exito',
+      showConfirmButton: false,
+      timer: 3000
+    })
+
+  }else{
+    Swal.fire({
+      position: 'center',
+      icon: 'warning',
+      title: 'Error al guardar',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+ 
+});
+
+
+   
 
     // if ((this.solicitud.controls["bandera"].value) == "0") {
     //   if (this.solicitud.valid == true) {

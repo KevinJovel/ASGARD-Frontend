@@ -18,8 +18,8 @@ export class MantenimientoService {
  public getSolicitudMantenimiento(){
    return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarSolicitudMante").map(res=>res.json());
  }
- public guardarSolicitud(idsolicitud) {
-  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarSolicitud", idsolicitud).map(res => res.json());
+ public guardarSolicitud(solicitud) {
+  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarSolicitud", solicitud).map(res => res.json());
 }
 public listarCodigoCombo(){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarCodigoCombo" ).map(res=>res.json());
@@ -27,6 +27,10 @@ public listarCodigoCombo(){
  public getBienes(){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarBienes").map(res=>res.json());
 }
+public setSolicitud(datos) {
+  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarBienes",datos).map(res => res.json());
+}
+
 
 
  
