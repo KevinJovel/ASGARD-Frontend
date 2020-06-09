@@ -19,6 +19,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   codigos: any;
   areas: any;
   solicitud: FormGroup;
+  datosArray:FormGroup;
   titulo:String;
   display = 'none';
   display2 = 'none';
@@ -28,22 +29,17 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   constructor( private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
-       'idmantenimiento': new FormControl("0"),
-       'bandera': new FormControl("0"),
        'folio': new FormControl(""),
-       'fechacadena': new FormControl(""),
-       'fechasolicitud': new FormControl(""),
-       'personasolicitante':new FormControl(""),
-       'codigobien':new FormControl(""),
-       'descripcionbien':new FormControl(""),
-       'razonesmantenimiento':new FormControl(""),
-       'periodomantenimiento':new FormControl(""),
-       'nombrecompleto':new FormControl(""),
-       'idareadenegocio':new FormControl(""),
-       'idresponsable': new FormControl(""),
-       'idsucursal':new FormControl("")
+       'fechasolicitud': new FormControl("")
       
     }); 
+    this.datosArray=new FormGroup({
+      'idBien': new FormControl("0"),
+      'codigobien':new FormControl(""),
+      'descripcionbien':new FormControl(""),
+      'razonesmantenimiento':new FormControl(""),
+      'periodomantenimiento':new FormControl("")
+    });
   }
 
   ngOnInit(): void {
@@ -65,24 +61,20 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   open2() {
-    this.titulo = "Formulario bienes mantenimiento";
-    this.solicitud.controls["idsolicitud"].setValue("0");
-    //this.solicitud.controls["bandera"].setValue("0");
-  //  this.solicitud.controls["folio"].setValue("");
-    //this.solicitud.controls["fechasolicitud"].setValue("");
-    this.solicitud.controls["personasolicitante"].setValue("");
-  
-     
+    this.titulo = "Bienes mantenimiento";
     this.display2 = 'block';
   }
-  open() {
-    this.titulo = "bienes";
-    this.solicitud.controls["codigobien"].setValue("");
-    this.solicitud.controls["descripcionbien"].setValue("");
-    this.solicitud.controls["razonesmantenimiento"].setValue("");
-    this.solicitud.controls["periodomantenimiento"].setValue("");
-   
+
+  open(id,codigo,descripcion) {
+ 
+    this.titulo = "Datos de mantenimiento";
+    this.datosArray.controls["idBien"].setValue(id);
+    this.datosArray.controls["codigobien"].setValue(codigo);
+    this.datosArray.controls["descripcionbien"].setValue(descripcion);
+    this.datosArray.controls["razonesmantenimiento"].setValue("");
+    this.datosArray.controls["periodomantenimiento"].setValue("");
     this.display = 'block';
+
   }
   close() {
     this.display = 'none';
@@ -90,8 +82,10 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   close2() {
     this.display2 = 'none';
   }
-  arrayMostrar(dato,dato2,dato3,dato4){
-    this.matriz.push([dato,dato2,dato3,dato4,dato]);
+  arrayMostrar(){
+    this.matriz.push([this.datosArray.controls["idBien"].value,this.datosArray.controls["codigobien"].value, 
+    this.datosArray.controls["descripcionbien"].value,this.datosArray.controls["razonesmantenimiento"].value,
+    this.datosArray.controls["periodomantenimiento"].value]);
 
   
     console.log(this.matriz);
