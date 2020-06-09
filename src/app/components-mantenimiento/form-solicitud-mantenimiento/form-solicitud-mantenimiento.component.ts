@@ -93,6 +93,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   guardarDatos() {
+
     for (let datos of this.matriz) {
         console.log(datos[1]);
     }
@@ -139,6 +140,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     //   this.solicitud.controls["descripcionbien"].setValue("");
     //   this.solicitud.controls["razonesmantenimiento"].setValue("");
     //   this.solicitud.controls["periodomantenimiento"].setValue("");
+
+ 
       
   
     //   this.display = 'none';
