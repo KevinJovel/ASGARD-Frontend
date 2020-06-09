@@ -94,16 +94,17 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   guardarDatos() {
-this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(res=>{
+  this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(res=>{
   if(res==1){
     for (let datos of this.matriz) {
       this.datosArray.controls["idBien"].setValue(datos[0]);
       this.datosArray.controls["razonesMantenimiento"].setValue(datos[3]);
       this.datosArray.controls["periodoMantenimiento"].setValue(datos[4]);
      this.mantenimientoService.setSolicitud(this.datosArray.value).subscribe(data => {
-    
+      this.mantenimientoService.getBienes().subscribe(data=>{
+        this.bienes=data;
+      });
      });
-
     }
     Swal.fire({
       position: 'center',
@@ -112,8 +113,8 @@ this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(res=>
       showConfirmButton: false,
       timer: 3000
     })
-
-  }else{
+this.matriz=[],[];
+}else{
     Swal.fire({
       position: 'center',
       icon: 'warning',
@@ -123,94 +124,6 @@ this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(res=>
     })
   }
  
-});
-
-
-   
-
-    // if ((this.solicitud.controls["bandera"].value) == "0") {
-    //   if (this.solicitud.valid == true) {
-    //     this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(data => {
-    //       this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
-    //      });
-       
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'success',
-    //       title: 'Registro Guardado con exito',
-    //       showConfirmButton: false,
-    //       timer: 3000
-    //     })
-    //   }
-    // } else {
-    //   //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
-    //   this.solicitud.controls["bandera"].setValue("0");
-    //   if (this.solicitud.valid == true) {
-    //     this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
-    //       this.solicitudes=data;
-    //     });
-    //     Swal.fire({
-    //       position: 'center',
-    //       icon: 'success',
-    //       title: 'Registro modificado con exito',
-    //       showConfirmButton: false,
-    //       timer: 3000
-    //     })
-    //   }
-    // }
-    
-    //   this.solicitud.controls["idsolicitud"].setValue("0");
-    //   this.solicitud.controls["bandera"].setValue("0");
-    //   this.solicitud.controls["folio"].setValue("");
-    //   this.solicitud.controls["fechasolicitud"].setValue("");
-    //   this.solicitud.controls["idareadenegocio"].setValue("");
-    //   this.solicitud.controls["idsucursal"].setValue("");
-    //   this.solicitud.controls["idresponsable"].setValue("");
-    //   this.solicitud.controls["codigobien"].setValue("");
-    //   this.solicitud.controls["descripcionbien"].setValue("");
-    //   this.solicitud.controls["razonesmantenimiento"].setValue("");
-    //   this.solicitud.controls["periodomantenimiento"].setValue("");
-
- 
-      
-  
-    //   this.display = 'none';
-      //this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
-  
+}); 
   }
-
-
-  /*guardarDatos() {
-   // if ((this.solicitud.controls["bandera"].value) == "0") {
-      if (this.solicitud.valid == true) {
-        this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(data => {
-          this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
-         });
-       
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Registro Guardado con exito',
-          showConfirmButton: false,
-          timer: 3000
-        })
-      }
-   // } 
-    this.solicitud.controls["idsolicitud"].setValue("0");
-  //  this.solicitud.controls["bandera"].setValue("0");
-    this.solicitud.controls["folio"].setValue("");
-    this.solicitud.controls["fechasolicitud"].setValue("");
-    this.solicitud.controls["idareadenegocio"].setValue("");
-    this.solicitud.controls["idsucursal"].setValue("");
-    this.solicitud.controls["idresponsable"].setValue("");
-    this.solicitud.controls["codigobien"].setValue("");
-    this.solicitud.controls["descripcionbien"].setValue("");
-    this.solicitud.controls["razonesmantenimiento"].setValue("");
-    this.solicitud.controls["periodomantenimiento"].setValue("");
-    
-
-    this.display = 'none';
-    this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
-
-  }*/
 }
