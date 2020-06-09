@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let soliticud of solicitudes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
-                   
+                    <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                     <td>{{soliticud.folio}}</td>
                     <td>{{soliticud.fechacadena}}</td>
                    
