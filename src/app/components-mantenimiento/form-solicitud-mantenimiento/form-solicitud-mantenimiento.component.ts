@@ -92,7 +92,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   guardarDatos() {
-    if ((this.solicitud.controls["bandera"].value) == "0") {
+   // if ((this.solicitud.controls["bandera"].value) == "0") {
       if (this.solicitud.valid == true) {
         this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(data => {
           this.mantenimientoService.getSolicitudMantenimiento().subscribe(res => {this.solicitudes = res});
@@ -105,26 +105,12 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })
-      }
-    } else {
-      //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
-      this.solicitud.controls["bandera"].setValue("0");
-      if (this.solicitud.valid == true) {
-        this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
-          this.solicitudes=data;
-        });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Registro modificado con exito',
-          showConfirmButton: false,
-          timer: 3000
-        })
-      }
+     // }
     }
+  //  }
     
       this.solicitud.controls["idsolicitud"].setValue("0");
-      this.solicitud.controls["bandera"].setValue("0");
+     
       this.solicitud.controls["folio"].setValue("");
       this.solicitud.controls["fechasolicitud"].setValue("");
      // this.solicitud.controls["idareadenegocio"].setValue("");
