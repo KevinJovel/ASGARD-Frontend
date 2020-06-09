@@ -24,7 +24,9 @@ export class MantenimientoService {
 public listarCodigoCombo(){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarCodigoCombo" ).map(res=>res.json());
  } 
-
+ public getBienes(){
+  return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarBienes").map(res=>res.json());
+}
 
 
  

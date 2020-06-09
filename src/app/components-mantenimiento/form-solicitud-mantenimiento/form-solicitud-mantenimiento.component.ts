@@ -23,6 +23,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   display = 'none';
   display2 = 'none';
   p: number = 1;
+  matriz:(string | number)[][]=new Array();
 
   constructor( private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
@@ -88,6 +89,12 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
   close2() {
     this.display2 = 'none';
+  }
+  arrayMostrar(dato,dato2,dato3,dato4){
+    this.matriz.push([dato,dato2,dato3,dato4,dato]);
+
+  
+    console.log(this.matriz);
   }
 
   guardarDatos() {
