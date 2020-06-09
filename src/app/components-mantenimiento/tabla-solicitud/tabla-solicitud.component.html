@@ -22,26 +22,22 @@
                 <thead>
                   <tr>
 				   
-					<th>N°</th>
-                    <th>Formulario</th>
-                    <th>Fecha de solicitud</th>
-                    <th>folio</th>
-                    <th>Estado</th>
-                    <th>Clasificación</th>
-                    <th class="hidden-phone">Ver solicitud</th>
+          <th scope="row">N°</th>  
+          <th scope="row">Folio</th>      
+          <th scope="row">Fecha de solicitud</th>      
+          <th scope="row">encargado</th>
+          <th scope="row">aarea</th>
+          <th class="hidden-phone">Ver solicitud</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let soliticud of solicitudes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                    
-                    <td>{{soliticud.noFormulario}}</td>
-                    <td>{{soliticud.fechaIngreso}}</td>
-                    <td>{{soliticud.desripcion}}</td>
-                    <td>{{soliticud.marca}}</td>
-                    <td>{{soliticud.clasificacion}}</td>
-                    
+                    <td>{{soliticud.folio}}</td>
+                    <td>{{soliticud.fechacadena}}</td>
+                   
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" (click)="crearinforme()" ><i class="icon-pencil"></i></button>
+                      <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
                      </td>
                   </tr>
                 </tbody>
