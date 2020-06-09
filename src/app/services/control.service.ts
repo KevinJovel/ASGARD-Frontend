@@ -31,6 +31,10 @@ public agregarNuevoBien(nuevoBien) {
     return this.http.get(environment.urlService + "api/ActivoFijo/listarMarcasCombo").map(res=>res.json());
   }
 
+  public agregarFormIngreso(formularioIngreso) {
+    return this.http.post(environment.urlService + "api/FormularioIngreso/guardarFormIngreso", formularioIngreso).map(res=>res.json());
+    }
+
 
 //asignacion de bienes
 public getActivosSinAsignar() {

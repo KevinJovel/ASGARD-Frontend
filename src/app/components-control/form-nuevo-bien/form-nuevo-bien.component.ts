@@ -43,7 +43,6 @@ export class FormNuevoBienComponent implements OnInit {
     this.nuevobien = new FormGroup({
         'idbien': new FormControl("0"),
         'bandera': new FormControl("0"),
-        'noformulario': new FormControl(""),
         'descripcion': new FormControl(""),
         'modelo': new FormControl(""),
         'idTipo': new FormControl(""),
@@ -60,8 +59,8 @@ export class FormNuevoBienComponent implements OnInit {
         'interes': new FormControl(""),
         'foto': new FormControl(""),
         // Variables para la tabla formularioIngreso
-         'noformularioF': new FormControl(""),
-         'noFactura': new FormControl(""),
+        'noformulario': new FormControl("0"),
+        'nofactura': new FormControl(""),
         'fechaingreso': new FormControl(""),
         'personaentrega': new FormControl(""),
         'personarecibe': new FormControl(""),
@@ -117,7 +116,7 @@ export class FormNuevoBienComponent implements OnInit {
 guardarDatoss() {
   if ((this.nuevobien.controls["bandera"].value) == "0") {
     if (this.nuevobien.valid == true) {
-      this.controlService.agregarNuevoBien(this.nuevobien.value).subscribe(data => {
+      this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe(data => {
        });
      
       Swal.fire({
