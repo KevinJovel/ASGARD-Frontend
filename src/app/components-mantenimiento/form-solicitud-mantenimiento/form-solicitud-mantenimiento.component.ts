@@ -127,13 +127,13 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       this.solicitud.controls["bandera"].setValue("0");
       this.solicitud.controls["folio"].setValue("");
       this.solicitud.controls["fechasolicitud"].setValue("");
-      this.solicitud.controls["idareadenegocio"].setValue("");
-      this.solicitud.controls["idsucursal"].setValue("");
-      this.solicitud.controls["idresponsable"].setValue("");
-      this.solicitud.controls["codigobien"].setValue("");
-      this.solicitud.controls["descripcionbien"].setValue("");
-      this.solicitud.controls["razonesmantenimiento"].setValue("");
-      this.solicitud.controls["periodomantenimiento"].setValue("");
+     // this.solicitud.controls["idareadenegocio"].setValue("");
+      //this.solicitud.controls["idsucursal"].setValue("");
+      //this.solicitud.controls["idresponsable"].setValue("");
+      //this.solicitud.controls["codigobien"].setValue("");
+      //this.solicitud.controls["descripcionbien"].setValue("");
+      //this.solicitud.controls["razonesmantenimiento"].setValue("");
+      //this.solicitud.controls["periodomantenimiento"].setValue("");
       
   
       this.display = 'none';
