@@ -35,6 +35,10 @@ public agregarNuevoBien(nuevoBien) {
     return this.http.post(environment.urlService + "api/FormularioIngreso/guardarFormIngreso", formularioIngreso).map(res=>res.json());
     }
 
+    public agregarBien(nuevoBien) {
+      return this.http.post(environment.urlService + "api/FormularioIngreso/guardarActivoFijo", nuevoBien).map(res=>res.json());
+      }
+
 
 //asignacion de bienes
 public getActivosSinAsignar() {

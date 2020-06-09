@@ -43,7 +43,6 @@ export class FormNuevoBienComponent implements OnInit {
     this.nuevobien = new FormGroup({
       //Variables para la tabla Activo Fijo
         'idbien': new FormControl("0"),
-        'bandera': new FormControl("0"),
         'descripcion': new FormControl(""),
         'modelo': new FormControl(""),
         'idTipo': new FormControl(""),
@@ -53,12 +52,13 @@ export class FormNuevoBienComponent implements OnInit {
         'idproveedor': new FormControl(""),
         'iddonante': new FormControl(""),
         'estadoingreso': new FormControl(""),
-        'costo': new FormControl(""),
+        'valoradquicicion': new FormControl(""),
         'plazo': new FormControl(""),
         'prima': new FormControl(""),
         'cuota': new FormControl(""),
         'interes': new FormControl(""),
-        'foto': new FormControl(""),
+        'valorresidual': new FormControl(""),
+        
         // Variables para la tabla Formulario Ingreso
         'noformulario': new FormControl("0"),
         'nofactura': new FormControl(""),
@@ -115,10 +115,13 @@ export class FormNuevoBienComponent implements OnInit {
 }
 
 guardarDatoss() {
-  if ((this.nuevobien.controls["bandera"].value) == "0") {
     if (this.nuevobien.valid == true) {
-      this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe(data => {
-       });
+      this.controlService.agregarFormIngreso(this.nuevobien).subscribe(data => {
+
+        this.controlService.agregarBien(this.nuevobien.value).subscribe(data => {
+        });
+      });
+      
      
       Swal.fire({
         position: 'center',
@@ -128,10 +131,9 @@ guardarDatoss() {
         timer: 3000
       })
     }
-  } else {
+   else {
     //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
     this.nuevobien.controls["bandera"].setValue("0");
-    if (this.nuevobien.valid == true) {
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -140,7 +142,7 @@ guardarDatoss() {
         timer: 3000
       })
     }
-  }
+  
   
 
 }
