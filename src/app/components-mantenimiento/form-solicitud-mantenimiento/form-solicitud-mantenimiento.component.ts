@@ -13,7 +13,7 @@ import { HashLocationStrategy } from '@angular/common';
   styleUrls: ['./form-solicitud-mantenimiento.component.css']
 })
 export class FormSolicitudMantenimientoComponent implements OnInit {
-
+  bienes: any;
   solicitudes: any;
   empleados: any;
   codigos: any;
@@ -46,6 +46,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mantenimientoService.getBienes().subscribe(data=>{
+      this.bienes=data;
+    });
     this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
       this.solicitudes=data;
     });
@@ -60,7 +63,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     });
   }
 
-  open() {
+  open2() {
     this.titulo = "Formulario bienes mantenimiento";
     this.solicitud.controls["idsolicitud"].setValue("0");
     //this.solicitud.controls["bandera"].setValue("0");
@@ -69,16 +72,16 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.solicitud.controls["personasolicitante"].setValue("");
   
      
-    this.display = 'block';
+    this.display2 = 'block';
   }
-  open2() {
-    this.titulo = "tabla";
+  open() {
+    this.titulo = "bienes";
     this.solicitud.controls["codigobien"].setValue("");
     this.solicitud.controls["descripcionbien"].setValue("");
     this.solicitud.controls["razonesmantenimiento"].setValue("");
     this.solicitud.controls["periodomantenimiento"].setValue("");
    
-    this.display2 = 'block';
+    this.display = 'block';
   }
   close() {
     this.display = 'none';

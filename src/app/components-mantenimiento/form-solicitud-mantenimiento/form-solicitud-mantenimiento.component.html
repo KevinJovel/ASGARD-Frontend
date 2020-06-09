@@ -58,8 +58,8 @@
             <div class="col-lg-6">
 
               <header class="panel-heading form-in-line">
-                <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal"
-                  data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Activo</button>
+                <button type="button" class="btn btn-success" (click)="open2()" data-toggle="modal"
+                  data-target="#myModal"><i class="icon-plus-sign-alt"></i> ver tabla</button>
               </header>
             </div>
             <div class="col-lg-3">
@@ -69,19 +69,19 @@
           </div>
 
           <!--BOTON PARA MODAL 2-->
-          <div class="row">
+          <!--<div class="row">
             <div class="col-lg-6">
 
               <header class="panel-heading form-in-line">
-                <button type="button" class="btn btn-success" (click)="open2()" data-toggle="modal"
-                  data-target="#myModal1"><i class="icon-plus-sign-alt"></i> Ver tabla</button>
+                <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal"
+                  data-target="#myModal1"><i class="icon-plus-sign-alt"></i> actgivos</button>
               </header>
             </div>
             <div class="col-lg-3">
 
             </div>
 
-          </div>
+          </div>-->
 
          
 
@@ -141,62 +141,7 @@
 
         <!--Inicio del modal -->
 
-        <div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal" [ngStyle]="{'display':display}">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-                <h4 class="modal-title">{{titulo}}</h4>
-              </div>
-              <div class="modal-body">
- 
-                <!--<form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
-                  <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">-->
-                  
-
-                
-                  
-                  <div class="form-group ">           
-                    <label size="80"  form="formGroupExampleInput2">codigo del bien</label>
-                    <select class="form-control" formControlName="codigobien"  id="exampleFormControlTextarea2" >
-                      <option value="0">---Seleccione---</option>
-                      <option [value]="codigo.IdBien" *ngFor="let codigo of codigos">{{codigo.codigo}}
-                      </option>
-                    </select>
-                  </div>
-                  <br>
-                  <div class="form-group ">           
-                    <label size="80"  for="formGroupExampleInput2">Descripcion</label>
-                    <select  class="form-control" formControlName="descripcionbien"  id="exampleFormControlTextarea2" >  
-                      <option value="0">---Seleccione---</option>
-                      <option [value]="codigo.IdBien" *ngFor="let codigo of codigos">{{codigo.descripcion}}
-                      </option>
-                    </select>
-                  </div>
-                  <br>
-
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">razones del mantenimiento:</label>
-                    <input size="80" type="text" class="form-control" formControlName="razonesmantenimiento" id="exampleInputEmail3" placeholder="Razones del mantenimiento" autocomplete="off">
-                  </div>
-                  <br>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">periodo del mantenimiento:</label>
-                    <input size="80" type="text" class="form-control" formControlName="periodomantenimiento" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
-                  </div>
-                  <br>
-                  <br>
-
-
-                  <div>
-                  <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-                  <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
-                  </div>
-               
-              </div>
-            </div>
-          </div>
-        </div>
+      
 
 
 
@@ -234,14 +179,14 @@
                             </thead>
                             <tbody>
       
-                        <tr *ngFor="let solicitud of solicitudes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+                        <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                        <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                         
-                        <td>{{solicitud.codigobien}}</td>
-                        <td>{{solicitud.descripcionbien}}</td>
+                        <td>{{bien.codigobien}}</td>
+                        <td>{{bien.descripcionbien}}</td>
                         <td class="center hidden-phone">
       
-                          <button class="btn btn-primary btn-xs" (click)="open()"><i class="icon-pencil"></i></button>
+                         
                           <header class="panel-heading form-in-line">
                             <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal"
                               data-target="#myModal"><i class="icon-pencil"></i></button>
@@ -266,6 +211,48 @@
                   <div>
                   <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
                   <button type="button"  (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+                  </div>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal" [ngStyle]="{'display':display}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+                <h4 class="modal-title">{{titulo}}</h4>
+              </div>
+              <div class="modal-body">
+ 
+                <!--<form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
+                  <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">-->
+                  
+
+                
+                  
+              
+                  <br>
+
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">razones del mantenimiento:</label>
+                    <input size="80" type="text" class="form-control" formControlName="razonesmantenimiento" id="exampleInputEmail3" placeholder="Razones del mantenimiento" autocomplete="off">
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">periodo del mantenimiento:</label>
+                    <input size="80" type="text" class="form-control" formControlName="periodomantenimiento" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
+                  </div>
+                  <br>
+                  <br>
+
+
+                  <div>
+                  <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+                  <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
                   </div>
                
               </div>
