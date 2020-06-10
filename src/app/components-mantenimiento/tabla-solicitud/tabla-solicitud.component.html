@@ -25,8 +25,7 @@
           <th scope="row">N°</th>  
           <th scope="row">Folio</th>      
           <th scope="row">Fecha de solicitud</th>      
-          <th scope="row">encargado</th>
-          <th scope="row">aarea</th>
+          <th scope="row">Descripción</th>
           <th class="hidden-phone">Ver solicitud</th>
                   </tr>
                 </thead>
@@ -35,6 +34,7 @@
                     <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                     <td>{{soliticud.folio}}</td>
                     <td>{{soliticud.fechacadena}}</td>
+                    <td>{{soliticud.descripcion}}</td>
                    
                     <td class="center hidden-phone">
                       <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>

@@ -30,7 +30,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
        'folio': new FormControl(""),
-       'fechasolicitud': new FormControl("")
+       'fechasolicitud': new FormControl(""),
+       'descripcion': new FormControl("")
       
     }); 
     this.datosArray=new FormGroup({

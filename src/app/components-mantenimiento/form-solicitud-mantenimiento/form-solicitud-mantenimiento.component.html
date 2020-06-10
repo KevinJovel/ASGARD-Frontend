@@ -12,15 +12,18 @@
    <form class="form-inline" id="default" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
         <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="inputPassword4">Fecha</label>
             <input type="date" formControlName="fechasolicitud"  class="form-control">
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="formGroupExampleInput2">Folio</label>
             <input type="text" class="form-control" formControlName="folio" id="inputEmail4">
           </div>
-          
+          <div class="form-group col-md-4">
+            <label for="exampleFormControlTextarea2">Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off"  maxlength="250"></textarea>
+          </div>
         </div>
         <br><br><br><br>
 
