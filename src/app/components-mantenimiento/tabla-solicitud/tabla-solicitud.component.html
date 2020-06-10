@@ -64,20 +64,24 @@
           <input type="hidden" class="form-control"  id="exampleInputEmail3" autocomplete="off">  
          <input type="hidden" class="form-control"   id="exampleInputEmail3" autocomplete="off">  
            
-
+         <td>
            <div class="form-group">
              <label for="exampleInputEmail1">Fecha:</label>
              <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="Razones del mantenimiento" autocomplete="off">
            </div>
-           
+           </td>
            <div class="form-group">
              <label for="exampleInputEmail1">Folio:</label>
              <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
            </div>
+           <td>
            <div class="form-group">
             <label for="exampleInputEmail1">Descripción:</label>
             <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
           </div>
+        </td>
+        <td>
+
           <div class="form-group">
             <label for="exampleInputEmail1">Jefe solicitante:</label>
             <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
@@ -88,9 +92,9 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Sucursal:</label>
-            <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
+            <p size="160" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
           </div>
-          
+        </td>
            <br>
            <br>
            <tr *ngFor="let solicitud of solicitudes"></tr>
@@ -127,7 +131,7 @@
 
                  
                   <header class="panel-heading form-in-line">
-                    <button type="button" class="btn btn-success" (click)="open(bien.idbien,bien.codigobien,bien.descripcionbien)" data-toggle="modal"
+                    <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal"
                       data-target="#myModal"><i class="icon-pencil"></i></button>
                   </header>
                 </td>
