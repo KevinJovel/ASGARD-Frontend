@@ -64,37 +64,55 @@
           <input type="hidden" class="form-control"  id="exampleInputEmail3" autocomplete="off">  
          <input type="hidden" class="form-control"   id="exampleInputEmail3" autocomplete="off">  
            
-         <td>
+        <!-- <td>
            <div class="form-group">
              <label for="exampleInputEmail1">Fecha:</label>
-             <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="Razones del mantenimiento" autocomplete="off">
+             <input  size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="Razones del mantenimiento" autocomplete="off">
            </div>
-           </td>
+           
            <div class="form-group">
              <label for="exampleInputEmail1">Folio:</label>
-             <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
+             <input size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
            </div>
-           <td>
+
            <div class="form-group">
             <label for="exampleInputEmail1">Descripción:</label>
-            <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
+            <input size="180" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
           </div>
-        </td>
+          </td>
+         
         <td>
 
           <div class="form-group">
             <label for="exampleInputEmail1">Jefe solicitante:</label>
-            <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
+            <input  size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Unidad del solicitante:</label>
-            <p size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
+            <input  size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">-->
+            <div class="form-group">
+            <div>
+              <p  align="left">Fecha:</p>
+            </div>
+            <div>
+              <p  align="left">Folio:</p>
+            </div>
+            <div>
+              <p  align="left">Descripción:</p>
+            </div>
+            <div>
+              <p  align="left">Jefe solicitante:</p>
+            </div>
+           
+            <p  align="left">Unidad del solicitante:{{titulo}}</p>
+          
+         
+           <!-- <label for="exampleInputEmail1">Sucursal: </label>-->
+           <p  align="left">Sucursal:</p>
+           <!-- <input  size="160" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">-->
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Sucursal:</label>
-            <p size="160" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
-          </div>
-        </td>
+        
+       <!-- </td>-->
            <br>
            <br>
            <tr *ngFor="let solicitud of solicitudes"></tr>
