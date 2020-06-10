@@ -41,31 +41,28 @@ export class FormNuevoBienComponent implements OnInit {
     this._cargarScript.cargar(["/jquery.stepy","/sortingTable"]);
 
     this.nuevobien = new FormGroup({
-      //Variables para la tabla Activo Fijo
-        'idbien': new FormControl("0"),
-        'descripcion': new FormControl(""),
-        'modelo': new FormControl(""),
-        'idTipo': new FormControl(""),
-        'color': new FormControl(""),
-        'idmarca': new FormControl(""),
-        'idclasificacion': new FormControl(""),
+      'idbien': new FormControl("0"),
+      'color': new FormControl(""),
+      'descripcion': new FormControl(""),
+      'modelo': new FormControl(""),
+      'tipoadquicicion': new FormControl("0"),
+       'idmarca': new FormControl("0"),
+       'idclasificacion': new FormControl("0"),
         'idproveedor': new FormControl(""),
-        'iddonante': new FormControl(""),
-        'estadoingreso': new FormControl(""),
-        'valoradquicicion': new FormControl(""),
-        'plazo': new FormControl(""),
-        'prima': new FormControl(""),
-        'cuota': new FormControl(""),
-        'interes': new FormControl(""),
-        'valorresidual': new FormControl(""),
-        
-        // Variables para la tabla Formulario Ingreso
+         'estadoingreso': new FormControl("0"),
+         'valoradquicicion': new FormControl(""),
+         'plazopago': new FormControl(""),
+         'prima': new FormControl(""),
+         'cuotaasignada': new FormControl(""),
+         'interes': new FormControl(""),
         'noformulario': new FormControl("0"),
         'nofactura': new FormControl(""),
         'fechaingreso': new FormControl(""),
         'personaentrega': new FormControl(""),
         'personarecibe': new FormControl(""),
-        'observaciones': new FormControl("")
+        'observaciones': new FormControl(""),
+        'cantidad': new FormControl("")
+      
         
         
     });
@@ -89,8 +86,10 @@ export class FormNuevoBienComponent implements OnInit {
   //Método para cargar combo
   ProveedorDonante(){
     
-    var idempleado=this.nuevobien.controls["idTipo"].value;
+    var idempleado=this.nuevobien.controls["tipoadquicicion"].value;
     if(idempleado==1||idempleado==2){
+
+      
       this.tipocombo="Proveedor:";
       this.disabledPrima="Inhabilitado";
       this.disabledPlazo="Inhabilitado";
@@ -109,6 +108,7 @@ export class FormNuevoBienComponent implements OnInit {
     }else{
       this.disabled=true;
       this.tipocombo="Donante:";
+    
       this.controlService.listarComboDonante().subscribe(res=> {this.comboProvDon=res});
     }
    
@@ -117,33 +117,47 @@ export class FormNuevoBienComponent implements OnInit {
 guardarDatoss() {
     if (this.nuevobien.valid == true) {
       this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe(data => {
+        if(data==1){
+          this.controlService.agregarBien(this.nuevobien.value).subscribe(res => {
+            if(res==1){
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Registro Guardado con éxito',
+                showConfirmButton: false,
+                timer: 3000
+              })
+            }else{
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'No guardó',
+                showConfirmButton: false,
+                timer: 3000
+              })
+            }
+              
+            }); 
 
-        this.controlService.agregarBien(this.nuevobien.value).subscribe(data => {
-        });
-      });
+        }
+    
+       });
       
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Registro Guardado con éxito',
-        showConfirmButton: false,
-        timer: 3000
-      })
+     
     }
-   else {
-    //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
-    this.nuevobien.controls["bandera"].setValue("0");
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Registro no guardado',
-        showConfirmButton: false,
-        timer: 3000
-      })
-    }
+  //  else {
+  //   //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
+  //   this.nuevobien.controls["bandera"].setValue("0");
+  //     Swal.fire({
+  //       position: 'center',
+  //       icon: 'success',
+  //       title: 'Registro no guardado',
+  //       showConfirmButton: false,
+  //       timer: 3000
+  //     })
+  //   }
   
   
 
 }
-
 }

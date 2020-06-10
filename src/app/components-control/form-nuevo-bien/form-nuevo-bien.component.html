@@ -29,7 +29,7 @@
       <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarDatoss()">
           <fieldset title="1" class="step" id="default-step-0">
               <legend> </legend>
-              <input type="text" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
               <input type="hidden" class="form-control" formControlName="noformulario" id="exampleInputEmail3" autocomplete="off">
 
                 <div class="form-row">
@@ -54,7 +54,7 @@
                     
                     <div class="form-group col-md-6">
                       <label for="inputPassword4">Tipo Adquisición</label>
-                      <select formControlName="idTipo" class="form-control" (change)="ProveedorDonante()">
+                      <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
                         <option selected>Seleccione...</option>
                         <option value="1">Contado</option>
                         <option value="2">Crédito</option>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="col-lg-4">
                     <label for="inputPassword4">Cantidad</label>
-                    <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad">
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad" formControlName="cantidad">
                     </div> 
                     
                     <div class="col-lg-4">
@@ -135,11 +135,11 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                 <label  for="formGroupExampleInput2">Plazo</label>
-                <input type="text" class="form-control" id="inputEmail4" formControlName="plazo" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null">
+                <input type="text" class="form-control" id="inputEmail4" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null">
                 </div>
                 <div class="form-group col-md-4">
                     <label  for="formGroupExampleInput2">Cuota</label>
-                    <input type="text" class="form-control" id="inputEmail4" formControlName="cuota" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null">
+                    <input type="text" class="form-control" id="inputEmail4" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">Interes</label>
