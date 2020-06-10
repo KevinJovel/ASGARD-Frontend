@@ -116,13 +116,12 @@ export class FormNuevoBienComponent implements OnInit {
 
 guardarDatoss() {
     if (this.nuevobien.valid == true) {
-      this.controlService.agregarFormIngreso(this.nuevobien).subscribe(data => {
+      this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe(data => {
 
         this.controlService.agregarBien(this.nuevobien.value).subscribe(data => {
         });
       });
       
-     
       Swal.fire({
         position: 'center',
         icon: 'success',

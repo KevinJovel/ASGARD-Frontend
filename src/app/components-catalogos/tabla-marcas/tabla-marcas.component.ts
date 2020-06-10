@@ -16,19 +16,24 @@ export class TablaMarcasComponent implements OnInit {
     @Input() marcas: any;
     comboProvDon:any;
     marca: FormGroup;
-    sucursal: FormGroup;
+    formIngreso: FormGroup;
     p: number = 1;
     display = 'none';
     constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService,private controlService: ControlService) {
         this._cargarScript.cargar(["/jquery.stepy","/sortingTable","/barCode"]);
 
-        this.sucursal = new FormGroup({
-            'idSucursal': new FormControl("0"),
-            'idTipo': new FormControl("0"),
-            'idCombo': new FormControl("0"),
-            'nombre': new FormControl(""),
-            'ubicacion': new FormControl(""),
-            'correlativo': new FormControl("")
+        this.formIngreso = new FormGroup({
+         //   'noformulario': new FormControl("0"),
+         //   'nofactura': new FormControl(""),
+         //   'fechaingreso': new FormControl(""),
+         //   'personaentrega': new FormControl(""),
+         //   'personarecibe': new FormControl(""),
+        //    'observaciones': new FormControl(""),
+            //////////////////////////////////// 
+            'idbien': new FormControl("0"),
+            'NoFormulario': new FormControl(""),
+            'color': new FormControl("0"),
+            'descripcion': new FormControl("0")
         });
     }
     ngOnInit() {
@@ -62,13 +67,13 @@ export class TablaMarcasComponent implements OnInit {
         //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
         
            
-            if (this.sucursal.valid == true) {
-                this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
+            if (this.formIngreso.valid == true) {
+                this.controlService.agregarBien(this.formIngreso.value).subscribe(data => {
                 });
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Dato Guardado con exito',
+                    title: 'Dato Guardado con éxito',
                     showConfirmButton: false,
                     timer: 3000
                 })
@@ -76,12 +81,6 @@ export class TablaMarcasComponent implements OnInit {
             
         
     }
-    ProveedorDonante(){
-        var idempleado=this.sucursal.controls["idTipo"].value;
-        if(idempleado==1){
-            this.controlService.listarComboProveedor().subscribe(res=> {this.comboProvDon=res});
-        }
-       
-    }
+  
   
 }
