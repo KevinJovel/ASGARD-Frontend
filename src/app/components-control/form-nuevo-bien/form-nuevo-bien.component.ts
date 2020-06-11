@@ -51,10 +51,10 @@ export class FormNuevoBienComponent implements OnInit {
         'idproveedor': new FormControl("0"),
          'estadoingreso': new FormControl("0"),
          'valoradquicicion': new FormControl(""),
-         'plazopago': new FormControl(""),
-         'prima': new FormControl(""),
-         'cuotaasignada': new FormControl(""),
-         'interes': new FormControl(""),
+         'plazopago': new FormControl("0"),
+         'prima': new FormControl("0"),
+         'cuotaasignada': new FormControl("0"),
+         'interes': new FormControl("0"),
         'noformulario': new FormControl("0"),
         'nofactura': new FormControl(""),
         'fechaingreso': new FormControl(""),
@@ -91,18 +91,18 @@ export class FormNuevoBienComponent implements OnInit {
 
       
       this.tipocombo="Proveedor:";
-      this.disabledPrima="Inhabilitado";
-      this.disabledPlazo="Inhabilitado";
-      this.disabledCuota="Inhabilitado";
-      this.disabledInteres="Inhabilitado";
+      // this.disabledPrima="Inhabilitado";
+      // this.disabledPlazo="Inhabilitado";
+      // this.disabledCuota="Inhabilitado";
+      // this.disabledInteres="Inhabilitado";
       if(idempleado==1){
         this.disabled=true;
       }else{
         this.disabled=false;
-        this.disabledPrima="Ingrese prima"
-        this.disabledPlazo="Ingrese plazo"
-        this.disabledCuota="Ingrese cuota"
-        this.disabledInteres="Ingrese interes"
+        // this.disabledPrima="Ingrese prima"
+        // this.disabledPlazo="Ingrese plazo"
+        // this.disabledCuota="Ingrese cuota"
+        // this.disabledInteres="Ingrese interes"
       }
       this.controlService.listarComboProveedor().subscribe(res=> {this.comboProvDon=res});
     }else{
