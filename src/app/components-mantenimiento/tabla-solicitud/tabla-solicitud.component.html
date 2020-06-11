@@ -91,26 +91,27 @@
             <label for="exampleInputEmail1">Unidad del solicitante:</label>
             <input  size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">-->
             <div class="form-group">
+            
             <div>
-              <p  align="left">Fecha:</p>
+              <p style="color: rgb(0, 0, 0); font-size: 12pt">Folio: {{titulo}}</p>
             </div>
             <div>
-              <p  align="left">Folio:</p>
+              <p style="color: rgb(0, 0, 0); font-size: 12pt" >Fecha: {{titulo}}</p>
             </div>
             <div>
-              <p  align="left">Descripción:</p>
+              <p style="color: rgb(0, 0, 0); font-size: 12pt" >Descripción: {{titulo}}</p>
             </div>
-            <div>
-              <p  align="left">Jefe solicitante:</p>
-            </div>
-           
-            <p  align="left">Unidad del solicitante:{{titulo}}</p>
+              <p style="color:rgb(0, 0, 0); font-size: 12pt">Jefe solicitante: {{titulo}} </p>
+                    
+            <p style="color:rgb(0, 0, 0); font-size: 12pt">Unidad del solicitante: {{titulo}}</p>
           
-         
-           <!-- <label for="exampleInputEmail1">Sucursal: </label>-->
-           <p  align="left">Sucursal:</p>
-           <!-- <input  size="160" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">-->
+          
+        
           </div>
+           <!-- <label for="exampleInputEmail1">Sucursal: </label>-->
+           
+           <!-- <input  size="160" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">-->
+         
         
        <!-- </td>-->
            <br>
@@ -134,14 +135,12 @@
                         <th scope="row">Descripción del bien</th>
                         <th scope="row">Razones de mantenimiento</th>
                         <th scope="row">Periodo de mantenimiento</th>
-
-                        <th scope="row" class="hidden-phone">ENVIAR</th>
                       </tr>
                     </thead>
                     <tbody>
 
-                <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-               <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 50, currentPage: p }; let i = index">
+               <th scope="col">{{ 50 * (p - 1) + i+1 }}</th>
                 
                 <td>{{bien.codigobien}}</td>
                 <td>{{bien.descripcionbien}}</td>
@@ -156,15 +155,16 @@
               </tr>
                     </tbody>
                   </table>
-                   <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+            
                 </div>
               </div>
             </section>
           </div>
         </div>
           <div>
-          <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-          <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Aprobar</button>
+          <button type="submit" class="btn btn-primary"><i class="icon-remove-sign"></i> Denegar</button>
+          <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
           </div>
        
       </div>
