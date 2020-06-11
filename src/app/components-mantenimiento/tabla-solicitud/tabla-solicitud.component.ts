@@ -16,6 +16,10 @@ export class TablaSolicitudComponent implements OnInit {
   solicitud: FormGroup;
   display = 'none';
   titulo: string;
+  noSolicitud: string;
+  fecha: string;
+  jefe: string;
+  area:string;
   constructor(private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -43,10 +47,18 @@ export class TablaSolicitudComponent implements OnInit {
     
   }
   open(id){
+    this.mantenimientoService.listarDatosSolicitud(id).subscribe(data=>{
+      this.noSolicitud=data.noSolicitud;
+      this.area=data.areanegocio;
+      this.jefe=data.jefe;
+      this.fecha=data.fechacadena;
+  
+    });
     this.mantenimientoService.listarBienesSolicitados(id).subscribe(res=>{
       this.bienes=res;
   
     });
+
     this.titulo = "Solicitud de autorizacion de mantenimiento";
     this.display = 'block';
       // this.solicitud.controls["idBien"].setValue("");

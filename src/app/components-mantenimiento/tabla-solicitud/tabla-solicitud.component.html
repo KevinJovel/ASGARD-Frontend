@@ -36,10 +36,9 @@
                     <td>{{soliticud.fechacadena}}</td>
                     <td>{{soliticud.descripcion}}</td>
                    
-                    <header class="panel-heading form-in-line">
-                      <button type="button" class="btn btn-success" (click)="open(soliticud.idsolicitud)" data-toggle="modal"
-                        data-target="#myModal"><i class="icon-pencil"></i></button>
-                    </header>
+                    <td class="center hidden-phone">
+                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(soliticud.idsolicitud)" ><i class="icon-edit"></i></button>
+                     </td>
                   </tr>
                 </tbody>
               </table>
@@ -71,7 +70,7 @@
               <label class="control-label">Solicitud #:</label>
             </div>
             <div class="col-lg-12">
-                  <p class="form-control-static">{{titulo}}</p>
+                  <p class="form-control-static">{{noSolicitud}}</p>
               
                 </div>
         </div>
@@ -83,7 +82,7 @@
           <label class="control-label">Fecha:</label>
         </div>
         <div class="col-lg-12">
-              <p class="form-control-static">{{titulo}}</p>
+              <p class="form-control-static">{{fecha}}</p>
           
             </div>
     </div>
@@ -93,7 +92,7 @@
       <label class="control-label">Unidad de Negocio:</label>
     </div>
     <div class="col-lg-12">
-          <p class="form-control-static">{{titulo}}</p>
+          <p class="form-control-static">{{area}}</p>
       
         </div>
 </div>
@@ -103,7 +102,7 @@
   <label class="control-label">Jefe:</label>
 </div>
 <div class="col-lg-12">
-      <p class="form-control-static">{{titulo}}</p>
+      <p class="form-control-static">{{jefe}}</p>
   
     </div>
 </div>

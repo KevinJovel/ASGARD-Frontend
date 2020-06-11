@@ -33,6 +33,9 @@ public setSolicitud(datos) {
 public listarBienesSolicitados(id){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listaBienesSolicitados/"+id ).map(res=>res.json());
  } 
+ public listarDatosSolicitud(id){
+  return this.http.get(environment.urlService + "api/SolicitudMantenimiento/DatosSolicitud/"+id ).map(res=>res.json());
+ } 
 
 
 
