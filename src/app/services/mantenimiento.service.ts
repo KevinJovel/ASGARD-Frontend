@@ -30,6 +30,9 @@ public listarCodigoCombo(){
 public setSolicitud(datos) {
   return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarBienes",datos).map(res => res.json());
 }
+public listarBienesSolicitados(id){
+  return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listaBienesSolicitados/"+id ).map(res=>res.json());
+ } 
 
 
 

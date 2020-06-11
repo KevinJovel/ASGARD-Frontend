@@ -21,7 +21,6 @@ export class TablaSolicitudComponent implements OnInit {
       'idsolicitud': new FormControl("0"),
       'folio': new FormControl(""),
       'fechacadena': new FormControl(""),
-
       'idMantenimiento': new FormControl("0"),
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
@@ -37,22 +36,24 @@ export class TablaSolicitudComponent implements OnInit {
 
     this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
       this.solicitudes=data;
+      
     });
   }
   crearinforme(){
-
+    
   }
-  open(){
- 
-      this.titulo = "Datos de mantenimiento";
-      this.solicitud.controls["idBien"].setValue("");
-      this.solicitud.controls["codigobien"].setValue("");
-      this.solicitud.controls["descripcionbien"].setValue("");
-      this.solicitud.controls["razonesMantenimiento"].setValue("");
-      this.solicitud.controls["periodoMantenimiento"].setValue("");
-      this.display = 'block';
-
-
+  open(id){
+    this.mantenimientoService.listarBienesSolicitados(id).subscribe(res=>{
+      this.bienes=res;
+  
+    });
+    this.titulo = "Solicitud de autorizacion de mantenimiento";
+    this.display = 'block';
+      // this.solicitud.controls["idBien"].setValue("");
+      // this.solicitud.controls["codigobien"].setValue("");
+      // this.solicitud.controls["descripcionbien"].setValue("");
+      // this.solicitud.controls["razonesMantenimiento"].setValue("");
+      // this.solicitud.controls["periodoMantenimiento"].setValue("");
   }
   buscar(nombre){}
 

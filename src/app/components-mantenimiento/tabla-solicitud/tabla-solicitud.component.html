@@ -37,7 +37,7 @@
                     <td>{{soliticud.descripcion}}</td>
                    
                     <header class="panel-heading form-in-line">
-                      <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal"
+                      <button type="button" class="btn btn-success" (click)="open(soliticud.idsolicitud)" data-toggle="modal"
                         data-target="#myModal"><i class="icon-pencil"></i></button>
                     </header>
                   </tr>
@@ -61,63 +61,55 @@
       </div>
       <div class="modal-body">
         <form class="form-inline" id="default" [formGroup]="bienes" (ngSubmit)="mostrarbienes()">   
+          
           <input type="hidden" class="form-control"  id="exampleInputEmail3" autocomplete="off">  
          <input type="hidden" class="form-control"   id="exampleInputEmail3" autocomplete="off">  
            
-        <!-- <td>
-           <div class="form-group">
-             <label for="exampleInputEmail1">Fecha:</label>
-             <input  size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="Razones del mantenimiento" autocomplete="off">
-           </div>
-           
-           <div class="form-group">
-             <label for="exampleInputEmail1">Folio:</label>
-             <input size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
-           </div>
-
-           <div class="form-group">
-            <label for="exampleInputEmail1">Descripción:</label>
-            <input size="180" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
-          </div>
-          </td>
-         
-        <td>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Jefe solicitante:</label>
-            <input  size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Unidad del solicitante:</label>
-            <input  size="80" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">-->
-            <div class="form-group">
-            
-            <div>
-              <p style="color: rgb(0, 0, 0); font-size: 12pt">Folio: {{titulo}}</p>
-            </div>
-            <div>
-              <p style="color: rgb(0, 0, 0); font-size: 12pt" >Fecha: {{titulo}}</p>
-            </div>
-            <div>
-              <p style="color: rgb(0, 0, 0); font-size: 12pt" >Descripción: {{titulo}}</p>
-            </div>
-              <p style="color:rgb(0, 0, 0); font-size: 12pt">Jefe solicitante: {{titulo}} </p>
-                    
-            <p style="color:rgb(0, 0, 0); font-size: 12pt">Unidad del solicitante: {{titulo}}</p>
-          
-          
         
-          </div>
-           <!-- <label for="exampleInputEmail1">Sucursal: </label>-->
-           
-           <!-- <input  size="160" type="text" class="form-control" id="exampleInputEmail3" placeholder="periodo del mantenimiento" autocomplete="off">-->
-         
-        
-       <!-- </td>-->
+              <div class="row">
+              <div class="col-lg-12">
+              <label class="control-label">Solicitud #:</label>
+            </div>
+            <div class="col-lg-12">
+                  <p class="form-control-static">{{titulo}}</p>
+              
+                </div>
+        </div>
+        <br><br>
+  
+        <div class="form-group form-in-line">
+          
+          <div class="col-lg-12">
+          <label class="control-label">Fecha:</label>
+        </div>
+        <div class="col-lg-12">
+              <p class="form-control-static">{{titulo}}</p>
+          
+            </div>
+    </div>
+    <div class="form-group form-in-line">
+          
+      <div class="col-lg-12">
+      <label class="control-label">Unidad de Negocio:</label>
+    </div>
+    <div class="col-lg-12">
+          <p class="form-control-static">{{titulo}}</p>
+      
+        </div>
+</div>
+<div class="form-group form-in-line">
+          
+  <div class="col-lg-12">
+  <label class="control-label">Jefe:</label>
+</div>
+<div class="col-lg-12">
+      <p class="form-control-static">{{titulo}}</p>
+  
+    </div>
+</div>
            <br>
            <br>
-           <tr *ngFor="let solicitud of solicitudes"></tr>
-
+    
          </form>
         <!--INICIO DE TABLA-->
         <div class="row">
@@ -142,16 +134,11 @@
                 <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 50, currentPage: p }; let i = index">
                <th scope="col">{{ 50 * (p - 1) + i+1 }}</th>
                 
-                <td>{{bien.codigobien}}</td>
-                <td>{{bien.descripcionbien}}</td>
-                <td class="center hidden-phone">
-
-                 
-                  <header class="panel-heading form-in-line">
-                    <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal"
-                      data-target="#myModal"><i class="icon-pencil"></i></button>
-                  </header>
-                </td>
+                <td>{{bien.codigo}}</td>
+                <td>{{bien.descripcion}}</td>
+                <td>{{bien.razon}}</td>
+                <td>{{bien.periodo}}</td>
+              
               </tr>
                     </tbody>
                   </table>
