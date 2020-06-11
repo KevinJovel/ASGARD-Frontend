@@ -48,7 +48,7 @@ export class FormNuevoBienComponent implements OnInit {
       'tipoadquicicion': new FormControl("0"),
        'idmarca': new FormControl("0"),
        'idclasificacion': new FormControl("0"),
-        'idproveedor': new FormControl(""),
+        'idproveedor': new FormControl("0"),
          'estadoingreso': new FormControl("0"),
          'valoradquicicion': new FormControl(""),
          'plazopago': new FormControl(""),
