@@ -31,9 +31,16 @@ table {
   .modal-content {
 	animation-name: modal;
 	animation-duration: 1s;
-	box-shadow: 0 5px 15px rgba(0,0,0,.5);
+	box-shadow: 0 5px 15px rgba(26, 27, 27, 0.5);
+	
   }
   
+  .modal-dialog {
+    width: 700px;
+	margin-right: -4px;
+	margin-left: 400px;
+
+}
   
   @keyframes modal {
 	from {
