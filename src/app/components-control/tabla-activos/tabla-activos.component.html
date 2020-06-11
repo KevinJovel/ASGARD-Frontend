@@ -25,7 +25,7 @@
           </div>
           <div class="form-group col-md-3">
           <label for="inputPassword4">{{tipocombo}}</label>
-          <select id="inputState" class="form-control" formControlName="idCombo">
+          <select id="inputState" class="form-control" formControlName="idCombo" >
             <option selected>Seleccione</option>
 
             <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option>	
@@ -34,7 +34,7 @@
               <div class="col-lg-3">
               </div>
               <div class="col-md-3">
-                <input type="search" class="form-control"  placeholder="Buscar">
+                <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
               </div>
             </div>
             <div class="row">
@@ -55,23 +55,22 @@
                             <th>Descripción</th>
                             <th>Clasificación</th>
                             <th>Área de Negocio</th>
-                            <th>Responsable</th>
-                            
+                            <th>Responsable</th>                        
                             <th class="hidden-phone">Opciones</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let combo of comboAreaSucur | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                             <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                            <td>{{combo.Codigo}}</td>
+                            <td>{{combo.codigo}}</td>
                             <td>{{combo.fechacadena}}</td>
-                            <td>{{combo.Desripcion}}</td>
-                            <td>{{combo.Clasificacion}}</td>
-                            <td>{{combo.AreaDeNegocio}}</td>
-                            <td>{{combo.Resposnsable}}</td>
+                            <td>{{combo.desripcion}}</td>
+                            <td>{{combo.clasificacion}}</td>
+                            <td>{{combo.areaDeNegocio}}</td>
+                            <td>{{combo.resposnsable}}</td>             
                             <td class="center hidden-phone">
-                              <button class="btn btn-primary btn-xs"  ><i class="icon-pencil"></i></button>
-                              <button class="btn btn-success btn-xs" (click)="mostrar(combo.idbien)" ><span class="glyphicon glyphicon-eye-open"></span></button>
+                              <button class="btn btn-primary btn-xs"  ><i class="icon-pencil" [routerLink]='["/form-nuevoBien"]'></i></button>
+                              <button class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><span class="glyphicon glyphicon-eye-open"></span></button>
                             </td>
                           </tr>
                         </tbody>
@@ -84,63 +83,118 @@
             </div>
 
 
-            <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-              <div class="modal-dialog">
+            <div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+              <div class="modal-dialog .modal-dialog ">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-            
+                    <h4 class="modal-title">Datos completos del Activo</h4>
                     <h4 class="modal-title"></h4>
                   </div>
-                  <div class="modal-body"> 
+                  <div class="modal-body" >
                     
-                  <!-- aca -->
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <p>
-                        <span class="text-bold">Correlativo: </span> {{ bienObj.Codigo }} <br/>
-                        <span class="text-bold">Codigo de Barra: </span> {{ bienObj.codigobarra }} <br/>
-                        <span class="text-bold">Tipo de Activo: </span> {{ bienObj.tipoactivo }} <br/>
-                        <span class="text-bold">Area: </span> {{ bienObj.area }} <br/>
-                        <span class="text-bold">Responsable: </span> {{ bienObj.correlativobien }} <br/>
-                        <span class="text-bold">Modelo: </span> {{ bienObj.modelo }} <br/>
-                        <span class="text-bold">Tipo de Adquisicion: </span> {{ bienObj.tipoadquisicion }} <br/>
-                        <span class="text-bold">Color: </span> {{ bienObj.Color }} <br/>
-                        <span class="text-bold">Fecha: </span> {{ bienObj.fechacadena }} <br/>
-                      </p>
-                   
-                    </div>
-                    <div class="col-lg-6">
-                      <img [src]="bienObj.foto | safe" alt="">
-                    </div>
-                    
-                    <div class="col-lg-12">
-                      <p>{{ bienObj.descripcion }}</p>
-                    </div>
-                </div>
                   
-                  <!-- <form role="form" [formGroup]="combo" >
-                    <input type="hidden" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
-                    <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
                     
-                    <tr *ngFor="let combo of comboProvDon"> 
-                      <p>{{combo.descripcion}}</p>
-                    </tr>
-                   
-                    <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+                    
+                      <div class="col-lg-6">
+                        
+                          <p>
+                           <label >N° de Formulario:</label> {{bienObj.noFormulario}}<br/>
+                           <label>Fecha de Ingreso:</label>{{ bienObj.fechacadena}}<br/>
+                           <label>Código:</label> {{ bienObj.codigo }}<br/>
+                           <label>N° Serie:</label> {{ bienObj.numserie }}<br/>
+                           <label>Área:</label> {{bienObj.idarea}}<br/>
+                           <label>Clasificación:</label> {{ bienObj.clasificacion}}<br/>
+                           <label>Responsable:</label> {{ bienObj.resposnsable}}<br/>
+                           <label>Proveedor:</label> {{ bienObj.idproveedor}}<br/>
+                           <label>Donante:</label> {{ bienObj.iddonante}} <br/>
+                           <label>Adquisición:</label> {{ bienObj.tipoadquisicion}} <br/>
+                           <label>Descripción:</label> {{ bienObj.desripcion }}<br/>
+                          
+                          </p>
+                       
+                      </div>
 
-                  </form> -->
-                  <div class="row">
+                      <div class="row">
+                        
+                        <div class="col-lg-3">
+                          <label>Foto:</label>
+                          <img [src]="bienObj.foto | safe" alt="">
+                        </div>
+                       
+                      </div>
+                     
+                 
+                      <div class="row">
+                       <div class="col-lg-3">
+                        <label >Color:</label>
+                        <p> {{ bienObj.color }}</p>
+                         </div>
+                       <div class="form-group col-md-3">
+                        <label >Marca:</label>
+                        <p> {{ bienObj.idmarca }}</p>
+                       </div>
+                       <div class="form-group col-md-3">
+                        <label >Modelo:</label>
+                        <p> {{ bienObj.modelo}}</p>
+                         </div>
+                         <div class="form-group col-md-3">
+                          <label  >Estado:</label>
+                          <p> {{ bienObj.estadoingreso}}</p>
+                          </div>
+                        
+                      
+                      </div>
+                 
+
+                         <div class="form-row">
+                          <div class="form-group col-md-3">
+                          <label  >Plazo:</label>
+                          <p> {{ bienObj.plazopago}}</p>
+                          </div>
+                          <div class="form-group col-md-3">
+                          <label >Cuota:</label>
+                          <p> {{ bienObj.cuotaasignada}}</p>
+                          </div>
+                          <div class="form-group col-md-3">
+                          <label >Interes:</label>
+                          <p> {{ bienObj.intereses}}</p>
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label  >Prima:</label>
+                            <p> {{ bienObj.prima}}</p>
+                            </div>
+                         </div>
+
+
+                         <div class="form-row">
+                        
+                          <div class="form-group col-md-3">
+                          <label >Valor Residual:</label>
+                          <p> {{ bienObj.valorresidual}}</p>
+                          </div>
+                          <div class="form-group col-md-3">
+                          <label >Valor Adquisición:</label>
+                          <p> {{ bienObj.valoradquisicion}}</p>
+                          </div>
+                          <div class="form-group col-md-3">
+                            <label >Vida Útil:</label>
+                            <p> {{ bienObj.vidautil}}</p>
+                            </div>
+                            <div class="form-group col-md-3">
+                              <label >Destino Inicial:</label>
+                              <p> {{ bienObj.destinoinicial}}</p>
+                              </div>
+                        </div>
+
+
+                   <div class="row">
                     <div class="col-xs-3">
                       
                     </div>
-                  </div>
-          <!-- aca -->
-            
+                   </div>
+     <!-- aca -->
+                     </div>
                   </div>
                 </div>
               </div>
-            </div> 
-
-             
-      

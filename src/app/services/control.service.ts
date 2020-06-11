@@ -18,7 +18,6 @@ public listarComboProveedor() {
 public listarComboDonante() {
   return this.http.get(environment.urlService + "api/ActivoFijo/listarDonantesCombo").map(res => res.json());
 }
-
 public agregarNuevoBien(nuevoBien) {
   return this.http.post(environment.urlService + "api/ActivoFijo/guardarnuevoBien", nuevoBien).map(res=>res.json());
   }
@@ -40,6 +39,7 @@ public agregarNuevoBien(nuevoBien) {
       }
 
 
+
 //asignacion de bienes
 public getActivosSinAsignar() {
   return this.http.get(environment.urlService + "api/ActivoFIjo/listarActivosNoAsignados").map(res => res.json());
@@ -54,13 +54,15 @@ public AsignarBien(bien) {
   return this.http.post(environment.urlService + "api/ActivoFIjo/asignarBien", bien).map(res => res.json());
 }
 
-//
+
+//Control de bienes
 public getBienes() {
   return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivos").map(res => res.json());
 }
 
-public recuperarBienes(id) {
-  return this.http.get(environment.urlService  + "api/ActivoFIjo/RecuperarBienes/" + id).map(res => res.json());
+public recuperarBienes(idB) {
+  return this.http.get(environment.urlService  + 
+    "api/ActivoFIjo/RecuperarBienes/" + idB).map(res => res.json());
 }
 
 public listarComboArea() {
@@ -69,6 +71,18 @@ public listarComboArea() {
 
 public listarComboSucursal() {
   return this.http.get(environment.urlService + "api/ActivoFIjo/listarSucursalCombo").map(res => res.json());
+}
+
+public FiltrarSucursalTipo(tipo) {
+  return this.http.get(environment.urlService + "api/ActivoFijo/FiltrarSucursalTipo/"+tipo).map(res => res.json());
+}
+
+public modificarActivos() {
+  return this.http.get(environment.urlService + "api/ActivoFijo/modificarActivos").map(res => res.json());
+}
+
+public buscarActivo(buscador) {
+  return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivo/" + buscador).map(res => res.json());
 }
 
 }
