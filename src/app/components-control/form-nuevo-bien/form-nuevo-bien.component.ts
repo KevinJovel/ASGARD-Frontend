@@ -23,6 +23,7 @@ export class FormNuevoBienComponent implements OnInit {
 
   //Variables
   id:any;
+  foto: any;
   nuevobien: FormGroup;
   marca: FormGroup;
   sucursal: FormGroup;
@@ -37,7 +38,8 @@ export class FormNuevoBienComponent implements OnInit {
   disabledCuota:string;
   disabledInteres:string;
 
-  constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService, private controlService: ControlService) {
+  constructor(private catalogoService: CatalogosService, private _cargarScript:CargarScriptsService, private controlService: ControlService,
+    private activateRoute: ActivatedRoute, private router: Router) {
     this._cargarScript.cargar(["/jquery.stepy","/sortingTable"]);
 
     this.nuevobien = new FormGroup({
@@ -51,17 +53,18 @@ export class FormNuevoBienComponent implements OnInit {
         'idproveedor': new FormControl("0"),
          'estadoingreso': new FormControl("0"),
          'valoradquicicion': new FormControl(""),
-         'plazopago': new FormControl("0"),
-         'prima': new FormControl("0"),
-         'cuotaasignada': new FormControl("0"),
-         'interes': new FormControl("0"),
+         'plazopago': new FormControl(""),
+         'prima': new FormControl(""),
+         'cuotaasignada': new FormControl(""),
+         'interes': new FormControl(""),
         'noformulario': new FormControl("0"),
         'nofactura': new FormControl(""),
         'fechaingreso': new FormControl(""),
         'personaentrega': new FormControl(""),
         'personarecibe': new FormControl(""),
         'observaciones': new FormControl(""),
-        'cantidad': new FormControl("")
+        'cantidad': new FormControl(""),
+        'foto': new FormControl("")
       
         
         
@@ -91,18 +94,18 @@ export class FormNuevoBienComponent implements OnInit {
 
       
       this.tipocombo="Proveedor:";
-      // this.disabledPrima="Inhabilitado";
-      // this.disabledPlazo="Inhabilitado";
-      // this.disabledCuota="Inhabilitado";
-      // this.disabledInteres="Inhabilitado";
+       this.disabledPrima="Inhabilitado";
+       this.disabledPlazo="Inhabilitado";
+       this.disabledCuota="Inhabilitado";
+       this.disabledInteres="Inhabilitado";
       if(idempleado==1){
         this.disabled=true;
       }else{
         this.disabled=false;
-        // this.disabledPrima="Ingrese prima"
-        // this.disabledPlazo="Ingrese plazo"
-        // this.disabledCuota="Ingrese cuota"
-        // this.disabledInteres="Ingrese interes"
+         this.disabledPrima="Ingrese prima"
+         this.disabledPlazo="Ingrese plazo"
+         this.disabledCuota="Ingrese cuota"
+         this.disabledInteres="Ingrese interes"
       }
       this.controlService.listarComboProveedor().subscribe(res=> {this.comboProvDon=res});
     }else{
@@ -114,9 +117,31 @@ export class FormNuevoBienComponent implements OnInit {
    
 }
 
+//Evento para guardar foto
+changeFoto() {
+  var file = (<HTMLInputElement>document.getElementById("futFoto")).files[0];
+  var fileReader = new FileReader();
+
+  fileReader.onloadend = () => {
+    this.foto = fileReader.result;
+  }
+
+  fileReader.readAsDataURL(file);
+}
+
 guardarDatoss() {
     if (this.nuevobien.valid == true) {
+       
       this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe(data => {
+        //Envío valor cero para guardar 
+        this.nuevobien.controls['prima'].setValue("0");
+        this.nuevobien.controls['plazopago'].setValue("0");
+        this.nuevobien.controls['cuotaasignada'].setValue("0");
+        this.nuevobien.controls['interes'].setValue("0");
+
+        //Pasamos la foto         
+       this.nuevobien.controls["foto"].setValue(this.foto);
+
         if(data==1){
           this.controlService.agregarBien(this.nuevobien.value).subscribe(res => {
             if(res==1){
@@ -124,9 +149,18 @@ guardarDatoss() {
                 position: 'center',
                 icon: 'success',
                 title: 'Registro Guardado con éxito',
-                showConfirmButton: false,
-                timer: 3000
+                text: "¿Desea realizar otro registro?",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Si, registrar!'
+              }).then((confirmButtonText) => {
+                if (confirmButtonText.value) {
+                  this.router.navigate(["./form-nuevoBien"]);
+            
+                }
               })
+            //  this.router.navigate(["./form-nuevoBien"]);
             }else{
               Swal.fire({
                 position: 'center',
@@ -160,4 +194,6 @@ guardarDatoss() {
   
 
 }
+
+
 }
