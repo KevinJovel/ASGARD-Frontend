@@ -69,6 +69,37 @@ export class TablaSolicitudComponent implements OnInit {
   }
   buscar(nombre){}
 
+  aprobarSolicitud(idsolicitud) {
+    Swal.fire({
+      title: '¿Estas seguro de aproabr esta solicitud?',
+      text: "No podras revertir esta accion!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, aprobar!'
+    }).then((result) => {
+      if (result.value) {
+        this.mantenimientoService.aceptarSolicitud(idsolicitud).subscribe(data => {
+          Swal.fire(
+            'Solicitud aprobada!',
+            'La solicitud ha sido aprobada con éxito con exito.',
+            'success'
+          )
+          this.mantenimientoService.getSolicitudMantenimiento().subscribe(
+            data => { this.solicitudes = data }
+          );
+        });
+
+      }
+    })
+  }
+
+
+
+
+
+
   mostrarbienes(){}
 
   close() {

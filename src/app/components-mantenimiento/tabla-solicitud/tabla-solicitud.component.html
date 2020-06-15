@@ -37,7 +37,9 @@
                     <td>{{soliticud.descripcion}}</td>
                    
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(soliticud.idsolicitud)" ><i class="icon-edit"></i></button>
+                    <button class="btn btn-primary btn-xs" id="clear"  (click)="open(soliticud.idsolicitud)" ><i class="icon-edit"></i></button>
+                    
+                  
                      </td>
                   </tr>
                 </tbody>
@@ -148,10 +150,11 @@
           </div>
         </div>
           <div>
-          <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Aprobar</button>
+          <button type="submit" (click)="aprobarSolicitud(solicitudes.idsolicitud)"  class="btn btn-primary"><i class="icon-save"></i> Aprobar</button>
           <button type="submit" class="btn btn-primary"><i class="icon-remove-sign"></i> Denegar</button>
           <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
-          </div>
+            
+        </div>
        
       </div>
     </div>

@@ -112,7 +112,7 @@ import { SafePipe } from './components-control/safe.pipe';
       {path: 'form-nuevoBien', component: FormNuevoBienComponent},
       {path: 'form-asignacion', component: FormAsignancionComponent},
       {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},
-      {path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent},
+      {path: 'tabla-informe', component: TablaInformeComponent},
       {path: 'tabla-solicitud', component: TablaSolicitudComponent},
       
 

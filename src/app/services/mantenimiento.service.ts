@@ -37,7 +37,12 @@ public listarBienesSolicitados(id){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/DatosSolicitud/"+id ).map(res=>res.json());
  } 
 
+ public aceptarSolicitud(idsolicitud) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/aceptarSolicitud/" + idsolicitud).map(res => res.json());
+}
 
+
+ 
 
  
 }
