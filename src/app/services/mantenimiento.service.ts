@@ -15,6 +15,10 @@ export class MantenimientoService {
  public listarAreaCombo(){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarAreaCombo" ).map(res=>res.json());
  } 
+ public listarTecnicosCombo(){
+  return this.http.get(environment.urlService + " api/SolicitudMantenimiento/listarTecnicosCombo" ).map(res=>res.json());
+ } 
+
  public getSolicitudMantenimiento(){
    return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarSolicitudMante").map(res=>res.json());
  }
@@ -38,7 +42,7 @@ public listarBienesSolicitados(id){
  } 
 
  public aceptarSolicitud(idsolicitud) {
-  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/aceptarSolicitud/" + idsolicitud).map(res => res.json());
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/aceptarSolicitud/"+idsolicitud).map(res => res.json());
 }
 
 

@@ -31,17 +31,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let bien of solicitudes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
+                  <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                     <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                    <td>{{bien.codigo}}</td>
-                    <td>{{bien.descripcion}}</td>
-                    <td>{{bien.razon}}</td>
-                    <td>{{bien.periodo}}</td>
+                    <td>{{informe.codigo}}</td>
+                    <td>{{informe.descripcion}}</td>
+                    <td>{{informe.razon}}</td>
+                    <td>{{informe.periodo}}</td>
               
 			
                    
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(bien.idsolicitud)" ><i class="icon-edit"></i></button>
+                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(informe.idsolicitud)" ><i class="icon-edit"></i></button>
                      </td>
                   </tr>
                 </tbody>
@@ -63,7 +63,7 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-inline" id="default" [formGroup]="bienes" (ngSubmit)="mostrarbienes()">   
+        <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="mostrarbienes()">   
           
           <input type="hidden" class="form-control"  id="exampleInputEmail3" autocomplete="off">  
          <input type="hidden" class="form-control"   id="exampleInputEmail3" autocomplete="off">  
@@ -84,7 +84,7 @@
             <label for="exampleFormControlTextarea1" >Técnico:</label>
             <select class="form-control"   id="exampleFormControlTextarea1"  maxlength="51">
               <option value="">---Seleccione---</option>	
-             <!-- <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>-->	 
+              <option [value]="tecnico.IdTecnico" *ngFor="let tecnico of tecnicos">{{tecnico.nombre}}</option>	 
             </select>
             </div>
             <div class="form-group col-md-6">

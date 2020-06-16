@@ -25,7 +25,7 @@ export class TablaSolicitudComponent implements OnInit {
       'idsolicitud': new FormControl("0"),
       'folio': new FormControl(""),
       'fechacadena': new FormControl(""),
-      'idMantenimiento': new FormControl("0"),
+      'idtecnico': new FormControl("0"),
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
