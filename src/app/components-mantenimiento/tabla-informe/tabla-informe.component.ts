@@ -38,7 +38,7 @@ export class TablaInformeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
+  this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
       this.informes=data;    
     });
 this.mantenimientoService.listarTecnicosCombo().subscribe(data=>{

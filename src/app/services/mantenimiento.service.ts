@@ -34,6 +34,10 @@ public listarCodigoCombo(){
 public setSolicitud(datos) {
   return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarBienes",datos).map(res => res.json());
 }
+public guardarEstadoActual(datos) {
+  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarEstadoActual",datos).map(res => res.json());
+}
+
 public listarBienesSolicitados(id){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listaBienesSolicitados/"+id ).map(res=>res.json());
  } 
@@ -44,7 +48,9 @@ public listarBienesSolicitados(id){
  public aceptarSolicitud(idsolicitud) {
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/aceptarSolicitud/"+idsolicitud).map(res => res.json());
 }
-
+public denegarSolicitud(idsolicitud) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/denegarSolicitud/"+idsolicitud).map(res => res.json());
+}
 
  
 
