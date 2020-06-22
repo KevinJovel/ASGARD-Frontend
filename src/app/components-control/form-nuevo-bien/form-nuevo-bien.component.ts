@@ -44,30 +44,28 @@ export class FormNuevoBienComponent implements OnInit {
 
     this.nuevobien = new FormGroup({
       'idbien': new FormControl("0"),
-      'color': new FormControl(""),
-      'descripcion': new FormControl(""),
-      'modelo': new FormControl(""),
-      'tipoadquicicion': new FormControl("0"),
-       'idmarca': new FormControl("0"),
-       'idclasificacion': new FormControl("0"),
-        'idproveedor': new FormControl("0"),
+      'bandera': new FormControl("0"),
+      'color': new FormControl("",[Validators.required,Validators.maxLength(15)]),
+      'descripcion': new FormControl("",[Validators.required,Validators.maxLength(80)]),
+      'modelo': new FormControl("",[Validators.required,Validators.maxLength(20)]),
+      'tipoadquicicion': new FormControl("0",[Validators.required]),
+       'idmarca': new FormControl("0",[Validators.required]),
+       'idclasificacion': new FormControl("0",[Validators.required]),
+        'idproveedor': new FormControl("0",[Validators.required]),
          'estadoingreso': new FormControl("0"),
-         'valoradquicicion': new FormControl(""),
+         'valoradquicicion': new FormControl("",[Validators.required]),
          'plazopago': new FormControl(""),
          'prima': new FormControl(""),
          'cuotaasignada': new FormControl(""),
          'interes': new FormControl(""),
         'noformulario': new FormControl("0"),
-        'nofactura': new FormControl(""),
-        'fechaingreso': new FormControl(""),
-        'personaentrega': new FormControl(""),
-        'personarecibe': new FormControl(""),
-        'observaciones': new FormControl(""),
-        'cantidad': new FormControl(""),
+        'nofactura': new FormControl("",[Validators.required,Validators.maxLength(10)]),
+        'fechaingreso': new FormControl("",[Validators.required]),
+        'personaentrega': new FormControl("",[Validators.required,Validators.maxLength(50)]),
+        'personarecibe': new FormControl("",[Validators.required,Validators.maxLength(50)]),
+        'observaciones': new FormControl("",[Validators.required,Validators.maxLength(70)]),
+        'cantidad': new FormControl("",[Validators.required,this.noPuntoDecimal, Validators.min(1)]),
         'foto': new FormControl("")
-      
-        
-        
     });
    }
 
@@ -130,6 +128,8 @@ changeFoto() {
 }
 
 guardarDatoss() {
+  //Le agrego una bandera para englobar los datos y verificar si fueron ingresados o no en el formulario
+  if ((this.nuevobien.controls["bandera"].value) == "0")  {
     if (this.nuevobien.valid == true) {
        
       this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe(data => {
@@ -146,22 +146,24 @@ guardarDatoss() {
           this.controlService.agregarBien(this.nuevobien.value).subscribe(res => {
             if(res==1){
               Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Registro Guardado con éxito',
-                text: "¿Desea realizar otro registro?",
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '¡Si, registrar!'
-              }).then((confirmButtonText) => {
-                if (confirmButtonText.value) {
-                  this.router.navigate(["./form-nuevoBien"]);
-            
+                    title: 'Registro Guardado con éxito',
+                    text: "¿Desea realizar un nuevo registro?",
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, registrar!'
+              }).then((result) => {
+                if (result.value) {
+                    window.location.reload();
+          
+                } else {
+                    this.router.navigate(["./tabla-activos"]);
                 }
               })
-            //  this.router.navigate(["./form-nuevoBien"]);
-            }else{
+            }
+            
+            else{
               Swal.fire({
                 position: 'center',
                 icon: 'warning',
@@ -178,7 +180,8 @@ guardarDatoss() {
        });
       
      
-    }
+    } 
+  }
   //  else {
   //   //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
   //   this.nuevobien.controls["bandera"].setValue("0");
@@ -194,6 +197,18 @@ guardarDatoss() {
   
 
 }
+
+noPuntoDecimal(control: FormControl) {
+  if (control.value != null && control.value != "") {
+
+
+    if ((<string>control.value.toString()).indexOf(".") > - 1) {
+      return { puntoDecimal: true }
+    }
+    return null;
+  } 
+}
+
 
 
 }
