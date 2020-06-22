@@ -46,7 +46,15 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
 
   ngOnInit(): void {
     this.mantenimientoService.getBienes().subscribe(data=>{
-      this.bienes=data;
+      if(this.matriz.length>0){
+      for (let datos of this.matriz) {  
+      while (data.idBien!=datos[0]) {
+        this.bienes=data;
+      }
+    }
+  }else{
+    this.bienes=data;
+  }
     });
     this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
       this.solicitudes=data;
@@ -90,8 +98,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.datosArray.controls["periodoMantenimiento"].value]);
     this.display = 'none';
     this.display2 = 'none';
-  
-    console.log(this.matriz);
+    this.mantenimientoService.getBienes().subscribe(data=>{
+          this.bienes=data;
+    });
   }
 
   guardarDatos() {
