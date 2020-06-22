@@ -14,6 +14,7 @@ export class TablaSolicitudComponent implements OnInit {
   bienes: any;
   p: number = 1;
   solicitud: FormGroup;
+  bien: FormGroup;
   display = 'none';
   titulo: string;
   estadoActual: any;
@@ -34,8 +35,14 @@ export class TablaSolicitudComponent implements OnInit {
       'descripcionbien':new FormControl(""),
       'razonesMantenimiento':new FormControl(""),
       'periodoMantenimiento':new FormControl(""),
-      'estadoActual': new FormControl(""),
+      //'estadoActual': new FormControl(""),
    }); 
+
+    this.bien= new FormGroup({
+    
+      'estadoActual': new FormControl(""),
+
+    });
 
 
   }
@@ -65,7 +72,7 @@ export class TablaSolicitudComponent implements OnInit {
 
     this.titulo = "Solicitud de autorizacion de mantenimiento";
     this.display = 'block';
-      // this.solicitud.controls["idBien"].setValue("");
+       this.bien.controls["estadoActual"].setValue("");
       // this.solicitud.controls["codigobien"].setValue("");
       // this.solicitud.controls["descripcionbien"].setValue("");
       // this.solicitud.controls["razonesMantenimiento"].setValue("");
@@ -74,7 +81,7 @@ export class TablaSolicitudComponent implements OnInit {
   buscar(nombre){}
 
 
-  mostrarbienes(){
+  capturaArreglo(){
    this.arreglo.push([this.bienes.controls["estadoActual"].value]);
    this.display = 'none';
    console.log(this.arreglo);   
@@ -84,8 +91,8 @@ export class TablaSolicitudComponent implements OnInit {
     this.mantenimientoService.aceptarSolicitud(idsolicitud).subscribe(res=>{
     if(res==1){
       for (let datos of this.arreglo) {
-        this.bienes.controls["estadoActual"].setValue(datos[0]);
-       this.mantenimientoService.guardarEstadoActual(this.bienes.value).subscribe(data => {
+        this.bien.controls["estadoActual"].setValue(datos[0]);
+       this.mantenimientoService.guardarEstadoActual(this.bien.value).subscribe(data => {
         this.mantenimientoService.getBienes().subscribe(  data => 
           {  this.bienes=data; }
         );

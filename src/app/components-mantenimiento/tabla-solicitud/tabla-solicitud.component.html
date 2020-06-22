@@ -62,7 +62,7 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-inline" id="default" [formGroup]="bienes" (ngSubmit)="mostrarbienes()">   
+        <form class="form-inline" id="default" [formGroup]="bienes" (ngSubmit)="capturaArreglo()">   
           <input type="hidden" class="form-control" formControlName="estadoActual" id="exampleInputEmail3">
           <input type="hidden" class="form-control"  id="exampleInputEmail3" autocomplete="off">  
          <input type="hidden" class="form-control"   id="exampleInputEmail3" autocomplete="off">  
