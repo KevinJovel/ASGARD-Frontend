@@ -29,7 +29,7 @@ export class FormAsignancionComponent implements OnInit {
     this.activo = new FormGroup({
       'idBien': new FormControl("0"),
       'noSerie': new FormControl(""),
-      'vidaUtil': new FormControl("1"),
+      'vidaUtil': new FormControl(""),
       'idEmpleado':new FormControl("0"),
       'Responsable': new FormControl(""),
       'codigo': new FormControl(""),
