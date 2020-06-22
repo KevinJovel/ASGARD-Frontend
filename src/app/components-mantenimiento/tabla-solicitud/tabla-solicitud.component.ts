@@ -21,6 +21,7 @@ export class TablaSolicitudComponent implements OnInit {
   fecha: string;
   jefe: string;
   area:string;
+  arreglo: any[];
   matriz:(string | number)[][]=new Array();
   constructor(private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
@@ -74,19 +75,19 @@ export class TablaSolicitudComponent implements OnInit {
 
 
   mostrarbienes(){
-   this.matriz.push([this.bienes.controls["estadoActual"].value]);
+   this.arreglo.push([this.bienes.controls["estadoActual"].value]);
    this.display = 'none';
-   console.log(this.matriz);   
+   console.log(this.arreglo);   
   }
 
   aprobarSolicitud1(idsolicitud) {
     this.mantenimientoService.aceptarSolicitud(idsolicitud).subscribe(res=>{
     if(res==1){
-      for (let datos of this.matriz) {
+      for (let datos of this.arreglo) {
         this.bienes.controls["estadoActual"].setValue(datos[0]);
        this.mantenimientoService.guardarEstadoActual(this.bienes.value).subscribe(data => {
-        this.mantenimientoService.getSolicitudMantenimiento().subscribe(
-          data => { this.solicitudes = data }
+        this.mantenimientoService.getBienes().subscribe(  data => 
+          {  this.bienes=data; }
         );
        });
       }
@@ -97,7 +98,7 @@ export class TablaSolicitudComponent implements OnInit {
         showConfirmButton: false,
         timer: 3000
       })
-  this.matriz=[],[];
+  this.arreglo=[];
   }else{
       Swal.fire({
         position: 'center',
@@ -109,6 +110,9 @@ export class TablaSolicitudComponent implements OnInit {
     }
    
   }); 
+  this.mantenimientoService.getSolicitudMantenimiento().subscribe(
+    data => { this.solicitudes = data }
+  );
     }
 
   aprobarSolicitud(idsolicitud) {
