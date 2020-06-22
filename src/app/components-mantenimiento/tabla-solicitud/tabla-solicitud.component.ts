@@ -14,24 +14,35 @@ export class TablaSolicitudComponent implements OnInit {
   bienes: any;
   p: number = 1;
   solicitud: FormGroup;
+  bien: FormGroup;
   display = 'none';
   titulo: string;
+  estadoActual: any;
   noSolicitud: string;
   fecha: string;
   jefe: string;
   area:string;
+  arreglo: any[];
+  matriz:(string | number)[][]=new Array();
   constructor(private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
       'idsolicitud': new FormControl("0"),
       'folio': new FormControl(""),
       'fechacadena': new FormControl(""),
-      'idMantenimiento': new FormControl("0"),
+      'idtecnico': new FormControl("0"),
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
       'razonesMantenimiento':new FormControl(""),
-      'periodoMantenimiento':new FormControl("")
+      'periodoMantenimiento':new FormControl(""),
+      //'estadoActual': new FormControl(""),
    }); 
+
+    this.bien= new FormGroup({
+    
+      'estadoActual': new FormControl(""),
+
+    });
 
 
   }
@@ -61,7 +72,7 @@ export class TablaSolicitudComponent implements OnInit {
 
     this.titulo = "Solicitud de autorizacion de mantenimiento";
     this.display = 'block';
-      // this.solicitud.controls["idBien"].setValue("");
+       this.bien.controls["estadoActual"].setValue("");
       // this.solicitud.controls["codigobien"].setValue("");
       // this.solicitud.controls["descripcionbien"].setValue("");
       // this.solicitud.controls["razonesMantenimiento"].setValue("");
@@ -69,7 +80,103 @@ export class TablaSolicitudComponent implements OnInit {
   }
   buscar(nombre){}
 
-  mostrarbienes(){}
+
+  capturaArreglo(){
+   this.arreglo.push([this.bienes.controls["estadoActual"].value]);
+   this.display = 'none';
+   console.log(this.arreglo);   
+  }
+
+  aprobarSolicitud1(idsolicitud) {
+    this.mantenimientoService.aceptarSolicitud(idsolicitud).subscribe(res=>{
+    if(res==1){
+      for (let datos of this.arreglo) {
+        this.bien.controls["estadoActual"].setValue(datos[0]);
+       this.mantenimientoService.guardarEstadoActual(this.bien.value).subscribe(data => {
+        this.mantenimientoService.getBienes().subscribe(  data => 
+          {  this.bienes=data; }
+        );
+       });
+      }
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Solicitud Aprobada con exito',
+        showConfirmButton: false,
+        timer: 3000
+      })
+  this.arreglo=[];
+  }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Error al guardar',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+   
+  }); 
+  this.mantenimientoService.getSolicitudMantenimiento().subscribe(
+    data => { this.solicitudes = data }
+  );
+    }
+
+  aprobarSolicitud(idsolicitud) {
+    Swal.fire({
+      title: '¿Esta seguro de aprobar esta solicitud?',
+      text: "No podrá revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, aprobar!'
+    }).then((result) => {
+      if (result.value) {
+        this.mantenimientoService.aceptarSolicitud(idsolicitud).subscribe(data => {
+          Swal.fire(
+            'Solicitud aprobada!',
+            'La solicitud ha sido aprobada con éxito.',
+            'success'
+          )
+          this.mantenimientoService.getSolicitudMantenimiento().subscribe(
+            data => { this.solicitudes = data }
+          );
+        });
+
+      }
+    })
+  }
+
+  denegarSolicitud(idsolicitud){
+    Swal.fire({
+      title: '¿Esta seguro de denegar esta solicitud?',
+      text: "No podrá revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, denegar!'
+    }).then((result) => {
+      if (result.value) {
+        this.mantenimientoService.denegarSolicitud(idsolicitud).subscribe(data => {
+          Swal.fire(
+            'Solicitud denegada!',
+            'La solicitud ha sido denegada con éxito.',
+            'success'
+          )
+          this.mantenimientoService.getSolicitudMantenimiento().subscribe(
+            data => { this.solicitudes = data }
+          );
+        });
+
+      }
+    })
+  }
+
+
+
+
 
   close() {
     this.display = 'none';

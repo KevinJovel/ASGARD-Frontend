@@ -15,6 +15,10 @@ export class MantenimientoService {
  public listarAreaCombo(){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarAreaCombo" ).map(res=>res.json());
  } 
+ public listarTecnicosCombo(){
+  return this.http.get(environment.urlService + " api/SolicitudMantenimiento/listarTecnicosCombo" ).map(res=>res.json());
+ } 
+
  public getSolicitudMantenimiento(){
    return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarSolicitudMante").map(res=>res.json());
  }
@@ -30,6 +34,10 @@ public listarCodigoCombo(){
 public setSolicitud(datos) {
   return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarBienes",datos).map(res => res.json());
 }
+public guardarEstadoActual(datos) {
+  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarEstadoActual",datos).map(res => res.json());
+}
+
 public listarBienesSolicitados(id){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listaBienesSolicitados/"+id ).map(res=>res.json());
  } 
@@ -37,7 +45,14 @@ public listarBienesSolicitados(id){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/DatosSolicitud/"+id ).map(res=>res.json());
  } 
 
+ public aceptarSolicitud(idsolicitud) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/aceptarSolicitud/"+idsolicitud).map(res => res.json());
+}
+public denegarSolicitud(idsolicitud) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/denegarSolicitud/"+idsolicitud).map(res => res.json());
+}
 
+ 
 
  
 }

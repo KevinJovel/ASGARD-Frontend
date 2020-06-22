@@ -1,1 +1,123 @@
-<p>tabla-informe works!</p>
+<br><br><br><br>
+<section class="panel">
+  <h1>Bienes en Mantenimiento</h1>
+
+  <div class="row">
+ 
+    
+    <div class="col-md-3">
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
+
+     
+        <div class="panel-body">
+          <div class="adv-table">
+            <div class="adv-table">
+              <table class="display table table-bordered table-striped">
+                <thead>
+                  <tr>
+				   
+      <th scope="row">N°</th>  
+		  <th scope="row">Código del bien</th>
+		  <th scope="row">Descripción del bien</th>
+		  <th scope="row">Razones de mantenimiento</th>
+		  <th scope="row">Periodo de mantenimiento</th>
+      <th class="hidden-phone">Realizar informe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
+                    <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                    <td>{{informe.codigo}}</td>
+                    <td>{{informe.descripcion}}</td>
+                    <td>{{informe.razon}}</td>
+                    <td>{{informe.periodo}}</td>
+              
+			
+                   
+                    <td class="center hidden-phone">
+                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(informe.idsolicitud)" ><i class="icon-edit"></i></button>
+                     </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+    
+<div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-lg" style="width:1000px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="mostrarbienes()">   
+          
+          <input type="hidden" class="form-control"  id="exampleInputEmail3" autocomplete="off">  
+         <input type="hidden" class="form-control"   id="exampleInputEmail3" autocomplete="off">  
+        
+       
+         
+         <div class="form-group col-md-6">
+          <label for="inputPassword4">Fecha</label>
+          <input type="date" class="form-control">
+        </div>
+          
+          
+          <div class="form-group col-md-6">
+            <label for="formGroupExampleInput2">Costo de mano de obra</label>
+            <input type="number" class="form-control" id="inputEmail4" placeholder="Ingrese costo del mantenimiento" autocomplete="off">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleFormControlTextarea1" >Técnico:</label>
+            <select class="form-control"   id="exampleFormControlTextarea1"  maxlength="51">
+              <option value="">---Seleccione---</option>	
+              <option [value]="tecnico.IdTecnico" *ngFor="let tecnico of tecnicos">{{tecnico.nombre}}</option>	 
+            </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="formGroupExampleInput2">Costo total</label>
+              <input type="number" class="form-control" id="inputEmail4" placeholder="Costo total de mantenimiento" autocomplete="off" readonly="off">
+            </div>
+          <div class="form-group col-md-6">         
+            <label for="exampleInputEmail1">Costo de materiales:</label>
+            <input  size=40 type="number" class="form-control" id="exampleInputEmail3" placeholder="Ingrese costo de materiales" autocomplete="off" maxlength="51">
+          </div>
+         
+          
+          
+          <div class="form-group col-md-6">
+            <label for="exampleFormControlTextarea2">Descripción:</label>
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off"  maxlength="250"></textarea>
+          </div>
+          
+      
+      
+       
+     
+       
+         </form>
+        
+
+
+          <div>
+          <button type="submit" class="btn btn-primary"><i class="icon-save"></i>Enviar</button>
+          <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
+          </div>
+       
+      </div>
+    </div>
+   </div>
+ </div>
