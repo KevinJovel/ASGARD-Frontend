@@ -6,7 +6,7 @@
  
     
     <div class="col-md-3">
-      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre placeholder="Buscar">  
     </div>
   </div>
 
@@ -38,9 +38,9 @@
                    
                     <td class="center hidden-phone">
                     <button class="btn btn-primary btn-xs" (click)="open(solicitud.idsolicitud)" ><i class="icon-edit"></i>Ver</button>                    
-                    <button type="submit" (click)="aprobarSolicitud1(solicitud.idsolicitud)"  class="btn btn-primary"><i class="icon-save"></i> Aprobar</button>
+                    <!-- <button type="submit" (click)="aprobarSolicitud1(solicitud.idsolicitud)"  class="btn btn-primary"><i class="icon-save"></i> Aprobar</button>
                     <button type="submit" (click)="denegarSolicitud(solicitud.idsolicitud)"  class="btn btn-primary"><i class="icon-remove-sign"></i> Denegar</button>
-                  
+                   -->
                      </td>
                   </tr>
                 </tbody>
@@ -62,16 +62,15 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-inline" id="default" [formGroup]="bienes" (ngSubmit)="capturaArreglo()">   
-          <input type="text" class="form-control" value="{{idSolicitud}}">
+       
+          <input type="text" class="form-control" value="{{idSoli}}">
   
-        
               <div class="row">
               <div class="col-lg-12">
               <label class="control-label">Solicitud #:</label>
             </div>
             <div class="col-lg-12">
-                  <p class="form-control-static" formControlName="idSolicitud">{{noSolicitud}}</p>
+                  <p class="form-control-static" >{{noSolicitud}}</p>
               
                 </div>
         </div>
@@ -107,7 +106,7 @@
   
     </div>
 </div>
-</form>
+
            <br>
            <br>
     
@@ -151,8 +150,8 @@
           </div>
         </div>
           <div>
-          <button type="button"  (click)="aprobarSolicitud1(bienes.idsolicitud)"  class="btn btn-primary"><i class="icon-save"></i> Aprobar</button>
-          <button type="submit"  (click)="denegarSolicitud(solicitudes.idsolicitud)" class="btn btn-primary"><i class="icon-remove-sign"></i> Denegar</button>
+          <button type="button"  (click)="aprobarSolicitud()"  class="btn btn-primary"><i class="icon-save"></i> Aprobar</button>
+          <button type="button"  (click)="denegarSolicitud()" class="btn btn-primary"><i class="icon-remove-sign"></i> Denegar</button>
           <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
             
         </div>
