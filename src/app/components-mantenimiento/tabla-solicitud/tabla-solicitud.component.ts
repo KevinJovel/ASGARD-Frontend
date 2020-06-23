@@ -130,31 +130,7 @@ export class TablaSolicitudComponent implements OnInit {
   //   data => { this.solicitudes = data }
   // );
     }
-    eliminar(idempleado) {
-      Swal.fire({
-        title: '¿Estas seguro de eliminar este registro?',
-        text: "No podras revertir esta accion!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, eliminar!'
-      }).then((result) => {
-        if (result.value) {
-          this.catalogosServices.eliminarEmpleado(idempleado).subscribe(data => {
-            Swal.fire(
-              'Registro eliminado!',
-              'Tu archivo ha sido eliminado con exito.',
-              'success'
-            )
-            this.catalogosServices.getEmpleado().subscribe(
-              data => { this.empleados = data }
-            );
-          });
-  
-        }
-      })
-    }
+ 
 
   aprobarSolicitud() {
     var id=this.idSoli;
