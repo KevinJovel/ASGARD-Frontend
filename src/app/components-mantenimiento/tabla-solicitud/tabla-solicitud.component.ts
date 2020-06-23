@@ -130,20 +130,62 @@ export class TablaSolicitudComponent implements OnInit {
   //   data => { this.solicitudes = data }
   // );
     }
+    eliminar(idempleado) {
+      Swal.fire({
+        title: '¿Estas seguro de eliminar este registro?',
+        text: "No podras revertir esta accion!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar!'
+      }).then((result) => {
+        if (result.value) {
+          this.catalogosServices.eliminarEmpleado(idempleado).subscribe(data => {
+            Swal.fire(
+              'Registro eliminado!',
+              'Tu archivo ha sido eliminado con exito.',
+              'success'
+            )
+            this.catalogosServices.getEmpleado().subscribe(
+              data => { this.empleados = data }
+            );
+          });
+  
+        }
+      })
+    }
 
   aprobarSolicitud() {
     var id=this.idSoli;
-    alert(id);
+   // alert(id);
+
+    Swal.fire({
+      title: '¿Estas seguro de aprobar esta solicitud?',
+      text: "No podras revertir esta accion!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, aprobar!'
+    }).then((result) => {
+      if (result.value) {
     this.mantenimientoService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
-           alert("Solicitud aceptada");
+          Swal.fire(
+            'Solicitud aprobada!',
+            'La solictud ha sido aprobada con exito.',
+            'success'
+          )
+          this.display = 'none'; 
          }
+        
    });
    this.mantenimientoService.listarBienesSolicitados(id).subscribe(res=>{
      this.bienesS=res;
      for (let bien of this.bienesS) {
        this.mantenimientoService.cambiarEstado(bien.idBien).subscribe(rest=>{
-         alert("se cambio al bien con id="+bien.idBien);
+        // alert("se cambio al bien con id="+bien.idBien);
        });
      }
      this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
@@ -151,7 +193,10 @@ export class TablaSolicitudComponent implements OnInit {
       
     });
    });
-   this.display = 'none';
+  }// del result
+  })//de la alerta
+
+  
     // alert(this.idSolicitud);
     // Swal.fire({
     //   title: '¿Esta seguro de aprobar esta solicitud?',
