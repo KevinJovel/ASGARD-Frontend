@@ -154,29 +154,30 @@ export class TablaSolicitudComponent implements OnInit {
   }
 
   denegarSolicitud(idsolicitud){
-    Swal.fire({
-      title: '¿Esta seguro de denegar esta solicitud?',
-      text: "No podrá revertir esta acción!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, denegar!'
-    }).then((result) => {
-      if (result.value) {
-        this.mantenimientoService.denegarSolicitud(idsolicitud).subscribe(data => {
-          Swal.fire(
-            'Solicitud denegada!',
-            'La solicitud ha sido denegada con éxito.',
-            'success'
-          )
-          this.mantenimientoService.getSolicitudMantenimiento().subscribe(
-            data => { this.solicitudes = data }
-          );
-        });
+    alert(this.idSolicitud);
+    // Swal.fire({
+    //   title: '¿Esta seguro de denegar esta solicitud?',
+    //   text: "No podrá revertir esta acción!",
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Si, denegar!'
+    // }).then((result) => {
+    //   if (result.value) {
+    //     this.mantenimientoService.denegarSolicitud(idsolicitud).subscribe(data => {
+    //       Swal.fire(
+    //         'Solicitud denegada!',
+    //         'La solicitud ha sido denegada con éxito.',
+    //         'success'
+    //       )
+    //       this.mantenimientoService.getSolicitudMantenimiento().subscribe(
+    //         data => { this.solicitudes = data }
+    //       );
+    //     });
 
-      }
-    })
+    //   }
+    // })
   }
 
 
