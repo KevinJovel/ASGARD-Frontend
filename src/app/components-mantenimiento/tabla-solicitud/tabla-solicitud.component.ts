@@ -22,11 +22,13 @@ export class TablaSolicitudComponent implements OnInit {
   fecha: string;
   jefe: string;
   area:string;
+  idSolicitud: string;
   arreglo: any[];
   matriz:(string | number)[][]=new Array();
+
   constructor(private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
-      'idsolicitud': new FormControl("0"),
+     
       'folio': new FormControl(""),
       'fechacadena': new FormControl(""),
       'idtecnico': new FormControl("0"),
@@ -38,10 +40,8 @@ export class TablaSolicitudComponent implements OnInit {
       //'estadoActual': new FormControl(""),
    }); 
 
-    this.bien= new FormGroup({
-    
-      'estadoActual': new FormControl(""),
-
+    this.bienes= new FormGroup({
+      // 'idSolicitud': new FormControl("")
     });
 
 
@@ -58,6 +58,7 @@ export class TablaSolicitudComponent implements OnInit {
     
   }
   open(id){
+    this.idSolicitud=id;
     this.mantenimientoService.listarDatosSolicitud(id).subscribe(data=>{
       this.noSolicitud=data.noSolicitud;
       this.area=data.areanegocio;
@@ -72,7 +73,11 @@ export class TablaSolicitudComponent implements OnInit {
 
     this.titulo = "Solicitud de autorizacion de mantenimiento";
     this.display = 'block';
-       this.bien.controls["estadoActual"].setValue("");
+  
+
+    // this.solicitud.controls["idSolicitud"].setValue(id);
+ 
+    // this.solicitud.controls["idSolicitud"].setValue(id);
       // this.solicitud.controls["codigobien"].setValue("");
       // this.solicitud.controls["descripcionbien"].setValue("");
       // this.solicitud.controls["razonesMantenimiento"].setValue("");
