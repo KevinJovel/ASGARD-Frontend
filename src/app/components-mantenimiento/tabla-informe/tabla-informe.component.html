@@ -31,17 +31,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
+                  <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                     <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                    <td>{{informe.codigo}}</td>
-                    <td>{{informe.descripcion}}</td>
-                    <td>{{informe.razon}}</td>
-                    <td>{{informe.periodo}}</td>
+                    <td>{{bien.codigo}}</td>
+                    <td>{{bien.descripcion}}</td>
+                    <td>{{bien.razon}}</td>
+                    <td>{{bien.periodo}}</td>
               
 			
                    
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(informe.idsolicitud)" ><i class="icon-edit"></i></button>
+                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(bien.idsolicitud)" ><i class="icon-edit"></i></button>
                      </td>
                   </tr>
                 </tbody>
@@ -82,9 +82,9 @@
           </div>
           <div class="form-group col-md-6">
             <label for="exampleFormControlTextarea1" >Técnico:</label>
-            <select class="form-control"   id="exampleFormControlTextarea1"  maxlength="51">
+            <select class="form-control" formControlName="idtecnico"   id="exampleFormControlTextarea1"  maxlength="51">
               <option value="">---Seleccione---</option>	
-              <option [value]="tecnico.IdTecnico" *ngFor="let tecnico of tecnicos">{{tecnico.nombre}}</option>	 
+              <option [value]="te.idtecnico" *ngFor="let te of tecnicos">{{te.nombre}}</option>	 
             </select>
             </div>
             <div class="form-group col-md-6">

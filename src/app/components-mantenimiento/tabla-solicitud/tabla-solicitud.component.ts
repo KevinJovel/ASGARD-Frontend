@@ -25,8 +25,7 @@ export class TablaSolicitudComponent implements OnInit {
   jefe: string;
   area:string;
   idSoli: any;
-  // arreglo: any[];
-  // matriz:(string | number)[][]=new Array();
+
 
   constructor(private mantenimientoService: MantenimientoService) { 
   //   this.solicitud=new FormGroup({
@@ -89,47 +88,9 @@ export class TablaSolicitudComponent implements OnInit {
   // buscar(nombre){}
 
 
-  // capturaArreglo(){
-  //  this.arreglo.push([this.bienes.controls["estadoActual"].value]);
-  //  this.display = 'none';
-  //  console.log(this.arreglo);   
-  // }
 
-  aprobarSolicitud1() {
 
-  //   this.mantenimientoService.aceptarSolicitud(idsolicitud).subscribe(res=>{
-  //   if(res==1){
-  //     for (let datos of this.arreglo) {
-  //       this.bien.controls["estadoActual"].setValue(datos[0]);
-  //      this.mantenimientoService.guardarEstadoActual(this.bien.value).subscribe(data => {
-  //       this.mantenimientoService.getBienes().subscribe(  data => 
-  //         {  this.bienes=data; }
-  //       );
-  //      });
-  //     }
-  //     Swal.fire({
-  //       position: 'center',
-  //       icon: 'success',
-  //       title: 'Solicitud Aprobada con exito',
-  //       showConfirmButton: false,
-  //       timer: 3000
-  //     })
-  // this.arreglo=[];
-  // }else{
-  //     Swal.fire({
-  //       position: 'center',
-  //       icon: 'warning',
-  //       title: 'Error al guardar',
-  //       showConfirmButton: false,
-  //       timer: 3000
-  //     })
-  //   }
-   
-  // }); 
-  // this.mantenimientoService.getSolicitudMantenimiento().subscribe(
-  //   data => { this.solicitudes = data }
-  // );
-    }
+  
  
 
   aprobarSolicitud() {
@@ -154,6 +115,10 @@ export class TablaSolicitudComponent implements OnInit {
             'success'
           )
           this.display = 'none'; 
+          this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
+            this.solicitudes=data;
+            
+          });
          }
         
    });
@@ -173,60 +138,53 @@ export class TablaSolicitudComponent implements OnInit {
   })//de la alerta
 
   
-    // alert(this.idSolicitud);
-    // Swal.fire({
-    //   title: '¿Esta seguro de aprobar esta solicitud?',
-    //   text: "No podrá revertir esta acción!",
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Si, aprobar!'
-    // }).then((result) => {
-    //   if (result.value) {
-    //     this.mantenimientoService.aceptarSolicitud(idsolicitud).subscribe(data => {
-    //       Swal.fire(
-    //         'Solicitud aprobada!',
-    //         'La solicitud ha sido aprobada con éxito.',
-    //         'success'
-    //       )
-    //       this.mantenimientoService.getSolicitudMantenimiento().subscribe(
-    //         data => { this.solicitudes = data }
-    //       );
-    //     });
 
-    //   }
-    // })
   }
 
   denegarSolicitud(){
-   
-     
+    var id=this.idSoli;
+    // alert(id);
+ 
+     Swal.fire({
+       title: '¿Estas seguro de denegar esta solicitud?',
+       text: "No podras revertir esta accion!",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Si, denegar!'
+     }).then((result) => {
+       if (result.value) {
+     this.mantenimientoService.denegarSolicitud(id).subscribe(res=>{
+          if(res==1){
+           Swal.fire(
+             'Solicitud denegada!',
+             'La solictud ha sido denegada con exito.',
+             'success'
+           )
+           this.display = 'none'; 
+           this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
+            this.solicitudes=data;
+            
+          });
+          }
+         
+    });
+    this.mantenimientoService.listarBienesSolicitados(id).subscribe(res=>{
+      this.bienesS=res;
+      for (let bien of this.bienesS) {
+        this.mantenimientoService.camabiarEstadoDenegado(bien.idBien).subscribe(rest=>{
+        });
+      }
+      this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
+       this.solicitudes=data;
+       
+     });
+    });
+   }// del result
+   })//de la alerta
+ 
 
-
-    // Swal.fire({
-    //   title: '¿Esta seguro de denegar esta solicitud?',
-    //   text: "No podrá revertir esta acción!",
-    //   icon: 'warning',
-    //   showCancelButton: true,
-    //   confirmButtonColor: '#3085d6',
-    //   cancelButtonColor: '#d33',
-    //   confirmButtonText: 'Si, denegar!'
-    // }).then((result) => {
-    //   if (result.value) {
-    //     this.mantenimientoService.denegarSolicitud(idsolicitud).subscribe(data => {
-    //       Swal.fire(
-    //         'Solicitud denegada!',
-    //         'La solicitud ha sido denegada con éxito.',
-    //         'success'
-    //       )
-    //       this.mantenimientoService.getSolicitudMantenimiento().subscribe(
-    //         data => { this.solicitudes = data }
-    //       );
-    //     });
-
-    //   }
-    // })
   }
 
 

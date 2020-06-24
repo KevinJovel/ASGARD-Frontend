@@ -11,7 +11,7 @@ import { MantenimientoService } from './../../services/mantenimiento.service';
 })
 export class TablaInformeComponent implements OnInit {
   solicitudes: any;
-  informes: any;
+  bienes: any;
   tecnicos:any;
   p: number = 1;
   informe: FormGroup;
@@ -25,25 +25,26 @@ export class TablaInformeComponent implements OnInit {
  
   constructor(private mantenimientoService: MantenimientoService) { 
     this.informe=new FormGroup({
-      'idsolicitud': new FormControl("0"),
-      'folio': new FormControl(""),
+      'idinformematenimiento': new FormControl("0"),
+      'idmantenimiento': new FormControl(""),
       'fechacadena': new FormControl(""),
-      'idMantenimiento': new FormControl("0"),
-      'idBien': new FormControl("0"),
-      'codigobien':new FormControl(""),
-      'descripcionbien':new FormControl(""),
-      'razonesMantenimiento':new FormControl(""),
-      'periodoMantenimiento':new FormControl("")
+      'idtecnico': new FormControl(""),
+      //'idBien': new FormControl("0"),
+      'descripcion':new FormControl(""),
+      'costomateriales':new FormControl(""),
+      'costomo':new FormControl(""),
+      'costototal':new FormControl("")
    }); 
   }
 
   ngOnInit(): void {
-  this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
-      this.informes=data;    
+    this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+      this.bienes=res;
+  
     });
-this.mantenimientoService.listarTecnicosCombo().subscribe(data=>{
-  this.tecnicos=data;    
-});
+    this.mantenimientoService.listarTecnicoCombo().subscribe(data=>{
+      this.tecnicos=data;    
+      });
   }
   open(id){
 
@@ -51,11 +52,16 @@ this.mantenimientoService.listarTecnicosCombo().subscribe(data=>{
   
     this.titulo = "Informe de mantenimiento";
     this.display = 'block';
-      this.informe.controls["idBien"].setValue("");
-       this.informe.controls["codigobien"].setValue("");
-      this.informe.controls["descripcionbien"].setValue("");
-       this.informe.controls["razonesMantenimiento"].setValue("");
-       this.informe.controls["periodoMantenimiento"].setValue("");
+      this.informe.controls["idinformematenimiento"].setValue("0");
+       this.informe.controls["idmantenimiento"].setValue("");
+      this.informe.controls["fechacadena"].setValue("");
+       this.informe.controls["idtecnico"].setValue("");
+       this.informe.controls["descripcion"].setValue("");
+       this.informe.controls["costomateriales"].setValue("");
+       this.informe.controls["costomo"].setValue("");
+       this.informe.controls["costototal"].setValue("");
+
+
   }
   buscar(nombre){}
   
