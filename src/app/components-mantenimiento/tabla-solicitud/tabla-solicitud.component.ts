@@ -173,7 +173,7 @@ export class TablaSolicitudComponent implements OnInit {
     this.mantenimientoService.listarBienesSolicitados(id).subscribe(res=>{
       this.bienesS=res;
       for (let bien of this.bienesS) {
-        this.mantenimientoService.camabiarEstadoDenegado(bien.idBien).subscribe(rest=>{
+        this.mantenimientoService.cambiarEstadoDenegado(bien.idBien).subscribe(rest=>{
         });
       }
       this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{

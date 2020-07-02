@@ -9,12 +9,7 @@ export class MantenimientoService {
   constructor(private http: Http) {
 
    }
- public listarEmpleadosCombo(){
-  return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarEmpleadosCombo" ).map(res=>res.json());
- }
- public listarAreaCombo(){
-  return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarAreaCombo" ).map(res=>res.json());
- } 
+
  public listarTecnicoCombo(){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarTecnicoCombo" ).map(res=>res.json());
  } 
@@ -34,15 +29,13 @@ public listarCodigoCombo(){
 public setSolicitud(datos) {
   return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarBienes",datos).map(res => res.json());
 }
-public guardarEstadoActual(datos) {
-  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarEstadoActual",datos).map(res => res.json());
-}
+
 
 public listarBienesSolicitados(id){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listaBienesSolicitados/"+id ).map(res=>res.json());
  } 
  public listarBienesMantenimiento(){
-  return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listaBienesMantenimiento" ).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarBienesMantenimiento" ).map(res=>res.json());
  } 
  
  public listarDatosSolicitud(id){
@@ -53,15 +46,14 @@ public listarBienesSolicitados(id){
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/aceptarSolicitud/"+idsolicitud).map(res => res.json());
 }
 public cambiarEstado(idBien) {
-  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/camabiarEstado/"+idBien).map(res => res.json());
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/cambiarEstado/"+idBien).map(res => res.json());
 }
 public denegarSolicitud(idsolicitud) {
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/denegarSolicitud/"+idsolicitud).map(res => res.json());
 }
-public camabiarEstadoDenegado(idsolicitud) {
-  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/camabiarEstadoDenegado/"+idsolicitud).map(res => res.json());
+public cambiarEstadoDenegado(idsolicitud) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/cambiarEstadoDenegado/"+idsolicitud).map(res => res.json());
 }
-
 
  
 }
