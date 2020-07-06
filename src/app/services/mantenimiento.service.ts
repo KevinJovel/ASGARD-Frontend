@@ -55,5 +55,11 @@ public cambiarEstadoDenegado(idsolicitud) {
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/cambiarEstadoDenegado/"+idsolicitud).map(res => res.json());
 }
 
+//metodo para guardar todos los informes de mantenimiento.
+public guardarInformeMantenimiento(informe) {
+  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarInformeMantenimiento", informe).map(res => res.json());
+}
+
+
  
 }

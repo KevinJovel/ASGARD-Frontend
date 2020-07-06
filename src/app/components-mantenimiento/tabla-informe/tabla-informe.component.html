@@ -41,7 +41,7 @@
 			
                    
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(bien.idsolicitud)" ><i class="icon-edit"></i></button>
+                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(bien.idmantenimiento)" ><i class="icon-edit"></i></button>
                      </td>
                   </tr>
                 </tbody>
@@ -63,22 +63,24 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="mostrarbienes()">   
+        <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="guardarDatos1()">   
           
-          <input type="hidden" class="form-control"  id="exampleInputEmail3" autocomplete="off">  
-         <input type="hidden" class="form-control"   id="exampleInputEmail3" autocomplete="off">  
+          <input type="text" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3" autocomplete="off">  
+         
+
+         <input type="text" class="form-control" value="{{idmante}}"> 
         
        
          
          <div class="form-group col-md-6">
           <label for="inputPassword4">Fecha</label>
-          <input type="date" class="form-control">
+          <input type="date" class="form-control" formControlName="fechainforme">
         </div>
           
           
           <div class="form-group col-md-6">
             <label for="formGroupExampleInput2">Costo de mano de obra</label>
-            <input type="number" class="form-control" id="inputEmail4" placeholder="Ingrese costo del mantenimiento" autocomplete="off">
+            <input type="number" class="form-control" formControlName="costomo" id="inputEmail4" placeholder="Ingrese costo del mantenimiento" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
             <label for="exampleFormControlTextarea1" >Técnico:</label>
@@ -89,34 +91,29 @@
             </div>
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2">Costo total</label>
-              <input type="number" class="form-control" id="inputEmail4" placeholder="Costo total de mantenimiento" autocomplete="off" readonly="off">
+              <input type="number" class="form-control" formControlName="costototal" id="inputEmail4" placeholder="Costo total de mantenimiento" autocomplete="off" readonly="off">
             </div>
           <div class="form-group col-md-6">         
             <label for="exampleInputEmail1">Costo de materiales:</label>
-            <input  size=40 type="number" class="form-control" id="exampleInputEmail3" placeholder="Ingrese costo de materiales" autocomplete="off" maxlength="51">
+            <input  size=40 type="number" class="form-control" formControlName="costomateriales" id="exampleInputEmail3" placeholder="Ingrese costo de materiales" autocomplete="off" maxlength="51">
           </div>
          
           
           
           <div class="form-group col-md-6">
             <label for="exampleFormControlTextarea2">Descripción:</label>
-            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off"  maxlength="250"></textarea>
+            <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off"  maxlength="250"></textarea>
           </div>
           
-      
-      
-       
-     
-       
-         </form>
+        
         
 
 
           <div>
-          <button type="submit" class="btn btn-primary"><i class="icon-save"></i>Enviar</button>
+          <button type="submit" class="btn btn-primary"><i class="icon-save"></i>Guardar</button>
           <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
           </div>
-       
+        </form>
       </div>
     </div>
    </div>

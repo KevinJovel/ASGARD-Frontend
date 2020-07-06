@@ -21,13 +21,14 @@ export class TablaInformeComponent implements OnInit {
   fecha: string;
   jefe: string;
   area:string;
+  idmante: any;
 
  
   constructor(private mantenimientoService: MantenimientoService) { 
     this.informe=new FormGroup({
       'idinformematenimiento': new FormControl("0"),
       'idmantenimiento': new FormControl(""),
-      'fechacadena': new FormControl(""),
+      'fechainforme': new FormControl(""),
       'idtecnico': new FormControl(""),
       //'idBien': new FormControl("0"),
       'descripcion':new FormControl(""),
@@ -53,19 +54,113 @@ export class TablaInformeComponent implements OnInit {
     this.titulo = "Informe de mantenimiento";
     this.display = 'block';
       this.informe.controls["idinformematenimiento"].setValue("0");
-       this.informe.controls["idmantenimiento"].setValue("");
-      this.informe.controls["fechacadena"].setValue("");
+      this.idmante=  this.informe.controls["idmantenimiento"].setValue("");
+      this.informe.controls["fechainforme"].setValue("");
        this.informe.controls["idtecnico"].setValue("");
        this.informe.controls["descripcion"].setValue("");
        this.informe.controls["costomateriales"].setValue("");
        this.informe.controls["costomo"].setValue("");
        this.informe.controls["costototal"].setValue("");
-
+       
+       //para recuerar el id 
+       this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+        this.bienes=res;
+    
+      });
+       this.idmante=id;
 
   }
   buscar(nombre){}
   
-  mostrarbienes(){}
+ /* guardarDatos(){
+    this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res => {
+      if(res==1){
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Registro Guardado con exito',
+          showConfirmButton: false,
+          timer: 3000
+        })
+         /*this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+        this.bienes=res;
+    
+      });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Error al guardar',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+  
+     
+    });
+      this.informe.controls["idinformematenimiento"].setValue("0");
+      this.informe.controls["idmantenimiento"].setValue("");
+      this.informe.controls["fechacadena"].setValue("");
+      this.informe.controls["idtecnico"].setValue("");
+      this.informe.controls["descripcion"].setValue("");
+      this.informe.controls["costomateriales"].setValue("");
+      this.informe.controls["costomo"].setValue("");
+      this.informe.controls["costototal"].setValue("");
+   
+
+this.display = 'none';
+this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+  this.bienes=res;
+
+});
+
+  }*/
+
+  guardarDatos1() {
+    var id=this.idmante;
+      if (this.informe.valid == true) {
+        this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(data => {
+          this.mantenimientoService.listarBienesMantenimiento().subscribe(res => {this.bienes = res});
+         });
+         this.mantenimientoService.cambiarEstadoDenegado(this.bienes.idBien).subscribe(rest=>{
+        });
+       
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Registro Guardado con exito',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+     else {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Error al guardar',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+    
+    this.informe.controls["idinformematenimiento"].setValue("0");
+    this.informe.controls["idmantenimiento"].setValue("");
+    this.informe.controls["fechainforme"].setValue("");
+    this.informe.controls["idtecnico"].setValue("");
+    this.informe.controls["descripcion"].setValue("");
+    this.informe.controls["costomateriales"].setValue("");
+    this.informe.controls["costomo"].setValue("");
+    this.informe.controls["costototal"].setValue("");
+
+    this.display = 'none';
+    this.mantenimientoService.listarBienesMantenimiento().subscribe(res => {this.bienes = res});
+
+  }
+
+
+
+
+
   close() {
     this.display = 'none';
   }

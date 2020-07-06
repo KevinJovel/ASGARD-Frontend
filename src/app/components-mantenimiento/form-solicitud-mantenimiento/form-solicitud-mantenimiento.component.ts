@@ -59,12 +59,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
       this.solicitudes=data;
     });
-    this.mantenimientoService.listarAreaCombo().subscribe(data =>{
-      this.areas =data;
-    });
-    this.mantenimientoService.listarEmpleadosCombo().subscribe(data =>{
-      this.empleados =data;
-    });
+  
     this.mantenimientoService.listarCodigoCombo().subscribe(data =>{
       this.codigos =data;
     });
