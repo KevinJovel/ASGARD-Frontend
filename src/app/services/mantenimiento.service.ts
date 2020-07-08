@@ -57,7 +57,7 @@ public cambiarEstadoDenegado(idsolicitud) {
 
 //metodo para guardar todos los informes de mantenimiento.
 public guardarInformeMantenimiento(informe) {
-  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarInformeMantenimiento", informe).map(res => res.json());
+  return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarInformeMantenimiento",informe).map(res => res.json());
 }
 
 

@@ -72,7 +72,7 @@ export class TablaInformeComponent implements OnInit {
   }
   buscar(nombre){}
   
- /* guardarDatos(){
+  guardarDatos(){
     this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res => {
       if(res==1){
         Swal.fire({
@@ -82,10 +82,7 @@ export class TablaInformeComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })
-         /*this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
-        this.bienes=res;
-    
-      });
+         this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.bienes=data});
       }else{
         Swal.fire({
           position: 'center',
@@ -99,7 +96,7 @@ export class TablaInformeComponent implements OnInit {
      
     });
       this.informe.controls["idinformematenimiento"].setValue("0");
-      this.informe.controls["idmantenimiento"].setValue("");
+      this.idmante= this.informe.controls["idmantenimiento"].setValue("");
       this.informe.controls["fechacadena"].setValue("");
       this.informe.controls["idtecnico"].setValue("");
       this.informe.controls["descripcion"].setValue("");
@@ -114,7 +111,7 @@ this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
 
 });
 
-  }*/
+  }
 
   guardarDatos1() {
     var id=this.idmante;
@@ -122,8 +119,8 @@ this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
         this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(data => {
           this.mantenimientoService.listarBienesMantenimiento().subscribe(res => {this.bienes = res});
          });
-         this.mantenimientoService.cambiarEstadoDenegado(this.bienes.idBien).subscribe(rest=>{
-        });
+         //this.mantenimientoService.cambiarEstadoDenegado(this.bienes.idBien).subscribe(rest=>{
+       // });
        
         Swal.fire({
           position: 'center',
@@ -143,20 +140,56 @@ this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
       })
     }
     
-    this.informe.controls["idinformematenimiento"].setValue("0");
+    /*this.informe.controls["idinformematenimiento"].setValue("0");
     this.informe.controls["idmantenimiento"].setValue("");
     this.informe.controls["fechainforme"].setValue("");
     this.informe.controls["idtecnico"].setValue("");
     this.informe.controls["descripcion"].setValue("");
     this.informe.controls["costomateriales"].setValue("");
     this.informe.controls["costomo"].setValue("");
-    this.informe.controls["costototal"].setValue("");
+    this.informe.controls["costototal"].setValue("");*/
 
     this.display = 'none';
-    this.mantenimientoService.listarBienesMantenimiento().subscribe(res => {this.bienes = res});
+   // this.mantenimientoService.listarBienesMantenimiento().subscribe(res => {this.bienes = res});
 
   }
 
+ /* guardar() {
+   // var id=this.idSoli;
+   // alert(id);
+
+    Swal.fire({
+      title: '¿Estas seguro de aprobar esta solicitud?',
+      text: "No podras revertir esta accion!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, aprobar!'
+    }).then((result) => {
+      if (result.value) {
+    this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res=>{
+         if(res==1){
+          Swal.fire(
+            'Solicitud aprobada!',
+            'La solictud ha sido aprobada con exito.',
+            'success'
+          )
+          this.display = 'none'; 
+          this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
+            this.solicitudes=data;
+            
+          });
+         }
+        
+   });
+
+  }// del result
+  })//de la alerta
+
+  
+
+  }*/
 
 
 

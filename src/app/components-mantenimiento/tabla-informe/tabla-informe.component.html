@@ -63,7 +63,7 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="guardarDatos1()">   
+        <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="guardarDatos()">   
           
           <input type="text" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3" autocomplete="off">  
          
@@ -91,7 +91,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2">Costo total</label>
-              <input type="number" class="form-control" formControlName="costototal" id="inputEmail4" placeholder="Costo total de mantenimiento" autocomplete="off" readonly="off">
+              <input type="number" class="form-control" formControlName="costototal" id="inputEmail4" placeholder="Costo total de mantenimiento" autocomplete="off" >
             </div>
           <div class="form-group col-md-6">         
             <label for="exampleInputEmail1">Costo de materiales:</label>
