@@ -1,3 +1,4 @@
+
 <br />
 <br />
 <br />
@@ -19,15 +20,14 @@
            <label  for="formGroupExampleInput2">Filtro Sucursal y Area </label>
            <select id="inputState" formControlName="idTipo" class="form-control" (change)="FiltroCombo()">
               <option selected>--Seleccione--</option>
-              <option value="1">Sucursal</option>
-              <option value="2">Area de negocio</option>
+              <option value="1">Area de negocio</option>
+              <option value="2">Sucursal</option>
             </select>
           </div>
           <div class="form-group col-md-3">
           <label for="inputPassword4">{{tipocombo}}</label>
-          <select id="inputState" class="form-control" formControlName="idCombo" >
+          <select #areasucur id="inputState" class="form-control" formControlName="idCombo" >
             <option selected>Seleccione</option>
-
             <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option>	
           </select>
         </div>
@@ -56,12 +56,13 @@
                             <th>Clasificación</th>
                             <th>Área de Negocio</th>
                             <th>Responsable</th>                        
-                            <th class="hidden-phone">Opciones</th>
+                            <th class="hidden-phone" >Opciones </th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let combo of comboAreaSucur | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
-                            <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                          <tr *ngFor="let combo of comboAreaSucur | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+                            
+                            <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
                             <td>{{combo.codigo}}</td>
                             <td>{{combo.fechacadena}}</td>
                             <td>{{combo.desripcion}}</td>
@@ -69,19 +70,18 @@
                             <td>{{combo.areaDeNegocio}}</td>
                             <td>{{combo.resposnsable}}</td>             
                             <td class="center hidden-phone">
-                              <button class="btn btn-primary btn-xs"  ><i class="icon-pencil" [routerLink]='["/form-nuevoBien"]'></i></button>
-                              <button class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><span class="glyphicon glyphicon-eye-open"></span></button>
+                              <button class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>
+                              <button class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open">Ver</i></button>
                             </td>
                           </tr>
                         </tbody>
                       </table>
-                      <pagination-controls  class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                     </div>
                   </div>
                 </section>
               </div>
             </div>
-
 
             <div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
               <div class="modal-dialog .modal-dialog ">
@@ -92,24 +92,33 @@
                     <h4 class="modal-title"></h4>
                   </div>
                   <div class="modal-body" >
-                    
                   
+                     <div class="row">
+                      <div class="col-lg-3">
+                        <label >N° de Formulario:</label> {{ noformu}}
+                        </div>
+                      <div class="form-group col-md-3">
+                        <label>Fecha de Ingreso:</label> {{ fecha }}
+                      </div>
+                      <div class="form-group col-md-3">
+                        <label>Código:</label> {{ codigo }}
+                        </div>
+                        <div class="form-group col-md-3">
+                          <label>N° Serie:</label> {{ numserie }}
+                         </div>
+                     </div>
                     
                     
                       <div class="col-lg-6">
                         
                           <p>
-                           <label >N° de Formulario:</label> {{bienObj.noFormulario}}<br/>
-                           <label>Fecha de Ingreso:</label>{{ bienObj.fechacadena}}<br/>
-                           <label>Código:</label> {{ bienObj.codigo }}<br/>
-                           <label>N° Serie:</label> {{ bienObj.numserie }}<br/>
-                           <label>Área:</label> {{bienObj.idarea}}<br/>
-                           <label>Clasificación:</label> {{ bienObj.clasificacion}}<br/>
-                           <label>Responsable:</label> {{ bienObj.resposnsable}}<br/>
-                           <label>Proveedor:</label> {{ bienObj.idproveedor}}<br/>
-                           <label>Donante:</label> {{ bienObj.iddonante}} <br/>
-                           <label>Adquisición:</label> {{ bienObj.tipoadquisicion}} <br/>
-                           <label>Descripción:</label> {{ bienObj.desripcion }}<br/>
+                           <label>Área:</label> {{ area}}<br/>
+                           <label>Clasificación:</label> {{ clasificacion}}<br/>
+                           <label>Responsable:</label> {{ responsable}}<br/>
+                           <label>Proveedor:</label> {{ proveedor}}<br/>
+                           <label>Donante:</label> {{ donante}} <br/>
+                           <label>Adquisición:</label> {{tipoadqui}} <br/><!--contado credito-->
+                           <label>Descripción:</label> {{descripcion }}<br/>
                           
                           </p>
                        
@@ -118,75 +127,66 @@
                       <div class="row">
                         
                         <div class="col-lg-3">
-                          <label>Foto:</label>
-                          <img [src]="bienObj.foto | safe" alt="">
+                          <label></label>
+                          <img [src]="foto | safe" alt=""  width="250" height="165" class="img-thumbnail">
                         </div>
                        
                       </div>
                      
-                 
                       <div class="row">
-                       <div class="col-lg-3">
-                        <label >Color:</label>
-                        <p> {{ bienObj.color }}</p>
-                         </div>
-                       <div class="form-group col-md-3">
-                        <label >Marca:</label>
-                        <p> {{ bienObj.idmarca }}</p>
-                       </div>
-                       <div class="form-group col-md-3">
-                        <label >Modelo:</label>
-                        <p> {{ bienObj.modelo}}</p>
-                         </div>
-                         <div class="form-group col-md-3">
-                          <label  >Estado:</label>
-                          <p> {{ bienObj.estadoingreso}}</p>
+                        <div class="col-lg-2">
+                         <label >Color:</label>
+                         <p> {{ color }}</p>
                           </div>
-                        
-                      
-                      </div>
-                 
-
-                         <div class="form-row">
-                          <div class="form-group col-md-3">
-                          <label  >Plazo:</label>
-                          <p> {{ bienObj.plazopago}}</p>
-                          </div>
-                          <div class="form-group col-md-3">
-                          <label >Cuota:</label>
-                          <p> {{ bienObj.cuotaasignada}}</p>
-                          </div>
-                          <div class="form-group col-md-3">
-                          <label >Interes:</label>
-                          <p> {{ bienObj.intereses}}</p>
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label  >Prima:</label>
-                            <p> {{ bienObj.prima}}</p>
-                            </div>
-                         </div>
-
-
-                         <div class="form-row">
-                        
-                          <div class="form-group col-md-3">
-                          <label >Valor Residual:</label>
-                          <p> {{ bienObj.valorresidual}}</p>
-                          </div>
-                          <div class="form-group col-md-3">
-                          <label >Valor Adquisición:</label>
-                          <p> {{ bienObj.valoradquisicion}}</p>
-                          </div>
-                          <div class="form-group col-md-3">
-                            <label >Vida Útil:</label>
-                            <p> {{ bienObj.vidautil}}</p>
-                            </div>
-                            <div class="form-group col-md-3">
-                              <label >Destino Inicial:</label>
-                              <p> {{ bienObj.destinoinicial}}</p>
-                              </div>
+                        <div class="form-group col-md-2">
+                         <label >Marca:</label>
+                         <p> {{ marca }}</p>
                         </div>
-
+                        <div class="form-group col-md-2">
+                         <label >Modelo:</label>
+                         <p> {{ modelo}}</p>
+                          </div>
+                          <div class="form-group col-md-2">
+                           <label  >Estado:</label>
+                           <p> {{ estado}}</p>
+                           </div>
+                           <div class="form-group col-md-2">
+                             <label >Vida Útil:</label>
+                             <p> {{vidautil}}</p>
+                             </div>
+                             <div class="form-group col-md-2">
+                               <label >Destino Inicial:</label>
+                               <p> {{destino}}</p>
+                               </div> 
+                       </div>
+                     
+                    
+                         <div class="form-row">
+                          <div class="form-group col-md-2">
+                          <label  >Plazo:</label>
+                          <p> {{ plazo}}</p>
+                          </div>
+                          <div class="form-group col-md-2">
+                          <label >Cuota:</label>
+                          <p> ${{ cuota}}</p>
+                          </div>
+                          <div class="form-group col-md-2">
+                          <label >Interes:</label>
+                          <p> {{ interes}}%</p>
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label  >Prima:</label>
+                            <p> ${{ prima}}</p>
+                            </div>
+                            <div class="form-group col-md-2">
+                              <label >Valor Residual:</label>
+                              <p> {{ valorresidual}}</p>
+                              </div>
+                              <div class="form-group col-md-2">
+                              <label >Valor Adquisición:</label>
+                              <p> ${{ valor}}</p>
+                              </div>
+                         </div>
 
                    <div class="row">
                     <div class="col-xs-3">
