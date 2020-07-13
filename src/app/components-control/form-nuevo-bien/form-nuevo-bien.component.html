@@ -23,8 +23,8 @@
 
     </div>
     <div class="col-lg-3">
-      <button style="margin-top: 15px;" type="button" class="btn btn-success"><i
-        class="icon-book"></i> Ver Registros</button>
+      <button style="margin-top: 15px;" type="button" class="btn btn-success" [routerLink]='["/tabla-activos"]'>
+        <i class="icon-book" ></i> Ver Registros</button>
     </div>
 </div>
   </header>
@@ -40,10 +40,11 @@
               
           </ul>
       </div>
-      <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarDatoss()">
-          <fieldset title="1" class="step" id="default-step-0">
-              <legend> </legend>
-              <input type="hidden" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
+      <ng-template #elseTemplate>
+   <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarDatoss()">
+    <fieldset title="1" class="step" id="default-step-0">
+      <legend></legend>
+      <input type="hidden" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
               <input type="hidden" class="form-control" formControlName="noformulario" id="exampleInputEmail3" autocomplete="off">
               <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
 
@@ -89,7 +90,7 @@
                     <div class="col-lg-4">
                     <label  for="formGroupExampleInput2">Descripción </label>
                     <textarea class="form-control" id="exampleFormControlTextarea2"
-                     rows="1" placeholder="Descripcion" autocomplete="off" formControlName="descripcion" maxlength="81"></textarea>
+                     rows="1" placeholder="Descripcion" autocomplete="off" formControlName="descripcion" maxlength="101"></textarea>
                     </div>
                     <div class="col-lg-4">
                     <label for="inputPassword4">Cantidad</label>
@@ -99,7 +100,7 @@
                     
                     <div class="col-lg-4">
                       <label for="inputPassword4">Color</label>
-                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese color" formControlName="color" maxlength="16">
+                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese color" formControlName="color" maxlength="21">
                       </div>
 
         
@@ -123,7 +124,7 @@
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputZip">Modelo</label>
-                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo" formControlName="modelo" maxlength="21">
+                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo" formControlName="modelo" maxlength="31">
                     </div>
                     
                   </div>
@@ -276,10 +277,261 @@
               
           </fieldset>
           <br><br><br>
-          <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-danger" value="Guardar"/>
-      </form>
-
+          <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-danger" value="Guardar" *ngIf="!bandera"/>
+          <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-success" 
+          value="Actualizar"  *ngIf="bandera" />
+        </form>
+      </ng-template>
       <br><br><br>
+
+
+
+      
+      <ng-container *ngIf="bandera; else elseTemplate">
+        <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarMod()">
+          <fieldset title="1" class="step" id="default-step-0">
+            <legend></legend>
+            
+              <input type="hidden" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="noformulario" id="exampleInputEmail3" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+
+                <div class="form-row">
+                    <div class="form-group col-md-6" >
+                    <label for="inputPassword4">Fecha de Ingreso</label>
+                    <input type="date" class="form-control" formControlName="fechaingreso">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label  for="formGroupExampleInput2">Estado</label>
+                      <select name="miselect"  class="form-control" formControlName="estadoingreso">
+                          <option value="0">Seleccione...</option>
+                          <option value="1">Nuevo</option>
+                          <option value="2">Usado</option>
+                          <option value="3">Usado mal estado</option>                  
+                        </select>
+                      </div>
+
+                </div>
+
+                <div class="form-row">
+                    
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Tipo Adquisición</label>
+                      <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
+                        <option selected>Seleccione...</option>
+                        <option value="1">Contado</option>
+                        <option value="2">Crédito</option>
+                        <option value="3">Donado</option>
+                        </select>
+                      </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">{{tipocombo}}</label>
+                    <select  class="form-control" formControlName="idproveedor">
+                      <option selected>Seleccione...</option>
+                      <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="col-lg-4">
+                    <label  for="formGroupExampleInput2">Descripción </label>
+                    <textarea class="form-control" id="exampleFormControlTextarea2"
+                     rows="1" placeholder="Descripcion" autocomplete="off" formControlName="descripcion" maxlength="101"></textarea>
+                    </div>
+                    <div class="col-lg-4">
+                    <label for="inputPassword4">Cantidad</label>
+                    <input type="number" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad" formControlName="cantidad"
+                    max="999" min="0" onKeyDown="if(this.value.length==3 && event.keyCode>47 && event.keyCode<58)return false;">
+                    </div> 
+                    
+                    <div class="col-lg-4">
+                      <label for="inputPassword4">Color</label>
+                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese color" formControlName="color" maxlength="21">
+                      </div>
+
+        
+                </div>   
+              
+                <div></div>     
+                <div class="row">
+                    <div class="form-group col-md-4">
+                      <label for="inputCity">Clasificación</label>
+                      <select  class="form-control" formControlName="idclasificacion">
+                        <option selected>Seleccione...</option>
+                        <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.correlativo}}-{{clasificacion.clasificacion}}</option>
+                      </select>
+                     </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputState">Marca</label>
+                      <select id="inputState" class="form-control" formControlName="idmarca">
+                        <option selected>Seleccione...</option>
+                        <option [value]="marca.idMarca" *ngFor="let marca of marcas">{{marca.marca}}</option>
+                      </select>  
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputZip">Modelo</label>
+                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo" formControlName="modelo" maxlength="31">
+                    </div>
+                    
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-lg-12"
+                    ></div>
+                </div>
+
+                <!-- Alertas de validaciones -->
+                <div class="form-group col-md-4">
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['color'].errors?.maxlength">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                </div>
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['descripcion'].errors?.maxlength">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                </div>
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cantidad'].errors?.puntoDecimal">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡ERROR!</strong> No se permite punto decimal
+                </div>
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cantidad'].errors?.min">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡ERROR!</strong> No se permite números negativos
+                </div>
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['modelo'].errors?.maxlength">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                </div>
+              </div>
+
+          </fieldset>
+          <fieldset title="2" class="step" id="default-step-1" >
+              <legend> </legend>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                <label  for="formGroupExampleInput2"># de Factura</label>
+                <input type="text" class="form-control" id="inputEmail4" placeholder="Ingrese # de factura" formControlName="nofactura" maxlength="11">
+                </div>
+                <div class="form-group col-md-4">
+                <label for="inputPassword4">Costo</label>
+                <input type="number" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputPassword4">Prima</label>
+                  <input type="number" class="form-control" placeholder="{{disabledPrima}}" formControlName="prima" [attr.disabled]="disabled ? '' : null" step="0.01" min="0">
+                  </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label  for="formGroupExampleInput2">Plazo</label>
+                <input type="text" class="form-control" id="inputEmail4" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null">
+                </div>
+                <div class="form-group col-md-4">
+                    <label  for="formGroupExampleInput2">Cuota</label>
+                    <input type="number" class="form-control" id="inputEmail4" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null" step="0.01" min="0">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">Interes</label>
+                      <input type="number" class="form-control" placeholder="{{disabledInteres}}" formControlName="interes" [attr.disabled]="disabled ? '' : null">
+                      </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                <label  for="formGroupExampleInput2">Persona que entrega</label>
+                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51">
+                </div>
+                <div class="form-group col-md-6">
+                <label for="inputPassword4">Persona que recibe</label>
+                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51">
+                </div>
+            </div>
+
+            <div class="form-row">
+
+                 <div class="form-group col-md-6">
+                  <label for="inputPassword4">Foto</label>
+                  <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" />
+
+              </div>
+          
+                <div class="form-group col-md-6">
+                <label  for="formGroupExampleInput2">Observaciones </label>
+                <textarea class="form-control" id="exampleFormControlTextarea2"
+                 rows="1" placeholder="Ingrese observaciones" autocomplete="off" formControlName="observaciones" maxlength="71"></textarea>
+                </div>
+                                
+            </div>
+            <div class="form-row">
+                <div class="form-group col-lg-12"
+                ></div>
+            </div>
+
+           
+          <!-- Alertas de validaciones -->
+          <div class="form-group col-md-4">
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['nofactura'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['personaentrega'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cuotaasignada'].errors?.step">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Sólo se permiten dos dígitos
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['personarecibe'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['observaciones'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+
+        </div>
+              
+          </fieldset>
+          <br><br><br>
+          <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-danger" value="Guardar" *ngIf="!bandera"/>
+          <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-success" 
+          value="Actualizar"  *ngIf="bandera" />
+        </form>
+      </ng-container>
+
+
   </div>
 </section>
 <!-- 
