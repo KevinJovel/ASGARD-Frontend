@@ -1,0 +1,132 @@
+<br><br><br><br>
+<section class="panel">
+  <h1>Bienes para dar de baja</h1>
+  <div class="row">
+    <div class="col-lg-6">
+     
+    </div>
+    <div class="col-lg-3">
+    </div>
+    <div class="col-md-3">
+      <input type="search"  class="form-control"  placeholder="Buscar">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
+
+        <div class="panel-body">
+          <div class="adv-table">
+            <table class="display table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Código</th>
+                  <th>Descripción</th>
+                  <th>Responsable</th>
+                  <th>Cargo</th>
+                  <th>Área de negocio</th>
+                  <th class="hidden-phone">Solicitud</th>
+                </tr>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let acti of activo | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                  <td>{{acti.codigo}}</td>
+                  <td>{{acti.desripcion}}</td>
+                  <td>{{acti.resposnsable}}</td>
+                  <td>{{acti.cargo}}</td>
+                  <td>{{acti.areaDeNegocio}}</td>
+                  <td class="center hidden-phone">
+                    <button class="btn btn-primary btn-xs" (click)="open(acti.idBien)"><i class="glyphicon glyphicon-open"> Enviar</i></button>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!--modal para ingresar y editar-->
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog .modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
+          
+  <td>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Fecha</label>
+            <input size=45  type="date" class="form-control" formControlName="fechasolicitud" id="nombre"  autocomplete="off">
+          </div>
+  </td>      
+<td>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Folio</label>
+            <input size=25  type="text" class="form-control" formControlName="folio" id="direccion" placeholder="Ingrese Folio" maxlength="101" autocomplete="off">
+          </div>     
+        
+ </td>  
+<td> 
+ <div class="form-group">
+  <label  for="formGroupExampleInput2">Motivo</label>
+  <select  name="miselect"  class="form-control" formControlName="motivo" (change)="MotivoBaja()">
+      <option value="0">Seleccione...</option>
+      <option value="1">Siniestros</option>
+      <option value="2">Subasta Pública</option>
+      <option value="3">Destrucción con reciclaje</option>  
+      <option value="4">Donaciones</option>
+      <option value="5">Devoluciones</option>  
+      <option value="6">Otros</option>               
+    </select>
+  </div>
+</td> 
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Observaciones</label>
+            <input type="text" class="form-control" formControlName="observaciones"  placeholder="Ingrese Observación" autocomplete="off"  maxlength="250">
+          </div> 
+
+          <td>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Entidad Beneficiaria</label>
+            <input size=45  type="text" class="form-control" placeholder="{{disabledentidad}}" formControlName="entidadbeneficiaria" [attr.disabled]="disabled ? '' : null" maxlength="101" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Domicilio</label>
+            <input type="text" class="form-control" placeholder="{{disableddomicilio}}" formControlName="domicilio" [attr.disabled]="disabled ? '' : null" maxlength="101" autocomplete="off">
+          </div>
+        </td>
+          <td>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Contacto</label>
+            <input size=45  type="text" class="form-control" placeholder="{{disabledcontacto}}" formControlName="contacto" [attr.disabled]="disabled ? '' : null" maxlength="101" autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Teléfono </label>
+            <input type="text" mask="0000-0000" class="form-control" placeholder="{{disabledtelefono}}" formControlName="telefono" [attr.disabled]="disabled ? '' : null" maxlength="10" autocomplete="off">
+          </div>
+         
+        </td>
+  
+          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
