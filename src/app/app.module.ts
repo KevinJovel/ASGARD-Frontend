@@ -20,6 +20,7 @@ import {NgxSpinnerModule} from 'ngx-spinner'
 import { SharedComponent } from './components/shared/shared.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeaderComponent } from './components/shared/header/header.component';
+//componnete catalogos
 import { TablaActivosComponent } from './components-control/tabla-activos/tabla-activos.component';
 import { FormEmpleadoComponent } from './components-catalogos/form-empleado/form-empleado.component';
 import { FormMarcaComponent } from './components-catalogos/form-marca/form-marca.component';
@@ -28,18 +29,18 @@ import { TablaMarcasComponent } from './components-catalogos/tabla-marcas/tabla-
 import { FormDonantesComponent } from './components-catalogos/form-donantes/form-donantes.component';
 import { FormProveedorComponent } from './components-catalogos/form-proveedor/form-proveedor.component';
 import { FormCargoComponent } from './components-catalogos/form-cargo/form-cargo.component';
-
 import { FormClasificacionComponent } from './components-catalogos/form-clasificacion/form-clasificacion.component';
 import { FormAreasNegocioComponent } from './components-catalogos/form-areas-negocio/form-areas-negocio.component';
 import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-tecnico.component';
+
+//componente usuario
 import { FormUsuarioComponent } from './components-usuarios/form-usuario/form-usuario.component';
 import { FormTipoUsuarioComponent } from './components-usuarios/form-tipo-usuario/form-tipo-usuario.component';
-//componentes control
 
+//componentes control
 import { FormNuevoBienComponent } from './components-control/form-nuevo-bien/form-nuevo-bien.component';
 import { FormAsignancionComponent } from './components-control/form-asignancion/form-asignancion.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 
 //componentes mantenimiento
 import { FormSolicitudMantenimientoComponent } from './components-mantenimiento/form-solicitud-mantenimiento/form-solicitud-mantenimiento.component';
@@ -47,13 +48,18 @@ import { TablaSolicitudComponent } from './components-mantenimiento/tabla-solici
 import { FormInformeMantenimientoComponent } from './components-mantenimiento/form-informe-mantenimiento/form-informe-mantenimiento.component';
 import { TablaInformeComponent } from './components-mantenimiento/tabla-informe/tabla-informe.component';
 
-//servicios hay que procurar llevar el orden
+//componentes baja
+import { CuadroSolicitudComponent } from './components-baja/cuadro-solicitud/cuadro-solicitud.component';
+import { SolicitudComponent } from './components-baja/solicitud/solicitud.component';
+import { GestionDescargoComponent } from './components-baja/gestion-descargo/gestion-descargo.component';
 
+//servicios hay que procurar llevar el orden
 import { CargarScriptsService } from './services/cargar-scripts.service';
 import { CatalogosService } from './services/catalogos.service';
 import { UsuarioService } from './services/usuario.service';
 import { MantenimientoService } from './services/mantenimiento.service';
 import { SafePipe } from './components-control/safe.pipe';
+import { BajaService } from './services/baja.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +88,10 @@ import { SafePipe } from './components-control/safe.pipe';
     TablaSolicitudComponent,
     FormInformeMantenimientoComponent,
     TablaInformeComponent,
-    SafePipe
+    SafePipe,
+    CuadroSolicitudComponent,
+    SolicitudComponent,
+    GestionDescargoComponent
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -97,12 +106,12 @@ import { SafePipe } from './components-control/safe.pipe';
       NgxMaskModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-        { path: 'shared', component: SharedComponent },
-        { path: 'tabla-activos', component: TablaActivosComponent },
-        { path: 'form-empleado', component: FormEmpleadoComponent },
-        { path: 'form-marca', component: FormMarcaComponent },
-        { path: 'tabla-marca', component: TablaMarcasComponent },
-        { path: 'form-sucursal', component: FormSucursalComponent },
+      { path: 'shared', component: SharedComponent },
+      { path: 'tabla-activos', component: TablaActivosComponent },
+      { path: 'form-empleado', component: FormEmpleadoComponent },
+      { path: 'form-marca', component: FormMarcaComponent },
+      { path: 'tabla-marca', component: TablaMarcasComponent },
+      { path: 'form-sucursal', component: FormSucursalComponent },
       { path: 'form-donantes', component: FormDonantesComponent },
       { path: 'form-proveedor', component: FormProveedorComponent },
       { path: 'form-clasificacion', component: FormClasificacionComponent },
@@ -116,16 +125,16 @@ import { SafePipe } from './components-control/safe.pipe';
       {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},
       {path: 'tabla-informe', component: TablaInformeComponent},
       {path: 'tabla-solicitud', component: TablaSolicitudComponent},
+      {path: 'cuadro-solicitud', component: CuadroSolicitudComponent},
+      {path: 'solicitud', component: SolicitudComponent},
+      {path: 'gestion-descargo', component: GestionDescargoComponent}
       
-
-
-
-      
+ 
 
     ]),
     NoopAnimationsModule
     ],
-    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService],
+    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService],
 
     bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
 })

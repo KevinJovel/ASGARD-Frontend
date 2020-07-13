@@ -71,8 +71,8 @@
           <span>Baja de Bienes</span>
         </a>
         <ul class="sub">
-          <li><a href="grids.html">Cuadro de Solicitudes</a></li>
-          <li><a href="grids.html">Gestón de Descargo de Bien</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cuadro-solicitud"]' (click)='collapse()'>Cuadro de Solicitudes</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/gestion-descargo"]' (click)='collapse()'>Gestón de Descargo de Bien</a></li>
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
@@ -83,7 +83,7 @@
         <ul class="sub">
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-solicitud"]' (click)='collapse()'>Solicitud de mantenimiento</a></li> 
           <li><a href="calendar.html">Solicitud de Traspaso</a></li>
-          <li><a href="gallery.html">Solicitud de Baja</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/solicitud"]' (click)='collapse()'>Solicitud de Baja</a></li>
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
