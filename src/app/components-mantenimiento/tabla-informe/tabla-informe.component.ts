@@ -28,6 +28,7 @@ export class TablaInformeComponent implements OnInit {
     this.informe=new FormGroup({
       'idinformematenimiento': new FormControl("0"),
       'idmantenimiento': new FormControl("0"),
+      'idBien': new FormControl("0"),
       'fechainforme': new FormControl(""),
       'idtecnico': new FormControl("0"),
       //'idBien': new FormControl("0"),
@@ -47,14 +48,15 @@ export class TablaInformeComponent implements OnInit {
       this.tecnicos=data;    
       });
   }
-  open(id){
+  open(id,idbien){
     alert(id);
  
   
     this.titulo = "Informe de mantenimiento";
     this.display = 'block';
       this.informe.controls["idinformematenimiento"].setValue("0");
-      this.idmante=  this.informe.controls["idmantenimiento"].setValue("");
+      this.informe.controls["idmantenimiento"].setValue(id);
+      this.informe.controls["idBien"].setValue(idbien);
       this.informe.controls["fechainforme"].setValue("");
        this.informe.controls["idtecnico"].setValue("");
        this.informe.controls["descripcion"].setValue("");
@@ -67,12 +69,14 @@ export class TablaInformeComponent implements OnInit {
         this.bienes=res;
     
       });
-       this.idmante=id;
+       
 
   }
   buscar(nombre){}
   
   guardarDatos(){
+    console.log(this.informe.value);
+    console.log(this.idmante);
     this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res => {
       if(res==1){
         Swal.fire({
@@ -82,7 +86,19 @@ export class TablaInformeComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })
-         this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.bienes=data});
+         this.mantenimientoService.cambiarEstadoDenegado(this.informe.controls["idBien"].value).subscribe(rest=>{
+          if(rest==1){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'cambio',
+              showConfirmButton: false,
+              timer: 3000
+            })
+          this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.bienes=data});
+          }
+        });
+      
       }else{
         Swal.fire({
           position: 'center',
@@ -97,7 +113,7 @@ export class TablaInformeComponent implements OnInit {
     });
       this.informe.controls["idinformematenimiento"].setValue("0");
       this.idmante= this.informe.controls["idmantenimiento"].setValue("");
-      this.informe.controls["fechacadena"].setValue("");
+      this.informe.controls["fechainforme"].setValue("");
       this.informe.controls["idtecnico"].setValue("");
       this.informe.controls["descripcion"].setValue("");
       this.informe.controls["costomateriales"].setValue("");
@@ -119,8 +135,7 @@ this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
         this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(data => {
           this.mantenimientoService.listarBienesMantenimiento().subscribe(res => {this.bienes = res});
          });
-         //this.mantenimientoService.cambiarEstadoDenegado(this.bienes.idBien).subscribe(rest=>{
-       // });
+        
        
         Swal.fire({
           position: 'center',

@@ -41,7 +41,7 @@
 			
                    
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(bien.idmantenimiento)" ><i class="icon-edit"></i></button>
+                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(bien.idmantenimiento,bien.idBien)" ><i class="icon-edit"></i></button>
                      </td>
                   </tr>
                 </tbody>
@@ -68,8 +68,8 @@
           <input type="text" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3" autocomplete="off">  
          
 
-         <input type="text" class="form-control" formControlName="idmantenimiento" value="{{idmante}}"> 
-        
+         <input type="text" class="form-control" formControlName="idmantenimiento"> 
+         <input type="text" class="form-control" formControlName="idBien">
        
          
          <div class="form-group col-md-6">
