@@ -41,9 +41,9 @@ export class TablaActivosComponent implements OnInit {
     @Output() tipo2: EventEmitter<any> ;
     @Output() edit: EventEmitter<any> ;
 
-  constructor(private router:Router ,private stateService:StateService ,private controlService: ControlService,private _CargaScripts:CargarScriptsService) {
-    _CargaScripts.cargar(['/advanced-datatable/media/js/jquery','/advanced-datatable/media/js/jquery.dataTables',
-    '/respond.min','/sortingTable']);
+  constructor(private router:Router ,private stateService:StateService ,private controlService: ControlService) {
+   // _CargaScripts.cargar(['/advanced-datatable/media/js/jquery','/advanced-datatable/media/js/jquery.dataTables',
+   // '/respond.min','/sortingTable']);
     //this.bienObj=[];
     //para el filtro
     this.tipo = new EventEmitter();
