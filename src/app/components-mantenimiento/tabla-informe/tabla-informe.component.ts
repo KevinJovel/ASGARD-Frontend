@@ -27,9 +27,9 @@ export class TablaInformeComponent implements OnInit {
   constructor(private mantenimientoService: MantenimientoService) { 
     this.informe=new FormGroup({
       'idinformematenimiento': new FormControl("0"),
-      'idmantenimiento': new FormControl(""),
+      'idmantenimiento': new FormControl("0"),
       'fechainforme': new FormControl(""),
-      'idtecnico': new FormControl(""),
+      'idtecnico': new FormControl("0"),
       //'idBien': new FormControl("0"),
       'descripcion':new FormControl(""),
       'costomateriales':new FormControl(""),
@@ -48,7 +48,7 @@ export class TablaInformeComponent implements OnInit {
       });
   }
   open(id){
-
+    alert(id);
  
   
     this.titulo = "Informe de mantenimiento";
