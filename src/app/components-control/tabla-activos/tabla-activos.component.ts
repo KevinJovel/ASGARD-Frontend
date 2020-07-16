@@ -81,22 +81,60 @@ export class TablaActivosComponent implements OnInit {
 
   }
   FiltroCombo(){
+    //this.controlService.getBienes().subscribe(res=> {this.comboAreaSucur=res});
     var idarea = this.combo.controls["idTipo"].value;
-    if(idarea==1||idarea==2 ){
-    if(idarea==1 ){
+    if(idarea==1 || idarea==2 ){
+    if(idarea==1 ){ 
       this.tipocombo="Área:";
-        this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
-        
+      this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
+    
     }else{
       this.tipocombo="Sucursal:";
       this.controlService.listarComboSucursal().subscribe(res=> {this.comboAreaSucur=res});
     }
   }
-   
+  
 }
 
-filtrar(tip){
-this.tipo.emit(tip);
+filtrar(areasucur){
+  var aresu = this.combo.controls["idTipo"].value;
+//this.tipo.emit(areasucur);
+if(aresu==1 || aresu==2 ){//if
+  if(aresu==1 ){ 
+    if(areasucur.value == "")
+    {
+      this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
+    }else{
+       this.controlService.FiltrarAreaTipo(areasucur.value).subscribe(res=> {this.comboAreaSucur=res}); 
+        }   
+    }else{
+      if(areasucur.value == ""){
+        this.controlService.listarComboSucursal().subscribe(res=> {this.comboAreaSucur=res});
+      }else{
+        this.controlService.FiltrarSucursalTipo(areasucur.value).subscribe(res=> {this.comboAreaSucur=res});   
+      } 
+      
+    }
+  }//if
+}
+
+limpiar(areasucur){
+  var aresu = this.combo.controls["idTipo"].value;
+this.tipo.emit(areasucur);
+if(aresu==1 || aresu==2 ){
+  if(aresu==1 ){ 
+    areasucur.value = "";
+    //this.controlService.getBienes().subscribe(res=> {this.comboAreaSucur=res});
+    this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
+  }else{
+    
+    areasucur.value = "";
+//this.controlService.getBienes().subscribe(res=> {this.comboAreaSucur=res});
+this.controlService.listarComboSucursal().subscribe(res=> {this.comboAreaSucur=res});
+    
+  }
+}
+
 }
 
 close() {

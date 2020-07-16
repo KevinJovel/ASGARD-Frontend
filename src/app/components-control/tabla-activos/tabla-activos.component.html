@@ -18,7 +18,7 @@
 
           <div class="form-group col-md-3">
            <label  for="formGroupExampleInput2">Filtro Sucursal y Area </label>
-           <select id="inputState" formControlName="idTipo" class="form-control" (change)="FiltroCombo()">
+           <select  id="inputState" formControlName="idTipo" class="form-control" (change)="FiltroCombo()">
               <option selected>--Seleccione--</option>
               <option value="1">Area de negocio</option>
               <option value="2">Sucursal</option>
@@ -31,11 +31,13 @@
             <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option>	
           </select>
         </div>
-              <div class="col-lg-3">
-              </div>
+          
+             
               <div class="col-md-3">
-                <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
-              </div>
+          <input type="button" (click)="filtrar(areasucur)" value="Buscar" class="btn btn-success">
+          <input type="button" (click)="limpiar(areasucur)" value="Limpiar" class="btn btn-success">
+               <!-- <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+              --></div>
             </div>
             <div class="row">
               <div class="col-lg-12">
