@@ -6,6 +6,7 @@ import { CargarScriptsService} from './../../services/cargar-scripts.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import Swal from 'sweetalert2';
 import { PdfMakeWrapper, Txt, SVG, QR, Columns,Table, Toc, Cell,Stack} from 'pdfmake-wrapper';
+import { callbackify } from 'util';
 
 @Component({
   selector: 'app-form-asignancion',
@@ -44,7 +45,7 @@ export class FormAsignancionComponent implements OnInit {
     
   }
   async recuperar(){
-    this.mantenimientoService.listarDatosSolicitud(this.activo.controls["vidaUtil"].value).subscribe(data=>{
+    this.mantenimientoService.listarDatosSolicitud(1).subscribe(data=>{
       //alert(data.areanegocio);
       //this.noSoli=data.areanegocio;
       this.generatePDF(data);
@@ -84,32 +85,52 @@ export class FormAsignancionComponent implements OnInit {
  pdf.add(new Txt('ACASS DE R.L.').bold().fontSize(15).alignment("center").end);
 
  pdf.add(new Txt('CONTROL DE EXISTENCUAS DE MOBILIARIO, EQUIPO E INTALACIONES').bold().fontSize(13).alignment("center").end);
- pdf.add( new Txt(this.activo.controls["codigo"].value).bold().italics().decoration("underline").end);
- pdf.add(
-  new QR(this.activo.controls["codigo"].value).end);
+//  pdf.add( new Txt(this.activo.controls["codigo"].value).bold().italics().decoration("underline").end);
+//  pdf.add(
+//   new QR(this.activo.controls["codigo"].value).end);
+
+
 // var imagen=document.getElementById("barcode");
 // pdf.add(
 //   // If no width/height/fit is used, then dimensions from the svg element is used.
 //   new SVG(imagen).end
 // );
+
+
 pdf.add(new Columns([ 'No Solicitud:'+data.noSolicitud, 'Area: '+data.areanegocio, 'Jefe: '+data.jefe]).end);
-pdf.add(new Table([
-  ['valor','Depreciacion','valor','gastos'],['obras']
+
+  
+
+
+// pdf.add(new Table([
+//   ['valor','Depreciacion','valor','gastos']
    
-]).widths([130, 125,125,120]).fontSize(10).bold().end);
+// ]).widths([130, 125,125,120]).fontSize(10).bold().end);
 // new Cell([
 //   ['valor','Depreciacion','valor','gastos'],
 // ]);
+
 // pdf.add(new Table([
   
 //   ['valor','Depreciacion'],
 //  // 
 // ]).widths([275,245]).fontSize(10).bold().end);
+
+//Aqui va la tabla
+
 for (let bien of this.activos) {
-pdf.add(new Table([
-  [ bien.noFormulario, bien.fechacadena,bien.desripcion,bien.marca]
-]).widths([ 130, 125, 125 , 120]).fontSize(10).end);
+pdf.add(new Table(
+ [
+   
+  [ bien.noFormulario, bien.fechacadena,bien.desripcion,bien.marca],
+]
+ 
+).widths([ 130, 125, 125 , 120]).dontBreakRows(true).fontSize(8).end);
 }
+pdf.add(new Cell( new Txt('Column 2 with colspan').bold().end ).border([true]).colSpan(2)
+
+.end);
+
 
 //pdf.add(new Stack([ 'Hello', 'world' ]).end); // { columns: [ 'Hello', 'world' ] }
   let footer: any;
@@ -150,6 +171,10 @@ Gcodigo(){
     });
   }
   
+}
+GcodigoBarra(){
+  this.titulo = "Codigo de barras generado";
+  this.display2 = 'block';
 }
 ver(){
   var canvas=<HTMLInputElement>document.getElementById("barcode");

@@ -93,7 +93,7 @@
             <!-- (change)="filtrar(tipo)" -->
             <div class="form-group">
               <label for="exampleFormControlTextarea2" >Asignar Responsable:</label>
-              <select class="form-control" formControlName="idEmpleado"  id="exampleFormControlTextarea2" (change)="Gcodigo()">
+              <select class="form-control" formControlName="idEmpleado" (change)="Gcodigo()">
                 <option value="0">---Seleccione---</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
               </select>
@@ -113,19 +113,43 @@
               Generar Codigo de Barras</button>
             </div> -->
             <div class="form-group" style="text-align: center;">
-              <button  type="button" id="saluda" (click)="Gcodigo()" class="btn btn-default"><i class="icon-barcode"></i>
+              <button  type="button" id="saluda" (click)="GcodigoBarra()" id="saluda" class="btn btn-default"><i class="icon-barcode"></i>
                 Generar Codigo de Barras</button>
               </div>
-            <div class="modal-body" style="text-align: center;">
+            <!-- <div class="modal-body" style="text-align: center;">
               <svg id="barcode" width="400px" height="150px"></svg>
               <br>
                       <p style="text-align: center;"> Registro de activos fijos ACAASS de R.L</p>
-            </div>
+            </div> -->
             <button [disabled]="!activo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
               Guardar</button>
             <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
               Cancelar</button>
           </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--modal para ingresar y editar-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+ 
+            <div class="modal-body" style="text-align: center;">
+              <svg id="barcode" width="400px" height="150px"></svg>
+              <br>
+                      <p style="text-align: center;"> Registro de activos fijos ACAASS de R.L</p>
+            </div>
+            <button type="button" (click)="recuperar()" class="btn btn-primary"><i class="icon-save"></i>
+              Imprimir</button>
+            <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
+              Cancelar</button>
+  
       </div>
     </div>
   </div>
