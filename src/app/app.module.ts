@@ -60,6 +60,7 @@ import { UsuarioService } from './services/usuario.service';
 import { MantenimientoService } from './services/mantenimiento.service';
 import { SafePipe } from './components-control/safe.pipe';
 import { BajaService } from './services/baja.service';
+import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-tarjeta.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { BajaService } from './services/baja.service';
     SafePipe,
     CuadroSolicitudComponent,
     SolicitudComponent,
-    GestionDescargoComponent
+    GestionDescargoComponent,
+    TablaTarjetaComponent,
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -127,7 +129,8 @@ import { BajaService } from './services/baja.service';
       {path: 'tabla-solicitud', component: TablaSolicitudComponent},
       {path: 'cuadro-solicitud', component: CuadroSolicitudComponent},
       {path: 'solicitud', component: SolicitudComponent},
-      {path: 'gestion-descargo', component: GestionDescargoComponent}
+      {path: 'gestion-descargo', component: GestionDescargoComponent},
+      {path: 'tabla-tarjeta', component: TablaTarjetaComponent}
       
  
 
