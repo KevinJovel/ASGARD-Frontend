@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TablaTarjetaComponent implements OnInit {
 
+  display = 'none';
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  close() {
+    this.display = 'none';
   }
 
 }
