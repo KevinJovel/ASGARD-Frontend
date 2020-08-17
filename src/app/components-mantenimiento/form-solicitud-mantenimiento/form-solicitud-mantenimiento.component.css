@@ -20,9 +20,10 @@ thead {
   padding: 5px 20px;
 }
 
+
 .modal {
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   overflow: auto;
   left: 0;
   top: 50px;
@@ -30,13 +31,16 @@ thead {
   height: 100%;
   background: rgba(0,0,0,0.452);
 }
-
+.modal-dialog {
+  width: 600px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 .modal-content {
   animation-name: modal;
   animation-duration: 1s;
   box-shadow: 0 5px 15px rgba(0,0,0,.5);
 }
-
 
 @keyframes modal {
   from {
