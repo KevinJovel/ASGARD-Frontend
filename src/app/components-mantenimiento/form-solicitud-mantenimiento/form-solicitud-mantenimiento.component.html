@@ -20,13 +20,16 @@
             <label for="formGroupExampleInput2">Folio</label>
             <input type="text" class="form-control" formControlName="folio" id="inputEmail4">
           </div>
+    
           <div class="form-group col-md-4">
             <label for="exampleFormControlTextarea2">Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off"  maxlength="250"></textarea>
           </div>
         </div>
+
         <br><br><br><br>
 
+      
           <div class="row">
             <div class="col-lg-6">
               <header class="panel-heading form-in-line">
@@ -35,6 +38,19 @@
                   <input type="submit" class="finish btn btn-danger" value="Guardar"/>
               </header>
             </div>
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en el campo Folio.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en el campo Descripción.
           </div>
         </form>
           <div class="row">
@@ -172,7 +188,7 @@
                   </div>
                   <br>
                   <br>
-                  <tr *ngFor="let solicitud of solicitudes"></tr>
+            
                   <div>
    
                   <button type="submit" class="btn btn-primary"><i class="icon-save"></i>Enviar</button>

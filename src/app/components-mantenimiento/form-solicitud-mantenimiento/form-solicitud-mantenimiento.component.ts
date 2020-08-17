@@ -29,18 +29,18 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   constructor( private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
-       'folio': new FormControl(""),
-       'fechasolicitud': new FormControl(""),
-       'descripcion': new FormControl("")
-      
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(25)]),
+       'fechasolicitud': new FormControl("",[Validators.required]),
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(100)])
+       
     }); 
     this.datosArray=new FormGroup({
       'idMantenimiento': new FormControl("0"),
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
-      'razonesMantenimiento':new FormControl(""),
-      'periodoMantenimiento':new FormControl("")
+      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(50)]),
+      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(50)])
     });
   }
 
