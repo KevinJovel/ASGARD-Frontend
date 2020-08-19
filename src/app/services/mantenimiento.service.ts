@@ -59,7 +59,11 @@ public cambiarEstadoDenegado(idsolicitud) {
 public guardarInformeMantenimiento(informe) {
   return this.http.post(environment.urlService  + "api/SolicitudMantenimiento/guardarInformeMantenimiento",informe).map(res => res.json());
 }
+public validarFolio(idsolicitud, folio){
+return this.http.get(environment.urlService + "api/SolicitudMantenimiento/validarFolio/"+ idsolicitud + "/" + folio).map(res => res.json());
+}
 
 
- 
+
+
 }

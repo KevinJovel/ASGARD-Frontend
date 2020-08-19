@@ -65,11 +65,11 @@
       <div class="modal-body">
         <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="guardarDatos()">   
           
-          <input type="text" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3" autocomplete="off">  
+          <input type="hidden" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3" autocomplete="off">  
          
 
-         <input type="text" class="form-control" formControlName="idmantenimiento"> 
-         <input type="text" class="form-control" formControlName="idBien">
+         <input type="hidden" class="form-control" formControlName="idmantenimiento"> 
+         <input type="hidden" class="form-control" formControlName="idBien">
        
          
          <div class="form-group col-md-6">
@@ -89,28 +89,51 @@
               <option [value]="te.idtecnico" *ngFor="let te of tecnicos">{{te.nombre}}</option>	 
             </select>
             </div>
+           
+            <div class="form-group col-md-6">         
+              <label for="exampleInputEmail1">Costo de materiales:</label>
+              <input  size=40 type="number" class="form-control" formControlName="costomateriales" id="exampleInputEmail3" placeholder="Ingrese costo de materiales" autocomplete="off" maxlength="51">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="exampleFormControlTextarea2">Descripción:</label>
+              <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off"  maxlength="101"></textarea>
+            </div>
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2">Costo total</label>
-              <input type="number" class="form-control" formControlName="costototal" id="inputEmail4" placeholder="Costo total de mantenimiento" autocomplete="off" >
+              <input type="number" class="form-control" formControlName="costototal" id="inputEmail4" placeholder="Costo total de mantenimiento" autocomplete="off" readonly="off" >
             </div>
-          <div class="form-group col-md-6">         
-            <label for="exampleInputEmail1">Costo de materiales:</label>
-            <input  size=40 type="number" class="form-control" formControlName="costomateriales" id="exampleInputEmail3" placeholder="Ingrese costo de materiales" autocomplete="off" maxlength="51">
-          </div>
-         
-          
-          
-          <div class="form-group col-md-6">
-            <label for="exampleFormControlTextarea2">Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off"  maxlength="250"></textarea>
-          </div>
-          
-        
-        
 
-
+        <div>
+          <br><br> <br><br> <br><br>
+        </div>
+        <div>
+          <br><br> <br><br> <br><br>
+        </div>
+        <div>
+          <br><br> <br><br> <br><br>
+        </div>
+        <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['descripcion'].errors?.maxlength">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>Error!</strong> Tamaño máximo permitido en este campo
+        </div>
+  
+        <div class="alert alert-warning fade in" *ngIf="!informe.valid&&!informe.controls['descripcion'].errors?.maxlength">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
+        </div>
+    
+    <div class="alert alert-success fade in" *ngIf="informe.valid">
+      <button data-dismiss="alert" class="close close-sm" type="button">
+        <i class="icon-remove"></i>
+      </button>
+      <strong>Exelente!</strong> Datos ingresados correctamente
+    </div>
           <div>
-          <button type="submit" class="btn btn-primary"><i class="icon-save"></i>Guardar</button>
+          <button type="submit" [disabled]="!informe.valid" class="btn btn-primary"><i class="icon-save"></i>Guardar</button>
           <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
           </div>
         </form>

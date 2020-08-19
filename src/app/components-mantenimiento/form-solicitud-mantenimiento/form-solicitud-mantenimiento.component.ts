@@ -29,9 +29,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   constructor( private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
-       'folio': new FormControl("",[Validators.required,Validators.maxLength(25)]),
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(10)],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(100)])
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250)])
        
     }); 
     this.datosArray=new FormGroup({
@@ -87,6 +87,14 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   close2() {
     this.display2 = 'none';
   }
+  onSubmit() {
+    if (this.solicitud.valid) {
+     // console.log("Form Submitted!");
+      this.solicitud.reset();
+    }
+  }
+
+
   arrayMostrar(){
     this.matriz.push([this.datosArray.controls["idBien"].value,this.datosArray.controls["codigobien"].value, 
     this.datosArray.controls["descripcionbien"].value,this.datosArray.controls["razonesMantenimiento"].value,
@@ -97,7 +105,52 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
           this.bienes=data;
     });
   }
+  noRepetirFolio1(control: FormControl) {
 
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) {
+
+        this.mantenimientoService.validarFolio(this.solicitud.controls["idsolicitud"].value, control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteFolio: true });
+            } else {
+              resolve(null);
+            }
+
+          })
+
+      }
+
+
+    });
+
+    return promesa;
+  }
+
+  noRepetirFolio(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) { 
+        
+          this.mantenimientoService.validarFolio(this.solicitud.controls["idsolicitud"].value,control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteFolio: true });
+            } else {
+              resolve(null);
+            }
+          //  this.empleado.controls["dui"]!=this.empleado.controls["id"]
+          });
+        }
+      
+
+    });
+
+    return promesa;
+  }
   guardarDatos() {
   this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(res=>{
   if(res==1){
@@ -108,6 +161,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
      this.mantenimientoService.setSolicitud(this.datosArray.value).subscribe(data => {
       this.mantenimientoService.getBienes().subscribe(data=>{
         this.bienes=data;
+
       });
      });
     }
@@ -119,6 +173,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       timer: 3000
     })
 this.matriz=[],[];
+this.solicitud.reset()
 }else{
     Swal.fire({
       position: 'center',
@@ -128,7 +183,7 @@ this.matriz=[],[];
       timer: 3000
     })
   }
- 
+
 }); 
   }
 }

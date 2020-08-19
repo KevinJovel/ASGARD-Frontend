@@ -18,12 +18,12 @@
           </div>
           <div class="form-group col-md-4">
             <label for="formGroupExampleInput2">Folio</label>
-            <input type="text" class="form-control" formControlName="folio" id="inputEmail4">
+            <input type="text" class="form-control" formControlName="folio" maxlength="11" placeholder="Ingrese número de folio" id="inputEmail4">
           </div>
     
           <div class="form-group col-md-4">
             <label for="exampleFormControlTextarea2">Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off"  maxlength="250"></textarea>
+            <textarea class="form-control rounded-0" formControlName="descripcion"  maxlength="251"id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripcion" autocomplete="off" ></textarea>
           </div>
         </div>
 
@@ -35,7 +35,7 @@
               <header class="panel-heading form-in-line">
                 <button type="button" class="btn btn-success" (click)="open2()" data-toggle="modal"
                   data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar bienes a solicitud</button>
-                  <input type="submit" class="finish btn btn-danger" value="Guardar"/>
+                  <input type="submit" [disabled]="!solicitud.valid" class="finish btn btn-danger" value="Guardar"/>
               </header>
             </div>
           </div>
@@ -52,6 +52,31 @@
             </button>
             <strong>Error!</strong> Tamaño máximo permitido en el campo Descripción.
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> ya existe el "Folio" ingresado, por favor intente con un nuevo.
+          </div>
+        
+
+          <div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['descripcion'].errors?.yaExisteDui">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
+          </div>
+      
+     
+
+
+      <div class="alert alert-success fade in" *ngIf="solicitud.valid">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <i class="icon-remove"></i>
+        </button>
+        <strong>Exelente!</strong> Datos ingresados correctamente
+      </div>
+   
         </form>
           <div class="row">
             <div class="col-lg-12">
@@ -69,7 +94,7 @@
                           <th scope="row">Descripción del bien</th>
                           <th scope="row">Razones del mantenimiento</th>
                           <th scope="row">Periodo del mantenimiento</th>
-                          <th scope="row" class="hidden-phone">Opciones</th>
+                         <!-- <th scope="row" class="hidden-phone">Opciones</th>-->
                         </tr>
                       </thead>
                       <tbody>
@@ -83,7 +108,7 @@
                   <td>{{datos[4]}}</td>
                   <td class="center hidden-phone">
 
-                    <button class="btn btn-danger btn-xs" ><i class="icon-trash "></i></button>
+                 <!--   <button class="btn btn-danger btn-xs" ><i class="icon-trash "></i></button>-->
                   </td>
                 </tr>
                       </tbody>
@@ -149,7 +174,7 @@
                   </div>
                 </div>
                   <div>
-                  <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+                  <!--<button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>-->
                   <button type="button"  (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
                   </div>
                
