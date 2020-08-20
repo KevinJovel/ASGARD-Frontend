@@ -61,6 +61,8 @@ import { MantenimientoService } from './services/mantenimiento.service';
 import { SafePipe } from './components-control/safe.pipe';
 import { BajaService } from './services/baja.service';
 import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-tarjeta.component';
+import { FormCooperativaComponent } from './components-configuracion/form-cooperativa/form-cooperativa.component';
+import { ConfiguracionService } from './services/configuracion.service';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,7 @@ import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-
     SolicitudComponent,
     GestionDescargoComponent,
     TablaTarjetaComponent,
+    FormCooperativaComponent,
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -130,14 +133,15 @@ import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-
       {path: 'cuadro-solicitud', component: CuadroSolicitudComponent},
       {path: 'solicitud', component: SolicitudComponent},
       {path: 'gestion-descargo', component: GestionDescargoComponent},
-      {path: 'tabla-tarjeta', component: TablaTarjetaComponent}
+      {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
+      {path: 'form-cooperativa', component: FormCooperativaComponent}
       
  
 
     ]),
     NoopAnimationsModule
     ],
-    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService],
+    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService],
 
     bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
 })

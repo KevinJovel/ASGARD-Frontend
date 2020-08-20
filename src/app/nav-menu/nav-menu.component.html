@@ -14,6 +14,17 @@
 
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
         <a href="javascript:;" (click)='collapse()'>
+          <i class="icon-cogs"></i>
+          <span>   Configuración</span>
+        </a>
+        <ul class="sub">
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-cooperativa"]' (click)='collapse()'>Cooperativa</a></li>
+        </ul>
+      </li>
+
+
+      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
+        <a href="javascript:;" (click)='collapse()'>
           <i class="glyphicon glyphicon-list-alt"></i>
           <span>   Catálogos</span>
         </a>
@@ -47,7 +58,7 @@
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
         <a href="javascript:;" (click)='collapse()'>
-          <i class="icon-cogs"></i>
+          <i class="icon-wrench"></i>
           <span>Mantenimientos</span>
         </a>
         <ul class="sub"> 

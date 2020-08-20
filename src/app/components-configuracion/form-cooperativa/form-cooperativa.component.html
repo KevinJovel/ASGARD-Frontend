@@ -1,0 +1,140 @@
+<br><br><br><br>
+<section class="panel">
+    <h1>  Donantes</h1>
+    <div class="row">
+        <div class="col-lg-6">
+    
+          <header class="panel-heading form-in-line">
+            <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Donante</button>
+          </header>
+        </div>
+        <div class="col-lg-3">
+    
+        </div>
+        
+        <div class="col-md-3">
+          <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
+        </div>
+       
+      </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel panel-default">
+
+                <header class="panel-heading">
+                    <h5>Registro de Donantes</h5>
+                </header>
+                <div class="panel-body">
+                    <div class="adv-table">
+                        <table class="display table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Nombre de la empresa</th>
+                                    <th>Descripción</th>
+                                    <th class="hidden-phone">Opciones</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cooperativa of cooperativas | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
+                                  <th scope="col">{{i+(5*p)-4}}</th>
+                                    <td>{{cooperativa.nombre}}</td>
+                                    <td>{{cooperativa.descripcion}}</td>
+                                    <td class="center hidden-phone">
+                                        <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
+                                        <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!--modal para confirmar la eliminacion de un registro-->
+<!--modal para ingresar y editar-->
+
+
+
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+                <h4 class="modal-title">Formulario Donantes</h4>
+            </div>
+            <div class="modal-body">
+
+                <form role="form" [formGroup]="">
+                    <input type="hidden" class="form-control" formControlName="iidDonante" id="exampleInputEmail3" autocomplete="off">
+                    <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre:</label>
+                        <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off"  maxlength="51">
+                    </div>
+<!--  
+                    <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.maxlength">
+                        <button data-dismiss="alert" class="close close-sm" type="button">
+                          <i class="icon-remove"></i>
+                        </button>
+                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+                      </div>
+-->
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Teléfono:</label>
+                        <input type="text"  mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+                    </div>
+<!-- 
+                    <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['telefono'].errors?.maxlength">
+                        <button data-dismiss="alert" class="close close-sm" type="button">
+                          <i class="icon-remove"></i>
+                        </button>
+                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                      </div>
+-->
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">Dirección:</label>
+                        <textarea class="form-control rounded-0" formControlName="direccion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101"></textarea>
+                    </div>
+<!-- 
+                    <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['direccion'].errors?.maxlength">
+                        <button data-dismiss="alert" class="close close-sm" type="button">
+                          <i class="icon-remove"></i>
+                        </button>
+                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                      </div>
+-->
+                           <!--  WARNING-->
+                           <!-- 
+          <div class="alert alert-warning fade in" *ngIf="!donantes.valid">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
+          </div>
+                            -->
+           <!--  END-WARNING-->
+           <!-- 
+           <div class="alert alert-success fade in" *ngIf="donantes.valid&&donantes.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
+          </div>
+         -->
+          <button [disabled]="!cooperativa.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
