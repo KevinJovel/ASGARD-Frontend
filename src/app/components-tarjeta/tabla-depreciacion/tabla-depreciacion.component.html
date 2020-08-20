@@ -1,0 +1,86 @@
+
+<br />
+<br />
+<br />
+<section class="panel">
+<h1>Depreciación</h1>
+  <div class="row">
+    <div class="col-lg-14">
+      <section class="panel panel-default">
+        <div class="form-row">
+          <form class="form-inline" id="default">
+            <div class="row">
+              <div class="col-md-3">
+                <label for="inputPassword4">Sucursal</label>
+                <select #areasucur id="inputState" class="form-control" formControlName="idCombo" >
+                  <option selected>Seleccione</option>
+                <!--  <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option> -->
+                </select>
+              </div>
+
+          <div class="form-group col-md-3">
+            <label for="inputPassword4">Area de negocio</label>
+            <select #areasucur id="inputState" class="form-control" formControlName="idCombo" >
+              <option selected>Seleccione</option>
+            <!--  <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option> -->
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+         
+        </div>
+          
+             
+              <div class="col-md-3">
+        
+               <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+             </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-12">
+                <section class="panel panel-default">
+          
+                  <header class="panel-heading">
+                    <h5>Registro de Bienes</h5>
+                  </header>
+                  <div class="panel-body">
+                    <div class="adv-table">
+                      <table class="display table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>N°</th>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                            <th>Responsable</th>
+                            <th>Area de negocio</th>
+                            <th>Valor actual</th>
+                                                 
+                            <th class="hidden-phone" >Opciones </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr  >
+                            
+                            
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                           
+                            <td></td>   
+                            <td></td>           
+                            <td class="center hidden-phone">
+                              <button class="btn btn-primary btn-xs" ><i class="icon-pencil" ></i></button>
+                              <button class="btn btn-success btn-xs" ><i class="glyphicon glyphicon-eye-open">Ver</i></button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <pagination-controls  class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+         

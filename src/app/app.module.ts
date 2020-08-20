@@ -63,6 +63,7 @@ import { BajaService } from './services/baja.service';
 import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-tarjeta.component';
 import { FormCooperativaComponent } from './components-configuracion/form-cooperativa/form-cooperativa.component';
 import { ConfiguracionService } from './services/configuracion.service';
+import { TablaDepreciacionComponent } from './components-tarjeta/tabla-depreciacion/tabla-depreciacion.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { ConfiguracionService } from './services/configuracion.service';
     GestionDescargoComponent,
     TablaTarjetaComponent,
     FormCooperativaComponent,
+    TablaDepreciacionComponent,
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -134,7 +136,8 @@ import { ConfiguracionService } from './services/configuracion.service';
       {path: 'solicitud', component: SolicitudComponent},
       {path: 'gestion-descargo', component: GestionDescargoComponent},
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
-      {path: 'form-cooperativa', component: FormCooperativaComponent}
+      {path: 'form-cooperativa', component: FormCooperativaComponent},
+      {path: 'tabla-depreciacion', component: TablaDepreciacionComponent}
       
  
 
