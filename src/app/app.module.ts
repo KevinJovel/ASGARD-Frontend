@@ -63,6 +63,7 @@ import { BajaService } from './services/baja.service';
 import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-tarjeta.component';
 import { FormCooperativaComponent } from './components-configuracion/form-cooperativa/form-cooperativa.component';
 import { ConfiguracionService } from './services/configuracion.service';
+import { HistorialMantenimientoComponent } from './components-mantenimiento/historial-mantenimiento/historial-mantenimiento.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { ConfiguracionService } from './services/configuracion.service';
     GestionDescargoComponent,
     TablaTarjetaComponent,
     FormCooperativaComponent,
+    HistorialMantenimientoComponent,
    
     //Aqui vamos a agregar los compoenentes del proyecto
 
@@ -128,6 +130,8 @@ import { ConfiguracionService } from './services/configuracion.service';
       {path: 'form-nuevoBien', component: FormNuevoBienComponent},
       {path: 'form-asignacion', component: FormAsignancionComponent},
       {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},
+      {path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent},
+      {path: 'historial-mantenimiento', component: HistorialMantenimientoComponent},
       {path: 'tabla-informe', component: TablaInformeComponent},
       {path: 'tabla-solicitud', component: TablaSolicitudComponent},
       {path: 'cuadro-solicitud', component: CuadroSolicitudComponent},
