@@ -198,6 +198,7 @@ export class FormNuevoBienComponent implements OnInit {
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
                       cancelButtonColor: '#d33',
+                      cancelButtonText:'Cancelar',
                       confirmButtonText: 'Si, registrar!',
                     }).then((result) => {
                       if (result.value) {

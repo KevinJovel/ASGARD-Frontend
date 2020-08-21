@@ -28,7 +28,7 @@
             </select> 
           </div>
           <div class="form-group col-md-3">
-            <button style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-reload">Recargar</i></button>
+            <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>
                           
         </div>
           
@@ -73,14 +73,14 @@
                             
                             <td>1000</td>
                             <td class="center hidden-phone" style="text-align: center;">
-                              <button class="btn btn-primary btn-xs" ><i class="icon-pencil"></i></button> 
-                              <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
+                              <button title="Ver detalles" class="btn btn-primary btn-xs" ><i class=" icon-eye-open"></i></button> 
+                              <button title="Aplicar depreciación" class="btn btn-warning btn-xs"><i class="icon-sort-by-attributes-alt"></i></button>
                             </td>
                           </tr>
                         </tbody>
                       </table>
-                      <pagination-controls  class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                    </div>
+                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                        </div>
                   </div>
                 </section>
               </div>

@@ -131,6 +131,11 @@ table {
     font-size: 15px;
     margin-left: -25px;
   }
+  .title{
+    color: green;
+    font-size: 40px;
+    border-radius: 10px;
+  }
   .my-cuadro /deep/ .ngx-pagination .current {
     /*background: rgb(64, 64, 64);*/
     color: #fff;
