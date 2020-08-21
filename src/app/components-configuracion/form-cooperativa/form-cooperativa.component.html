@@ -1,11 +1,11 @@
 <br><br><br><br>
 <section class="panel">
-    <h1>  Donantes</h1>
+    <h1>Cooperativa</h1>
     <div class="row">
         <div class="col-lg-6">
     
           <header class="panel-heading form-in-line">
-            <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Donante</button>
+            <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nueva Cooperativa</button>
           </header>
         </div>
         <div class="col-lg-3">
@@ -23,7 +23,7 @@
             <section class="panel panel-default">
 
                 <header class="panel-heading">
-                    <h5>Registro de Donantes</h5>
+                    <h5>Registro de Cooperativas</h5>
                 </header>
                 <div class="panel-body">
                     <div class="adv-table">
@@ -31,8 +31,10 @@
                             <thead>
                                 <tr>
                                     <th>N°</th>
-                                    <th>Nombre de la empresa</th>
+                                    <th>Nombre de la cooperativa</th>
+                                    <th>Año de la inicio</th>
                                     <th>Descripción</th>
+                                    <th>Logo</th>
                                     <th class="hidden-phone">Opciones</th>
                                 </tr>
 
@@ -41,7 +43,12 @@
                                 <tr *ngFor="let cooperativa of cooperativas | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                                   <th scope="col">{{i+(5*p)-4}}</th>
                                     <td>{{cooperativa.nombre}}</td>
+                                    <td>{{cooperativa.anio}}</td>
                                     <td>{{cooperativa.descripcion}}</td>
+
+                                    <td class="center hidden-phone">
+                                     <button class="btn btn-warning btn-xs"><i class="icon-eye-open"></i></button>
+                                  </td>
                                     <td class="center hidden-phone">
                                         <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
                                         <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
@@ -67,18 +74,30 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-                <h4 class="modal-title">Formulario Donantes</h4>
+                <h4 class="modal-title">Formulario Cooperativa</h4>
             </div>
             <div class="modal-body">
 
-                <form role="form" [formGroup]="">
-                    <input type="hidden" class="form-control" formControlName="iidDonante" id="exampleInputEmail3" autocomplete="off">
+                <form role="form" [formGroup]="cooperativa" (ngSubmit)="guardarDatos()">
+                    <input type="hidden" class="form-control" formControlName="idcooperativa" id="exampleInputEmail3" autocomplete="off">
                     <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nombre:</label>
+                        <label for="exampleInputEmail1">Nombre de la cooperativa:</label>
                         <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off"  maxlength="51">
                     </div>
+
+                    <div class="form-group">
+                      <label for="inputPassword4">Logo</label>
+                      <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" />
+    
+                  </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Año de inicio:</label>
+                      <input type="text" class="form-control" formControlName="anio" id="exampleInputEmail3" placeholder="Ingrese año" autocomplete="off">
+                  </div>
+                    
 <!--  
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">
@@ -88,23 +107,11 @@
                       </div>
 -->
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea2">Teléfono:</label>
-                        <input type="text"  mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
+                        <label for="exampleFormControlTextarea2">Descripción:</label>
+                        <input type="text" class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2" placeholder="Ingrese descripción" autocomplete="off">
                     </div>
 <!-- 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['telefono'].errors?.maxlength">
-                        <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
-                        </button>
-                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
-                      </div>
--->
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea2">Dirección:</label>
-                        <textarea class="form-control rounded-0" formControlName="direccion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101"></textarea>
-                    </div>
-<!-- 
-                    <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['direccion'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">
                           <i class="icon-remove"></i>
                         </button>
