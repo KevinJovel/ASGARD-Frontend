@@ -31,8 +31,12 @@ export class TablaDepreciacionComponent implements OnInit {
   }
   Filtrar(){
     var id= this.combos.controls['idArea'].value;
-    alert(id);
     this.depreciacionService.FiltroTablaDepreciacion(id).subscribe(data=>{this.bienes=data});
+  }
+  Reload(){
+    this.combos.controls['idSucursal'].setValue(0);
+    this.combos.controls['idArea'].setValue(0);
+    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
   }
   buscar(nombre){
 

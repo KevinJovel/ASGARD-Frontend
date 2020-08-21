@@ -2,43 +2,42 @@
 <br />
 <br />
 <br />
+<br/>
 <section class="panel">
 <h1>Tarjeta de depreciacion</h1>
   <div class="row">
     <div class="col-lg-14">
       <section class="panel panel-default">
         <div class="form-row">
-          <form class="form-inline" id="default">
+      
             <div class="row">
-              <div class="col-lg-3">
-                <header class="panel-heading ">
-                  <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Agregar Nuevo Bien</button>
-                </header>
+              <div class="col-md-3">
+                <label for="inputPassword4">Sucursal</label>
+                <select #sucursal class="form-control" (change)="FiltrarArea(sucursal)">
+                  <option value="0">Seleccione</option>
+                  <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
+                </select>
               </div>
 
           <div class="form-group col-md-3">
-           <label  for="formGroupExampleInput2">Filtro Sucursal y Area </label>
-           <select  id="inputState" formControlName="idTipo" class="form-control">
-              <option selected>--Seleccione--</option>
-              <option value="1">Area de negocio</option>
-              <option value="2">Sucursal</option>
-            </select>
+            <label for="inputPassword4">Area de negocio</label>
+            <select id="inputState" class="form-control" (change)="Filtrar()">
+              <option value="0" selected>Seleccione</option>
+              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
+            </select> 
           </div>
           <div class="form-group col-md-3">
-          <label for="inputPassword4"></label>
-          <select #areasucur id="inputState" class="form-control" formControlName="idCombo" >
-            <option selected>Seleccione</option>
-          <!--  <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option> -->
-          </select>
+            <button style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-reload">Recargar</i></button>
+                          
         </div>
           
              
               <div class="col-md-3">
-          <input type="button"  value="Buscar" class="btn btn-success">
-          <input type="button"  value="Limpiar" class="btn btn-success">
-               <!-- <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
-              --></div>
+        
+               <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+             </div>
             </div>
+       
             <div class="row">
               <div class="col-lg-12">
                 <section class="panel panel-default">
