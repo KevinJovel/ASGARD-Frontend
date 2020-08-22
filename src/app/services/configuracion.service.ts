@@ -22,4 +22,13 @@ export class ConfiguracionService {
         return this.http.post(environment.urlService  + "api/Cooperativa/guardarCooperativa", cooperativa).map(res => res.json());
     }
 
+    //Para recuperar
+    public recuperarCooperativa(id) {
+        return this.http.get(environment.urlService  + "api/Cooperativa/recuperarCooperativa/" + id).map(res => res.json());
+    }
+
+    //Para validar
+    public validarCooperativa(idcooperativa, nombre) {
+        return this.http.get(environment.urlService + "api/Cooperativa/validarCooperativa/" + idcooperativa + "/" + nombre).map(res=>res.json());
+      }
 }

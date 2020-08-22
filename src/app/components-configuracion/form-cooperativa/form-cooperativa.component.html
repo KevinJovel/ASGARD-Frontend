@@ -47,10 +47,9 @@
                                     <td>{{cooperativa.descripcion}}</td>
 
                                     <td class="center hidden-phone">
-                                     <button class="btn btn-warning btn-xs"><i class="icon-eye-open"></i></button>
+                                     <button class="btn btn-warning btn-xs" (click)="mostrarLogo(cooperativa.idcooperativa)"><i class="icon-eye-open"></i></button>
                                   </td>
                                     <td class="center hidden-phone">
-                                        <button class="btn btn-primary btn-xs"><i class="icon-pencil"></i></button>
                                         <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
                                     </td>
                                 </tr>
@@ -63,12 +62,7 @@
         </div>
     </div>
 </section>
-
-<!--modal para confirmar la eliminacion de un registro-->
-<!--modal para ingresar y editar-->
-
-
-
+<!--modal para ingresar-->
 <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -84,8 +78,23 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nombre de la cooperativa:</label>
-                        <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off"  maxlength="51">
+                        <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off"  maxlength="36">
                     </div>
+
+   
+                    <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.yaExisteCooperativa">
+                        <button data-dismiss="alert" class="close close-sm" type="button">
+                          <i class="icon-remove"></i>
+                        </button>
+                        <strong>¡ADVERTENCIA!</strong> El nombre de la cooperativa ya está en uso.
+                      </div>
+
+                      <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.maxlength">
+                        <button data-dismiss="alert" class="close close-sm" type="button">
+                          <i class="icon-remove"></i>
+                        </button>
+                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                      </div>
 
                     <div class="form-group">
                       <label for="inputPassword4">Logo</label>
@@ -95,7 +104,8 @@
 
                     <div class="form-group">
                       <label for="exampleInputEmail1">Año de inicio:</label>
-                      <input type="text" class="form-control" formControlName="anio" id="exampleInputEmail3" placeholder="Ingrese año" autocomplete="off">
+                      <input type="number" class="form-control" formControlName="anio" id="exampleInputEmail3" 
+                      placeholder="Ingrese año" autocomplete="off" required pattern="[0-9]{5}">
                   </div>
                     
 <!--  
@@ -108,40 +118,81 @@
 -->
                     <div class="form-group">
                         <label for="exampleFormControlTextarea2">Descripción:</label>
-                        <input type="text" class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2" placeholder="Ingrese descripción" autocomplete="off">
+                        <input type="text" class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2" placeholder="Ingrese descripción" autocomplete="off" maxlength="51">
                     </div>
-<!-- 
-                    <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['telefono'].errors?.maxlength">
+ 
+                    <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['descripcion'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">
                           <i class="icon-remove"></i>
                         </button>
                         <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
                       </div>
--->
-                           <!--  WARNING-->
-                           <!-- 
-          <div class="alert alert-warning fade in" *ngIf="!donantes.valid">
+
+                           <!--  WARNING
+                       
+          <div class="alert alert-warning fade in" *ngIf="!cooperativa.valid">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
           </div>
-                            -->
-           <!--  END-WARNING-->
-           <!-- 
-           <div class="alert alert-success fade in" *ngIf="donantes.valid&&donantes.controls['bandera'].value==0">
+
+          -->
+                           
+           <!--  END-WARNING
+   
+           <div class="alert alert-success fade in" *ngIf="cooperativa.valid&&cooperativa.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
           </div>
-         -->
-          <button [disabled]="!cooperativa.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+
+          -->
+   
+          <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
 
                 </form>
             </div>
         </div>
     </div>
+</div>
+
+<!--modal para mostrar-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">Logo</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" [formGroup]="cooperativa">
+          <input type="hidden" class="form-control" formControlName="idcooperativa" id="exampleInputEmail3" autocomplete="off">
+        
+          <div class="form-group">
+              <label for="exampleInputEmail1">Nombre de la cooperativa:</label>
+           <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" readonly> 
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword4">Logo</label>
+          
+        </div>
+
+        <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
+          Cancelar</button>
+
+      </form>
+
+            <div class="modal-body" style="text-align: center;">
+              <svg id="barcode" width="400px" height="150px"></svg>
+            </div>
+
+  
+      </div>
+    </div>
+  </div>
 </div>
 

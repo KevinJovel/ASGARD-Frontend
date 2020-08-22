@@ -99,15 +99,17 @@
             <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
           </div>
          
-                          <!--  WARNING-->
+                          <!--  WARNING
                           <div class="alert alert-warning fade in" *ngIf="!cargo.valid">
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
                             <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
                           </div>
+
+                          -->
                 
-                           <!--  END-WARNING-->
+                           <!--  END-WARNING
                            <div class="alert alert-success fade in" *ngIf="cargo.valid&&cargo.controls['bandera'].value==0">
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
@@ -115,11 +117,11 @@
                             <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
                           </div>
 
-
+-->
                           
          
         
-            <button [disabled]="!cargo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+            <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
             <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
        
         </form>
