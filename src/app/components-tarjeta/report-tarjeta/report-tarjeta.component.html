@@ -1,202 +1,283 @@
-
 <br />
 <br />
 <br />
-<br/>
+<br />
 <section class="panel">
-<h1>Tarjeta de depreciacion</h1>
-  <div class="row">
-    <div class="col-lg-14">
-      <section class="panel panel-default">
-        <div class="form-row">
-      
-            <div class="row">
-              <div class="col-md-3">
-                <label for="inputPassword4">Sucursal</label>
-                <select #sucursal class="form-control" (change)="FiltrarArea(sucursal)">
-                  <option value="0">Seleccione</option>
-                  <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
-                </select>
-              </div>
+    <div style="text-align:right;">
+    <button title="Imprimir tarjeta de depreciación" style="margin-top: 10px; margin-right: 20px;" class="btn btn-success"><i class="icon-print"></i></button>
+</div>
+    <h2 style="text-align: center;">ACAASS de R.L.</h2>
+                           
+    <h3 style="text-align: center;">CONTROL DE EXISTENCIAS DE MOBILIARIO, EQUIPO E INSTALACIONES </h3>
 
-          <div class="form-group col-md-3">
-            <label for="inputPassword4">Area de negocio</label>
-            <select id="inputState" class="form-control" (change)="Filtrar()">
-              <option value="0" selected>Seleccione</option>
-              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
-            </select> 
-          </div>
-          <div class="form-group col-md-3">
-            <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>
-                          
-        </div>
-          
-             
-              <div class="col-md-3">
-        
-               <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
-             </div>
-            </div>
-       
-            <div class="row">
-              <div class="col-lg-12">
-                <section class="panel panel-default">
-          
-                  <header class="panel-heading">
-                    <h5>Registro de Bienes</h5>
-                  </header>
-                  <div class="panel-body">
-                    <div class="adv-table">
-                      <table class="display table table-bordered table-striped">
-                        <thead>
-                          <tr>
-                            <th>N°</th>
-                            <th>Fecha</th>
-                            <th>Conceptos</th>
-                            <th>Valor de adquisición y mejoras</th>
-                            <td colspan="2">Depreciación</td>
-                            <th>Valor actual</th>
-                                                 
-                            <th class="hidden-phone" >Opciones </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr  >
-                            
-                            
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Anual</td>
-                            <td>Acumulada</td>   
-                            <td></td>           
-                            <td class="center hidden-phone">
-                              <button class="btn btn-primary btn-xs" ><i class="icon-pencil" ></i></button>
-                              <button class="btn btn-success btn-xs" ><i class="glyphicon glyphicon-eye-open">Ver</i></button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <pagination-controls  class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
 
-            <div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-              <div class="modal-dialog .modal-dialog ">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-                    <h4 class="modal-title">Datos completos del Activo</h4>
-                    <h4 class="modal-title"></h4>
-                  </div>
-                  <div class="modal-body" >
-                  
-                     <div class="row">
-                      <div class="col-lg-3">
-                        <label >N° de Formulario:</label>
-                        </div>
-                      <div class="form-group col-md-3">
-                        <label>Fecha de Ingreso:</label>
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label>Código:</label>
+    <div class="row">
+        <div class="col-lg-14">
+            <section class="panel panel-default">
+                <div class="form-row">
+
+                    <div class="row">
+                        <!-- Primera columna -->
+                        <div class="form-group col-md-3">
+                            <label>Fecha de adquicicion:</label>
+                            <p>23/01/2019</p>
                         </div>
                         <div class="form-group col-md-3">
-                          <label>N° Serie:</label>
-                         </div>
-                     </div>
-                    
-                    
-                      <div class="col-lg-6">
-                        
-                          <p>
-                           <label>Área:</label><br/>
-                           <label>Clasificación:</label><br/>
-                           <label>Responsable:</label><br/>
-                           <label>Proveedor:</label><br/>
-                           <label>Donante:</label><br/>
-                           <label>Adquisición:</label><br/><!--contado credito-->
-                           <label>Descripción:</label><br/>
-                          
-                          </p>
-                       
-                      </div>
-
-                      <div class="row">
-                        
-                        <div class="col-lg-3">
-                          <label></label>
-                          <img alt=""  width="250" height="165" class="img-thumbnail">
+                            <label>Denominacion:</label>
+                            <p>Computadora DELL</p>
                         </div>
-                       
-                      </div>
-                     
-                      <div class="row">
-                        <div class="col-lg-2">
-                         <label >Color:</label>
-                         <p></p>
-                          </div>
-                        <div class="form-group col-md-2">
-                         <label >Marca:</label>
-                         <p></p>
-                        </div>
-                        <div class="form-group col-md-2">
-                         <label >Modelo:</label>
-                         <p></p>
-                          </div>
-                          <div class="form-group col-md-2">
-                           <label  >Estado:</label>
-                           <p></p>
-                           </div>
-                           <div class="form-group col-md-2">
-                             <label >Vida Útil:</label>
-                             <p> </p>
-                             </div>
-                             <div class="form-group col-md-2">
-                               <label >Destino Inicial:</label>
-                               <p></p>
-                               </div> 
-                       </div>
-                     
-                    
-                         <div class="form-row">
-                          <div class="form-group col-md-2">
-                          <label  >Plazo:</label>
-                          <p></p>
-                          </div>
-                          <div class="form-group col-md-2">
-                          <label >Cuota:</label>
-                          <p> $</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                          <label >Interes:</label>
-                          <p> %</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label  >Prima:</label>
-                            <p> $</p>
-                            </div>
-                            <div class="form-group col-md-2">
-                              <label >Valor Residual:</label>
-                              <p></p>
-                              </div>
-                              <div class="form-group col-md-2">
-                              <label >Valor Adquisición:</label>
-                              <p> $</p>
-                              </div>
-                         </div>
 
-                   <div class="row">
-                    <div class="col-xs-3">
-                      
+                        <div class="form-group col-md-3">
+                            <label>Codigo:</label>
+                            <p>AC01-101-002-001</p>
+                        </div>
+                        <!-- segunda columna -->
+
+                        <div class="form-group col-md-3">
+                            <label>Valor de adquicicion:</label>
+                            <p>$1,050.55</p>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Prima:</label>
+                            <p>500</p>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Saldo por medio de:</label>
+                            <p>2</p>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Cuotas de:</label>
+                            <p>$325.77</p>
+                        </div>
+                        <!-- tercera columna -->
+                        <div class="form-group col-md-3">
+                            <label>Mas interes del:</label>
+                            <p>2%</p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Proveedor:</label>
+                            <p>DELL company inc.</p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Direccion:</label>
+                            <p>Colonia san benito, san salvador #253</p>
+                        </div>
+                        <!-- CUarta columna -->
+                        <div class="form-group col-md-3">
+                            <label>Telefono:</label>
+                            <p>2333-9878</p>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Color:</label>
+                            <p>Negro</p>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Marca:</label>
+                            <p>DELL</p>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Modelo:</label>
+                            <p>Latitude</p>
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>No de Serie:</label>
+                            <p>TT567267TCY738</p>
+                        </div>
+                        <!-- Cuarta columna -->
+                        <div class="form-group col-md-3">
+                            <label>Vida util segun referencia de fabrica:</label>
+                            <p>2 años</p>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Tasa anual de depreciacion:</label>
+                            <p>10%</p>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Valor residual:</label>
+                            <p>$0.00</p>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label>Observaciones:</label>
+                            <p>No hay observaciones para este activo.</p>
+                        </div>
                     </div>
-                   </div>
-     <!-- aca -->
-                     </div>
-                  </div>
                 </div>
-              </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <section class="panel panel-default">
+
+                            <header class="panel-heading">
+                                <h5 style="text-align: center;">MOVIMIENTO DEL VALOR - DEPRECIACIONES - GASTOS DE CONSEVACION</h5>
+                            </header>
+                            <div class="panel-body">
+                                <div class="adv-table">
+                                    <table class="display table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                              
+                                                <th>Fecha</th>
+                                                <th>Conceptos</th>
+                                                <th>Valor de adquisición y mejoras</th>
+                                                <th>Depreciación Anual</th>
+                                                    <th>Depreciación Acum.</th>
+                                                <th>Valor actual</th>
+
+                                        
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+
+                                                <td>23/01/2019</td>
+                                                <td>Compra</td>
+                                                <td>$1,050.55</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>$1,050.00</td>
+                                               
+                                              
+                                            </tr>
+                                            <tr>
+                                            <td>31/12/2020</td>
+                                            <td>Depreciacion</td>
+                                            <td>$1,050.55</td>
+                                            <td>$105.05</td>
+                                            <td>$105.05</td>
+                                            <td>$945.00</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                 
+                                </div>
+                                <div style="text-align: center;">
+                                    <button title="Imprimir tarjeta de depreciación" style="margin-top: 20px; margin-bottom: 100px; text-align: center;" class="btn btn-success">Imprimir<i class="icon-print"></i></button>
+                           
+                                </div>
+                             </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+            <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+                class="modal" [ngStyle]="{'display':display}">
+                <div class="modal-dialog .modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button"
+                                (click)="close()">×</button>
+                            <h4 class="modal-title">Datos completos del Activo</h4>
+                            <h4 class="modal-title"></h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label>N° de Formulario:</label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Fecha de Ingreso:</label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Código:</label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>N° Serie:</label>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+
+                                <p>
+                                    <label>Área:</label><br />
+                                    <label>Clasificación:</label><br />
+                                    <label>Responsable:</label><br />
+                                    <label>Proveedor:</label><br />
+                                    <label>Donante:</label><br />
+                                    <label>Adquisición:</label><br />
+                                    <!--contado credito-->
+                                    <label>Descripción:</label><br />
+
+                                </p>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-3">
+                                    <label></label>
+                                    <img alt="" width="250" height="165" class="img-thumbnail">
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <label>Color:</label>
+                                    <p></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Marca:</label>
+                                    <p></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Modelo:</label>
+                                    <p></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Estado:</label>
+                                    <p></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Vida Útil:</label>
+                                    <p> </p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Destino Inicial:</label>
+                                    <p></p>
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-group col-md-2">
+                                    <label>Plazo:</label>
+                                    <p></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Cuota:</label>
+                                    <p> $</p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Interes:</label>
+                                    <p> %</p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Prima:</label>
+                                    <p> $</p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Valor Residual:</label>
+                                    <p></p>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label>Valor Adquisición:</label>
+                                    <p> $</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-3">
+
+                                </div>
+                            </div>
+                            <!-- aca -->
+                        </div>
+                    </div>
+                </div>
+            </div>
