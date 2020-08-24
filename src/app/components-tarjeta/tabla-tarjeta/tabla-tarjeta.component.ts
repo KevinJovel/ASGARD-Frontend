@@ -10,32 +10,40 @@ import { DepreciacionService } from './../../services/depreciacion.service';
 })
 export class TablaTarjetaComponent implements OnInit {
 
-  display = 'none';
   bienes: any;
   sucursales: any;
   areas:any;
+  combos: FormGroup;
   p: number=1;
-  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService) {
+  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService) { 
+    this.combos=new FormGroup({
+      'idArea': new FormControl("0"),
+      'idSucursal': new FormControl("0")
+     });
   }
+
   ngOnInit(): void {
-      this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-    }
-    FiltrarArea(sucursal){
-      this.depreciacionService.ComboArea(sucursal.value).subscribe(data=>{this.areas=data});
-    }
-    Filtrar(){
-
-    }
-    Reload(){
-
-    }
-    buscar(nombre){
-
-    }
-    close() {
-      this.display = 'none';
-    }
+    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
+    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
   }
+  FiltrarArea(){
+    var id= this.combos.controls['idSucursal'].value;
+    this.depreciacionService.ComboArea(id).subscribe(data=>{this.areas=data});
+  }
+  Filtrar(){
+    var id= this.combos.controls['idArea'].value;
+    this.depreciacionService.FiltroTablaDepreciacion(id).subscribe(data=>{this.bienes=data});
+  }
+  Reload(){
+    this.combos.controls['idSucursal'].setValue(0);
+    this.combos.controls['idArea'].setValue(0);
+    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+  }
+  buscar(nombre){
+
+  }
+
+}
  
 
   

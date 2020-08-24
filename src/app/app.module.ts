@@ -65,6 +65,7 @@ import { FormCooperativaComponent } from './components-configuracion/form-cooper
 import { ConfiguracionService } from './services/configuracion.service';
 import { TablaDepreciacionComponent } from './components-tarjeta/tabla-depreciacion/tabla-depreciacion.component';
 import { HistorialMantenimientoComponent } from './components-mantenimiento/historial-mantenimiento/historial-mantenimiento.component';
+import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/report-tarjeta.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { HistorialMantenimientoComponent } from './components-mantenimiento/hist
     TablaTarjetaComponent,
     FormCooperativaComponent,
     TablaDepreciacionComponent,
-    HistorialMantenimientoComponent
+    HistorialMantenimientoComponent,
+    ReportTarjetaComponent
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -142,8 +144,8 @@ import { HistorialMantenimientoComponent } from './components-mantenimiento/hist
       {path: 'gestion-descargo', component: GestionDescargoComponent},
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
       {path: 'form-cooperativa', component: FormCooperativaComponent},
-      {path: 'tabla-depreciacion', component: TablaDepreciacionComponent}
-      
+      {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
+      {path: 'report-tarjeta', component: ReportTarjetaComponent}
  
 
     ]),
