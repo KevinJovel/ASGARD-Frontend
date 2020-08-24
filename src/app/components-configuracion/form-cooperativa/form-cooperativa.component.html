@@ -32,7 +32,7 @@
                                 <tr>
                                     <th>N°</th>
                                     <th>Nombre de la cooperativa</th>
-                                    <th>Año de la inicio</th>
+                                    <th>Año de inicio</th>
                                     <th>Descripción</th>
                                     <th>Logo</th>
                                     <th class="hidden-phone">Opciones</th>
@@ -176,13 +176,15 @@
            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" readonly> 
           </div>
 
-          <div class="form-group">
-            <label for="inputPassword4">Logo</label>
-          
+          <div class="form-group" >
+            <div align="center"> 
+            <img src="{{logo}}" width="350" height="200" />
+           <!-- <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" /> -->
+          </div>
         </div>
 
         <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
-          Cancelar</button>
+          Salir</button>
 
       </form>
 

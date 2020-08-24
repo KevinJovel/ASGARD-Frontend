@@ -148,7 +148,12 @@ export class FormCooperativaComponent implements OnInit {
     this.configuracionService.recuperarCooperativa(id).subscribe(data => {
         this.cooperativa.controls["idcooperativa"].setValue(data.idcooperativa);
         this.cooperativa.controls["nombre"].setValue(data.nombre);
-        this.cooperativa.controls["logo"].setValue(data.logo);
+        if(data.logo==null) {
+          this.logo="";
+        } else {
+          this.logo=data.logo;
+        }
+        
   
     });
   }
