@@ -27,7 +27,8 @@ export class CuadroSolicitudComponent implements OnInit {
  disabledtelefono: string;
  disabled: boolean;
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService) 
+  {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
        'folio': new FormControl(""),
@@ -44,12 +45,12 @@ export class CuadroSolicitudComponent implements OnInit {
    }
 
    ngOnInit() {
+    this.bajaService.listarBienes().subscribe(res => { this.activo = res });
+
         this.disabledentidad = 'Ingrese entidad';
         this.disableddomicilio = 'Ingrese domicilio';
         this.disabledcontacto = 'Ingrese contacto';
         this.disabledtelefono = 'Ingrese telefono';
-
-    this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
   }
 
   guardarDatos(){
@@ -57,14 +58,15 @@ export class CuadroSolicitudComponent implements OnInit {
       //if ((this.solicitud.controls["bandera"].value) == "0") {
         if (this.solicitud.valid == true) {
           this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => {
+            //listar bienes
+           this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
             //enviamos cero para guardar
             this.solicitud.controls["entidadbeneficiaria"].setValue("0");
             this.solicitud.controls["domicilio"].setValue("0");
             this.solicitud.controls["contacto"].setValue("0");
             this.solicitud.controls["telefono"].setValue("0");
             this.display = 'none';
-            //listar bienes
-           this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
+            
           });
           Swal.fire({
             position: 'center',
@@ -75,6 +77,7 @@ export class CuadroSolicitudComponent implements OnInit {
           })
         }
      // }
+
 
   }
   

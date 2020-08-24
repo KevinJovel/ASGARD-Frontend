@@ -5,39 +5,44 @@
 <section class="panel">
 <h1>Activos registrados</h1>
   <div class="row">
-    <div class="col-lg-14">
+    <div class="col-lg-16">
       <section class="panel panel-default">
         <div class="form-row">
           <form class="form-inline" id="default" [formGroup]="combo">
             <div class="row">
-              <div class="col-lg-3">
-                <header class="panel-heading ">
-                  <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Agregar Nuevo Bien</button>
-                </header>
+              <div class="form-group col-md-2">
+                <br>
+                  <button type="button" style="margin-top: 24px;" class="btn btn-success"  data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Agregar Nuevo Bien</button>
+                   </div>
+
+              <div class="form-group col-md-3">
+                <br>
+                <label for="inputPassword4">Sucursal</label>
+                <select class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
+                  <option value="0">Seleccione</option>
+                  <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursal">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
+                </select>
               </div>
 
-          <div class="form-group col-md-3">
-           <label  for="formGroupExampleInput2">Filtro Sucursal y Area </label>
-           <select  id="inputState" formControlName="idTipo" class="form-control" (change)="FiltroCombo()">
-              <option selected>--Seleccione--</option>
-              <option value="1">Area de negocio</option>
-              <option value="2">Sucursal</option>
-            </select>
-          </div>
-          <div class="form-group col-md-3">
-          <label for="inputPassword4">{{tipocombo}}</label>
-          <select #areasucur id="inputState" class="form-control" formControlName="idCombo" >
-            <option selected>Seleccione</option>
-            <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option>	
-          </select>
-        </div>
-          
+              <div class="form-group col-md-3">
+                <br>
+                <label for="inputPassword4">Área de negocio</label>
+                <select id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
+                  <option value="0" selected>Seleccione</option>
+                  <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
+                </select> 
+              </div>
+              <div class="form-group col-md-1">
+                <br>
+              <button title="Recargar datos" style="margin-top: 24px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>                 
+            </div>
+
+              <div class="form-group col-md-3">
+                <br><br>
+              <input type="search" style="margin-top: 5px; padding-left: 10px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+            </div>
+                 
              
-              <div class="col-md-3">
-          <input type="button" (click)="filtrar(areasucur)" value="Buscar" class="btn btn-success">
-          <input type="button" (click)="limpiar(areasucur)" value="Limpiar" class="btn btn-success">
-               <!-- <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
-              --></div>
             </div>
             <div class="row">
               <div class="col-lg-12">
@@ -189,7 +194,6 @@
                               <p> ${{ valor}}</p>
                               </div>
                          </div>
-
                    <div class="row">
                     <div class="col-xs-3">
                       

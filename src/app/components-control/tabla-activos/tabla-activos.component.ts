@@ -3,7 +3,7 @@ import {CargarScriptsService} from './../../services/cargar-scripts.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
-//import {HttpClient} from '@angular/common/http';
+import { CatalogosService } from './../../services/catalogos.service';
 import {Router} from '@angular/router';
 import { State, StateService } from './../../services/state.service';
 
@@ -36,106 +36,43 @@ export class TablaActivosComponent implements OnInit {
     tipoadqui: string; color: string; numserie: string; vidautil: string; estado: string; valor: string;
     plazo: string; prima: string; cuota:string; interes: string; valorresidual: string; foto: string;
     noformu: string ;
-    //para el filtro
-    @Output() tipo: EventEmitter<any> ;
-    @Output() tipo2: EventEmitter<any> ;
-    @Output() edit: EventEmitter<any> ;
 
-  constructor(private router:Router ,private stateService:StateService ,private controlService: ControlService) {
-   // _CargaScripts.cargar(['/advanced-datatable/media/js/jquery','/advanced-datatable/media/js/jquery.dataTables',
-   // '/respond.min','/sortingTable']);
-    //this.bienObj=[];
-    //para el filtro
-    this.tipo = new EventEmitter();
-    this.tipo2 = new EventEmitter();
-    this.edit = new EventEmitter();
+  constructor(private router:Router ,private stateService:StateService ,private controlService: ControlService,
+    private catalogosServices: CatalogosService) {
 
     this.combo = new FormGroup({
-
-      'idTipo': new FormControl("0"),
-      'idCombo': new FormControl("0"), 
+      'idArea': new FormControl("0"),
+      'idSucursal': new FormControl("0"),
       /////////////////////////////////////////////////
       'IdBien': new FormControl("0"),
       'bandera': new FormControl("0"),
       'idEmpleado':new FormControl("0"),
-      'tipoadquicicion': new FormControl("0")
-                                              
+      'tipoadquicicion': new FormControl("0")                                            
   });
-  
-  
    }
  
+
   ngOnInit() {
-    this.tipocombo="Filtro";
-     this.controlService.getBienes().subscribe(res=> {
-       this.comboAreaSucur=res});
-     //this.controlService.getBienes().subscribe(res=> {this.bienObj = res});
-
-     this.controlService.listarComboArea().subscribe(data =>{
-      this.areas =data;
-    });
-
-    this.controlService.listarComboSucursal().subscribe(data =>{
-      this.sucursal =data;
-    });
-
-  }
-  FiltroCombo(){
-    //this.controlService.getBienes().subscribe(res=> {this.comboAreaSucur=res});
-    var idarea = this.combo.controls["idTipo"].value;
-    if(idarea==1 || idarea==2 ){
-    if(idarea==1 ){ 
-      this.tipocombo="Área:";
-      this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
     
-    }else{
-      this.tipocombo="Sucursal:";
-      this.controlService.listarComboSucursal().subscribe(res=> {this.comboAreaSucur=res});
-    }
+    this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});
+    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});
+     
   }
-  
-}
 
-filtrar(areasucur){
-  var aresu = this.combo.controls["idTipo"].value;
-//this.tipo.emit(areasucur);
-if(aresu==1 || aresu==2 ){//if
-  if(aresu==1 ){ 
-    if(areasucur.value == "")
-    {
-      this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
-    }else{
-       this.controlService.FiltrarAreaTipo(areasucur.value).subscribe(res=> {this.comboAreaSucur=res}); 
-        }   
-    }else{
-      if(areasucur.value == ""){
-        this.controlService.listarComboSucursal().subscribe(res=> {this.comboAreaSucur=res});
-      }else{
-        this.controlService.FiltrarSucursalTipo(areasucur.value).subscribe(res=> {this.comboAreaSucur=res});   
-      } 
-      
-    }
-  }//if
-}
-
-limpiar(areasucur){
-  var aresu = this.combo.controls["idTipo"].value;
-this.tipo.emit(areasucur);
-if(aresu==1 || aresu==2 ){
-  if(aresu==1 ){ 
-    areasucur.value = "";
-    //this.controlService.getBienes().subscribe(res=> {this.comboAreaSucur=res});
-    this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
-  }else{
-    
-    areasucur.value = "";
-//this.controlService.getBienes().subscribe(res=> {this.comboAreaSucur=res});
-this.controlService.listarComboSucursal().subscribe(res=> {this.comboAreaSucur=res});
-    
+  FiltrarArea(){
+    var id= this.combo.controls['idSucursal'].value;
+    this.controlService.ComboArea(id).subscribe(data=>{this.areas=data});
   }
-}
+  Filtrar(){
+    var id= this.combo.controls['idArea'].value;
+    this.controlService.FiltroTablaActivos(id).subscribe(data=>{this.comboAreaSucur=data});
+  }
+  Reload(){
+    this.combo.controls['idSucursal'].setValue(0);
+    this.combo.controls['idArea'].setValue(0);
+    this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});
+  }
 
-}
 
 close() {
   this.display = 'none';

@@ -68,11 +68,12 @@ public listarComboSucursal() {
   return this.http.get(environment.urlService + "api/ActivoFIjo/listarSucursalCombo").map(res => res.json());
 }
 
-public FiltrarSucursalTipo(id) {
-  return this.http.get(environment.urlService + "api/ActivoFijo/FiltrarSucursalTipo/"+id).map(res => res.json());
+public ComboArea(id) {
+  return this.http.get(environment.urlService + "api/AreasNegocios/comboAreaDeSucursal/"+id).map(res => res.json());
 }
-public FiltrarAreaTipo(id) {
-  return this.http.get(environment.urlService + "api/ActivoFijo/FiltrarAreaTipo/"+id).map(res => res.json());
+
+public FiltroTablaActivos(id) {
+return this.http.get(environment.urlService + "api/ActivoFIjo/listarActivosFiltro/"+id).map(res => res.json());
 }
 
 public modificarActivos(activo) {

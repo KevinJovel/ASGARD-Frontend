@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import {Router} from '@angular/router';
 import { State, StateService } from './../../services/state.service';
 
-
 @Component({
   selector: 'app-historial-mantenimiento',
   templateUrl: './historial-mantenimiento.component.html',
@@ -107,13 +106,13 @@ if(aresu==1 || aresu==2 ){//if
     {
       this.controlService.listarComboArea().subscribe(res=> {this.comboAreaSucur=res});
     }else{
-       this.controlService.FiltrarAreaTipo(areasucur.value).subscribe(res=> {this.comboAreaSucur=res}); 
+      // this.controlService.FiltrarAreaTipo(areasucur.value).subscribe(res=> {this.comboAreaSucur=res}); 
         }   
     }else{
       if(areasucur.value == ""){
         this.controlService.listarComboSucursal().subscribe(res=> {this.comboAreaSucur=res});
       }else{
-        this.controlService.FiltrarSucursalTipo(areasucur.value).subscribe(res=> {this.comboAreaSucur=res});   
+      //  this.controlService.FiltrarSucursalTipo(areasucur.value).subscribe(res=> {this.comboAreaSucur=res});   
       } 
       
     }
