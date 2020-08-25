@@ -145,7 +145,7 @@ import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/repo
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
       {path: 'form-cooperativa', component: FormCooperativaComponent},
       {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
-      {path: 'report-tarjeta', component: ReportTarjetaComponent}
+      {path: 'report-tarjeta/:id', component: ReportTarjetaComponent}
  
 
     ]),

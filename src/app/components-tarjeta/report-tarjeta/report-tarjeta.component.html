@@ -4,11 +4,13 @@
 <br />
 <section class="panel">
     <div style="text-align:right;">
+        <button title="Regresar" style="margin-top: 10px; margin-right: 20px;" class="btn btn-warning" [routerLink]="['/tabla-tarjeta']"><i class="icon-mail-reply"></i></button>
+
     <button title="Imprimir tarjeta de depreciación" style="margin-top: 10px; margin-right: 20px;" class="btn btn-success"><i class="icon-print"></i></button>
 </div>
-    <h2 style="text-align: center;">ACAASS de R.L.</h2>
+    <h3 style="text-align: center;">ACAASS de R.L.</h3>
                            
-    <h3 style="text-align: center;">CONTROL DE EXISTENCIAS DE MOBILIARIO, EQUIPO E INSTALACIONES </h3>
+    <h4 style="text-align: center;">CONTROL DE EXISTENCIAS DE MOBILIARIO, EQUIPO E INSTALACIONES </h4>
 
 
     <div class="row">
@@ -18,78 +20,78 @@
 
                     <div class="row">
                         <!-- Primera columna -->
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label>Fecha de adquicicion:</label>
-                            <p>23/01/2019</p>
+                            <p>{{fecha}}</p>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label>Denominacion:</label>
-                            <p>Computadora DELL</p>
+                            <p>{{descripcion}}</p>
                         </div>
 
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label>Codigo:</label>
-                            <p>AC01-101-002-001</p>
+                            <p>{{codigo}}</p>
                         </div>
                         <!-- segunda columna -->
 
                         <div class="form-group col-md-3">
                             <label>Valor de adquicicion:</label>
-                            <p>$1,050.55</p>
+                            <p>$ {{valor}}</p>
                         </div>
 
                         <div class="form-group col-md-3">
                             <label>Prima:</label>
-                            <p>500</p>
+                            <p>${{prima}}</p>
                         </div>
 
                         <div class="form-group col-md-3">
                             <label>Saldo por medio de:</label>
-                            <p>2</p>
+                            <p>{{plazo}}</p>
                         </div>
                         <div class="form-group col-md-3">
                             <label>Cuotas de:</label>
-                            <p>$325.77</p>
+                            <p>${{cuota}}</p>
                         </div>
                         <!-- tercera columna -->
                         <div class="form-group col-md-3">
                             <label>Mas interes del:</label>
-                            <p>2%</p>
+                            <p>{{interes}}%</p>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label>Proveedor:</label>
-                            <p>DELL company inc.</p>
+                            <p>{{proveedor}}</p>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label>Direccion:</label>
-                            <p>Colonia san benito, san salvador #253</p>
+                            <p>{{direccion}}</p>
                         </div>
                         <!-- CUarta columna -->
                         <div class="form-group col-md-3">
                             <label>Telefono:</label>
-                            <p>2333-9878</p>
+                            <p>{{telefono}}</p>
                         </div>
                         <div class="form-group col-md-3">
                             <label>Color:</label>
-                            <p>Negro</p>
+                            <p>{{color}}</p>
                         </div>
                         <div class="form-group col-md-3">
                             <label>Marca:</label>
-                            <p>DELL</p>
+                            <p>{{marca}}</p>
                         </div>
                         <div class="form-group col-md-3">
                             <label>Modelo:</label>
-                            <p>Latitude</p>
+                            <p>{{modelo}}</p>
                         </div>
 
                         <div class="form-group col-md-3">
                             <label>No de Serie:</label>
-                            <p>TT567267TCY738</p>
+                            <p>{{noSerie}}</p>
                         </div>
                         <!-- Cuarta columna -->
                         <div class="form-group col-md-3">
                             <label>Vida util segun referencia de fabrica:</label>
-                            <p>2 años</p>
+                            <p>{{vidaUtil}}años</p>
                         </div>
                         <div class="form-group col-md-3">
                             <label>Tasa anual de depreciacion:</label>
@@ -97,11 +99,11 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label>Valor residual:</label>
-                            <p>$0.00</p>
+                            <p>${{valorresidual}}</p>
                         </div>
                         <div class="form-group col-md-12">
                             <label>Observaciones:</label>
-                            <p>No hay observaciones para este activo.</p>
+                            <p>{{observaciones}}</p>
                         </div>
                     </div>
                 </div>
@@ -130,26 +132,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr *ngFor="let bien of bienes">
 
 
-                                                <td>23/01/2019</td>
-                                                <td>Compra</td>
-                                                <td>$1,050.55</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>$1,050.00</td>
-                                               
-                                              
+                                                <td>{{bien.fecha}}</td>
+                                                <td>{{bien.concepto}}</td>
+                                                <td>$ {{bien.montoTransaccion}}</td>
+                                                <td>$ {{bien.depreciacionAnual}}</td>
+                                                <td>$ {{bien.depreciacionAcumulada}}</td>
+                                                <td>$ {{bien.valorActual}}</td>
                                             </tr>
-                                            <tr>
-                                            <td>31/12/2020</td>
-                                            <td>Depreciacion</td>
-                                            <td>$1,050.55</td>
-                                            <td>$105.05</td>
-                                            <td>$105.05</td>
-                                            <td>$945.00</td>
-                                        </tr>
+                                        
                                         </tbody>
                                     </table>
                                  
@@ -163,121 +156,7 @@
                     </div>
                 </div>
             </section>
-            <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
-                class="modal" [ngStyle]="{'display':display}">
-                <div class="modal-dialog .modal-dialog ">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button"
-                                (click)="close()">×</button>
-                            <h4 class="modal-title">Datos completos del Activo</h4>
-                            <h4 class="modal-title"></h4>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <label>N° de Formulario:</label>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label>Fecha de Ingreso:</label>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label>Código:</label>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label>N° Serie:</label>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-
-                                <p>
-                                    <label>Área:</label><br />
-                                    <label>Clasificación:</label><br />
-                                    <label>Responsable:</label><br />
-                                    <label>Proveedor:</label><br />
-                                    <label>Donante:</label><br />
-                                    <label>Adquisición:</label><br />
-                                    <!--contado credito-->
-                                    <label>Descripción:</label><br />
-
-                                </p>
-
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-lg-3">
-                                    <label></label>
-                                    <img alt="" width="250" height="165" class="img-thumbnail">
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <label>Color:</label>
-                                    <p></p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Marca:</label>
-                                    <p></p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Modelo:</label>
-                                    <p></p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Estado:</label>
-                                    <p></p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Vida Útil:</label>
-                                    <p> </p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Destino Inicial:</label>
-                                    <p></p>
-                                </div>
-                            </div>
-
-
-                            <div class="form-row">
-                                <div class="form-group col-md-2">
-                                    <label>Plazo:</label>
-                                    <p></p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Cuota:</label>
-                                    <p> $</p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Interes:</label>
-                                    <p> %</p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Prima:</label>
-                                    <p> $</p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Valor Residual:</label>
-                                    <p></p>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label>Valor Adquisición:</label>
-                                    <p> $</p>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-xs-3">
-
-                                </div>
-                            </div>
-                            <!-- aca -->
-                        </div>
-                    </div>
-                </div>
             </div>
+            </div>
+    </section>
+          
