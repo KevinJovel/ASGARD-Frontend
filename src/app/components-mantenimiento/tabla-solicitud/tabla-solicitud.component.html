@@ -3,10 +3,12 @@
   <h1>Solicitudes de Mantenimiento</h1>
 
   <div class="row">
- 
+    <div class="col-lg-9">
+
+    </div>
     
     <div class="col-md-3">
-      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre placeholder="Buscar">  
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
     </div>
   </div>
 

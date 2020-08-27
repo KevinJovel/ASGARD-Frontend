@@ -77,7 +77,10 @@ export class TablaInformeComponent implements OnInit {
        
 
   }
-  buscar(nombre){}
+  buscar(buscador) {
+    this.p = 1;
+    this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => {this.bienes = res});
+  }
   
   guardarDatos(){
    // console.log(this.informe.value);

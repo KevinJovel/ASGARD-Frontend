@@ -59,9 +59,22 @@ public cambiarEstadoDenegado(idsolicitud) {
 public guardarInformeMantenimiento(informe) {
   return this.http.post(environment.urlService  + "api/InformeMantenimiento/guardarInformeMantenimiento",informe).map(res => res.json());
 }
+//se valida que el folio sea unico en la bd
 public validarFolio(idsolicitud, folio){
 return this.http.get(environment.urlService + "api/SolicitudMantenimiento/validarFolio/"+ idsolicitud + "/" + folio).map(res => res.json());
 }
+//buscar las solicitudes de mantenimiento
+public buscarSolicitudMante(buscador) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/buscarSolicitudMante/" + buscador).map(res => res.json());
+}
+//buscar los bienes que estan en mantenimiento
+public buscarBienesMante(buscador) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/buscarBienesMante/" + buscador).map(res => res.json());
+}
+public ListarInformeMantenimiento(){
+  return this.http.get(environment.urlService + "api/InformeMantenimiento/ListarInformeMantenimiento" ).map(res=>res.json());
+ } 
+
 
 
 
