@@ -141,6 +141,11 @@ export class TablaSolicitudComponent implements OnInit {
 
   }
 
+  buscar(buscador) {
+    this.p = 1;
+    this.mantenimientoService.buscarSolicitudMante(buscador.value).subscribe(res => {this.solicitudes = res});
+  }
+
   denegarSolicitud(){
     var id=this.idSoli;
     // alert(id);
