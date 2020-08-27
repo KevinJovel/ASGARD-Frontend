@@ -14,11 +14,23 @@ export class TablaDepreciacionComponent implements OnInit {
   areas:any;
   combos: FormGroup;
   p: number=1;
+  titulo:string;
+  datos:FormGroup;
+  display = 'none';
   constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0")
      });
+     this.datos = new FormGroup({
+      'idBien': new FormControl("0"),
+      // 'bandera': new FormControl("0"),
+      'codigo': new FormControl(""),
+      'descripcion': new FormControl(""),
+      'valorAdquicicion': new FormControl(""),
+      'valorActual': new FormControl(""),
+      'valorDepreciacion': new FormControl("")
+  });
   }
 
   ngOnInit(): void {
@@ -37,6 +49,16 @@ export class TablaDepreciacionComponent implements OnInit {
     this.combos.controls['idSucursal'].setValue(0);
     this.combos.controls['idArea'].setValue(0);
     this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+  }
+  AplicarDepreciacion(){
+
+
+  }
+  open(){
+    this.display='block';
+  }
+  close(){
+
   }
   buscar(nombre){
 
