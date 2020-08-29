@@ -66,6 +66,7 @@ import { ConfiguracionService } from './services/configuracion.service';
 import { TablaDepreciacionComponent } from './components-tarjeta/tabla-depreciacion/tabla-depreciacion.component';
 import { HistorialMantenimientoComponent } from './components-mantenimiento/historial-mantenimiento/historial-mantenimiento.component';
 import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/report-tarjeta.component';
+import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuadro-control.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/repo
     FormCooperativaComponent,
     TablaDepreciacionComponent,
     HistorialMantenimientoComponent,
-    ReportTarjetaComponent
+    ReportTarjetaComponent,
+    CuadroControlComponent
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -145,7 +147,8 @@ import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/repo
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
       {path: 'form-cooperativa', component: FormCooperativaComponent},
       {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
-      {path: 'report-tarjeta/:id', component: ReportTarjetaComponent}
+      {path: 'report-tarjeta/:id', component: ReportTarjetaComponent},
+      {path: 'cuadro-control', component: CuadroControlComponent}
  
 
     ]),

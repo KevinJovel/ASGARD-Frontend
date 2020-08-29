@@ -26,4 +26,9 @@ export class DepreciacionService {
   public TarjetaListaTrasacciones(id) {
     return this.http.get(environment.urlService + "api/Depreciacion/TarjetaListaTrasacciones/" + id).map(res => res.json());
   }
+
+  //Servicio para el cuadro de control
+   public getCuadroControl() {
+    return this.http.get(environment.urlService  + "api/CuadroControl/listarCuadroControl").map(res => res.json());
+  }
 }
