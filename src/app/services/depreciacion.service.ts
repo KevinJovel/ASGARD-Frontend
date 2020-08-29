@@ -29,4 +29,7 @@ export class DepreciacionService {
   public TarjetaListaTrasacciones(id) {
     return this.http.get(environment.urlService + "api/Depreciacion/TarjetaListaTrasacciones/" + id).map(res => res.json());
   }
+  public transaccionDepreciacion(transac) {
+    return this.http.post(environment.urlService + "api/Depreciacion/transaccionDepreciacion", transac).map(res=>res.json());
+    }
 }

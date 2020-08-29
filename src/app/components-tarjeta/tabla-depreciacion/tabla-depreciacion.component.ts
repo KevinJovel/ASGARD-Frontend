@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tabla-depreciacion',
@@ -32,7 +33,8 @@ export class TablaDepreciacionComponent implements OnInit {
       'descripcion': new FormControl(""),
       'valorAdquicicion': new FormControl(""),
       'valorActual': new FormControl(""),
-      'valorDepreciacion': new FormControl("")
+      'valorDepreciacion': new FormControl("0.00"),
+      'fecha': new FormControl("")
   });
   }
 
@@ -54,7 +56,21 @@ export class TablaDepreciacionComponent implements OnInit {
     this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
   }
   AplicarDepreciacion(){
-
+     console.log(this.datos.value);
+    if (this.datos.valid == true) {
+      this.datos.controls["fecha"].setValue(12 + "/" + 31 + "/" +this.anio );
+      this.depreciacionService.transaccionDepreciacion(this.datos.value).subscribe((data) => {
+        if (data == 1) {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Depreciación aplicada con exito',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+      });
+    }
 
   }
   open(id){
@@ -78,5 +94,14 @@ export class TablaDepreciacionComponent implements OnInit {
   buscar(nombre){
 
   }
+  // if (this.persona.valid == true) {
+  //   var fechaNac = this.persona.controls["fechaNacimiento"].value.split("-");
+  //   var anio = fechaNac[0];
+  //   var mes = fechaNac[1];
+  //   var dia = fechaNac[2];
+  //   this.persona.controls["fechaNacimiento"].setValue(mes + "/" + dia + "/" + anio);
+  //       this.personaService.agregarPersona(this.persona.value).subscribe(data => { this.route.navigate(["/mantenimiento-persona"]) });
+  
+// }
 
 }
