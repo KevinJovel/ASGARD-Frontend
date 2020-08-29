@@ -25,11 +25,7 @@
     "angular-wizard-form": "^0.4.1",
     "angular2-wizard": "^0.4.0",
     "bootstrap": "^4.5.0",
-<<<<<<< HEAD
-    "file-server": "^2.1.0",
-=======
     "file-saver": "^2.0.2",
->>>>>>> 9005e584c64d3b677cf0c3a574ba449311b004f7
     "jquery": "^3.5.1",
     "ngx-mask": "^9.0.2",
     "ngx-pagination": "^5.0.0",
