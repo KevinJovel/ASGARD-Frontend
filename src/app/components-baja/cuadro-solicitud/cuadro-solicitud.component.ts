@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { BajaService } from './../../services/baja.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -54,10 +54,12 @@ export class CuadroSolicitudComponent implements OnInit {
   }
 
   guardarDatos(){
-    
       //if ((this.solicitud.controls["bandera"].value) == "0") {
+        //console.log(this.solicitud.valid);
         if (this.solicitud.valid == true) {
-          this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => {
+
+          this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => { 
+            
             //listar bienes
            this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
             //enviamos cero para guardar
@@ -66,8 +68,11 @@ export class CuadroSolicitudComponent implements OnInit {
             this.solicitud.controls["contacto"].setValue("0");
             this.solicitud.controls["telefono"].setValue("0");
             this.display = 'none';
-            
+            this.solicitud["idbien"].patchValue("");
+            console.log(this.solicitud.valid);
           });
+      //  });
+      
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -75,6 +80,8 @@ export class CuadroSolicitudComponent implements OnInit {
             showConfirmButton: false,
             timer: 3000
           })
+          
+          console.log(this.solicitud);
         }
      // }
 

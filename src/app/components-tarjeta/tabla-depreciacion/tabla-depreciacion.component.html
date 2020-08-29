@@ -74,7 +74,7 @@
                             <td>1000</td>
                             <td class="center hidden-phone" style="text-align: center;">
                               <button title="Ver detalles" class="btn btn-primary btn-xs" ><i class=" icon-eye-open"></i></button> 
-                              <button title="Aplicar depreciación" class="btn btn-warning btn-xs" (click)="open()"><i class="icon-sort-by-attributes-alt"></i></button>
+                              <button title="Aplicar depreciación" class="btn btn-warning btn-xs" (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>
                             </td>
                           </tr>
                         </tbody>
@@ -92,7 +92,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-        <h4 class="modal-title">{{titulo}} año X </h4>
+        <h4 class="modal-title">{{coopertativa}} - Depreciación año {{anio}} </h4>
       </div>
       <div class="modal-body">
 
@@ -103,31 +103,31 @@
             autocomplete="off"> -->
           <div class="form-group">
             <label for="exampleInputEmail1">Codigo:</label>
-            <input type="text" class="form-control" formControlName="codigo">
+            <input type="text" class="form-control" formControlName="codigo" readonly>
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Descripción:</label>
-            <input type="text" class="form-control" formControlName="descripcion">
+            <input type="text" class="form-control" formControlName="descripcion" readonly>
           </div>
           <!--  WARNING-->
    
           <!--  END-WARNING-->
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Valor de adquicición:</label>
-            <input type="text" class="form-control" formControlName="valorAdquicicion">
+            <input type="text" class="form-control" formControlName="valorAdquicicion" readonly>
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Valor actual:</label>
-            <input type="text" class="form-control" formControlName="valorActual">
+            <input type="text" class="form-control" formControlName="valorActual" readonly>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlTextarea2">Valor a depreciar en eñ año X:</label>
-            <input type="text" class="form-control" formControlName="valorDepreciacion">
+            <label for="exampleFormControlTextarea2">Valor a depreciar año {{anio}}:</label>
+            <input type="text" class="form-control" formControlName="valorDepreciacion" readonly>
           </div>
 
           <button  type="submit" class="btn btn-primary"><i class="icon-save"></i>
             Aply</button>
-          <button type="button" class="btn btn-default"><i class="icon-remove-sign"></i>
+          <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
             Cancelar</button>
 
         </form>

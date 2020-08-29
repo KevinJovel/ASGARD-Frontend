@@ -37,7 +37,8 @@ public cambiarEstadoRechazado(idbien) {
   return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoRechazado/"+idbien).map(res => res.json());
 }
 public verSolicitud(id){
-  return this.http.get(environment.urlService + "api/SolicitudBaja/verSolicitud"+id).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/SolicitudBaja/verSolicitud/"+id).map(res=>res.json());
+  
  }
 
 }

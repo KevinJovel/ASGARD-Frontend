@@ -17,6 +17,9 @@ export class TablaDepreciacionComponent implements OnInit {
   titulo:string;
   datos:FormGroup;
   display = 'none';
+  //Datos del modal
+  coopertativa:string;
+  anio:string;
   constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
@@ -54,11 +57,23 @@ export class TablaDepreciacionComponent implements OnInit {
 
 
   }
-  open(){
-    this.display='block';
+  open(id){
+   
+     this.display='block';
+    
+    this.depreciacionService.DatosDepreciacion(id).subscribe(data=>{
+      this.datos.controls["idBien"].setValue(data.idBien);
+      this.coopertativa=data.cooperativa;
+      this.anio=data.anio;
+      this.datos.controls["codigo"].setValue(data.codigo);
+      this.datos.controls["descripcion"].setValue(data.descipcion);
+      this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
+      this.datos.controls["valorDepreciacion"].setValue(data.valorDepreciacion);
+      this.datos.controls["valorActual"].setValue(data.valorActual);
+    });
   }
   close(){
-
+    this.display='none';
   }
   buscar(nombre){
 
