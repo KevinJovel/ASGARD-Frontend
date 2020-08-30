@@ -24,7 +24,7 @@ export class TablaTarjetaComponent implements OnInit {
 
   ngOnInit(): void {
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+    this.depreciacionService.TablaTarjeta().subscribe(data=>{this.bienes=data});
   }
   FiltrarArea(){
     var id= this.combos.controls['idSucursal'].value;
