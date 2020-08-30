@@ -56,30 +56,21 @@ export class FormInformeMantenimientoComponent implements OnInit {
       this.tecnicos=data;    
       });
   }
-  open(id,idbien){
+  open(){
    // alert(id);
  
   
-    this.titulo = "Informe de mantenimiento";
+    this.titulo = "Revalorización";
     this.display = 'block';
-      this.informe.controls["idinformematenimiento"].setValue("0");
-      this.informe.controls["idmantenimiento"].setValue(id);
-      this.informe.controls["idBien"].setValue(idbien);
-      this.informe.controls["fechainforme"].setValue("");
-      this.informe.controls["fechacadena"].setValue("");
-       this.informe.controls["idtecnico"].setValue("");
-       this.informe.controls["descripcion"].setValue("");
-       this.informe.controls["costomateriales"].setValue("");
-       this.informe.controls["costomo"].setValue("");
-       this.informe.controls["costototal"].setValue("");
+     
 
     
        
        //para recuerar el id 
-       this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
-        this.informes=res;
+      // this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+       // this.informes=res;
     
-      });
+     // });
        
 
   }

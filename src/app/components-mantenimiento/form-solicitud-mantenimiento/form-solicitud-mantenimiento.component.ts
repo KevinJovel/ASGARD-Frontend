@@ -39,8 +39,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
-      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(50)]),
-      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(50)])
+      'razonesMantenimiento':new FormControl(""),
+      'periodoMantenimiento':new FormControl("")
     });
   }
 

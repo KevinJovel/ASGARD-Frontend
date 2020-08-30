@@ -24,6 +24,12 @@ export class CuadroControlComponent implements OnInit {
     this.excelService.exportAsExcelFile(this.cuadros,'Cuadro de Control');
   }
 
+  //Método para buscar
+  buscar(buscador) {
+    this.p = 1;
+    this.depreciacionService.buscarCuadro(buscador.value).subscribe(res => this.cuadros = res);
+  }
+
 }
 
 

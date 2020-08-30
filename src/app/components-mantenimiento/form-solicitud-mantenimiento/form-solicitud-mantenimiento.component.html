@@ -193,12 +193,10 @@
               </div>
               <div class="modal-body">
                 <form class="form-inline" id="default" [formGroup]="datosArray" (ngSubmit)="arrayMostrar()">
-              <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
-                autocomplete="off">
+                <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3" autocomplete="off">
                 
-                <input type="hidden" class="form-control" formControlName="idMantenimiento" id="exampleInputEmail3"
-                autocomplete="off">
-                 <input type="hidden" class="form-control" formControlName="codigobien" id="exampleInputEmail3" autocomplete="off">  
+               
+                <input type="hidden" class="form-control" formControlName="codigobien" id="exampleInputEmail3" autocomplete="off">  
                 <input type="hidden" class="form-control" formControlName="descripcionbien" id="exampleInputEmail3" autocomplete="off">  
                   <br>
 
@@ -209,7 +207,7 @@
                   <br>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Periodo del mantenimiento:</label>
-                    <input size="80" type="text" class="form-control" formControlName="periodoMantenimiento" placeholder="Periodo del mantenimiento" autocomplete="off">
+                    <input size="80" type="text" class="form-control" formControlName="periodoMantenimiento" id="exampleInputEmail3" placeholder="Periodo del mantenimiento" autocomplete="off">
                   </div>
                   <br>
                   <br>

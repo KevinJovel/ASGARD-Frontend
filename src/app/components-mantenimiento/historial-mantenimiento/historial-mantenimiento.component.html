@@ -2,43 +2,44 @@
 <br />
 <br />
 <br />
+<br />
+
 <section class="panel">
-<h1>Activos registrados</h1>
+<h1>Historial de mantenimiento</h1>
   <div class="row">
     <div class="col-lg-14">
       <section class="panel panel-default">
         <div class="form-row">
-          <form class="form-inline" id="default" [formGroup]="combo">
+          <form class="form-inline" id="default" [formGroup]="combos">
             <div class="row">
-              <div class="col-lg-3">
-                <header class="panel-heading ">
-                  <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Agregar Nuevo Bien</button>
-                </header>
+              <div class="col-md-3">
+                <label for="inputPassword4">Sucursal</label>
+                <select class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
+                  <option value="0">Seleccione</option>
+                  <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
+                </select>
               </div>
 
           <div class="form-group col-md-3">
-           <label  for="formGroupExampleInput2">Filtro Sucursal y Area </label>
-           <select  id="inputState" formControlName="idTipo" class="form-control" (change)="FiltroCombo()">
-              <option selected>--Seleccione--</option>
-              <option value="1">Area de negocio</option>
-              <option value="2">Sucursal</option>
-            </select>
+            <label for="inputPassword4">Area de negocio</label>
+            <select id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
+              <option value="0" selected>Seleccione</option>
+              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
+            </select> 
           </div>
           <div class="form-group col-md-3">
-          <label for="inputPassword4">{{tipocombo}}</label>
-          <select #areasucur id="inputState" class="form-control" formControlName="idCombo" >
-            <option selected>Seleccione</option>
-            <option [value]="prov.id" *ngFor="let prov of comboAreaSucur">{{prov.nombre}}</option>	
-          </select>
+            <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>
+                          
         </div>
           
              
               <div class="col-md-3">
-          <input type="button" (click)="filtrar(areasucur)" value="Buscar" class="btn btn-success">
-          <input type="button" (click)="limpiar(areasucur)" value="Limpiar" class="btn btn-success">
-               <!-- <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
-              --></div>
+        
+               <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+             </div>
             </div>
+            </form>
+            <br>
             <div class="row">
               <div class="col-lg-12">
                 <section class="panel panel-default">
@@ -52,151 +53,159 @@
                         <thead>
                           <tr>
                             <th>N°</th>
-                            <th>Código</th>
-                            <th>Fecha Ingreso</th>
-                            <th>Descripción</th>
-                            <th>Clasificación</th>
-                            <th>Área de Negocio</th>
-                            <th>Responsable</th>                        
-                            <th class="hidden-phone" >Opciones </th>
+                            <th>Codigo</th>
+                            <th>Descripcion</th>
+                            <th>Responsable</th>
+                            <th>Area de negocio</th>
+                            <th>Valor actual</th>
+                                                 
+                            <th class="hidden-phone" >Ver historial </th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let combo of comboAreaSucur | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+                          <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
+                            <th scope="col">{{i+(5*p)-4}}</th>
+                            <!-- <td>{{marca.idMarca}}</td> -->
+                            <td>{{bien.codigo}}</td>
+                            <td>{{bien.descripcion}}</td>
+                            <td>{{bien.responsable}}</td>
+                            <td>{{bien.areanegocio}}</td>
                             
-                            <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
-                            <td>{{combo.codigo}}</td>
-                            <td>{{combo.fechacadena}}</td>
-                            <td>{{combo.desripcion}}</td>
-                            <td>{{combo.clasificacion}}</td>
-                            <td>{{combo.areaDeNegocio}}</td>
-                            <td>{{combo.resposnsable}}</td>             
-                            <td class="center hidden-phone">
-                              <button class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>
-                              <button class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open">Ver</i></button>
+                            <td>1000</td>
+                            <td class="center hidden-phone" style="text-align: center;">
+                              <button title="Ver detalles" class="btn btn-primary btn-xs" (click)="open2()" ><i class=" icon-eye-open"></i></button> 
+                              <!--<button title="Aplicar depreciación" class="btn btn-warning btn-xs" (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>-->
                             </td>
                           </tr>
                         </tbody>
                       </table>
                       <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                    </div>
+                        </div>
                   </div>
                 </section>
               </div>
             </div>
 
-            <div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-              <div class="modal-dialog .modal-dialog ">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-                    <h4 class="modal-title">Datos completos del Activo</h4>
-                    <h4 class="modal-title"></h4>
-                  </div>
-                  <div class="modal-body" >
-                  
-                     <div class="row">
-                      <div class="col-lg-3">
-                        <label >N° de Formulario:</label> {{ noformu}}
-                        </div>
-                      <div class="form-group col-md-3">
-                        <label>Fecha de Ingreso:</label> {{ fecha }}
-                      </div>
-                      <div class="form-group col-md-3">
-                        <label>Código:</label> {{ codigo }}
-                        </div>
-                        <div class="form-group col-md-3">
-                          <label>N° Serie:</label> {{ numserie }}
-                         </div>
-                     </div>
-                    
-                    
-                      <div class="col-lg-6">
-                        
-                          <p>
-                           <label>Área:</label> {{ area}}<br/>
-                           <label>Clasificación:</label> {{ clasificacion}}<br/>
-                           <label>Responsable:</label> {{ responsable}}<br/>
-                           <label>Proveedor:</label> {{ proveedor}}<br/>
-                           <label>Donante:</label> {{ donante}} <br/>
-                           <label>Adquisición:</label> {{tipoadqui}} <br/><!--contado credito-->
-                           <label>Descripción:</label> {{descripcion }}<br/>
-                          
-                          </p>
-                       
-                      </div>
+<!--INICIO DE MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENTO-->
 
-                      <div class="row">
-                        
-                        <div class="col-lg-3">
-                          <label></label>
-                          <img [src]="foto | safe" alt=""  width="250" height="165" class="img-thumbnail">
-                        </div>
-                       
-                      </div>
-                     
-                      <div class="row">
-                        <div class="col-lg-2">
-                         <label >Color:</label>
-                         <p> {{ color }}</p>
-                          </div>
-                        <div class="form-group col-md-2">
-                         <label >Marca:</label>
-                         <p> {{ marca }}</p>
-                        </div>
-                        <div class="form-group col-md-2">
-                         <label >Modelo:</label>
-                         <p> {{ modelo}}</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                           <label  >Estado:</label>
-                           <p> {{ estado}}</p>
-                           </div>
-                           <div class="form-group col-md-2">
-                             <label >Vida Útil:</label>
-                             <p> {{vidautil}}</p>
-                             </div>
-                             <div class="form-group col-md-2">
-                               <label >Destino Inicial:</label>
-                               <p> {{destino}}</p>
-                               </div> 
-                       </div>
-                     
-                    
-                         <div class="form-row">
-                          <div class="form-group col-md-2">
-                          <label  >Plazo:</label>
-                          <p> {{ plazo}}</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                          <label >Cuota:</label>
-                          <p> ${{ cuota}}</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                          <label >Interes:</label>
-                          <p> {{ interes}}%</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label  >Prima:</label>
-                            <p> ${{ prima}}</p>
-                            </div>
-                            <div class="form-group col-md-2">
-                              <label >Valor Residual:</label>
-                              <p> {{ valorresidual}}</p>
-                              </div>
-                              <div class="form-group col-md-2">
-                              <label >Valor Adquisición:</label>
-                              <p> ${{ valor}}</p>
-                              </div>
-                         </div>
+<div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
+  <div class="modal-dialog modal-lg" style="width:1000px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+        
+        <!--INICIO DE TABLA-->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel panel-default">
+              <header class="panel-heading">
+                <h5>Historial de mantenimiento del activo seleccionado</h5>
+              </header>
+              <div class="panel-body">
+                <div class="adv-table">
+                  <table class="display table table-bordered table-striped">
+                   <!----> <thead>
+                   <tr>
+                        <th scope="row">N°</th>                   
+                        <th scope="row">Fecha</th>
+                        <th scope="row">Tecnico</th>
+                        <th scope="row">Costo de mano de obra</th>
+                        <th scope="row">Costo de materiales</th>
+                        <th scope="row">Costo total</th>
+                        <th scope="row">Descripción</th>
+                       <!-- <th scope="row" class="hidden-phone">Enviar</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
 
-                   <div class="row">
-                    <div class="col-xs-3">
-                      
-                    </div>
-                   </div>
-     <!-- aca -->
-                     </div>
-                  </div>
+                <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+               <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                
+                <!--<td>{{bien.codigobien}}</td>
+                <td>{{bien.descripcionbien}}</td>-->
+              
+              </tr>
+                    </tbody>
+                  </table>
+                   <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                 </div>
               </div>
+            </section>
+          </div>
+        </div>
+          <div>
+          <!--<button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>-->
+          <button type="button"  (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          </div>
+       
+      </div>
+    </div>
+   </div>
+ </div>
+
+<!--FIN DEL MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENOT-->
+
+
+
+
+
+
+
+
+
+
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{coopertativa}} - Depreciación año {{anio}} </h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="datos" (ngSubmit)="AplicarDepreciacion()">
+          <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
+            autocomplete="off">
+          <!-- <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
+            autocomplete="off"> -->
+          <div class="form-group">
+            <label for="exampleInputEmail1">Codigo:</label>
+            <input type="text" class="form-control" formControlName="codigo" readonly>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Descripción:</label>
+            <input type="text" class="form-control" formControlName="descripcion" readonly>
+          </div>
+          <!--  WARNING-->
+   
+          <!--  END-WARNING-->
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">Valor de adquicición:</label>
+            <input type="text" class="form-control" formControlName="valorAdquicicion" readonly>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">Valor actual:</label>
+            <input type="text" class="form-control" formControlName="valorActual" readonly>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">Valor a depreciar año {{anio}}:</label>
+            <input type="text" class="form-control" formControlName="valorDepreciacion" readonly>
+          </div>
+
+          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i>
+            Aply</button>
+          <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
+            Cancelar</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+         
