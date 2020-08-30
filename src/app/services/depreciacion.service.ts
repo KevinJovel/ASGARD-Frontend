@@ -23,6 +23,9 @@ export class DepreciacionService {
   public FiltroTablaDepreciacion(id) {
     return this.http.get(environment.urlService + "api/Depreciacion/listarActivosDepreciacionFiltro/" + id).map(res => res.json());
   }
+  public FiltroTablaTarjeta(id) {
+    return this.http.get(environment.urlService + "api/Depreciacion/listarActivosTarjetaFiltro/" + id).map(res => res.json());
+  }
   public DatosDepreciacion(id) {
     return this.http.get(environment.urlService + "api/Depreciacion/DatosDepreciacion/" + id).map(res => res.json());
   }

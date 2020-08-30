@@ -32,7 +32,7 @@ export class TablaTarjetaComponent implements OnInit {
   }
   Filtrar(){
     var id= this.combos.controls['idArea'].value;
-    this.depreciacionService.FiltroTablaDepreciacion(id).subscribe(data=>{this.bienes=data});
+    this.depreciacionService.FiltroTablaTarjeta(id).subscribe(data=>{this.bienes=data});
   }
   Reload(){
     this.combos.controls['idSucursal'].setValue(0);
