@@ -63,10 +63,12 @@ export class TablaActivosComponent implements OnInit {
     var id= this.combo.controls['idSucursal'].value;
     this.controlService.ComboArea(id).subscribe(data=>{this.areas=data});
   }
+
   Filtrar(){
     var id= this.combo.controls['idArea'].value;
     this.controlService.FiltroTablaActivos(id).subscribe(data=>{this.comboAreaSucur=data});
   }
+  
   Reload(){
     this.combo.controls['idSucursal'].setValue(0);
     this.combo.controls['idArea'].setValue(0);
@@ -120,9 +122,7 @@ MandarDatos(id){
     //console.log(res);
     //this.controlService.DatosVer(id).subscribe(res => {this.Bien2 = res});
     let datas = {
-      bienObj: res,  //en esto obtengo un solo objeto q es datas 
-  
-      
+      bienObj: res,  //en esto obtengo un solo objeto q es datas   
           // para acceder a los datos unicamente en el otro componente 
            // this.dataState.data.Bien // para poder acceder a los datos de esa variable         
 };

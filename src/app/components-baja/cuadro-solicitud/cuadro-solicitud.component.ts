@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 export class CuadroSolicitudComponent implements OnInit {
 
   solicitud: FormGroup;
+  datosbien:FormGroup;
   solicitudes: any;
   acti: any;
   activo: any;
@@ -31,26 +32,30 @@ export class CuadroSolicitudComponent implements OnInit {
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
-       'folio': new FormControl(""),
-       'fechasolicitud': new FormControl(""),
-       'observaciones': new FormControl(""),
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(10)],this.noRepetirFolio1.bind(this)),
+       'fechasolicitud': new FormControl("",[Validators.required]),
+       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150)]),
        'motivo': new FormControl("0"),
-       'entidadbeneficiaria': new FormControl(""),
-       'domicilio': new FormControl(""),
-       'contacto': new FormControl(""),
+       'entidadbeneficiaria': new FormControl("",[Validators.maxLength(50)]),
+       'domicilio': new FormControl("",[Validators.maxLength(50)]),
+       'contacto': new FormControl("",[Validators.maxLength(50)]),
        'telefono': new FormControl(""),
        'idbien': new FormControl("0")
     });
-    
-   }
+    this.datosbien=new FormGroup({
+      'idBienBaja': new FormControl("0"),
+      'idBien': new FormControl("0"),
+    });
+  }
+
 
    ngOnInit() {
     this.bajaService.listarBienes().subscribe(res => { this.activo = res });
 
         this.disabledentidad = 'Ingrese entidad';
         this.disableddomicilio = 'Ingrese domicilio';
-        this.disabledcontacto = 'Ingrese contacto';
-        this.disabledtelefono = 'Ingrese telefono';
+        this.disabledcontacto = 'Ingrese nombre del contacto';
+        this.disabledtelefono = 'Ingrese teléfono';
   }
 
   guardarDatos(){
@@ -60,15 +65,19 @@ export class CuadroSolicitudComponent implements OnInit {
 
           this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => { 
             
-            //listar bienes
-           this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
-            //enviamos cero para guardar
+            this.bajaService.guardarBien(this.datosbien.value).subscribe(data => {
+               //listar bienes 
+              this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
+             });
+              
+            //enviamos cero para guardar.
+            this.datosbien.controls["idBien"].setValue("0");
             this.solicitud.controls["entidadbeneficiaria"].setValue("0");
             this.solicitud.controls["domicilio"].setValue("0");
             this.solicitud.controls["contacto"].setValue("0");
             this.solicitud.controls["telefono"].setValue("0");
             this.display = 'none';
-            this.solicitud["idbien"].patchValue("");
+            //this.solicitud["idbien"].patchValue("");
             console.log(this.solicitud.valid);
           });
       //  });
@@ -76,16 +85,14 @@ export class CuadroSolicitudComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Registro Guardado con exito',
+            title: 'Solicitud Guardada con éxito',
             showConfirmButton: false,
             timer: 3000
           })
-          
+          this.solicitud.reset()
           console.log(this.solicitud);
         }
      // }
-
-
   }
   
   open(id) {
@@ -109,8 +116,16 @@ export class CuadroSolicitudComponent implements OnInit {
     this.display = 'none';
   }
 
+  onSubmit() {
+    if (this.solicitud.valid) {
+     // console.log("Form Submitted!");
+      this.solicitud.reset();
+    }
+  }
+
   buscar(buscador) {
     this.p = 1;
+   this.bajaService.buscarBien(buscador.value).subscribe(res => { this.activo = res });
    }
 
    MotivoBaja() {
@@ -126,13 +141,32 @@ export class CuadroSolicitudComponent implements OnInit {
         this.disabledentidad = 'Ingrese entidad';
         this.disableddomicilio = 'Ingrese domicilio';
         this.disabledcontacto = 'Ingrese contacto';
-        this.disabledtelefono = 'Ingrese telfono';
+        this.disabledtelefono = 'Ingrese teléfono';
       } else {
-        this.disabled = true;
-        
-      }
-      
-    } console.log(idmotivo);
+        this.disabled = true;    
+      }    
+    } 
+    console.log(idmotivo);
   }
+
+  noRepetirFolio1(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) {
+
+        this.bajaService.validarFolio(this.solicitud.controls["idsolicitud"].value, control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteFolio: true });
+            } else {
+              resolve(null);
+            }
+          })
+      }
+    });
+    return promesa;
+  }
+
 
 }

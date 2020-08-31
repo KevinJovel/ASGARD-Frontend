@@ -22,10 +22,9 @@ export class SolicitudComponent implements OnInit {
   //parametro: string;
   p: number = 1;
 
-  fecha:string; marca:string; area:string; clasificacion:string; destino:string; responsable:string; 
-  codigo:string; descripcion:string; modelo:string; color:string; motivo:string; entidad:string;
-  domicilio:string; contacto:string; telefono:string; observaciones:string; ubicacion:string;
-  cargo:string; folio:string;
+  fecha:string; marca:string; area:string;  responsable:string; 
+  codigo:string; descripcion:string;  motivo:string; entidad:string; observaciones:string; ubicacion:string;
+  cargo:string; folio:string; solicitud: string;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService) { }
 
@@ -35,34 +34,27 @@ export class SolicitudComponent implements OnInit {
 
   guardarDatos(){}
 
-  verSolicitud(id:any) {
+
+  verSolicitud(idSolicitud:any) {
     this.display = 'block';
     this.titulo = "Autorización de Solicitud para dar de baja";
-    this.bajaService.verSolicitud(id).subscribe((data) => {
+    this.bajaService.verSolicitud(idSolicitud).subscribe((data) => {
    console.log(data);
-      this.marca = data.Marca;
-      this.area = data.AreaDeNegocio;
-      this.responsable = data.responsable;
+      
+      //this.area = data.AreaDeNegocio;
+     // this.responsable = data.responsable;
       this.fecha = data.fechacadena;
-      this.clasificacion = data.Clasificacion;
-      this.destino = data.destinoinicial;
-      this.codigo = data.Codigo;
-      this.color = data.Color;
-      this.descripcion = data.Desripcion;
-      this.modelo = data.Modelo;
+      this.codigo = data.codigo;
+      this.descripcion = data.descripcion;
       this.motivo = data.motivo;
-      this.entidad = data.entidad;
-      this.domicilio = data.domicilio;
-      this.contacto = data.contacto;
-      this.telefono = data.telefono;
-      this.cargo = data.cargo;
-      this.ubicacion = data.ubicacion;
+     // this.ubicacion = data.ubicacion;
       this.observaciones = data.observaciones;
       this.folio = data.folio;
-    
-      //console.log(id);
+      this.solicitud = data.noSolicitud;
+      console.log(idSolicitud);
     });
-    this.idsolicitud=id;
+//para la aprobacion
+    this.idsolicitud=idSolicitud;
   }
 
   close() {
@@ -71,13 +63,15 @@ export class SolicitudComponent implements OnInit {
 
   buscar(buscador) {
     this.p = 1;
+   this.bajaService.buscarSolicitud(buscador.value).subscribe(res => { this.activo2 = res });
    }
 
    aprobarSolicitud() {
+     //en id 
     var id=this.idsolicitud;
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
-      text: "No podras revertir esta accion!",
+      text: "No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -89,24 +83,54 @@ export class SolicitudComponent implements OnInit {
          //if(res==1){
           Swal.fire(
             'Solicitud aprobada!',
-            'La solictud ha sido aprobada con exito.',
-            'success'
-          )
+            'La solictud ha sido aprobada con éxito.',
+            'success'   )
           this.display = 'none'; 
           this.bajaService.listarSolicitud().subscribe(res=>{
              this.activo2=res 
-            });
-         
+            });    
         //}      
    });
-     this.bajaService.cambiarEstadoAceptado(id).subscribe(res=>{
-      
-     });
-   
+     this.bajaService.cambiarEstadoAceptado(id).subscribe(res=>{ });   
   }
   })
+  }//fin aprobar solicitud
 
-  }//fin
+//negar la solicitud
+negarSolicitud() {
+  //en id 
+ var id=this.idsolicitud;
+ Swal.fire({
+   title: '¿Estas seguro de rechazar esta solicitud?',
+   text: "No podras revertir esta accion!",
+   icon: 'warning',
+   showCancelButton: true,
+   confirmButtonColor: '#3085d6',
+   cancelButtonColor: '#d33',
+   confirmButtonText: 'Si, rechazar!'
+ }).then((result) => {
+   if (result.value) {
+ this.bajaService.denegarSolicitud(id).subscribe(res=>{
+      //if(res==1){
+       Swal.fire(
+         'Solicitud rechazada!',
+         'La solictud ha sido rechazada con exito.',
+         'success'
+       )
+       this.display = 'none'; 
+       this.bajaService.listarSolicitud().subscribe(res=>{
+          this.activo2=res 
+         });
+      
+     //}      
+});
+  this.bajaService.cambiarEstadoRechazado(id).subscribe(res=>{
+   
+  });
 
+}
+})
+
+}//fin negar solicitud
 
 }

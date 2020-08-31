@@ -76,17 +76,14 @@ public FiltroTablaActivos(id) {
 return this.http.get(environment.urlService + "api/ActivoFIjo/listarActivosFiltro/"+id).map(res => res.json());
 }
 
-public modificarActivos(activo) {
-  return this.http.get(environment.urlService + "api/ActivoFijo/modificarActivos", activo).map(res => res.json());
+public modificarBien(activo) {
+  return this.http.get(environment.urlService + "api/FormularioIngreso/modificarActivoFijo", activo).map(res => res.json());
 }
 
-public modificarActivosForm(activo2) {
-  return this.http.get(environment.urlService + "api/FormularioIngreso/modificarActivosForm", activo2).map(res => res.json());
+public modificarFormIngreso(activo2) {
+  return this.http.get(environment.urlService + "api/FormularioIngreso/modificarFormIngreso", activo2).map(res => res.json());
 }
 
-public modificarForm(activo2) {
-  return this.http.get(environment.urlService + "api/ActivoFijo/modificarActivosForm", activo2).map(res => res.json());
-}
 
 public buscarActivo(buscador) {
   return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivo/" + buscador).map(res => res.json());

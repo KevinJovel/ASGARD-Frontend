@@ -8,7 +8,7 @@
     <div class="col-lg-3">
     </div>
     <div class="col-md-3">
-      <input type="search"  class="form-control"  placeholder="Buscar">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
   </div>
 
@@ -40,7 +40,8 @@
                   <td>{{acti.cargo}}</td>
                   <td>{{acti.areaDeNegocio}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="open(acti.idBien)"><i class="glyphicon glyphicon-open"> Enviar</i></button>
+                    <button class="btn btn-primary btn-xs" (click)="open(acti.idBien)">
+                      <i class="glyphicon glyphicon-open"> Enviar</i></button>
                 </tr>
               </tbody>
             </table>
@@ -51,6 +52,7 @@
     </div>
   </div>
 </section>
+
 
 <!--modal para ingresar y editar-->
 <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
@@ -75,8 +77,21 @@
 <td>
           <div class="form-group">
             <label for="exampleInputEmail1">Folio</label>
-            <input size=25  type="text" class="form-control" formControlName="folio" id="direccion" placeholder="Ingrese Folio" maxlength="101" autocomplete="off">
-          </div>     
+            <input size=25  type="text" class="form-control" formControlName="folio" maxlength="11" id="direccion" placeholder="Ingrese Folio" maxlength="101" autocomplete="off">
+          </div>   
+          
+          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en el campo Folio.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> ya existe el "Folio" ingresado, por favor intente con un nuevo.
+          </div>
         
  </td>  
 <td> 
@@ -92,36 +107,77 @@
       <option value="6">Otros</option>               
     </select>
   </div>
-</td> 
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Observaciones</label>
-            <input type="text" class="form-control" formControlName="observaciones"  placeholder="Ingrese Observación" autocomplete="off"  maxlength="250">
-          </div> 
-
+</td> <br>
           <td>
           <div class="form-group">
             <label for="exampleInputEmail1">Entidad Beneficiaria</label>
-            <input size=45  type="text" class="form-control" placeholder="{{disabledentidad}}" formControlName="entidadbeneficiaria" [attr.disabled]="disabled ? '' : null" maxlength="101" autocomplete="off">
+            <input size=45  type="text" class="form-control" placeholder="{{disabledentidad}}" formControlName="entidadbeneficiaria" [attr.disabled]="disabled ? '' : null" maxlength="51" autocomplete="off">
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en el campo.
+          </div>
+
           <div class="form-group">
             <label for="exampleInputEmail1">Domicilio</label>
             <input type="text" class="form-control" placeholder="{{disableddomicilio}}" formControlName="domicilio" [attr.disabled]="disabled ? '' : null" maxlength="101" autocomplete="off">
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en el campo.
+          </div>
+
         </td>
           <td>
           <div class="form-group">
             <label for="exampleInputEmail1">Contacto</label>
-            <input size=45  type="text" class="form-control" placeholder="{{disabledcontacto}}" formControlName="contacto" [attr.disabled]="disabled ? '' : null" maxlength="101" autocomplete="off">
+            <input size=45  type="text" class="form-control" placeholder="{{disabledcontacto}}" formControlName="contacto" [attr.disabled]="disabled ? '' : null" maxlength="51" autocomplete="off">
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en el campo.
+          </div>
+
           <div class="form-group">
             <label for="exampleInputEmail1">Teléfono </label>
             <input type="text" mask="0000-0000" class="form-control" placeholder="{{disabledtelefono}}" formControlName="telefono" [attr.disabled]="disabled ? '' : null" maxlength="10" autocomplete="off">
           </div>
          
         </td>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Observaciones</label>
+          <input type="text" class="form-control" formControlName="observaciones"  placeholder="Ingrese Observación" autocomplete="off"  maxlength="151">
+        </div> 
+
+        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.maxlength">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>Error!</strong> Tamaño máximo permitido en el campo.
+        </div>
+
+        <div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['observaciones'].errors?.required">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
+        </div>
+
+        <div class="alert alert-success fade in" *ngIf="solicitud.valid">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>Exelente!</strong> Datos ingresados correctamente
+        </div>
   
-          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button  type="submit" [disabled]="!solicitud.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
 
         </form>

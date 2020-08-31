@@ -226,9 +226,10 @@ export class FormNuevoBienComponent implements OnInit {
   guardarMod() {
     this.nuevobien.controls['bandera'].setValue('0');
     if (this.nuevobien.valid == true) {
-      this.controlService.modificarActivosForm(this.nuevobien.value).subscribe((data) => {
+      this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
         console.log(data);
-          this.controlService.modificarActivos(this.nuevobien.value).subscribe((res) => {
+          this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
+            this.modificar(this.id);
               Swal.fire({
                 position: 'center',
                 icon: 'success',

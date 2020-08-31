@@ -36,9 +36,29 @@ public denegarSolicitud(idsolicitud) {
 public cambiarEstadoRechazado(idbien) {
   return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoRechazado/"+idbien).map(res => res.json());
 }
-public verSolicitud(id){
-  return this.http.get(environment.urlService + "api/SolicitudBaja/verSolicitud/"+id).map(res=>res.json());
+public verSolicitud(idSolicitud){
+  return this.http.get(environment.urlService + "api/SolicitudBaja/verSolicitud/"+idSolicitud).map(res=>res.json());
   
  }
 
+ public validarFolio(idsolicitud, folio){
+  return this.http.get(environment.urlService + "api/SolicitudBaja/validarFolio/"+ idsolicitud + "/" + folio).map(res => res.json());
+  }
+
+  public validarSolicitud(idsolicitud, id){
+    return this.http.get(environment.urlService + "api/SolicitudBaja/validarSolicitud/"+ idsolicitud + "/" + id).map(res => res.json());
+    }
+
+    public guardarBien(datos) {
+      return this.http.post(environment.urlService  + "api/SolicitudBaja/guardarBienes",datos).map(res => res.json());
+    }
+
+    public buscarBien(buscador) {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarBienesBaja/" + buscador).map(res => res.json());
+  }
+
+  public buscarSolicitud(buscador) {
+    return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarSolicitud/" + buscador).map(res => res.json());
+}
+  
 }
