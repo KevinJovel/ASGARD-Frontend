@@ -71,28 +71,30 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   open(id,codigo,descripcion) {
- 
+    this.display2 = 'none';
+    this.display = 'block';
     this.titulo = "Datos de mantenimiento";
     this.datosArray.controls["idBien"].setValue(id);
     this.datosArray.controls["codigobien"].setValue(codigo);
     this.datosArray.controls["descripcionbien"].setValue(descripcion);
     this.datosArray.controls["razonesMantenimiento"].setValue("");
     this.datosArray.controls["periodoMantenimiento"].setValue("");
-    this.display = 'block';
-
+    
   }
   close() {
     this.display = 'none';
+    this.titulo = "Bienes mantenimiento";
+    this.display2 = 'block';
   }
   close2() {
     this.display2 = 'none';
   }
-  onSubmit() {
-    if (this.solicitud.valid) {
-     // console.log("Form Submitted!");
-      this.solicitud.reset();
-    }
-  }
+  // onSubmit() {
+  //   if (this.solicitud.valid) {
+  //    // console.log("Form Submitted!");
+  //     this.solicitud.reset();
+  //   }
+  // }
 
 
   arrayMostrar(){

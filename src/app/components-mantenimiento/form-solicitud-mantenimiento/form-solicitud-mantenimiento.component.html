@@ -121,6 +121,7 @@
           </div>
           <br><br><br>
           </section>
+          
          <div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
           <div class="modal-dialog modal-lg" style="width:1000px;">
             <div class="modal-content">
@@ -182,43 +183,44 @@
             </div>
            </div>
          </div>
-
-          <!--INICIO DEL SEGUNDO MODAL-->
-         <div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal" [ngStyle]="{'display':display}">
-           <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-                <h4 class="modal-title">{{titulo}}</h4>
-              </div>
-              <div class="modal-body">
-                <form class="form-inline" id="default" [formGroup]="datosArray" (ngSubmit)="arrayMostrar()">
-                <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3" autocomplete="off">
-                
+            <!--INICIO DEL SEGUNDO MODAL-->
+            <div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal" [ngStyle]="{'display':display}">
+              <div class="modal-dialog">
+               <div class="modal-content">
+                 <div class="modal-header">
+                   <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+                   <h4 class="modal-title">{{titulo}}</h4>
+                 </div>
+                 <div class="modal-body">
+                   <form class="form-inline" id="default" [formGroup]="datosArray" (ngSubmit)="arrayMostrar()">
+                   <input type="hidden" class="form-control" formControlName="idBien" autocomplete="off">
+                   
+                  
+                   <input type="hidden" class="form-control" formControlName="codigobien" autocomplete="off">  
+                   <input type="hidden" class="form-control" formControlName="descripcionbien" autocomplete="off">  
+                     <br>
+    
+                     <div class="form-group">
+                       <label for="exampleInputEmail1">Razones del mantenimiento:</label>
+                       <input  type="text" class="form-control" formControlName="razonesMantenimiento" placeholder="Razones del mantenimiento" autocomplete="off">
+                     </div>
+                     <br>
+                     <div class="form-group">
+                       <label for="exampleInputEmail1">Periodo del mantenimiento:</label>
+                       <input  type="text" class="form-control" formControlName="periodoMantenimiento" placeholder="Periodo del mantenimiento" autocomplete="off">
+                     </div>
+                     <br>
+                     <br>
                
-                <input type="hidden" class="form-control" formControlName="codigobien" id="exampleInputEmail3" autocomplete="off">  
-                <input type="hidden" class="form-control" formControlName="descripcionbien" id="exampleInputEmail3" autocomplete="off">  
-                  <br>
+                     <div>
+      
+                     <button type="submit" class="btn btn-primary"><i class="icon-save"></i>Enviar</button>
+                     <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+                     </div>
+                   </form>
+                 </div>
+               </div>
+             </div>
+           </div>
 
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Razones del mantenimiento:</label>
-                    <input size="80" type="text" class="form-control" formControlName="razonesMantenimiento" placeholder="Razones del mantenimiento" autocomplete="off">
-                  </div>
-                  <br>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Periodo del mantenimiento:</label>
-                    <input size="80" type="text" class="form-control" formControlName="periodoMantenimiento" id="exampleInputEmail3" placeholder="Periodo del mantenimiento" autocomplete="off">
-                  </div>
-                  <br>
-                  <br>
-            
-                  <div>
-   
-                  <button type="submit" class="btn btn-primary"><i class="icon-save"></i>Enviar</button>
-                  <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+       
