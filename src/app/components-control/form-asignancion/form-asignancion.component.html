@@ -32,7 +32,7 @@
                 <thead>
                   <tr>
                    
-                    <th>Formulario</th>
+                    <!-- <th>Formulario</th> -->
                     <th>Fecha de Ingreso</th>
                     <th>Descripcion</th>
                     <th>Marca</th>
@@ -43,7 +43,7 @@
                 <tbody>
                   <tr *ngFor="let activo of activos | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                    
-                    <td>{{activo.noFormulario}}</td>
+                    <!-- <td>{{activo.noFormulario}}</td> -->
                     <td>{{activo.fechacadena}}</td>
                     <td>{{activo.desripcion}}</td>
                     <td>{{activo.marca}}</td>

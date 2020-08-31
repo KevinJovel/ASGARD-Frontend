@@ -8,17 +8,18 @@
       <li [routerLinkActive]='["link-active"]'>
         <a class="active" href="javascript:;" [routerLink]='["/"]' (click)='collapse()'>
           <i class="icon-bar-chart"></i>
-          <span>Estadísticas</span>
+          <span>ASGARD</span>
         </a>
       </li>
 
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
         <a href="javascript:;" (click)='collapse()'>
           <i class="icon-cogs"></i>
-          <span>   Configuración</span>
+          <span>Configuración</span>
         </a>
         <ul class="sub">
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-cooperativa"]' (click)='collapse()'>Cooperativa</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-cooperativa"]' (click)='collapse()'>Configuración de Cooperativa</a></li>
+        
         </ul>
       </li>
 
@@ -54,6 +55,8 @@
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-depreciacion"]' (click)='collapse()'>Depreciación</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-tarjeta"]' (click)='collapse()'>Tarjeta de Depreciación</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cuadro-control"]' (click)='collapse()'>Cuadro de Control</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-cooperativa"]' (click)='collapse()'>Cierre</a></li>
+       
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
@@ -108,6 +111,7 @@
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-usuario"]' (click)='collapse()'>Usuarios</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-tipo-usuario"]' (click)='collapse()'>Tipos de Usuarios</a></li>
           <li><a href="gallery.html">Bitacora</a></li>
+          <li><a href="gallery.html">Backup</a></li>
 
         </ul>
       </li>
@@ -116,13 +120,11 @@
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
         <a href="javascript:;" [routerLink]='["/fetch-data"]' (click)='collapse()'>
           <i class="icon-file-text"></i>
-          <span>Reportes</span>
+          <span>Consultas y Reportes</span>
         </a>
         <ul class="sub">
-          <li><a href="grids.html">Grids</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="todo_list.html">Todo List</a></li>
+          <li><a href="grids.html">Consultas estadisticas</a></li>
+          <li><a href="calendar.html">Consultas generales</a></li>
         </ul>
       </li>
 

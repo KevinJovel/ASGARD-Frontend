@@ -5,6 +5,7 @@ import { CargarScriptsService} from './../../services/cargar-scripts.service';
 //PRUEBA CON OBJETO
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import Swal from 'sweetalert2';
+//importaciones para pdf make wrapper
 import { PdfMakeWrapper, Txt, SVG, QR, Columns,Table, Toc, Cell,Stack} from 'pdfmake-wrapper';
 import { callbackify } from 'util';
 
@@ -44,6 +45,80 @@ export class FormAsignancionComponent implements OnInit {
     this.controlService.listarComboAsigar().subscribe(res=> {this.empleados=res})
     
   }
+  close(){
+    this.display = 'none';
+  }
+  asignar(id){
+   
+    this.titulo = "Asignar nuevo bien ";
+    this.activo.controls["idBien"].setValue(id);
+    this.activo.controls["codigo"].setValue("");
+    this.activo.controls["idEmpleado"].setValue("0");
+    this.activo.controls["noSerie"].setValue("");
+    this.activo.controls["vidaUtil"].setValue("");
+    this.display = 'block';
+  
+  }
+  Gcodigo(){
+    if(this.activo.controls["idEmpleado"].value==0){
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR',
+        text: 'Seleccione un empleado para generar el codigos',
+      
+      })  
+    }else{
+      var idempleado=this.activo.controls["idEmpleado"].value;
+      var idbien=this.activo.controls["idBien"].value;
+      this.controlService.GenerarCodigo(idempleado,idbien).subscribe(data=>{
+        var correlativoSucursal=data.correlativoSucursal;
+        var correlativoArea=data.correlativoArea;
+        var correlativoClasificacion=data.correlativoClasificacion;
+        var correlativo=data.correlativo;
+  
+        this.activo.controls["codigo"].setValue(correlativoSucursal+"-"+correlativoArea+"-"+correlativoClasificacion+"-"+correlativo);
+      });
+    }
+    
+  }
+  GcodigoBarra(){
+    this.titulo = "Codigo de barras generado";
+    this.display2 = 'block';
+  }
+
+  validar(){
+    if(this.activo.controls["codigo"].value==""){
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR',
+        text: 'Seleccione un empleado para generar el codigo',
+       
+      })  
+    }
+   
+  }
+  
+  
+  AsignarBienes(){
+    if (this.activo.valid == true) {
+      this.controlService.AsignarBien(this.activo.value).subscribe(data => { 
+      this.display = 'none';
+      this.controlService.getActivosSinAsignar().subscribe(res => {this.activos = res});
+      });
+      Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Bien asignado con exito',
+          showConfirmButton: false,
+          timer: 3000
+      })
+      
+  }
+  
+  }
+  buscar(nombre){}
+
+  //PDF
   async recuperar(){
     this.mantenimientoService.listarDatosSolicitud(1).subscribe(data=>{
       //alert(data.areanegocio);
@@ -150,76 +225,11 @@ pdf.create().open();
 close2(){
   this.display2 = 'none';
 }
-Gcodigo(){
-  if(this.activo.controls["idEmpleado"].value==0){
-    Swal.fire({
-      icon: 'error',
-      title: 'ERROR',
-      text: 'Seleccione un empleado para generar el codigos',
-    
-    })  
-  }else{
-    var idempleado=this.activo.controls["idEmpleado"].value;
-    var idbien=this.activo.controls["idBien"].value;
-    this.controlService.GenerarCodigo(idempleado,idbien).subscribe(data=>{
-      var correlativoSucursal=data.correlativoSucursal;
-      var correlativoArea=data.correlativoArea;
-      var correlativoClasificacion=data.correlativoClasificacion;
-      var correlativo=data.correlativo;
 
-      this.activo.controls["codigo"].setValue(correlativoSucursal+"-"+correlativoArea+"-"+correlativoClasificacion+"-"+correlativo);
-    });
-  }
-  
-}
-GcodigoBarra(){
-  this.titulo = "Codigo de barras generado";
-  this.display2 = 'block';
-}
 ver(){
   var canvas=<HTMLInputElement>document.getElementById("barcode");
 
   
 }
-validar(){
-  if(this.activo.controls["codigo"].value==""){
-    Swal.fire({
-      icon: 'error',
-      title: 'ERROR',
-      text: 'Seleccione un empleado para generar el codigo',
-     
-    })  
-  }
- 
-}
-close(){
-  this.display = 'none';
-}
-asignar(id){
- 
-  this.titulo = "Asignar nuevo bien ";
-  this.activo.controls["idBien"].setValue(id);
-  this.activo.controls["codigo"].setValue("");
-  this.activo.controls["idEmpleado"].setValue("0");
-  this.display = 'block';
-}
 
-AsignarBienes(){
-  if (this.activo.valid == true) {
-    this.controlService.AsignarBien(this.activo.value).subscribe(data => { 
-    this.display = 'none';
-    this.controlService.getActivosSinAsignar().subscribe(res => {this.activos = res});
-    });
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Bien asignado con exito',
-        showConfirmButton: false,
-        timer: 3000
-    })
-    
-}
-
-}
-buscar(nombre){}
 }
