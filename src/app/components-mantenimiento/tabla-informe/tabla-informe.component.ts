@@ -23,8 +23,8 @@ export class TablaInformeComponent implements OnInit {
   area:string;
   idmante: any;
 
-  cotomo: any;
-  costomateriales:any;
+  cotomo: any = 0;
+  costomateriales:any = 0;
   costototal: any;
  
   constructor(private mantenimientoService: MantenimientoService) { 
@@ -77,6 +77,25 @@ export class TablaInformeComponent implements OnInit {
        
 
   }
+
+
+
+sumarCostos(costoTotal){
+  //var costoTotal= this.informe.controls["costototal"].value;
+ // var costoMO= this.informe.controls["costomo"].value;
+  //var costoMA= this.informe.controls["costomateriales"].value;
+
+   var costotal= this.informe.controls["costomateriales"].value;
+  var costoMO= this.informe.controls["costomo"].value;
+   var costoMA= this.informe.controls["costototal"].value;
+ 
+    
+ 
+  costoTotal= costoMO + costoMA; 
+
+ return costoTotal;
+}
+
   buscar(buscador) {
     this.p = 1;
     this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => {this.bienes = res});
@@ -124,13 +143,13 @@ export class TablaInformeComponent implements OnInit {
       this.informe.controls["fechainforme"].setValue("");
       this.informe.controls["idtecnico"].setValue("");
       this.informe.controls["descripcion"].setValue("");
-     this.costomateriales= this.informe.controls["costomateriales"].setValue("");
-      this.cotomo= this.informe.controls["costomo"].setValue("");
-      this.costototal= this.informe.controls["costototal"].setValue("");
+    this.informe.controls["costomateriales"].setValue("");
+   this.informe.controls["costomo"].setValue("");
+     this.informe.controls["costototal"].setValue("");
 
        
 
-      this.costototal= this.costomateriales.s + this.cotomo;
+     
    
 
 this.display = 'none';
@@ -140,6 +159,8 @@ this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
 });
 
   }
+
+
 
 
  /* guardar() {
