@@ -18,33 +18,26 @@ export class FormInformeMantenimientoComponent implements OnInit {
   tecnicos:any;
   p: number = 1;
   informe: FormGroup;
+  revalorizacion: FormGroup;
   display = 'none';
   titulo: string;
-  noSolicitud: string;
-  fecha: string;
-  jefe: string;
-  area:string;
+ 
   idmante: any;
 
-  cotomo: any;
-  costomateriales:any;
-  costototal: any;
+ 
  
   constructor(private mantenimientoService: MantenimientoService) { 
-    this.informe=new FormGroup({
-      'idinformematenimiento': new FormControl("0"),
-      'idmantenimiento': new FormControl("0"),
-      'idBien': new FormControl("0"),
-      'bienes':new FormControl("",[Validators.required]),
-      'fechainforme': new FormControl("",[Validators.required]),
-      'fechacadena': new FormControl("",[Validators.required]),
-      'idtecnico': new FormControl("0",[Validators.required]),
-      //'idBien': new FormControl("0"),
-      'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100)]),
-      'costomateriales':new FormControl("",[Validators.required]),
-      'costomo':new FormControl("",[Validators.required]),
-      'costototal':new FormControl("",[Validators.required])
-   }); 
+
+
+   //form para la revalorización 
+   this.revalorizacion = new FormGroup({
+  //  'idBien': new FormControl("0"),
+    'valorRevalorizacion': new FormControl(""),
+   // 'valorActual': new FormControl(""),
+   // 'valorDepreciacion': new FormControl("0.00"),
+   // 'vidaUtil': new FormControl(""),
+    'fecha': new FormControl("")
+});
   }
 
   ngOnInit(): void {
@@ -52,46 +45,48 @@ export class FormInformeMantenimientoComponent implements OnInit {
       this.informes=res;
   
     });
-    this.mantenimientoService.listarTecnicoCombo().subscribe(data=>{
-      this.tecnicos=data;    
-      });
   }
   open(){
    // alert(id);
- 
-  
     this.titulo = "Revalorización";
+   // this.revalorizacion.controls["idBien"].setValue("0");
+    this.revalorizacion.controls["valorRevalorizacion"].setValue("");
+    this.revalorizacion.controls["fecha"].setValue("");
+  //  this.revalorizacion.controls["vidaUtil"].setValue("");
     this.display = 'block';
-     
+    //para cargar el valor de vida util:
+    //this.empleado.controls["idempleado"].setValue(data.idempleado); 
 
-    
-       
+
        //para recuerar el id 
       // this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
        // this.informes=res;
     
      // });
-       
-
   }
+
+ 
   buscar(buscador) {
     this.p = 1;
     this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => {this.informes = res});
   }
+
+
   
   guardarDatos(){
-   // console.log(this.informe.value);
+
+    console.log(this.revalorizacion.value);
    // console.log(this.idmante);
-    this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res => {
+    this.mantenimientoService.insertarRevalorizacion(this.revalorizacion.value).subscribe(res => {
       if(res==1){
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con exito',
+          title: 'Revalorización Guardada con exito',
           showConfirmButton: false,
           timer: 3000
         })
-         this.mantenimientoService.cambiarEstadoDenegado(this.informe.controls["idBien"].value).subscribe(rest=>{
+        /* this.mantenimientoService.cambiarEstadoDenegado(this.informe.controls["idBien"].value).subscribe(rest=>{
           if(rest==1){
             Swal.fire({
               position: 'center',
@@ -102,7 +97,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
             })
           this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.informes=data});
           }
-        });
+        });*/
       
       }else{
         Swal.fire({
@@ -116,22 +111,18 @@ export class FormInformeMantenimientoComponent implements OnInit {
   
       
     });
-      this.informe.controls["idinformematenimiento"].setValue("0");
-      this.informe.controls["idmantenimiento"].setValue("");
-      this.informe.controls["fechainforme"].setValue("");
-      this.informe.controls["idtecnico"].setValue("");
-      this.informe.controls["descripcion"].setValue("");
-     this.costomateriales= this.informe.controls["costomateriales"].setValue("");
-      this.cotomo= this.informe.controls["costomo"].setValue("");
-      this.costototal= this.informe.controls["costototal"].setValue("");
+    this.revalorizacion.controls["idBien"].setValue("0");
+    this.revalorizacion.controls["valorRevalorizacion"].setValue("");
+    this.revalorizacion.controls["fecha"].setValue("");
+    this.revalorizacion.controls["vidaUtil"].setValue("");
 
        
 
-      this.costototal= this.costomateriales.s + this.cotomo;
+      //this.costototal= this.costomateriales.s + this.cotomo;
    
 
 this.display = 'none';
-this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+this.mantenimientoService.ListarInformeMantenimiento().subscribe(res=>{
   this.informes=res;
 
 });

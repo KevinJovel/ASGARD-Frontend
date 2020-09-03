@@ -38,7 +38,7 @@ export class TablaInformeComponent implements OnInit {
       'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100)]),
       'costomateriales':new FormControl("",[Validators.required]),
       'costomo':new FormControl("",[Validators.required]),
-      'costototal':new FormControl("",[Validators.required])
+     // 'costototal':new FormControl("",[Validators.required])
    }); 
   }
 

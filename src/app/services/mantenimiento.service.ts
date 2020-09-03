@@ -75,6 +75,12 @@ public ListarInformeMantenimiento(){
   return this.http.get(environment.urlService + "api/InformeMantenimiento/ListarInformeMantenimiento" ).map(res=>res.json());
  } 
 
+ // insertar la revalorización
+
+ public insertarRevalorizacion(revalorizacion) {
+  return this.http.post(environment.urlService + "api/InformeMantenimiento/insertarRevalorizacion", revalorizacion).map(res=>res.json());
+  }
+  
 
 
 
