@@ -23,8 +23,8 @@ export class TablaInformeComponent implements OnInit {
   area:string;
   idmante: any;
 
-  cotomo: any = 0;
-  costomateriales:any = 0;
+  cotomo: any;
+  costomateriales: any;
   costototal: any;
  
   constructor(private mantenimientoService: MantenimientoService) { 
