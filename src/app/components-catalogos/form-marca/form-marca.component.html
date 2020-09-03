@@ -5,7 +5,7 @@
     <div class="col-lg-6">
       <header class="panel-heading form-in-line">
         <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
-            class="icon-plus-sign-alt"></i> Agregar Nueva Marca</button>
+            class="icon-plus-sign-alt"></i> Agregar nueva marca</button>
       </header>
     </div>
     <div class="col-lg-3">
@@ -28,7 +28,7 @@
                 <tr>
                   <th>N°</th>
                   <th>Marca</th>
-                  <th>Descripcion</th>
+                  <th>Descripción</th>
                   <th class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
@@ -47,7 +47,7 @@
                 </tr>
               </tbody>
             </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
           </div>
         </div>
       </section>
@@ -73,7 +73,7 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Marca:</label>
             <input type="text" class="form-control" formControlName="marca" id="exampleInputEmail3"
-              placeholder="Agregue la Marca" autocomplete="off">
+              placeholder="Ingrese marca" autocomplete="off">
           </div>
           <!--  WARNING-->
           <div class="alert alert-warning fade in" *ngIf="marca.controls['marca'].errors?.required">
@@ -92,7 +92,7 @@
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2"
-              rows="3" placeholder="Descripcion" autocomplete="off"></textarea>
+              rows="3" placeholder="Ingrese descripcion" autocomplete="off"></textarea>
           </div>
 
           <button [disabled]="!marca.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
