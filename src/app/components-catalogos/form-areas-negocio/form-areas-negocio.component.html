@@ -6,7 +6,7 @@
     <div class="col-lg-3">
 
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nueva Área de Negocio</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nueva área de negocio</button>
         
       </header>
     </div>
@@ -26,7 +26,7 @@
       <section class="panel panel-default">
 
         <header class="panel-heading">
-          <h5>Registro de Áreas de Negocio</h5>
+          <h5>Registro de áreas de negocio</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -38,7 +38,7 @@
                     <th>Correlativo</th>
                     <th>Nombre de Área</th>
                     <th>Nombre de Sucursal</th>
-                    <th>Ubicacion</th>
+                    <th>Ubicación</th>
                     <th class="hidden-phone">Opciones</th>
                   </tr>
                 </thead>
@@ -57,7 +57,7 @@
                   </tr>
                 </tbody>
               </table>
-              <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
+              <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@
           <div class="form-group">
 
             <label for="exampleInputEmail1">Área de Negocio:</label>
-            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Nombre de Sucursal" autocomplete="off" maxlength="51">
+            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese área de negocio" autocomplete="off" maxlength="51">
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -105,7 +105,7 @@
           </div> -->
           <div class="form-group">
             <label for="exampleInputEmail1">Correlativo:</label>
-            <input type="text" class="form-control" formControlName="correlativo" id="exampleInputEmail3" placeholder="Correlativo" autocomplete="off" maxlength="11">
+            <input type="text" class="form-control" formControlName="correlativo" id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">

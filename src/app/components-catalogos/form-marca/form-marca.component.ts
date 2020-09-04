@@ -51,7 +51,7 @@ export class FormMarcaComponent implements OnInit {
                 });
                
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'success',
                     title: 'Dato Guardado con exito',
                     showConfirmButton: false,
@@ -67,7 +67,7 @@ export class FormMarcaComponent implements OnInit {
                     this.catalogoService.getMarcas().subscribe(res => {this.marcas = res});
                 });
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'success',
                     title: 'Dato Modificado con exito',
                     showConfirmButton: false,
