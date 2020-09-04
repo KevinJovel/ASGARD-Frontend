@@ -64,21 +64,21 @@ export class CuadroSolicitudComponent implements OnInit {
         if (this.solicitud.valid == true) {
 
           this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => { 
-            
-            this.bajaService.guardarBien(this.datosbien.value).subscribe(data => {
+            console.log(this.solicitud.value);
+            this.bajaService.guardarBien(this.solicitud.value).subscribe(data => {
                //listar bienes 
               this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
-             });
+            });
               
             //enviamos cero para guardar.
-            this.datosbien.controls["idBien"].setValue("0");
+            //this.solicitud.controls["idBien"].setValue("0");
             this.solicitud.controls["entidadbeneficiaria"].setValue("0");
             this.solicitud.controls["domicilio"].setValue("0");
             this.solicitud.controls["contacto"].setValue("0");
             this.solicitud.controls["telefono"].setValue("0");
             this.display = 'none';
             //this.solicitud["idbien"].patchValue("");
-            console.log(this.solicitud.valid);
+            
           });
       //  });
       
@@ -89,8 +89,8 @@ export class CuadroSolicitudComponent implements OnInit {
             showConfirmButton: false,
             timer: 3000
           })
-          this.solicitud.reset()
-          console.log(this.solicitud);
+         // this.solicitud.reset()
+         
         }
      // }
   }

@@ -101,99 +101,175 @@
                   <div class="modal-body" >
                   
                      <div class="row">
-                      <div class="col-lg-3">
-                        <label >N° de Formulario:</label> {{ noformu}}
+                      <div class="form-group col-md-4">
+                          <label ><strong>N° de Formulario:</strong></label> {{ noformu}}<br/>
                         </div>
-                      <div class="form-group col-md-3">
-                        <label>Fecha de Ingreso:</label> {{ fecha }}
+                      <div class="form-group col-md-4">
+                        <label><strong>Fecha de Ingreso:</strong></label> {{ fecha }}<br/>
                       </div>
-                      <div class="form-group col-md-3">
-                        <label>Código:</label> {{ codigo }}
+                      <div class="form-group col-md-4">
+                        <img [src]="foto | safe" alt=""  width="290" height="190" class="">
                         </div>
-                        <div class="form-group col-md-3">
-                          <label>N° Serie:</label> {{ numserie }}
+                        
+                        <div class="row">
+                          <div class="form-group col-md-4">
+                            <label><strong>Código:</strong></label> {{ codigo }}<br/>
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label><strong>N° Serie:</strong></label> {{ numserie }}<br/>
+                             </div>
+                             <div class="col-lg-4">
+                              
+                            </div>
+                         
                          </div>
                      </div>
-                    
-                    
-                      <div class="col-lg-6">
-                        
-                          <p>
-                           <label>Área:</label> {{ area}}<br/>
-                           <label>Clasificación:</label> {{ clasificacion}}<br/>
-                           <label>Responsable:</label> {{ responsable}}<br/>
-                           <label>Proveedor:</label> {{ proveedor}}<br/>
-                           <label>Donante:</label> {{ donante}} <br/>
-                           <label>Adquisición:</label> {{tipoadqui}} <br/><!--contado credito-->
-                           <label>Descripción:</label> {{descripcion }}<br/>
-                          
-                          </p>
-                       
-                      </div>
 
-                      <div class="row">
+              
+                     <br/>
+                     <div class="row">
+                      <div class="col-lg-4">
+                        <label><strong>Área:</strong></label> {{ area}}<br/>
+                        </div>
+                      <div class="form-group col-md-4">
+                        <label><strong>Responsable:</strong></label> {{ responsable}}<br/>
+                      </div>
+                      <div class="form-group col-md-4">
                         
-                        <div class="col-lg-3">
-                          <label></label>
-                          <img [src]="foto | safe" alt=""  width="250" height="165" class="img-thumbnail">
                         </div>
                        
-                      </div>
-                     
-                      <div class="row">
-                        <div class="col-lg-2">
-                         <label >Color:</label>
-                         <p> {{ color }}</p>
-                          </div>
-                        <div class="form-group col-md-2">
-                         <label >Marca:</label>
-                         <p> {{ marca }}</p>
+                     </div>
+
+                     <div class="row">
+                      <div class="form-group col-md-4">
+                        <label><strong>Descripción:</strong></label> {{descripcion }}<br/>
                         </div>
-                        <div class="form-group col-md-2">
-                         <label >Modelo:</label>
-                         <p> {{ modelo}}</p>
+                        <div class="form-group col-md-4">
+                          <label ><strong>Color:</strong></label> {{ color }}<br/>
+                         </div>
+                         <div class="form-group col-md-4">
+                          
                           </div>
-                          <div class="form-group col-md-2">
-                           <label  >Estado:</label>
-                           <p> {{ estado}}</p>
-                           </div>
-                           <div class="form-group col-md-2">
-                             <label >Vida Útil:</label>
-                             <p> {{vidautil}}</p>
-                             </div>
-                             <div class="form-group col-md-2">
-                               <label >Destino Inicial:</label>
-                               <p> {{destino}}</p>
-                               </div> 
-                       </div>
+                        
+                     </div>
+                     <br/>
+                     <div class="row">
+                      <div class="col-lg-4">
+                        <label><strong>Clasificación:</strong></label> {{ clasificacion}}<br/>
+                        </div>
+                      <div class="form-group col-md-4">
+                        <label><strong>Proveedor:</strong></label> {{ proveedor}}<br/>
+                      </div>
+                      <div class="form-group col-md-4">
+                       
+                        </div>
+                       
+                     </div>
+
+                     <div class="row">
+                    
+                      <div class="form-group col-md-4">
+                        <label><strong>Donante:</strong></label> {{ donante}} <br/>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label><strong>Adquisición:</strong></label> {{tipoadqui}} <br/>
+                         </div>
+                         <div class="form-group col-md-4">
+                         
+                         </div>
+                     </div>
+
+                     <br/>
+                     <div class="row">
+                      <div class="col-lg-4">
+                        <label ><strong>Marca:</strong></label> {{ marca }}<br/>
+                        </div>
+                      <div class="form-group col-md-4">
+                        <label ><strong>Modelo:</strong></label> {{ modelo}}<br/>
+                      </div>
+                      <div class="col-lg-4">
+                         
+                        </div>
+                      
+                     </div>
+                     <br/>
+                     <div class="row">
+                      <div class="col-lg-4">
+                        <label  ><strong>Estado:</strong></label> {{ estado}}<br/>
+                           
+                        </div>
+                      <div class="form-group col-md-4">
+                        <label ><strong>Vida Útil:</strong></label> {{vidautil}}<br/>
+                      </div>
+                      <div class="form-group col-md-4">
+                        
+                      </div>
+                     </div>
+               
+                     <div class="row">
+                      <div class="col-lg-4">
+                        <label ><strong>Destino Inicial:</strong></label> {{destino}}
+                           
+                        </div>
+                      <div class="form-group col-md-4">
+                        <label ><strong>Valor Adquisición:</strong></label> ${{ valor}}
+                      </div>
+                      <div class="form-group col-md-4">
+                        
+                        </div>
+                       
+                     </div>
+                     <br/>
+                     
+                     <div class="row">
+                      <div class="col-lg-4">
+                        <label  ><strong>Plazo:</strong></label> {{ plazo}} <br/>
+                         
+                        </div>
+                      <div class="form-group col-md-4">
+                        <label ><strong>Cuota:</strong></label> $ {{ cuota}} <br/>
+                      </div>
+                      <div class="form-group col-md-4">
+                        
+                        </div>
+                       
+                     </div>
+
+                     <div class="row">
+                      <div class="col-lg-4">
+                        <label ><strong>Interes:</strong></label> {{ interes}} % <br/>
+                        
+                        </div>
+                      <div class="form-group col-md-4">
+                        <label  ><strong>Prima:</strong></label> $ {{ prima}} <br/>
+                      </div>
+                      <div class="form-group col-md-4">
+                        
+                        </div>
+                       
+                     </div>
+                     <div class="col-lg-6">
+                        
+                      <p>
+                     
+                        
+                        <label ><strong>Valor Residual:</strong></label> {{ valorresidual}} <br/>
+                      </p>
+                   
+                  </div>
+
+                  <div class="row">
+                        
+                    <div class="col-lg-3">
+                      <label></label>
+                      
+                    </div>
+                   
+                  </div>
+
                      
                     
-                         <div class="form-row">
-                          <div class="form-group col-md-2">
-                          <label  >Plazo:</label>
-                          <p> {{ plazo}}</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                          <label >Cuota:</label>
-                          <p> ${{ cuota}}</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                          <label >Interes:</label>
-                          <p> {{ interes}}%</p>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <label  >Prima:</label>
-                            <p> ${{ prima}}</p>
-                            </div>
-                            <div class="form-group col-md-2">
-                              <label >Valor Residual:</label>
-                              <p> {{ valorresidual}}</p>
-                              </div>
-                              <div class="form-group col-md-2">
-                              <label >Valor Adquisición:</label>
-                              <p> ${{ valor}}</p>
-                              </div>
-                         </div>
+                       
                    <div class="row">
                     <div class="col-xs-3">
                       

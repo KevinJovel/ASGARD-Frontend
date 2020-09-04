@@ -15,7 +15,7 @@ export class SolicitudComponent implements OnInit {
   solicitudes2: any;
   //activos: FormGroup;
   activo2: any;
-  id:any;
+ // id:any;
   idsolicitud: any;
   display = 'none';
   titulo: string;
@@ -35,10 +35,10 @@ export class SolicitudComponent implements OnInit {
   guardarDatos(){}
 
 
-  verSolicitud(idSolicitud:any) {
+  verSolicitud(id) {
     this.display = 'block';
     this.titulo = "Autorización de Solicitud para dar de baja";
-    this.bajaService.verSolicitud(idSolicitud).subscribe((data) => {
+    this.bajaService.verSolicitud(id).subscribe((data) => {
    console.log(data);
       
       //this.area = data.AreaDeNegocio;
@@ -51,10 +51,10 @@ export class SolicitudComponent implements OnInit {
       this.observaciones = data.observaciones;
       this.folio = data.folio;
       this.solicitud = data.noSolicitud;
-      console.log(idSolicitud);
+      console.log(id);
     });
 //para la aprobacion
-    this.idsolicitud=idSolicitud;
+    this.idsolicitud=id;
   }
 
   close() {
@@ -80,6 +80,8 @@ export class SolicitudComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
     this.bajaService.aceptarSolicitud(id).subscribe(res=>{
+      this.bajaService.cambiarEstadoAceptado(id).subscribe(res=>{  });
+      
          //if(res==1){
           Swal.fire(
             'Solicitud aprobada!',
@@ -91,10 +93,11 @@ export class SolicitudComponent implements OnInit {
             });    
         //}      
    });
-     this.bajaService.cambiarEstadoAceptado(id).subscribe(res=>{ });   
+        
   }
   })
   }//fin aprobar solicitud
+
 
 //negar la solicitud
 negarSolicitud() {
@@ -111,6 +114,9 @@ negarSolicitud() {
  }).then((result) => {
    if (result.value) {
  this.bajaService.denegarSolicitud(id).subscribe(res=>{
+  this.bajaService.cambiarEstadoRechazado(id).subscribe(res=>{
+   
+  });
       //if(res==1){
        Swal.fire(
          'Solicitud rechazada!',
@@ -124,9 +130,7 @@ negarSolicitud() {
       
      //}      
 });
-  this.bajaService.cambiarEstadoRechazado(id).subscribe(res=>{
-   
-  });
+
 
 }
 })

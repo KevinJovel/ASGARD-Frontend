@@ -1,1 +1,55 @@
-<p>gestion-descargo works!</p>
+<br><br><br><br>
+<section class="panel">
+  <h1>Bienes dados de Baja</h1>
+  <div class="row">
+    <div class="col-lg-6">
+     
+    </div>
+    <div class="col-lg-3">
+    </div>
+    <div class="col-md-3">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
+
+        <header class="panel-heading">
+          <h5>Activos</h5>
+        </header>
+        <div class="panel-body">
+          <div class="adv-table">
+            <table class="display table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Código</th>
+                  <th>Descripción</th>
+                  <th>Responsable</th>
+                  <th>Cargo</th>
+                  <th>Área de negocio</th>
+                </tr>
+              </thead>
+
+              <tbody>
+             <tr *ngFor="let acti of activo | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                
+                  <td>{{acti.codigo}}</td>
+                  <td>{{acti.desripcion}}</td>
+                  <td>{{acti.resposnsable}}</td>
+                  <td>{{acti.cargo}}</td>
+                  <td>{{acti.areaDeNegocio}}</td>
+                    
+                </tr> 
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
