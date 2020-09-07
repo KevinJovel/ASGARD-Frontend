@@ -144,6 +144,10 @@ public validarDepenActivo(idSucursal) {
     return this.http.get(environment.urlService  + "api/Donantes/buscarDonantes/" + buscador).map(res => res.json());
   }
 
+  public validarDonante(idDonante, donante) {
+    return this.http.get(environment.urlService + "api/Cargo/validarDonante/" + idDonante + "/" + donante).map(res=>res.json());
+  }
+
 
   //Servicio de Clasificacion de activos
 
