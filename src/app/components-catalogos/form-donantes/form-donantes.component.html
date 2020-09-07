@@ -5,7 +5,7 @@
         <div class="col-lg-6">
     
           <header class="panel-heading form-in-line">
-            <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Donante</button>
+            <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo donante</button>
           </header>
         </div>
         <div class="col-lg-3">
@@ -80,6 +80,13 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Nombre:</label>
                         <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off"  maxlength="51">
+                    </div>
+
+                    <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.yaExisteDonante">
+                      <button data-dismiss="alert" class="close close-sm" type="button">
+                        <i class="icon-remove"></i>
+                      </button>
+                      <strong>¡ADVERTENCIA!</strong> El nombre del donante ya está en uso. Prueba con otro.
                     </div>
 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.maxlength">

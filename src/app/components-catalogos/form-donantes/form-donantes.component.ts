@@ -22,7 +22,7 @@ export class FormDonantesComponent implements OnInit {
     this.donantes = new FormGroup({
 
       'iidDonante': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50)]),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirDonante.bind(this)),
       'bandera': new FormControl("0"),
       'telefono': new FormControl("", [Validators.required, Validators.maxLength(11)]),
       'direccion': new FormControl("", [Validators.required, Validators.maxLength(100)])
@@ -144,6 +144,28 @@ export class FormDonantesComponent implements OnInit {
     this.catalogoService.buscarDonante(buscador.value).subscribe(res => this.dontes = res);
   }
 
- 
+  noRepetirDonante(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+  
+      if (control.value != "" && control.value != null) {
+  
+        this.catalogoService.validarDonante(this.donantes.controls["iidDonante"].value, control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteDonante: true });
+            } else {
+              resolve(null);
+            }
+  
+          })
+  
+      }
+  
+  
+    });
+  
+    return promesa;
+  }
 
 }
