@@ -60,7 +60,9 @@ export class CatalogosService {
 public validarDependeArea(idSucursal) {
   return this.http.get(environment.urlService  + "api/Sucursal/validarArea/" + idSucursal).map(res => res.json());
 }
-
+public validarDepenActivo(idSucursal) {
+  return this.http.get(environment.urlService  + "api/Sucursal/validarRefereciaActivo/" + idSucursal).map(res => res.json());
+}
   //Service Cargo
 
   public agregarCargo(cargo) {

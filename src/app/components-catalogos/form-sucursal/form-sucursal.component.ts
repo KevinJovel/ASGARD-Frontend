@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
+
 @Component({
     selector: 'app-form-sucursal',
     templateUrl: './form-sucursal.component.html',
@@ -15,18 +16,19 @@ export class FormSucursalComponent implements OnInit {
     sucursal: FormGroup;
     display = 'none';
     titulo: string;
+    modif: any;
     constructor(private catalogoService: CatalogosService) {
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
             'bandera': new FormControl("0"),
-            'nombre': new FormControl("", [Validators.required,Validators.maxLength(50)], this.noRepetirSucursalUbicacion.bind(this)),
-            'ubicacion': new FormControl("", [Validators.required,Validators.maxLength(50)], this.noRepetirSucursalUbicacion.bind(this)),
+            'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirSucursalUbicacion.bind(this)),
+            'ubicacion': new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirSucursalUbicacion.bind(this)),
             'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10)], this.noRepetirCorrelativo.bind(this))
         });
     }
 
-    ngOnInit() { 
-        this.catalogoService.getSucursales().subscribe(res => {this.sucursales = res});
+    ngOnInit() {
+        this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
     }
     open() {
         //limpia cache
@@ -40,15 +42,16 @@ export class FormSucursalComponent implements OnInit {
     }
     close() {
         this.display = 'none';
+        this.modif = 0;
     }
     guardarDatos() {
         //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
         if ((this.sucursal.controls["bandera"].value) == "0") {
-           
+
             if (this.sucursal.valid == true) {
-                this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => { 
-                this.catalogoService.getSucursales().subscribe(res => {this.sucursales = res});
-                this.display = 'none';
+                this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
+                    this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
+                    this.display = 'none';
                 });
                 Swal.fire({
                     position: 'center',
@@ -58,22 +61,22 @@ export class FormSucursalComponent implements OnInit {
                     timer: 3000
                 })
             }
-            this.catalogoService.getSucursales().subscribe(res => {this.sucursales = res});
+            this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
 
-        }else{
+        } else {
 
             this.sucursal.controls["bandera"].setValue("0");
             if (this.sucursal.valid == true) {
                 this.catalogoService.updateSucursal(this.sucursal.value).subscribe(data => {
-                    this.catalogoService.getSucursales().subscribe(res => {this.sucursales = res});
-                 });
+                    this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
+                });
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
                     title: 'Dato Modificado con exito',
                     showConfirmButton: false,
                     timer: 3000
-                })        
+                })
             }
         }
         this.sucursal.controls["idSucursal"].setValue("0");
@@ -82,104 +85,112 @@ export class FormSucursalComponent implements OnInit {
         this.sucursal.controls["ubicacion"].setValue("");
         this.sucursal.controls["correlativo"].setValue("");
         this.display = 'none';
-      
+        this.modif = 0;
     }
     eliminar(idSucursal) {
-        this.catalogoService.validarDependeArea(idSucursal).subscribe(data=>{
-           if(data==1){
-            Swal.fire({
-                icon: 'error',
-                title: 'ERROR',
-                text: 'No es posible eliminar este dato, esta sucursal ya tiene areas de negocio asignadas',
-              
-              })    
-           }else{
-            Swal.fire({
-            title: '¿Estas seguro de eliminar este registro?',
-            text: "No podras revertir esta accion!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, eliminar!'
-        }).then((result) => {
-            if (result.value) {
-                this.catalogoService.deleteSucursal(idSucursal).subscribe(data => {
-                    Swal.fire(
-                        'Dato eliminado!',
-                        'Tu archivo ha sido eliminado con exito.',
-                        'success'
-                    )
-                    this.catalogoService.getSucursales().subscribe(res => {this.sucursales = res});
-                });
+        this.catalogoService.validarDependeArea(idSucursal).subscribe(data => {
+            if (data == 1) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡ERROR!',
+                    text: 'No es posible eliminar este dato, esta sucursal ya tiene áreas de negocio asignadas',
+                    confirmButtonText: 'Aceptar'
 
+                })
+            } else {
+                Swal.fire({
+                    title: '¿Estas seguro de eliminar este registro?',
+                    text: "No podrás revertir esta acción!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, eliminar!',
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.value) {
+                        this.catalogoService.deleteSucursal(idSucursal).subscribe(data => {
+                            Swal.fire(
+                                'Eliminado!',
+                                'El registro ha sido eliminado con exito.',
+                                'success'
+                            )
+                            this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
+                        });
+
+                    }
+                })
             }
         })
-           }
-        })
-        
-    }
-    modificar(id){
-        this.titulo = "Modificar Sucursal";
-        this.display = 'block';
-        this.catalogoService.recuperarSucursal(id).subscribe(data => {
-            this.sucursal.controls["idSucursal"].setValue(data.idSucursal);
-            this.sucursal.controls["nombre"].setValue(data.nombre);
-            this.sucursal.controls["ubicacion"].setValue(data.ubicacion);
-            this.sucursal.controls["correlativo"].setValue(data.correlativo);
-            this.sucursal.controls["bandera"].setValue("1");
-        });
 
     }
+    modificar(id) {
+        this.catalogoService.validarDepenActivo(id).subscribe(data => {
+            if (data == 1) {
+                this.modif = 1;
+            }
+            this.titulo = "Modificar Sucursal";
+            this.display = 'block';
+            this.catalogoService.recuperarSucursal(id).subscribe(data => {
+                this.sucursal.controls["idSucursal"].setValue(data.idSucursal);
+                this.sucursal.controls["nombre"].setValue(data.nombre);
+                this.sucursal.controls["ubicacion"].setValue(data.ubicacion);
+                this.sucursal.controls["correlativo"].setValue(data.correlativo);
+                this.sucursal.controls["bandera"].setValue("1");
+            });
+
+        });
+    }
+
     buscar(buscador) {
-        this.p=1;
+        this.p = 1;
         this.catalogoService.buscarSucursal(buscador.value).subscribe(res => this.sucursales = res);
     }
     noRepetirCorrelativo(control: FormControl) {
 
         var promesa = new Promise((resolve, reject) => {
-    
-          if (control.value != "" && control.value != null) {
-    
-            this.catalogoService.validarCorrelativoSucursal(this.sucursal.controls["idSucursal"].value, control.value)
-              .subscribe(data => {
-                if (data == 1) {
-                  resolve({ yaExisteCorrelativo: true });
-                } else {
-                  resolve(null);
-                }
-    
-              })
-    
-          }
-    
-    
+
+            if (control.value != "" && control.value != null) {
+
+                this.catalogoService.validarCorrelativoSucursal(this.sucursal.controls["idSucursal"].value, control.value)
+                    .subscribe(data => {
+                        if (data == 1) {
+                            resolve({ yaExisteCorrelativo: true });
+                        } else {
+                            resolve(null);
+                        }
+
+                    })
+
+            }
+
+
         });
-    
+
         return promesa;
-      }
-      noRepetirSucursalUbicacion(control: FormControl) {
+    }
+    noRepetirSucursalUbicacion(control: FormControl) {
 
         var promesa = new Promise((resolve, reject) => {
-    
-          if (control.value != "" && control.value != null) {
-    
-            this.catalogoService.validarSucursalUbicacion(this.sucursal.controls["idSucursal"].value,this.sucursal.controls["nombre"].value,this.sucursal.controls["ubicacion"].value )
-              .subscribe(data => {
-                if (data == 1) {
-                  resolve({ yaExisteConvinacion: true });
-                } else {
-                  resolve(null);
-                }
-    
-              })
-    
-          }
-    
-    
+
+            if (control.value != "" && control.value != null) {
+
+                this.catalogoService.validarSucursalUbicacion(this.sucursal.controls["idSucursal"].value, this.sucursal.controls["nombre"].value, this.sucursal.controls["ubicacion"].value)
+                    .subscribe(data => {
+                        if (data == 1) {
+                            resolve({ yaExisteConvinacion: true });
+                        } else {
+                            resolve(null);
+                        }
+
+                    })
+
+            }
+
+
         });
-    
+
         return promesa;
-      }
+    }
 
 }
