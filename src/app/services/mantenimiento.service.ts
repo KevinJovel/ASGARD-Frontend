@@ -75,8 +75,10 @@ public buscarBienesMante(buscador) {
 public buscarBienescodigo(buscador) {
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/buscarBienescodigo/" + buscador).map(res => res.json());
 }
-
-
+//buscar informes 
+public buscarInformes(buscador) {
+  return this.http.get(environment.urlService  + "api/InformeMantenimiento/buscarInformes/" + buscador).map(res => res.json());
+}
 
 public ListarInformeMantenimiento(){
   return this.http.get(environment.urlService + "api/InformeMantenimiento/ListarInformeMantenimiento" ).map(res=>res.json());
@@ -88,6 +90,7 @@ public ListarInformeMantenimiento(){
   return this.http.post(environment.urlService + "api/InformeMantenimiento/insertarRevalorizacion", revalorizacion).map(res=>res.json());
   }
   
+
 
 
 

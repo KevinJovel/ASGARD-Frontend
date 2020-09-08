@@ -68,7 +68,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
  
   buscar(buscador) {
     this.p = 1;
-    this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => {this.informes = res});
+    this.mantenimientoService.buscarInformes(buscador.value).subscribe(res => {this.informes = res});
   }
 
 
