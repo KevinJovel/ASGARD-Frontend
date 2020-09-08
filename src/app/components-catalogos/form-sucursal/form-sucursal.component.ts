@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -16,14 +15,14 @@ export class FormSucursalComponent implements OnInit {
     sucursal: FormGroup;
     display = 'none';
     titulo: string;
-    modif: any;
+     modif: number=0;
     constructor(private catalogoService: CatalogosService) {
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
             'bandera': new FormControl("0"),
-            'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirSucursalUbicacion.bind(this)),
-            'ubicacion': new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirSucursalUbicacion.bind(this)),
-            'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10)], this.noRepetirCorrelativo.bind(this))
+            'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")],this.noRepetirSucursalUbicacion.bind(this)),
+            'ubicacion': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirSucursalUbicacion.bind(this)),
+            'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirCorrelativo.bind(this))
         });
     }
 

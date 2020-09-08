@@ -88,6 +88,12 @@
             </button>
             <strong>Exelente!</strong> Asegurece de ingresar el nombre correctamente
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['marca'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
           <!--  END-WARNING-->
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Descripción:</label>

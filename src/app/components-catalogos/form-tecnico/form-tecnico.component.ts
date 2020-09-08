@@ -24,8 +24,8 @@ export class FormTecnicoComponent implements OnInit {
 
       'idtecnico': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(60)]),
-      'empresa': new FormControl("", [Validators.required, Validators.maxLength(50)])
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(60), Validators.pattern("^[a-zA-Z 0-9]+$")]),
+      'empresa': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")])
 
     });
    }
