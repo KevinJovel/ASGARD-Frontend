@@ -51,7 +51,7 @@ export class CatalogosService {
     return this.http.get(environment.urlService  + "api/Sucursal/validarCorrelativo/" + idSucursal+ "/"+ correlativo).map(res => res.json());
   }
   public validarSucursalUbicacion(idSucursal, nombre,ubicacion){
-    return this.http.get(environment.urlService  + "api/Sucursal/validarSucursalUbicacion/" + idSucursal+ "/"+ nombre+"/"+ubicacion).map(res => res.json());
+    return this.http.get(environment.urlService  + "api/Sucursal/noRepetirSucursalUbicacion/" + idSucursal+ "/"+ nombre+"/"+ubicacion).map(res => res.json());
   }
  
   public updateSucursal(sucursal) {

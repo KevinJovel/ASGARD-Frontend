@@ -82,7 +82,7 @@
 
           <div class="form-group">
             <label for="exampleInputEmail1">* Sucursal:</label>
-            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3"
+            <input type="text" class="form-control" formControlName="nombre" (keyup)="validar()" id="exampleInputEmail3"
               placeholder="Ingrese sucursal" autocomplete="off">
           </div>
           <!-- Validacion de tamaña maximo -->
@@ -101,11 +101,11 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">* Ubicación:</label>
-            <input type="text" class="form-control" formControlName="ubicacion" placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
+            <input type="text" class="form-control" (keyup)="validar()" formControlName="ubicacion" placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
           </div>
           <!-- Validacion de convinacion de sucursal ubicación -->
           <div class="alert alert-block alert-danger fade in"
-            *ngIf="sucursal.controls['ubicacion'].errors?.yaExisteConvinacion||sucursal.controls['nombre'].errors?.yaExisteConvinacion">
+            *ngIf="this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
