@@ -22,10 +22,10 @@ export class FormDonantesComponent implements OnInit {
     this.donantes = new FormGroup({
 
       'iidDonante': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirDonante.bind(this)),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirDonante.bind(this)),
       'bandera': new FormControl("0"),
       'telefono': new FormControl("", [Validators.required, Validators.maxLength(11)]),
-      'direccion': new FormControl("", [Validators.required, Validators.maxLength(100)])
+      'direccion': new FormControl("", [Validators.required, Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9]+$")])
 
     });
   }
@@ -103,7 +103,7 @@ export class FormDonantesComponent implements OnInit {
   eliminar(iddonante) {
     Swal.fire({
       title: '¿Estas seguro de eliminar este registro?',
-      text: "No podras revertir esta acción!",
+      text: "¡No podras revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -113,8 +113,8 @@ export class FormDonantesComponent implements OnInit {
       if (result.value) {
         this.catalogoService.eliminarDonante(iddonante).subscribe(data => {
           Swal.fire(
-            'Registro eliminado!',
-            'Tu archivo ha sido eliminado con éxito.',
+            '¡Registro eliminado!',
+            'Tu registro ha sido eliminado con éxito.',
             'success'
           )
           this.catalogoService.getDonantes().subscribe(data => { this.dontes = data });

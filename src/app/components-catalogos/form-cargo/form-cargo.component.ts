@@ -25,8 +25,8 @@ export class FormCargoComponent implements OnInit {
 
       'idcargo': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'cargo': new FormControl("", [Validators.required, Validators.maxLength(25)], this.noRepetirCargo.bind(this)),
-      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(50)])
+      'cargo': new FormControl("", [Validators.required, Validators.maxLength(25),Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirCargo.bind(this)),
+      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9]+$")])
 
     });
  
@@ -111,21 +111,21 @@ modif(id) {
 eliminar(idcargo) { 
   Swal.fire({
       title: '¿Estas seguro de eliminar este registro?',
-      text: "No podras revertir esta acción!",
+      text: "¡No podras revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
+      confirmButtonText: '¡Si, eliminar!'
   }).then((result) => {
       if (result.value) {
           this.catalogoService.eliminarCargo(idcargo).subscribe(data => {
+            this.catalogoService.getCargo().subscribe(data=> {this.cargos=data});
               Swal.fire(
-                  'Dato eliminado!',
-                  'Tu archivo ha sido eliminado con éxito.',
+                  '¡Dato eliminado!',
+                  'Tu registro ha sido eliminado con éxito.',
                   'success'
               )
-            this.catalogoService.getCargo().subscribe(data => { this.cargos = data });
           });
          
       }

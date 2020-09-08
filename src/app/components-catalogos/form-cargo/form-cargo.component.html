@@ -5,7 +5,7 @@
     <div class="col-lg-6">
 
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Cargo</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo cargo</button>
       </header>
     </div>
     <div class="col-lg-3">
@@ -47,7 +47,7 @@
                 </tr>
               </tbody>
             </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
           </div>
         </div>
       </section>
@@ -69,7 +69,7 @@
           <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">Cargo:</label>
+            <label for="exampleInputEmail1">* Cargo:</label>
             <input type="text" class="form-control" formControlName="cargo" id="exampleInputEmail3" placeholder="Ingrese cargo" autocomplete="off" maxlength="26">
           </div>
 
@@ -87,8 +87,15 @@
             <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
           </div>
 
+          <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+          </div>
+
           <div class="form-group">
-            <label for="exampleInputEmail1">Descripción:</label>
+            <label for="exampleInputEmail1">* Descripción:</label>
             <input type="text" class="form-control" formControlName="descripcion" id="exampleInputEmail3" placeholder="Ingrese descripción" autocomplete="off" maxlength="51">
           </div>
 
@@ -97,6 +104,13 @@
               <i class="icon-remove"></i>
             </button>
             <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['descripcion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
           </div>
          
                           <!--  WARNING
@@ -119,9 +133,23 @@
 
 -->
                           
-         
+                           <!--  WARNING-->
+                           <div class="alert alert-warning fade in" *ngIf="!cargo.valid">
+                            <button data-dismiss="alert" class="close close-sm" type="button">
+                              <i class="icon-remove"></i>
+                            </button>
+                            <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
+                          </div>
+                
+                           <!--  END-WARNING-->
+                           <div class="alert alert-success fade in" *ngIf="cargo.valid&&cargo.controls['bandera'].value==0">
+                            <button data-dismiss="alert" class="close close-sm" type="button">
+                              <i class="icon-remove"></i>
+                            </button>
+                            <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
+                          </div>
         
-            <button  type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+            <button [disabled]="!cargo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
             <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
        
         </form>
