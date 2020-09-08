@@ -121,13 +121,6 @@ export class TablaInformeComponent implements OnInit {
         })
          this.mantenimientoService.cambiarEstadoDenegado(this.informe.controls["idBien"].value).subscribe(rest=>{
           if(rest==1){
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'cambio',
-              showConfirmButton: false,
-              timer: 3000
-            })
           this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.bienes=data});
           }
         });
