@@ -90,7 +90,7 @@ export class TablaInformeComponent implements OnInit {
   public sinSignos(event: any) {
     const pattern = /^[a-zA-Z0-9]*$/;   
     if (!pattern.test(event.target.value)) {
-      event.target.value = event.target.value.replace(/[^a-zA-Z0-9" "]/g, "");
+      event.target.value = event.target.value.replace(/[^a-zA-Z0-9" "Ññ]/g, "");
     }
   }
     //para introducir solo numeros y punto
