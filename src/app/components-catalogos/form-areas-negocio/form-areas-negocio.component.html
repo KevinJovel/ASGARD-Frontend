@@ -76,13 +76,13 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="area" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idAreaNegocio" id="exampleInputEmail3" autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idAreaNegocio" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
 
             <label for="exampleInputEmail1">* Área de Negocio:</label>
-            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese área de negocio" autocomplete="off" maxlength="51">
+            <input type="text" class="form-control" formControlName="nombre" (keyup)="validar()" placeholder="Ingrese área de negocio" autocomplete="off" maxlength="51">
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -99,13 +99,12 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea2" >* Sucursal:</label>
-            <select class="form-control" formControlName="idSucursal"  id="exampleFormControlTextarea2">
+            <select class="form-control" formControlName="idSucursal" (change)="validar()">
               <option value="">---Seleccione---</option>
               <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
             </select>
             </div>
-            <div class="alert alert-block alert-danger fade in"
-            *ngIf="area.controls['nombre'].errors?.yaExisteConvinacion||area.controls['idSucursal'].errors?.yaExisteConvinacion">
+            <div class="alert alert-block alert-danger fade in" *ngIf="this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>

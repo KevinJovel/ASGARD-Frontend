@@ -16,12 +16,13 @@ export class FormAreasNegocioComponent implements OnInit {
   area: FormGroup;
   display = 'none';
   titulo: string;
+  yaExiste:boolean;
   constructor(private catalogosServices: CatalogosService) {
     this.area = new FormGroup({
       'idAreaNegocio': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirAreaSucursal.bind(this)),
-      'idSucursal': new FormControl("0",[], this.noRepetirAreaSucursal.bind(this)),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")]),
+      'idSucursal': new FormControl("0",[Validators.required]),
       'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirCorrelativo.bind(this))
     });
   }
@@ -43,6 +44,18 @@ export class FormAreasNegocioComponent implements OnInit {
   }
   close() {
     this.display = "none";
+  }
+  validar(){
+   
+    this.catalogosServices.validarAreaSucursal(this.area.controls["idAreaNegocio"].value,this.area.controls["nombre"].value,this.area.controls["idSucursal"].value)
+    .subscribe(data => {
+      if (data == 1) {
+        this.yaExiste=true;
+      } else {
+        this.yaExiste=false;
+      }
+
+    })
   }
   guardarDatos() {
     if ((this.area.controls["bandera"].value) == "0") {
@@ -114,7 +127,8 @@ export class FormAreasNegocioComponent implements OnInit {
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, eliminar!'
+          confirmButtonText: 'Si, eliminar!',
+          cancelButtonText: 'Cancelar'
         }).then((result) => {
           if (result.value) {
             this.catalogosServices.DeleteArea(idArea).subscribe(data => {
@@ -161,28 +175,28 @@ export class FormAreasNegocioComponent implements OnInit {
 
     return promesa;
   }
-  noRepetirAreaSucursal(control: FormControl) {
+  // noRepetirAreaSucursal(control: FormControl) {
 
-    var promesa = new Promise((resolve, reject) => {
+  //   var promesa = new Promise((resolve, reject) => {
 
-      if (control.value != "" && control.value != null) {
+  //     if (control.value != "" && control.value != null) {
 
-        this.catalogosServices.validarAreaSucursal(this.area.controls["idAreaNegocio"].value,this.area.controls["nombre"].value,this.area.controls["idSucursal"].value)
-          .subscribe(data => {
-            if (data == 1) {
-              resolve({ yaExisteConvinacion: true });
-            } else {
-              resolve(null);
-            }
+  //       this.catalogosServices.validarAreaSucursal(this.area.controls["idAreaNegocio"].value,this.area.controls["nombre"].value,this.area.controls["idSucursal"].value)
+  //         .subscribe(data => {
+  //           if (data == 1) {
+  //             resolve({ yaExisteConvinacion: true });
+  //           } else {
+  //             resolve(null);
+  //           }
 
-          })
+  //         })
 
-      }
+  //     }
 
 
-    });
+  //   });
 
-    return promesa;
-  }
+  //   return promesa;
+  // }
 
 }

@@ -79,10 +79,10 @@
         <form role="form" [formGroup]="sucursal" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="idSucursal" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
-
+          <!-- El input tiene el metodo para validar en cada tyup -->
           <div class="form-group">
             <label for="exampleInputEmail1">* Sucursal:</label>
-            <input type="text" class="form-control" formControlName="nombre" (keyup)="validar()" id="exampleInputEmail3"
+            <input type="text" class="form-control" formControlName="nombre" (keyup)="validar()"
               placeholder="Ingrese sucursal" autocomplete="off">
           </div>
           <!-- Validacion de tamaña maximo -->
@@ -101,26 +101,33 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">* Ubicación:</label>
-            <input type="text" class="form-control" (keyup)="validar()" formControlName="ubicacion" placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
+            <input type="text" class="form-control" (keyup)="validar()" formControlName="ubicacion"
+              placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
           </div>
           <!-- Validacion de convinacion de sucursal ubicación -->
-          <div class="alert alert-block alert-danger fade in"
-            *ngIf="this.yaExiste==true">
+          <div class="alert alert-block alert-danger fade in" *ngIf="this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Error!</strong> Esta combinación de sucursal y ubicación ya existe
           </div>
-<!-- Validacion de tamaño maximo de cadena -->
+          <!-- Validacion de tamaño maximo de cadena -->
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en este campo
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
           <div class="form-group">
             <label for="exampleInputEmail1">*Correlativo:</label>
-            <input [readOnly]="this.modif==1"  type="text" class="form-control" formControlName="correlativo" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+            <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo"
+              placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
           </div>
           <!-- Validcion de longitud -->
           <div class="alert alert-block alert-danger fade in"
@@ -137,6 +144,12 @@
             <strong>¡Error!</strong> Ya existe el "Correlativo" ingresado.
 
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['correlativo'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
           <!--  WARNING-->
           <div class="alert alert-warning fade in"
             *ngIf="!sucursal.valid&&!sucursal.controls['correlativo'].errors?.yaExisteCorrelativo">
@@ -145,13 +158,12 @@
             </button>
             <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
           </div>
-          <div class="alert alert-warning fade in"
-          *ngIf="this.modif==1">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Advertencia!</strong> El correlativo no se puede modificar, porque hay activos referenciados.
-        </div>
+          <div class="alert alert-warning fade in" *ngIf="this.modif==1">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> El correlativo no se puede modificar, porque hay activos referenciados.
+          </div>
 
           <!--  END-WARNING-->
           <div class="alert alert-success fade in" *ngIf="sucursal.valid&&sucursal.controls['bandera'].value==0">

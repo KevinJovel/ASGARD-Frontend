@@ -44,6 +44,7 @@ export class FormSucursalComponent implements OnInit {
         this.display = 'none';
         this.modif = 0;
     }
+    //Este metodo es el que puse en lugar de la promesa, porque daba error porque dependia de dos campos
     validar(){
 
         this.catalogoService.validarSucursalUbicacion(this.sucursal.controls["idSucursal"].value, this.sucursal.controls["nombre"].value, this.sucursal.controls["ubicacion"].value)
@@ -54,7 +55,6 @@ export class FormSucursalComponent implements OnInit {
                             this.yaExiste=false;
                         }
                     });
-      
     }
     guardarDatos() {
         //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
