@@ -19,7 +19,7 @@ export class FormMarcaComponent implements OnInit {
         this.marca = new FormGroup({
             'idMarca': new FormControl("0"),
             'bandera': new FormControl("0"),
-            'marca': new FormControl("", [Validators.required]),
+            'marca': new FormControl("", [Validators.required,Validators.pattern("^[a-zA-Z 0-9]+$")]),
             'descripcion': new FormControl("")
         });
     }

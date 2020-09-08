@@ -81,10 +81,9 @@
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
-
-            <label for="exampleInputEmail1">*Sucursal:</label>
-            <input type="text" class="form-control" formControlName="nombre" placeholder="Ingrese sucursal"
-              autocomplete="off" maxlength="51">
+            <label for="exampleInputEmail1">* Sucursal:</label>
+            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3"
+              placeholder="Ingrese sucursal" autocomplete="off">
           </div>
           <!-- Validacion de tamaña maximo -->
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['nombre'].errors?.maxlength">
@@ -101,9 +100,8 @@
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">*Ubicación:</label>
-            <input type="text" class="form-control" formControlName="ubicacion" id="exampleInputEmail3"
-              placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
+            <label for="exampleInputEmail1">* Ubicación:</label>
+            <input type="text" class="form-control" formControlName="ubicacion" placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
           </div>
           <!-- Validacion de convinacion de sucursal ubicación -->
           <div class="alert alert-block alert-danger fade in"
