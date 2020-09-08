@@ -12,6 +12,7 @@ import { MantenimientoService } from './../../services/mantenimiento.service';
 export class TablaInformeComponent implements OnInit {
   solicitudes: any;
   bienes: any;
+  Phone: any;
   tecnicos:any;
   p: number = 1;
   informe: FormGroup;
@@ -63,8 +64,8 @@ export class TablaInformeComponent implements OnInit {
       this.informe.controls["fechainforme"].setValue("");
        this.informe.controls["idtecnico"].setValue("");
        this.informe.controls["descripcion"].setValue("");
-       this.informe.controls["costomateriales"].setValue("");
-       this.informe.controls["costomo"].setValue("");
+       this.informe.controls["costomateriales"].setValue("", Validators.pattern(/^[.]?[0-9]+[.]?[0-9]*$/));
+       this.informe.controls["costomo"].setValue("",Validators.pattern(/^[-]?[0-9]+[\.]?[0-9]+$/));
        this.informe.controls["costototal"].setValue("");
 
     
@@ -80,26 +81,32 @@ export class TablaInformeComponent implements OnInit {
 
 
 
-sumarCostos(costoTotal){
-  //var costoTotal= this.informe.controls["costototal"].value;
- // var costoMO= this.informe.controls["costomo"].value;
-  //var costoMA= this.informe.controls["costomateriales"].value;
-
-   var costotal= this.informe.controls["costomateriales"].value;
-  var costoMO= this.informe.controls["costomo"].value;
-   var costoMA= this.informe.controls["costototal"].value;
- 
-    
- 
-  costoTotal= costoMO + costoMA; 
-
- return costoTotal;
-}
-
   buscar(buscador) {
     this.p = 1;
     this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => {this.bienes = res});
   }
+
+  //metodo para no ingresar signos
+  public sinSignos(event: any) {
+    const pattern = /^[a-zA-Z0-9]*$/;   
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
+
+    }
+  }
+    //para introducir solo numeros y punto
+    public solonumerosypunto(event: any) {
+      const pattern = /^[0-9.]*$/;   
+      if (!pattern.test(event.target.value)) {
+        event.target.value = event.target.value.replace(/[^0-9.]/g, "");
+  
+      }
+    }
+
+  /*  solonumeros(event) {
+      return (event.charCode == 8 || event.charCode == '.' || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
+  }*/
+
   
   guardarDatos(){
    // console.log(this.informe.value);

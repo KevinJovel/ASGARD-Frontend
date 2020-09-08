@@ -71,6 +71,13 @@ public buscarSolicitudMante(buscador) {
 public buscarBienesMante(buscador) {
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/buscarBienesMante/" + buscador).map(res => res.json());
 }
+//buscar los bienes para eviar a mantenimiento
+public buscarBienescodigo(buscador) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/buscarBienescodigo/" + buscador).map(res => res.json());
+}
+
+
+
 public ListarInformeMantenimiento(){
   return this.http.get(environment.urlService + "api/InformeMantenimiento/ListarInformeMantenimiento" ).map(res=>res.json());
  } 

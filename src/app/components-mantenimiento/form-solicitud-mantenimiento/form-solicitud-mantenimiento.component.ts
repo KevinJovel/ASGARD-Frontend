@@ -39,8 +39,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
-      'razonesMantenimiento':new FormControl(""),
-      'periodoMantenimiento':new FormControl("")
+      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(100)]),
+      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(25)])
     });
   }
 
@@ -66,7 +66,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   open2() {
-    this.titulo = "Bienes mantenimiento";
+    this.titulo = "Activos a enviar a mantenimiento";
     this.display2 = 'block';
   }
 
@@ -83,7 +83,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
   close() {
     this.display = 'none';
-    this.titulo = "Bienes mantenimiento";
+    this.titulo = "Activos a enviar a mantenimiento";
     this.display2 = 'block';
   }
   close2() {
@@ -153,6 +153,12 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
 
     return promesa;
   }
+
+  buscar(buscador) {
+    this.p = 1;
+    this.mantenimientoService.buscarBienescodigo(buscador.value).subscribe(res => {this.bienes = res});
+  }
+
   guardarDatos() {
   this.mantenimientoService.guardarSolicitud(this.solicitud.value).subscribe(res=>{
   if(res==1){

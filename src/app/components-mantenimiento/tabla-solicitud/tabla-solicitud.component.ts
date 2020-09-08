@@ -28,23 +28,7 @@ export class TablaSolicitudComponent implements OnInit {
 
 
   constructor(private mantenimientoService: MantenimientoService) { 
-  //   this.solicitud=new FormGroup({
-     
-  //     'folio': new FormControl(""),
-  //     'fechacadena': new FormControl(""),
-  //     'idtecnico': new FormControl("0"),
-  //     'idBien': new FormControl("0"),
-  //     'codigobien':new FormControl(""),
-  //     'descripcionbien':new FormControl(""),
-  //     'razonesMantenimiento':new FormControl(""),
-  //     'periodoMantenimiento':new FormControl(""),
-  //     //'estadoActual': new FormControl(""),
-  //  }); 
 
-    // this.bienes= new FormGroup({
-    //    'idSoli': new FormControl(""),
-    //    'noSolicitud': new FormControl("")
-    // });
 
 
   }
@@ -73,19 +57,15 @@ export class TablaSolicitudComponent implements OnInit {
   
     });
 
-    this.titulo = "Solicitud de autorizacion de mantenimiento";
+    this.titulo = "Solicitud de autorización de mantenimiento";
     this.display = 'block';
   
 
      this.idSoli=id;
  
-    // this.solicitud.controls["idSolicitud"].setValue(id);
-      // this.solicitud.controls["codigobien"].setValue("");
-      // this.solicitud.controls["descripcionbien"].setValue("");
-      // this.solicitud.controls["razonesMantenimiento"].setValue("");
-      // this.solicitud.controls["periodoMantenimiento"].setValue("");
+
   }
-  // buscar(nombre){}
+
 
 
 
@@ -99,7 +79,7 @@ export class TablaSolicitudComponent implements OnInit {
 
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
-      text: "No podras revertir esta accion!",
+      text: "No podras revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -111,7 +91,7 @@ export class TablaSolicitudComponent implements OnInit {
          if(res==1){
           Swal.fire(
             'Solicitud aprobada!',
-            'La solictud ha sido aprobada con exito.',
+            'La solictud ha sido aprobada con éxito.',
             'success'
           )
           this.display = 'none'; 
@@ -152,7 +132,7 @@ export class TablaSolicitudComponent implements OnInit {
  
      Swal.fire({
        title: '¿Estas seguro de denegar esta solicitud?',
-       text: "No podras revertir esta accion!",
+       text: "No podras revertir esta acción!",
        icon: 'warning',
        showCancelButton: true,
        confirmButtonColor: '#3085d6',
@@ -164,7 +144,7 @@ export class TablaSolicitudComponent implements OnInit {
           if(res==1){
            Swal.fire(
              'Solicitud denegada!',
-             'La solictud ha sido denegada con exito.',
+             'La solictud ha sido denegada con éxito.',
              'success'
            )
            this.display = 'none'; 
