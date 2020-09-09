@@ -40,7 +40,7 @@
               
           </ul>
       </div>
-      <ng-template #elseTemplate>
+     <!--- <ng-template #elseTemplate> -->
    <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarDatoss()">
     <fieldset title="1" class="step" id="default-step-0">
       <legend></legend>
@@ -281,12 +281,12 @@
           <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-success" 
           value="Actualizar"  *ngIf="bandera" />
         </form>
-      </ng-template>
+     <!-- </ng-template> -->
       <br><br><br>
 
 
 
-      
+      <!--
       <ng-container *ngIf="bandera; else elseTemplate">
         <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarMod()">
           <fieldset title="1" class="step" id="default-step-0">
@@ -381,7 +381,7 @@
                     ></div>
                 </div>
 
-                <!-- Alertas de validaciones -->
+                
                 <div class="form-group col-md-4">
                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['color'].errors?.maxlength">
                   <button data-dismiss="alert" class="close close-sm" type="button">
@@ -484,7 +484,7 @@
             </div>
 
            
-          <!-- Alertas de validaciones -->
+          
           <div class="form-group col-md-4">
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['nofactura'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -529,7 +529,7 @@
           <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-success" 
           value="Actualizar"  *ngIf="bandera" />
         </form>
-      </ng-container>
+      </ng-container> -->
 
 
   </div>

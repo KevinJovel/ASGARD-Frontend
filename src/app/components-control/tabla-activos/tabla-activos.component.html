@@ -1,18 +1,16 @@
-
-<br />
-<br />
-<br />
+<br> <br> <br>
 <section class="panel">
-<h1>Activos registrados</h1>
+<h1>Registro de bienes</h1>
   <div class="row">
     <div class="col-lg-16">
+  
       <section class="panel panel-default">
         <div class="form-row">
           <form class="form-inline" id="default" [formGroup]="combo">
             <div class="row">
               <div class="form-group col-md-2">
                 <br>
-                  <button type="button" style="margin-top: 24px;" class="btn btn-success"  data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Nuevo Bien</button>
+                  <button type="button" style="margin-top: 24px;" class="btn btn-success"  data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Nuevo bien</button>
                    </div>
 
               <div class="form-group col-md-3">
@@ -40,10 +38,10 @@
               <div class="form-group col-md-3">
                 <br><br>
               <input type="search" style="margin-top: 5px; padding-left: 10px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+            </div>     
             </div>
-                 
-             
-            </div>
+
+            <br>
             <div class="row">
               <div class="col-lg-12">
                 <section class="panel panel-default">
@@ -58,11 +56,11 @@
                           <tr>
                             <th>N°</th>
                             <th>Código</th>
-                            <th>Fecha Ingreso</th>
+                            <th>Fecha ingreso</th>
                             <th>Descripción</th>
                             <th>Clasificación</th>
-                            <th>Área de Negocio</th>
-                            <th>Responsable</th>                        
+                           <!-- <th>Área de negocio</th>
+                            <th>Responsable</th>   -->                     
                             <th class="hidden-phone" >Opciones </th>
                           </tr>
                         </thead>
@@ -74,11 +72,11 @@
                             <td>{{combo.fechacadena}}</td>
                             <td>{{combo.desripcion}}</td>
                             <td>{{combo.clasificacion}}</td>
-                            <td>{{combo.areaDeNegocio}}</td>
-                            <td>{{combo.resposnsable}}</td>             
+                          <!--  <td>{{combo.areaDeNegocio}}</td>
+                            <td>{{combo.resposnsable}}</td>   -->           
                             <td class="center hidden-phone">
-                              <button class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>
-                              <button class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open">Ver</i></button>
+                              <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>
+                              <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
                             </td>
                           </tr>
                         </tbody>
@@ -95,187 +93,69 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-                    <h4 class="modal-title">Datos completos del Activo</h4>
+                    <h4 class="modal-title">Datos completos del activo</h4>
                     <h4 class="modal-title"></h4>
                   </div>
                   <div class="modal-body" >
                   
-                     <div class="row">
-                      <div class="form-group col-md-4">
-                          <label ><strong>N° de Formulario:</strong></label> {{ noformu}}<br/>
-                        </div>
-                      <div class="form-group col-md-4">
-                        <label><strong>Fecha de Ingreso:</strong></label> {{ fecha }}<br/>
-                      </div>
-                      <div class="form-group col-md-4">
-                        <img [src]="foto | safe" alt=""  width="290" height="190" class="">
-                        </div>
-                        
-                        <div class="row">
-                          <div class="form-group col-md-4">
-                            <label><strong>Código:</strong></label> {{ codigo }}<br/>
-                            </div>
-                            <div class="form-group col-md-4">
-                              <label><strong>N° Serie:</strong></label> {{ numserie }}<br/>
-                             </div>
-                             <div class="col-lg-4">
-                              
-                            </div>
-                         
-                         </div>
-                     </div>
 
-              
-                     <br/>
-                     <div class="row">
-                      <div class="col-lg-4">
-                        <label><strong>Área:</strong></label> {{ area}}<br/>
-                        </div>
-                      <div class="form-group col-md-4">
-                        <label><strong>Responsable:</strong></label> {{ responsable}}<br/>
-                      </div>
-                      <div class="form-group col-md-4">
-                        
-                        </div>
+                     <div class="col-lg-4">
+                      <p>
                        
-                     </div>
+                        <span class="text-bold"><strong>Correlativo:</strong> </span> {{ noformu}} <br/><br/>
+                         <span class="text-bold"><strong>Código:</strong></span>{{ codigo }}<br/><br/>
+                        <span class="text-bold"><strong>Área:</strong></span> {{ area}}<br/><br/>
+                        <span class="text-bold"><strong>Responsable:</strong></span> {{ responsable}}<br/><br/>
+                        <label><strong>Clasificación:</strong></label> {{ clasificacion}}<br/><br/>
+                        <label><strong>Proveedor:</strong></label> {{ proveedor}}<br/><br/>
+                        <label><strong>Adquisición:</strong></label> {{tipoadqui}} <br/><br/>
+                        <label ><strong>Destino inicial:</strong></label> {{destino}} <br/><br/>
+                        <label ><strong>Valor adquisición:</strong></label> ${{ valor}}<br/><br/>
+                        <label ><strong>Cuota:</strong></label> $ {{ cuota}} <br/><br/>
+                        <label  ><strong>Prima:</strong></label> $ {{ prima}} <br/><br/>
+                        <label ><strong>Valor residual:</strong></label> {{ valorresidual}} <br/>
+                   
+                      </p>
+                   
+                    </div>
 
-                     <div class="row">
-                      <div class="form-group col-md-4">
-                        <label><strong>Descripción:</strong></label> {{descripcion }}<br/>
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label ><strong>Color:</strong></label> {{ color }}<br/>
-                         </div>
-                         <div class="form-group col-md-4">
-                          
-                          </div>
-                        
-                     </div>
-                     <br/>
-                     <div class="row">
-                      <div class="col-lg-4">
-                        <label><strong>Clasificación:</strong></label> {{ clasificacion}}<br/>
-                        </div>
-                      <div class="form-group col-md-4">
-                        <label><strong>Proveedor:</strong></label> {{ proveedor}}<br/>
-                      </div>
-                      <div class="form-group col-md-4">
-                       
-                        </div>
-                       
-                     </div>
-
-                     <div class="row">
-                    
-                      <div class="form-group col-md-4">
-                        <label><strong>Donante:</strong></label> {{ donante}} <br/>
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label><strong>Adquisición:</strong></label> {{tipoadqui}} <br/>
-                         </div>
-                         <div class="form-group col-md-4">
-                         
-                         </div>
-                     </div>
-
-                     <br/>
-                     <div class="row">
-                      <div class="col-lg-4">
-                        <label ><strong>Marca:</strong></label> {{ marca }}<br/>
-                        </div>
-                      <div class="form-group col-md-4">
-                        <label ><strong>Modelo:</strong></label> {{ modelo}}<br/>
-                      </div>
-                      <div class="col-lg-4">
-                         
-                        </div>
-                      
-                     </div>
-                     <br/>
-                     <div class="row">
-                      <div class="col-lg-4">
-                        <label  ><strong>Estado:</strong></label> {{ estado}}<br/>
-                           
-                        </div>
-                      <div class="form-group col-md-4">
-                        <label ><strong>Vida Útil:</strong></label> {{vidautil}}<br/>
-                      </div>
-                      <div class="form-group col-md-4">
-                        
-                      </div>
-                     </div>
-               
-                     <div class="row">
-                      <div class="col-lg-4">
-                        <label ><strong>Destino Inicial:</strong></label> {{destino}}
-                           
-                        </div>
-                      <div class="form-group col-md-4">
-                        <label ><strong>Valor Adquisición:</strong></label> ${{ valor}}
-                      </div>
-                      <div class="form-group col-md-4">
-                        
-                        </div>
-                       
-                     </div>
-                     <br/>
-                     
-                     <div class="row">
-                      <div class="col-lg-4">
-                        <label  ><strong>Plazo:</strong></label> {{ plazo}} <br/>
-                         
-                        </div>
-                      <div class="form-group col-md-4">
-                        <label ><strong>Cuota:</strong></label> $ {{ cuota}} <br/>
-                      </div>
-                      <div class="form-group col-md-4">
-                        
-                        </div>
-                       
-                     </div>
-
-                     <div class="row">
-                      <div class="col-lg-4">
-                        <label ><strong>Interes:</strong></label> {{ interes}} % <br/>
-                        
-                        </div>
-                      <div class="form-group col-md-4">
-                        <label  ><strong>Prima:</strong></label> $ {{ prima}} <br/>
-                      </div>
-                      <div class="form-group col-md-4">
-                        
-                        </div>
-                       
-                     </div>
-                     <div class="col-lg-6">
+                     <div class="col-lg-4">
                         
                       <p>
                      
+                        <span class="text-bold"><strong>Fecha de ingreso:</strong></span>  {{ fecha }}<br/><br/>
+                        <span class="text-bold"><strong>N° serie:</strong></span> {{ numserie }}<br/><br/>
+                        <span class="text-bold"><strong>Descripción:</strong></span> {{descripcion }}<br/><br/>
+                        <label ><strong>Marca:</strong></label> {{ marca }}<br/><br/>
+                        <span class="text-bold"><strong>Color:</strong></span> {{ color }}<br/><br/>
+                        <label><strong>Donante:</strong></label> {{ donante}} <br/><br/>
+                        <label ><strong>Modelo:</strong></label> {{ modelo}}<br/><br/>
+                        <label  ><strong>Estado:</strong></label> {{ estado}}<br/><br/>
+                        <label ><strong>Vida útil:</strong></label> {{vidautil}}<br/><br/>
+                        <label  ><strong>Plazo:</strong></label> {{ plazo}} <br/><br/>
+                        <label ><strong>Interés:</strong></label> {{ interes}} % <br/><br/>
                         
-                        <label ><strong>Valor Residual:</strong></label> {{ valorresidual}} <br/>
                       </p>
                    
                   </div>
 
-                  <div class="row">
-                        
-                    <div class="col-lg-3">
-                      <label></label>
-                      
-                    </div>
-                   
-                  </div>
+                  <div class="col-lg-4">     
+                    <p>
+                      <br/><br/>
+                      <img [src]="foto | safe" alt=""  width="290" height="190" class="">  
+                    </p>
+                 
+                </div>
 
-                     
-                    
-                       
                    <div class="row">
                     <div class="col-xs-3">
                       
                     </div>
                    </div>
      <!-- aca -->
+
+     <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+       
                      </div>
                   </div>
                 </div>

@@ -21,8 +21,17 @@ export class BajaService {
     public validarFolio(idsolicitud, folio){
       return this.http.get(environment.urlService + "api/SolicitudBaja/validarFolio/"+ idsolicitud + "/" + folio).map(res => res.json());
     }
+    public validarAcuerdo(idsolicitud, acuerdo){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/validarAcuerdo/"+ idsolicitud + "/" + acuerdo).map(res => res.json());
+    }
     public buscarBien(buscador) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarBienesBaja/" + buscador).map(res => res.json());
+    }
+    public FiltroTablaActivos(id) {
+      return this.http.get(environment.urlService + "api/SolicitudBaja/listarActivosFiltro/"+id).map(res => res.json());
+    }
+    public ComboArea(id) {
+      return this.http.get(environment.urlService + "api/AreasNegocios/comboAreaDeSucursal/"+id).map(res => res.json());
     }
 
     //SOLICITUDES
@@ -34,6 +43,10 @@ export class BajaService {
     }
     public cambiarEstadoAceptado(idbien) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstado/"+idbien).map(res => res.json());
+    }
+
+    public guardarAcuerdo(acuerdo) {
+      return this.http.post(environment.urlService + "api/SolicitudBaja/guardarAcuerdo", acuerdo).map(res => res.json());
     }
     public denegarSolicitud(idsolicitud) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/denegarSolicitud/"+idsolicitud).map(res => res.json());

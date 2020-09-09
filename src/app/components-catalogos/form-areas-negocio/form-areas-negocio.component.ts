@@ -44,6 +44,7 @@ export class FormAreasNegocioComponent implements OnInit {
   }
   close() {
     this.display = "none";
+    this.yaExiste=false;
   }
   validar(){
    

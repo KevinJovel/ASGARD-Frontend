@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-lg-6">
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Proveedor</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo proveedor</button>
       </header>
     </div>
     <div class="col-lg-3">
@@ -35,7 +35,7 @@
                   <th>Dirección</th>
                   <th>Rubro</th>
                   <th>Encargado</th>
-                  <th>Teléfono Encargado</th>
+                  <th>Teléfono encargado</th>
                   <th class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
@@ -50,8 +50,8 @@
                   <td>{{proveedores.encargado}}</td>
                   <td>{{proveedores.telefonoencargado}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modificar(proveedores.idProveedor)"><i class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(proveedores.idProveedor)"><i class="icon-trash "></i></button>
+                    <button title="Editar" class="btn btn-primary btn-xs" (click)="modificar(proveedores.idProveedor)"><i class="icon-pencil"></i></button>
+                    <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(proveedores.idProveedor)"><i class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -78,84 +78,123 @@
         <form role="form" [formGroup]="proveedores" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="idProveedor" id="exampleInputEmail3" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+         
+          <div class="col-lg-6">
 
   <td>
           <div class="form-group">
-            <label for="exampleInputEmail1">Nombre</label>
-            <input size=35 type="text" class="form-control" formControlName="nombre" id="nombre" placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
+            <label for="exampleInputEmail1">*Nombre:</label>
+            <input size=35 type="text" (input)="inputValidator($event)" class="form-control" formControlName="nombre" id="nombre" placeholder="Ingrese nombre" maxlength="51" autocomplete="off">
           </div>
+       
+          <div class="form-group">
+            <label for="exampleInputEmail1">*Dirección:</label>
+            <input type="text" class="form-control" formControlName="direccion" id="direccion" placeholder="Ingrese dirección" maxlength="101" autocomplete="off">
+          </div>
+        
+          <div class="form-group">
+            <label for="exampleInputEmail1">*Encargado:</label>
+            <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="encargado" id="encargado" placeholder="Ingrese encargado" maxlength="51" autocomplete="off">
+          </div>
+          
+  </td>
+  
+ 
+</div>
+ 
+<div class="col-lg-6">
+  <td>
+          <div class="form-group">
+            <label for="exampleInputEmail1">*Teléfono:</label>
+            <input size=35 type="text" mask="0000-0000" class="form-control" formControlName="telefono" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
+          </div>
+         
+          <div class="form-group">
+            <label for="exampleInputEmail1">*Rubro:</label>
+            <input type="text" (input)="inputValidator($event)" class="form-control" formControlName="rubro" id="rubro" placeholder=" Ingrese rubro" maxlength="51" autocomplete="off">
+          </div>
+        
+          <div class="form-group">
+            <label for="exampleInputEmail1">*Teléfono encargado:</label>
+            <input type="text" mask="0000-0000" class="form-control" formControlName="telefonoencargado" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
+          </div>
+        </td>
+
+      </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+<!--  WARNING-->
+
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>Error!</strong> Tamaño máximo permitido en este campo.
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Dirección</label>
-            <input type="text" class="form-control" formControlName="direccion" id="direccion" placeholder="Ingrese Dirección" maxlength="101" autocomplete="off">
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['nombre'].errors?.yaExisteProveedor">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> ya existe el "nombre de proveedor" ingresado, por favor intente con un nuevo.
           </div>
+
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['direccion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>Error!</strong> Tamaño máximo permitido en este campo.
-          </div> 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Encargado</label>
-            <input type="text" class="form-control" formControlName="encargado" id="encargado" placeholder="Ingrese Encargado" maxlength="51" autocomplete="off">
           </div>
+
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['encargado'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>Error!</strong> Tamaño máximo permitido en este campo.
           </div>
-          
-  </td>
 
-  <td>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Teléfono</label>
-            <input size=35 type="text" mask="0000-0000" class="form-control" formControlName="telefono" id="exampleInputEmail3" placeholder="Ingrese Teléfono" maxlength="10" autocomplete="off">
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['encargado'].errors?.yaExisteEncargado">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> ya existe el "nombre de encargado" ingresado, por favor intente con un nuevo.
           </div>
-         
-          <div class="form-group">
-            <label for="exampleInputEmail1">Rubro</label>
-            <input type="text" class="form-control" formControlName="rubro" id="rubro" placeholder=" Ingrese Rubro" maxlength="51" autocomplete="off">
-          </div>
+
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['rubro'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>Error!</strong> Tamaño máximo permitido en este campo.
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Teléfono Encargado</label>
-            <input type="text" mask="0000-0000" class="form-control" formControlName="telefonoencargado" id="exampleInputEmail3" placeholder="Ingrese Teléfono" maxlength="10" autocomplete="off">
-          </div>
-         
-          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.maxlength">
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefono'].errors?.yaExisteTelProveedor">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> No puede iniciar con 0
+            <strong>Advertencia!</strong> ya existe el "telefono de proveedor" ingresado, por favor intente con un nuevo.
           </div>
-  </td>
-             <div class="alert alert-warning fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.required">
+         
+          <div class="alert alert-warning fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> ya existe el "telefono de encargado" ingresado, por favor intente con un nuevo.
+          </div>
+  
+             <div class="alert alert-warning fade in" *ngIf="!proveedores.valid&&!proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>Advertencia!</strong> Todos los campos son obligatorios
           </div>
-   
+
           <div class="alert alert-success fade in" *ngIf="proveedores.valid&&proveedores.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>Exelente!</strong> Datos ingresados correctamente
           </div>
-
-          <button [disabled]="!proveedores.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+      
+          <button type="submit" [disabled]="!proveedores.valid"  class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
 
         </form>
