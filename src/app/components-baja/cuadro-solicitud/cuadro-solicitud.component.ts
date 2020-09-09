@@ -3,6 +3,8 @@ import { BajaService } from './../../services/baja.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+//para filtro de areas y sucursales
+import { CatalogosService } from './../../services/catalogos.service';
 
 @Component({
   selector: 'app-cuadro-solicitud',
@@ -20,6 +22,9 @@ export class CuadroSolicitudComponent implements OnInit {
   titulo: string;
   //parametro: string;
   p: number = 1;
+//para filtro
+  areas: any;
+  sucursal: any;
 
  //Variables de etiqueta
  disabledentidad: string;
@@ -28,7 +33,8 @@ export class CuadroSolicitudComponent implements OnInit {
  disabledtelefono: string;
  disabled: boolean;
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService) 
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService
+    ,private catalogosServices: CatalogosService) 
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -40,17 +46,18 @@ export class CuadroSolicitudComponent implements OnInit {
        'domicilio': new FormControl("",[Validators.maxLength(50)]),
        'contacto': new FormControl("",[Validators.maxLength(50)]),
        'telefono': new FormControl(""),
-       'idbien': new FormControl("0")
+       'idbien': new FormControl("0"),
+       //para filtro
+       'idArea': new FormControl("0"),
+       'idSucursal': new FormControl("0")
     });
-    this.datosbien=new FormGroup({
-      'idBienBaja': new FormControl("0"),
-      'idBien': new FormControl("0"),
-    });
+ 
   }
 
 
    ngOnInit() {
     this.bajaService.listarBienes().subscribe(res => { this.activo = res });
+    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
 
         this.disabledentidad = 'Ingrese entidad';
         this.disableddomicilio = 'Ingrese domicilio';
@@ -169,4 +176,33 @@ export class CuadroSolicitudComponent implements OnInit {
   }
 
 
+  FiltrarArea(){
+    var id= this.solicitud.controls['idSucursal'].value;
+    this.bajaService.ComboArea(id).subscribe(data=>{this.areas=data});
+  }
+
+  Filtrar(){
+    var id= this.solicitud.controls['idArea'].value;
+    this.bajaService.FiltroTablaActivos(id).subscribe(data=>{this.activo=data});
+  }
+  
+  Reload(){
+    this.solicitud.controls['idSucursal'].setValue(0);
+    this.solicitud.controls['idArea'].setValue(0);
+    this.bajaService.listarBienes().subscribe(res=> { this.activo=res});
+  }
+
+  //validar formularios que permita solo letras
+  public inputValidator(event: any) {
+    //console.log(event.target.value);
+    const pattern = /^[a-z A-Z]*$/;   
+    //let inputChar = String.fromCharCode(event.charCode)
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^a-z A-Z]/g, "");
+      // invalid character, prevent input
+
+    }
+  }
+
+  
 }

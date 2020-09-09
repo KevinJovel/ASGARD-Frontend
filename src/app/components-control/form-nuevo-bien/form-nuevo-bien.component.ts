@@ -221,51 +221,55 @@ export class FormNuevoBienComponent implements OnInit {
           });
       }
     }
-  }
-
-  guardarMod() {
-    this.nuevobien.controls['bandera'].setValue('0');
+    //desdeaqui
+    else{
+      this.nuevobien.controls['bandera'].setValue('0');
     if (this.nuevobien.valid == true) {
       this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
         console.log(data);
           this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
-            this.modificar(this.id);
+            this.modificar(this.id); });
+            
+          });
               Swal.fire({
                 position: 'center',
                 icon: 'success',
                 title: 'Registro Modificado con exito',
                 showConfirmButton: false,
                 timer: 3000,
-              });
-            });
-        });
+              });     
     }
 
-    this.nuevobien.controls['idbien'].setValue('0');
-    this.nuevobien.controls['bandera'].setValue('0');
-    this.nuevobien.controls['color'].setValue('');
-    this.nuevobien.controls['descripcion'].setValue('');
-    this.nuevobien.controls['modelo'].setValue('');
-    this.nuevobien.controls['tipoadquicicion'].setValue('');
-    this.nuevobien.controls['idmarca'].setValue('');
-    this.nuevobien.controls['idclasificacion'].setValue('');
-    this.nuevobien.controls['idproveedor'].setValue('');
-    this.nuevobien.controls['estadoingreso'].setValue('');
-    this.nuevobien.controls['plazopago'].setValue('');
-    this.nuevobien.controls['prima'].setValue('');
-    this.nuevobien.controls['cuotaasignada'].setValue('');
-    this.nuevobien.controls['interes'].setValue('');
-    this.nuevobien.controls['noformulario'].setValue('');
-    this.nuevobien.controls['nofactura'].setValue('');
-    this.nuevobien.controls['fechaingreso'].setValue('');
-    this.nuevobien.controls['personaentrega'].setValue('');
-    this.nuevobien.controls['personarecibe'].setValue('');
-    this.nuevobien.controls['observaciones'].setValue('');
-    this.nuevobien.controls['cantidad'].setValue('');
-    this.nuevobien.controls['foto'].setValue('');
+    }// else
+    this.nuevobien.controls['idbien'].setValue("0");
+    this.nuevobien.controls['bandera'].setValue("0");
+    this.nuevobien.controls['color'].setValue("");
+    this.nuevobien.controls['descripcion'].setValue("");
+    this.nuevobien.controls['modelo'].setValue("");
+    this.nuevobien.controls['tipoadquicicion'].setValue("");
+    this.nuevobien.controls['idmarca'].setValue("");
+    this.nuevobien.controls['idclasificacion'].setValue("");
+    this.nuevobien.controls['idproveedor'].setValue("");
+    this.nuevobien.controls['estadoingreso'].setValue("");
+    this.nuevobien.controls['plazopago'].setValue("");
+    this.nuevobien.controls['prima'].setValue("");
+    this.nuevobien.controls['cuotaasignada'].setValue("");
+    this.nuevobien.controls['interes'].setValue("");
+    this.nuevobien.controls['noformulario'].setValue("");
+    this.nuevobien.controls['nofactura'].setValue("");
+    this.nuevobien.controls['fechaingreso'].setValue("");
+    this.nuevobien.controls['personaentrega'].setValue("");
+    this.nuevobien.controls['personarecibe'].setValue("");
+    this.nuevobien.controls['observaciones'].setValue("");
+    this.nuevobien.controls['cantidad'].setValue("");
+    this.nuevobien.controls['foto'].setValue("");
 
     this.display = 'none';
     this.router.navigate(['./tabla-activos']);
+  }
+
+  guardarMod() {
+    
   }
 
   modificar(id) {
@@ -296,6 +300,7 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['bandera'].setValue('1');
     });
   }
+
   noPuntoDecimal(control: FormControl) {
     if (control.value != null && control.value != '') {
       if ((<string>control.value.toString()).indexOf('.') > -1) {
