@@ -24,12 +24,12 @@ export class FormProveedorComponent implements OnInit {
 
       'idProveedor': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50)]),
-      'telefono': new FormControl("", [Validators.required, Validators.maxLength(10)]),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50)],this.noRepetirProveedor.bind(this)),
+      'telefono': new FormControl("", [Validators.required, Validators.maxLength(10)],this.noRepetirTelProveedor.bind(this)),
       'direccion': new FormControl("", [Validators.required, Validators.maxLength(100)]),
       'rubro': new FormControl("", [Validators.required, Validators.maxLength(50)]),
-      'encargado': new FormControl("", [Validators.required, Validators.maxLength(50)]),
-      'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(10)])
+      'encargado': new FormControl("", [Validators.required, Validators.maxLength(50)],this.noRepetirEncargado.bind(this)),
+      'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(10)],this.noRepetirTelEncargado.bind(this))
     });
 
   }
@@ -40,7 +40,7 @@ export class FormProveedorComponent implements OnInit {
 
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de Proveedor";
+    this.titulo = "Formulario registro de proveedor";
     this.proveedores.controls["idProveedor"].setValue("0");
     this.proveedores.controls["bandera"].setValue("0");
     this.proveedores.controls["nombre"].setValue("");
@@ -69,7 +69,7 @@ export class FormProveedorComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con exito',
+          title: 'Registro Guardado con éxito',
           showConfirmButton: false,
           timer: 3000
         })
@@ -86,7 +86,7 @@ export class FormProveedorComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Modificado con exito',
+          title: 'Registro Modificado con éxito',
           showConfirmButton: false,
           timer: 3000
         })
@@ -110,7 +110,7 @@ export class FormProveedorComponent implements OnInit {
 
   modificar(id) {
 
-    this.titulo = "Modificar Proveedor";
+    this.titulo = "Modificar proveedor";
     this.display = 'block';
     this.catalogoService.recuperarProveedores(id).subscribe(data => {
 
@@ -129,30 +129,41 @@ export class FormProveedorComponent implements OnInit {
 
 
   eliminar(idProveedor) {
+    this.catalogoService.validarDependeActivo(idProveedor).subscribe(data=>{
+      if(data==1){
+       Swal.fire({
+           icon: 'error',
+           title: 'ERROR',
+           text: 'No es posible eliminar este dato, este proveedor ya tiene activos registrados',
+         
+         })    
+      }else{
     Swal.fire({
-      title: '¿Esta seguro de eliminar este registro?',
-      text: "No podra revertir esta accion!",
+      title: '¿Estas seguro de eliminar este registro?',
+      text: "No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
       confirmButtonText: 'Si, eliminar!'
     }).then((result) => {
       if (result.value) {
         this.catalogoService.eliminarProveedor(idProveedor).subscribe(data => {
           Swal.fire(
             'Dato eliminado!',
-            'El registro ha sido eliminado con exito.',
+            'El registro ha sido eliminado con éxito.',
             'success'
           )
-          this.catalogoService.getProveedores().subscribe(
-            data => { this.proveedor = data }
-          );
+          this.catalogoService.getProveedores().subscribe(data => { this.proveedor = data });
         });
 
       }
-    })
-  }
+  })
+     }
+  })
+  
+}
 
   //Método
 
@@ -160,16 +171,98 @@ export class FormProveedorComponent implements OnInit {
    this.p = 1;
    this.catalogoService.buscarProveedor(buscador.value).subscribe(res => { this.proveedor = res });
   }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+  noRepetirProveedor(control: FormControl) {
 
-  //noIniciaCeroTelefono(control: FormControl) {
-  //  if (control.value != null && control.value != "") {
-  //    if ((<string>control.value.toString()).startsWith("0")) {
-  //      return { IniciaCero: true };
-  //    }
-  //  }
-  //  return null;
-  //}
+    var promesa = new Promise((resolve, reject) => {
 
+      if (control.value != "" && control.value != null) { 
+        
+          this.catalogoService.validarProveedor(this.proveedores.controls["idProveedor"].value,control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteProveedor: true });
+            } else {
+              resolve(null);
+            }
+          });
+        }
+    });
+
+    return promesa;
+  }
+
+  noRepetirEncargado(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) { 
+        
+          this.catalogoService.validarEncargado(this.proveedores.controls["idProveedor"].value,control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteEncargado: true });
+            } else {
+              resolve(null);
+            }
+          });
+        }
+    });
+
+    return promesa;
+  }
+
+  noRepetirTelProveedor(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) { 
+        
+          this.catalogoService.validarTelProveedor(this.proveedores.controls["idProveedor"].value,control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteTelProveedor: true });
+            } else {
+              resolve(null);
+            }
+          });
+        }
+    });
+
+    return promesa;
+  }
+
+  noRepetirTelEncargado(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) { 
+        
+          this.catalogoService.validarTelEncargado(this.proveedores.controls["idProveedor"].value,control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteTelEncargado: true });
+            } else {
+              resolve(null);
+            }
+          });
+        }
+    });
+
+    return promesa;
+  }
+  
+//validar formularios que permita solo letras
+  public inputValidator(event: any) {
+    //console.log(event.target.value);
+    const pattern = /^[a-z A-Z]*$/;   
+    //let inputChar = String.fromCharCode(event.charCode)
+    if (!pattern.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^a-z A-Z]/g, "");
+      // invalid character, prevent input
+
+    }
+  }
 
 
 }

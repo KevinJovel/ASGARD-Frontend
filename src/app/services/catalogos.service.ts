@@ -208,6 +208,22 @@ public validarDepenActivo(idSucursal) {
   public ActualizarProveedor(proveedor) {
     return this.http.post(environment.urlService  + "api/Proveedor/modificarProveedor", proveedor).map(res => res.json());
   }
+  //
+  public validarProveedor(idproveedor, nombre){
+  return this.http.get(environment.urlService  + "api/Proveedor/validarProveedor/" + idproveedor +"/"+ nombre).map(res => res.json());
+  }
+  public validarEncargado(idproveedor, nombre){
+    return this.http.get(environment.urlService  + "api/Proveedor/validarEncargado/" + idproveedor +"/"+ nombre).map(res => res.json());
+  }
+  public validarTelProveedor(idproveedor, telefono){
+    return this.http.get(environment.urlService  + "api/Proveedor/validarTelProveedor/" + idproveedor +"/"+ telefono).map(res => res.json());
+  }
+  public validarTelEncargado(idproveedorr, telefonoe){
+    return this.http.get(environment.urlService  + "api/Proveedor/validarTelEncargado/" + idproveedorr +"/"+ telefonoe).map(res => res.json());
+  }
+  public validarDependeActivo(idProveedor) {
+    return this.http.get(environment.urlService  + "api/Proveedor/validarActivo/" + idProveedor).map(res => res.json());
+  }
 
 //servicios exclusivos para catálogo de  empleados
 
