@@ -48,6 +48,6 @@ export class DepreciacionService {
 
   //Servicio para buscar en cuadro de control
   public buscarCuadro(buscador) {
-    return this.http.get(environment.urlService  + "api/CuadroControl/buscarCuadro" + buscador).map(res => res.json());
+    return this.http.get(environment.urlService  + "api/CuadroControl/buscarCuadro/" + buscador).map(res => res.json());
   }
 }
