@@ -3,7 +3,7 @@ import {CargarScriptsService} from './../../services/cargar-scripts.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
-import { CatalogosService } from './../../services/catalogos.service';
+import { CatalogosService } from './../../services/catalogos.service';//filtro
 import {Router} from '@angular/router';
 import { State, StateService } from './../../services/state.service';
 
@@ -55,7 +55,7 @@ export class TablaActivosComponent implements OnInit {
   ngOnInit() {
     
     this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});
-    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});
+    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
      
   }
 
@@ -164,5 +164,8 @@ open() {
   this.display = 'block';
 
 }
+
+
+
 
 }
