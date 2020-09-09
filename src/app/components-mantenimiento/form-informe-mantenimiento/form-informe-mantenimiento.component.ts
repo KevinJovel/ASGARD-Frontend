@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MantenimientoService } from './../../services/mantenimiento.service';
+import { format } from 'path';
 
 
 @Component({
@@ -31,11 +32,12 @@ export class FormInformeMantenimientoComponent implements OnInit {
 
    //form para la revalorización 
    this.revalorizacion = new FormGroup({
-  //  'idBien': new FormControl("0"),
+    'idBien': new FormControl(""),
     'valorRevalorizacion': new FormControl(""),
+    'idinformematenimiento': new FormControl(""),
    // 'valorActual': new FormControl(""),
    // 'valorDepreciacion': new FormControl("0.00"),
-   // 'vidaUtil': new FormControl(""),
+    'vidaUtil': new FormControl(""),
     'fecha': new FormControl("")
 });
   }
@@ -46,17 +48,21 @@ export class FormInformeMantenimientoComponent implements OnInit {
   
     });
   }
-  open(){
+  open(idBien,idinformematenimiento){
    // alert(id);
     this.titulo = "Revalorización";
-   // this.revalorizacion.controls["idBien"].setValue("0");
+    this.revalorizacion.controls["idBien"].setValue(idBien);
+    this.revalorizacion.controls["idinformematenimiento"].setValue(idinformematenimiento);
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
     this.revalorizacion.controls["fecha"].setValue("");
   //  this.revalorizacion.controls["vidaUtil"].setValue("");
     this.display = 'block';
     //para cargar el valor de vida util:
     //this.empleado.controls["idempleado"].setValue(data.idempleado); 
-
+    this.mantenimientoService.ListarInformeMantenimiento().subscribe(res=>{
+      this.informes=res;
+  
+    });
 
        //para recuerar el id 
       // this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{

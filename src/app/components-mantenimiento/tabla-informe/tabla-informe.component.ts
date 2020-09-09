@@ -64,8 +64,8 @@ export class TablaInformeComponent implements OnInit {
       this.informe.controls["fechainforme"].setValue("");
        this.informe.controls["idtecnico"].setValue("");
        this.informe.controls["descripcion"].setValue("");
-       this.informe.controls["costomateriales"].setValue("", Validators.pattern(/^[.]?[0-9]+[.]?[0-9]*$/));
-       this.informe.controls["costomo"].setValue("",Validators.pattern(/^[-]?[0-9]+[\.]?[0-9]+$/));
+       this.informe.controls["costomateriales"].setValue("");
+       this.informe.controls["costomo"].setValue("");
        this.informe.controls["costototal"].setValue("");
 
     

@@ -50,7 +50,7 @@
 			
                    
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open()" ><i class="icon-edit"></i></button>
+                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(informe.idBien,informe.idinformematenimiento)" ><i class="icon-edit"></i></button>
                      </td>
                   </tr>
                 </tbody>
@@ -73,7 +73,9 @@
       </div>
       <div class="modal-body">
         <form class="form-inline" id="default" [formGroup]="revalorizacion" (ngSubmit)="guardarDatos()">   
-          <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
+          <input type="text" class="form-control" formControlName="idBien" id="exampleInputEmail3"
+          autocomplete="off">
+          <input type="text" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3"
           autocomplete="off">
 
             <div class="form-group col-md-6">
