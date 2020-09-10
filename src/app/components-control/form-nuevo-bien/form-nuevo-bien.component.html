@@ -142,12 +142,7 @@
                   <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
                 </div>
 
-                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['descripcion'].errors?.maxlength">
-                  <button data-dismiss="alert" class="close close-sm" type="button">
-                    <i class="icon-remove"></i>
-                  </button>
-                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
-                </div>
+                
 
                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cantidad'].errors?.puntoDecimal">
                   <button data-dismiss="alert" class="close close-sm" type="button">
@@ -169,7 +164,26 @@
                   </button>
                   <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
                 </div>
+              </div> 
+              <!--Div para validaciones en el centro-->
+              <div class="form-group col-md-4">
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['descripcion'].errors?.maxlength">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                </div>
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['descripcion'].errors?.pattern">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+                </div>
+
               </div>
+              <!--DFin iv para validaciones en el centro-->
 
           </fieldset>
           <fieldset title="2" class="step" id="default-step-1" >
@@ -177,7 +191,7 @@
               <div class="form-row">
                 <div class="form-group col-md-4">
                 <label  for="formGroupExampleInput2"># de Factura</label>
-                <input type="text" class="form-control" id="inputEmail4" placeholder="Ingrese # de factura" formControlName="nofactura" maxlength="11">
+                <input type="text" class="form-control" id="inputEmail4" placeholder="Ingrese # de factura" formControlName="nofactura" maxlength="31">
                 </div>
                 <div class="form-group col-md-4">
                 <label for="inputPassword4">Costo</label>
@@ -238,13 +252,7 @@
            
           <!-- Alertas de validaciones -->
           <div class="form-group col-md-4">
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['nofactura'].errors?.maxlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
-          </div>
-
+         
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['personaentrega'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -274,6 +282,16 @@
           </div>
 
         </div>
+        <!--Div para alertas en el centro-->
+        <div class="form-group col-md-4">
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['nofactura'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+        </div>
+        <!--Fin Div para alertas en el centro-->
               
           </fieldset>
           <br><br><br>

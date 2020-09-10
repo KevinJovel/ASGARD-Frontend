@@ -51,7 +51,7 @@ export class FormNuevoBienComponent implements OnInit {
       idbien: new FormControl('0'),
       bandera: new FormControl('0'),
       color: new FormControl('', [Validators.required,Validators.maxLength(20),]),
-      descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),]),
+      descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")]),
       modelo: new FormControl('', [Validators.required,Validators.maxLength(30),]),
       tipoadquicicion: new FormControl('0', [Validators.required]), //contado credito o donado
       idmarca: new FormControl('0', [Validators.required]),
@@ -64,7 +64,7 @@ export class FormNuevoBienComponent implements OnInit {
       cuotaasignada: new FormControl(''),
       interes: new FormControl(''),
       noformulario: new FormControl('0'),
-      nofactura: new FormControl('', [Validators.required,Validators.maxLength(10),]),
+      nofactura: new FormControl('', [Validators.required,Validators.maxLength(30),]),
       fechaingreso: new FormControl('', [Validators.required]),
       personaentrega: new FormControl('', [Validators.required, Validators.maxLength(50),]),
       personarecibe: new FormControl('', [Validators.required, Validators.maxLength(50),]),
@@ -179,17 +179,13 @@ export class FormNuevoBienComponent implements OnInit {
     if (this.nuevobien.controls['bandera'].value == '0') {
       if (this.nuevobien.valid == true) {
         this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe((data) => {
-            //Envío valor cero para guardar
-            this.nuevobien.controls['prima'].setValue('0');
-            this.nuevobien.controls['plazopago'].setValue('0');
-            this.nuevobien.controls['cuotaasignada'].setValue('0');
-            this.nuevobien.controls['interes'].setValue('0');
-
+            
             //Pasamos la foto
             this.nuevobien.controls['foto'].setValue(this.foto);
 
             if (data == 1) {
               this.controlService.agregarBien(this.nuevobien.value).subscribe((res) => {
+                console.log(this.nuevobien.value);
                   if (res == 1) {
                     Swal.fire({
                       title: 'Registro Guardado con éxito',
