@@ -44,10 +44,18 @@ export class FormInformeMantenimientoComponent implements OnInit {
 
   ngOnInit(): void {
     this.mantenimientoService.ListarInformeMantenimiento().subscribe(res=>{
-      this.informes=res;
+      this.informes=res;  
   
     });
+  
   }
+  
+  activarcarja(){
+    this.revalorizacion.controls["vidaUtil"].disable;
+  }
+          
+
+ 
   open(idBien,idinformematenimiento){
    // alert(id);
     this.titulo = "Revalorización";
@@ -55,13 +63,13 @@ export class FormInformeMantenimientoComponent implements OnInit {
     this.revalorizacion.controls["idinformematenimiento"].setValue(idinformematenimiento);
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
     this.revalorizacion.controls["fecha"].setValue("");
-  //  this.revalorizacion.controls["vidaUtil"].setValue("");
-    this.display = 'block';
-    //para cargar el valor de vida util:
-    //this.empleado.controls["idempleado"].setValue(data.idempleado); 
+    this.revalorizacion.controls["vidaUtil"].setValue("");
+    
+ 
+ 
     this.mantenimientoService.ListarInformeMantenimiento().subscribe(res=>{
       this.informes=res;
-  
+      this.display = 'block';
     });
 
        //para recuerar el id 
@@ -71,6 +79,9 @@ export class FormInformeMantenimientoComponent implements OnInit {
      // });
   }
 
+   habilitar(){
+    
+  }
  
   buscar(buscador) {
     this.p = 1;
@@ -92,7 +103,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })
-        /* this.mantenimientoService.cambiarEstadoDenegado(this.informe.controls["idBien"].value).subscribe(rest=>{
+         this.mantenimientoService.estadoInformeRevalorizado(this.informe.controls["idinformematenimiento"].value).subscribe(rest=>{
           if(rest==1){
             Swal.fire({
               position: 'center',
@@ -103,7 +114,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
             })
           this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.informes=data});
           }
-        });*/
+        });
       
       }else{
         Swal.fire({

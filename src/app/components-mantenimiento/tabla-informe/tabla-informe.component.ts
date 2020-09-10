@@ -36,9 +36,9 @@ export class TablaInformeComponent implements OnInit {
       'fechainforme': new FormControl("",[Validators.required]),
       'idtecnico': new FormControl("0",[Validators.required]),
       //'idBien': new FormControl("0"),
-      'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100)]),
-      'costomateriales':new FormControl("",[Validators.required]),
-      'costomo':new FormControl("",[Validators.required]),
+      'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'costomateriales':new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
+      'costomo':new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
      // 'costototal':new FormControl("",[Validators.required])
    }); 
   }
@@ -119,6 +119,7 @@ export class TablaInformeComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })
+        this.display = 'none';
          this.mantenimientoService.cambiarEstadoDenegado(this.informe.controls["idBien"].value).subscribe(rest=>{
           if(rest==1){
           this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.bienes=data});
@@ -145,11 +146,6 @@ export class TablaInformeComponent implements OnInit {
     this.informe.controls["costomateriales"].setValue("");
    this.informe.controls["costomo"].setValue("");
      this.informe.controls["costototal"].setValue("");
-
-       
-
-     
-   
 
 this.display = 'none';
 this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{

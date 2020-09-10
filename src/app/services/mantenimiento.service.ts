@@ -89,7 +89,12 @@ public ListarInformeMantenimiento(){
  public insertarRevalorizacion(revalorizacion) {
   return this.http.post(environment.urlService + "api/InformeMantenimiento/insertarRevalorizacion", revalorizacion).map(res=>res.json());
   }
-  
+  //METODO PARA CAMBIAR DE ESTADO LA EL INFORME CUANDO SE REVALORIZA O NO.
+ public  estadoInformeRevalorizado (estadoInformeRevalorizado){
+  return this.http.get(environment.urlService + "api/InformeMantenimiento/estadoInformeRevalorizado/" + estadoInformeRevalorizado ).map(res=>res.json());
+ }
+
+ 
 
 
 
