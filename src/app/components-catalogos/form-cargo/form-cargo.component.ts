@@ -25,8 +25,8 @@ export class FormCargoComponent implements OnInit {
 
       'idcargo': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'cargo': new FormControl("", [Validators.required, Validators.maxLength(25),Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirCargo.bind(this)),
-      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9]+$")])
+      'cargo': new FormControl("", [Validators.required, Validators.maxLength(25),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")], this.noRepetirCargo.bind(this)),
+      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")])
 
     });
  
