@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
+import { MantenimientoService } from './../../services/mantenimiento.service';
 
 import Swal from 'sweetalert2';
 
@@ -27,7 +28,19 @@ export class HistorialMantenimientoComponent implements OnInit {
   //Datos del modal
   coopertativa:string;
   anio:string;
-  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService) { 
+
+  // para listar el historial
+  informes: any;
+  // bienes: any;
+   tecnicos:any;
+   informe: FormGroup;
+   revalorizacion: FormGroup;
+   display3 = 'none';
+   titulo3: string;
+  
+   idmante: any;
+ 
+  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService,private mantenimientoService: MantenimientoService) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0")
@@ -41,11 +54,19 @@ export class HistorialMantenimientoComponent implements OnInit {
       'valorActual': new FormControl(""),
       'valorDepreciacion': new FormControl("")
   });
+// para historial
+
+  
   }
 
   ngOnInit(): void {
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
     this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+
+//para historial
+    this.mantenimientoService.historialInformes().subscribe(res=>{
+      this.informes=res;  
+    });
   }
   FiltrarArea(){
     var id= this.combos.controls['idSucursal'].value;

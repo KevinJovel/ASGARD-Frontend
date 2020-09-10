@@ -79,10 +79,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
      // });
   }
 
-   habilitar(){
-    
-  }
- 
+
   buscar(buscador) {
     this.p = 1;
     this.mantenimientoService.buscarInformes(buscador.value).subscribe(res => {this.informes = res});
