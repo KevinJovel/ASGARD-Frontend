@@ -20,12 +20,12 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion = new FormGroup({
       'idclasificacion': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'clasificacion': new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirClasificacion.bind(this)),
-      'correlativo': new FormControl("", [Validators.required,  Validators.maxLength(10)], this.noRepetirCorrelativo.bind(this)),
-      'descripcion': new FormControl("",[ Validators.maxLength(100)])
+      'clasificacion': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9-ñÑ.]+$áéíóú ")], this.noRepetirClasificacion.bind(this)),
+      'correlativo': new FormControl("", [Validators.required,  Validators.maxLength(10),Validators.pattern("^[a-zA-Z 0-9-ñÑ.]+$áéíóú ")], this.noRepetirCorrelativo.bind(this)),
+      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóú ]+$")])
 
     });
-
+   
 
 
   }
@@ -106,8 +106,47 @@ export class FormClasificacionComponent implements OnInit {
     });
    
   }
- 
   eliminar(idclasificacion) {
+    this.catalogosServices.validarActivo(idclasificacion).subscribe(data => {
+        if (data == 1) {
+            Swal.fire({
+                icon: 'error',
+                title: '¡ERROR!',
+                text: 'No es posible eliminar este dato, ya existen activos denominados a esta clasificación',
+                confirmButtonText: 'Aceptar'
+
+            })
+        } else {
+            Swal.fire({
+                title: '¿Estas seguro de eliminar este registro?',
+                text: "No podrás revertir esta acción!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminar!',
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.value) {
+                    this.catalogosServices.eliminarCasificacion(idclasificacion).subscribe(data => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '¡ELIMINADO!',
+                            text: 'El registro ha sido eliminado con exito.',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        this.catalogosServices.getClasificacion().subscribe(
+                          data => { this.clasificaciones = data }
+                        );
+                    });
+
+                }
+            })
+        }
+    })
+
+}
+  eliminar1(idclasificacion) {
     Swal.fire({
       title: '¿Estas seguro de eliminar este registro?',
       text: "No podras revertir esta accion!",

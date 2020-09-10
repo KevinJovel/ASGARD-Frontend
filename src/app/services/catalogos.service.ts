@@ -154,15 +154,10 @@ public validarDepenActivo(idSucursal) {
   public guardarClasificacion(clasificacion) {
     return this.http.post(environment.urlService  + "api/Clasificacion/guardarClasificacion", clasificacion).map(res => res.json());
 }
-
-
-
   //servicio que enlista la clasificacion de los activos
   public getClasificacion() {
     return this.http.get(environment.urlService  + "api/Clasificacion/listarClasificacion").map(res => res.json());
   }
-
-
   //para eliminar los registros de clasificacion de acitvo
 
   public eliminarCasificacion(idclasificacion) {
@@ -179,13 +174,14 @@ public validarDepenActivo(idSucursal) {
   public modificarclasificacion(clasificacion) {
     return this.http.post(environment.urlService  + "api/Clasificacion/modificarclasificacion", clasificacion).map(res => res.json());
   }
-
   public validarCorrelativo(idclasificacion, correlativo){
     return this.http.get(environment.urlService  + "api/Clasificacion/validarCorrelativo/" + idclasificacion+ "/"+ correlativo).map(res => res.json());
   }
-
   public validarClasificacion (idclasificacion, clasificacion){
     return this.http.get(environment.urlService  + "api/Clasificacion/validarClasificacion/" + idclasificacion+ "/"+ clasificacion).map(res => res.json());
+  }
+  public validarActivo(idclasificacion) {
+    return this.http.get(environment.urlService  + "api/Clasificacion/validarActivo/" + idclasificacion).map(res => res.json());
   }
 
   //SERVICIOS PARA PROVEEDOR
