@@ -29,6 +29,14 @@ export class CatalogosService {
     public updateMarca(marca) {
         return this.http.post(environment.urlService  + "api/Marca/modificarMarca", marca).map(res => res.json());
     }
+    public validarExisteMarca(idMarca, Marca){
+      return this.http.get(environment.urlService  + "api/Marca/validarMarca/" + idMarca+ "/"+ Marca).map(res => res.json());
+    }
+    public validarReferenciaMarcaActivos(idMarca){
+      return this.http.get(environment.urlService  + "api/Marca/validarRefereciaActivo/" + idMarca).map(res => res.json());
+    }
+   
+   
     
     //Servicios Sucursales
 

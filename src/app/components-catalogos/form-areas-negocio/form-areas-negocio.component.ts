@@ -22,7 +22,7 @@ export class FormAreasNegocioComponent implements OnInit {
     this.area = new FormGroup({
       'idAreaNegocio': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")]),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ]+$")]),
       'idSucursal': new FormControl("0",[Validators.required]),
       'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirCorrelativo.bind(this))
     });

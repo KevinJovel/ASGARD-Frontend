@@ -66,14 +66,13 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="marca" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idMarca" id="exampleInputEmail3"
+          <input type="hidden" class="form-control" formControlName="idMarca"
             autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
+          <input type="hidden" class="form-control" formControlName="bandera"
             autocomplete="off">
           <div class="form-group">
-            <label for="exampleInputEmail1">Marca:</label>
-            <input type="text" class="form-control" formControlName="marca" id="exampleInputEmail3"
-              placeholder="Ingrese marca" autocomplete="off">
+            <label for="exampleInputEmail1">* Marca:</label>
+            <input type="text" class="form-control" formControlName="marca" placeholder="Ingrese marca" autocomplete="off" maxlength="26">
           </div>
           <!--  WARNING-->
           <div class="alert alert-warning fade in" *ngIf="marca.controls['marca'].errors?.required">
@@ -86,7 +85,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Exelente!</strong> Asegurece de ingresar el nombre correctamente
+            <strong>¡Exelente!</strong> Asegúrese de ingresar el nombre correctamente.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['marca'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -94,11 +93,25 @@
             </button>
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
+          <div class="alert alert-block alert-danger fade in"
+          *ngIf="marca.controls['marca'].errors?.yaExisteMarca">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Error!</strong> La marca ingresada ya existe.
+
+        </div>
           <!--  END-WARNING-->
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2"
-              rows="3" placeholder="Ingrese descripcion" autocomplete="off"></textarea>
+            <textarea class="form-control rounded-0" formControlName="descripcion"
+              rows="3" placeholder="Ingrese descripcion" autocomplete="off" maxlength="101"></textarea>
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['descripcion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
 
           <button [disabled]="!marca.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>

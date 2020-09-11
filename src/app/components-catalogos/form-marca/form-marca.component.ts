@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -15,12 +14,12 @@ export class FormMarcaComponent implements OnInit {
     display = 'none';
     titulo: string;
     p:number=1;
-    constructor(private catalogoService: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
+    constructor(private catalogoService: CatalogosService) {
         this.marca = new FormGroup({
             'idMarca': new FormControl("0"),
             'bandera': new FormControl("0"),
-            'marca': new FormControl("", [Validators.required,Validators.pattern("^[a-zA-Z 0-9]+$")]),
-            'descripcion': new FormControl("")
+            'marca': new FormControl("", [Validators.required, Validators.maxLength(25), Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ]+$")], this.noRepetirMarca.bind(this)),
+            'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ.]+$")])
         });
     }
 
@@ -30,7 +29,7 @@ export class FormMarcaComponent implements OnInit {
     }
     open() {
         //limpia cache
-        this.titulo = "Formulario Marca";
+        this.titulo = "Formulario marca";
         this.marca.controls["idMarca"].setValue("0");
         this.marca.controls["bandera"].setValue("0");
         this.marca.controls["marca"].setValue("");
@@ -53,7 +52,7 @@ export class FormMarcaComponent implements OnInit {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Dato Guardado con exito',
+                    title: '¡Registro Guardado con éxito!',
                     showConfirmButton: false,
                     timer: 3000
                 })
@@ -69,7 +68,7 @@ export class FormMarcaComponent implements OnInit {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Dato Modificado con exito',
+                    title: '¡Registro modificado con éxito!',
                     showConfirmButton: false,
                     timer: 3000
                 })        
@@ -83,7 +82,7 @@ export class FormMarcaComponent implements OnInit {
       
     }
     modif(id) {
-        this.titulo = "Modificar Marca";
+        this.titulo = "Modificar marca";
         this.display = 'block';
         this.catalogoService.recuperarMarcas(id).subscribe(data => {
             this.marca.controls["idMarca"].setValue(data.idMarca);
@@ -93,31 +92,69 @@ export class FormMarcaComponent implements OnInit {
         });
     }
     eliminar(idMarca) {
+        this.catalogoService.validarReferenciaMarcaActivos(idMarca).subscribe(data => {
+            if (data == 1) {
+              Swal.fire({
+                icon: 'error',
+                title: 'ERROR',
+                text: 'No es posible eliminar este registro, hay activos que hacen referencia a esta marca',
+                confirmButtonText: 'Aceptar'
+              })
+            } else {
         Swal.fire({
-            title: '¿Estas seguro de eliminar este registro?',
-            text: "No podras revertir esta accion!",
+            title: '¿Estás seguro de eliminar este registro?',
+            text: "¡No podrás revertir esta acción!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, eliminar!'
+            confirmButtonText: 'Si, eliminar!',
+            cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
                 this.catalogoService.eliminarMarca(idMarca).subscribe(data => {
-                    Swal.fire(
-                        'Dato eliminado!',
-                        'Tu archivo ha sido eliminado con exito.',
-                        'success'
-                    )
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡ELIMINADO!',
+                        text: '¡El registro ha sido eliminado con éxito!',
+                        confirmButtonText: 'Aceptar'
+                    });
                     this.catalogoService.getMarcas().subscribe(res => {this.marcas = res});
                 });
-               
+       
             }
         })
-    }
+      }
+    })
+
+  }
     buscar(buscador) {
         this.p=1;
         this.catalogoService.buscarMarca(buscador.value).subscribe(res => this.marcas = res);
     }
+    
+    noRepetirMarca(control: FormControl) {
+
+        var promesa = new Promise((resolve, reject) => {
+    
+          if (control.value != "" && control.value != null) {
+    
+            this.catalogoService.validarExisteMarca(this.marca.controls["idMarca"].value, control.value)
+              .subscribe(data => {
+                if (data == 1) {
+                  resolve({ yaExisteMarca: true });
+                } else {
+                  resolve(null);
+                }
+    
+              })
+    
+          }
+    
+    
+        });
+    
+        return promesa;
+      }
     }
 

@@ -90,7 +90,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
           </div>
           <!-- Validacion de pattern no acepta caracteres especiales -->
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['nombre'].errors?.pattern">
@@ -109,14 +109,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Esta combinación de sucursal y ubicación ya existe
+            <strong>¡Error!</strong> Esta combinación de sucursal y ubicación ya existe.
           </div>
           <!-- Validacion de tamaño maximo de cadena -->
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -134,7 +134,7 @@
             *ngIf="sucursal.controls['correlativo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button"><i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
           </div>
           <div class="alert alert-block alert-danger fade in"
             *ngIf="sucursal.controls['correlativo'].errors?.yaExisteCorrelativo">
