@@ -16,7 +16,8 @@ export class FormAreasNegocioComponent implements OnInit {
   area: FormGroup;
   display = 'none';
   titulo: string;
-  yaExiste:boolean;
+  yaExiste:boolean=false;
+  modif: number=0;
   constructor(private catalogosServices: CatalogosService) {
     this.area = new FormGroup({
       'idAreaNegocio': new FormControl("0"),
@@ -32,7 +33,7 @@ export class FormAreasNegocioComponent implements OnInit {
     this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
   }
   open() {
-    this.titulo = "Formulario Áreas de Negocio"
+    this.titulo = "Formulario áreas de negocio"
     this.display = 'block';
     this.area.controls["idAreaNegocio"].setValue("0");
     this.area.controls["bandera"].setValue("0");
@@ -45,6 +46,7 @@ export class FormAreasNegocioComponent implements OnInit {
   close() {
     this.display = "none";
     this.yaExiste=false;
+    this.modif = 0;
   }
   validar(){
    
@@ -68,7 +70,7 @@ export class FormAreasNegocioComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con exito',
+          title: '¡Registro Guardado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -83,7 +85,7 @@ export class FormAreasNegocioComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Dato Modificado con exito',
+          title: '¡Registro modificado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -95,9 +97,14 @@ export class FormAreasNegocioComponent implements OnInit {
     this.area.controls["idSucursal"].setValue("");
     this.area.controls["correlativo"].setValue("");
     this.display = 'none';
+    this.modif = 0;
   }
   modificar(id) {
-    this.titulo = "Modificar Área de Negocio";
+    this.catalogosServices.ValidarActivosReferenciadosArea(id).subscribe(data => {
+      if (data == 1) {
+          this.modif = 1;
+      }
+    this.titulo = "Modificar área de negocio";
     this.display = 'block';
     this.catalogosServices.RecuperarArea(id).subscribe(data => {
       this.area.controls["idAreaNegocio"].setValue(data.idAreaNegocio);
@@ -107,7 +114,7 @@ export class FormAreasNegocioComponent implements OnInit {
       this.area.controls["bandera"].setValue("1");
 
     });
-
+  });
 
   }
   eliminar(idArea) {
@@ -117,26 +124,26 @@ export class FormAreasNegocioComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'ERROR',
-          text: 'No es posible eliminar este dato, esta área de negocio ya tiene empleados asignados',
-
+          text: 'No es posible eliminar este registro, esta área de negocio ya tiene empleados asignados',
+          confirmButtonText: 'Aceptar'
         })
       } else {
         Swal.fire({
-          title: '¿Estas seguro de eliminar este registro?',
-          text: "No podras revertir esta accion!",
+          title: '¿Estás seguro de eliminar este registro?',
+          text: "¡No podrás revertir esta acción!",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, eliminar!',
+          confirmButtonText: '¡Si, eliminar!',
           cancelButtonText: 'Cancelar'
         }).then((result) => {
           if (result.value) {
             this.catalogosServices.DeleteArea(idArea).subscribe(data => {
               Swal.fire({
                 icon: 'success',
-                title: '¡Eliminado!',
-                text: 'El registro ha sido eliminado con exito.',
+                title: '¡ELIMINADO!',
+                text: '¡El registro ha sido eliminado con éxito!',
                 confirmButtonText: 'Aceptar'
 
             })

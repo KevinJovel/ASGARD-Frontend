@@ -113,7 +113,7 @@
       
           <div class="form-group">
             <label for="exampleInputEmail1">* Correlativo:</label>
-            <input type="text" class="form-control" formControlName="correlativo" id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+            <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo" id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -134,8 +134,14 @@
             <strong>¡Error!</strong> Ya existe el "Correlativo" ingresado.
           
           </div>
+          <div class="alert alert-warning fade in" *ngIf="this.modif==1">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> El correlativo no se puede modificar, porque hay activos referenciados.
+          </div>
           <!--  WARNING-->
-          <div class="alert alert-warning fade in" *ngIf="!area.valid&&!area.controls['correlativo'].errors?.yaExisteCorrelativo">
+          <div class="alert alert-warning fade in" *ngIf="!area.valid&&!area.controls['correlativo'].errors?.yaExisteCorrelativo||this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
@@ -143,7 +149,7 @@
           </div>
          
           <!--  END-WARNING-->
-          <div class="alert alert-success fade in" *ngIf="area.valid&&area.controls['bandera'].value==0">
+          <div class="alert alert-success fade in" *ngIf="area.valid&&area.controls['bandera'].value==0&&this.yaExiste==false">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>

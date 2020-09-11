@@ -288,6 +288,10 @@ public validarAreaSucursal(idSucursal, area,sucursal){
 public existenEmpleadosAsignados(idArea){
   return this.http.get(environment.urlService  + "api/AreasNegocios/validarEmpleados/" + idArea).map(res => res.json());
 }
+public ValidarActivosReferenciadosArea(idArea){
+  return this.http.get(environment.urlService  + "api/AreaNegocios/validarRefereciaActivo/" + idArea).map(res => res.json());
+}
+
 
 }
 

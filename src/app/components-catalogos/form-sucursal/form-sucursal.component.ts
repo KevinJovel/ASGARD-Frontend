@@ -16,14 +16,14 @@ export class FormSucursalComponent implements OnInit {
     display = 'none';
     titulo: string;
      modif: number=0;
-     yaExiste: boolean;
+     yaExiste: boolean=false;
     constructor(private catalogoService: CatalogosService) {
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
             'bandera': new FormControl("0"),
-            'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")]),
-            'ubicacion': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")]),
-            'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirCorrelativo.bind(this))
+            'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9Ññáéíóú]+$")]),
+            'ubicacion': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9Ññáéíóú,]+$")]),
+            'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[a-zA-Z 0-9Ññ]+$")], this.noRepetirCorrelativo.bind(this))
         });
     }
 
@@ -32,7 +32,7 @@ export class FormSucursalComponent implements OnInit {
     }
     open() {
         //limpia cache
-        this.titulo = "Formulario Sucursal";
+        this.titulo = "Formulario sucursal";
         this.sucursal.controls["idSucursal"].setValue("0");
         this.sucursal.controls["bandera"].setValue("0");
         this.sucursal.controls["nombre"].setValue("");
@@ -68,7 +68,7 @@ export class FormSucursalComponent implements OnInit {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Dato Guardado con exito',
+                    title: '¡Registro guardado con éxito!',
                     showConfirmButton: false,
                     timer: 3000
                 })
@@ -85,7 +85,7 @@ export class FormSucursalComponent implements OnInit {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Dato Modificado con exito',
+                    title: '¡Registro modificado con éxito!',
                     showConfirmButton: false,
                     timer: 3000
                 })
@@ -105,19 +105,19 @@ export class FormSucursalComponent implements OnInit {
                 Swal.fire({
                     icon: 'error',
                     title: '¡ERROR!',
-                    text: 'No es posible eliminar este dato, esta sucursal ya tiene áreas de negocio asignadas',
+                    text: 'No es posible eliminar este registro, esta sucursal ya tiene áreas de negocio asignadas',
                     confirmButtonText: 'Aceptar'
 
                 })
             } else {
                 Swal.fire({
-                    title: '¿Estas seguro de eliminar este registro?',
-                    text: "No podrás revertir esta acción!",
+                    title: '¿Estás seguro de eliminar este registro?',
+                    text: "¡No podrás revertir esta acción!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, eliminar!',
+                    confirmButtonText: '¡Si, eliminar!',
                     cancelButtonText: "Cancelar"
                 }).then((result) => {
                     if (result.value) {
@@ -125,7 +125,7 @@ export class FormSucursalComponent implements OnInit {
                             Swal.fire({
                                 icon: 'error',
                                 title: '¡ELIMINADO!',
-                                text: 'El registro ha sido eliminado con exito.',
+                                text: '¡El registro ha sido eliminado con éxito!',
                                 confirmButtonText: 'Aceptar'
                             })
                             this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
@@ -142,7 +142,7 @@ export class FormSucursalComponent implements OnInit {
             if (data == 1) {
                 this.modif = 1;
             }
-            this.titulo = "Modificar Sucursal";
+            this.titulo = "Modificar sucursal";
             this.display = 'block';
             this.catalogoService.recuperarSucursal(id).subscribe(data => {
                 this.sucursal.controls["idSucursal"].setValue(data.idSucursal);
