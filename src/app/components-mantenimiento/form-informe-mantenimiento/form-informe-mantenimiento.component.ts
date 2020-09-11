@@ -100,12 +100,12 @@ export class FormInformeMantenimientoComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })
-         this.mantenimientoService.estadoInformeRevalorizado(this.informe.controls["idinformematenimiento"].value).subscribe(rest=>{
+         this.mantenimientoService.estadoInformeRevalorizado(this.revalorizacion.controls["idinformematenimiento"].value).subscribe(rest=>{
           if(rest==1){
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'cambio',
+              title: 'mas tarde lo quito',
               showConfirmButton: false,
               timer: 3000
             })
