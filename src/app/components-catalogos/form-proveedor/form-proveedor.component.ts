@@ -24,11 +24,11 @@ export class FormProveedorComponent implements OnInit {
 
       'idProveedor': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50)],this.noRepetirProveedor.bind(this)),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáéíóú]+$")],this.noRepetirProveedor.bind(this)),
       'telefono': new FormControl("", [Validators.required, Validators.maxLength(10)],this.noRepetirTelProveedor.bind(this)),
-      'direccion': new FormControl("", [Validators.required, Validators.maxLength(100)]),
-      'rubro': new FormControl("", [Validators.required, Validators.maxLength(50)]),
-      'encargado': new FormControl("", [Validators.required, Validators.maxLength(50)],this.noRepetirEncargado.bind(this)),
+      'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-z A-Z 0-9 ñÑáéíóú #.°]+$")]),
+      'rubro': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z  ñÑáéíóú]+$")]),
+      'encargado': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáéíóú]+$")],this.noRepetirEncargado.bind(this)),
       'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(10)],this.noRepetirTelEncargado.bind(this))
     });
 
@@ -135,6 +135,7 @@ export class FormProveedorComponent implements OnInit {
            icon: 'error',
            title: 'ERROR',
            text: 'No es posible eliminar este dato, este proveedor ya tiene activos registrados',
+           confirmButtonText: 'Aceptar'
          
          })    
       }else{
@@ -150,11 +151,12 @@ export class FormProveedorComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.catalogoService.eliminarProveedor(idProveedor).subscribe(data => {
-          Swal.fire(
-            'Dato eliminado!',
-            'El registro ha sido eliminado con éxito.',
-            'success'
-          )
+          Swal.fire({
+              icon: 'error',
+              title: '¡ELIMINADO!',
+              text: 'El registro ha sido eliminado con exito.',
+              confirmButtonText: 'Aceptar'
+          })
           this.catalogoService.getProveedores().subscribe(data => { this.proveedor = data });
         });
 
@@ -253,16 +255,16 @@ export class FormProveedorComponent implements OnInit {
   }
   
 //validar formularios que permita solo letras
-  public inputValidator(event: any) {
-    //console.log(event.target.value);
-    const pattern = /^[a-z A-Z]*$/;   
-    //let inputChar = String.fromCharCode(event.charCode)
-    if (!pattern.test(event.target.value)) {
-      event.target.value = event.target.value.replace(/[^a-z A-Z]/g, "");
-      // invalid character, prevent input
-
-    }
-  }
+  //public inputValidator(event: any) {
+        ////console.log(event.target.value);
+   // const pattern = /^[a-z A-Z]*$/;   
+        ////let inputChar = String.fromCharCode(event.charCode)
+   // if (!pattern.test(event.target.value)) {
+  // event.target.value = event.target.value.replace(/[^a-z A-Z]/g, "");
+        //// invalid character, prevent input
+// en el input (input)="inputValidator($event)"
+   // }
+ // }
 
 
 }
