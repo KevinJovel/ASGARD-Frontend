@@ -40,9 +40,9 @@ export class CuadroSolicitudComponent implements OnInit {
       'idsolicitud': new FormControl("0"),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10)],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150)]),
+       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-zA-ZñÑáéíóú]+$")]),
        'motivo': new FormControl("0"),
-       'entidadbeneficiaria': new FormControl("",[Validators.maxLength(50)]),
+       'entidadbeneficiaria': new FormControl("",[Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóú]+$")]),
        'domicilio': new FormControl("",[Validators.maxLength(50)]),
        'contacto': new FormControl("",[Validators.maxLength(50)]),
        'telefono': new FormControl(""),
@@ -143,12 +143,22 @@ export class CuadroSolicitudComponent implements OnInit {
       this.disabledcontacto = 'Inhabilitado';
       this.disabledtelefono = 'Inhabilitado';
 
+      this.solicitud.controls["entidadbeneficiaria"].setValue("");
+      this.solicitud.controls["domicilio"].setValue("");
+      this.solicitud.controls["contacto"].setValue("");
+      this.solicitud.controls["telefono"].setValue("");
+
       if (idmotivo ==4 ) {
         this.disabled = false;
         this.disabledentidad = 'Ingrese entidad';
         this.disableddomicilio = 'Ingrese domicilio';
         this.disabledcontacto = 'Ingrese contacto';
         this.disabledtelefono = 'Ingrese teléfono';
+        //limpia cache
+        this.solicitud.controls["entidadbeneficiaria"].setValue("");
+        this.solicitud.controls["domicilio"].setValue("");
+        this.solicitud.controls["contacto"].setValue("");
+        this.solicitud.controls["telefono"].setValue("");
       } else {
         this.disabled = true;    
       }    
@@ -193,16 +203,16 @@ export class CuadroSolicitudComponent implements OnInit {
   }
 
   //validar formularios que permita solo letras
-  public inputValidator(event: any) {
-    //console.log(event.target.value);
-    const pattern = /^[a-z A-Z]*$/;   
-    //let inputChar = String.fromCharCode(event.charCode)
-    if (!pattern.test(event.target.value)) {
-      event.target.value = event.target.value.replace(/[^a-z A-Z]/g, "");
-      // invalid character, prevent input
+  //public inputValidator(event: any) {
+    ////console.log(event.target.value);
+  //const pattern = /^[a-z A-Z]*$/;   
+    ////let inputChar = String.fromCharCode(event.charCode)
+  //if (!pattern.test(event.target.value)) {
+  //event.target.value = event.target.value.replace(/[^a-z A-Z]/g, "");
+     // // invalid character, prevent input
 
-    }
-  }
+   // }
+  //}
 
   
 }

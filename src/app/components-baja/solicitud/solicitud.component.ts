@@ -11,8 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class SolicitudComponent implements OnInit {
 
-  //solicitud2: FormGroup;
-  solicitudes2: any;
+  //solicitudes: FormGroup;
+  //solicitudes2: any;
   //activos: FormGroup;
   activo2: any;
  // id:any;
@@ -22,6 +22,7 @@ export class SolicitudComponent implements OnInit {
   //parametro: string;
   p: number = 1;
   solicitudes: FormGroup;
+  bienesS: any;
 
   fecha:string; marca:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  motivo:string; entidad:string; observaciones:string; ubicacion:string;
@@ -38,11 +39,18 @@ export class SolicitudComponent implements OnInit {
 
   ngOnInit() {
     this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+   
   }
 
   guardarDatos(){
-
+    //if (this.solicitudes.valid == true) {
+     // this.bajaService.guardarAcuerdo(this.solicitudes.value).subscribe((data) => {
+     //  console.log("Id Bien: " + this.solicitudes.value);    
+      //    });                 
+  //  }
+   // this.display = 'none';
   }
+
 
 
   verSolicitud(id) {
@@ -50,7 +58,6 @@ export class SolicitudComponent implements OnInit {
     this.titulo = "Autorización de Solicitud para dar de baja";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
     this.bajaService.verSolicitud(id).subscribe((data) => {
-   console.log(data);
       
       //this.area = data.AreaDeNegocio;
      // this.responsable = data.responsable;
@@ -62,11 +69,16 @@ export class SolicitudComponent implements OnInit {
       this.observaciones = data.observaciones;
       this.folio = data.folio;
       this.solicitud = data.noSolicitud;
-      this.acuerdo = data.acuerdo;
-      console.log(id);
+     // this.acuerdo = data.acuerdo;  
+     this.bienesS = data.idbien; 
+     console.log("Idbien: "+this.bienesS); 
     });
+    //this.bajaService.listarBienesSolicitados(id.idbien).subscribe(res=>{ this.bienesS=res });
+    //console.log("ID: "+ id.idbien);
 //para la aprobacion
     this.idsolicitud=id;
+    
+    console.log("IdSoli: "+id);
   }
 
   close() {
@@ -81,73 +93,80 @@ export class SolicitudComponent implements OnInit {
    aprobarSolicitud() {
      //en id 
     var id=this.idsolicitud;
+    console.log("Este de Acuerdo: "+this.solicitudes.value.acuerdo);
+    //this.bienesS = this.activo2;
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
-      text: "No podrás revertir esta acción!",
+      text: "No podras revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
       cancelButtonText:'Cancelar',
       confirmButtonText: 'Si, aprobar!'
     }).then((result) => {
       if (result.value) {
     this.bajaService.aceptarSolicitud(id).subscribe(res=>{
-     // this.bajaService.guardarAcuerdo(id).subscribe(res=>{  });
-      this.bajaService.cambiarEstadoAceptado(id).subscribe(res=>{  });
-      
-         //if(res==1){
-          Swal.fire(
-            'Solicitud aprobada!',
-            'La solictud ha sido aprobada con éxito.',
-            'success'   )
+         if(res==1){
+          Swal.fire({
+            icon: 'success',
+            title: '¡APROBADA!',
+            text: 'La solicitud ha sido aprobada con éxito.',
+            confirmButtonText: 'Aceptar'
+        })
           this.display = 'none'; 
-          this.bajaService.listarSolicitud().subscribe(res=>{
-             this.activo2=res 
-            });    
-        //}      
-   });
-        
-  }
-  })
+          this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+          console.log("IdSoliiii: "+id);
+         }      
+   });   
+
+       this.bajaService.cambiarEstadoAceptado(this.bienesS).subscribe(rest=>{ });
+       console.log("Id Bien: "+ this.bienesS);
+     //this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+  
+  }// del result
+  })//de la alerta
+
   }//fin aprobar solicitud
 
 
 //negar la solicitud
 negarSolicitud() {
-  //en id 
- var id=this.idsolicitud;
- Swal.fire({
-   title: '¿Estas seguro de rechazar esta solicitud?',
-   text: "No podras revertir esta accion!",
-   icon: 'warning',
-   showCancelButton: true,
-   confirmButtonColor: '#3085d6',
-   cancelButtonColor: '#d33',
-   cancelButtonText:'Cancelar',
-   confirmButtonText: 'Si, rechazar!'
- }).then((result) => {
-   if (result.value) {
- this.bajaService.denegarSolicitud(id).subscribe(res=>{
-  this.bajaService.cambiarEstadoRechazado(id).subscribe(res=>{
-   
-  });
-      //if(res==1){
-       Swal.fire(
-         'Solicitud rechazada!',
-         'La solictud ha sido rechazada con exito.',
-         'success'
-       )
-       this.display = 'none'; 
-       this.bajaService.listarSolicitud().subscribe(res=>{
-          this.activo2=res 
-         });
-      
-     //}      
-});
+  var id=this.idsolicitud;
+    console.log("Este de Acuerdo: "+this.solicitudes.value.acuerdo);
+    //this.bienesS = this.activo2;
+    Swal.fire({
+      title: '¿Estas seguro de aprobar esta solicitud?',
+      text: "No podras revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText:'Cancelar',
+      confirmButtonText: 'Si, aprobar!'
+    }).then((result) => {
+      if (result.value) {
+    this.bajaService.denegarSolicitud(id).subscribe(res=>{
+         if(res==1){
+          Swal.fire({
+            icon: 'success',
+            title: '¡RECHAZADA!',
+            text: 'La solicitud ha sido rechazada con éxito.',
+            confirmButtonText: 'Aceptar'
+        })
+          this.display = 'none'; 
+          this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+          console.log("IdSoliiii: "+id);
+         }      
+   });   
 
+       this.bajaService.cambiarEstadoRechazado(this.bienesS).subscribe(rest=>{ });
+       console.log("Id Bien: "+ this.bienesS);
+     //this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+  
+  }// del result
+  })//de la alerta
 
-}
-})
 
 }//fin negar solicitud
 

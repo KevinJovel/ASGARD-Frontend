@@ -142,17 +142,17 @@
           <br> <br>
           <div class="form-group">
             <label for="exampleInputEmail1">Entidad Beneficiaria:</label>
-            <input size=26  type="text" (input)="inputValidator($event)" class="form-control" placeholder="{{disabledentidad}}" formControlName="entidadbeneficiaria" [attr.disabled]="disabled ? '' : null" maxlength="51" autocomplete="off">
+            <input size=26  type="text"  class="form-control" placeholder="{{disabledentidad}}" formControlName="entidadbeneficiaria" [attr.disabled]="disabled ? '' : null" maxlength="51" autocomplete="off">
           </div> 
           <br> <br>
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre de contacto:</label>
-            <input size=25  type="text" (input)="inputValidator($event)" class="form-control" placeholder="{{disabledcontacto}}" formControlName="contacto" [attr.disabled]="disabled ? '' : null" maxlength="51" autocomplete="off">
+            <input size=25  type="text"  class="form-control" placeholder="{{disabledcontacto}}" formControlName="contacto" [attr.disabled]="disabled ? '' : null" maxlength="51" autocomplete="off">
           </div> 
           <br> <br>
           <div class="form-group">
             <label for="exampleInputEmail1">*Observaciones:</label>
-            <input size=30 type="text" (input)="inputValidator($event)" class="form-control" formControlName="observaciones"  placeholder="Ingrese Observación" autocomplete="off"  maxlength="151">
+            <input size=30 type="text"  class="form-control" formControlName="observaciones"  placeholder="Ingrese Observación" autocomplete="off"  maxlength="151">
           </div> 
  </td> 
 </div>
@@ -179,12 +179,24 @@
           </button>
           <strong>Error!</strong> Tamaño máximo permitido en el campo.
         </div>
+        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.pattern">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+        </div>
 
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
           <strong>Error!</strong> Tamaño máximo permitido en el campo.
+        </div>
+        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.pattern">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
         </div>
 
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.maxlength">
@@ -193,12 +205,24 @@
           </button>
           <strong>Error!</strong> Tamaño máximo permitido en el campo.
         </div>
+        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.pattern">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+        </div>
 
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
           <strong>Error!</strong> Tamaño máximo permitido en el campo.
+        </div>
+        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.pattern">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
         </div>
 
         <div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['folio'].errors?.yaExisteFolio">

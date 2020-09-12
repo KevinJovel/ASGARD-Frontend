@@ -42,7 +42,7 @@ export class BajaService {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/aceptarSolicitud/"+idsolicitud).map(res => res.json());
     }
     public cambiarEstadoAceptado(idbien) {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstado/"+idbien).map(res => res.json());
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoAceptado/"+idbien).map(res => res.json());
     }
 
     public guardarAcuerdo(acuerdo) {
@@ -66,6 +66,9 @@ export class BajaService {
     public buscarSolicitud(buscador) {
         return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarSolicitud/" + buscador).map(res => res.json());
     }
+    public listarBienesSolicitados(id){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/listaBienesSolicitados/"+id ).map(res=>res.json());
+     }
     
     ///// DESGARGO DE BIEN
     public listarBajas() {

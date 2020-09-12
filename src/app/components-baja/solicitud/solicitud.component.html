@@ -37,7 +37,7 @@
                   <th>Fecha</th>
                   <th>Motivo</th>
                   <th>Observaciones</th>
-                  <th class="hidden-phone">Ver</th>
+                  <th class="hidden-phone">Dar de baja</th>
                 </tr>
               </thead>
 
@@ -49,7 +49,7 @@
                   <td>{{activos.motivo}}</td>
                   <td>{{activos.observaciones}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(activos.idsolicitud)"><i class="glyphicon glyphicon-download-alt"></i> Dar de baja</button>
+                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(activos.idsolicitud)"><i class="glyphicon glyphicon-download-alt"></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -101,7 +101,7 @@
 
             <div class="form-group">
               <label for="exampleInputEmail1">*Acuerdo:</label>
-              <input size=45  type="text" class="form-control" formControlName="acuerdo" maxlength="31" id="direccion" placeholder="Ingrese número de acuerdo" maxlength="101" autocomplete="off">
+              <input size=45  type="text" class="form-control" formControlName="acuerdo" maxlength="31"  placeholder="Ingrese número de acuerdo"  autocomplete="off">
             </div> 
             <br><br>
             <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.maxlength">
