@@ -107,7 +107,7 @@ table {
   background-color: #fff;
   border: 1px solid transparent;
   border-radius: 15px;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.05);
     
   }
   .form-control {

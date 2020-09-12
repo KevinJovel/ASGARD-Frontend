@@ -68,6 +68,16 @@ export class TablaDepreciacionComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })
+        this.display='none';
+        this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocurrio un error',
+          showConfirmButton: false,
+          timer: 3000
+        })
       }
       });
     }
@@ -76,7 +86,6 @@ export class TablaDepreciacionComponent implements OnInit {
   open(id){
    
      this.display='block';
-    
     this.depreciacionService.DatosDepreciacion(id).subscribe(data=>{
       this.datos.controls["idBien"].setValue(data.idBien);
       this.coopertativa=data.cooperativa;
