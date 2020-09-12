@@ -34,6 +34,7 @@ export class FormNuevoBienComponent implements OnInit {
   display = 'none';
   disabled: boolean;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
+  comboAreaSucur:any;
 
   @Input() bandera = false; //agrego input para hacer uso delas dos funciones
   //Variables de etiqueta
@@ -72,6 +73,7 @@ export class FormNuevoBienComponent implements OnInit {
       cantidad: new FormControl('', [Validators.required, this.noPuntoDecimal, Validators.min(1),]),
       foto: new FormControl(''),
     });
+    
   }
 
   ngOnInit() {
@@ -91,8 +93,7 @@ export class FormNuevoBienComponent implements OnInit {
 
     //this.dataState.data.datas //en data se almacenaran los datos que envio
     //recupera los datos del componente tabla
-    this.stateService.state.subscribe((resp) => {
-      this.dataState = resp;
+    this.stateService.state.subscribe((resp) => { this.dataState = resp;
       if (resp.data.hasOwnProperty('bienObj')) {
         let data = resp.data.bienObj;
         this.nuevobien.setValue(resp.data.bienObj); //recupero
@@ -217,60 +218,43 @@ export class FormNuevoBienComponent implements OnInit {
           });
       }
     }
-     //desdeaqui
-   // else{
-   //   this.nuevobien.controls['bandera'].setValue('0');
-    //if (this.nuevobien.valid == true) {
-      //this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
-        //console.log(data);
-          //this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
-            //this.modificar(this.id); });
-          //  
-          //});
-            //  Swal.fire({
-              //  position: 'center',
-                //icon: 'success',
-                //title: 'Registro Modificado con exito',
-                //showConfirmButton: false,
-                //timer: 3000,
-              //});     
+    
+  }
+
+  guardarMod() {
+    //desdeaqui
+    //else{
+      this.nuevobien.controls['bandera'].setValue('0');
+    if (this.nuevobien.valid == true) {
+      this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
+        console.log(this.nuevobien.value);
+          this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
+            console.log(this.nuevobien.value);
+            this.modificar(this.nuevobien.value.idbien); 
+          });
+            console.log("Id Bien: "+this.nuevobien.value.idbien);
+            this.router.navigate(['./tabla-activos']);
+          });
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Registro Modificado con éxito',
+                showConfirmButton: false,
+                timer: 3000,
+              });     
     }
 
-   // }// else
-  //  this.nuevobien.controls['idbien'].setValue("0");
-  //  this.nuevobien.controls['bandera'].setValue("0");
-  //  this.nuevobien.controls['color'].setValue("");
-  //  this.nuevobien.controls['descripcion'].setValue("");
-  //  this.nuevobien.controls['modelo'].setValue("");
-  //  this.nuevobien.controls['tipoadquicicion'].setValue("");
-  //  this.nuevobien.controls['idmarca'].setValue("");
-  //  this.nuevobien.controls['idclasificacion'].setValue("");
-  //  this.nuevobien.controls['idproveedor'].setValue("");
-  //  this.nuevobien.controls['estadoingreso'].setValue("");
-  //  this.nuevobien.controls['plazopago'].setValue("");
-  //  this.nuevobien.controls['prima'].setValue("");
-  //  this.nuevobien.controls['cuotaasignada'].setValue("");
-  //  this.nuevobien.controls['interes'].setValue("");
-  //  this.nuevobien.controls['noformulario'].setValue("");
-  //  this.nuevobien.controls['nofactura'].setValue("");
-  //  this.nuevobien.controls['fechaingreso'].setValue("");
-  //  this.nuevobien.controls['personaentrega'].setValue("");
-  //  this.nuevobien.controls['personarecibe'].setValue("");
-  //  this.nuevobien.controls['observaciones'].setValue("");
-  //  this.nuevobien.controls['cantidad'].setValue("");
-  //  this.nuevobien.controls['foto'].setValue("");
+    this.display = 'none';
+    this.router.navigate(['./tabla-activos']);
+   // this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});;
 
-  //  this.display = 'none';
-  //  this.router.navigate(['./tabla-activos']);
- // }
-
-  //guardarMod() {
-    
-  //}
+  }
 
   modificar(id) {
     //this.display = 'block';
+    console.log("Antes"+id);
     this.controlService.RecuperarFormCompleto(id).subscribe((data) => {
+      console.log("Despues"+id);
       this.nuevobien.controls['idbien'].setValue(data.idbien);
       this.nuevobien.controls['color'].setValue(data.color);
       this.nuevobien.controls['descripcion'].setValue(data.descripcion);
@@ -297,6 +281,9 @@ export class FormNuevoBienComponent implements OnInit {
     });
   }
 
+
+
+
   noPuntoDecimal(control: FormControl) {
     if (control.value != null && control.value != '') {
       if ((<string>control.value.toString()).indexOf('.') > -1) {
@@ -305,4 +292,6 @@ export class FormNuevoBienComponent implements OnInit {
       return null;
     }
   }
+
+
 }

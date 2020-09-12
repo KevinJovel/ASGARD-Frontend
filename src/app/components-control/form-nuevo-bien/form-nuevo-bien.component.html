@@ -40,7 +40,7 @@
               
           </ul>
       </div>
-     <!--- <ng-template #elseTemplate> -->
+      <ng-template #elseTemplate> 
    <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarDatoss()">
     <fieldset title="1" class="step" id="default-step-0">
       <legend></legend>
@@ -299,20 +299,20 @@
           <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-success" 
           value="Actualizar"  *ngIf="bandera" />
         </form>
-     <!-- </ng-template> -->
+     </ng-template> 
       <br><br><br>
 
 
 
-      <!--
+      
       <ng-container *ngIf="bandera; else elseTemplate">
         <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarMod()">
           <fieldset title="1" class="step" id="default-step-0">
             <legend></legend>
-            
-              <input type="hidden" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
-              <input type="hidden" class="form-control" formControlName="noformulario" id="exampleInputEmail3" autocomplete="off">
-              <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+        
+              <input type="hidden" class="form-control" formControlName="idbien" id="idbien" autocomplete="off" >
+              <input type="hidden" class="form-control" formControlName="noformulario" id="noformulario" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="bandera" id="bandera" autocomplete="off">
 
                 <div class="form-row">
                     <div class="form-group col-md-6" >
@@ -547,8 +547,7 @@
           <input [disabled]="!nuevobien.valid" type="submit" class="finish btn btn-success" 
           value="Actualizar"  *ngIf="bandera" />
         </form>
-      </ng-container> -->
-
+      </ng-container>
 
   </div>
 </section>
