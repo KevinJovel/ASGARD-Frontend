@@ -180,7 +180,18 @@ export class FormNuevoBienComponent implements OnInit {
     if (this.nuevobien.controls['bandera'].value == '0') {
       if (this.nuevobien.valid == true) {
         this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe((data) => {
+
+          //Creo esta condicion, si es contado o donado mando valor 0 sino ingresa lo de credito
+          var tip = this.nuevobien.controls['tipoadquicicion'].value;
+          if(tip==1 || tip==3) {
+            this.nuevobien.controls['prima'].setValue('0');
+            this.nuevobien.controls['plazopago'].setValue('0');
+            this.nuevobien.controls['cuotaasignada'].setValue('0');
+            this.nuevobien.controls['interes'].setValue('0');
+          } else{
             
+          }
+
             //Pasamos la foto
             this.nuevobien.controls['foto'].setValue(this.foto);
 
