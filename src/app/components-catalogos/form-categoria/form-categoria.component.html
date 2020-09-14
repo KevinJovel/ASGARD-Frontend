@@ -1,6 +1,6 @@
 <br><br><br><br>
 <section class="panel">
-  <h1>Clasificaciones</h1>
+  <h1>Categorias</h1>
   <div class="row">
     <div class="col-lg-6">
 
@@ -30,7 +30,6 @@
               <thead>
                 <tr>
                   <th scope="row">N°</th>
-                  <!--<th>Id Clasificación</th>-->
                   <th scope="row">Categoria</th>
                   <th scope="row">Vida útil</th>
                   <th scope="row">Descripción</th>
@@ -41,12 +40,12 @@
      
                 <tr *ngFor="let categoria of categorias | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{categoria.Categoria}}</td>
-                  <td>{{categoria.VidaUtil}}</td>
-                  <td>{{categoria.Descripcion}}</td>
+                  <td>{{categoria.categoria}}</td>
+                  <td>{{categoria.vidaUtil}}</td>
+                  <td>{{categoria.descripcion}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modif(categoria.IdCategoria)"><i class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(categoria.IdCategoria)"><i class="icon-trash "></i></button>
+                    <button class="btn btn-primary btn-xs" (click)="modif(categoria.idCategoria)"><i class="icon-pencil"></i></button>
+                    <button class="btn btn-danger btn-xs" (click)="eliminar(categoria.idCategoria)"><i class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>

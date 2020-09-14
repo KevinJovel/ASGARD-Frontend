@@ -15,7 +15,7 @@ export class FormCategoriaComponent implements OnInit {
   categoria: FormGroup;
   display = 'none';
   titulo: string;
-  edit: number=0;
+ // edit: number=0;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
     this.categoria = new FormGroup({
       'IdCategoria': new FormControl("0"),
@@ -45,7 +45,7 @@ export class FormCategoriaComponent implements OnInit {
   }
   close() {
     this.display = 'none';
-    this.edit=0;
+   // this.edit=0;
   }
 
 
@@ -94,24 +94,24 @@ export class FormCategoriaComponent implements OnInit {
   }
 
   modif(id) {
-   /* this.catalogosServices.noEditCorrelativoClasificacion(id).subscribe(data => {
-      if (data == 1) {
-          this.edit = 1;
-      }*/
     this.titulo = "Modificar Categoria";
     this.display = 'block';
-    this.catalogosServices.RecuperarClasificacion(id).subscribe(data => {
-      this.categoria.controls["IdCategoria"].setValue(data.IdCategoria);
-      this.categoria.controls["VidaUtil"].setValue(data.VidaUtil);
-      this.categoria.controls["Categoria"].setValue(data.Categoria);
-      this.categoria.controls["Descripcion"].setValue(data.Descripcion);
+    this.catalogosServices.RecuperarCategorias(id).subscribe(data => {
+      this.categoria.controls["IdCategoria"].setValue(data.idCategoria);
+      this.categoria.controls["VidaUtil"].setValue(data.vidaUtil);
+      this.categoria.controls["Categoria"].setValue(data.categoria);
+      this.categoria.controls["Descripcion"].setValue(data.descripcion);
       this.categoria.controls["bandera"].setValue("1");
+
       this.catalogosServices.getCategorias().subscribe(res => { this.categorias = res });
     });
-  //});
+  
   }
-  eliminar(idcategorias) {
-    this.catalogosServices.validarActivoc(idcategorias).subscribe(data => {
+
+  
+
+  eliminar(idcategoria) {
+    this.catalogosServices.validarActivoc(idcategoria).subscribe(data => {
         if (data == 1) {
             Swal.fire({
                 icon: 'error',
@@ -132,7 +132,7 @@ export class FormCategoriaComponent implements OnInit {
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.value) {
-                    this.catalogosServices.eliminarCategorias(idcategorias).subscribe(data => {
+                    this.catalogosServices.eliminarCategorias(idcategoria).subscribe(data => {
                         Swal.fire({
                             icon: 'error',
                             title: '¡ELIMINADO!',
