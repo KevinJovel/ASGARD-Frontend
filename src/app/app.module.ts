@@ -30,6 +30,7 @@ import { FormDonantesComponent } from './components-catalogos/form-donantes/form
 import { FormProveedorComponent } from './components-catalogos/form-proveedor/form-proveedor.component';
 import { FormCargoComponent } from './components-catalogos/form-cargo/form-cargo.component';
 import { FormClasificacionComponent } from './components-catalogos/form-clasificacion/form-clasificacion.component';
+import { FormCategoriaComponent } from './components-catalogos/form-categoria/form-categoria.component';
 import { FormAreasNegocioComponent } from './components-catalogos/form-areas-negocio/form-areas-negocio.component';
 import { FormTecnicoComponent } from './components-catalogos/form-tecnico/form-tecnico.component';
 
@@ -68,6 +69,8 @@ import { HistorialMantenimientoComponent } from './components-mantenimiento/hist
 import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/report-tarjeta.component';
 import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuadro-control.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,7 +107,8 @@ import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuad
     TablaDepreciacionComponent,
     HistorialMantenimientoComponent,
     ReportTarjetaComponent,
-    CuadroControlComponent
+    CuadroControlComponent,
+    FormCategoriaComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -129,6 +133,7 @@ import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuad
       { path: 'form-donantes', component: FormDonantesComponent },
       { path: 'form-proveedor', component: FormProveedorComponent },
       { path: 'form-clasificacion', component: FormClasificacionComponent },
+      { path: 'form-categoria', component: FormCategoriaComponent },
       { path: 'form-cargo', component: FormCargoComponent },
       {path: 'form-area-negocio', component: FormAreasNegocioComponent},
       {path: 'form-tecnico', component: FormTecnicoComponent},
