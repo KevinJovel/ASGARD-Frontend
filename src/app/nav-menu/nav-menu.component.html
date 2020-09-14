@@ -55,7 +55,7 @@
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-depreciacion"]' (click)='collapse()'>Depreciación</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-tarjeta"]' (click)='collapse()'>Tarjeta de Depreciación</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cuadro-control"]' (click)='collapse()'>Cuadro de Control</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-cooperativa"]' (click)='collapse()'>Cierre</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" (click)="cierre()" (click)='collapse()'>Cierre</a></li>
        
         </ul>
       </li>
@@ -151,4 +151,60 @@
   </div>
   <!-- sidebar menu end-->
 </aside>
-<!--sidebar end-->
+<!--Modal para realizar el cierre-->
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">Cierre de año 2010 </h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="datos" (ngSubmit)="cierre()">
+          <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
+            autocomplete="off">
+          <!-- <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
+            autocomplete="off"> -->
+          <!-- <div class="form-group">
+            <label for="exampleInputEmail1">Codigo:</label>
+            <input type="text" class="form-control" readonly>
+          </div>
+          formControlName="codigo" 
+          <div class="form-group">
+            <label for="exampleInputEmail1">Descripción:</label>
+            <input type="text" class="form-control" readonly>
+          </div>
+        
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">Valor de adquicición:</label>
+            <input type="text" class="form-control" readonly>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">Valor actual:</label>
+            <input type="text" class="form-control" readonly>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">Valor a depreciar año:</label>
+            <input type="text" class="form-control" readonly>
+          </div> -->
+          <p>*Al realizar el cierre del sistema usted como usuario administrador adquiere la responsabilidad de asegurarse que todos los datos esten realizados bajo la supervision y audioria de las autoridades</p>
+          <p>*Al momento de realizar el cierre se generará una partida única que será utilizada para el asiento contable del presente año</p>
+          <p>*Toda la informacion que realice en procesos como: Depreciacion,amortizacion, revalorizacion, traspasos, bajas, serán registrados en el año que esta apunto de aperturar.</p>
+          <p>*Es responsabilidad del administrador mantener la informacion debidamente auditada en todo momento</p>
+          <label><input #aceptar type="checkbox" (click)="Aceptar(aceptar)" value="first_checkbox"> Acepto los terminos y condiciones</label><br>
+
+          <div style="text-align: center;">
+  <button [disabled]="this.aceptacion==false" type="submit" class="btn btn-primary"><i class="icon-save"></i>
+    Ejecutar Cierre </button>
+  <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
+    Cancelar</button>
+</div>
+          
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

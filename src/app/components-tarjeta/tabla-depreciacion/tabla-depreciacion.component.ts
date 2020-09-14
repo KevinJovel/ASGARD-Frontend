@@ -85,16 +85,28 @@ export class TablaDepreciacionComponent implements OnInit {
   }
   open(id){
    
-     this.display='block';
+    
     this.depreciacionService.DatosDepreciacion(id).subscribe(data=>{
-      this.datos.controls["idBien"].setValue(data.idBien);
-      this.coopertativa=data.cooperativa;
-      this.anio=data.anio;
-      this.datos.controls["codigo"].setValue(data.codigo);
-      this.datos.controls["descripcion"].setValue(data.descipcion);
-      this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
-      this.datos.controls["valorDepreciacion"].setValue(data.valorDepreciacion);
-      this.datos.controls["valorActual"].setValue(data.valorActual);
+      if(data.valorActual<=0){
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Ocurrio un error',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }else{
+        this.datos.controls["idBien"].setValue(data.idBien);
+        this.coopertativa=data.cooperativa;
+        this.anio=data.anio;
+        this.datos.controls["codigo"].setValue(data.codigo);
+        this.datos.controls["descripcion"].setValue(data.descipcion);
+        this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
+        this.datos.controls["valorDepreciacion"].setValue(data.valorDepreciacion);
+        this.datos.controls["valorActual"].setValue(data.valorActual);
+        this.display='block';
+      }
+   
     });
   }
   close(){
