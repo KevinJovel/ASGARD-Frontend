@@ -10,19 +10,19 @@ import Swal from 'sweetalert2';
   styleUrls: ['./form-categoria.component.css']
 })
 export class FormCategoriaComponent implements OnInit {
-  clasificaciones: any;
+  categorias: any;
   p: number = 1;
-  clasificacion: FormGroup;
+  categoria: FormGroup;
   display = 'none';
   titulo: string;
   edit: number=0;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
-    this.clasificacion = new FormGroup({
-      'idclasificacion': new FormControl("0"),
+    this.categoria = new FormGroup({
+      'IdCategoria': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'clasificacion': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
-      'correlativo': new FormControl("", [Validators.required,  Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
-      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóú ]+$")])
+      'VidaUtil': new FormControl("",[Validators.required,Validators.pattern("^[0-9]+$")]),
+      'Categoria': new FormControl("",[Validators.required,Validators.maxLength(50),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'Descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")])
 
     });
    
@@ -30,17 +30,17 @@ export class FormCategoriaComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.catalogosServices.getClasificacion().subscribe(data => { this.clasificaciones = data} );
+    this.catalogosServices.getCategorias().subscribe(data => { this.categorias = data} );
 
   }
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de clasificación";
-    this.clasificacion.controls["idclasificacion"].setValue("0");
-    this.clasificacion.controls["bandera"].setValue("0");
-    this.clasificacion.controls["clasificacion"].setValue("");
-    this.clasificacion.controls["correlativo"].setValue("");
-    this.clasificacion.controls["descripcion"].setValue(""); 
+    this.titulo = "Formulario registro de categorias";
+    this.categoria.controls["IdCategoria"].setValue("0");
+    this.categoria.controls["bandera"].setValue("0");
+    this.categoria.controls["VidaUtil"].setValue("");
+    this.categoria.controls["Categoria"].setValue("");
+    this.categoria.controls["Descripcion"].setValue(""); 
     this.display = 'block';
   }
   close() {
@@ -50,10 +50,10 @@ export class FormCategoriaComponent implements OnInit {
 
 
   guardarDatos() {
-    if ((this.clasificacion.controls["bandera"].value) == "0") {
-      if (this.clasificacion.valid == true) {
-        this.catalogosServices.guardarClasificacion(this.clasificacion.value).subscribe(data => {
-          this.catalogosServices.getClasificacion().subscribe(res => {this.clasificaciones = res});
+    if ((this.categoria.controls["bandera"].value) == "0") {
+      if (this.categoria.valid == true) {
+        this.catalogosServices.guardarCategorias(this.categoria.value).subscribe(data => {
+          this.catalogosServices.getCategorias().subscribe(res => {this.categorias = res});
          });
        
         Swal.fire({
@@ -66,10 +66,10 @@ export class FormCategoriaComponent implements OnInit {
       }
     } else {
       //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
-      this.clasificacion.controls["bandera"].setValue("0");
-      if (this.clasificacion.valid == true) {
-        this.catalogosServices.modificarclasificacion(this.clasificacion.value).subscribe(data => {
-          this.catalogosServices.getClasificacion().subscribe(res => {this.clasificaciones = res});
+      this.categoria.controls["bandera"].setValue("0");
+      if (this.categoria.valid == true) {
+        this.catalogosServices.modificarCategorias(this.categoria.value).subscribe(data => {
+          this.catalogosServices.getCategorias().subscribe(res => {this.categorias = res});
          });
         Swal.fire({
           position: 'center',
@@ -80,43 +80,43 @@ export class FormCategoriaComponent implements OnInit {
         })
       }
     }
-    this.clasificacion.controls["idclasificacion"].setValue("0");
-    this.clasificacion.controls["bandera"].setValue("0");
-    this.clasificacion.controls["clasificacion"].setValue("");
-    this.clasificacion.controls["correlativo"].setValue("");
-    this.clasificacion.controls["descripcion"].setValue("");
-    this.edit=0;
+    this.categoria.controls["IdCategoria"].setValue("0");
+    this.categoria.controls["bandera"].setValue("0");
+    this.categoria.controls["VidaUtil"].setValue("");
+    this.categoria.controls["Categoria"].setValue("");
+    this.categoria.controls["Descripcion"].setValue("");
+    //this.edit=0;
     //this.router.navigate(["/form-marca"])
 
     this.display = 'none';
-    this.catalogosServices.getClasificacion().subscribe(res => {this.clasificaciones = res});
+    this.catalogosServices.getCategorias().subscribe(res => {this.categorias = res});
 
   }
 
   modif(id) {
-    this.catalogosServices.noEditCorrelativoClasificacion(id).subscribe(data => {
+   /* this.catalogosServices.noEditCorrelativoClasificacion(id).subscribe(data => {
       if (data == 1) {
           this.edit = 1;
-      }
-    this.titulo = "Modificar Clasificación";
+      }*/
+    this.titulo = "Modificar Categoria";
     this.display = 'block';
     this.catalogosServices.RecuperarClasificacion(id).subscribe(data => {
-      this.clasificacion.controls["idclasificacion"].setValue(data.idclasificacion);
-      this.clasificacion.controls["clasificacion"].setValue(data.clasificacion);
-      this.clasificacion.controls["correlativo"].setValue(data.correlativo);
-      this.clasificacion.controls["descripcion"].setValue(data.descripcion);
-      this.clasificacion.controls["bandera"].setValue("1");
-      this.catalogosServices.getClasificacion().subscribe(res => { this.clasificaciones = res });
+      this.categoria.controls["IdCategoria"].setValue(data.IdCategoria);
+      this.categoria.controls["VidaUtil"].setValue(data.VidaUtil);
+      this.categoria.controls["Categoria"].setValue(data.Categoria);
+      this.categoria.controls["Descripcion"].setValue(data.Descripcion);
+      this.categoria.controls["bandera"].setValue("1");
+      this.catalogosServices.getCategorias().subscribe(res => { this.categorias = res });
     });
-  });
+  //});
   }
-  eliminar(idclasificacion) {
-    this.catalogosServices.validarActivo(idclasificacion).subscribe(data => {
+  eliminar(idcategorias) {
+    this.catalogosServices.validarActivoc(idcategorias).subscribe(data => {
         if (data == 1) {
             Swal.fire({
                 icon: 'error',
                 title: '¡ERROR!',
-                text: 'No es posible eliminar este dato, ya existen activos denominados a esta clasificación',
+                text: 'No es posible eliminar este dato, ya existen activos denominados a esta categoria',
                 confirmButtonText: 'Aceptar'
 
             })
@@ -132,15 +132,15 @@ export class FormCategoriaComponent implements OnInit {
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.value) {
-                    this.catalogosServices.eliminarCasificacion(idclasificacion).subscribe(data => {
+                    this.catalogosServices.eliminarCategorias(idcategorias).subscribe(data => {
                         Swal.fire({
                             icon: 'error',
                             title: '¡ELIMINADO!',
                             text: 'El registro ha sido eliminado con exito.',
                             confirmButtonText: 'Aceptar'
                         })
-                        this.catalogosServices.getClasificacion().subscribe(
-                          data => { this.clasificaciones = data }
+                        this.catalogosServices.getCategorias().subscribe(
+                          data => { this.categorias = data }
                         );
                     });
 
@@ -150,7 +150,7 @@ export class FormCategoriaComponent implements OnInit {
     })
 
 }
-  eliminar1(idclasificacion) {
+  eliminar1(idcategorias) {
     Swal.fire({
       title: '¿Estas seguro de eliminar este registro?',
       text: "No podras revertir esta accion!",
@@ -161,14 +161,14 @@ export class FormCategoriaComponent implements OnInit {
       confirmButtonText: 'Si, eliminar!'
     }).then((result) => {
       if (result.value) {
-        this.catalogosServices.eliminarCasificacion(idclasificacion).subscribe(data => {
+        this.catalogosServices.eliminarCategorias(idcategorias).subscribe(data => {
           Swal.fire(
             'Registro eliminado!',
             'Tu archivo ha sido eliminado con exito.',
             'success'
           )
-          this.catalogosServices.getClasificacion().subscribe(
-            data => { this.clasificaciones = data }
+          this.catalogosServices.getCategorias().subscribe(
+            data => { this.categorias = data }
           );
         });
 
@@ -179,7 +179,7 @@ export class FormCategoriaComponent implements OnInit {
 
   buscar(buscador) {
     this.p = 1;
-    this.catalogosServices.buscarClasificacion(buscador.value).subscribe(res => {this.clasificaciones = res});
+    this.catalogosServices.buscarCategorias(buscador.value).subscribe(res => {this.categorias = res});
   }
   noRepetirClasificacion(control: FormControl) {
 
@@ -187,7 +187,7 @@ export class FormCategoriaComponent implements OnInit {
 
       if (control.value != "" && control.value != null) {
 
-        this.catalogosServices.validarClasificacion(this.clasificacion.controls["idclasificacion"].value, control.value)
+        this.catalogosServices.validarClasificacion(this.categorias.controls["IdCategoria"].value, control.value)
           .subscribe(data => {
             if (data == 1) {
               resolve({ yaExisteClasificacion: true });

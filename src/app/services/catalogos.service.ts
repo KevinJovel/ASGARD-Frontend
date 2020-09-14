@@ -157,12 +157,12 @@ public validarDepenActivo(idSucursal) {
   }
 
 
-  //Servicio de Clasificacion de activos
+  //SERVICIOS PARA CLASIFICACIÓN.
 
   public guardarClasificacion(clasificacion) {
     return this.http.post(environment.urlService  + "api/Clasificacion/guardarClasificacion", clasificacion).map(res => res.json());
 }
-  //servicio que enlista la clasificacion de los activos
+  //servicio que enlistar la clasificacion de los activos
   public getClasificacion() {
     return this.http.get(environment.urlService  + "api/Clasificacion/listarClasificacion").map(res => res.json());
   }
@@ -195,8 +195,28 @@ public validarDepenActivo(idSucursal) {
     return this.http.get(environment.urlService  + "api/Clasificacion/noEditCorrelativoClasificacion/" + idclasificacion).map(res => res.json());
   }
 
-
- 
+  //SERVICIOS PARA CATEGORIAS.
+  public guardarCategorias(categorias) {
+    return this.http.post(environment.urlService  + "api/Categorias/guardarCategorias", categorias).map(res => res.json());
+}
+  public getCategorias() {
+    return this.http.get(environment.urlService  + "api/Categorias/listarCategorias").map(res => res.json());
+  }
+  public eliminarCategorias(idCategorias) {
+    return this.http.get(environment.urlService  + "api/Categorias/eliminarCategorias/" + idCategorias).map(res => res.json());
+  }
+  buscarCategorias(buscador) {
+    return this.http.get(environment.urlService  + "api/Categorias/buscarCategorias/" + buscador).map(res => res.json());
+  }
+  public RecuperarCategorias(id) {
+    return this.http.get(environment.urlService  + "api/Categorias/RecuperarCategorias/" + id).map(res => res.json());
+  }
+  public modificarCategorias(Categorias) {
+    return this.http.post(environment.urlService  + "api/Categorias/modificarCategorias", Categorias).map(res => res.json());
+  }
+  public validarActivoc(idcategorias) {
+    return this.http.get(environment.urlService  + "api/Categorias/validarActivoc/" + idcategorias).map(res => res.json());
+  }
 
   //SERVICIOS PARA PROVEEDOR
 
