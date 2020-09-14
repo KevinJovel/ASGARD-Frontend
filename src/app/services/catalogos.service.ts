@@ -191,6 +191,12 @@ public validarDepenActivo(idSucursal) {
   public validarActivo(idclasificacion) {
     return this.http.get(environment.urlService  + "api/Clasificacion/validarActivo/" + idclasificacion).map(res => res.json());
   }
+  public noEditCorrelativoClasificacion(idclasificacion) {
+    return this.http.get(environment.urlService  + "api/Clasificacion/noEditCorrelativoClasificacion/" + idclasificacion).map(res => res.json());
+  }
+
+
+ 
 
   //SERVICIOS PARA PROVEEDOR
 

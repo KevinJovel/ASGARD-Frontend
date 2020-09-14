@@ -78,7 +78,7 @@
 
           <div class="form-group">
             <label for="exampleInputEmail1">* Correlativo:</label>
-            <input type="text" class="form-control" formControlName="correlativo" id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+            <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="correlativo" id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
           </div>
             <!-- Validacion de pattern no acepta caracteres especiales -->
             <div class="alert alert-block alert-danger fade in" *ngIf="clasificacion.controls['correlativo'].errors?.pattern">
@@ -87,13 +87,19 @@
               </button>
               <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
             </div>
+            <div class="alert alert-warning fade in" *ngIf="this.edit==1">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Advertencia!</strong> El correlativo no se puede modificar porque hay activos referenciados.
+            </div>
         
-            <div class="alert alert-warning fade in" *ngIf="clasificacion.valid&&clasificacion.controls['bandera'].value==1">
+           <!-- <div class="alert alert-warning fade in" *ngIf="clasificacion.valid&&clasificacion.controls['bandera'].value==1">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
               <strong>Advertenia!</strong> Si editas el correlativo, cambiará en todos los activos referenciados.
-            </div>
+            </div>-->
           <div class="alert alert-warning fade in" *ngIf="clasificacion.controls['correlativo'].errors?.required">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>

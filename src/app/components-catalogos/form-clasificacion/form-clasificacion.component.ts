@@ -16,6 +16,7 @@ export class FormClasificacionComponent implements OnInit {
   clasificacion: FormGroup;
   display = 'none';
   titulo: string;
+  edit: number=0;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
     this.clasificacion = new FormGroup({
       'idclasificacion': new FormControl("0"),
@@ -47,6 +48,7 @@ export class FormClasificacionComponent implements OnInit {
   }
   close() {
     this.display = 'none';
+    this.edit=0;
   }
 
 
@@ -86,6 +88,7 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion.controls["clasificacion"].setValue("");
     this.clasificacion.controls["correlativo"].setValue("");
     this.clasificacion.controls["descripcion"].setValue("");
+    this.edit=0;
     //this.router.navigate(["/form-marca"])
 
     this.display = 'none';
@@ -94,6 +97,10 @@ export class FormClasificacionComponent implements OnInit {
   }
 
   modif(id) {
+    this.catalogosServices.noEditCorrelativoClasificacion(id).subscribe(data => {
+      if (data == 1) {
+          this.edit = 1;
+      }
     this.titulo = "Modificar Clasificación";
     this.display = 'block';
     this.catalogosServices.RecuperarClasificacion(id).subscribe(data => {
@@ -104,7 +111,7 @@ export class FormClasificacionComponent implements OnInit {
       this.clasificacion.controls["bandera"].setValue("1");
       this.catalogosServices.getClasificacion().subscribe(res => { this.clasificaciones = res });
     });
-   
+  });
   }
   eliminar(idclasificacion) {
     this.catalogosServices.validarActivo(idclasificacion).subscribe(data => {
