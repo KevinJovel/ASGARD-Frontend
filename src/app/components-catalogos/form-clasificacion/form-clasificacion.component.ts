@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class FormClasificacionComponent implements OnInit {
   clasificaciones: any;
+  categorias: any;
   p: number = 1;
   clasificacion: FormGroup;
   display = 'none';
@@ -23,7 +24,8 @@ export class FormClasificacionComponent implements OnInit {
       'bandera': new FormControl("0"),
       'clasificacion': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
       'correlativo': new FormControl("",[Validators.required,  Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
-      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")])
+      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
+      'idcategoria': new FormControl("",[Validators.required])
 
     });
    
@@ -33,6 +35,7 @@ export class FormClasificacionComponent implements OnInit {
 
   ngOnInit() {
     this.catalogosServices.getClasificacion().subscribe(data => { this.clasificaciones = data} );
+    this.catalogosServices.listarCategoriaCombo().subscribe(data =>{  this.categorias =data});
 
   }
 
@@ -43,6 +46,7 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion.controls["bandera"].setValue("0");
     this.clasificacion.controls["clasificacion"].setValue("");
     this.clasificacion.controls["correlativo"].setValue("");
+    this.clasificacion.controls["idcategoria"].setValue("");
     this.clasificacion.controls["descripcion"].setValue(""); 
     this.display = 'block';
   }
@@ -53,6 +57,7 @@ export class FormClasificacionComponent implements OnInit {
 
 
   guardarDatos() {
+    console.log(this.clasificacion.value);
     if ((this.clasificacion.controls["bandera"].value) == "0") {
       if (this.clasificacion.valid == true) {
         this.catalogosServices.guardarClasificacion(this.clasificacion.value).subscribe(data => {
@@ -87,6 +92,7 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion.controls["bandera"].setValue("0");
     this.clasificacion.controls["clasificacion"].setValue("");
     this.clasificacion.controls["correlativo"].setValue("");
+    this.clasificacion.controls["idcategoria"].setValue("");
     this.clasificacion.controls["descripcion"].setValue("");
     this.edit=0;
     //this.router.navigate(["/form-marca"])
@@ -107,6 +113,7 @@ export class FormClasificacionComponent implements OnInit {
       this.clasificacion.controls["idclasificacion"].setValue(data.idclasificacion);
       this.clasificacion.controls["clasificacion"].setValue(data.clasificacion);
       this.clasificacion.controls["correlativo"].setValue(data.correlativo);
+      this.clasificacion.controls["idcategoria"].setValue(data.idcategoria);
       this.clasificacion.controls["descripcion"].setValue(data.descripcion);
       this.clasificacion.controls["bandera"].setValue("1");
       this.catalogosServices.getClasificacion().subscribe(res => { this.clasificaciones = res });

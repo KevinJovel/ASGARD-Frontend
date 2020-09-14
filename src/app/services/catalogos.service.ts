@@ -194,6 +194,11 @@ public validarDepenActivo(idSucursal) {
   public noEditCorrelativoClasificacion(idclasificacion) {
     return this.http.get(environment.urlService  + "api/Clasificacion/noEditCorrelativoClasificacion/" + idclasificacion).map(res => res.json());
   }
+  public listarCategoriaCombo(){
+    return this.http.get(environment.urlService + "api/Clasificacion/listarCategoriaCombo" ).map(res=>res.json());
+  }
+
+  
 
   //SERVICIOS PARA CATEGORIAS.
   public guardarCategorias(categorias) {
@@ -216,6 +221,9 @@ public validarDepenActivo(idSucursal) {
   }
   public validarActivoc(idcategorias) {
     return this.http.get(environment.urlService  + "api/Categorias/validarActivoc/" + idcategorias).map(res => res.json());
+  }
+  public validarCategoria (idcategoria, categoria){
+    return this.http.get(environment.urlService  + "api/Categorias/validarCategoria/" + idcategoria+ "/"+ categoria).map(res => res.json());
   }
 
   //SERVICIOS PARA PROVEEDOR

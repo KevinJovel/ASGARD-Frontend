@@ -32,6 +32,7 @@
                   <th scope="row">N°</th>
                   <th scope="row">Correlativo</th>
                   <th scope="row">Clasificación</th>
+                  <th scope="row">Categoria</th>
                   <th scope="row">Descripción</th>
                   <th scope="row"  class="hidden-phone">Opciones</th>
                 </tr>
@@ -42,6 +43,7 @@
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                   <td>{{clasificacion.correlativo}}</td>
                   <td>{{clasificacion.clasificacion}}</td>
+                  <td>{{clasificacion.categoria}}</td>
                   <td>{{clasificacion.descripcion}}</td>
                   <td class="center hidden-phone">
                     <button class="btn btn-primary btn-xs" (click)="modif(clasificacion.idclasificacion)"><i class="icon-pencil"></i></button>
@@ -64,7 +66,7 @@
 </section>
 <!--modal para ingresar y editar-->
 <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width:500px;">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
@@ -117,6 +119,15 @@
             </button>
             <strong>Advertencia!</strong> ya existe el correlativo ingresado, por favor intente con uno nuevo.
           </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2" >* Categoria:</label>
+            <select class="form-control" formControlName="idcategoria"  id="exampleFormControlTextarea2"  maxlength="51">
+              <option value="">---Seleccione---</option>	
+              <option [value]="categoria.idCategoria" *ngFor="let categoria of categorias">{{categoria.categoria}}</option>	 
+            </select>
+            </div>
+
           <div class="form-group">
             <label for="exampleFormControlTextarea2">* Clasificación:</label>
             <input type="text" class="form-control" formControlName="clasificacion" id="exampleFormControlTextarea2" placeholder="Ingrese clasificación" autocomplete="off"  maxlength="51">
@@ -134,6 +145,7 @@
             </button>
             <strong>Advertencia!</strong> ya existe la clasificación ingresada, por favor intente con una nueva.
           </div>
+          
           <div class="alert alert-block alert-danger fade in" *ngIf="clasificacion.controls['clasificacion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>

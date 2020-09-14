@@ -21,7 +21,7 @@ export class FormCategoriaComponent implements OnInit {
       'IdCategoria': new FormControl("0"),
       'bandera': new FormControl("0"),
       'VidaUtil': new FormControl("",[Validators.required,Validators.pattern("^[0-9]+$")]),
-      'Categoria': new FormControl("",[Validators.required,Validators.maxLength(50),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'Categoria': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirCategoria.bind(this)),
       'Descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")])
 
     });
@@ -116,7 +116,7 @@ export class FormCategoriaComponent implements OnInit {
             Swal.fire({
                 icon: 'error',
                 title: '¡ERROR!',
-                text: 'No es posible eliminar este dato, ya existen activos denominados a esta categoria',
+                text: 'No es posible eliminar este dato, ya existen clasificaciones denominadas a esta categoria',
                 confirmButtonText: 'Aceptar'
 
             })
@@ -181,16 +181,17 @@ export class FormCategoriaComponent implements OnInit {
     this.p = 1;
     this.catalogosServices.buscarCategorias(buscador.value).subscribe(res => {this.categorias = res});
   }
-  noRepetirClasificacion(control: FormControl) {
+
+  noRepetirCategoria(control: FormControl) {
 
     var promesa = new Promise((resolve, reject) => {
 
       if (control.value != "" && control.value != null) {
 
-        this.catalogosServices.validarClasificacion(this.categorias.controls["IdCategoria"].value, control.value)
+        this.catalogosServices.validarCategoria(this.categoria.controls["IdCategoria"].value, control.value)
           .subscribe(data => {
             if (data == 1) {
-              resolve({ yaExisteClasificacion: true });
+              resolve({ yaExisteCategoria: true });
             } else {
               resolve(null);
             }

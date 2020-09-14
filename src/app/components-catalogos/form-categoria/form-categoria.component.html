@@ -86,7 +86,12 @@
               </button>
               <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
             </div>
-        
+			<div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.yaExisteCategoria">
+				<button data-dismiss="alert" class="close close-sm" type="button">
+				  <i class="icon-remove"></i>
+				</button>
+				<strong>Advertencia!</strong> ya existe la categoria ingresada, por favor intente con una nueva.
+				</div>
            <!-- <div class="alert alert-warning fade in" *ngIf="categoria.valid&&categoria.controls['bandera'].value==1">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
