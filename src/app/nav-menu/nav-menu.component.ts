@@ -23,21 +23,6 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
-  }
-  cierre(){
-    this.displayCierre='block';
-  }
-  close(){
-    this.displayCierre='none';
-  }
-  Aceptar(aceptar){
-    if(aceptar){
-      this.aceptacion=true;
-    }else{
-      this.aceptacion=false;
-    }
- 
-    
+  }    
   }
 
-}
