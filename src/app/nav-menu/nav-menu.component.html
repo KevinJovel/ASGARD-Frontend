@@ -154,7 +154,7 @@
 </aside>
 <!--Modal para realizar el cierre-->
 <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
-  class="modal" [ngStyle]="{'display':display}">
+  class="modal" [ngStyle]="{'display':displayCierre}">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -163,7 +163,7 @@
       </div>
       <div class="modal-body">
 
-        <form role="form" [formGroup]="datos" (ngSubmit)="cierre()">
+        <form role="form" (ngSubmit)="cierre()">
           <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
             autocomplete="off">
           <!-- <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"

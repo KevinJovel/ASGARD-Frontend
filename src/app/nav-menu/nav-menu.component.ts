@@ -8,21 +8,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  display='none';
+  displayCierre='none';
   datos:FormGroup;
   aceptacion:boolean=false;
   constructor( private _cargarScript:CargarScriptsService) {
     this._cargarScript.cargar(["/jquery.nicescroll"]);
-    this.datos = new FormGroup({
-      'idBien': new FormControl("0"),
-      // 'bandera': new FormControl("0"),
-      'codigo': new FormControl(""),
-      'descripcion': new FormControl(""),
-      'valorAdquicicion': new FormControl(""),
-      'valorActual': new FormControl(""),
-      'valorDepreciacion': new FormControl("0.00"),
-      'fecha': new FormControl("")
-  });
+
    }
   isExpanded = false;
 
@@ -34,10 +25,10 @@ export class NavMenuComponent {
     this.isExpanded = !this.isExpanded;
   }
   cierre(){
-    this.display='block';
+    this.displayCierre='block';
   }
   close(){
-    this.display='none';
+    this.displayCierre='none';
   }
   Aceptar(aceptar){
     if(aceptar){

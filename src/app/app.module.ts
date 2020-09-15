@@ -54,6 +54,14 @@ import { CuadroSolicitudComponent } from './components-baja/cuadro-solicitud/cua
 import { SolicitudComponent } from './components-baja/solicitud/solicitud.component';
 import { GestionDescargoComponent } from './components-baja/gestion-descargo/gestion-descargo.component';
 
+import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-tarjeta.component';
+import { FormCooperativaComponent } from './components-configuracion/form-cooperativa/form-cooperativa.component';
+import { TablaDepreciacionComponent } from './components-tarjeta/tabla-depreciacion/tabla-depreciacion.component';
+import { HistorialMantenimientoComponent } from './components-mantenimiento/historial-mantenimiento/historial-mantenimiento.component';
+import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/report-tarjeta.component';
+import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuadro-control.component';
+import { CierreAnioComponent } from './components-tarjeta/cierre-anio/cierre-anio.component';
+import { FormDesasignarComponent } from './components-control/form-desasignar/form-desasignar.component';
 //servicios hay que procurar llevar el orden
 import { CargarScriptsService } from './services/cargar-scripts.service';
 import { CatalogosService } from './services/catalogos.service';
@@ -61,13 +69,8 @@ import { UsuarioService } from './services/usuario.service';
 import { MantenimientoService } from './services/mantenimiento.service';
 import { SafePipe } from './components-control/safe.pipe';
 import { BajaService } from './services/baja.service';
-import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-tarjeta.component';
-import { FormCooperativaComponent } from './components-configuracion/form-cooperativa/form-cooperativa.component';
 import { ConfiguracionService } from './services/configuracion.service';
-import { TablaDepreciacionComponent } from './components-tarjeta/tabla-depreciacion/tabla-depreciacion.component';
-import { HistorialMantenimientoComponent } from './components-mantenimiento/historial-mantenimiento/historial-mantenimiento.component';
-import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/report-tarjeta.component';
-import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuadro-control.component';
+
 
 
 
@@ -109,6 +112,8 @@ import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuad
     ReportTarjetaComponent,
     CuadroControlComponent,
     FormCategoriaComponent,
+    CierreAnioComponent,
+    FormDesasignarComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -141,6 +146,7 @@ import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuad
       {path: 'form-usuario', component: FormUsuarioComponent},
       {path: 'form-nuevoBien', component: FormNuevoBienComponent},
       {path: 'form-asignacion', component: FormAsignancionComponent},
+      {path: 'form-desasignacion', component: FormDesasignarComponent},
       {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},
       {path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent},
       {path: 'historial-mantenimiento', component: HistorialMantenimientoComponent},
@@ -153,7 +159,9 @@ import { CuadroControlComponent } from './components-tarjeta/cuadro-control/cuad
       {path: 'form-cooperativa', component: FormCooperativaComponent},
       {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
       {path: 'report-tarjeta/:id', component: ReportTarjetaComponent},
-      {path: 'cuadro-control', component: CuadroControlComponent}
+      {path: 'cuadro-control', component: CuadroControlComponent},
+      {path: 'cierre-anio', component: CierreAnioComponent}
+
  
 
     ]),
