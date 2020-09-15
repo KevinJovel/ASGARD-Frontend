@@ -70,6 +70,7 @@ import { MantenimientoService } from './services/mantenimiento.service';
 import { SafePipe } from './components-control/safe.pipe';
 import { BajaService } from './services/baja.service';
 import { ConfiguracionService } from './services/configuracion.service';
+import { FormTipoTrasladoComponent } from './components-catalogos/form-tipo-traslado/form-tipo-traslado.component';
 
 
 
@@ -114,6 +115,7 @@ import { ConfiguracionService } from './services/configuracion.service';
     FormCategoriaComponent,
     CierreAnioComponent,
     FormDesasignarComponent,
+    FormTipoTrasladoComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -160,7 +162,8 @@ import { ConfiguracionService } from './services/configuracion.service';
       {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
       {path: 'report-tarjeta/:id', component: ReportTarjetaComponent},
       {path: 'cuadro-control', component: CuadroControlComponent},
-      {path: 'cierre-anio', component: CierreAnioComponent}
+      {path: 'cierre-anio', component: CierreAnioComponent},
+      {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent}
 
  
 
