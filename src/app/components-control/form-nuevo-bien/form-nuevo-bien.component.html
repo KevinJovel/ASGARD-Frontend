@@ -72,7 +72,7 @@
                     <div class="form-group col-md-6">
                       <label for="inputPassword4">* Tipo Adquisición</label>
                       <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
-                        <option selected>Seleccione...</option>
+                        <option value="0">Seleccione...</option>
                         <option value="1">Contado</option>
                         <option value="2">Crédito</option>
                         <option value="3">Donado</option>
@@ -81,7 +81,7 @@
                     <div class="form-group col-md-6">
                       <label for="inputPassword4">* {{tipocombo}}</label>
                     <select  class="form-control" formControlName="idproveedor">
-                      <option selected>Seleccione...</option>
+                      <option value="0">Seleccione...</option>
                       <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
                       </select>
                     </div>
@@ -95,13 +95,12 @@
                     </div>
                     <div class="col-lg-4">
                     <label for="inputPassword4">* Cantidad</label>
-                    <input type="number" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad" formControlName="cantidad"
-                    max="999" min="0" onKeyDown="if(this.value.length==3 && event.keyCode>47 && event.keyCode<58)return false;">
+                    <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad" formControlName="cantidad" maxlength="4" autocomplete="off">
                     </div> 
                     
                     <div class="col-lg-4">
                       <label for="inputPassword4">* Color</label>
-                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese color" formControlName="color" maxlength="21">
+                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese color" formControlName="color" maxlength="21" autocomplete="off">
                       </div>
 
         
@@ -112,20 +111,20 @@
                     <div class="form-group col-md-4">
                       <label for="inputCity">* Clasificación</label>
                       <select  class="form-control" formControlName="idclasificacion">
-                        <option selected>Seleccione...</option>
+                        <option value="0">Seleccione...</option>
                         <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.correlativo}}-{{clasificacion.clasificacion}}</option>
                       </select>
                      </div>
                     <div class="form-group col-md-4">
                       <label for="inputState">* Marca</label>
                       <select id="inputState" class="form-control" formControlName="idmarca">
-                        <option selected>Seleccione...</option>
+                        <option value="0">Seleccione...</option>
                         <option [value]="marca.idMarca" *ngFor="let marca of marcas">{{marca.marca}}</option>
                       </select>  
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputZip">Modelo</label>
-                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo" formControlName="modelo" maxlength="31">
+                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo" formControlName="modelo" maxlength="31" autocomplete="off">
                     </div>
                     
                   </div>
@@ -142,6 +141,7 @@
               <!--Div para validaciones en el centro-->
               <div class="form-group col-md-4">
 
+                <!-- DESCRIPCION -->
                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['descripcion'].errors?.maxlength">
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
@@ -155,6 +155,31 @@
                   </button>
                   <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
                 </div>
+                <!-- FIN DE DESCRIPCION -->
+
+                <!-- CANTIDAD -->
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cantidad'].errors?.pattern">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+                </div>
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cantidad'].errors?.maxlength">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                </div>
+                <!-- FIN DE CANTIDAD -->
+
+                <!-- COLOR -->
+                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['color'].errors?.pattern">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+                </div>
 
                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['color'].errors?.maxlength">
                   <button data-dismiss="alert" class="close close-sm" type="button">
@@ -162,28 +187,23 @@
                   </button>
                   <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
                 </div>
+                <!-- COLOR -->
 
-                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cantidad'].errors?.puntoDecimal">
+                 <!-- MODELO -->
+                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['modelo'].errors?.pattern">
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡ERROR!</strong> No se permite punto decimal
+                  <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
                 </div>
 
-                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cantidad'].errors?.min">
-                  <button data-dismiss="alert" class="close close-sm" type="button">
-                    <i class="icon-remove"></i>
-                  </button>
-                  <strong>¡ERROR!</strong> No se permite números negativos
-                </div>
-
-                <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['modelo'].errors?.maxlength">
+                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['modelo'].errors?.maxlength">
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
                   <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
                 </div>
-
+                  <!-- FIN DE MODELO -->
               </div>
               <!--Fin iv para validaciones en el centro-->
 
@@ -193,46 +213,41 @@
               <div class="form-row">
                 <div class="form-group col-md-4">
                 <label  for="formGroupExampleInput2">* # de Factura</label>
-                <input type="text" class="form-control" id="inputEmail4" placeholder="Ingrese # de factura" formControlName="nofactura" maxlength="31">
+                <input type="text" class="form-control" id="inputEmail4" placeholder="Ingrese # de factura" formControlName="nofactura" maxlength="31" autocomplete="off">
                 </div>
                 <div class="form-group col-md-4">
                 <label for="inputPassword4">* Costo</label>
-                <input type="number" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion"
-                max="9999999999" min="0" onKeyDown="if(this.value.length==10 && event.keyCode>47 && event.keyCode<58)return false;">
+                <input type="text" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion" maxlength="11" autocomplete="off">
                 </div>
                 <div class="form-group col-md-4">
                   <label for="inputPassword4">* Prima</label>
-                  <input type="number" class="form-control" placeholder="{{disabledPrima}}" formControlName="prima" [attr.disabled]="disabled ? '' : null" 
-                  max="9999999" min="0" onKeyDown="if(this.value.length==7 && event.keyCode>47 && event.keyCode<58)return false;">
+                  <input type="text" class="form-control" placeholder="{{disabledPrima}}" formControlName="prima" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                   </div>
-            </div>
+                </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
                 <label  for="formGroupExampleInput2">* Plazo en meses</label>
-                <input type="number" class="form-control" id="inputEmail4" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null"
-                max="99" min="0" onKeyDown="if(this.value.length==2 && event.keyCode>47 && event.keyCode<58)return false;">
+                <input type="text" class="form-control" id="inputEmail4" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                 </div>
                 <div class="form-group col-md-4">
                     <label  for="formGroupExampleInput2">* Cuota</label>
-                    <input type="number" class="form-control" id="inputEmail4" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null"
-                    max="9999999" min="0" onKeyDown="if(this.value.length==7 && event.keyCode>47 && event.keyCode<58)return false;">
+                    <input type="text" class="form-control" id="inputEmail4" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                     </div>
                     <div class="form-group col-md-4">
                       <label for="inputPassword4">* Interes en %</label>
-                      <input type="number" class="form-control" placeholder="{{disabledInteres}}" formControlName="interes" [attr.disabled]="disabled ? '' : null"
-                      max="99" min="0" onKeyDown="if(this.value.length==2 && event.keyCode>47 && event.keyCode<58)return false;">
+                      <input type="text" class="form-control" placeholder="{{disabledInteres}}" formControlName="interes" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                       </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                 <label  for="formGroupExampleInput2">* Persona que entrega</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51">
+                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51" autocomplete="off">
                 </div>
                 <div class="form-group col-md-6">
                 <label for="inputPassword4">* Persona que recibe</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51">
+                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51" autocomplete="off">
                 </div>
             </div>
 
@@ -264,6 +279,7 @@
         <!--Div para alertas en el centro-->
         <div class="form-group col-md-4">
 
+          <!-- No FACTURA -->
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['nofactura'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -277,7 +293,89 @@
             </button>
             <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
           </div>
+          <!-- FIN No FACTURA -->
 
+          <!-- COSTO DE ADQUISICION -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['valoradquicicion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['valoradquicicion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <!-- FIN COSTO DE ADQUISICION -->
+
+          <!-- PRIMA -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['prima'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['prima'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <!-- FIN PRIMA -->
+
+           <!-- PLAZO PAGO -->
+           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['plazopago'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['plazopago'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <!-- FIN PLAZO PAGO -->
+
+          <!-- CUOTA -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cuotaasignada'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cuotaasignada'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <!-- FIN CUOTA -->
+
+           <!-- INTERES -->
+           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['interes'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['interes'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <!-- FIN INTERES -->
+
+          <!-- PERSONA QUE ENTREGA -->
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['personaentrega'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -291,14 +389,9 @@
             </button>
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
+          <!-- FIN PERSONA QUE ENTREGA -->
 
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cuotaasignada'].errors?.step">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> Sólo se permiten dos dígitos
-          </div>
-
+          <!-- PERSONA QUE RECIBE -->
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['personarecibe'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -312,62 +405,23 @@
             </button>
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
+          <!-- FIN PERSONA QUE RECIBE -->
 
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['valoradquicicion'].errors?.min">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> No se permite números negativos
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['plazopago'].errors?.min">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> No se permite números negativos
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['prima'].errors?.min">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> No se permite números negativos
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cuotaasignada'].errors?.min">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> No se permite números negativos
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['interes'].errors?.min">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> No se permite números negativos
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['plazopago'].errors?.puntoDecimal">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> No se permite punto decimal
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['interes'].errors?.puntoDecimal">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ERROR!</strong> No se permite punto decimal
-          </div>
-
+          <!-- OBSERVACIONES -->
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['observaciones'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
           </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['observaciones'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
+          <!-- FIN DE OBSERVACIONES -->
 
         </div>
         <!--Fin Div para alertas en el centro-->

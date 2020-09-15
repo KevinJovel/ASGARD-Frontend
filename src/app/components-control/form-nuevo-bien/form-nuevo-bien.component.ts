@@ -51,26 +51,26 @@ export class FormNuevoBienComponent implements OnInit {
     this.nuevobien = new FormGroup({
       idbien: new FormControl('0'),
       bandera: new FormControl('0'),
-      color: new FormControl('', [Validators.required,Validators.maxLength(20),]),
-      descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")]),
-      modelo: new FormControl('', [Validators.maxLength(30),]),
+      color: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
+      modelo: new FormControl('', [Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
       tipoadquicicion: new FormControl('0',[Validators.required]), //contado credito o donado
-      idmarca: new FormControl('0', [Validators.required]),
+      idmarca: new FormControl('0'),
       idclasificacion: new FormControl('0',[Validators.required]),
       idproveedor: new FormControl('0', [Validators.required]),
       estadoingreso: new FormControl('0',[Validators.required]),
-      valoradquicicion: new FormControl('',[Validators.required,Validators.min(1)],),
-      plazopago: new FormControl('',[Validators.min(1),this.noPuntoDecimal]),
-      prima: new FormControl('',[Validators.min(1)]),
-      cuotaasignada: new FormControl('',[Validators.min(1)]),
-      interes: new FormControl('',[Validators.min(1),this.noPuntoDecimal]),
+      valoradquicicion: new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]),
+      plazopago: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
+      prima: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
+      cuotaasignada: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
+      interes: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
       noformulario: new FormControl('0'),
       nofactura: new FormControl('', [Validators.required,Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
       fechaingreso: new FormControl('', [Validators.required]),
       personaentrega: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      observaciones: new FormControl('',[Validators.required, Validators.maxLength(70),]),
-      cantidad: new FormControl('', [Validators.required, this.noPuntoDecimal, Validators.min(1),]),
+      observaciones: new FormControl('',[Validators.required, Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      cantidad: new FormControl('', [Validators.maxLength(3),Validators.pattern("^[0-9´´ ]+$")]),
       foto: new FormControl(''),
     });
     
@@ -191,7 +191,6 @@ export class FormNuevoBienComponent implements OnInit {
           } else{
             
           }
-
             //Pasamos la foto
             this.nuevobien.controls['foto'].setValue(this.foto);
 
