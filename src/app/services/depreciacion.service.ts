@@ -50,4 +50,10 @@ export class DepreciacionService {
   public buscarCuadro(buscador) {
     return this.http.get(environment.urlService  + "api/CuadroControl/buscarCuadro/" + buscador).map(res => res.json());
   }
+  public DatosCierre() {
+    return this.http.get(environment.urlService  + "api/Depreciacion/DatosCierre").map(res => res.json());
+  }
+  public EjecutarCierre(periodo) {
+    return this.http.post(environment.urlService + "api/Depreciacion/EjecutarCierre/", periodo).map(res=>res.json());
+    }
 }
