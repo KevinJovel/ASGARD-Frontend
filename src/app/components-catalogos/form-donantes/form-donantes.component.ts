@@ -22,7 +22,7 @@ export class FormDonantesComponent implements OnInit {
     this.donantes = new FormGroup({
 
       'iidDonante': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")], this.noRepetirDonante.bind(this)),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirDonante.bind(this)),
       'bandera': new FormControl("0"),
       'telefono': new FormControl("", [Validators.required, Validators.maxLength(11)]),
       'direccion': new FormControl("", [Validators.required, Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóú.´´,#+° ]+$")])
