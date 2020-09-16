@@ -176,6 +176,7 @@ export class FormNuevoBienComponent implements OnInit {
   }
 
   guardarDatoss() {
+    // console.log(this.nuevobien.value);
     //Le agrego una bandera para englobar los datos y verificar si fueron ingresados o no en el formulario
     if (this.nuevobien.controls['bandera'].value == '0') {
       if (this.nuevobien.valid == true) {
