@@ -13,7 +13,7 @@
     </div>
     
     <div class="col-md-3">
-      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre  placeholder="Buscar">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
    
   </div>
@@ -42,7 +42,7 @@
                   <td>{{traspaso.descripcion}}</td>
                   <td class="center hidden-phone">
                     <button class="btn btn-primary btn-xs" (click)="modif(traspaso.idtipo)"><i class="icon-pencil" title="Editar"></i></button>
-                    <button class="btn btn-danger btn-xs" ><i class="icon-trash "></i></button>
+                    <button class="btn btn-danger btn-xs" (click)="eliminar(traspaso.idtipo)" ><i class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -72,11 +72,48 @@
             <label for="exampleInputEmail1">* Nombre:</label>
             <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off" maxlength="26">
           </div>
+          <!-- Aletras para NOMBRE-->
+          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.yaExisteNombre">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ADVERTENCIA!</strong> El nombre de tipo de traspaso ya está en uso. Prueba con otro.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+          </div>
+          <!-- Fin Aletras para NOMBRE-->
 
           <div class="form-group">
             <label for="exampleInputEmail1">* Descripción:</label>
             <input type="text" class="form-control" formControlName="descripcion" id="exampleInputEmail3" placeholder="Ingrese descripción" autocomplete="off" maxlength="51">
           </div>
+          <!-- Aletras para NOMBRE-->
+          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['descripcion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+          </div>
+          <!-- Fin Aletras para NOMBRE-->
 
                            <!--  WARNING-->
                            <div class="alert alert-warning fade in" *ngIf="!traspaso.valid">

@@ -119,6 +119,18 @@ public validarDepenActivo(idSucursal) {
     return this.http.post(environment.urlService  + "api/TipoTraspaso/modificarTipoTraspaso", cargo).map(res => res.json());
   }
 
+  public eliminarTipoTraspaso(idTipoTraspaso) {
+    return this.http.get(environment.urlService  + "api/TipoTraspaso/eliminarTipoTraspaso/" + idTipoTraspaso).map(res => res.json());
+  }
+
+  public buscarTipoTraspaso(buscador) {
+    return this.http.get(environment.urlService  + "api/TipoTraspaso/buscarTipoTraspaso/" + buscador).map(res => res.json());
+  }
+
+  public validarTipoTraspaso(idTipoTraspaso, nombre) {
+    return this.http.get(environment.urlService + "api/TipoTraspaso/validarTipoTraspaso/" + idTipoTraspaso + "/" + nombre).map(res=>res.json());
+  }
+
   // Service Técnicos
 
   public agregarTecnico(tecnico) {

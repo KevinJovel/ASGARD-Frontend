@@ -22,8 +22,8 @@ export class FormTipoTrasladoComponent implements OnInit {
 
       'idtipo': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("",[Validators.required]),
-      'descripcion': new FormControl("",[Validators.required])
+      'nombre': new FormControl("",[Validators.required,Validators.maxLength(25),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")],this.noRepetirNombre.bind(this)),
+      'descripcion': new FormControl("",[Validators.required,Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ.]+$")])
     });
   }
 
@@ -100,6 +100,59 @@ modif(id) {
     this.traspaso.controls["descripcion"].setValue(data.descripcion);
     this.catalogoService.getTipoTraspaso().subscribe(data => { this.traspasos = data });  
   });
+}
+
+eliminar(idtipo) { 
+  Swal.fire({
+      title: '¿Estas seguro de eliminar este registro?',
+      text: "¡No podras revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si, eliminar!'
+  }).then((result) => {
+      if (result.value) {
+          this.catalogoService.eliminarTipoTraspaso(idtipo).subscribe(data => {
+            this.catalogoService.getTipoTraspaso().subscribe(data=> {this.traspasos=data});
+              Swal.fire(
+                  '¡Dato eliminado!',
+                  'Tu registro ha sido eliminado con éxito.',
+                  'success'
+              )
+          });
+         
+      }
+  })
+}
+
+buscar(buscador) {
+  this.p = 1;
+  this.catalogoService.buscarTipoTraspaso(buscador.value).subscribe(res => this.traspasos = res);
+}
+
+noRepetirNombre(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarTipoTraspaso(this.traspaso.controls["idtipo"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteNombre: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
+
+
+  });
+
+  return promesa;
 }
 
 }
