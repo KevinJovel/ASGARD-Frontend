@@ -33,12 +33,12 @@ export class FormInformeMantenimientoComponent implements OnInit {
    //form para la revalorización 
    this.revalorizacion = new FormGroup({
     'idBien': new FormControl(""),
-    'valorRevalorizacion': new FormControl(""),
+    'valorRevalorizacion': new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
     'idinformematenimiento': new FormControl(""),
    // 'valorActual': new FormControl(""),
    // 'valorDepreciacion': new FormControl("0.00"),
-    'vidaUtil': new FormControl(""),
-    'fecha': new FormControl("")
+    'vidaUtil': new FormControl("",[Validators.pattern("^[0-9]+$")]),
+    'fecha': new FormControl("",[Validators.required])
 });
   }
 
@@ -85,7 +85,20 @@ export class FormInformeMantenimientoComponent implements OnInit {
     this.mantenimientoService.buscarInformes(buscador.value).subscribe(res => {this.informes = res});
   }
 
-
+ noRevalorizar(){
+  this.mantenimientoService.estadosinrevalorizar(this.revalorizacion.controls["idinformematenimiento"].value).subscribe(rest=>{
+    if(rest==1){
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Hecho!',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    this.mantenimientoService.ListarInformeMantenimiento().subscribe(data=>{ this.informes=data});
+    }
+  });
+ }
   
   guardarDatos(){
 
@@ -105,11 +118,10 @@ export class FormInformeMantenimientoComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'mas tarde lo quito',
               showConfirmButton: false,
               timer: 3000
             })
-          this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.informes=data});
+          this.mantenimientoService.ListarInformeMantenimiento().subscribe(data=>{ this.informes=data});
           }
         });
       

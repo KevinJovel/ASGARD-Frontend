@@ -55,7 +55,6 @@ export class HistorialMantenimientoComponent implements OnInit {
       'valorDepreciacion': new FormControl("")
   });
 // para historial
-
   
   }
 
@@ -101,9 +100,15 @@ export class HistorialMantenimientoComponent implements OnInit {
     });
   }
 
-  open2() {
+  open2(idbien) {
     this.titulo = "Historial de mantenimiento";
     this.display2 = 'block';
+
+    this.informe.controls["idBien"].setValue(idbien);
+    //para recuperar el id del bien 
+    this.mantenimientoService.historialInformes().subscribe(res=>{
+      this.informes=res;  
+    });
   }
 
   close(){

@@ -36,7 +36,7 @@ export class TablaInformeComponent implements OnInit {
       'fechainforme': new FormControl("",[Validators.required]),
       'idtecnico': new FormControl("0",[Validators.required]),
       //'idBien': new FormControl("0"),
-      'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ. ]+$")]),
       'costomateriales':new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
       'costomo':new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
      // 'costototal':new FormControl("",[Validators.required])

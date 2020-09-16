@@ -97,10 +97,14 @@ public ListarInformeMantenimiento(){
   }
 
 
-  //METODO PARA CAMBIAR DE ESTADO LA EL INFORME CUANDO SE REVALORIZA O NO.
- public  estadoInformeRevalorizado (estadoInformeRevalorizado){
-  return this.http.get(environment.urlService + "api/InformeMantenimiento/estadoInformeRevalorizado/" + estadoInformeRevalorizado ).map(res=>res.json());
+  //METODO PARA CAMBIAR DE ESTADO LA EL INFORME CUANDO NO se revaloriza.
+ public  estadoInformeRevalorizado (idinformeMantenimiento){
+  return this.http.get(environment.urlService + "api/InformeMantenimiento/estadoInformeRevalorizado/" + idinformeMantenimiento ).map(res=>res.json());
  }
+  //METODO PARA CAMBIAR DE ESTADO LA EL INFORME CUANDO no se revaloriza.
+  public  estadosinrevalorizar (idinformeMantenimiento){
+    return this.http.get(environment.urlService + "api/InformeMantenimiento/estadosinrevalorizar/" + idinformeMantenimiento ).map(res=>res.json());
+   }
 
  
 

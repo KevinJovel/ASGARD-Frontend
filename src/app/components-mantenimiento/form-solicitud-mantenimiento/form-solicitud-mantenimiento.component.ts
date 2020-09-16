@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HashLocationStrategy } from '@angular/common';
+import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
 
 
@@ -25,13 +26,15 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   display2 = 'none';
   p: number = 1;
   matriz:(string | number)[][]=new Array();
+  mydate= Date.now();
 
   constructor( private mantenimientoService: MantenimientoService) { 
+  
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
-       'folio': new FormControl("",[Validators.required,Validators.maxLength(10)],this.noRepetirFolio1.bind(this)),
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250)])
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
        
     }); 
     this.datosArray=new FormGroup({
@@ -39,8 +42,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
-      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(100)]),
-      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(25)])
+      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(25),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
     });
   }
 
@@ -97,6 +100,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   // }
 
 
+
+
   arrayMostrar(){
     this.matriz.push([this.datosArray.controls["idBien"].value,this.datosArray.controls["codigobien"].value, 
     this.datosArray.controls["descripcionbien"].value,this.datosArray.controls["razonesMantenimiento"].value,
@@ -107,7 +112,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
           this.bienes=data;
     });
   }
-  noRepetirFolio1(control: FormControl) {
+  noRepetirFolio(control: FormControl) {
 
     var promesa = new Promise((resolve, reject) => {
 
@@ -131,29 +136,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     return promesa;
   }
 
-  noRepetirFolio(control: FormControl) {
-
-    var promesa = new Promise((resolve, reject) => {
-
-      if (control.value != "" && control.value != null) { 
-        
-          this.mantenimientoService.validarFolio(this.solicitud.controls["idsolicitud"].value,control.value)
-          .subscribe(data => {
-            if (data == 1) {
-              resolve({ yaExisteFolio: true });
-            } else {
-              resolve(null);
-            }
-          //  this.empleado.controls["dui"]!=this.empleado.controls["id"]
-          });
-        }
-      
-
-    });
-
-    return promesa;
-  }
-
+  
   buscar(buscador) {
     this.p = 1;
     this.mantenimientoService.buscarBienescodigo(buscador.value).subscribe(res => {this.bienes = res});

@@ -32,6 +32,20 @@
             </button>
             <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
           </div>
+            <!-- Validacion de pattern no acepta caracteres especiales -->
+            <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.pattern">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            </div>
+              <!-- Validacion de pattern no acepta caracteres especiales -->
+              <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['descripcion'].errors?.pattern">
+                <button data-dismiss="alert" class="close close-sm" type="button">
+                  <i class="icon-remove"></i>
+                </button>
+                <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+              </div>
           <div class="alert alert-success fade in" *ngIf="solicitud.valid">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -57,16 +71,7 @@
             <strong>Advertencia!</strong> ya existe el folio ingresado, por favor intente con un nuevo.
           </div>
         </div>
-   
-
-   
-     
-   
     </div>
-   
-     
-
-     
     </div>
 
   </header>
@@ -244,12 +249,12 @@
     
                      <div class="form-group">
                        <label for="exampleInputEmail1">Razones del mantenimiento:</label>
-                       <input  type="text" class="form-control" formControlName="razonesMantenimiento" placeholder="Razones del mantenimiento" autocomplete="off" maxlength="101">
+                       <input  type="text" class="form-control" formControlName="razonesMantenimiento" placeholder="Ingrese razones del mantenimiento" autocomplete="off" maxlength="101">
                      </div>
                      <br>
                      <div class="form-group">
                        <label for="exampleInputEmail1">Periodo del mantenimiento:</label>
-                       <input  type="text" class="form-control" formControlName="periodoMantenimiento" placeholder="Periodo del mantenimiento" autocomplete="off" maxlength="26">
+                       <input  type="text" class="form-control" formControlName="periodoMantenimiento" placeholder="Ingrese Periodo del mantenimiento" autocomplete="off" maxlength="26">
                      </div>
                      <br> <br>
                     
@@ -278,6 +283,21 @@
             </button>
             <strong>Error!</strong> Tamaño máximo permitido en el campo período de mantenimiento.
           </div>
+           <!-- Validacion de pattern no acepta caracteres especiales -->
+           <div class="alert alert-block alert-danger fade in" *ngIf="datosArray.controls['razonesMantenimiento'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
+           <!-- Validacion de pattern no acepta caracteres especiales -->
+           <div class="alert alert-block alert-danger fade in" *ngIf="datosArray.controls['periodoMantenimiento'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
+          
                    
                
                      <div>
