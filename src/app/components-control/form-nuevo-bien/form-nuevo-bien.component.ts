@@ -35,6 +35,8 @@ export class FormNuevoBienComponent implements OnInit {
   disabled: boolean;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
   comboAreaSucur:any;
+  lista: any;
+ recargo: number=0;
 
   @Input() bandera = false; //agrego input para hacer uso delas dos funciones
   //Variables de etiqueta
@@ -64,14 +66,14 @@ export class FormNuevoBienComponent implements OnInit {
       prima: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
       cuotaasignada: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
       interes: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
-      noformulario: new FormControl('0'),
-      nofactura: new FormControl('', [Validators.required,Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
-      fechaingreso: new FormControl('', [Validators.required]),
-      personaentrega: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      observaciones: new FormControl('',[Validators.required, Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+     noformulario: new FormControl('0'),
+     nofactura: new FormControl('', [Validators.required,Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
+     fechaingreso: new FormControl('', [Validators.required]),
+     personaentrega: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+     personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+     observaciones: new FormControl('',[Validators.required, Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       cantidad: new FormControl('', [Validators.maxLength(3),Validators.pattern("^[0-9´´ ]+$")]),
-      foto: new FormControl(''),
+     foto: new FormControl(''),
     });
     
   }
@@ -91,12 +93,15 @@ export class FormNuevoBienComponent implements OnInit {
       this.marcas = data;
     });
 
+    this.controlService.getBienes().subscribe((data) => {this.lista = data; });
+
     //this.dataState.data.datas //en data se almacenaran los datos que envio
     //recupera los datos del componente tabla
-    this.stateService.state.subscribe((resp) => { this.dataState = resp;
+    this.stateService.state.subscribe((resp) => { 
+      this.dataState = resp;
       if (resp.data.hasOwnProperty('bienObj')) {
         let data = resp.data.bienObj;
-        this.nuevobien.setValue(resp.data.bienObj); //recupero
+        this.nuevobien.setValue(data); //recupero
         this.bandera = true; //habilito el boton actualizar
       }
 
@@ -181,8 +186,7 @@ export class FormNuevoBienComponent implements OnInit {
     if (this.nuevobien.controls['bandera'].value == '0') {
       if (this.nuevobien.valid == true) {
         this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe((data) => {
-
-          //Creo esta condicion, si es contado o donado mando valor 0 sino ingresa lo de credito
+            //Creo esta condicion, si es contado o donado mando valor 0 sino ingresa lo de credito
           var tip = this.nuevobien.controls['tipoadquicicion'].value;
           if(tip==1 || tip==3) {
             this.nuevobien.controls['prima'].setValue('0');
@@ -191,7 +195,7 @@ export class FormNuevoBienComponent implements OnInit {
             this.nuevobien.controls['interes'].setValue('0');
           } else{
             
-          }
+          } 
             //Pasamos la foto
             this.nuevobien.controls['foto'].setValue(this.foto);
 
@@ -232,18 +236,46 @@ export class FormNuevoBienComponent implements OnInit {
     
   }
 
-  guardarMod() {
+  guardarMod() {      
     //desdeaqui
     //else{
+       
       this.nuevobien.controls['bandera'].setValue('0');
     if (this.nuevobien.valid == true) {
-      this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
+      
+     this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
         console.log(this.nuevobien.value);
+        //le mando -1 para que reconozca un valor
+        if(this.nuevobien.value.plazopago==null)
+        {
+          this.nuevobien.controls['plazopago'].setValue(-1);
+        console.log("El plazo: "+this.nuevobien.value.plazopago);
+        }
+        if(this.nuevobien.value.prima==null)
+        {
+          this.nuevobien.controls['prima'].setValue(-1);
+        console.log("Es prima: "+this.nuevobien.value.prima);
+        }
+        if(this.nuevobien.value.cuotaasignada==null)
+        {
+          this.nuevobien.controls['cuotaasignada'].setValue(-1);
+        console.log("Es couta: "+this.nuevobien.value.cuotaasignada);
+        }
+        if(this.nuevobien.value.interes==null)
+        {
+          this.nuevobien.controls['interes'].setValue(-1);
+        console.log("Es interes: "+this.nuevobien.value.interes);
+        }
+        
           this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
             console.log(this.nuevobien.value);
-            this.modificar(this.nuevobien.value.idbien); 
+            this.modificar(this.nuevobien.value.idbien);
+            this.controlService.getBienes().subscribe((data) => {this.lista = data; });
           });
+          this.recargo=1;
+          //this.router.navigate(['./tabla-activos']);
             console.log("Id Bien: "+this.nuevobien.value.idbien);
+           //listar bienes
             this.router.navigate(['./tabla-activos']);
           });
               Swal.fire({
@@ -252,13 +284,23 @@ export class FormNuevoBienComponent implements OnInit {
                 title: 'Registro Modificado con éxito',
                 showConfirmButton: false,
                 timer: 3000,
+              }).then((result) => {
+                if (result.value) {
+                  this.router.navigate(['./tabla-activos']);
+                  
+                } //else {
+                  window.location.reload();
+               // }
               });     
     }
-
+    
     this.display = 'none';
-    this.router.navigate(['./tabla-activos']);
+    //if(this.recargo==1){
+    //this.router.navigate(['./tabla-activos']);
+  //}
+    
    // this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});;
-
+   
   }
 
   modificar(id) {
@@ -289,10 +331,39 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['foto'].setValue(data.foto);
 
       this.nuevobien.controls['bandera'].setValue('1');
+
+     // let listar = data.idbien;
     });
+    this.open();
   }
 
-
+  open() {
+    //limpia cache
+    this.nuevobien.controls["idbien"].setValue("0");
+    this.nuevobien.controls["bandera"].setValue("0");
+    this.nuevobien.controls["color"].setValue("");
+    this.nuevobien.controls["descripcion"].setValue("");
+    this.nuevobien.controls["modelo"].setValue("");
+    this.nuevobien.controls["tipoadquicicion"].setValue("");
+    this.nuevobien.controls["idmarca"].setValue("");
+    this.nuevobien.controls["idclasificacion"].setValue("");
+    this.nuevobien.controls["idproveedor"].setValue("");
+    this.nuevobien.controls["estadoingreso"].setValue("");
+    this.nuevobien.controls["plazopago"].setValue("");
+    this.nuevobien.controls["prima"].setValue("");
+    this.nuevobien.controls["cuotaasignada"].setValue("");
+    this.nuevobien.controls["interes"].setValue("");
+    this.nuevobien.controls["noformulario"].setValue("");
+    this.nuevobien.controls["nofactura"].setValue("");
+    this.nuevobien.controls["fechaingreso"].setValue("");
+    this.nuevobien.controls["personaentrega"].setValue("");
+    this.nuevobien.controls["personarecibe"].setValue("");
+    this.nuevobien.controls["observaciones"].setValue("");
+    this.nuevobien.controls["cantidad"].setValue("");
+    this.nuevobien.controls["foto"].setValue("");
+    this.display = 'block';
+  
+  }
 
 
   noPuntoDecimal(control: FormControl) {
@@ -303,6 +374,7 @@ export class FormNuevoBienComponent implements OnInit {
       return null;
     }
   }
+
 
 
 }

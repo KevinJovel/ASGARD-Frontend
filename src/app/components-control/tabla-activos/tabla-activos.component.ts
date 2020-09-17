@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, Input} from '@angular/core';
 import {CargarScriptsService} from './../../services/cargar-scripts.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 import { CatalogosService } from './../../services/catalogos.service';//filtro
@@ -49,12 +49,15 @@ export class TablaActivosComponent implements OnInit {
       'idEmpleado':new FormControl("0"),
       'tipoadquicicion': new FormControl("0")                                            
   });
+
+ 
    }
  
 
   ngOnInit() {
     
     this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});
+   // this.controlService.getBienesAsignados().subscribe(res=> { this.asignados=res});
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
      
   }
@@ -107,7 +110,7 @@ ver(id: any) {
     this.prima = data.prima;
     this.interes = data.intereses;
     this.modelo = data.Modelo;
-    this.tipoadqui = data.tipoadquicicion;
+   // this.tipoadqui = data.tipoadquicicion;
     this.foto =data.foto;
     this.noformu = data.noformulario;
     //console.log(id);

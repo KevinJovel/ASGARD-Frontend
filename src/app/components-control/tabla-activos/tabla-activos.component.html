@@ -10,7 +10,7 @@
             <div class="row">
               <div class="form-group col-md-2">
                 <br>
-                  <button type="button" style="margin-top: 24px;" class="btn btn-success"  data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Nuevo bien</button>
+                  <button type="button" style="margin-top: 24px;" (click)="open()" class="btn btn-success" data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Nuevo bien</button>
                    </div>
 
               <div class="form-group col-md-3">
@@ -59,8 +59,8 @@
                             <th>Fecha ingreso</th>
                             <th>Descripción</th>
                             <th>Clasificación</th>
-                           <!-- <th>Área de negocio</th>
-                            <th>Responsable</th>   -->                     
+                            <th>Área de negocio</th>
+                            <th>Responsable</th>                     
                             <th class="hidden-phone" >Opciones </th>
                           </tr>
                         </thead>
@@ -68,17 +68,18 @@
                           <tr *ngFor="let combo of comboAreaSucur | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
                             
                             <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                            
                             <td>{{combo.codigo}}</td>
                             <td>{{combo.fechacadena}}</td>
                             <td>{{combo.desripcion}}</td>
                             <td>{{combo.clasificacion}}</td>
-                          <!--  <td>{{combo.areaDeNegocio}}</td>
-                            <td>{{combo.resposnsable}}</td>   -->           
+                            <td>{{combo.areaDeNegocio}}</td>
+                            <td>{{combo.resposnsable}}</td>            
                             <td class="center hidden-phone">
                               <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>
                               <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
                             </td>
-                          </tr>
+                            
                         </tbody>
                       </table>
                       <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
@@ -108,7 +109,7 @@
                         <span class="text-bold"><strong>Responsable:</strong></span> {{ responsable}}<br/><br/>
                         <label><strong>Clasificación:</strong></label> {{ clasificacion}}<br/><br/>
                         <label><strong>Proveedor:</strong></label> {{ proveedor}}<br/><br/>
-                        <label><strong>Adquisición:</strong></label> {{tipoadqui}} <br/><br/>
+                        <label><strong>Adquisición:</strong></label> {{ tipoadqui}} <br/><br/>
                         <label ><strong>Destino inicial:</strong></label> {{destino}} <br/><br/>
                         <label ><strong>Valor adquisición:</strong></label> ${{ valor}}<br/><br/>
                         <label ><strong>Cuota:</strong></label> $ {{ cuota}} <br/><br/>
@@ -139,13 +140,13 @@
                    
                   </div>
 
-                <!--  <div class="col-lg-4">     
+                  <div class="col-lg-4">     
                     <p>
                       <br/><br/>
                       <img [src]="foto | safe" alt=""  width="290" height="190" class="">  
                     </p>
                  
-                </div>-->
+                </div>
 
                    <div class="row">
                     <div class="col-xs-3">
