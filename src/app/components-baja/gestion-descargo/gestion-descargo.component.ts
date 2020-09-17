@@ -32,7 +32,7 @@ export class GestionDescargoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bajaService.listarBienes().subscribe(res => { this.activo = res });
+    this.bajaService.listarBajas().subscribe(res => { this.activo = res });
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
   }
 
