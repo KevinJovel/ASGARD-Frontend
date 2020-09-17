@@ -65,7 +65,7 @@ export class HistorialMantenimientoComponent implements OnInit {
     this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
 
 //para historial
-   /* this.mantenimientoService.historialInformes().subscribe(res=>{
+   /*this.mantenimientoService.historialInformes().subscribe(res=>{
       this.informes=res;  
     });*/
   }

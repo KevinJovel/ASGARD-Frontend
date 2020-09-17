@@ -55,7 +55,7 @@
 				          <td>{{empleado.direccion}}</td>
 				          <td>{{empleado.telefono}}</td>
 				          <td>{{empleado.telefonopersonal}}</td>
-				          <td>{{empleado.nombrearea}}</td>
+                  <td>{{empleado.nombrearea +" - "+ empleado.nombresucursal}}</td>
 				          <td>{{empleado.cargo}}</td>
 				  
 				  
@@ -118,7 +118,7 @@
             <label for="exampleFormControlTextarea1" >* Área de negocio:</label>
             <select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea1"  maxlength="51">
               <option value="">---Seleccione---</option>	
-              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre }}</option>	 
+              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre +" - "+area.nombreSucursal}} </option>	 
             </select>
             </div>
             <div class="form-group col-md-6">

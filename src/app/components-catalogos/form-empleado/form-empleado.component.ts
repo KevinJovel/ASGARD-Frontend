@@ -29,7 +29,8 @@ export class FormEmpleadoComponent implements OnInit {
       'telefono': new FormControl("",[Validators.required]),
       'telefonopersonal': new FormControl("",[Validators.required]),
       'idareadenegocio': new FormControl("",[Validators.required]),
-      'idcargo': new FormControl("",[Validators.required])
+      'idcargo': new FormControl("",[Validators.required]),
+      'idsucursal': new FormControl("")
 
     });
 
