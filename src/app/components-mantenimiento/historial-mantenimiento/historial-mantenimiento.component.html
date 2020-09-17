@@ -54,6 +54,7 @@
                           <tr>
                             <th>N°</th>
                             <th>Codigo</th>
+                            <th>id bien</th>
                             <th>Descripcion</th>
                             <th>Responsable</th>
                             <th>Area de negocio</th>
@@ -67,13 +68,14 @@
                             <th scope="col">{{i+(5*p)-4}}</th>
                             <!-- <td>{{marca.idMarca}}</td> -->
                             <td>{{bien.codigo}}</td>
+                            <td>{{bien.idBien}}</td>
                             <td>{{bien.descripcion}}</td>
                             <td>{{bien.responsable}}</td>
                             <td>{{bien.areanegocio}}</td>
                             
                             <td>1000</td>
                             <td class="center hidden-phone" style="text-align: center;">
-                              <button title="Ver detalles" class="btn btn-primary btn-xs" (click)="open2()" ><i class=" icon-eye-open"></i></button> 
+                              <button title="Ver detalles" class="btn btn-primary btn-xs" (click)="open2(bien.idBien)" ><i class=" icon-eye-open"></i></button> 
                               <!--<button title="Aplicar depreciación" class="btn btn-warning btn-xs" (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>-->
                             </td>
                           </tr>
@@ -96,6 +98,7 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
+       
         <input type="text" class="form-control" formControlName="idBien" id="exampleInputEmail3"
             autocomplete="off">
         <!--INICIO DE TABLA-->
@@ -112,7 +115,7 @@
                    <tr>
                         <th scope="row">N°</th>                   
                         <th scope="row">Fecha</th>
-                        <th scope="row">Código</th>
+                        <th scope="row">id bien</th>
                         <th scope="row">Descripcion del bien</th>
                         <th scope="row">Tecnico</th>
                         <th scope="row">Costo de mano de obra</th>
@@ -128,7 +131,7 @@
                <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                 
                <td>{{informe.fechacadena}}</td>
-               <td>{{informe.codigo}}</td>
+               <td>{{informe.idBien}}</td>
                <td>{{informe.bienes}}</td>
                <td>{{informe.nombretecnico}}</td>
                <td>{{informe.costomateriales}}</td>

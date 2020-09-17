@@ -81,11 +81,11 @@ public buscarInformes(buscador) {
 }
 
 public ListarInformeMantenimiento(){
-  return this.http.get(environment.urlService + "api/InformeMantenimiento/ListarInformeMantenimiento" ).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/InformeMantenimiento/ListarInformeMantenimiento"  ).map(res=>res.json());
  } 
  //listar informes historial
- public historialInformes(){
-  return this.http.get(environment.urlService + "api/InformeMantenimiento/historialInformes" ).map(res=>res.json());
+ public historialInformes(idbien){
+  return this.http.get(environment.urlService + "api/InformeMantenimiento/historialInformes/" + idbien ).map(res=>res.json());
  } 
 
 

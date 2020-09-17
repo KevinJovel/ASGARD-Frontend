@@ -37,6 +37,8 @@ export class HistorialMantenimientoComponent implements OnInit {
    revalorizacion: FormGroup;
    display3 = 'none';
    titulo3: string;
+
+   bienid: any;
   
    idmante: any;
  
@@ -104,11 +106,12 @@ export class HistorialMantenimientoComponent implements OnInit {
     this.titulo = "Historial de mantenimiento";
     this.display2 = 'block';
 
-    this.informe.controls["idBien"].setValue(idbien);
+    this.bienes.controls["idBien"].setValue(idbien);
     //para recuperar el id del bien 
-    this.mantenimientoService.historialInformes().subscribe(res=>{
+    this.mantenimientoService.historialInformes(idbien).subscribe(res=>{
       this.informes=res;  
     });
+    bienid: idbien;
   }
 
   close(){
