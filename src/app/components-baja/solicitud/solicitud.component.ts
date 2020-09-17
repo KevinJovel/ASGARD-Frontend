@@ -70,7 +70,7 @@ export class SolicitudComponent implements OnInit {
       this.folio = data.folio;
       this.solicitud = data.noSolicitud;
      // this.acuerdo = data.acuerdo;  
-     this.bienesS = data.idbien; 
+     this.bienesS = data.idbien; //para obtener el id del bien
      console.log("Idbien: "+this.bienesS); 
     });
     //this.bajaService.listarBienesSolicitados(id.idbien).subscribe(res=>{ this.bienesS=res });
@@ -93,7 +93,9 @@ export class SolicitudComponent implements OnInit {
    aprobarSolicitud() {
      //en id 
     var id=this.idsolicitud;
-    console.log("Este de Acuerdo: "+this.solicitudes.value.acuerdo);
+    //var idsolicitud=this.idsolicitud;
+    this.acuerdo = this.solicitudes.value.acuerdo;
+    console.log("Este de Acuerdo: "+this.acuerdo);
     //this.bienesS = this.activo2;
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
@@ -119,8 +121,8 @@ export class SolicitudComponent implements OnInit {
           console.log("IdSoliiii: "+id);
          }      
    });   
-
-       this.bajaService.cambiarEstadoAceptado(this.bienesS).subscribe(rest=>{ });
+   this.bienesS=id;
+       this.bajaService.cambiarEstadoAceptado(this.bienesS, this.acuerdo).subscribe(rest=>{ });
        console.log("Id Bien: "+ this.bienesS);
      //this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
   
@@ -133,17 +135,18 @@ export class SolicitudComponent implements OnInit {
 //negar la solicitud
 negarSolicitud() {
   var id=this.idsolicitud;
-    console.log("Este de Acuerdo: "+this.solicitudes.value.acuerdo);
+  this.acuerdo = this.solicitudes.value.acuerdo;
+    console.log("Este de Acuerdo: "+this.acuerdo);
     //this.bienesS = this.activo2;
     Swal.fire({
-      title: '¿Estas seguro de aprobar esta solicitud?',
+      title: '¿Estas seguro de negar esta solicitud?',
       text: "No podras revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText:'Cancelar',
-      confirmButtonText: 'Si, aprobar!'
+      confirmButtonText: 'Si, negar!'
     }).then((result) => {
       if (result.value) {
     this.bajaService.denegarSolicitud(id).subscribe(res=>{
@@ -159,9 +162,9 @@ negarSolicitud() {
           console.log("IdSoliiii: "+id);
          }      
    });   
-
-       this.bajaService.cambiarEstadoRechazado(this.bienesS).subscribe(rest=>{ });
-       console.log("Id Bien: "+ this.bienesS);
+   this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien
+       this.bajaService.cambiarEstadoRechazado(this.bienesS ,this.acuerdo).subscribe(rest=>{ });
+       console.log("IdSolicitud: "+ this.bienesS);
      //this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
   
   }// del result
