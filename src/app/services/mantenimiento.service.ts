@@ -85,7 +85,7 @@ public ListarInformeMantenimiento(){
  } 
  //listar informes historial
  public historialInformes(idbien){
-  return this.http.get(environment.urlService + "api/InformeMantenimiento/historialInformes/" + idbien ).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/InformeMantenimiento/historialInformes/"+ idbien ).map(res=>res.json());
  } 
 
 
@@ -105,9 +105,9 @@ public ListarInformeMantenimiento(){
   public  estadosinrevalorizar (idinformeMantenimiento){
     return this.http.get(environment.urlService + "api/InformeMantenimiento/estadosinrevalorizar/" + idinformeMantenimiento ).map(res=>res.json());
    }
-
- 
-
+   public  listardatosHistorial (idbien){
+    return this.http.get(environment.urlService + "api/InformeMantenimiento/datosHistorial/" + idbien ).map(res=>res.json());
+   }
 
 
 

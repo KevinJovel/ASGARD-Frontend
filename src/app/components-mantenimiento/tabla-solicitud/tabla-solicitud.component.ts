@@ -54,7 +54,6 @@ export class TablaSolicitudComponent implements OnInit {
     });
     this.mantenimientoService.listarBienesSolicitados(id).subscribe(res=>{
       this.bienes=res;
-  
     });
 
     this.titulo = "Solicitud de autorización de mantenimiento";

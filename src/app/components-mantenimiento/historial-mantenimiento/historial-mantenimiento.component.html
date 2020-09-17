@@ -53,8 +53,7 @@
                         <thead>
                           <tr>
                             <th>N°</th>
-                            <th>Codigo</th>
-                            <th>id bien</th>
+                            <th>Correltavito</th>
                             <th>Descripcion</th>
                             <th>Responsable</th>
                             <th>Area de negocio</th>
@@ -68,14 +67,13 @@
                             <th scope="col">{{i+(5*p)-4}}</th>
                             <!-- <td>{{marca.idMarca}}</td> -->
                             <td>{{bien.codigo}}</td>
-                            <td>{{bien.idBien}}</td>
                             <td>{{bien.descripcion}}</td>
                             <td>{{bien.responsable}}</td>
                             <td>{{bien.areanegocio}}</td>
                             
                             <td>1000</td>
                             <td class="center hidden-phone" style="text-align: center;">
-                              <button title="Ver detalles" class="btn btn-primary btn-xs" (click)="open2(bien.idBien)" ><i class=" icon-eye-open"></i></button> 
+                              <button title="Ver detalles" class="btn btn-primary btn-xs" (click)="open(bien.idBien)" ><i class=" icon-eye-open"></i></button> 
                               <!--<button title="Aplicar depreciación" class="btn btn-warning btn-xs" (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>-->
                             </td>
                           </tr>
@@ -88,9 +86,12 @@
               </div>
             </div>
 
+
+           
+
 <!--INICIO DE MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENTO-->
 
-<div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
+<div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
   <div class="modal-dialog modal-lg" style="width:1000px;">
     <div class="modal-content">
       <div class="modal-header">
@@ -99,8 +100,35 @@
       </div>
       <div class="modal-body">
        
-        <input type="text" class="form-control" formControlName="idBien" id="exampleInputEmail3"
-            autocomplete="off">
+
+             <!--INICIO DE LOS VALORES DEL BIEN-->
+             <input type="hidden" class="form-control" value="{{idbien}}">
+             <div class="row">
+               <div class="col-lg-2"></div>
+               <div class="form-group col-md-4">
+                 <label><strong>Correlativo :</strong></label> {{ codigo }}<br/>
+                 </div>
+                 <div class="form-group col-md-4">
+                   <label><strong>Descripcion:</strong></label> {{ descripcion }}<br/>
+                  </div>
+              
+              </div>
+              <div class="row">
+               <div class="col-lg-2"></div>
+               <div class="form-group col-md-4">
+                 <label><strong>Encargado:</strong></label> {{ encargado }}<br/>
+                 </div>
+                 <div class="form-group col-md-4">
+                   <label><strong>Area de negocio:</strong></label> {{ areadenegocio }}<br/>
+                  </div>
+                  <div class="col-lg-4">
+                   
+                 </div>
+              
+              </div>
+       
+
+
         <!--INICIO DE TABLA-->
         <div class="row">
           <div class="col-lg-12">
@@ -115,8 +143,6 @@
                    <tr>
                         <th scope="row">N°</th>                   
                         <th scope="row">Fecha</th>
-                        <th scope="row">id bien</th>
-                        <th scope="row">Descripcion del bien</th>
                         <th scope="row">Tecnico</th>
                         <th scope="row">Costo de mano de obra</th>
                         <th scope="row">Costo de materiales</th>
@@ -131,8 +157,6 @@
                <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                 
                <td>{{informe.fechacadena}}</td>
-               <td>{{informe.idBien}}</td>
-               <td>{{informe.bienes}}</td>
                <td>{{informe.nombretecnico}}</td>
                <td>{{informe.costomateriales}}</td>
                <td>{{informe.costomo}}</td>
@@ -150,7 +174,7 @@
         </div>
           <div>
           <!--<button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>-->
-          <button type="button"  (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
           </div>
        
       </div>
@@ -159,57 +183,6 @@
  </div>
 
 <!--FIN DEL MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENOT-->
-
-
-<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
-  class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-        <h4 class="modal-title">{{coopertativa}} - Depreciación año {{anio}} </h4>
-      </div>
-      <div class="modal-body">
-
-        <form role="form" [formGroup]="datos" (ngSubmit)="AplicarDepreciacion()">
-          <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
-            autocomplete="off">
-          <!-- <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
-            autocomplete="off"> -->
-          <div class="form-group">
-            <label for="exampleInputEmail1">Codigo:</label>
-            <input type="text" class="form-control" formControlName="codigo" readonly>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Descripción:</label>
-            <input type="text" class="form-control" formControlName="descripcion" readonly>
-          </div>
-          <!--  WARNING-->
-   
-          <!--  END-WARNING-->
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2">Valor de adquicición:</label>
-            <input type="text" class="form-control" formControlName="valorAdquicicion" readonly>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2">Valor actual:</label>
-            <input type="text" class="form-control" formControlName="valorActual" readonly>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2">Valor a depreciar año {{anio}}:</label>
-            <input type="text" class="form-control" formControlName="valorDepreciacion" readonly>
-          </div>
-
-          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i>
-            Aply</button>
-          <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
-            Cancelar</button>
-
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 
          

@@ -28,10 +28,15 @@ export class HistorialMantenimientoComponent implements OnInit {
   //Datos del modal
   coopertativa:string;
   anio:string;
+  //para mostrar datos de historial
+  idbien: any;
+  descripcion: string;
+  codigo: string;
+  encargado:string;
+  areadenegocio: any;
 
   // para listar el historial
   informes: any;
-  // bienes: any;
    tecnicos:any;
    informe: FormGroup;
    revalorizacion: FormGroup;
@@ -65,7 +70,7 @@ export class HistorialMantenimientoComponent implements OnInit {
     this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
 
 //para historial
-   /*this.mantenimientoService.historialInformes().subscribe(res=>{
+/*this.mantenimientoService.historialInformes().subscribe(res=>{
       this.informes=res;  
     });*/
   }
@@ -86,40 +91,31 @@ export class HistorialMantenimientoComponent implements OnInit {
 
 
   }
-  open(id){
-   
-     this.display='block';
-    
-    this.depreciacionService.DatosDepreciacion(id).subscribe(data=>{
-      this.datos.controls["idBien"].setValue(data.idBien);
-      this.coopertativa=data.cooperativa;
-      this.anio=data.anio;
-      this.datos.controls["codigo"].setValue(data.codigo);
-      this.datos.controls["descripcion"].setValue(data.descipcion);
-      this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
-      this.datos.controls["valorDepreciacion"].setValue(data.valorDepreciacion);
-      this.datos.controls["valorActual"].setValue(data.valorActual);
-    });
-  }
 
-  open2(idbien) {
+  open(id) {
     this.titulo = "Historial de mantenimiento";
-    this.display2 = 'block';
+    this.display = 'block';
 
-    this.bienes.controls["idBien"].setValue(idbien);
+    this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
+      this.codigo=data.codigo;
+      this.descripcion=data.descripcion;
+      this.encargado=data.encargado;
+      this.areadenegocio=data.areadenegocio;
+    });
+
     //para recuperar el id del bien 
-    this.mantenimientoService.historialInformes(idbien).subscribe(res=>{
+    this.mantenimientoService.historialInformes(id).subscribe(res=>{
       this.informes=res;  
     });
-    bienid: idbien;
+   
+    
+    this.idbien=id;
   }
 
   close(){
     this.display='none';
   }
-  close2() {
-    this.display2 = 'none';
-  }
+
   buscar(nombre){
 
   }
