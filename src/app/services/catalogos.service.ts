@@ -364,6 +364,30 @@ public ValidarActivosReferenciadosArea(idArea){
   return this.http.get(environment.urlService  + "api/AreaNegocios/validarRefereciaActivo/" + idArea).map(res => res.json());
 }
 
+//SERVICIOS PARA TIPOS DE DESCARGO
+
+public agregarTipoDescargo(descargo) {
+  return this.http.post(environment.urlService  + "api/TipoDescargo/guardarTipoDescargo", descargo).map(res => res.json());
+}
+public getTipoDescargo() {
+  return this.http.get(environment.urlService  + "api/TipoDescargo/listarTipoDescargo").map(res => res.json());
+}
+public recuperarTipoDescargo(id) {
+  return this.http.get(environment.urlService  + "api/TipoDescargo/RecuperarTipoDescargo/" + id).map(res => res.json());
+}
+public eliminarTipoDescargo(idTipo) {
+  return this.http.get(environment.urlService  + "api/TipoDescargo/eliminarTipoDescargo/" + idTipo).map(res => res.json());
+}
+public buscarTipoDescargo(buscador) {
+  return this.http.get(environment.urlService  + "api/TipoDescargo/buscarTipoDescargo/" + buscador).map(res => res.json());
+}
+public ActualizarTipoDescargo(descargo) {
+  return this.http.post(environment.urlService  + "api/TipoDescargo/modificarTipoDescargo", descargo).map(res => res.json());
+}
+//
+public validarTipoDescargo(idtipo, nombre){
+return this.http.get(environment.urlService  + "api/TipoDescargo/validarTipoDescargo/" + idtipo +"/"+ nombre).map(res => res.json());
+}
 
 }
 
