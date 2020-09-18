@@ -40,15 +40,15 @@ export class CuadroSolicitudComponent implements OnInit {
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
-      'idTipo': new FormControl("0"),
-      'idtipodescargo': new FormControl("0"),
-       'folio': new FormControl("",[Validators.required,Validators.maxLength(10)],this.noRepetirFolio1.bind(this)),
+      'idTipo': new FormControl("",[Validators.required]),
+      'idtipodescargo': new FormControl("",[Validators.required]),
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 #°.]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-zA-ZñÑáéíóú]+$")]),
+       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-ZñÑáéíóú]+$")]),
        //'motivo': new FormControl("0"),
-       'entidadbeneficiaria': new FormControl("",[Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóú]+$")]),
+       'entidadbeneficiaria': new FormControl("",[Validators.maxLength(50), Validators.pattern("^[a-z A-ZñÑáéíóú]+$")]),
        'domicilio': new FormControl("",[Validators.maxLength(50)]),
-       'contacto': new FormControl("",[Validators.maxLength(50)]),
+       'contacto': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-z A-Z ñÑáéíóú]+$")]),
        'telefono': new FormControl(""),
        'idbien': new FormControl("0"),
        //para filtro
@@ -73,11 +73,11 @@ export class CuadroSolicitudComponent implements OnInit {
   guardarDatos(){
       //if ((this.solicitud.controls["bandera"].value) == "0") {
         //console.log(this.solicitud.valid);
-        console.log("solicitud : "+this.solicitud.value.idTipo);
+       // console.log("solicitud : "+this.solicitud.value.idTipo);
         if (this.solicitud.valid == true) {
           this.solicitud.controls["idtipodescargo"].setValue(this.solicitud.value.idTipo);
           this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => { 
-            console.log("solicitud : "+this.solicitud.value);
+           // console.log("solicitud : "+this.solicitud.value);
             this.bajaService.guardarBien(this.solicitud.value).subscribe(data => {
                //listar bienes 
               this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
@@ -116,7 +116,7 @@ export class CuadroSolicitudComponent implements OnInit {
     this.solicitud.controls["idsolicitud"].setValue("0");
     this.solicitud.controls["folio"].setValue("");
     var fecha = Date.now();
-    this.solicitud.controls["fechasolicitud"].setValue("1999-01-12");
+    this.solicitud.controls["fechasolicitud"].setValue("");
     //this.solicitud.controls["folio"].setValue("");
     this.solicitud.controls["observaciones"].setValue("");
     this.solicitud.controls["entidadbeneficiaria"].setValue("");

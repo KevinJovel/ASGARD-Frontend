@@ -71,14 +71,14 @@ export class SolicitudComponent implements OnInit {
       this.solicitud = data.noSolicitud;
      // this.acuerdo = data.acuerdo;  
      this.bienesS = data.idbien; //para obtener el id del bien
-     console.log("Idbien: "+this.bienesS); 
+    // console.log("Idbien: "+this.bienesS); 
     });
     //this.bajaService.listarBienesSolicitados(id.idbien).subscribe(res=>{ this.bienesS=res });
     //console.log("ID: "+ id.idbien);
 //para la aprobacion
     this.idsolicitud=id;
     
-    console.log("IdSoli: "+id);
+    //console.log("IdSoli: "+id);
   }
 
   close() {
@@ -95,7 +95,7 @@ export class SolicitudComponent implements OnInit {
     var id=this.idsolicitud;
     //var idsolicitud=this.idsolicitud;
     this.acuerdo = this.solicitudes.value.acuerdo;
-    console.log("Este de Acuerdo: "+this.acuerdo);
+    //console.log("Este de Acuerdo: "+this.acuerdo);
     //this.bienesS = this.activo2;
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
@@ -118,12 +118,12 @@ export class SolicitudComponent implements OnInit {
         })
           this.display = 'none'; 
           this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
-          console.log("IdSoliiii: "+id);
+        //  console.log("IdSoliiii: "+id);
          }      
    });   
-   this.bienesS=id;
+   this.bienesS=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
        this.bajaService.cambiarEstadoAceptado(this.bienesS, this.acuerdo).subscribe(rest=>{ });
-       console.log("Id Bien: "+ this.bienesS);
+      // console.log("Id Solicitud: "+ this.bienesS);
      //this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
   
   }// del result
@@ -136,7 +136,7 @@ export class SolicitudComponent implements OnInit {
 negarSolicitud() {
   var id=this.idsolicitud;
   this.acuerdo = this.solicitudes.value.acuerdo;
-    console.log("Este de Acuerdo: "+this.acuerdo);
+    //console.log("Este de Acuerdo: "+this.acuerdo);
     //this.bienesS = this.activo2;
     Swal.fire({
       title: '¿Estas seguro de negar esta solicitud?',
@@ -159,12 +159,12 @@ negarSolicitud() {
         })
           this.display = 'none'; 
           this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
-          console.log("IdSoliiii: "+id);
+         // console.log("IdSoliiii: "+id);
          }      
    });   
    this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien
        this.bajaService.cambiarEstadoRechazado(this.bienesS ,this.acuerdo).subscribe(rest=>{ });
-       console.log("IdSolicitud: "+ this.bienesS);
+      // console.log("IdSolicitud: "+ this.bienesS);
      //this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
   
   }// del result
