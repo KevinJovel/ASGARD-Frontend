@@ -67,11 +67,11 @@ export class FormNuevoBienComponent implements OnInit {
       cuotaasignada: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
       interes: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
      noformulario: new FormControl('0'),
-     nofactura: new FormControl('', [Validators.required,Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
+     nofactura: new FormControl('', [Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
      fechaingreso: new FormControl('', [Validators.required]),
      personaentrega: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
      personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-     observaciones: new FormControl('',[Validators.required, Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+     observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       cantidad: new FormControl('', [Validators.maxLength(3),Validators.pattern("^[0-9´´ ]+$")]),
      foto: new FormControl(''),
     });
