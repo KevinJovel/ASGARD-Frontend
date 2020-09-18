@@ -157,6 +157,10 @@ public validarDepenActivo(idSucursal) {
     return this.http.get(environment.urlService  + "api/Tecnico/buscarTecnico/" + buscador).map(res => res.json());
   }
 
+  public validarTecnico(idTecnico, nombre) {
+    return this.http.get(environment.urlService + "api/Tecnico/validarTecnico/" + idTecnico + "/" + nombre).map(res=>res.json());
+  }
+
   //Service Donantes
 
   public agregarDonante(donante) {

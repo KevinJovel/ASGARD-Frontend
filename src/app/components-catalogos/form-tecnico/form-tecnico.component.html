@@ -71,7 +71,7 @@
           <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">Nombre:</label>
+            <label for="exampleInputEmail1">* Nombre:</label>
             <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off" maxlength="61">
           </div>
 
@@ -81,6 +81,14 @@
             </button>
             <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
           </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="tecnico.controls['nombre'].errors?.yaExisteTecnico">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ADVERTENCIA!</strong> El nombre del técnico ya está en uso. Prueba con otro.
+          </div>
+          
           <div class="alert alert-block alert-danger fade in" *ngIf="tecnico.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -88,7 +96,7 @@
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Empresa:</label>
+            <label for="exampleInputEmail1">* Empresa:</label>
             <input type="text" class="form-control" formControlName="empresa" id="exampleInputEmail3" placeholder="Ingrese empresa" autocomplete="off" maxlength="51">
           </div>
 

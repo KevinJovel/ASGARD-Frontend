@@ -24,8 +24,8 @@ export class FormTecnicoComponent implements OnInit {
 
       'idtecnico': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(60), Validators.pattern("^[a-zA-Z 0-9]+$")]),
-      'empresa': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9]+$")])
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(60), Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")],this.noRepetirTecnico.bind(this)),
+      'empresa': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")])
 
     });
    }
@@ -104,18 +104,18 @@ modif(id) {
 eliminar(idtecnico) { 
   Swal.fire({
       title: '¿Estas seguro de eliminar este registro?',
-      text: "No podras revertir esta acción!",
+      text: "¡No podras revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
+      confirmButtonText: '¡Si, eliminar!'
   }).then((result) => {
       if (result.value) {
           this.catalogoService.eliminarTecnico(idtecnico).subscribe(data => {
               Swal.fire(
-                  'Dato eliminado!',
-                  'Tu archivo ha sido eliminado con éxito.',
+                  '¡Dato eliminado!',
+                  'Tu registro ha sido eliminado con éxito.',
                   'success'
               )
               this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
@@ -128,6 +128,30 @@ eliminar(idtecnico) {
 buscar(buscador) {
   this.p = 1;
   this.catalogoService.buscarTecnico(buscador.value).subscribe(res => this.tecnicos = res);
+}
+
+noRepetirTecnico(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarTecnico(this.tecnico.controls["idtecnico"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteTecnico: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
+
+
+  });
+
+  return promesa;
 }
 
 }
