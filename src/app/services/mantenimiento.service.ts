@@ -105,6 +105,7 @@ public ListarInformeMantenimiento(){
   public  estadosinrevalorizar (idinformeMantenimiento){
     return this.http.get(environment.urlService + "api/InformeMantenimiento/estadosinrevalorizar/" + idinformeMantenimiento ).map(res=>res.json());
    }
+   //listar datos adicionales en el historial.
    public  listardatosHistorial (idbien){
     return this.http.get(environment.urlService + "api/InformeMantenimiento/datosHistorial/" + idbien ).map(res=>res.json());
    }

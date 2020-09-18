@@ -95,7 +95,6 @@ export class HistorialMantenimientoComponent implements OnInit {
   open(id) {
     this.titulo = "Historial de mantenimiento";
     this.display = 'block';
-
     this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
       this.codigo=data.codigo;
       this.descripcion=data.descripcion;

@@ -8,6 +8,7 @@ import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
 
 
+
 @Component({
   selector: 'app-form-solicitud-mantenimiento',
   templateUrl: './form-solicitud-mantenimiento.component.html',
@@ -26,8 +27,10 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   display2 = 'none';
   p: number = 1;
   matriz:(string | number)[][]=new Array();
-  mydate= Date.now();
-
+  mifecha: any;
+  currentDate: number = Date.now();
+  CurrentDate = new Date();
+   fecha = Date.now();
   constructor( private mantenimientoService: MantenimientoService) { 
   
     this.solicitud=new FormGroup({
@@ -48,6 +51,11 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    var dateDay = this.currentDate, number = Date.now();
+    this.mifecha= Date.now();
+   // this.solicitud.controls["fechasolicitud"].setValue(this.currentDate);
+    this.solicitud.controls["fechasolicitud"].setValue(dateDay);
     this.mantenimientoService.getBienes().subscribe(data=>{
       if(this.matriz.length>0){
       for (let datos of this.matriz) {  
@@ -67,6 +75,10 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       this.codigos =data;
     });
   }
+  
+
+  
+ 
 
   open2() {
     this.titulo = "Activos a enviar a mantenimiento";
@@ -82,7 +94,6 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.datosArray.controls["descripcionbien"].setValue(descripcion);
     this.datosArray.controls["razonesMantenimiento"].setValue("");
     this.datosArray.controls["periodoMantenimiento"].setValue("");
-    
   }
   close() {
     this.display = 'none';
