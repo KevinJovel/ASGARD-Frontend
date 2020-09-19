@@ -83,7 +83,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2"> Fecha:</label>
-              <input type="date" class="form-control" formControlName="fecha"  id="inputEmail4" autocomplete="off"  >
+              <input type="date" class="form-control" formControlName="fecha" [ngModel]='fecha | date:"yyyy-MM-dd" ' (ngModelChange)='fecha=$event' id="inputEmail4" autocomplete="off" disabled="off">
             </div>
 
             <!--Aqui va la recuperación de vida util-->

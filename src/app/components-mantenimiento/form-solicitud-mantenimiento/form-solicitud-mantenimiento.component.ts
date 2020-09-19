@@ -27,10 +27,10 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   display2 = 'none';
   p: number = 1;
   matriz:(string | number)[][]=new Array();
-  mifecha: any;
-  currentDate: number = Date.now();
-  CurrentDate = new Date();
    fecha = Date.now();
+   
+   
+
   constructor( private mantenimientoService: MantenimientoService) { 
   
     this.solicitud=new FormGroup({
@@ -51,11 +51,6 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    var dateDay = this.currentDate, number = Date.now();
-    this.mifecha= Date.now();
-   // this.solicitud.controls["fechasolicitud"].setValue(this.currentDate);
-    this.solicitud.controls["fechasolicitud"].setValue(dateDay);
     this.mantenimientoService.getBienes().subscribe(data=>{
       if(this.matriz.length>0){
       for (let datos of this.matriz) {  
@@ -175,7 +170,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       timer: 3000
     })
 this.matriz=[],[];
-this.solicitud.reset()
+this.solicitud.reset();
+this.solicitud.controls["fechasolicitud"].setValue("");
 }else{
     Swal.fire({
       position: 'center',

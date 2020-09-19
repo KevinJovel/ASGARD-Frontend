@@ -19,25 +19,24 @@ export class TablaInformeComponent implements OnInit {
   display = 'none';
   titulo: string;
   noSolicitud: string;
-  fecha: string;
   jefe: string;
   area:string;
   idmante: any;
-
   cotomo: any;
   costomateriales: any;
   costototal: any;
- 
+  fecha = Date.now();
+  
   constructor(private mantenimientoService: MantenimientoService) { 
     this.informe=new FormGroup({
       'idinformematenimiento': new FormControl("0"),
       'idmantenimiento': new FormControl("0"),
       'idBien': new FormControl("0"),
-      'fechainforme': new FormControl("",[Validators.required]),
       'idtecnico': new FormControl("0",[Validators.required]),
       //'idBien': new FormControl("0"),
       'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ. ]+$")]),
       'costomateriales':new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
+      'fechainforme': new FormControl("",[Validators.required]),
       'costomo':new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
      // 'costototal':new FormControl("",[Validators.required])
    }); 
@@ -61,7 +60,7 @@ export class TablaInformeComponent implements OnInit {
       this.informe.controls["idinformematenimiento"].setValue("0");
       this.informe.controls["idmantenimiento"].setValue(id);
       this.informe.controls["idBien"].setValue(idbien);
-      this.informe.controls["fechainforme"].setValue("");
+     // this.informe.controls["fechainforme"].setValue("");
        this.informe.controls["idtecnico"].setValue("");
        this.informe.controls["descripcion"].setValue("");
        this.informe.controls["costomateriales"].setValue("");
@@ -154,46 +153,6 @@ this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
 });
 
   }
-
-
-
-
- /* guardar() {
-   // var id=this.idSoli;
-   // alert(id);
-
-    Swal.fire({
-      title: '¿Estas seguro de aprobar esta solicitud?',
-      text: "No podras revertir esta accion!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, aprobar!'
-    }).then((result) => {
-      if (result.value) {
-    this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res=>{
-         if(res==1){
-          Swal.fire(
-            'Solicitud aprobada!',
-            'La solictud ha sido aprobada con exito.',
-            'success'
-          )
-          this.display = 'none'; 
-          this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
-            this.solicitudes=data;
-            
-          });
-         }
-        
-   });
-
-  }// del result
-  })//de la alerta
-
-  
-
-  }*/
 
 
 

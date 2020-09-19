@@ -75,7 +75,7 @@
          
          <div class="form-group col-md-6">
           <label for="inputPassword4">Fecha:</label>
-          <input type="date" class="form-control" formControlName="fechainforme">
+          <input type="date" formControlName="fechainforme" [ngModel]='fecha | date:"yyyy-MM-dd" ' (ngModelChange)='fecha=$event' class="form-control"  disabled="off">
         </div>
           
           

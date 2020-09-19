@@ -24,6 +24,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
   titulo: string;
  
   idmante: any;
+  fecha = Date.now();
 
  
  
@@ -62,7 +63,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
     this.revalorizacion.controls["idBien"].setValue(idBien);
     this.revalorizacion.controls["idinformematenimiento"].setValue(idinformematenimiento);
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
-    this.revalorizacion.controls["fecha"].setValue("");
+   // this.revalorizacion.controls["fecha"].setValue("");
     this.revalorizacion.controls["vidaUtil"].setValue("");
     
  
@@ -122,6 +123,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
               timer: 3000
             })
           this.mantenimientoService.ListarInformeMantenimiento().subscribe(data=>{ this.informes=data});
+          this.informe.controls["fecha"].setValue("");
           }
         });
       
