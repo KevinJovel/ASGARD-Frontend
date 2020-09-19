@@ -36,11 +36,9 @@ export class FormNuevoBienComponent implements OnInit {
   donaprov = false; //utilizo boolean para recuperar doannte o prov
   comboAreaSucur:any;
   lista: any;
- recargo: number=0;
-fecha=Date.now();
-
- //Para la fecha
- currentDate: number=Date.now();
+  recargo: number=0;
+  //Para la fecha
+  fecha=Date.now();
 
   @Input() bandera = false; //agrego input para hacer uso delas dos funciones
   //Variables de etiqueta
@@ -151,6 +149,10 @@ fecha=Date.now();
       this.disabledPlazo = 'Inhabilitado';
       this.disabledCuota = 'Inhabilitado';
       this.disabledInteres = 'Inhabilitado';
+            this.nuevobien.controls['prima'].setValue('');
+            this.nuevobien.controls['plazopago'].setValue('');
+            this.nuevobien.controls['cuotaasignada'].setValue('');
+            this.nuevobien.controls['interes'].setValue('');
       if (idempleado == 1) {
         this.disabled = true;
       } else {
