@@ -73,8 +73,9 @@ export class FormNuevoBienComponent implements OnInit {
      fechaingreso: new FormControl(''),
      personaentrega: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
      personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+     valorresidual: new FormControl('',[Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]),
      observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      cantidad: new FormControl('', [Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
+     cantidad: new FormControl('', [Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
      foto: new FormControl(''),
     });
     
@@ -194,20 +195,22 @@ export class FormNuevoBienComponent implements OnInit {
         this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe((data) => {
             //Creo esta condicion, si es contado o donado mando valor 0 sino ingresa lo de credito
           var tip = this.nuevobien.controls['tipoadquicicion'].value;
+          var valorR=this.nuevobien.controls['valorresidual'].value;
           if(tip==1 || tip==3) {
             this.nuevobien.controls['prima'].setValue('0');
             this.nuevobien.controls['plazopago'].setValue('0');
             this.nuevobien.controls['cuotaasignada'].setValue('0');
             this.nuevobien.controls['interes'].setValue('0');
           } else{
-            
           } 
+          if(valorR =='') {
+            this.nuevobien.controls['valorresidual'].setValue('0');
+          }
             //Pasamos la foto
             this.nuevobien.controls['foto'].setValue(this.foto);
 
             if (data == 1) {
               this.controlService.agregarBien(this.nuevobien.value).subscribe((res) => {
-                console.log(this.nuevobien.value);
                   if (res == 1) {
                     Swal.fire({
                       title: 'Registro Guardado con éxito',

@@ -242,14 +242,20 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                 <label  for="formGroupExampleInput2">* Persona que entrega</label>
                 <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51" autocomplete="off">
                </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                 <label for="inputPassword4">* Persona que recibe</label>
                 <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51" autocomplete="off">
                </div>
+
+               <div class="form-group col-md-4">
+                <label for="inputPassword4">Valor residual</label>
+                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese valor residual" formControlName="valorresidual" maxlength="11" autocomplete="off">
+               </div>
+
               </div>
                 <div class="form-row">
 
@@ -406,6 +412,22 @@
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
           <!-- FIN PERSONA QUE RECIBE -->
+
+          <!-- VALOR RESIDUAL -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['valorresidual'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['valorresidual'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
+          <!-- FIN VALOR RESIDUAL -->
 
           <!-- OBSERVACIONES -->
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['observaciones'].errors?.maxlength">
