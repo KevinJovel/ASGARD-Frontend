@@ -56,7 +56,7 @@ export class TablaActivosComponent implements OnInit {
 
   ngOnInit() {
     
-    this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});
+    this.controlService.getActivosSinAsignar().subscribe(res=> { this.comboAreaSucur=res});
    // this.controlService.getBienesAsignados().subscribe(res=> { this.asignados=res});
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
      
@@ -75,7 +75,7 @@ export class TablaActivosComponent implements OnInit {
   Reload(){
     this.combo.controls['idSucursal'].setValue(0);
     this.combo.controls['idArea'].setValue(0);
-    this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});
+    this.controlService.getActivosSinAsignar().subscribe(res=> { this.comboAreaSucur=res});
   }
 
 
@@ -86,31 +86,24 @@ close() {
 
 ver(id: any) {
   this.display = 'block';
-  this.controlService.DatosVer(id).subscribe((data) => {
-   
+  this.controlService.VerDatosActivosNoAsig(id).subscribe((data) => {  
     this.marca = data.marca;
-    this.area = data.area;
-    this.responsable = data.responsable;
     this.fecha = data.fecha;
     this.proveedor = data.proveedor;
     this.clasificacion = data.clasificacion;
     this.destino = data.destino;
     this.donante = data.donante;
-    this.codigo = data.Codigo;
     this.color = data.Color;
     this.descripcion = data.Desripcion;
     this.estado = data.estadoingreso;
-    this.numserie = data.numserie;
     this.plazo = data.plazopago;
     this.tipoadqui = data.tipoadquicicion;
     this.valor = data.valoradquicicion;
     this.valorresidual = data.valorresidual;
-    this.vidautil = data.vidautil;
     this.cuota = data.cuotaasignada;
     this.prima = data.prima;
     this.interes = data.intereses;
     this.modelo = data.Modelo;
-   // this.tipoadqui = data.tipoadquicicion;
     this.foto =data.foto;
     this.noformu = data.noformulario;
     //console.log(id);
@@ -135,40 +128,20 @@ this.router.navigate(["./form-nuevoBien"]);
    
 }
 
+
 buscar(buscador) {
   this.p = 1;
-  this.controlService.buscarActivo(buscador.value).subscribe(res => {this.comboAreaSucur = res});
+  this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.comboAreaSucur = res});
 }
+
 
 open() {
   //limpia cache
-  this.nuevobien.controls["idbien"].setValue("0");
-  this.nuevobien.controls["bandera"].setValue("0");
-  this.nuevobien.controls["color"].setValue("");
-  this.nuevobien.controls["descripcion"].setValue("");
-  this.nuevobien.controls["modelo"].setValue("");
-  this.nuevobien.controls["tipoadquicicion"].setValue("");
-  this.nuevobien.controls["idmarca"].setValue("");
-  this.nuevobien.controls["idclasificacion"].setValue("");
-  this.nuevobien.controls["idproveedor"].setValue("");
-  this.nuevobien.controls["estadoingreso"].setValue("");
-  this.nuevobien.controls["plazopago"].setValue("");
-  this.nuevobien.controls["prima"].setValue("");
-  this.nuevobien.controls["cuotaasignada"].setValue("");
-  this.nuevobien.controls["interes"].setValue("");
-  this.nuevobien.controls["noformulario"].setValue("");
-  this.nuevobien.controls["nofactura"].setValue("");
-  this.nuevobien.controls["fechaingreso"].setValue("");
-  this.nuevobien.controls["personaentrega"].setValue("");
-  this.nuevobien.controls["personarecibe"].setValue("");
-  this.nuevobien.controls["observaciones"].setValue("");
-  this.nuevobien.controls["cantidad"].setValue("");
-  this.nuevobien.controls["foto"].setValue("");
-  this.display = 'block';
-
+      this.combo.reset({
+      
+      });
+    
 }
-
-
 
 
 }
