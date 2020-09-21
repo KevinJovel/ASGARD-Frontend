@@ -168,6 +168,7 @@ import { FormCoopeComponent } from './components-configuracion/form-coope/form-c
       {path: 'cuadro-control', component: CuadroControlComponent},
       {path: 'cierre-anio', component: CierreAnioComponent},
       {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent},
+      {path: 'form-tipo-descargo', component: FormTipoDescargoComponent},
       {path: 'activos-asignados', component: ActivosAsignadosComponent},
       {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
       {path: 'form-conficooperativa', component: FormCoopeComponent},
