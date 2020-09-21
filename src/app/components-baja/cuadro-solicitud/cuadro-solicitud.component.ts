@@ -5,92 +5,71 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 //para filtro de areas y sucursales
 import { CatalogosService } from './../../services/catalogos.service';
+//para la fecha actual
+import {DatePipe} from '@angular/common';
+
 
 @Component({
   selector: 'app-cuadro-solicitud',
   templateUrl: './cuadro-solicitud.component.html',
-  styleUrls: ['./cuadro-solicitud.component.css']
+  styleUrls: ['./cuadro-solicitud.component.css'],
+  providers: [DatePipe]
 })
 export class CuadroSolicitudComponent implements OnInit {
 
   solicitud: FormGroup;
-  datosbien:FormGroup;
-  solicitudes: any;
+  //datosbien:FormGroup;
+ // solicitudes: any;
   acti: any;
   activo: any;
   display = 'none';
   titulo: string;
-  //parametro: string;
   p: number = 1;
 //para filtro
   areas: any;
   sucursal: any;
   descargo: any;
-
-
- //Variables de etiqueta
- //disabledentidad: string;
- //disableddomicilio: string;
- //disabledcontacto: string;
- //disabledtelefono: string;
- //disabled: boolean;
+ 
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService
-    ,private catalogosServices: CatalogosService) 
+    ,private catalogosServices: CatalogosService, private miDatePipe: DatePipe) 
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
-      'idTipo': new FormControl("",[Validators.required]),
+      'idTipo': new FormControl("",[Validators.required, Validators.min(1)]),
       'idtipodescargo': new FormControl("",[Validators.required]),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 #°.]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
        'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-ZñÑáéíóú]+$")]),
-       //'motivo': new FormControl("0"),
        'entidadbeneficiaria': new FormControl("",[Validators.maxLength(50), Validators.pattern("^[a-z A-ZñÑáéíóú]+$")]),
        'domicilio': new FormControl("",[Validators.maxLength(50)]),
        'contacto': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-z A-Z ñÑáéíóú]+$")]),
        'telefono': new FormControl(""),
        'idbien': new FormControl("0"),
-       //para filtro
-       'idArea': new FormControl("0"),
-       'idSucursal': new FormControl("0")
+       
     });
     
   }
 
-
    ngOnInit() {
-    this.bajaService.listarBienes().subscribe(res => { this.activo = res });
+    this.bajaService.listarBienesNoAsignados().subscribe(res => { this.activo = res });
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
     this.catalogosServices.getTipoDescargo().subscribe(data=>{this.descargo=data});//combo
 
-        //this.disabledentidad = 'Ingrese entidad';
-       // this.disableddomicilio = 'Ingrese domicilio';
-       // this.disabledcontacto = 'Ingrese nombre del contacto';
-       // this.disabledtelefono = 'Ingrese teléfono';
   }
 
   guardarDatos(){
-      //if ((this.solicitud.controls["bandera"].value) == "0") {
-        //console.log(this.solicitud.valid);
        // console.log("solicitud : "+this.solicitud.value.idTipo);
         if (this.solicitud.valid == true) {
           this.solicitud.controls["idtipodescargo"].setValue(this.solicitud.value.idTipo);
+          
           this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => { 
-           // console.log("solicitud : "+this.solicitud.value);
+            //console.log("solicitud : "+this.solicitud.value.idTipo);
             this.bajaService.guardarBien(this.solicitud.value).subscribe(data => {
                //listar bienes 
-              this.bajaService.listarBienes().subscribe(res=>{ this.activo=res });
+              this.bajaService.listarBienesNoAsignados().subscribe(res=>{ this.activo=res });
             });
             this.display = 'none';
-            //enviamos cero para guardar.
-            //this.solicitud.controls["idBien"].setValue("0");
-            /*this.solicitud.controls["entidadbeneficiaria"].setValue("0");
-            this.solicitud.controls["domicilio"].setValue("0");
-            this.solicitud.controls["contacto"].setValue("0");
-            this.solicitud.controls["telefono"].setValue("0");
-           */
-            //this.solicitud["idbien"].patchValue("");
             
           });
       //  });
@@ -111,13 +90,13 @@ export class CuadroSolicitudComponent implements OnInit {
   open(id) {
     //limpia cache
     this.titulo = "Solicitud para dar de baja";
-   this.solicitud.controls["idTipo"].setValue("0");
+    this.solicitud.controls["idTipo"].setValue("0");
     this.solicitud.controls["idtipodescargo"].setValue("0");
     this.solicitud.controls["idsolicitud"].setValue("0");
     this.solicitud.controls["folio"].setValue("");
-    var fecha = Date.now();
-    this.solicitud.controls["fechasolicitud"].setValue("");
-    //this.solicitud.controls["folio"].setValue("");
+    var fecha = new Date();
+    let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
+    this.solicitud.controls["fechasolicitud"].setValue(f);
     this.solicitud.controls["observaciones"].setValue("");
     this.solicitud.controls["entidadbeneficiaria"].setValue("");
     this.solicitud.controls["domicilio"].setValue("");
@@ -140,39 +119,9 @@ export class CuadroSolicitudComponent implements OnInit {
 
   buscar(buscador) {
     this.p = 1;
-   this.bajaService.buscarBien(buscador.value).subscribe(res => { this.activo = res });
+   this.bajaService.buscarBienNoA(buscador.value).subscribe(res => { this.activo = res });
    }
 
-  /* MotivoBaja() {
-    let idmotivo = this.solicitud.controls['motivo'].value;
-    if (idmotivo ==1 || idmotivo ==2 || idmotivo ==3 || idmotivo ==4  || idmotivo ==5 || idmotivo ==6  ) {
-      this.disabledentidad = 'Inhabilitado';
-      this.disableddomicilio = 'Inhabilitado';
-      this.disabledcontacto = 'Inhabilitado';
-      this.disabledtelefono = 'Inhabilitado';
-
-      this.solicitud.controls["entidadbeneficiaria"].setValue("");
-      this.solicitud.controls["domicilio"].setValue("");
-      this.solicitud.controls["contacto"].setValue("");
-      this.solicitud.controls["telefono"].setValue("");
-
-      if (idmotivo ==4 ) {
-        this.disabled = false;
-        this.disabledentidad = 'Ingrese entidad';
-        this.disableddomicilio = 'Ingrese domicilio';
-        this.disabledcontacto = 'Ingrese contacto';
-        this.disabledtelefono = 'Ingrese teléfono';
-        //limpia cache
-        this.solicitud.controls["entidadbeneficiaria"].setValue("");
-        this.solicitud.controls["domicilio"].setValue("");
-        this.solicitud.controls["contacto"].setValue("");
-        this.solicitud.controls["telefono"].setValue("");
-      } else {
-        this.disabled = true;    
-      }    
-    } 
-    console.log(idmotivo);
-  }*/
 
   noRepetirFolio1(control: FormControl) {
 
@@ -194,33 +143,7 @@ export class CuadroSolicitudComponent implements OnInit {
   }
 
 
-  FiltrarArea(){
-    var id= this.solicitud.controls['idSucursal'].value;
-    this.bajaService.ComboArea(id).subscribe(data=>{this.areas=data});
-  }
 
-  Filtrar(){
-    var id= this.solicitud.controls['idArea'].value;
-    this.bajaService.FiltroTablaActivos(id).subscribe(data=>{this.activo=data});
-  }
-  
-  Reload(){
-    this.solicitud.controls['idSucursal'].setValue(0);
-    this.solicitud.controls['idArea'].setValue(0);
-    this.bajaService.listarBienes().subscribe(res=> { this.activo=res});
-  }
-
-  //validar formularios que permita solo letras
-  //public inputValidator(event: any) {
-    ////console.log(event.target.value);
-  //const pattern = /^[a-z A-Z]*$/;   
-    ////let inputChar = String.fromCharCode(event.charCode)
-  //if (!pattern.test(event.target.value)) {
-  //event.target.value = event.target.value.replace(/[^a-z A-Z]/g, "");
-     // // invalid character, prevent input
-
-   // }
-  //}
 
   
 }

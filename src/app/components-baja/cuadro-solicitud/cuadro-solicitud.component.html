@@ -1,44 +1,20 @@
 <br><br><br><br>
 <section class="panel">
-  <h1>Nueva solicitud</h1>
+  <h1>Nueva solicitud activos no asignados</h1>
     <div class="row">
       <div class="col-lg-16">
       
+        
         <section class="panel panel-default">
           <div class="form-row">
             <form class="form-inline" id="default" [formGroup]="solicitud">
               <div class="row">
-  
-                <div class="form-group col-md-3">
-                  <br>
-                  <label for="inputPassword4">Sucursal</label>
-                  <select class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
-                    <option value="0">Seleccione</option>
-                    <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursal">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
-                  </select>
+                <br>
+                <div class="col-lg-9">
                 </div>
-  
-                <div class="form-group col-md-3">
-                  <br>
-                  <label for="inputPassword4">Área de negocio</label>
-                  <select id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
-                    <option value="0" selected>Seleccione</option>
-                    <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
-                  </select> 
+                <div class="col-md-3">
+                  <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
                 </div>
-                <div class="form-group col-md-1">
-                  <br>
-                <button title="Recargar datos" style="margin-top: 24px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>                 
-                </div>
-
-                <div class="form-group col-md-2">
-                
-                </div>
-  
-                <div class="form-group col-md-3">
-                  <br><br>
-                <input type="search" style="margin-top: 5px; padding-left: 10px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
-               </div>    
               </div>
 
               <br>
@@ -55,11 +31,10 @@
               <thead>
                 <tr>
                   <th>N°</th>
-                  <th>Código</th>
+                  <th>Fecha</th>
                   <th>Descripción</th>
-                  <th>Responsable</th>
-                  <th>Cargo</th>
-                  <th>Área de negocio</th>
+                  <th>Clasificación</th>
+                  
                   <th class="hidden-phone">Enviar</th>
                 </tr>
               </thead>
@@ -67,11 +42,9 @@
               <tbody>
               <tr *ngFor="let acti of activo | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{acti.codigo}}</td>
-                  <td>{{acti.desripcion}}</td>
-                  <td>{{acti.resposnsable}}</td>
-                  <td>{{acti.cargo}}</td>
-                  <td>{{acti.areaDeNegocio}}</td>
+                  <td>{{acti.fechacadena}}</td>
+                    <td>{{acti.desripcion}}</td>
+                    <td>{{acti.clasificacion}}</td>
                   <td class="center hidden-phone">
                     <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(acti.idBien)">
                       <i class="glyphicon glyphicon-open"></i></button>
@@ -103,12 +76,14 @@
          
           <div class="form-group col-md-6">
             <label for="exampleInputEmail1">*Fecha:</label>
-            <input size=35  type="date" class="form-control" formControlName="fechasolicitud" id="nombre"  autocomplete="off" maxlength="51">
+          
+            <input size=35  type="date" class="form-control"  formControlName="fechasolicitud" id="nombre"  autocomplete="off" maxlength="51">
           </div>
+
           <div class="form-group col-md-6">
             <label  for="formGroupExampleInput2">*Motivo</label>
             <select class="form-control"  formControlName="idTipo" maxlength="51">
-              <option value="0">--Seleccione--</option>
+              <option value="">--Seleccione--</option>
               <option [value]="descargo.idTipo" *ngFor="let descargo of descargo">{{descargo.nombre}}</option>	
             </select>
             </div>

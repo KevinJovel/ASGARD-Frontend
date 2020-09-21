@@ -72,7 +72,8 @@ import { BajaService } from './services/baja.service';
 import { ConfiguracionService } from './services/configuracion.service';
 import { FormTipoTrasladoComponent } from './components-catalogos/form-tipo-traslado/form-tipo-traslado.component';
 import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-descargo/form-tipo-descargo.component';
-
+import { ActivosAsignadosComponent } from './components-control/activos-asignados/activos-asignados.component';
+import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-activos-asignados/solicitud-activos-asignados.component';
 
 
 
@@ -118,6 +119,8 @@ import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-desc
     FormDesasignarComponent,
     FormTipoTrasladoComponent,
     FormTipoDescargoComponent,
+    ActivosAsignadosComponent,
+    SolicitudActivosAsignadosComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -166,9 +169,10 @@ import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-desc
       {path: 'cuadro-control', component: CuadroControlComponent},
       {path: 'cierre-anio', component: CierreAnioComponent},
       {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent},
-      {path: 'form-tipo-descargo', component: FormTipoDescargoComponent}
- 
+      {path: 'activos-asignados', component: ActivosAsignadosComponent},
+      {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent}
 
+      
     ]),
     NoopAnimationsModule
     ],

@@ -1,0 +1,251 @@
+<br><br><br><br>
+<section class="panel">
+  <h1>Nueva solicitud activos asignados</h1>
+    <div class="row">
+      <div class="col-lg-16">
+      
+        
+        <section class="panel panel-default">
+          <div class="form-row">
+            <form class="form-inline" id="default" [formGroup]="solicitud">
+              <div class="row">
+  
+                <div class="form-group col-md-3">
+                  <br>
+                  <label for="inputPassword4">Sucursal</label>
+                  <select class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
+                    <option value="0">Seleccione</option>
+                    <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursal">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
+                  </select>
+                </div>
+  
+                <div class="form-group col-md-3">
+                  <br>
+                  <label for="inputPassword4">Área de negocio</label>
+                  <select id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
+                    <option value="0" selected>Seleccione</option>
+                    <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
+                  </select> 
+                </div>
+                <div class="form-group col-md-1">
+                  <br>
+                <button title="Recargar datos" style="margin-top: 24px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>                 
+                </div>
+
+                <div class="form-group col-md-2">
+                
+                </div>
+  
+                <div class="form-group col-md-3">
+                  <br><br>
+                <input type="search" style="margin-top: 5px; padding-left: 10px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+               </div>    
+              </div>
+
+              <br>
+              <div class="row">
+                <div class="col-lg-12">
+                  <section class="panel panel-default">
+            
+        <header class="panel-heading">
+          <h5>Activos</h5>
+        </header>
+        <div class="panel-body">
+          <div class="adv-table">
+            <table class="display table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Código</th>
+                  <th>Fecha</th>
+                  <th>Descripción</th>
+                  <th>Area</th>
+                  <th>Responsable</th>
+                  
+                  <th class="hidden-phone">Enviar</th>
+                </tr>
+              </thead>
+
+              <tbody>
+              <tr *ngFor="let acti22 of activo | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                  <td>{{acti22.codigo}}</td>
+                  <td>{{acti22.fechacadena}}</td>
+                  <td>{{acti22.desripcion}}</td>
+                  <td>{{acti22.areaDeNegocio}}</td>
+                  <td>{{acti22.resposnsable}}</td>
+                  <td class="center hidden-phone">
+                    <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(acti22.idBien)">
+                      <i class="glyphicon glyphicon-open"></i></button>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+  <!--modal para ingresar y editar-->
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog .modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
+     
+         
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Fecha:</label>
+          
+            <input size=35  type="date" class="form-control"  formControlName="fechasolicitud" id="nombre"  autocomplete="off" maxlength="51">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label  for="formGroupExampleInput2">*Motivo</label>
+            <select class="form-control"  formControlName="idTipo" maxlength="51">
+              <option value="">--Seleccione--</option>
+              <option [value]="descargo.idTipo" *ngFor="let descargo of descargo">{{descargo.nombre}}</option>	
+            </select>
+            </div>
+            
+          <br> <br>
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Folio:</label>
+            <input size=28  type="text" class="form-control" formControlName="folio" maxlength="11" id="direccion" placeholder="Ingrese folio"  autocomplete="off">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">Entidad beneficiaria:</label>
+            <input size=26  type="text"  class="form-control"  formControlName="entidadbeneficiaria" placeholder="Ingrese entidad beneficiaria" maxlength="51" autocomplete="off">
+          </div> 
+
+          <br> <br>
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">Nombre de contacto:</label>
+            <input size=25  type="text"  class="form-control" formControlName="contacto" placeholder="Ingrese nombre de contacto"  maxlength="51" autocomplete="off">
+          </div> 
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">Domicilio:</label>
+            <input size=25 type="text" class="form-control" formControlName="domicilio" placeholder="Ingrese domicilio"   maxlength="101" autocomplete="off">
+          </div>
+
+          <br> <br>
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">Teléfono: </label>
+            <input size=26 type="text" mask="0000-0000" class="form-control" placeholder="Ingrese teléfono" formControlName="telefono"  maxlength="10" autocomplete="off">
+          </div>  
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Observaciones:</label>
+            <input size=30 type="text"  class="form-control" formControlName="observaciones"  placeholder="Ingrese observación" autocomplete="off"  maxlength="151">
+          </div> 
+
+          <!--Alert-->
+<br><br><br><br><br><br><br><br>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>Error!</strong> Tamaño máximo permitido en el campo Folio.
+</div>
+
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>Advertencia!</strong> ya existe el "Folio" ingresado, por favor intente con un nuevo.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+</div>
+
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>Error!</strong> Tamaño máximo permitido en el campo.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+</div>
+
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>Error!</strong> Tamaño máximo permitido en el campo.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+</div>
+
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>Error!</strong> Tamaño máximo permitido en el campo.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+</div>
+
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>Error!</strong> Tamaño máximo permitido en el campo.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+</div>
+
+<div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['folio'].errors?.yaExisteFolio">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+</div>
+
+
+<div class="alert alert-success fade in" *ngIf="solicitud.valid">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>Exelente!</strong> Datos ingresados correctamente
+</div>
+
+
+          <button  type="submit" [disabled]="!solicitud.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

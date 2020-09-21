@@ -11,21 +11,16 @@ import Swal from 'sweetalert2';
 })
 export class SolicitudComponent implements OnInit {
 
-  //solicitudes: FormGroup;
-  //solicitudes2: any;
-  //activos: FormGroup;
   activo2: any;
- // id:any;
   idsolicitud: any;
   display = 'none';
   titulo: string;
-  //parametro: string;
   p: number = 1;
   solicitudes: FormGroup;
   bienesS: any;
 
   fecha:string; marca:string; area:string;  responsable:string; 
-  codigo:string; descripcion:string;  motivo:string; entidad:string; observaciones:string; ubicacion:string;
+  codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService) 
@@ -42,16 +37,7 @@ export class SolicitudComponent implements OnInit {
    
   }
 
-  guardarDatos(){
-    //if (this.solicitudes.valid == true) {
-     // this.bajaService.guardarAcuerdo(this.solicitudes.value).subscribe((data) => {
-     //  console.log("Id Bien: " + this.solicitudes.value);    
-      //    });                 
-  //  }
-   // this.display = 'none';
-  }
-
-
+  guardarDatos(){ }
 
   verSolicitud(id) {
     this.display = 'block';
@@ -64,7 +50,7 @@ export class SolicitudComponent implements OnInit {
       this.fecha = data.fechacadena;
       this.codigo = data.codigo;
       this.descripcion = data.descripcion;
-      this.motivo = data.motivo;
+      this.nombredescargo = data.nombredescargo;
      // this.ubicacion = data.ubicacion;
       this.observaciones = data.observaciones;
       this.folio = data.folio;
@@ -73,12 +59,10 @@ export class SolicitudComponent implements OnInit {
      this.bienesS = data.idbien; //para obtener el id del bien
     // console.log("Idbien: "+this.bienesS); 
     });
-    //this.bajaService.listarBienesSolicitados(id.idbien).subscribe(res=>{ this.bienesS=res });
-    //console.log("ID: "+ id.idbien);
+   
 //para la aprobacion
     this.idsolicitud=id;
-    
-    //console.log("IdSoli: "+id);
+ 
   }
 
   close() {
@@ -96,7 +80,6 @@ export class SolicitudComponent implements OnInit {
     //var idsolicitud=this.idsolicitud;
     this.acuerdo = this.solicitudes.value.acuerdo;
     //console.log("Este de Acuerdo: "+this.acuerdo);
-    //this.bienesS = this.activo2;
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
       text: "No podras revertir esta acción!",
@@ -124,8 +107,6 @@ export class SolicitudComponent implements OnInit {
    this.bienesS=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
        this.bajaService.cambiarEstadoAceptado(this.bienesS, this.acuerdo).subscribe(rest=>{ });
       // console.log("Id Solicitud: "+ this.bienesS);
-     //this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
-  
   }// del result
   })//de la alerta
 
@@ -137,7 +118,6 @@ negarSolicitud() {
   var id=this.idsolicitud;
   this.acuerdo = this.solicitudes.value.acuerdo;
     //console.log("Este de Acuerdo: "+this.acuerdo);
-    //this.bienesS = this.activo2;
     Swal.fire({
       title: '¿Estas seguro de negar esta solicitud?',
       text: "No podras revertir esta acción!",
@@ -164,15 +144,10 @@ negarSolicitud() {
    });   
    this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien
        this.bajaService.cambiarEstadoRechazado(this.bienesS ,this.acuerdo).subscribe(rest=>{ });
-      // console.log("IdSolicitud: "+ this.bienesS);
-     //this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
   
   }// del result
   })//de la alerta
-
-
 }//fin negar solicitud
-
 
 noRepetirAcuerdo(control: FormControl) {
 
