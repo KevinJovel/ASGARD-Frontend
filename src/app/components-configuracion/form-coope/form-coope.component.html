@@ -13,7 +13,7 @@
         </div>
         
         <div class="col-md-3">
-          <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
+          <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre placeholder="Buscar">
         </div>
        
       </div>
@@ -32,10 +32,9 @@
                                 <tr>
                                     <th>N°</th>
                                     <th>Nombre de la cooperativa</th>
-                                    <th>Año de inicio</th>
+                                    <th>Año activo</th>
                                     <th>Descripción</th>
                                     <th>Logo</th>
-                                    <th class="hidden-phone">Opciones</th>
                                 </tr>
 
                             </thead>
@@ -49,9 +48,6 @@
                                     <td class="center hidden-phone">
                                      <button class="btn btn-warning btn-xs" (click)="mostrarLogo(cooperativa.idcooperativa)"><i class="icon-eye-open"></i></button>
                                   </td>
-                                    <td class="center hidden-phone">
-                                        <button class="btn btn-danger btn-xs"><i class="icon-trash "></i></button>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -77,11 +73,11 @@
                     <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Nombre de la cooperativa:</label>
+                        <label for="exampleInputEmail1">* Nombre de la cooperativa:</label>
                         <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off"  maxlength="36">
                     </div>
 
-   
+                    <!-- Alertas para campo nombre-->
                     <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.yaExisteCooperativa">
                         <button data-dismiss="alert" class="close close-sm" type="button">
                           <i class="icon-remove"></i>
@@ -96,51 +92,53 @@
                         <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
                       </div>
 
-                    <div class="form-group">
-                      <label for="inputPassword4">Logo</label>
-                      <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" />
-    
-                  </div>
-
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Año de inicio:</label>
-                      <input type="number" class="form-control" formControlName="anio" id="exampleInputEmail3" 
-                      placeholder="Ingrese año" autocomplete="off" required pattern="[0-9]{5}">
-                  </div>
-                    
-<!--  
-                    <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.maxlength">
+                      <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.pattern">
                         <button data-dismiss="alert" class="close close-sm" type="button">
                           <i class="icon-remove"></i>
                         </button>
-                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+                        <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
                       </div>
--->
+                    <!-- Fin de Alertas para campo nombre-->
+
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea2">Descripción:</label>
+                      <label for="inputPassword4">Logo</label>
+                      <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">* Año de inicio:</label>
+                    <input type="text" class="form-control" formControlName="anio" id="exampleInputEmail3" 
+                    placeholder="Ingrese año" mask="0000" autocomplete="off">
+                </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea2">* Descripción:</label>
                         <input type="text" class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2" placeholder="Ingrese descripción" autocomplete="off" maxlength="51">
                     </div>
- 
-                    <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['descripcion'].errors?.maxlength">
+
+                     <!--Alertas para campo descripción-->
+                      <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['descripcion'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">
                           <i class="icon-remove"></i>
                         </button>
                         <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
                       </div>
 
-                           <!--  WARNING
-                       
+                      <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['descripcion'].errors?.pattern">
+                        <button data-dismiss="alert" class="close close-sm" type="button">
+                          <i class="icon-remove"></i>
+                        </button>
+                        <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+                      </div>
+                     <!--Fin de Alertas para campo descripción-->
+       
           <div class="alert alert-warning fade in" *ngIf="!cooperativa.valid">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
+            <strong>¡ADVERTENCIA!</strong> Los campos con * son obligatorios
           </div>
 
-          -->
-                           
-           <!--  END-WARNING
-   
            <div class="alert alert-success fade in" *ngIf="cooperativa.valid&&cooperativa.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -148,9 +146,8 @@
             <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
           </div>
 
-          -->
    
-          <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="submit" [disabled]="!cooperativa.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
 
                 </form>
@@ -188,11 +185,6 @@
 
       </form>
 
-            <div class="modal-body" style="text-align: center;">
-              <svg id="barcode" width="400px" height="150px"></svg>
-            </div>
-
-  
       </div>
     </div>
   </div>

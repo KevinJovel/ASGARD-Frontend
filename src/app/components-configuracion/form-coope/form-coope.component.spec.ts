@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormCooperativaComponent } from './form-cooperativa.component';
+import { FormCoopeComponent } from './form-coope.component';
 
-describe('FormCooperativaComponent', () => {
-  let component: FormCooperativaComponent;
-  let fixture: ComponentFixture<FormCooperativaComponent>;
+describe('FormCoopeComponent', () => {
+  let component: FormCoopeComponent;
+  let fixture: ComponentFixture<FormCoopeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormCooperativaComponent ]
+      declarations: [ FormCoopeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormCooperativaComponent);
+    fixture = TestBed.createComponent(FormCoopeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

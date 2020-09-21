@@ -55,7 +55,6 @@ import { SolicitudComponent } from './components-baja/solicitud/solicitud.compon
 import { GestionDescargoComponent } from './components-baja/gestion-descargo/gestion-descargo.component';
 
 import { TablaTarjetaComponent } from './components-tarjeta/tabla-tarjeta/tabla-tarjeta.component';
-import { FormCooperativaComponent } from './components-configuracion/form-cooperativa/form-cooperativa.component';
 import { TablaDepreciacionComponent } from './components-tarjeta/tabla-depreciacion/tabla-depreciacion.component';
 import { HistorialMantenimientoComponent } from './components-mantenimiento/historial-mantenimiento/historial-mantenimiento.component';
 import { ReportTarjetaComponent } from './components-tarjeta/report-tarjeta/report-tarjeta.component';
@@ -74,6 +73,7 @@ import { FormTipoTrasladoComponent } from './components-catalogos/form-tipo-tras
 import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-descargo/form-tipo-descargo.component';
 import { ActivosAsignadosComponent } from './components-control/activos-asignados/activos-asignados.component';
 import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-activos-asignados/solicitud-activos-asignados.component';
+import { FormCoopeComponent } from './components-configuracion/form-coope/form-coope.component';
 
 
 
@@ -109,7 +109,6 @@ import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-
     SolicitudComponent,
     GestionDescargoComponent,
     TablaTarjetaComponent,
-    FormCooperativaComponent,
     TablaDepreciacionComponent,
     HistorialMantenimientoComponent,
     ReportTarjetaComponent,
@@ -121,6 +120,7 @@ import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-
     FormTipoDescargoComponent,
     ActivosAsignadosComponent,
     SolicitudActivosAsignadosComponent,
+    FormCoopeComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -163,14 +163,14 @@ import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-
       {path: 'solicitud', component: SolicitudComponent},
       {path: 'gestion-descargo', component: GestionDescargoComponent},
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
-      {path: 'form-cooperativa', component: FormCooperativaComponent},
       {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
       {path: 'report-tarjeta/:id', component: ReportTarjetaComponent},
       {path: 'cuadro-control', component: CuadroControlComponent},
       {path: 'cierre-anio', component: CierreAnioComponent},
       {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent},
       {path: 'activos-asignados', component: ActivosAsignadosComponent},
-      {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent}
+      {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
+      {path: 'form-conficooperativa', component: FormCoopeComponent},
 
       
     ]),
