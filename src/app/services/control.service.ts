@@ -57,8 +57,8 @@ public AsignarBien(bien) {
 
 
 //Control de bienes
-public getBienes() {
-  return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivos").map(res => res.json());
+public getBienesAsignados() {
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivosAsignados").map(res => res.json());
 }
 
 public listarComboArea() {
@@ -93,18 +93,25 @@ public modificarFormIngreso(formularioIngreso) {
     return this.http.post(environment.urlService + "api/FormularioIngreso/modificarActivoFijo", nuevoBien).map(res=>res.json());
     }
 
-public buscarActivo(buscador) {
-  return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivo/" + buscador).map(res => res.json());
+public buscarActivoAsig(buscador) {
+  return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivoAsig/" + buscador).map(res => res.json());
+}
+public buscarActivoNoAsig(buscador) {
+  return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivoNoAsig/" + buscador).map(res => res.json());
 }
 
-public DatosVer(id){
-  return this.http.get(environment.urlService + "api/ActivoFijo/DatosVer/"+id).map(res=>res.json());
+public VerDatosActivosAsig(id){
+  return this.http.get(environment.urlService + "api/ActivoFijo/VerDatosActivoAsig/"+id).map(res=>res.json());
+ }
+ public VerDatosActivosNoAsig(id){
+  return this.http.get(environment.urlService + "api/ActivoFijo/VerDatosActivoNoAsig/"+id).map(res=>res.json());
  }
 
  public RecuperarFormCompleto(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/RecuperarFormCompleto/"+id).map(res=>res.json());
  } 
 
+ 
 }
 
 
