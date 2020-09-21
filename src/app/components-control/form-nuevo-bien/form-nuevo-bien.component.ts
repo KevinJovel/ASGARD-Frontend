@@ -106,9 +106,36 @@ export class FormNuevoBienComponent implements OnInit {
       this.dataState = resp;
       if (resp.data.hasOwnProperty('bienObj')) {
         let data = resp.data.bienObj;
-        this.nuevobien.setValue(data); //recupero
+        //this.nuevobien.setValue(data); //recupero
+        this.nuevobien.controls['idbien'].setValue(data.idbien);
+      this.nuevobien.controls['color'].setValue(data.color);
+      this.nuevobien.controls['descripcion'].setValue(data.descripcion);
+      this.nuevobien.controls['modelo'].setValue(data.modelo);
+      this.nuevobien.controls['tipoadquicicion'].setValue(data.tipoadquicicion);
+      this.nuevobien.controls['idmarca'].setValue(data.idmarca);
+      this.nuevobien.controls['idclasificacion'].setValue(data.idclasificacion);
+      this.nuevobien.controls['idproveedor'].setValue(data.idproveedor);
+      this.nuevobien.controls['estadoingreso'].setValue(data.estadoingreso);
+      this.nuevobien.controls['plazopago'].setValue(data.plazopago);
+      this.nuevobien.controls['prima'].setValue(data.prima);
+      this.nuevobien.controls['cuotaasignada'].setValue(data.cuotaasignada);
+      this.nuevobien.controls['interes'].setValue(data.interes);
+      this.nuevobien.controls['valoradquicicion'].setValue(data.valoradquicicion);
+      this.nuevobien.controls['noformulario'].setValue(data.noformulario);
+      this.nuevobien.controls['nofactura'].setValue(data.nofactura);
+      //this.nuevobien.controls['fechaingreso'].setValue(data.fechaingreso);
+      this.nuevobien.controls['personaentrega'].setValue(data.personaentrega);
+      this.nuevobien.controls['personarecibe'].setValue(data.personarecibe);
+      this.nuevobien.controls['observaciones'].setValue(data.observaciones);
+      this.nuevobien.controls['cantidad'].setValue(data.cantidad);
+      this.nuevobien.controls['valorresidual'].setValue(data.valorresidual);
+      //this.nuevobien.controls['foto'].setValue(data.foto);
+      this.foto=data.foto;//obtengo la foto
         //this.bandera = true; //habilito el boton actualizar
         this.nuevobien.controls['bandera'].setValue(1);//mando 1 para saber q es el editarr
+        this.nuevobien.controls['foto'].setValue(this.foto);//evaluo si hay foto
+        this.fecha = data.fechaingreso;//obtengo la fecha en q se ingreso el bien para mostrarla
+
       }
 
       //vuelvo a utilizar el codigo para hacerlo dinamico y me recupere en el combo
@@ -297,7 +324,7 @@ export class FormNuevoBienComponent implements OnInit {
                 timer: 3000,
               }).then((result) => {
                 if (result.value) {
-                  //this.router.navigate(['./tabla-activos']);
+                 // this.router.navigate(['./tabla-activos']);
                   window.location.href= "./tabla-activos" ;
                 } //else {
                   //window.location.reload();
@@ -328,6 +355,7 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['prima'].setValue(data.prima);
       this.nuevobien.controls['cuotaasignada'].setValue(data.cuotaasignada);
       this.nuevobien.controls['interes'].setValue(data.interes);
+      this.nuevobien.controls['valorresidual'].setValue(data.valorresidual);
       this.nuevobien.controls['noformulario'].setValue(data.noformulario);
       this.nuevobien.controls['nofactura'].setValue(data.nofactura);
       this.nuevobien.controls['fechaingreso'].setValue(data.fechaingreso);
