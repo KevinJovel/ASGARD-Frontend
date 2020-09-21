@@ -8,7 +8,7 @@ import { style } from '@angular/animations';
 import Swal from 'sweetalert2';
 declare var jQuery: any;
 declare var $;
-//para compartir parametros de diferentes componentes
+//para compartir parametros de diferentes componentess
 import { State, StateService } from './../../services/state.service';
 
 @Component({
@@ -39,6 +39,7 @@ export class FormNuevoBienComponent implements OnInit {
   recargo: number=0;
   //Para la fecha
   fecha=Date.now();
+  lista2: any;
 
   @Input() bandera = false; //agrego input para hacer uso delas dos funciones
   //Variables de etiqueta
@@ -96,7 +97,8 @@ export class FormNuevoBienComponent implements OnInit {
       this.marcas = data;
     });
 
-    this.controlService.getBienes().subscribe((data) => {this.lista = data; });
+    this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
+    this.controlService.getBienesAsignados().subscribe((data) => {this.lista = data; });
 
     //this.dataState.data.datas //en data se almacenaran los datos que envio
     //recupera los datos del componente tabla
@@ -105,7 +107,8 @@ export class FormNuevoBienComponent implements OnInit {
       if (resp.data.hasOwnProperty('bienObj')) {
         let data = resp.data.bienObj;
         this.nuevobien.setValue(data); //recupero
-        this.bandera = true; //habilito el boton actualizar
+        //this.bandera = true; //habilito el boton actualizar
+        this.nuevobien.controls['bandera'].setValue(1);//mando 1 para saber q es el editarr
       }
 
       //vuelvo a utilizar el codigo para hacerlo dinamico y me recupere en el combo
@@ -242,14 +245,9 @@ export class FormNuevoBienComponent implements OnInit {
           });
       }
     }
-    
-  }
-
-  guardarMod() {      
-    //desdeaqui
-    //else{
-       
-      this.nuevobien.controls['bandera'].setValue('0');
+//inicia el MODIFICAR mandamos 1 a la bandera para identificar q es un editar
+    else if(this.nuevobien.controls['bandera'].value == '1'){
+    //// this.nuevobien.controls['bandera'].setValue('0');
     if (this.nuevobien.valid == true) {
       
      this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
@@ -258,32 +256,36 @@ export class FormNuevoBienComponent implements OnInit {
         if(this.nuevobien.value.plazopago==null)
         {
           this.nuevobien.controls['plazopago'].setValue(-1);
-        console.log("El plazo: "+this.nuevobien.value.plazopago);
         }
         if(this.nuevobien.value.prima==null)
         {
           this.nuevobien.controls['prima'].setValue(-1);
-        console.log("Es prima: "+this.nuevobien.value.prima);
         }
         if(this.nuevobien.value.cuotaasignada==null)
         {
           this.nuevobien.controls['cuotaasignada'].setValue(-1);
-        console.log("Es couta: "+this.nuevobien.value.cuotaasignada);
         }
         if(this.nuevobien.value.interes==null)
         {
           this.nuevobien.controls['interes'].setValue(-1);
-        console.log("Es interes: "+this.nuevobien.value.interes);
         }
-        
+        //console.log("Es marca: "+this.nuevobien.value.idmarca);
+        if(this.nuevobien.value.idmarca==0)
+        {
+          this.nuevobien.controls['idmarca'].setValue(0);
+        }
+        //Pasamos la foto para modificarla
+        this.nuevobien.controls['foto'].setValue(this.foto);
           this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
             console.log(this.nuevobien.value);
             this.modificar(this.nuevobien.value.idbien);
-            this.controlService.getBienes().subscribe((data) => {this.lista = data; });
+            this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
+            
           });
+          console.log("foto: "+this.nuevobien.value.foto);
           this.recargo=1;
           //this.router.navigate(['./tabla-activos']);
-            console.log("Id Bien: "+this.nuevobien.value.idbien);
+            //console.log("Id Bien: "+this.nuevobien.value.idbien);
            //listar bienes
             this.router.navigate(['./tabla-activos']);
           });
@@ -295,28 +297,24 @@ export class FormNuevoBienComponent implements OnInit {
                 timer: 3000,
               }).then((result) => {
                 if (result.value) {
-                  this.router.navigate(['./tabla-activos']);
-                  
+                  //this.router.navigate(['./tabla-activos']);
+                  window.location.href= "./tabla-activos" ;
                 } //else {
-                  window.location.reload();
+                  //window.location.reload();
                // }
               });     
     }
     
     this.display = 'none';
-    //if(this.recargo==1){
-    //this.router.navigate(['./tabla-activos']);
-  //}
+
+    }
     
-   // this.controlService.getBienes().subscribe(res=> { this.comboAreaSucur=res});;
-   
   }
 
+
   modificar(id) {
-    //this.display = 'block';
-    console.log("Antes"+id);
+   // console.log("Antes"+id);
     this.controlService.RecuperarFormCompleto(id).subscribe((data) => {
-      console.log("Despues"+id);
       this.nuevobien.controls['idbien'].setValue(data.idbien);
       this.nuevobien.controls['color'].setValue(data.color);
       this.nuevobien.controls['descripcion'].setValue(data.descripcion);
@@ -338,16 +336,14 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['observaciones'].setValue(data.observaciones);
       this.nuevobien.controls['cantidad'].setValue(data.cantidad);
       this.nuevobien.controls['foto'].setValue(data.foto);
-
       this.nuevobien.controls['bandera'].setValue('1');
-
-     // let listar = data.idbien;
     });
     this.open();
   }
 
   open() {
     //limpia cache
+   // this.nuevobien.reset();
     this.nuevobien.controls["idbien"].setValue("0");
     this.nuevobien.controls["bandera"].setValue("0");
     this.nuevobien.controls["color"].setValue("");
