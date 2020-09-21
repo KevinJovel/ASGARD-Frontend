@@ -55,24 +55,22 @@
             <thead>
               <tr>
                   <th>N°</th>
-                  <th>Código</th>
+                  <th>Fecha</th>
                   <th>Descripción</th>
-                  <th>Responsable</th>
-                  <th>Cargo</th>
-                  <th>Área de negocio</th>
+                  <th>Clasificación</th>
+                  <th>Ver historial</th>
                 </tr>
               </thead>
-
               <tbody>
              <tr *ngFor="let acti of activo | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                 
-                  <td>{{acti.codigo}}</td>
+                  <td>{{acti.fechacadena}}</td>
                   <td>{{acti.desripcion}}</td>
-                  <td>{{acti.resposnsable}}</td>
-                  <td>{{acti.cargo}}</td>
-                  <td>{{acti.areaDeNegocio}}</td>
-                    
+                  <td>{{acti.clasificacion}}</td>
+                  <td class="center hidden-phone">
+                    <button title="Enviar" class="btn btn-primary btn-xs" (click)="ver(acti.idBien)">
+                      <i class="glyphicon glyphicon-open"></i></button> 
                 </tr> 
               </tbody>
             </table>
@@ -80,4 +78,62 @@
           </div>
         </div>
       </section>
+
+
+      <div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+        <div class="modal-dialog .modal-dialog ">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+              <h4 class="modal-title">Datos completos del activo</h4>
+              <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body" >
+            
+
+               <div class="col-lg-6">
+                <p>
+                 
+                  <span class="text-bold"><strong>Formulario:</strong> </span> {{ noformu}} <br/><br/>
+                  <label><strong>Clasificación:</strong></label> {{ clasificacion}}<br/><br/>
+                  <label><strong>Proveedor:</strong></label> {{ proveedor}}<br/><br/>
+                  <label><strong>Adquisición:</strong></label> {{ tipoadqui}} <br/><br/>
+                  <label ><strong>Valor adquisición:</strong></label> ${{ valor}}<br/><br/>
+                  
+                  <label  ><strong>Estado:</strong></label> {{ estado}}<br/><br/>
+             
+                </p>
+             
+              </div>
+
+               <div class="col-lg-6">
+                  
+                <p>
+               
+                  <span class="text-bold"><strong>Fecha de ingreso:</strong></span>  {{ fecha }}<br/><br/>
+                  <span class="text-bold"><strong>Descripción:</strong></span> {{descripcion }}<br/><br/>
+                  <label ><strong>Marca:</strong></label> {{ marca }}<br/><br/>
+                  <span class="text-bold"><strong>Color:</strong></span> {{ color }}<br/><br/>
+                  <label><strong>Donante:</strong></label> {{ donante}} <br/><br/>
+                  <label ><strong>Modelo:</strong></label> {{ modelo}}<br/><br/>
+                  
+                </p>
+             
+            </div>
+
+         
+
+             <div class="row">
+              <div class="col-xs-3">
+                
+              </div>
+             </div>
+<!-- aca -->
+
+<button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+ 
+               </div>
+            </div>
+          </div>
+        </div>
 
