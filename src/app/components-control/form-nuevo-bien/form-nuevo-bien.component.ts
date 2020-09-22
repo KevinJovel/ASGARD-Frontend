@@ -128,6 +128,7 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['personarecibe'].setValue(data.personarecibe);
       this.nuevobien.controls['observaciones'].setValue(data.observaciones);
       this.nuevobien.controls['cantidad'].setValue(data.cantidad);
+      this.nuevobien.controls['cantidad'].disable();
       this.nuevobien.controls['valorresidual'].setValue(data.valorresidual);
       //this.nuevobien.controls['foto'].setValue(data.foto);
       this.foto=data.foto;//obtengo la foto
@@ -324,7 +325,7 @@ export class FormNuevoBienComponent implements OnInit {
                 timer: 3000,
               }).then((result) => {
                 if (result.value) {
-                 // this.router.navigate(['./tabla-activos']);
+                  this.router.navigate(['./tabla-activos']);
                   window.location.href= "./tabla-activos" ;
                 } //else {
                   //window.location.reload();
@@ -365,8 +366,9 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['cantidad'].setValue(data.cantidad);
       this.nuevobien.controls['foto'].setValue(data.foto);
       this.nuevobien.controls['bandera'].setValue('1');
+      
     });
-    this.open();
+    
   }
 
   open() {
