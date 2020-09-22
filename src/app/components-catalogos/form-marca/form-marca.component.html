@@ -81,6 +81,13 @@
             </button>
             <strong>¡ADVERTENCIA!</strong> El campo marca es obligatorio.
           </div>
+           <!-- Validcion de longitud -->
+           <div class="alert alert-block alert-danger fade in"
+           *ngIf="marca.controls['marca'].errors?.maxlength">
+           <button data-dismiss="alert" class="close close-sm" type="button"><i class="icon-remove"></i>
+           </button>
+           <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
+         </div>
           <div class="alert alert-success fade in" *ngIf="marca.valid&&marca.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
