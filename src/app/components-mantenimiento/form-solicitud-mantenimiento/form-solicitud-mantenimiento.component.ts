@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HashLocationStrategy } from '@angular/common';
 import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
+import { ViewChild, ElementRef } from '@angular/core';
 
 
 
@@ -28,7 +29,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   p: number = 1;
   matriz:(string | number)[][]=new Array();
    fecha = Date.now();
-   
+  
+  //submitButton: any;
    
 
   constructor( private mantenimientoService: MantenimientoService) { 
@@ -104,9 +106,13 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   //     this.solicitud.reset();
   //   }
   // }
-
-
-
+  @ViewChild('submitButton') submitButton:ElementRef;
+  onButtonClick()
+  {
+         this.submitButton.nativeElement.disabled = true;
+         //Do some other stuff, maybe call a service etc...
+         this.submitButton.nativeElement.disabled = false;
+  }
 
   arrayMostrar(){
     this.matriz.push([this.datosArray.controls["idBien"].value,this.datosArray.controls["codigobien"].value, 
@@ -171,7 +177,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     })
 this.matriz=[],[];
 this.solicitud.reset();
-this.solicitud.controls["fechasolicitud"].setValue("");
+//this.solicitud.controls["fechasolicitud"].setValue("");
 }else{
     Swal.fire({
       position: 'center',

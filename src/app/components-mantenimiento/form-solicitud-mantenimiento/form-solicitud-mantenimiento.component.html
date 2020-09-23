@@ -154,10 +154,7 @@
               </section>
             </div>
           </div>
-         
-         
-          
-          
+
         </form>
           </section>
           
@@ -205,14 +202,14 @@
       
                         <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                        <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                        
+                    
                         <td>{{bien.codigobien}}</td>
                         <td>{{bien.descripcionbien}}</td>
                         <td class="center hidden-phone">
                           
                          
                           <header class="panel-heading form-in-line">
-                            <button type="button" class="btn btn-primary" (click)="open(bien.idbien,bien.codigobien,bien.descripcionbien)" data-toggle="modal"
+                            <button  name="submitButton"  type="button" class="btn btn-primary" (click)="open(bien.idbien,bien.codigobien,bien.descripcionbien)" data-toggle="modal"
                               data-target="#myModal"><i class="icon-plus-sign-alt"></i></button>
                           </header>
                         </td>
