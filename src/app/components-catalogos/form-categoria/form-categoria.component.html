@@ -1,11 +1,11 @@
 <br><br><br><br>
 <section class="panel">
-  <h1>Categorias</h1>
+  <h1>Categorías</h1>
   <div class="row">
     <div class="col-lg-6">
 
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nueva categoria</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nueva categoría</button>
       </header>
     </div>
     <div class="col-lg-3">
@@ -22,7 +22,7 @@
     <div class="col-lg-12">
       <section class="panel panel-default">
         <header class="panel-heading">
-          <h5>Registro de categorias</h5>
+          <h5>Registro de categorías</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -30,7 +30,7 @@
               <thead>
                 <tr>
                   <th scope="row">N°</th>
-                  <th scope="row">Categoria</th>
+                  <th scope="row">Categoría</th>
                   <th scope="row">Vida útil</th>
                   <th scope="row">Descripción</th>
                   <th scope="row"  class="hidden-phone">Opciones</th>
@@ -76,87 +76,94 @@
           <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">* Categoria:</label>
-            <input type="text" class="form-control" formControlName="Categoria" id="exampleInputEmail3" placeholder="Ingrese Categoria" autocomplete="off" maxlength="26">
+            <label for="exampleInputEmail1">* Categoría:</label>
+            <input type="text" class="form-control" formControlName="Categoria" id="exampleInputEmail3" placeholder="Ingrese Categoría" autocomplete="off" maxlength="51">
           </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">* Vida útil:</label>
+            <input type="text" class="form-control" formControlName="VidaUtil" id="exampleFormControlTextarea2" placeholder="Ingrese vida útil en años" autocomplete="off"  maxlength="2">
+          </div>
+ 
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2"> Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="Descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
+          </div>
+
+
             <!-- Validacion de pattern no acepta caracteres especiales -->
             <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.pattern">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
-              <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+              <strong>¡Error!</strong> El campo categoía no acepta caracteres especiales.
             </div>
 			<div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.yaExisteCategoria">
 				<button data-dismiss="alert" class="close close-sm" type="button">
 				  <i class="icon-remove"></i>
 				</button>
-				<strong>Advertencia!</strong> ya existe la categoria ingresada, por favor intente con una nueva.
+				<strong>¡Advertencia!</strong> Ya existe la categoría ingresada, por favor intente con una nueva.
 				</div>
-           <!-- <div class="alert alert-warning fade in" *ngIf="categoria.valid&&categoria.controls['bandera'].value==1">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>Advertenia!</strong> Si editas el correlativo, cambiará en todos los activos referenciados.
-            </div>-->
-          <div class="alert alert-warning fade in" *ngIf="categoria.controls['Categoria'].errors?.required">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Advertenia!</strong> El campo categoria sí es obligatorio
-          </div>
+        
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo categoría.
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2">* Vida útil:</label>
-            <input type="text" class="form-control" formControlName="VidaUtil" id="exampleFormControlTextarea2" placeholder="Ingrese vida útil en años" autocomplete="off"  maxlength="51">
+          <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.minlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Tamaño mínimo permitido para el campo categoría.
           </div>
+        
             <!-- Validacion de pattern no acepta caracteres especiales -->
             <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['VidaUtil'].errors?.pattern">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
-              <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+              <strong>¡Error!</strong> El campo vida útil solo acepta números.
             </div>
          
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['VidaUtil'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo
-          </div>
-          <div class="alert alert-warning fade in" *ngIf="categoria.controls['VidaUtil'].errors?.required">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Advertencia!</strong> El campo es obligatorio
-          </div>
-          
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2"> Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="Descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo vida útil-
           </div>
             <!-- Validacion de pattern no acepta caracteres especiales -->
             <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Descripcion'].errors?.pattern">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
-              <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+              <strong>¡Error!</strong> El campo descripción no acepta algunos caracteres especiales.
             </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Advertencia!</strong> Tamaño máximo permitido para el campo descripción.
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Descripcion'].errors?.minlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Tamaño mínimo permitido para el campo descripción.
+          </div>
+            <!--  WARNING-->
+         <div class="alert alert-warning fade in" *ngIf="!categoria.valid&&!categoria.controls['Descripcion'].errors?.maxlength">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+        </div>
+ 
           <div class="alert alert-success fade in" *ngIf="categoria.valid&&categoria.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Exelente!</strong> Datos ingresados correctamente
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
           </div>
           <button [disabled]="!categoria.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
