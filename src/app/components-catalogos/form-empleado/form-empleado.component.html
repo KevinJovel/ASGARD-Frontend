@@ -55,13 +55,13 @@
 				          <td>{{empleado.direccion}}</td>
 				          <td>{{empleado.telefono}}</td>
 				          <td>{{empleado.telefonopersonal}}</td>
-                  <td>{{empleado.nombrearea +" - "+ empleado.nombresucursal}}</td>
+                  <td>{{empleado.nombrearea +" - "+ empleado.nombresucursal+" - "+ empleado.ubicacion}}</td>
 				          <td>{{empleado.cargo}}</td>
 				  
 				  
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modif(empleado.idempleado)"><i class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(empleado.idempleado)"><i class="icon-trash "></i></button>
+                    <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(empleado.idempleado)"><i class="icon-pencil"></i></button>
+                    <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(empleado.idempleado)"><i class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -81,7 +81,7 @@
 
 <!--modal para ingresar y editar-->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog modal-lg" style="width:700px;" >
+  <div class="modal-dialog modal-lg" style="width:800px;" >
     <div class="modal-content"  >
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
@@ -118,7 +118,7 @@
             <label for="exampleFormControlTextarea1" >* Área de negocio:</label>
             <select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea1"  maxlength="51">
               <option value="">---Seleccione---</option>	
-              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre +" - "+area.nombreSucursal}} </option>	 
+              <option [disabled]="this.edit==1" [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>	 
             </select>
             </div>
             <div class="form-group col-md-6">
@@ -154,48 +154,76 @@
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+    <strong>¡Error!</strong> El campo nombres no acepta caracteres especiales.
   </div>
     <!-- Validacion de pattern no acepta caracteres especiales -->
     <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.pattern">
       <button data-dismiss="alert" class="close close-sm" type="button">
         <i class="icon-remove"></i>
       </button>
-      <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+      <strong>¡Error!</strong> El campo apellidos no acepta caracteres especiales.
     </div>
       <!-- Validacion de pattern no acepta caracteres especiales -->
   <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.pattern">
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+    <strong>¡Error!</strong> El campo dirección no acepta algunos caracteres especiales.
+  </div>
+
+  <div class="alert alert-warning fade in" *ngIf="this.edit==1">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>¡Advertencia!</strong> El área no se puede modificar porque hay activos referenciados al empleado. 
+    Para poder modificar el área del empleado primero debe desasignar los activos referenciados.
   </div>
 
   <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.maxlength">
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>Error!</strong> Tamaño máximo permitido en este campo
+    <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombres.
   </div>
 
   <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.maxlength">
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>Error!</strong> Tamaño máximo permitido en este campo
+    <strong>¡Error!</strong> Tamaño máximo permitido en el campo apellidos.
   </div>
   <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.maxlength">
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>Error!</strong> Tamaño máximo permitido en este campo
+    <strong>¡Error!</strong> Tamaño máximo permitido en el campo dirección.
   </div>
+  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.minlength">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo nombres es 4.
+  </div>
+  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.minlength">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>¡Advertencia!</strong> El amaño mínimo permitido para el campo apellidos es 8.
+  </div>
+  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.minlength">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo dicrección 10.
+  </div>
+  
+  
   
   <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['dui'].errors?.yaExisteDui">
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>Advertencia!</strong> ya existe el "DUI" ingresado, por favor intente con un nuevo.
+    <strong>¡Advertencia!</strong> Ya existe el DUI ingresado, por favor intente con uno nuevo.
   </div>
 
   

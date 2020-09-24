@@ -34,7 +34,7 @@ export class FormCategoriaComponent implements OnInit {
   }
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de categorias";
+    this.titulo = "Formulario categoría";
     this.categoria.controls["IdCategoria"].setValue("0");
     this.categoria.controls["bandera"].setValue("0");
     this.categoria.controls["VidaUtil"].setValue("");
@@ -58,7 +58,7 @@ export class FormCategoriaComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con exito',
+          title: '¡Registro guardado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -73,7 +73,7 @@ export class FormCategoriaComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro modificado con exito',
+          title: '¡Registro modificado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -84,8 +84,7 @@ export class FormCategoriaComponent implements OnInit {
     this.categoria.controls["VidaUtil"].setValue("");
     this.categoria.controls["Categoria"].setValue("");
     this.categoria.controls["Descripcion"].setValue("");
-    //this.edit=0;
-    //this.router.navigate(["/form-marca"])
+    
 
     this.display = 'none';
     this.catalogosServices.getCategorias().subscribe(res => {this.categorias = res});
@@ -93,7 +92,7 @@ export class FormCategoriaComponent implements OnInit {
   }
 
   modif(id) {
-    this.titulo = "Modificar Categoria";
+    this.titulo = "Modificar categoría";
     this.display = 'block';
     this.catalogosServices.RecuperarCategorias(id).subscribe(data => {
       this.categoria.controls["IdCategoria"].setValue(data.idCategoria);
@@ -115,19 +114,19 @@ export class FormCategoriaComponent implements OnInit {
             Swal.fire({
                 icon: 'error',
                 title: '¡ERROR!',
-                text: 'No es posible eliminar este dato, ya existen clasificaciones denominadas a esta categoria',
+                text: 'No es posible eliminar este registro, esta categoía ya tiene claficaciones asignadas',
                 confirmButtonText: 'Aceptar'
 
             })
         } else {
             Swal.fire({
                 title: '¿Estas seguro de eliminar este registro?',
-                text: "No podrás revertir esta acción!",
+                text: "¡No podrás revertir esta acción!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Si, eliminar!',
+                confirmButtonText: '!Si, eliminar!',
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.value) {
@@ -135,7 +134,7 @@ export class FormCategoriaComponent implements OnInit {
                         Swal.fire({
                             icon: 'error',
                             title: '¡ELIMINADO!',
-                            text: 'El registro ha sido eliminado con exito.',
+                            text: '¡El registro ha sido eliminado con éxito!',
                             confirmButtonText: 'Aceptar'
                         })
                         this.catalogosServices.getCategorias().subscribe(
@@ -149,31 +148,7 @@ export class FormCategoriaComponent implements OnInit {
     })
 
 }
-  eliminar1(idcategorias) {
-    Swal.fire({
-      title: '¿Estas seguro de eliminar este registro?',
-      text: "No podras revertir esta accion!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
-    }).then((result) => {
-      if (result.value) {
-        this.catalogosServices.eliminarCategorias(idcategorias).subscribe(data => {
-          Swal.fire(
-            'Registro eliminado!',
-            'Tu archivo ha sido eliminado con exito.',
-            'success'
-          )
-          this.catalogosServices.getCategorias().subscribe(
-            data => { this.categorias = data }
-          );
-        });
 
-      }
-    })
-  }
 
 
   buscar(buscador) {

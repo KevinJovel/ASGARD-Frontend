@@ -22,9 +22,9 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion = new FormGroup({
       'idclasificacion': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'clasificacion': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
-      'correlativo': new FormControl("",[Validators.required,  Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
-      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
+      'clasificacion': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.minLength(5),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
+      'correlativo': new FormControl("",[Validators.required,  Validators.maxLength(10),Validators.minLength(4),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
+      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.minLength(10),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
       'idcategoria': new FormControl("",[Validators.required])
 
     });
@@ -41,7 +41,7 @@ export class FormClasificacionComponent implements OnInit {
 
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de clasificación";
+    this.titulo = "Formulario clasificación";
     this.clasificacion.controls["idclasificacion"].setValue("0");
     this.clasificacion.controls["bandera"].setValue("0");
     this.clasificacion.controls["clasificacion"].setValue("");
@@ -67,7 +67,7 @@ export class FormClasificacionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con exito',
+          title: '¡Registro guardado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -82,7 +82,7 @@ export class FormClasificacionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro modificado con exito',
+          title: '¡Registro modificado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -95,7 +95,6 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion.controls["idcategoria"].setValue("");
     this.clasificacion.controls["descripcion"].setValue("");
     this.edit=0;
-    //this.router.navigate(["/form-marca"])
 
     this.display = 'none';
     this.catalogosServices.getClasificacion().subscribe(res => {this.clasificaciones = res});
@@ -107,7 +106,7 @@ export class FormClasificacionComponent implements OnInit {
       if (data == 1) {
           this.edit = 1;
       }
-    this.titulo = "Modificar Clasificación";
+    this.titulo = "Modificar clasificación";
     this.display = 'block';
     this.catalogosServices.RecuperarClasificacion(id).subscribe(data => {
       this.clasificacion.controls["idclasificacion"].setValue(data.idclasificacion);
@@ -133,12 +132,12 @@ export class FormClasificacionComponent implements OnInit {
         } else {
             Swal.fire({
                 title: '¿Estas seguro de eliminar este registro?',
-                text: "No podrás revertir esta acción!",
+                text: "¡No podrás revertir esta acción!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Si, eliminar!',
+                confirmButtonText: '¡Si, eliminar!',
                 cancelButtonText: "Cancelar"
             }).then((result) => {
                 if (result.value) {
@@ -146,7 +145,7 @@ export class FormClasificacionComponent implements OnInit {
                         Swal.fire({
                             icon: 'error',
                             title: '¡ELIMINADO!',
-                            text: 'El registro ha sido eliminado con exito.',
+                            text: '¡El registro ha sido eliminado con éxito!',
                             confirmButtonText: 'Aceptar'
                         })
                         this.catalogosServices.getClasificacion().subscribe(
@@ -160,32 +159,6 @@ export class FormClasificacionComponent implements OnInit {
     })
 
 }
-  eliminar1(idclasificacion) {
-    Swal.fire({
-      title: '¿Estas seguro de eliminar este registro?',
-      text: "No podras revertir esta accion!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
-    }).then((result) => {
-      if (result.value) {
-        this.catalogosServices.eliminarCasificacion(idclasificacion).subscribe(data => {
-          Swal.fire(
-            'Registro eliminado!',
-            'Tu archivo ha sido eliminado con exito.',
-            'success'
-          )
-          this.catalogosServices.getClasificacion().subscribe(
-            data => { this.clasificaciones = data }
-          );
-        });
-
-      }
-    })
-  }
-
 
   buscar(buscador) {
     this.p = 1;

@@ -321,7 +321,6 @@ public RecuperarEmpleado(idempleado) {
   return this.http.get(environment.urlService  + "api/Empleado/RecuperarEmpleado/" + idempleado).map(res => res.json());
 }
 
-
 public buscarEmpleado(buscador) {
   return this.http.get(environment.urlService  + "api/Empleado/buscarEmpleado/" + buscador).map(res => res.json());
 }
@@ -333,6 +332,13 @@ public validardui(idempleado, dui)
 {
   return this.http.get(environment.urlService  + "api/Empleado/validardui/" + idempleado +"/"+ dui).map(res => res.json());
 }
+public noModificarArea(idempleado) {
+  return this.http.get(environment.urlService  + "api/Empleado/noModificarArea/" + idempleado).map(res => res.json());
+}
+public noEliminarEmpleado(idempleado) {
+  return this.http.get(environment.urlService  + "api/Empleado/noEliminarEmpleado/" + idempleado).map(res => res.json());
+}
+
 //Services Areas de negcio
 public getAreas() {
   return this.http.get(environment.urlService  + "api/AreasNegocios/listarAreas").map(res => res.json());

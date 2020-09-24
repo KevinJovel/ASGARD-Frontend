@@ -18,14 +18,15 @@ export class FormEmpleadoComponent implements OnInit {
   empleado: FormGroup;
   display = 'none';
   titulo: string;
+  edit: number=0;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
     this.empleado = new FormGroup({
       'idempleado': new FormControl("0"),
       'bandera': new FormControl("0"),
       'dui': new FormControl("", [Validators.required],this.noRepetirDui.bind(this)),    
-      'nombres': new FormControl("",[Validators.required,Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      'apellidos': new FormControl("",[Validators.required,Validators.maxLength(50),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      'direccion': new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.´´,#+° ]+$")]),
+      'nombres': new FormControl("",[Validators.required,Validators.maxLength(50),Validators.minLength(4),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'apellidos': new FormControl("",[Validators.required,Validators.maxLength(50),Validators.minLength(8),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'direccion': new FormControl("",[Validators.required,Validators.maxLength(100),Validators.minLength(10),Validators.pattern("^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.´´,#° ]+$")]),
       'telefono': new FormControl("",[Validators.required]),
       'telefonopersonal': new FormControl("",[Validators.required]),
       'idareadenegocio': new FormControl("",[Validators.required]),
@@ -53,7 +54,7 @@ this.catalogosServices.listarCargoCombo().subscribe(data =>{
   }
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de empleados";
+    this.titulo = "Formulario empleados";
     this.empleado.controls["idempleado"].setValue("0");
     this.empleado.controls["bandera"].setValue("0");
     this.empleado.controls["dui"].setValue("");
@@ -68,6 +69,7 @@ this.catalogosServices.listarCargoCombo().subscribe(data =>{
   }
   close() {
     this.display = 'none';
+    this.edit=0;
   }
 
 
@@ -81,7 +83,7 @@ this.catalogosServices.listarCargoCombo().subscribe(data =>{
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con exito',
+          title: '¡Registro guardado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -96,7 +98,7 @@ this.catalogosServices.listarCargoCombo().subscribe(data =>{
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro modificado con exito',
+          title: '¡Registro modificado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -113,13 +115,17 @@ this.catalogosServices.listarCargoCombo().subscribe(data =>{
     this.empleado.controls["telefonopersonal"].setValue("");
     this.empleado.controls["idareadenegocio"].setValue("");
     this.empleado.controls["idcargo"].setValue("");
-
+    this.edit=0;
     this.display = 'none';
     this.catalogosServices.getEmpleado().subscribe(res => {this.empleados = res});
 
   }
 
   modif(id) {
+    this.catalogosServices.noModificarArea(id).subscribe(data => {
+      if (data == 1) {
+          this.edit = 1;
+      }
     this.titulo = "Modificar Empleado";
     this.display = 'block';
     this.catalogosServices.RecuperarEmpleado(id).subscribe(data => {
@@ -135,25 +141,37 @@ this.catalogosServices.listarCargoCombo().subscribe(data =>{
     this.empleado.controls["bandera"].setValue("1");     
     this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
     });
-   
+  });
   }
   eliminar(idempleado) {
+    this.catalogosServices.noEliminarEmpleado(idempleado).subscribe(data => {
+      if (data == 1) {
+          Swal.fire({
+              icon: 'error',
+              title: '¡ERROR!',
+              text: 'No es posible eliminar este registro, ya existen activos denominados a este empleado',
+              confirmButtonText: 'Aceptar'
+
+          })
+      } else {
     Swal.fire({
       title: '¿Estas seguro de eliminar este registro?',
-      text: "No podras revertir esta accion!",
+      text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
+      confirmButtonText: '¡Si, eliminar!',
+      cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.value) {
         this.catalogosServices.eliminarEmpleado(idempleado).subscribe(data => {
-          Swal.fire(
-            'Registro eliminado!',
-            'Tu archivo ha sido eliminado con exito.',
-            'success'
-          )
+          Swal.fire({
+            icon: 'error',
+            title: '¡ELIMINADO!',
+            text: '¡El registro ha sido eliminado con éxito!',
+            confirmButtonText: 'Aceptar'
+        })
           this.catalogosServices.getEmpleado().subscribe(
             data => { this.empleados = data }
           );
@@ -161,6 +179,8 @@ this.catalogosServices.listarCargoCombo().subscribe(data =>{
 
       }
     })
+  }
+})
   }
 
   buscar(buscador) {

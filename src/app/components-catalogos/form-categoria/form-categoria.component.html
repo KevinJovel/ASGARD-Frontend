@@ -9,9 +9,7 @@
       </header>
     </div>
     <div class="col-lg-3">
-
-    </div>
-    
+    </div> 
     <div class="col-md-3">
       <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
@@ -44,8 +42,8 @@
                   <td>{{categoria.vidaUtil}}</td>
                   <td>{{categoria.descripcion}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modif(categoria.idCategoria)"><i class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(categoria.idCategoria)"><i class="icon-trash "></i></button>
+                    <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(categoria.idCategoria)"><i class="icon-pencil"></i></button>
+                    <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(categoria.idCategoria)"><i class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -82,12 +80,12 @@
 
           <div class="form-group">
             <label for="exampleFormControlTextarea2">* Vida útil:</label>
-            <input type="text" class="form-control" formControlName="VidaUtil" id="exampleFormControlTextarea2" placeholder="Ingrese vida útil en años" autocomplete="off"  maxlength="2">
+            <input type="text" min="1" max="50" class="form-control" formControlName="VidaUtil" id="exampleFormControlTextarea2" placeholder="Ingrese vida útil en años" autocomplete="off"  maxlength="2">
           </div>
  
           <div class="form-group">
             <label for="exampleFormControlTextarea2"> Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="Descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
+            <textarea class="form-control rounded-0" formControlName="Descripcion" id="exampleFormControlTextarea2" rows="1" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
           </div>
 
 
@@ -115,7 +113,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Advertencia!</strong> Tamaño mínimo permitido para el campo categoría.
+            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo categoría es 5.
           </div>
         
             <!-- Validacion de pattern no acepta caracteres especiales -->
@@ -149,7 +147,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Advertencia!</strong> Tamaño mínimo permitido para el campo descripción.
+            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo descripción es 10.
           </div>
             <!--  WARNING-->
          <div class="alert alert-warning fade in" *ngIf="!categoria.valid&&!categoria.controls['Descripcion'].errors?.maxlength">
