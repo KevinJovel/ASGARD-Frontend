@@ -50,7 +50,7 @@
 			
                    
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(informe.idBien,informe.idinformematenimiento, informe.vidaUtil)" ><i class="icon-edit"></i></button>
+                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(informe.idBien,informe.idinformematenimiento,informe.vidaUtil)" ><i class="icon-edit"></i></button>
                      </td>
                   </tr>
                 </tbody>
@@ -89,7 +89,7 @@
             <!--Aqui va la recuperación de vida util-->
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2"> Vida útil:</label>
-              <input type="text" class="form-control" formControlName="vidaUtil"  id="inputEmail4" placeholder="Ingrese valor de revalorización" autocomplete="off"   >
+              <input type="text" class="form-control" formControlName="vidaUtil"  id="inputEmail4" autocomplete="off"   >
             </div>
             <br><br> <br><br> <br>
           
@@ -110,19 +110,19 @@
         <button data-dismiss="alert" class="close close-sm" type="button">
           <i class="icon-remove"></i>
         </button>
-        <strong>¡Error!</strong> Este campo solo se aceptan números.
+        <strong>¡Error!</strong> El campo valor de revalorización solo se acepta números.
       </div>
        <!-- Validacion de pattern no acepta caracteres especiales -->
        <div class="alert alert-block alert-danger fade in" *ngIf="revalorizacion.controls['vidaUtil'].errors?.pattern">
         <button data-dismiss="alert" class="close close-sm" type="button">
           <i class="icon-remove"></i>
         </button>
-        <strong>¡Error!</strong> Este campo solo se aceptan números enteros.
+        <strong>¡Error!</strong> El campo vida útil solo se acepta números enteros.
       </div>
    
           <div>
           <button type="submit"  class="btn btn-primary"><i class="icon-save"></i>Guardar</button>
-          <button type="submit"  (click)="noRevalorizar()"  class="btn btn-danger"><i class="icon-save"></i>No revalorizar</button>
+          <button type="submit"  (click)="noRevalorizar()"  class="btn btn-danger"><i class="icon-remove"></i>No revalorizar</button>
           <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
           </div>
         </form>

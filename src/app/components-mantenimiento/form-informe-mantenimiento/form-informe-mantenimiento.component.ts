@@ -50,10 +50,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
     });
   
   }
-  
-  activarcarja(){
-    this.revalorizacion.controls["vidaUtil"].disable;
-  }
+
           
 
  
@@ -62,9 +59,10 @@ export class FormInformeMantenimientoComponent implements OnInit {
     this.titulo = "Revalorización";
     this.revalorizacion.controls["idBien"].setValue(idBien);
     this.revalorizacion.controls["idinformematenimiento"].setValue(idinformematenimiento);
+    this.revalorizacion.controls["vidaUtil"].setValue(vidaUtil);
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
    // this.revalorizacion.controls["fecha"].setValue("");
-    this.revalorizacion.controls["vidaUtil"].setValue(vidaUtil);
+    
     
  
  

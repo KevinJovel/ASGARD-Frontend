@@ -37,9 +37,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
-       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.minLength(4),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250),Validators.minLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
        
     }); 
     this.datosArray=new FormGroup({

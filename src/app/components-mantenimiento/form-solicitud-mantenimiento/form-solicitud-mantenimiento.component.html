@@ -281,18 +281,7 @@
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en el campo período de mantenimiento.
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="datosArray.controls['razonesMantenimiento'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo razones de mantenimiento es 5.
-          </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="datosArray.controls['periodoMantenimiento'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo periodo de mantenimiento es 5.
-          </div>
+   
            <!-- Validacion de pattern no acepta caracteres especiales -->
            <div class="alert alert-block alert-danger fade in" *ngIf="datosArray.controls['razonesMantenimiento'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">

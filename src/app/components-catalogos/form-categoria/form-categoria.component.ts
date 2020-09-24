@@ -20,7 +20,7 @@ export class FormCategoriaComponent implements OnInit {
     this.categoria = new FormGroup({
       'IdCategoria': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'VidaUtil': new FormControl("",[Validators.required,Validators.pattern("^[0-9]+$")]),
+      'VidaUtil': new FormControl("",[Validators.pattern("^[0-9]+$")]),
       'Categoria': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirCategoria.bind(this)),
       'Descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ.,#+?¿!¡áéíóúÁÉÍÓÚ ]+$")])
     });
