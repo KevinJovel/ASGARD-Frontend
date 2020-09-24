@@ -155,24 +155,7 @@
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en el campo descripción.
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="clasificacion.controls['clasificacion'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo clasificación es 5.
-          </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="clasificacion.controls['correlativo'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo correlativo es 4.
-          </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="clasificacion.controls['descripcion'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo descripción es 10.
-          </div>
+   
 
               <!--  WARNING-->
               <div class="alert alert-warning fade in" *ngIf="!clasificacion.valid&&!clasificacion.controls['descripcion'].errors?.maxlength">

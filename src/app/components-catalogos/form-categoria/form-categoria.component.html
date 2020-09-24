@@ -115,12 +115,7 @@
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en el campo categoría.
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo categoría es 5.
-          </div>
+     
         
             <!-- Validacion de pattern no acepta caracteres especiales -->
             <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['VidaUtil'].errors?.pattern">
@@ -149,12 +144,7 @@
             </button>
             <strong>¡Advertencia!</strong> Tamaño máximo permitido para el campo descripción.
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Descripcion'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo descripción es 10.
-          </div>
+       
             <!--  WARNING-->
          <div class="alert alert-warning fade in" *ngIf="!categoria.valid&&!categoria.controls['Descripcion'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">

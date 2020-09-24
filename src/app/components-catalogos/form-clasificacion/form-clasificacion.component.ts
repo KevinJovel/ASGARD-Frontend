@@ -22,9 +22,9 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion = new FormGroup({
       'idclasificacion': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'clasificacion': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.minLength(5),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
-      'correlativo': new FormControl("",[Validators.required,  Validators.maxLength(10),Validators.minLength(4),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
-      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.minLength(10),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
+      'clasificacion': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
+      'correlativo': new FormControl("",[Validators.required,  Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
+      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
       'idcategoria': new FormControl("",[Validators.required])
 
     });
