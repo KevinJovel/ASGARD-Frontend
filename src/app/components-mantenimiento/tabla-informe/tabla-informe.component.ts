@@ -34,7 +34,7 @@ export class TablaInformeComponent implements OnInit {
       'idBien': new FormControl("0"),
       'idtecnico': new FormControl("0",[Validators.required]),
       //'idBien': new FormControl("0"),
-      'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ. ]+$")]),
+      'descripcion':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.minLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ. ]+$")]),
       'costomateriales':new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
       'fechainforme': new FormControl("",[Validators.required]),
       'costomo':new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
@@ -85,6 +85,7 @@ export class TablaInformeComponent implements OnInit {
     this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => {this.bienes = res});
   }
 
+  //dejaron de utilizarse pero pueden ser de utilidad más adelante.
   //metodo para no ingresar signos
   public sinSignos(event: any) {
     const pattern = /^[a-zA-Z0-9]*$/;   
@@ -101,20 +102,17 @@ export class TablaInformeComponent implements OnInit {
       }
     }
 
-  /*  solonumeros(event) {
-      return (event.charCode == 8 || event.charCode == '.' || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57;
-  }*/
-
+  
   
   guardarDatos(){
    // console.log(this.informe.value);
-   // console.log(this.idmante);
+
     this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res => {
       if(res==1){
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con exito',
+          title: '¡Registro Guardado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -128,7 +126,7 @@ export class TablaInformeComponent implements OnInit {
       }else{
         Swal.fire({
           position: 'center',
-          icon: 'warning',
+          icon: 'error',
           title: 'Error al guardar',
           showConfirmButton: false,
           timer: 3000
@@ -139,7 +137,7 @@ export class TablaInformeComponent implements OnInit {
     });
       this.informe.controls["idinformematenimiento"].setValue("0");
       this.informe.controls["idmantenimiento"].setValue("");
-      this.informe.controls["fechainforme"].setValue("");
+     // this.informe.controls["fechainforme"].setValue("");
       this.informe.controls["idtecnico"].setValue("");
       this.informe.controls["descripcion"].setValue("");
     this.informe.controls["costomateriales"].setValue("");

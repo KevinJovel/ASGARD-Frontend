@@ -57,14 +57,14 @@ export class FormInformeMantenimientoComponent implements OnInit {
           
 
  
-  open(idBien,idinformematenimiento){
+  open(idBien,idinformematenimiento,vidaUtil){
    // alert(id);
     this.titulo = "Revalorización";
     this.revalorizacion.controls["idBien"].setValue(idBien);
     this.revalorizacion.controls["idinformematenimiento"].setValue(idinformematenimiento);
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
    // this.revalorizacion.controls["fecha"].setValue("");
-    this.revalorizacion.controls["vidaUtil"].setValue("");
+    this.revalorizacion.controls["vidaUtil"].setValue(vidaUtil);
     
  
  
@@ -141,7 +141,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
     });
     this.revalorizacion.controls["idBien"].setValue("0");
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
-    this.revalorizacion.controls["fecha"].setValue("");
+   // this.revalorizacion.controls["fecha"].setValue("");
     this.revalorizacion.controls["vidaUtil"].setValue("");
 
        

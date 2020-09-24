@@ -74,17 +74,17 @@
        
          
          <div class="form-group col-md-6">
-          <label for="inputPassword4">Fecha:</label>
+          <label for="inputPassword4">* Fecha:</label>
           <input type="date" formControlName="fechainforme" [ngModel]='fecha | date:"yyyy-MM-dd" ' (ngModelChange)='fecha=$event' class="form-control"  disabled="off">
         </div>
           
           
           <div class="form-group col-md-6">
-            <label for="formGroupExampleInput2">Costo de mano de obra:</label>
-            <input  type="text" class="form-control" formControlName="costomo" id="inputEmail4"  ng-model="Property.Field1" placeholder="Ingrese costo de mano de obra" autocomplete="off">
+            <label for="formGroupExampleInput2">* Costo de mano de obra:</label>
+            <input maxlength="7"  type="text" class="form-control" formControlName="costomo" id="inputEmail4"  ng-model="Property.Field1" placeholder="Ingrese costo de mano de obra" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleFormControlTextarea1" >Técnico:</label>
+            <label for="exampleFormControlTextarea1" >* Técnico:</label>
             <select class="form-control" formControlName="idtecnico"   id="exampleFormControlTextarea1"  maxlength="51">
               <option value="">---Seleccione---</option>	
               <option [value]="te.idtecnico" *ngFor="let te of tecnicos">{{te.nombre}}</option>	 
@@ -92,12 +92,12 @@
             </div>
            
             <div class="form-group col-md-6">         
-              <label for="exampleInputEmail1">Costo de materiales:</label>
-              <input size=40 type="text" class="form-control" formControlName="costomateriales" id="exampleInputEmail3" ng-model="Property.Field2"  placeholder="Ingrese costo de materiales" autocomplete="off" maxlength="51">
+              <label  for="exampleInputEmail1">* Costo de materiales:</label>
+              <input maxlength="7" type="text" class="form-control" formControlName="costomateriales" id="exampleInputEmail3" ng-model="Property.Field2"  placeholder="Ingrese costo de materiales" autocomplete="off">
             </div>
            
             <div class="form-group col-md-6">
-              <label for="exampleFormControlTextarea2">Descripción:</label>
+              <label for="exampleFormControlTextarea2">* Descripción:</label>
               <textarea  class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
             </div>
            
@@ -117,39 +117,45 @@
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+    <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
   </div>
   <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['costomateriales'].errors?.pattern">
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>¡Error!</strong> Este campo solo acepta números.
+    <strong>¡Error!</strong> El campo costo de manteriales solo acepta números.
   </div>
   <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['costomo'].errors?.pattern">
     <button data-dismiss="alert" class="close close-sm" type="button">
       <i class="icon-remove"></i>
     </button>
-    <strong>¡Error!</strong> Este campo solo acepta números.
+    <strong>¡Error!</strong> El campo costo de mano de obra solo acepta números.
   </div>
         <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['descripcion'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Error!</strong> Tamaño máximo permitido en este campo
+          <strong>¡Error!</strong> Tamaño máximo permitido en el campo descripción.
+        </div>
+        <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['descripcion'].errors?.minlength">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo descripción es 10.
         </div>
   
         <div class="alert alert-warning fade in" *ngIf="!informe.valid&&!informe.controls['descripcion'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
+          <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
         </div>
     
     <div class="alert alert-success fade in" *ngIf="informe.valid">
       <button data-dismiss="alert" class="close close-sm" type="button">
         <i class="icon-remove"></i>
       </button>
-      <strong>Exelente!</strong> Datos ingresados correctamente
+      <strong>¡Exelente!</strong> Datos ingresados correctamente.
     </div>
           <div>
           <button type="submit" [disabled]="!informe.valid" class="btn btn-primary"><i class="icon-save"></i>Guardar</button>

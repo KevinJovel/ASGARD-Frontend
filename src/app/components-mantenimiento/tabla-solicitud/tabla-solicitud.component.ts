@@ -83,14 +83,15 @@ export class TablaSolicitudComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, aprobar!'
+      cancelButtonText: "Cancelar",
+      confirmButtonText: '¡Si, aprobar!'
     }).then((result) => {
       if (result.value) {
     this.mantenimientoService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
           Swal.fire(
-            'Solicitud aprobada!',
-            'La solictud ha sido aprobada con éxito.',
+            '¡Solicitud aprobada!',
+            '¡La solictud ha sido aprobada con éxito!',
             'success'
           )
           this.display = 'none'; 
@@ -105,7 +106,6 @@ export class TablaSolicitudComponent implements OnInit {
      this.bienesS=res;
      for (let bien of this.bienesS) {
        this.mantenimientoService.cambiarEstado(bien.idBien).subscribe(rest=>{
-        // alert("se cambio al bien con id="+bien.idBien);
        });
      }
      this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
@@ -131,19 +131,20 @@ export class TablaSolicitudComponent implements OnInit {
  
      Swal.fire({
        title: '¿Estas seguro de denegar esta solicitud?',
-       text: "No podras revertir esta acción!",
+       text: "¡No podras revertir esta acción!",
        icon: 'warning',
        showCancelButton: true,
        confirmButtonColor: '#3085d6',
        cancelButtonColor: '#d33',
-       confirmButtonText: 'Si, denegar!'
+       cancelButtonText: "Cancelar",
+       confirmButtonText: '¡Si, denegar!'
      }).then((result) => {
        if (result.value) {
      this.mantenimientoService.denegarSolicitud(id).subscribe(res=>{
           if(res==1){
            Swal.fire(
-             'Solicitud denegada!',
-             'La solictud ha sido denegada con éxito.',
+             '¡Solicitud denegada!',
+             '¡La solictud ha sido denegada con éxito!',
              'success'
            )
            this.display = 'none'; 

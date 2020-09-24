@@ -75,12 +75,12 @@
 
           <div class="form-group">
             <label for="exampleInputEmail1">* Categoría:</label>
-            <input type="text" class="form-control" formControlName="Categoria" id="exampleInputEmail3" placeholder="Ingrese Categoría" autocomplete="off" maxlength="51">
+            <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="Categoria" id="exampleInputEmail3" placeholder="Ingrese Categoría" autocomplete="off" maxlength="51">
           </div>
 
           <div class="form-group">
             <label for="exampleFormControlTextarea2">* Vida útil:</label>
-            <input type="text" min="1" max="50" class="form-control" formControlName="VidaUtil" id="exampleFormControlTextarea2" placeholder="Ingrese vida útil en años" autocomplete="off"  maxlength="2">
+            <input [readOnly]="this.edit==1" type="text" min="1" max="50" class="form-control" formControlName="VidaUtil" id="exampleFormControlTextarea2" placeholder="Ingrese vida útil en años" autocomplete="off"  maxlength="2">
           </div>
  
           <div class="form-group">
@@ -101,7 +101,13 @@
 				  <i class="icon-remove"></i>
 				</button>
 				<strong>¡Advertencia!</strong> Ya existe la categoría ingresada, por favor intente con una nueva.
-				</div>
+        </div>
+        <div class="alert alert-warning fade in" *ngIf="this.edit==1">
+          <button data-dismiss="alert" class="close close-sm" type="button">
+            <i class="icon-remove"></i>
+          </button>
+          <strong>¡Advertencia!</strong> La categoria y la vida útil no se pueden modificar porque hay clasificaciones referenciadas.
+        </div>
         
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">

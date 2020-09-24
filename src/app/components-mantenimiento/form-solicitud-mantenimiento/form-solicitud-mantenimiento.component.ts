@@ -37,9 +37,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
-       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.minLength(4),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250),Validators.minLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
        
     }); 
     this.datosArray=new FormGroup({
@@ -47,8 +47,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
-      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(25),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
+      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.minLength(5),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(25),Validators.minLength(4),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
     });
   }
 
@@ -99,19 +99,6 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
   close2() {
     this.display2 = 'none';
-  }
-  // onSubmit() {
-  //   if (this.solicitud.valid) {
-  //    // console.log("Form Submitted!");
-  //     this.solicitud.reset();
-  //   }
-  // }
-  @ViewChild('submitButton') submitButton:ElementRef;
-  onButtonClick()
-  {
-         this.submitButton.nativeElement.disabled = true;
-         //Do some other stuff, maybe call a service etc...
-         this.submitButton.nativeElement.disabled = false;
   }
 
   arrayMostrar(){
@@ -171,7 +158,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'success',
-      title: 'Solicitud Guardado con exito',
+      title: '¡Solicitud Guardada con éxito!',
       showConfirmButton: false,
       timer: 3000
     })
@@ -181,7 +168,7 @@ this.solicitud.reset();
 }else{
     Swal.fire({
       position: 'center',
-      icon: 'warning',
+      icon: 'error',
       title: 'Error al guardar',
       showConfirmButton: false,
       timer: 3000

@@ -253,13 +253,17 @@ public validarDepenActivo(idSucursal) {
   public modificarCategorias(Categorias) {
     return this.http.post(environment.urlService  + "api/Categorias/modificarCategorias", Categorias).map(res => res.json());
   }
+    //este validar categoria es para no eliminar una categoría que ya esté asginada a una clasificación
   public validarActivoc(idcategorias) {
     return this.http.get(environment.urlService  + "api/Categorias/validarActivoc/" + idcategorias).map(res => res.json());
   }
+
   public validarCategoria (idcategoria, categoria){
     return this.http.get(environment.urlService  + "api/Categorias/validarCategoria/" + idcategoria+ "/"+ categoria).map(res => res.json());
   }
-
+  public noEditarCategoria (idcategorias){
+    return this.http.get(environment.urlService  + "api/Categorias/noEditarCategoria/" + idcategorias).map(res => res.json());
+  }
   //SERVICIOS PARA PROVEEDOR
 
   public agregarProveedor(proveedor) {

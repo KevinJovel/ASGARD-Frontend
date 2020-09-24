@@ -15,7 +15,7 @@ export class FormCategoriaComponent implements OnInit {
   categoria: FormGroup;
   display = 'none';
   titulo: string;
- // edit: number=0;
+ edit: number=0;
   constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
     this.categoria = new FormGroup({
       'IdCategoria': new FormControl("0"),
@@ -44,7 +44,7 @@ export class FormCategoriaComponent implements OnInit {
   }
   close() {
     this.display = 'none';
-   // this.edit=0;
+    this.edit=0;
   }
 
 
@@ -84,7 +84,7 @@ export class FormCategoriaComponent implements OnInit {
     this.categoria.controls["VidaUtil"].setValue("");
     this.categoria.controls["Categoria"].setValue("");
     this.categoria.controls["Descripcion"].setValue("");
-    
+    this.edit=0;
 
     this.display = 'none';
     this.catalogosServices.getCategorias().subscribe(res => {this.categorias = res});
@@ -92,6 +92,10 @@ export class FormCategoriaComponent implements OnInit {
   }
 
   modif(id) {
+    this.catalogosServices.noEditarCategoria(id).subscribe(data => {
+      if (data == 1) {
+          this.edit = 1;
+      }
     this.titulo = "Modificar categoría";
     this.display = 'block';
     this.catalogosServices.RecuperarCategorias(id).subscribe(data => {
@@ -103,7 +107,7 @@ export class FormCategoriaComponent implements OnInit {
 
       this.catalogosServices.getCategorias().subscribe(res => { this.categorias = res });
     });
-  
+  });
   }
 
   
@@ -114,7 +118,7 @@ export class FormCategoriaComponent implements OnInit {
             Swal.fire({
                 icon: 'error',
                 title: '¡ERROR!',
-                text: 'No es posible eliminar este registro, esta categoía ya tiene claficaciones asignadas',
+                text: 'No es posible eliminar este registro, esta categoía ya tiene activos asignados.',
                 confirmButtonText: 'Aceptar'
 
             })
