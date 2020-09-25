@@ -25,8 +25,8 @@ export class FormCargoComponent implements OnInit {
 
       'idcargo': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'cargo': new FormControl("", [Validators.required, Validators.maxLength(25),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")], this.noRepetirCargo.bind(this)),
-      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")])
+      'cargo': new FormControl("", [Validators.required, Validators.maxLength(25),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCargo.bind(this)),
+      'descripcion': new FormControl("", [Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ.]+$")])
 
     });
  
@@ -64,7 +64,7 @@ guardarDatos() {
           Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Dato Guardado con éxito',
+              title: '¡Registro Guardado con éxito!',
               showConfirmButton: false,
               timer: 3000
           })
@@ -81,7 +81,7 @@ guardarDatos() {
           Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Dato Modificado con éxito',
+              title: '¡Registro modificado con éxito!',
               showConfirmButton: false,
               timer: 3000
           })
@@ -108,28 +108,43 @@ modif(id) {
   });
 }
 
-eliminar(idcargo) { 
-  Swal.fire({
-      title: '¿Estas seguro de eliminar este registro?',
-      text: "¡No podras revertir esta acción!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '¡Si, eliminar!'
-  }).then((result) => {
-      if (result.value) {
+eliminar(idcargo) {
+  this.catalogoService.existenCargosAsignados(idcargo).subscribe(data => {
+    if (data == 1) {
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR',
+        text: 'No es posible eliminar este registro, este cargo ya lo tiene asignado un empleado',
+        confirmButtonText: 'Aceptar'
+      })
+    } else {
+      Swal.fire({
+        title: '¿Estás seguro de eliminar este registro?',
+        text: "¡No podrás revertir esta acción!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Si, eliminar!',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
           this.catalogoService.eliminarCargo(idcargo).subscribe(data => {
-            this.catalogoService.getCargo().subscribe(data=> {this.cargos=data});
-              Swal.fire(
-                  '¡Dato eliminado!',
-                  'Tu registro ha sido eliminado con éxito.',
-                  'success'
-              )
+            Swal.fire({
+              icon: 'success',
+              title: '¡ELIMINADO!',
+              text: '¡El registro ha sido eliminado con éxito!',
+              confirmButtonText: 'Aceptar'
+
+          })
+            this.catalogoService.getCargo().subscribe(res => { this.cargos = res });
           });
-         
-      }
+
+        }
+      })
+    }
   })
+
 }
 
 buscar(buscador) {

@@ -77,68 +77,49 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ADVERTENCIA!</strong> El nombre de cargo ya está en uso. Prueba con otro.
+            <strong>Advertencia!</strong> El cargo ingresado ya existe.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo cargo.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
 
           <div class="form-group">
-            <label for="exampleInputEmail1">* Descripción:</label>
-            <input type="text" class="form-control" formControlName="descripcion" id="exampleInputEmail3" placeholder="Ingrese descripción" autocomplete="off" maxlength="51">
+            <label for="exampleInputEmail1">Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
+              placeholder="Ingrese descripción" autocomplete="off" maxlength="51"></textarea>
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
-         
-                          <!--  WARNING
-                          <div class="alert alert-warning fade in" *ngIf="!cargo.valid">
-                            <button data-dismiss="alert" class="close close-sm" type="button">
-                              <i class="icon-remove"></i>
-                            </button>
-                            <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
-                          </div>
-
-                          -->
-                
-                           <!--  END-WARNING
-                           <div class="alert alert-success fade in" *ngIf="cargo.valid&&cargo.controls['bandera'].value==0">
-                            <button data-dismiss="alert" class="close close-sm" type="button">
-                              <i class="icon-remove"></i>
-                            </button>
-                            <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
-                          </div>
-
--->
-                          
+                      
                            <!--  WARNING-->
                            <div class="alert alert-warning fade in" *ngIf="!cargo.valid">
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
-                            <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
+                            <strong>Advertencia!</strong> El campo cargo es obligatorio.
                           </div>
                 
                            <!--  END-WARNING-->
@@ -146,7 +127,7 @@
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
-                            <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
+                            <strong>Excelente!</strong> Datos ingresados correctamente.
                           </div>
         
             <button [disabled]="!cargo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>

@@ -101,6 +101,10 @@ public validarDepenActivo(idSucursal) {
     return this.http.get(environment.urlService + "api/Cargo/validarCargo/" + idCargo + "/" + cargo).map(res=>res.json());
   }
 
+  public existenCargosAsignados(idCargo){
+    return this.http.get(environment.urlService  + "api/Cargo/validarCargos/" + idCargo).map(res => res.json());
+  }
+
   //Serve para Tipo de Traspaso
 
   public agregarTipoTraspaso(tipotraspaso) {
