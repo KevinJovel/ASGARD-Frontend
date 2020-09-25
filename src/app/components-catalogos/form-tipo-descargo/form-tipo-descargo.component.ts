@@ -24,8 +24,8 @@ export class FormTipoDescargoComponent implements OnInit {
 
       'idTipo': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáéíóú]+$")],this.noRepetirDescargo.bind(this)),
-      'descripcion': new FormControl("", [Validators.maxLength(100), Validators.pattern("^[a-z A-Z 0-9 ñÑáéíóú #.°]+$")]),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")],this.noRepetirDescargo.bind(this)),
+      'descripcion': new FormControl("", [Validators.maxLength(100), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #.°]+$")]),
     });
 
   }
@@ -36,7 +36,7 @@ export class FormTipoDescargoComponent implements OnInit {
 
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de tipo de descargos";
+    this.titulo = "Formulario registro tipos de descargo";
     this.descargos.controls["idTipo"].setValue("0");
     this.descargos.controls["bandera"].setValue("0");
     this.descargos.controls["nombre"].setValue("");
@@ -59,7 +59,7 @@ export class FormTipoDescargoComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con éxito',
+          title: 'Registro guardado con éxito',
           showConfirmButton: false,
           timer: 3000
         })
@@ -76,7 +76,7 @@ export class FormTipoDescargoComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Modificado con éxito',
+          title: 'Registro modificado con éxito',
           showConfirmButton: false,
           timer: 3000
         })
@@ -94,7 +94,7 @@ export class FormTipoDescargoComponent implements OnInit {
 
   modificar(id) {
 
-    this.titulo = "Modificar proveedor";
+    this.titulo = "Modificar tipo de descargo";
     this.display = 'block';
     this.catalogoService.recuperarTipoDescargo(id).subscribe(data => {
 
@@ -110,7 +110,7 @@ export class FormTipoDescargoComponent implements OnInit {
 
   eliminar(idTipo) {
     Swal.fire({
-      title: '¿Estas seguro de eliminar este registro?',
+      title: '¿Estás seguro de eliminar este registro?',
       text: "No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
@@ -124,7 +124,7 @@ export class FormTipoDescargoComponent implements OnInit {
           Swal.fire({
               icon: 'success',
               title: '¡ELIMINADO!',
-              text: 'El registro ha sido eliminado con exito.',
+              text: 'El registro ha sido eliminado con éxito.',
               confirmButtonText: 'Aceptar'
           })
           this.catalogoService.getTipoDescargo().subscribe(data => { this.descargo = data });

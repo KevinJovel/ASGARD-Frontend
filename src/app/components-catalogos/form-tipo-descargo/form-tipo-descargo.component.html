@@ -3,7 +3,7 @@
 <br>
 <br>
 <section class="panel">
-  <h1>Tipos de descargos</h1>
+  <h1>Tipos de descargo</h1>
   <div class="row">
     <div class="col-lg-6">
       <header class="panel-heading form-in-line">
@@ -22,7 +22,7 @@
       <section class="panel panel-default">
 
         <header class="panel-heading">
-          <h5>Registro de tipos de descargo</h5>
+          <h5>Registro tipos de descargo</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -91,34 +91,34 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['nombre'].errors?.yaExisteDescargo">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> ya existe el "nombre de proveedor" ingresado, por favor intente con un nuevo.
+            <strong>¡Advertencia!</strong> ya existe el nombre ingresado, por favor intente con un nuevo.
           </div> 
 
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta números y caracteres especiales.
+            <strong>¡Error!</strong> El campo nombre no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo descripción.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
           </div>
 
   
@@ -126,14 +126,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> Todos los campos son obligatorios
+            <strong>¡Advertencia!</strong> El campo nombre es obligatorio.
           </div>
 
           <div class="alert alert-success fade in" *ngIf="descargos.valid&&descargos.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Exelente!</strong> Datos ingresados correctamente
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
           </div>
       
           <button type="submit" [disabled]="!descargos.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
