@@ -41,7 +41,7 @@ export class FormCargoComponent implements OnInit {
 
   open() {
     //limpia cache  
-    this.titulo = "Formulario Cargo";
+    this.titulo = "Formulario cargo";
     this.cargo.controls["idcargo"].setValue("0");
     this.cargo.controls["bandera"].setValue("0");
     this.cargo.controls["cargo"].setValue("");
@@ -97,7 +97,7 @@ guardarDatos() {
 }
 
 modif(id) {
-  this.titulo = "Modificar Cargo";
+  this.titulo = "Modificar cargo";
   this.display = 'block';
   this.catalogoService.recuperarCargo(id).subscribe(data => {
     this.cargo.controls["idcargo"].setValue(data.idcargo);

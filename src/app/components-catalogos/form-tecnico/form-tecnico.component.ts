@@ -24,8 +24,8 @@ export class FormTecnicoComponent implements OnInit {
 
       'idtecnico': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(60), Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")],this.noRepetirTecnico.bind(this)),
-      'empresa': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")])
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(60), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirTecnico.bind(this)),
+      'empresa': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
 
     });
    }
@@ -37,7 +37,7 @@ export class FormTecnicoComponent implements OnInit {
 
   open() {
     //limpia cache  
-    this.titulo = "Formulario Técnico";
+    this.titulo = "Formulario técnico";
     this.tecnico.controls["idtecnico"].setValue("0");
     this.tecnico.controls["bandera"].setValue("0");
     this.tecnico.controls["nombre"].setValue("");
@@ -59,7 +59,7 @@ guardarDatos() {
           Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Dato Guardado con éxito',
+              title: '¡Registro Guardado con éxito!',
               showConfirmButton: false,
               timer: 3000
           })
@@ -74,7 +74,7 @@ guardarDatos() {
           Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Dato Modificado con éxito',
+              title: '¡Registro modificado con éxito!',
               showConfirmButton: false,
               timer: 3000
           })
@@ -90,7 +90,7 @@ guardarDatos() {
 }
 
 modif(id) {
-  this.titulo = "Modificar Técnico";
+  this.titulo = "Modificar técnico";
   this.display = 'block';
   this.catalogoService.recuperarTecnico(id).subscribe(data => {
     this.tecnico.controls["idtecnico"].setValue(data.idtecnico);
@@ -109,13 +109,14 @@ eliminar(idtecnico) {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Si, eliminar!'
+      confirmButtonText: '¡Si, eliminar!',
+      cancelButtonText: 'Cancelar'
   }).then((result) => {
       if (result.value) {
           this.catalogoService.eliminarTecnico(idtecnico).subscribe(data => {
               Swal.fire(
-                  '¡Dato eliminado!',
-                  'Tu registro ha sido eliminado con éxito.',
+                  '¡ELIMINADO!',
+                  '¡El registro ha sido eliminado con éxito!',
                   'success'
               )
               this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
