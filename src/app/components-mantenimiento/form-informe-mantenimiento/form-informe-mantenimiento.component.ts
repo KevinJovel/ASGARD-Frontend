@@ -90,7 +90,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: 'Hecho!',
+        title: 'Revalorización no realizada con éxito!',
         showConfirmButton: false,
         timer: 3000
       })
@@ -108,7 +108,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Revalorización Guardada con exito',
+          title: '¡Revalorización Guardada con exito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -121,7 +121,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
               timer: 3000
             })
           this.mantenimientoService.ListarInformeMantenimiento().subscribe(data=>{ this.informes=data});
-          this.informe.controls["fecha"].setValue("");
+          
           }
         });
       
@@ -129,7 +129,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'warning',
-          title: 'Error al guardar',
+          title: '¡Error al guardar!',
           showConfirmButton: false,
           timer: 3000
         })
