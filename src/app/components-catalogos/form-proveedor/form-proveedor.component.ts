@@ -24,11 +24,11 @@ export class FormProveedorComponent implements OnInit {
 
       'idProveedor': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáéíóú]+$")],this.noRepetirProveedor.bind(this)),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")],this.noRepetirProveedor.bind(this)),
       'telefono': new FormControl("", [Validators.required, Validators.maxLength(10)],this.noRepetirTelProveedor.bind(this)),
-      'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-z A-Z 0-9 ñÑáéíóú #.°]+$")]),
-      'rubro': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z  ñÑáéíóú]+$")]),
-      'encargado': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáéíóú]+$")],this.noRepetirEncargado.bind(this)),
+      'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #.°]+$")]),
+      'rubro': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z  ñÑáÁéÉíÍóÓúÚ]+$")]),
+      'encargado': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")],this.noRepetirEncargado.bind(this)),
       'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(10)],this.noRepetirTelEncargado.bind(this))
     });
 
@@ -40,7 +40,7 @@ export class FormProveedorComponent implements OnInit {
 
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de proveedor";
+    this.titulo = "Formulario registro de proveedores";
     this.proveedores.controls["idProveedor"].setValue("0");
     this.proveedores.controls["bandera"].setValue("0");
     this.proveedores.controls["nombre"].setValue("");
@@ -69,7 +69,7 @@ export class FormProveedorComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Guardado con éxito',
+          title: 'Registro guardado con éxito',
           showConfirmButton: false,
           timer: 3000
         })
@@ -86,7 +86,7 @@ export class FormProveedorComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Registro Modificado con éxito',
+          title: 'Registro modificado con éxito',
           showConfirmButton: false,
           timer: 3000
         })
@@ -140,8 +140,8 @@ export class FormProveedorComponent implements OnInit {
          })    
       }else{
     Swal.fire({
-      title: '¿Estas seguro de eliminar este registro?',
-      text: "No podrás revertir esta acción!",
+      title: '¿Estás seguro de eliminar este registro?',
+      text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -152,9 +152,9 @@ export class FormProveedorComponent implements OnInit {
       if (result.value) {
         this.catalogoService.eliminarProveedor(idProveedor).subscribe(data => {
           Swal.fire({
-              icon: 'error',
+              icon: 'success',
               title: '¡ELIMINADO!',
-              text: 'El registro ha sido eliminado con exito.',
+              text: 'El registro ha sido eliminado con éxito.',
               confirmButtonText: 'Aceptar'
           })
           this.catalogoService.getProveedores().subscribe(data => { this.proveedor = data });
@@ -220,7 +220,7 @@ export class FormProveedorComponent implements OnInit {
 
       if (control.value != "" && control.value != null) { 
         
-          this.catalogoService.validarTelProveedor(this.proveedores.controls["idProveedor"].value,control.value)
+          this.catalogoService.validarTelProveedor(this.proveedores.controls["telefono"].value,control.value)
           .subscribe(data => {
             if (data == 1) {
               resolve({ yaExisteTelProveedor: true });

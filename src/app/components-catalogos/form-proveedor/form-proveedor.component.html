@@ -22,7 +22,7 @@
       <section class="panel panel-default">
 
         <header class="panel-heading">
-          <h5>Registro de Proveedores</h5>
+          <h5>Registro de proveedores</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -114,94 +114,94 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['nombre'].errors?.yaExisteProveedor">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> ya existe el "nombre de proveedor" ingresado, por favor intente con un nuevo.
+            <strong>¡Advertencia!</strong> ya existe el nombre de proveedor ingresado, por favor intente con un nuevo.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta números y caracteres especiales.
+            <strong>¡Error!</strong> El campo nombre no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['direccion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo dirección.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['direccion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo dirección no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['encargado'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre encargado.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['encargado'].errors?.yaExisteEncargado">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> ya existe el "nombre de encargado" ingresado, por favor intente con un nuevo.
+            <strong>¡Advertencia!</strong> ya existe el nombre de encargado ingresado, por favor intente con un nuevo.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['encargado'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta números y caracteres especiales.
+            <strong>¡Error!</strong> El campo nombre encargado no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['rubro'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo rubro.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['rubro'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta números y caracteres especiales.
+            <strong>¡Error!</strong> El campo rubro no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefono'].errors?.yaExisteTelProveedor">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> ya existe el "telefono de proveedor" ingresado, por favor intente con un nuevo.
+            <strong>¡Advertencia!</strong> ya existe el telefono de proveedor ingresado, por favor intente con un nuevo.
           </div>
          
           <div class="alert alert-warning fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> ya existe el "telefono de encargado" ingresado, por favor intente con un nuevo.
+            <strong>¡Advertencia!</strong> ya existe el telefono de encargado ingresado, por favor intente con un nuevo.
           </div>
   
              <div class="alert alert-warning fade in" *ngIf="!proveedores.valid&&!proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> Todos los campos son obligatorios
+            <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
           </div>
 
           <div class="alert alert-success fade in" *ngIf="proveedores.valid&&proveedores.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Exelente!</strong> Datos ingresados correctamente
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
           </div>
       
           <button type="submit" [disabled]="!proveedores.valid"  class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
