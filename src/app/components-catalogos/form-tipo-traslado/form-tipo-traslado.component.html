@@ -22,7 +22,7 @@
     <div class="col-lg-12">
       <section class="panel panel-default">
         <header class="panel-heading">
-          <h5>Registro de Tipos de Traspaso</h5>
+          <h5>Registro de tipos de traspaso</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -77,41 +77,42 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ADVERTENCIA!</strong> El nombre de tipo de traspaso ya está en uso. Prueba con otro.
+            <strong>¡Advertencia!</strong> El tipo de traspaso ya existe.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo nombre.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
           <!-- Fin Aletras para NOMBRE-->
 
           <div class="form-group">
-            <label for="exampleInputEmail1">* Descripción:</label>
-            <input type="text" class="form-control" formControlName="descripcion" id="exampleInputEmail3" placeholder="Ingrese descripción" autocomplete="off" maxlength="51">
+            <label for="exampleInputEmail1">Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
+              placeholder="Ingrese descripción" autocomplete="off" maxlength="51"></textarea>
           </div>
           <!-- Aletras para NOMBRE-->
           <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
           <!-- Fin Aletras para NOMBRE-->
 
@@ -120,7 +121,7 @@
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
-                            <strong>¡ADVERTENCIA!</strong> Todos los campos son obligatorios
+                            <strong>¡Advertencia!</strong> El campo nombre es obligatorio.
                           </div>
                 
                            <!--  END-WARNING-->
@@ -128,7 +129,7 @@
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
-                            <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
+                            <strong>¡Excelente!</strong> Datos ingresados correctamente.
                           </div>
         
             <button  type="submit" [disabled]="!traspaso.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>

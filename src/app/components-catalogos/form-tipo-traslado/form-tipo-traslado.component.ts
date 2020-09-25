@@ -22,8 +22,8 @@ export class FormTipoTrasladoComponent implements OnInit {
 
       'idtipo': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'nombre': new FormControl("",[Validators.required,Validators.maxLength(25),Validators.pattern("^[a-zA-ZñÑáéíóú ]+$")],this.noRepetirNombre.bind(this)),
-      'descripcion': new FormControl("",[Validators.required,Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ.]+$")])
+      'nombre': new FormControl("",[Validators.required,Validators.maxLength(25),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirNombre.bind(this)),
+      'descripcion': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ.]+$")])
     });
   }
 
@@ -34,7 +34,7 @@ export class FormTipoTrasladoComponent implements OnInit {
   //Métodos
   open() {
   //limpia cache  
-  this.titulo = "Formulario Tipo de Traspaso";
+  this.titulo = "Formulario tipo de traspaso";
   this.traspaso.controls["idtipo"].setValue("0");
   this.traspaso.controls["bandera"].setValue("0");
   this.traspaso.controls["nombre"].setValue("");
@@ -58,7 +58,7 @@ guardarDatos() {
             Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Dato Guardado con éxito',
+                title: '¡Registro Guardado con éxito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -74,7 +74,7 @@ guardarDatos() {
             Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Dato Modificado con éxito',
+                title: '¡Registro modificado con éxito!',
                 showConfirmButton: false,
                 timer: 3000
             })
@@ -91,7 +91,7 @@ guardarDatos() {
 }
 
 modif(id) {
-  this.titulo = "Modificar Tipo de Traspaso";
+  this.titulo = "Modificar tipo de traspaso";
   this.display = 'block';
   this.catalogoService.recuperarTipoTraspaso(id).subscribe(data => {
     this.traspaso.controls["idtipo"].setValue(data.idtipo);
@@ -110,16 +110,19 @@ eliminar(idtipo) {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Si, eliminar!'
+      confirmButtonText: '¡Si, eliminar!',
+      cancelButtonText: 'Cancelar'
   }).then((result) => {
       if (result.value) {
           this.catalogoService.eliminarTipoTraspaso(idtipo).subscribe(data => {
             this.catalogoService.getTipoTraspaso().subscribe(data=> {this.traspasos=data});
-              Swal.fire(
-                  '¡Dato eliminado!',
-                  'Tu registro ha sido eliminado con éxito.',
-                  'success'
-              )
+              Swal.fire({
+                icon: 'success',
+                title: '¡ELIMINADO!',
+                text: '¡El registro ha sido eliminado con éxito!',
+                confirmButtonText: 'Aceptar'
+  
+            })
           });
          
       }
