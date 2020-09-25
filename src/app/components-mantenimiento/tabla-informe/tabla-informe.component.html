@@ -1,6 +1,6 @@
 <br><br><br><br>
 <section class="panel">
-  <h1>Bienes en Mantenimiento</h1>
+  <h1>Activos en Mantenimiento</h1>
 
   <div class="row">
  
@@ -47,7 +47,7 @@
                   </tr>
                 </tbody>
               </table>
-              <pagination-controls (pageChange)="p = $event" class="my-cuadro"></pagination-controls>
+              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" class="my-cuadro"></pagination-controls>
             </div>
           </div>
         </div>
@@ -98,19 +98,19 @@
            
             <div class="form-group col-md-6">
               <label for="exampleFormControlTextarea2">* Descripción:</label>
-              <textarea  class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
+              <textarea  class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="1" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
             </div>
            
 
 
         <div>
-          <br><br> <br><br> <br><br>
+          <br><br> <br><br> <br> 
         </div>
         <div>
-          <br><br> <br><br> <br><br>
+          <br><br> <br><br> <br> 
         </div>
         <div>
-          <br><br> <br><br> <br><br>
+          <br><br> <br><br><br> 
         </div>
          <!-- Validacion de pattern no acepta caracteres especiales -->
   <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['descripcion'].errors?.pattern">
