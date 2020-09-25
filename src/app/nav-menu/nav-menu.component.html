@@ -52,13 +52,13 @@
           <span>Control de Activo FIjo</span>
         </a>
         <ul class="sub">
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-nuevoBien"]' (click)='collapse()'>Ingreso de nuevo Bien</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-activos"]' (click)='collapse()'>Registros de bienes</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/activos-asignados"]' (click)='collapse()'>Registros de bienes asignados</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-asignacion"]' (click)='collapse()'>Asignancion de Bienes</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-nuevoBien"]' (click)='collapse()'>Ingreso de nuevo activo</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-activos"]' (click)='collapse()'>Registros de activos</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-asignacion"]' (click)='collapse()'>Asignancion de activos</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/activos-asignados"]' (click)='collapse()'>Activos asignados</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-depreciacion"]' (click)='collapse()'>Depreciación</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-tarjeta"]' (click)='collapse()'>Tarjeta de Depreciación</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cuadro-control"]' (click)='collapse()'>Cuadro de Control</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-tarjeta"]' (click)='collapse()'>Tarjeta de depreciación</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cuadro-control"]' (click)='collapse()'>Cuadro de control de activos</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cierre-anio"]' (click)='collapse()'>Cierre</a></li>
         </ul>
       </li>
@@ -80,8 +80,8 @@
           <span>Traspasos</span>
         </a>
         <ul class="sub">
-          <li><a href="grids.html">Cuadro de Solicitudes</a></li>
-          <li><a href="grids.html">Gestón del Traspaso</a></li>
+          <!-- <li><a href="grids.html">Cuadro de Solicitudes</a></li>
+          <li><a href="grids.html">Gestón del Traspaso</a></li> -->
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
@@ -106,19 +106,7 @@
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/solicitud"]' (click)='collapse()'>Solicitudes de baja</a></li>
         </ul>
       </li>
-      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
-        <a href="javascript:;" [routerLink]='["/fetch-data"]' (click)='collapse()'>
-          <i class="icon-unlock-alt"></i>
-          <span>Seguridad</span>
-        </a>
-        <ul class="sub">
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-usuario"]' (click)='collapse()'>Usuarios</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-tipo-usuario"]' (click)='collapse()'>Tipos de Usuarios</a></li>
-          <li><a href="gallery.html">Bitacora</a></li>
-          <li><a href="gallery.html">Backup</a></li>
-
-        </ul>
-      </li>
+      
 
 
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
@@ -131,23 +119,17 @@
           <li><a href="calendar.html">Consultas generales</a></li>
         </ul>
       </li>
-
-
-
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
         <a href="javascript:;" [routerLink]='["/fetch-data"]' (click)='collapse()'>
-          <i class=" icon-download"></i>
-          <span>Backup</span>
+          <i class="icon-unlock-alt"></i>
+          <span>Seguridad</span>
         </a>
         <ul class="sub">
-          <li><a href="grids.html">Grids</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="todo_list.html">Todo List</a></li>
-          <li><a href="grids.html">Grids</a></li>
-          <li><a href="calendar.html">Calendar</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="todo_list.html">Todo List</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-usuario"]' (click)='collapse()'>Usuarios</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-tipo-usuario"]' (click)='collapse()'>Tipos de Usuarios</a></li>
+          <li><a href="gallery.html">Bitacora</a></li>
+          <li><a href="gallery.html">Backup</a></li>
+
         </ul>
       </li>
 
