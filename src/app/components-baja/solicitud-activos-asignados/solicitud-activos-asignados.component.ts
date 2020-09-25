@@ -35,12 +35,12 @@ export class SolicitudActivosAsignadosComponent implements OnInit {
       'idsolicitud': new FormControl("0"),
       'idTipo': new FormControl("",[Validators.required, Validators.min(1)]),
       'idtipodescargo': new FormControl("",[Validators.required]),
-       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 #°.]+$")]),
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ -.]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-ZñÑáéíóú]+$")]),
-       'entidadbeneficiaria': new FormControl("",[Validators.maxLength(50), Validators.pattern("^[a-z A-ZñÑáéíóú]+$")]),
-       'domicilio': new FormControl("",[Validators.maxLength(50)]),
-       'contacto': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-z A-Z ñÑáéíóú]+$")]),
+       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
+       'entidadbeneficiaria': new FormControl("",[Validators.maxLength(80), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
+       'domicilio': new FormControl("",[Validators.maxLength(100),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #°.]+$")]),
+       'contacto': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
        'telefono': new FormControl(""),
   
        'idbien': new FormControl("0"),
@@ -135,5 +135,23 @@ export class SolicitudActivosAsignadosComponent implements OnInit {
     this.bajaService.listarBienesAsignados().subscribe(res=> { this.activo=res});
   }
 
+  noRepetirFolio1(control: FormControl) {
+
+    var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) {
+
+        this.bajaService.validarFolio(this.solicitud.controls["idsolicitud"].value, control.value)
+          .subscribe(data => {
+            if (data == 1) {
+              resolve({ yaExisteFolio: true });
+            } else {
+              resolve(null);
+            }
+          })
+      }
+    });
+    return promesa;
+  }
   
 }
