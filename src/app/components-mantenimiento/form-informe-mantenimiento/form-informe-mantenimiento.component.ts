@@ -114,27 +114,13 @@ export class FormInformeMantenimientoComponent implements OnInit {
         })
          this.mantenimientoService.estadoInformeRevalorizado(this.revalorizacion.controls["idinformematenimiento"].value).subscribe(rest=>{
           if(rest==1){
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              showConfirmButton: false,
-              timer: 3000
-            })
+           
           this.mantenimientoService.ListarInformeMantenimiento().subscribe(data=>{ this.informes=data});
           
           }
         });
       
-      }else{
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: '¡Error al guardar!',
-          showConfirmButton: false,
-          timer: 3000
-        })
-      }
-  
+      } 
       
     });
     this.revalorizacion.controls["idBien"].setValue("0");

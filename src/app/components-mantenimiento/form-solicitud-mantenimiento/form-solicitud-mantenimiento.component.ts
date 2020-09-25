@@ -47,8 +47,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       'idBien': new FormControl("0"),
       'codigobien':new FormControl(""),
       'descripcionbien':new FormControl(""),
-      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.minLength(5),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(25),Validators.minLength(4),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
+      'razonesMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(100),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+      'periodoMantenimiento':new FormControl("",[Validators.required,Validators.maxLength(25),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
     });
   }
 

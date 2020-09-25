@@ -93,6 +93,7 @@ export class HistorialMantenimientoComponent implements OnInit {
   }
 
   open(id) {
+    if(id == true){
     this.titulo = "Historial de mantenimiento";
     this.display = 'block';
     this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
@@ -101,12 +102,20 @@ export class HistorialMantenimientoComponent implements OnInit {
       this.encargado=data.encargado;
       this.areadenegocio=data.areadenegocio;
     });
-
+   
     //para recuperar el id del bien 
     this.mantenimientoService.historialInformes(id).subscribe(res=>{
       this.informes=res;  
     });
-   
+  }else{
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: '¡No hay ningun historial!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
     
     this.idbien=id;
   }

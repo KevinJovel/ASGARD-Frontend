@@ -48,19 +48,7 @@
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en el campo descripción.
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo folio es 4.
-          </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['descripcion'].errors?.minlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tamaño mínimo permitido para el campo descripción es 10.
-          </div>
-
+         
           <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
