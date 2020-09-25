@@ -1,29 +1,23 @@
 <br><br><br><br>
 <section class="panel">
   <h1>Sucursales</h1>
-
   <div class="row">
     <div class="col-lg-6">
-
       <header class="panel-heading form-in-line">
         <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
             class="icon-plus-sign-alt"></i> Agregar nueva sucursal</button>
       </header>
     </div>
     <div class="col-lg-3">
-
     </div>
-
     <div class="col-md-3">
       <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre
         (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
   </div>
-
   <div class="row">
     <div class="col-lg-12">
       <section class="panel panel-default">
-
         <header class="panel-heading">
           <h5>Registro de Sucursales</h5>
         </header>
@@ -81,30 +75,35 @@
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
           <!-- El input tiene el metodo para validar en cada tyup -->
           <div class="form-group">
-            <label for="exampleInputEmail1">* Sucursal:</label>
+            <label>* Sucursal:</label>
             <input type="text" class="form-control" formControlName="nombre" (keyup)="validar()"
               placeholder="Ingrese sucursal" autocomplete="off" maxlength="51">
           </div>
-          <!-- Validacion de tamaña maximo -->
-          <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['nombre'].errors?.maxlength">
+         <!-- Input ubicación -->
+          <div class="form-group">
+            <label>* Ubicación:</label>
+            <input type="text" class="form-control" (keyup)="validar()" formControlName="ubicacion"
+              placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
+          </div>
+          <div class="form-group">
+            <label>*Correlativo:</label>
+            <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo"
+              placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+          </div>
+           <!-- Alertas sucursal -->
+           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo sucursal.
           </div>
-          <!-- Validacion de pattern no acepta caracteres especiales -->
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo sucursal no acepta caracteres especiales.
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">* Ubicación:</label>
-            <input type="text" class="form-control" (keyup)="validar()" formControlName="ubicacion"
-              placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
-          </div>
-          <!-- Validacion de convinacion de sucursal ubicación -->
+          <!-- Alertas ubicación -->
           <div class="alert alert-block alert-danger fade in" *ngIf="this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -116,39 +115,34 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo ubicación.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo ubicación no acepta caracteres especiales.
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">*Correlativo:</label>
-            <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo"
-              placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
-          </div>
-          <!-- Validcion de longitud -->
+          <!-- Alertas correlativo -->
           <div class="alert alert-block alert-danger fade in"
             *ngIf="sucursal.controls['correlativo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button"><i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo correlativo.
           </div>
           <div class="alert alert-block alert-danger fade in"
             *ngIf="sucursal.controls['correlativo'].errors?.yaExisteCorrelativo">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Ya existe el "Correlativo" ingresado.
+            <strong>¡Error!</strong> Ya existe el correlativo ingresado.
 
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['correlativo'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo correlativo no acepta caracteres especiales.
           </div>
           <!--  WARNING-->
           <div class="alert alert-warning fade in"

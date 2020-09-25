@@ -3,7 +3,6 @@ import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-form-areas-negocio',
   templateUrl: './form-areas-negocio.component.html',
@@ -183,28 +182,4 @@ export class FormAreasNegocioComponent implements OnInit {
 
     return promesa;
   }
-  // noRepetirAreaSucursal(control: FormControl) {
-
-  //   var promesa = new Promise((resolve, reject) => {
-
-  //     if (control.value != "" && control.value != null) {
-
-  //       this.catalogosServices.validarAreaSucursal(this.area.controls["idAreaNegocio"].value,this.area.controls["nombre"].value,this.area.controls["idSucursal"].value)
-  //         .subscribe(data => {
-  //           if (data == 1) {
-  //             resolve({ yaExisteConvinacion: true });
-  //           } else {
-  //             resolve(null);
-  //           }
-
-  //         })
-
-  //     }
-
-
-  //   });
-
-  //   return promesa;
-  // }
-
 }

@@ -1,32 +1,27 @@
 <br><br><br><br>
 <section class="panel">
   <h1>Áreas de negocio</h1>
-
   <div class="row">
     <div class="col-lg-3">
-
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nueva área de negocio</button>
-        
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
+            class="icon-plus-sign-alt"></i> Agregar nueva área de negocio</button>
       </header>
     </div>
     <div class="col-lg-3">
-      
     </div>
     <div class="col-lg-3">
-
     </div>
     <div class="col-md-3">
-      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
-</div>
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre
+        (keyup)="buscar(nombre)" placeholder="Buscar">
+    </div>
   </div>
-
   <div class="row">
     <div class="col-lg-12">
       <section class="panel panel-default">
-
         <header class="panel-heading">
-          <h5>Registro de áreas de negocio</h5>
+          <h5>Registro de Áreas de negocio</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -51,13 +46,16 @@
                     <td>{{area.nombreSucursal}}</td>
                     <td>{{area.ubicacion}}</td>
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" (click)="modificar(area.idAreaNegocio)" ><i class="icon-pencil"></i></button>
-                      <button class="btn btn-danger btn-xs" (click)="eliminar(area.idAreaNegocio)"><i class="icon-trash "></i></button>
+                      <button class="btn btn-primary btn-xs" (click)="modificar(area.idAreaNegocio)"><i
+                          class="icon-pencil"></i></button>
+                      <button class="btn btn-danger btn-xs" (click)="eliminar(area.idAreaNegocio)"><i
+                          class="icon-trash "></i></button>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+              <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+                nextLabel="Siguiente"></pagination-controls>
             </div>
           </div>
         </div>
@@ -66,7 +64,8 @@
   </div>
 </section>
 <!--modal para ingresar y editar-->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
+  [ngStyle]="{'display':display}">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -74,65 +73,66 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-
         <form role="form" [formGroup]="area" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="idAreaNegocio" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
-
           <div class="form-group">
-
-            <label for="exampleInputEmail1">* Área de Negocio:</label>
-            <input type="text" class="form-control" formControlName="nombre" (keyup)="validar()" placeholder="Ingrese área de negocio" autocomplete="off" maxlength="51">
+            <label>* Área de Negocio:</label>
+            <input type="text" class="form-control" formControlName="nombre" (keyup)="validar()"
+              placeholder="Ingrese área de negocio" autocomplete="off" maxlength="51">
           </div>
+          <div class="form-group">
+            <label>* Sucursal:</label>
+            <select class="form-control" formControlName="idSucursal" (change)="validar()">
+              <option value="">---Seleccione---</option>
+              <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">
+                {{sucursal.nombre+" , "+sucursal.ubicacion}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>* Correlativo:</label>
+            <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo"
+              id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+          </div>
+          <!-- Alertas campo areas de negocio -->
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo área de negocio.
           </div>
-          <!-- Validacion de pattern -->
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo área de negocio no acepta caracteres especiales.
           </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2" >* Sucursal:</label>
-            <select class="form-control" formControlName="idSucursal" (change)="validar()">
-              <option value="">---Seleccione---</option>
-              <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
-            </select>
-            </div>
-            <div class="alert alert-block alert-danger fade in" *ngIf="this.yaExiste==true">
+          <!-- Alertas de campo sucursal -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Error!</strong> Esta combinación de área de negocio y sucursal ya existe.
           </div>
-      
-          <div class="form-group">
-            <label for="exampleInputEmail1">* Correlativo:</label>
-            <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo" id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
-          </div>
+          <!-- Alertas de campo correlativo correlativo -->
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo correlativo.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo correlativo no acepta caracteres especiales.
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.yaExisteCorrelativo">
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="area.controls['correlativo'].errors?.yaExisteCorrelativo">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Ya existe el "correlativo" ingresado.
-          
+            <strong>¡Error!</strong> Ya existe el correlativo ingresado.
           </div>
           <div class="alert alert-warning fade in" *ngIf="this.modif==1">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -141,22 +141,25 @@
             <strong>¡Advertencia!</strong> El correlativo no se puede modificar, porque hay activos referenciados.
           </div>
           <!--  WARNING-->
-          <div class="alert alert-warning fade in" *ngIf="!area.valid&&!area.controls['correlativo'].errors?.yaExisteCorrelativo||this.yaExiste==true">
+          <div class="alert alert-warning fade in"
+            *ngIf="!area.valid&&!area.controls['correlativo'].errors?.yaExisteCorrelativo||this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
           </div>
-         
           <!--  END-WARNING-->
-          <div class="alert alert-success fade in" *ngIf="area.valid&&area.controls['bandera'].value==0&&this.yaExiste==false">
+          <div class="alert alert-success fade in"
+            *ngIf="area.valid&&area.controls['bandera'].value==0&&this.yaExiste==false">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Exelente!</strong> Datos ingresados correctamente.
           </div>
-          <button [disabled]="!area.valid||this.yaExiste==true" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cancelar</button>
+          <button [disabled]="!area.valid||this.yaExiste==true" type="submit" class="btn btn-primary"><i
+              class="icon-save"></i> Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cancelar</button>
         </form>
       </div>
     </div>

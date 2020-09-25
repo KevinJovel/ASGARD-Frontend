@@ -11,10 +11,10 @@
     <div class="col-lg-3">
     </div>
     <div class="col-md-3">
-      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre
+        (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
   </div>
-
   <div class="row">
     <div class="col-lg-12">
       <section class="panel panel-default">
@@ -47,7 +47,8 @@
                 </tr>
               </tbody>
             </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
           </div>
         </div>
       </section>
@@ -66,98 +67,63 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="marca" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idMarca"
-            autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera"
-            autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idMarca" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
           <div class="form-group">
-            <label for="exampleInputEmail1">* Marca:</label>
-            <input type="text" class="form-control" formControlName="marca" placeholder="Ingrese marca" autocomplete="off" maxlength="26">
+            <label>* Marca:</label>
+            <input type="text" class="form-control" formControlName="marca" placeholder="Ingrese marca"
+              autocomplete="off" maxlength="26">
           </div>
-          <!--  WARNING-->
-          <div class="alert alert-warning fade in" *ngIf="marca.controls['marca'].errors?.required">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡ADVERTENCIA!</strong> El campo marca es obligatorio.
-          </div>
-           <!-- Validcion de longitud -->
-           <div class="alert alert-block alert-danger fade in"
-           *ngIf="marca.controls['marca'].errors?.maxlength">
-           <button data-dismiss="alert" class="close close-sm" type="button"><i class="icon-remove"></i>
-           </button>
-           <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
-         </div>
-          <div class="alert alert-success fade in" *ngIf="marca.valid&&marca.controls['bandera'].value==0">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Exelente!</strong> Asegúrese de ingresar el nombre correctamente.
-          </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['marca'].errors?.pattern">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
-          </div>
-          <div class="alert alert-block alert-danger fade in"
-          *ngIf="marca.controls['marca'].errors?.yaExisteMarca">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> La marca ingresada ya existe.
-
-        </div>
-          <!--  END-WARNING-->
           <div class="form-group">
-            <label for="exampleFormControlTextarea2">Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="descripcion"
-              rows="3" placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
+            <label>Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
+              placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
           </div>
+            <!--  WARNING-->
+            <div class="alert alert-warning fade in" *ngIf="marca.controls['marca'].errors?.required">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡ADVERTENCIA!</strong> El campo marca es obligatorio.
+            </div>
+            <!-- Validcion de longitud -->
+            <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['marca'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button"><i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> Tamaño máximo permitido en campo marca.
+            </div>
+            <div class="alert alert-success fade in" *ngIf="marca.valid&&marca.controls['bandera'].value==0">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Exelente!</strong> Asegúrese de ingresar el nombre correctamente.
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['marca'].errors?.pattern">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> El campo marca no acepta caracteres especiales.
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['marca'].errors?.yaExisteMarca">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> La marca ingresada ya éxiste.
+  
+            </div>
+            <!--  END-WARNING-->
           <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
           </div>
-
           <button [disabled]="!marca.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
             Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
             Cancelar</button>
-
         </form>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Otros tipos de warnings por si quieren usarlos -->
-<!--<div class="alert alert-success alert-block fade in">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <h4>
-    <i class="icon-ok-sign"></i>
-    Success!
-  </h4>
-  <p>Best check yo self, you're not looking too good...</p>
-</div>
-<div class="alert alert-block alert-danger fade in">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>Oh snap!</strong> Change a few things up and try submitting again.
-</div>
-<div class="alert alert-success fade in">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>Well done!</strong> You successfully read this important alert message.
-</div>
-<div class="alert alert-info fade in">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-</div>-->

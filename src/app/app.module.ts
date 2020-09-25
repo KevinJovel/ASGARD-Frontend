@@ -25,7 +25,6 @@ import { TablaActivosComponent } from './components-control/tabla-activos/tabla-
 import { FormEmpleadoComponent } from './components-catalogos/form-empleado/form-empleado.component';
 import { FormMarcaComponent } from './components-catalogos/form-marca/form-marca.component';
 import { FormSucursalComponent } from './components-catalogos/form-sucursal/form-sucursal.component';
-import { TablaMarcasComponent } from './components-catalogos/tabla-marcas/tabla-marcas.component';
 import { FormDonantesComponent } from './components-catalogos/form-donantes/form-donantes.component';
 import { FormProveedorComponent } from './components-catalogos/form-proveedor/form-proveedor.component';
 import { FormCargoComponent } from './components-catalogos/form-cargo/form-cargo.component';
@@ -89,7 +88,6 @@ import { FormCoopeComponent } from './components-configuracion/form-coope/form-c
     FormEmpleadoComponent,
     FormMarcaComponent,
     FormSucursalComponent,
-    TablaMarcasComponent,
     FormDonantesComponent,
     FormClasificacionComponent,
     FormProveedorComponent,
@@ -140,7 +138,6 @@ import { FormCoopeComponent } from './components-configuracion/form-coope/form-c
       { path: 'tabla-activos', component: TablaActivosComponent },
       { path: 'form-empleado', component: FormEmpleadoComponent },
       { path: 'form-marca', component: FormMarcaComponent },
-      { path: 'tabla-marca', component: TablaMarcasComponent },
       { path: 'form-sucursal', component: FormSucursalComponent },
       { path: 'form-donantes', component: FormDonantesComponent },
       { path: 'form-proveedor', component: FormProveedorComponent },

@@ -1,29 +1,23 @@
 <br><br><br><br>
 <section class="panel">
-  <h1>Asignación de bienes</h1>
-
+  <h1>Asignación de activos</h1>
   <div class="row">
     <div class="col-lg-6">
-
       <!-- <header class="panel-heading form-in-line">
         <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nueva Sucursal</button>
       </header> -->
     </div>
     <div class="col-lg-3">
-
     </div>
-    
     <div class="col-md-3">
       <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
 </div>
   </div>
-
   <div class="row">
     <div class="col-lg-12">
       <section class="panel panel-default">
-
         <header class="panel-heading">
-          <h5>Bienes sin asignacion</h5>
+          <h5>Activos sin asignación</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -31,26 +25,19 @@
               <table class="display table table-bordered table-striped">
                 <thead>
                   <tr>
-                   
-                    <!-- <th>Formulario</th> -->
-                    <th>Fecha de Ingreso</th>
-                    <th>Descripcion</th>
-                    
+                    <th>Fecha de ingreso</th>
+                    <th>Descripción</th>
                     <th>Clasificación</th>
                     <th class="hidden-phone">Asignar</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let activo of activos | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
-                   
-                    <!-- <td>{{activo.noFormulario}}</td> -->
+                  <tr *ngFor="let activo of activos | paginate: { itemsPerPage: 6, currentPage: p }; let i=index">
                     <td>{{activo.fechacadena}}</td>
                     <td>{{activo.desripcion}}</td>
-                 
                     <td>{{activo.clasificacion}}</td>
-                    
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="asignar(activo.idBien)" ><i class="icon-edit"></i></button>
+                      <button class="btn btn-primary btn-xs" (click)="asignar(activo.idBien)" ><i class="icon-circle-arrow-right"></i></button>
                      </td>
                   </tr>
                 </tbody>
@@ -63,7 +50,6 @@
     </div>
   </div>
 </section>
-
 <!--modal para ingresar y editar-->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
   <div class="modal-dialog">
@@ -74,25 +60,20 @@
       </div>
       <div class="modal-body">
         <form role="form" [formGroup]="activo" (ngSubmit)="AsignarBienes()">
-          <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
-            autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idBien" autocomplete="off">
             <div class="form-group">
             <div class="col-lg-6">
-              <label for="exampleInputEmail1">Numero de Serie:</label>
-              <input type="text" class="form-control" formControlName="noSerie" id="exampleInputEmail3"
-                placeholder="Ingrese numero de serie" autocomplete="off">
+              <label>Numero de Serie:</label>
+              <input type="text" class="form-control" formControlName="noSerie" maxlength="51" placeholder="Ingrese numero de serie" autocomplete="off">
               </div>
               <div class="col-lg-6">
-                <label for="exampleInputEmail1">Vida util estimada:</label>
-                <input type="number" class="form-control" formControlName="vidaUtil" id="exampleInputEmail3"
-                  placeholder="Vida util en años" autocomplete="off">
+                <label>Vida útil estimada:</label>
+                <input type="text" class="form-control" formControlName="vidaUtil" maxlength="3" placeholder="Vida útil en años" autocomplete="off">
               </div>
             </div>
-        
-            
             <!-- (change)="filtrar(tipo)" -->
             <div class="form-group">
-              <label for="exampleFormControlTextarea2" >Asignar Responsable:</label>
+              <label>Asignar responsable:</label>
               <select class="form-control" formControlName="idEmpleado" (change)="Gcodigo()">
                 <option value="0">---Seleccione---</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
@@ -104,7 +85,7 @@
                 </div> -->
                 
             <div class="form-group">
-              <label for="exampleInputEmail1">Codigo:</label>
+              <label>Código:</label>
               <input style="text-align: center;" type="text" class="form-control" formControlName="codigo" id="cadena"
                 placeholder="" autocomplete="off" readonly>
             </div>
@@ -114,15 +95,33 @@
             </div> -->
             <div class="form-group" style="text-align: center;">
               <button  type="button" id="saluda" (click)="GcodigoBarra()" id="saluda" class="btn btn-default"><i class="icon-barcode"></i>
-                Generar Codigo de Barras</button>
+                Generar código de barras</button>
               </div>
             <!-- <div class="modal-body" style="text-align: center;">
               <svg id="barcode" width="400px" height="150px"></svg>
               <br>
                       <p style="text-align: center;"> Registro de activos fijos ACAASS de R.L</p>
             </div> -->
-            <button [disabled]="!activo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
-              Guardar</button>
+            <div class="alert alert-block alert-danger fade in" *ngIf="activo.controls['vidaUtil'].errors?.pattern">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> El campo vida útil solo acepta numeros enteros entre 0-9.
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="activo.controls['vidaUtil'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> Tamaño máximo permitido en campo vida útil.
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="activo.controls['noSerie'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> Tamaño máximo permitido en campo numero de serie.
+            </div>
+            <button [disabled]="!activo.valid" type="submit" class="btn btn-primary"><i class="icon-circle-arrow-right"></i>
+              Asignar</button>
             <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
               Cancelar</button>
           </form>
@@ -139,17 +138,15 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
- 
             <div class="modal-body" style="text-align: center;">
               <svg id="barcode" width="400px" height="150px"></svg>
               <br>
-                      <p style="text-align: center;"> Registro de activos fijos ACAASS de R.L</p>
+                    <p style="text-align: center;"> Registro de activos fijos ACAASS de R.L</p>
             </div>
             <button type="button" (click)="recuperar()" class="btn btn-primary"><i class="icon-save"></i>
               Imprimir</button>
             <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
               Cancelar</button>
-  
       </div>
     </div>
   </div>

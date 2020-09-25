@@ -29,27 +29,23 @@ export class FormAsignancionComponent implements OnInit {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
     this.activo = new FormGroup({
       'idBien': new FormControl("0"),
-      'noSerie': new FormControl(""),
-      'vidaUtil': new FormControl(""),
+      'noSerie': new FormControl("",[Validators.required, Validators.maxLength(50)]),
+      'vidaUtil': new FormControl("", [Validators.required, Validators.maxLength(2), Validators.pattern("^[0-9]+$")]),
       'idEmpleado': new FormControl("0"),
       'Responsable': new FormControl(""),
       'codigo': new FormControl(""),
       'codigoBarras': new FormControl("")
     });
-
   }
-
   ngOnInit(): void {
     this.controlService.getActivosSinAsignar().subscribe(res => { this.activos = res });
     this.controlService.listarComboAsigar().subscribe(res => { this.empleados = res })
-
   }
   close() {
     this.display = 'none';
   }
   asignar(id) {
-
-    this.titulo = "Asignar nuevo bien ";
+    this.titulo = "Asignar nuevo activo ";
     this.activo.controls["idBien"].setValue(id);
     this.activo.controls["codigo"].setValue("");
     this.activo.controls["idEmpleado"].setValue("0");
@@ -64,7 +60,6 @@ export class FormAsignancionComponent implements OnInit {
         icon: 'error',
         title: 'ERROR',
         text: 'Seleccione un empleado para generar el codigos',
-
       })
     } else {
       var idempleado = this.activo.controls["idEmpleado"].value;
@@ -74,15 +69,21 @@ export class FormAsignancionComponent implements OnInit {
         var correlativoArea = data.correlativoArea;
         var correlativoClasificacion = data.correlativoClasificacion;
         var correlativo = data.correlativo;
-
         this.activo.controls["codigo"].setValue(correlativoSucursal + "-" + correlativoArea + "-" + correlativoClasificacion + "-" + correlativo);
       });
     }
-
   }
   GcodigoBarra() {
-    this.titulo = "Codigo de barras generado";
-    this.display2 = 'block';
+    if(this.activo.controls["codigo"].value==""){
+      Swal.fire({
+        icon: 'error',
+          title: '¡ERROR!',
+        text: 'Por favor, seleccione el empleado a asignar para poder generar el código'
+      })
+    }else{
+      this.titulo = "Codigo de barras generado";
+      this.display2 = 'block';
+    }
   }
 
   validar() {
@@ -91,20 +92,17 @@ export class FormAsignancionComponent implements OnInit {
         icon: 'error',
         title: 'ERROR',
         text: 'Seleccione un empleado para generar el codigo',
-
       })
     }
-
   }
-
-
   AsignarBienes() {
     if (this.activo.valid == true) {
       if (this.activo.controls["idEmpleado"].value == 0) {
         Swal.fire({
           position: 'center',
           icon: 'warning',
-          title: 'Selecciona el empleado a asiganar',
+          title: '¡Error!',
+          text:'Selecciona el empleado a asignar',
           showConfirmButton: false,
           timer: 3000
         })
@@ -116,7 +114,7 @@ export class FormAsignancionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Bien asignado con exito',
+          title: '¡Activo asignado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
