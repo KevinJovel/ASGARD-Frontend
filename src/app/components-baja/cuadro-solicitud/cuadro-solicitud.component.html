@@ -1,29 +1,21 @@
 <br><br><br><br>
 <section class="panel">
   <h1>Nueva solicitud activos no asignados</h1>
-    <div class="row">
-      <div class="col-lg-16">
-      
-        
-        <section class="panel panel-default">
-          <div class="form-row">
-            <form class="form-inline" id="default" [formGroup]="solicitud">
-              <div class="row">
-                <br>
-                <div class="col-lg-9">
-                </div>
-                <div class="col-md-3">
-                  <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
-                </div>
-              </div>
-
-              <br>
-              <div class="row">
-                <div class="col-lg-12">
-                  <section class="panel panel-default">
-            
+  <div class="row">
+    <div class="col-lg-6">
+     
+    </div>
+    <div class="col-lg-3">
+    </div>
+    <div class="col-md-3">
+      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
+</div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
         <header class="panel-heading">
-          <h5>Activos</h5>
+          <h5>Activos no asignados</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -95,7 +87,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="exampleInputEmail1">Entidad beneficiaria:</label>
-            <input size=26  type="text"  class="form-control"  formControlName="entidadbeneficiaria" placeholder="Ingrese entidad beneficiaria" maxlength="51" autocomplete="off">
+            <input size=26  type="text"  class="form-control"  formControlName="entidadbeneficiaria" placeholder="Ingrese entidad beneficiaria" maxlength="81" autocomplete="off">
           </div> 
 
           <br> <br>
@@ -120,77 +112,78 @@
 
 
 <!--Alert-->
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Error!</strong> Tamaño máximo permitido en el campo Folio.
+          <strong>¡Error!</strong> Tamaño máximo permitido en el campo folio.
         </div>
 
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Advertencia!</strong> ya existe el "Folio" ingresado, por favor intente con un nuevo.
+          <strong>¡Advertencia!</strong> ya existe el folio ingresado, por favor intente con un nuevo.
         </div>
+
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.pattern">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          <strong>¡Error!</strong> El campo folio no acepta caracteres especiales.
         </div>
 
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Error!</strong> Tamaño máximo permitido en el campo.
+          <strong>¡Error!</strong> Tamaño máximo permitido en el campo domicilio.
         </div>
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.pattern">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+          <strong>¡Error!</strong> El campo domicilio no acepta caracteres especiales.
         </div>
 
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Error!</strong> Tamaño máximo permitido en el campo.
+          <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre de contacto.
         </div>
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.pattern">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+          <strong>¡Error!</strong> E campo nombre de contacto no acepta caracteres especiales.
         </div>
 
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Error!</strong> Tamaño máximo permitido en el campo.
+          <strong>¡Error!</strong> Tamaño máximo permitido en el campo entidad beneficiaria.
         </div>
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.pattern">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+          <strong>¡Error!</strong> El campo entidad beneficiaria no acepta caracteres especiales.
         </div>
 
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.maxlength">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Error!</strong> Tamaño máximo permitido en el campo.
+          <strong>¡Error!</strong> Tamaño máximo permitido en el campo observaciones.
         </div>
         <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.pattern">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>¡Error!</strong> Este campo no acepta números caracteres especiales.
+          <strong>¡Error!</strong> El campo observaciones no acepta caracteres especiales.
         </div>
 
         <div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['folio'].errors?.yaExisteFolio">
@@ -205,7 +198,7 @@
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Exelente!</strong> Datos ingresados correctamente
+          <strong>¡Exelente!</strong> Datos ingresados correctamente.
         </div>
   
           <button  type="submit" [disabled]="!solicitud.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
