@@ -15,6 +15,7 @@ export class FormDonantesComponent implements OnInit {
   donantes: FormGroup;
   dontes: any;
   display = 'none';
+  titulo: string;
   p: number = 1;
 
   constructor(private catalogoService: CatalogosService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -39,6 +40,7 @@ export class FormDonantesComponent implements OnInit {
 
   open() {
     //Limpiar
+    this.titulo = "Formulario donante";
     this.donantes.controls["iidDonante"].setValue("0");
     this.donantes.controls["bandera"].setValue("0");
     this.donantes.controls["nombre"].setValue("");
@@ -63,7 +65,7 @@ export class FormDonantesComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Dato guardado con éxito',
+          title: '¡Registro Guardado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -82,7 +84,7 @@ export class FormDonantesComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Dato modificado con éxito',
+          title: '¡Registro modificado con éxito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -108,15 +110,18 @@ export class FormDonantesComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
         this.catalogoService.eliminarDonante(iddonante).subscribe(data => {
-          Swal.fire(
-            '¡Registro eliminado!',
-            'Tu registro ha sido eliminado con éxito.',
-            'success'
-          )
+          Swal.fire({
+            icon: 'success',
+            title: '¡ELIMINADO!',
+            text: '¡El registro ha sido eliminado con éxito!',
+            confirmButtonText: 'Aceptar'
+
+        })
           this.catalogoService.getDonantes().subscribe(data => { this.dontes = data });
         });
 
@@ -126,7 +131,7 @@ export class FormDonantesComponent implements OnInit {
    
 
   modif(id) {
-
+    this.titulo = "Modificar donante";
     this.display = 'block';
     this.catalogoService.RecuperarDonante(id).subscribe(data => {
       this.donantes.controls['iidDonante'].setValue(data.iidDonante);
