@@ -35,6 +35,7 @@ marca:string;
 modelo:string;
 noSerie:string;
 vidaUtil:string;
+tasa:string;
 valorresidual:string;
 observaciones:string;
   constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService, private route: Router, private activateRoute: ActivatedRoute) {
@@ -62,6 +63,7 @@ observaciones:string;
         this.modelo=data.modelo;
         this.noSerie=data.noSerie;
         this.vidaUtil=data.vidaUtil;
+        this.tasa=data.tasaAnual;
         this.valorresidual=data.valorResidual;
         this.observaciones=data.observaciones;
 
@@ -77,9 +79,7 @@ observaciones:string;
     Reload(){
 
     }
-    buscar(nombre){
-
-    }
+  
     close() {
       this.display = 'none';
     }

@@ -56,7 +56,7 @@
                                         </thead>
                                         <tbody>
 
-                                            <tr *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 4, currentPage: p }; let i=index">
+                                            <tr *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                                                 <td>{{cuadro.codigo}}</td>
                                                 <td>{{cuadro.descripcion}}</td>
                                                 <td>{{cuadro.fechaadquisicion}}</td>

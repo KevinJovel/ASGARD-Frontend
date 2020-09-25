@@ -39,8 +39,9 @@ export class TablaTarjetaComponent implements OnInit {
     this.combos.controls['idArea'].setValue(0);
     this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
   }
-  buscar(nombre){
-
+  buscar(buscador){
+    this.p = 1;
+    this.depreciacionService.BuscarTablaDepreciacion(buscador.value).subscribe(res => {this.bienes = res});
   }
 
 }

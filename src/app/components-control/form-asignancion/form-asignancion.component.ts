@@ -123,7 +123,10 @@ export class FormAsignancionComponent implements OnInit {
     }
 
   }
-  buscar(nombre) { }
+  buscar(buscador) {
+    this.p = 1;
+    this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.activos = res});
+    }
 
   //PDF
   async recuperar() {

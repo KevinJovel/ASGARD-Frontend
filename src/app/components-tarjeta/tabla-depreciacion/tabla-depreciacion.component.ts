@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import Swal from 'sweetalert2';
 
@@ -64,7 +64,7 @@ export class TablaDepreciacionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Depreciación aplicada con exito',
+          title: '¡Depreciación aplicada con exito!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -74,7 +74,7 @@ export class TablaDepreciacionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Ocurrio un error',
+          title: '¡Ocurrio un error!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -91,7 +91,7 @@ export class TablaDepreciacionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Ocurrio un error',
+          title: '¡Ocurrio un error!',
           showConfirmButton: false,
           timer: 3000
         })
@@ -112,8 +112,9 @@ export class TablaDepreciacionComponent implements OnInit {
   close(){
     this.display='none';
   }
-  buscar(nombre){
-
+  buscar(buscador){
+    this.p = 1;
+    this.depreciacionService.BuscarTablaDepreciacion(buscador.value).subscribe(res => {this.bienes = res});
   }
   // if (this.persona.valid == true) {
   //   var fechaNac = this.persona.controls["fechaNacimiento"].value.split("-");

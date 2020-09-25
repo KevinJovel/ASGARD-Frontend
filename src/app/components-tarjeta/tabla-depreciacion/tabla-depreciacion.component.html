@@ -1,11 +1,9 @@
-
 <br />
 <br />
 <br />
 <br />
-
 <section class="panel">
-<h1>Depreciación</h1>
+  <h1>Depreciación</h1>
   <div class="row">
     <div class="col-lg-14">
       <section class="panel panel-default">
@@ -13,129 +11,121 @@
           <form class="form-inline" id="default" [formGroup]="combos">
             <div class="row">
               <div class="col-md-3">
-                <label for="inputPassword4">Sucursal</label>
+                <label>Sucursal:</label>
                 <select class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
                   <option value="0">Seleccione</option>
-                  <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
+                  <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">
+                    {{sucursal.nombre+" , "+sucursal.ubicacion}}</option>
                 </select>
               </div>
 
-          <div class="form-group col-md-3">
-            <label for="inputPassword4">Area de negocio</label>
-            <select id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
-              <option value="0" selected>Seleccione</option>
-              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
-            </select> 
-          </div>
-          <div class="form-group col-md-3">
-            <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>
-                         
-        </div>
-          
-             
+              <div class="form-group col-md-3">
+                <label>Área de negocio:</label>
+                <select class="form-control" formControlName="idArea" (change)="Filtrar()">
+                  <option value="0" selected>Seleccione</option>
+                  <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i
+                    class="glyphicon glyphicon-refresh"></i></button>
+              </div>
               <div class="col-md-3">
-        
-               <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
-             </div>
-            </div>
-            </form>
-            <br>
-            <div class="row">
-              <div class="col-lg-12">
-                <section class="panel panel-default">
-          
-                  <header class="panel-heading">
-                    <h5>Bienes disponibles para depreciación</h5>
-                  </header>
-                  <div class="panel-body">
-                    <div class="adv-table">
-                      <table class="display table table-bordered table-striped">
-                        <thead>
-                          <tr>
-                            <th>N°</th>
-                            <th>Codigo</th>
-                            <th>Descripcion</th>
-                            <th>Responsable</th>
-                            <th>Area de negocio</th>
-                        
-
-                                                 
-                            <th class="hidden-phone" >Opciones </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
-                            <th scope="col">{{i+(5*p)-4}}</th>
-                            <!-- <td>{{marca.idMarca}}</td> -->
-                            <td>{{bien.codigo}}</td>
-                            <td>{{bien.descripcion}}</td>
-                            <td>{{bien.responsable}}</td>
-                            <td>{{bien.areanegocio}}</td>
-                            
-            
-                            <td class="center hidden-phone" style="text-align: center;">
-                              <button title="Ver detalles" class="btn btn-primary btn-xs" ><i class=" icon-eye-open"></i></button> 
-                              <button title="Aplicar depreciación" class="btn btn-warning btn-xs" (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                        </div>
-                  </div>
-                </section>
+                <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre
+                  (keyup)="buscar(nombre)" placeholder="Buscar">
               </div>
             </div>
+          </form>
+          <br>
+          <div class="row">
+            <div class="col-lg-12">
+              <section class="panel panel-default">
+                <header class="panel-heading">
+                  <h5>Bienes disponibles para depreciación</h5>
+                </header>
+                <div class="panel-body">
+                  <div class="adv-table">
+                    <table class="display table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>N°</th>
+                          <th>Código</th>
+                          <th>Descripción</th>
+                          <th>Responsable</th>
+                          <th>Ubicación</th>
+                          <th class="hidden-phone">Opciones </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
+                          <th scope="col">{{i+(5*p)-4}}</th>
+                          <!-- <td>{{marca.idMarca}}</td> -->
+                          <td>{{bien.codigo}}</td>
+                          <td>{{bien.descripcion}}</td>
+                          <td>{{bien.responsable}}</td>
+                          <td>{{bien.areanegocio}} - {{bien.sucursal}}</td>
+                          <td class="center hidden-phone" style="text-align: center;">
+                            <button title="Ver detalles" class="btn btn-primary btn-xs"><i
+                                class=" icon-eye-open"></i></button>
+                            <button title="Aplicar depreciación" class="btn btn-warning btn-xs"
+                              (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+                      nextLabel="Siguiente"></pagination-controls>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+          <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+            class="modal" [ngStyle]="{'display':display}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button aria-hidden="true" data-dismiss="modal" class="close" type="button"
+                    (click)="close()">×</button>
+                  <h4 class="modal-title">{{coopertativa}} - Depreciación año {{anio}} </h4>
+                </div>
+                <div class="modal-body">
 
-<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
-  class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-        <h4 class="modal-title">{{coopertativa}} - Depreciación año {{anio}} </h4>
-      </div>
-      <div class="modal-body">
-
-        <form role="form" [formGroup]="datos" (ngSubmit)="AplicarDepreciacion()">
-          <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
-            autocomplete="off">
-          <!-- <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
+                  <form role="form" [formGroup]="datos" (ngSubmit)="AplicarDepreciacion()">
+                    <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3"
+                      autocomplete="off">
+                    <!-- <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
             autocomplete="off"> -->
-          <div class="form-group">
-            <label for="exampleInputEmail1">Codigo:</label>
-            <input type="text" class="form-control" formControlName="codigo" readonly>
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Descripción:</label>
-            <input type="text" class="form-control" formControlName="descripcion" readonly>
-          </div>
-          <!--  WARNING-->
-   
-          <!--  END-WARNING-->
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2">Valor de adquicición:</label>
-            <input type="text" class="form-control" formControlName="valorAdquicicion" readonly>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2">Valor actual:</label>
-            <input type="text" class="form-control" formControlName="valorActual" readonly>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea2">Valor a depreciar año {{anio}}:</label>
-            <input type="text" class="form-control" formControlName="valorDepreciacion" readonly>
-          </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Código:</label>
+                      <input type="text" class="form-control" formControlName="codigo" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Descripción:</label>
+                      <input type="text" class="form-control" formControlName="descripcion" readonly>
+                    </div>
+                    <!--  WARNING-->
 
-          <button  type="submit" class="btn btn-primary"><i class="icon-save"></i>
-            Aplicar </button>
-          <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
-            Cancelar</button>
+                    <!--  END-WARNING-->
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea2">Valor de adquisición:</label>
+                      <input type="text" class="form-control" formControlName="valorAdquicicion" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea2">Valor actual:</label>
+                      <input type="text" class="form-control" formControlName="valorActual" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea2">Valor a depreciar año {{anio}}:</label>
+                      <input type="text" class="form-control" formControlName="valorDepreciacion" readonly>
+                    </div>
 
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-         
+                    <button type="submit" class="btn btn-primary"><i class="icon-save"></i>
+                      Aplicar </button>
+                    <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
+                      Cancelar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
