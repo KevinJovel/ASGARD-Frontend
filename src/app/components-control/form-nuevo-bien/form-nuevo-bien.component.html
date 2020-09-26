@@ -3,7 +3,7 @@
   <header class="panel-heading">
     <div class="row">
         <div class="col-lg-3">
-         <h1>Formulario nuevo bien</h1>
+         <h1>Ingreso de nuevo activo</h1>
       
         </div>
           <div class="col-lg-6">
@@ -12,14 +12,14 @@
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
-              <strong>¡ADVERTENCIA!</strong> Los campos con * son obligatorios
+              <strong>¡Advertencia!</strong> Los campos con * son obligatorios.
            </div>
 
            <div class="alert alert-success fade in" *ngIf="nuevobien.valid&&nuevobien.controls['bandera'].value==0">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
-              <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
+              <strong>¡Excelente!</strong> Datos ingresados correctamente.
            </div>
 
           </div>
@@ -147,14 +147,14 @@
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                  <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
                 </div>
 
                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['descripcion'].errors?.pattern">
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+                  <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
                 </div>
                 <!-- FIN DE DESCRIPCION -->
 
@@ -163,14 +163,14 @@
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+                  <strong>¡Error!</strong> El campo cantidad no acepta caracteres especiales.
                 </div>
 
                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cantidad'].errors?.maxlength">
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                  <strong>¡Error!</strong> Tamaño máximo permitido en campo cantidad.
                 </div>
                 <!-- FIN DE CANTIDAD -->
 
@@ -179,14 +179,14 @@
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+                  <strong>¡Error!</strong> El campo color no acepta caracteres especiales.
                 </div>
 
                 <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['color'].errors?.maxlength">
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                  <strong>¡Error!</strong> Tamaño máximo permitido en campo color.
                 </div>
                 <!-- COLOR -->
 
@@ -195,14 +195,14 @@
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+                  <strong>¡Error!</strong> El campo modelo no acepta caracteres especiales.
                 </div>
 
                  <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['modelo'].errors?.maxlength">
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                  <strong>¡Error!</strong> Tamaño máximo permitido en campo modelo.
                 </div>
                   <!-- FIN DE MODELO -->
               </div>
@@ -291,14 +291,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo # de factura no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['nofactura'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo # de factura.
           </div>
           <!-- FIN No FACTURA -->
 
@@ -307,14 +307,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo costo no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['valoradquicicion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo costo.
           </div>
           <!-- FIN COSTO DE ADQUISICION -->
 
@@ -323,14 +323,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo prima no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['prima'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo prima.
           </div>
           <!-- FIN PRIMA -->
 
@@ -339,14 +339,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo plazo no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['plazopago'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo plazo.
           </div>
           <!-- FIN PLAZO PAGO -->
 
@@ -355,14 +355,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo cuota no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['cuotaasignada'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo cuota.
           </div>
           <!-- FIN CUOTA -->
 
@@ -371,14 +371,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo interes no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['interes'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+            <strong>¡Error!</strong> Tamaño máximo permitido en este campo interes.
           </div>
           <!-- FIN INTERES -->
 
@@ -387,14 +387,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo persona que entrega.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['personaentrega'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo persona que entrega no acepta caracteres especiales.
           </div>
           <!-- FIN PERSONA QUE ENTREGA -->
 
@@ -403,14 +403,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo persona que recibe.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['personarecibe'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo persona que recibe no acepta caracteres especiales.
           </div>
           <!-- FIN PERSONA QUE RECIBE -->
 
@@ -419,14 +419,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo valor residual.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['valorresidual'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo valor residual no acepta caracteres especiales.
           </div>
           <!-- FIN VALOR RESIDUAL -->
 
@@ -435,14 +435,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo observaciones.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="nuevobien.controls['observaciones'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo observaciones no acepta caracteres especiales.
           </div>
           <!-- FIN DE OBSERVACIONES -->
 

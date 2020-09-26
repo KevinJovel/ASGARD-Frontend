@@ -244,14 +244,14 @@ export class FormNuevoBienComponent implements OnInit {
               this.controlService.agregarBien(this.nuevobien.value).subscribe((res) => {
                   if (res == 1) {
                     Swal.fire({
-                      title: 'Registro Guardado con éxito',
-                      text: '¿Desea realizar un nuevo registro?',
+                      title: '¡Registro Guardado con éxito!',
+                      text: '¿Deseas realizar un nuevo registro?',
                       icon: 'success',
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
                       cancelButtonColor: '#d33',
                       cancelButtonText:'Cancelar',
-                      confirmButtonText: 'Si, registrar!',
+                      confirmButtonText: '¡Si, registrar!',
                     }).then((result) => {
                       if (result.value) {
                         window.location.reload();
