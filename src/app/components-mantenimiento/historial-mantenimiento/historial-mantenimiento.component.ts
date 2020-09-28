@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 
+
 import Swal from 'sweetalert2';
 
 //import {HttpClient} from '@angular/common/http';
@@ -93,8 +94,8 @@ export class HistorialMantenimientoComponent implements OnInit {
   }
 
   open(id) {
-    if(id == true){
-    this.titulo = "Historial de mantenimiento";
+    //if(id == true){
+    this.titulo = "Historial de mantenimientos";
     this.display = 'block';
     this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
       this.codigo=data.codigo;
@@ -107,15 +108,9 @@ export class HistorialMantenimientoComponent implements OnInit {
     this.mantenimientoService.historialInformes(id).subscribe(res=>{
       this.informes=res;  
     });
-  }else{
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: '¡No hay ningun historial!',
-      showConfirmButton: false,
-      timer: 3000
-    })
-  }
+  //}else{
+   
+  //}
     
     this.idbien=id;
   }
@@ -124,8 +119,9 @@ export class HistorialMantenimientoComponent implements OnInit {
     this.display='none';
   }
 
-  buscar(nombre){
-
+  buscar(buscador){
+    this.p = 1;
+    this.mantenimientoService.buscarActivoHistorial(buscador.value).subscribe(data => {this.bienes = data});
   }
 
  

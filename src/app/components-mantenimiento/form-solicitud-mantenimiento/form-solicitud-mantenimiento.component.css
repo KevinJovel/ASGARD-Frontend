@@ -89,12 +89,13 @@ th, td {
 }
 .alert {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  padding: 15px;
+  font-size: 13px;
+  padding: 10px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
+
 .alert-warning {
   color: #c09853;
   background-color: #fcf8e3;

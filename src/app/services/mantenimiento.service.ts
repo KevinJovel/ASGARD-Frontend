@@ -79,6 +79,12 @@ public buscarBienescodigo(buscador) {
 public buscarInformes(buscador) {
   return this.http.get(environment.urlService  + "api/InformeMantenimiento/buscarInformes/" + buscador).map(res => res.json());
 }
+//buscar activos en historial. 
+public buscarActivoHistorial(buscador) {
+  return this.http.get(environment.urlService  + "api/InformeMantenimiento/buscarActivoHistorial/" + buscador).map(res => res.json());
+}
+
+
 
 public ListarInformeMantenimiento(){
   return this.http.get(environment.urlService + "api/InformeMantenimiento/ListarInformeMantenimiento"  ).map(res=>res.json());
