@@ -38,6 +38,8 @@ vidaUtil:string;
 tasa:string;
 valorresidual:string;
 observaciones:string;
+
+ProvDon:string;
   constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService, private route: Router, private activateRoute: ActivatedRoute) {
   
     this.activateRoute.params.subscribe(parametro => {
@@ -47,6 +49,11 @@ observaciones:string;
   ngOnInit(): void {
       this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
       this.depreciacionService.DatosTarjeta(this.parametro).subscribe(data=>{
+        if(data.isProvDon==1){
+          this.ProvDon="Proveedor";
+        }else{
+          this.ProvDon="Donante";
+        }
         this.fecha=data.fechaAdquicicion;
         this.codigo=data.codigo;
         this.descripcion=data.descripcion;

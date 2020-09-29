@@ -20,6 +20,9 @@ export class DepreciacionService {
   public BuscarTablaDepreciacion(buscador) {
     return this.http.get(environment.urlService + "api/Depreciacion/buscarActivos/" + buscador).map(res => res.json());
   }
+  public BuscarTablaTarjeta(buscador) {
+    return this.http.get(environment.urlService + "api/Depreciacion/buscarActivosTarjeta/" + buscador).map(res => res.json());
+  }
   public TablaTarjeta() {
     return this.http.get(environment.urlService + "api/Depreciacion/listarActivosTarjeta").map(res => res.json());
   }
@@ -58,5 +61,8 @@ export class DepreciacionService {
   }
   public EjecutarCierre(periodo) {
     return this.http.post(environment.urlService + "api/Depreciacion/EjecutarCierre/", periodo).map(res=>res.json());
+    }
+    public recuperarFoto(id) {
+      return this.http.get(environment.urlService  + "api/Depreciacion/recuperarFoto/" + id).map(res => res.json());
     }
 }

@@ -111,6 +111,7 @@ public VerDatosActivosAsig(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/RecuperarFormCompleto/"+id).map(res=>res.json());
  } 
 
+
  
 }
 

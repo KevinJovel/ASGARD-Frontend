@@ -31,3 +31,24 @@
       opacity: 1;
     }
   }
+  input, select, textarea,::placeholder {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: #797474;
+  }
+  .btn-primary {
+    background-color: #41cac0;
+    border-color: hsl(176, 56%, 52%);
+    color: #FFFFFF;
+    margin-inline: 4px;
+    /* box-shadow: 0 1px 5px rgba(0,0,0,.5); */
+  }
+  
+  .btn-danger {
+    margin-inline: 4px;
+    background-color: #ff6c60;
+    border-color: #ff6c60;
+    color: #FFFFFF;
+    /* box-shadow: 0 1px 5px rgba(0,0,0,.5); */
+  }

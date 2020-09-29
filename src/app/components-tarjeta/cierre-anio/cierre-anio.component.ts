@@ -18,7 +18,8 @@ export class CierreAnioComponent implements OnInit {
 
   constructor(private router: Router, private depreciacionService: DepreciacionService) {
     this.periodo = new FormGroup({
-      'idPeriodo': new FormControl("0")
+      'idPeriodo': new FormControl("0"),
+      'terminos': new FormControl()
     });
   }
 
