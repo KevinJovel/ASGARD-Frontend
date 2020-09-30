@@ -2,31 +2,23 @@
 <section class="panel">
   <h1>Solicitudes de baja</h1>
   <div class="row">
-    <div class="col-lg-16">
-  
+    <div class="col-lg-6">
       
+    </div>
+    
+    <div class="col-lg-3">
+    </div>
+    <div class="col-md-3">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-12">
       <section class="panel panel-default">
-        <div class="form-row">
-          <form class="form-inline" id="default" [formGroup]="solicitudes">
-            <div class="row">
-
-              <div class="form-group col-md-9">
-              
-              </div>
-
-              <div class="form-group col-md-3">
-                <br><br>
-              <input type="search" style="margin-top: 5px; padding-left: 10px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
-             </div>    
-            </div>
-
-            <br>
-            <div class="row">
-              <div class="col-lg-12">
-                <section class="panel panel-default">
-          
-      <header class="panel-heading">
-        <h5>Activos</h5>
+  
+        <header class="panel-heading">
+        <h5>Solicitudes de baja</h5>
       </header>
       <div class="panel-body">
         <div class="adv-table">

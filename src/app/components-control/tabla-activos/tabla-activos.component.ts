@@ -50,7 +50,7 @@ export class TablaActivosComponent implements OnInit {
       'tipoadquicicion': new FormControl("0")                                            
   });
 
- 
+
    }
  
 
@@ -102,7 +102,7 @@ ver(id: any) {
     this.valorresidual = data.valorresidual;
     this.cuota = data.cuotaasignada;
     this.prima = data.prima;
-    this.interes = data.intereses;
+    this.interes = data.interes;
     this.modelo = data.Modelo;
     this.foto =data.foto;
     this.noformu = data.noformulario;
@@ -137,9 +137,8 @@ buscar(buscador) {
 
 open() {
   //limpia cache
-      this.combo.reset({
-      
-      });
+     //this.combo.reset();
+    // location.href= "./form-nuevoBien" ;
     
 }
 
