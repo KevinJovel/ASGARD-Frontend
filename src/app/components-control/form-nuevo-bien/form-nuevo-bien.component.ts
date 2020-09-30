@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ControlService } from './../../services/control.service';
@@ -35,11 +35,15 @@ export class FormNuevoBienComponent implements OnInit {
   disabled: boolean;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
   comboAreaSucur:any;
+  empleado : any;
   lista: any;
-  recargo: number=0;
+  //recargo: number=0;
   //Para la fecha
   fecha=Date.now();
   lista2: any;
+  emple : boolean;//para el disabley enable del editar
+  titulo: string;
+  idemp:Number = 0;
 
   @Input() bandera = false; //agrego input para hacer uso delas dos funciones
   //Variables de etiqueta
@@ -47,12 +51,14 @@ export class FormNuevoBienComponent implements OnInit {
   disabledPlazo: string;
   disabledCuota: string;
   disabledInteres: string;
-
+  disabledempleado: string;
+  //@Output() clickOpen: EventEmitter<any>;
   constructor(
     private catalogoService: CatalogosService,private _cargarScript: CargarScriptsService,private controlService: ControlService,
     private activateRoute: ActivatedRoute,private router: Router,private stateService: StateService) {
     this._cargarScript.cargar(['/jquery.stepy', '/sortingTable']);
 
+    //this.clickOpen = new EventEmitter();
     this.nuevobien = new FormGroup({
       idbien: new FormControl('0'),
       bandera: new FormControl('0'),
@@ -78,6 +84,7 @@ export class FormNuevoBienComponent implements OnInit {
      observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
      cantidad: new FormControl('', [Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
      foto: new FormControl(''),
+     idresponsable: new FormControl(''),
     });
     
   }
@@ -88,13 +95,23 @@ export class FormNuevoBienComponent implements OnInit {
     this.disabledPlazo = 'Ingrese plazo';
     this.disabledCuota = 'Ingrese cuota';
     this.disabledInteres = 'Ingrese interes';
-
+    this.disabledempleado = 'Inhabilitado';
+    this.nuevobien.controls['idresponsable'].setValue(0);//para que muestre el inhabilitado
+   // this.nuevobien.controls['idresponsable'].disable();
+    var disa =this.nuevobien.controls['idresponsable'].value;//evaluo si es cero
+    if(disa ==0){
+    this.emple = true;// si es cero lo desabilito
+    this.titulo = "Ingreso nuevo activo";
+    }
     this.controlService.listarComboClasificacion().subscribe((data) => {
       this.clasificaciones = data;
     });
 
     this.controlService.listarComboMarca().subscribe((data) => {
       this.marcas = data;
+    });
+    this.catalogoService.getEmpleado().subscribe((data) => {
+      this.empleado = data;
     });
 
     this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
@@ -107,6 +124,7 @@ export class FormNuevoBienComponent implements OnInit {
       if (resp.data.hasOwnProperty('bienObj')) {
         let data = resp.data.bienObj;
         //this.nuevobien.setValue(data); //recupero
+        this.titulo = "Modificar activo";
         this.nuevobien.controls['idbien'].setValue(data.idbien);
       this.nuevobien.controls['color'].setValue(data.color);
       this.nuevobien.controls['descripcion'].setValue(data.descripcion);
@@ -130,6 +148,16 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['cantidad'].setValue(data.cantidad);
       this.nuevobien.controls['cantidad'].disable();
       this.nuevobien.controls['valorresidual'].setValue(data.valorresidual);
+
+      this.idemp=data.idresponsable;
+      this.nuevobien.controls['idresponsable'].setValue(this.idemp);
+      //console.log("empleado"+ this.idemp );
+      if(this.idemp == 0){
+        this.emple = true;
+      }else{
+        this.emple = false;
+      }
+        
       //this.nuevobien.controls['foto'].setValue(data.foto);
       this.foto=data.foto;//obtengo la foto
         //this.bandera = true; //habilito el boton actualizar
@@ -274,131 +302,136 @@ export class FormNuevoBienComponent implements OnInit {
       }
     }
 //inicia el MODIFICAR mandamos 1 a la bandera para identificar q es un editar
-    else if(this.nuevobien.controls['bandera'].value == '1'){
-    //// this.nuevobien.controls['bandera'].setValue('0');
-    if (this.nuevobien.valid == true) {
+else if(this.nuevobien.controls['bandera'].value == '1'){
+  //// this.nuevobien.controls['bandera'].setValue('0');
+  if (this.nuevobien.valid == true) {
+    
+   this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
+     // console.log(this.nuevobien.value);
+      //le mando -1 para que reconozca un valor
+      if(this.nuevobien.value.plazopago==null)
+      {
+        this.nuevobien.controls['plazopago'].setValue(-1);
+      }
+      if(this.nuevobien.value.prima==null)
+      {
+        this.nuevobien.controls['prima'].setValue(-1);
+      }
+      if(this.nuevobien.value.cuotaasignada==null)
+      {
+        this.nuevobien.controls['cuotaasignada'].setValue(-1);
+      }
+      if(this.nuevobien.value.interes==null)
+      {
+        this.nuevobien.controls['interes'].setValue(-1);
+      }
+      //console.log("Es marca: "+this.nuevobien.value.idmarca);
+      if(this.nuevobien.value.idmarca==0)
+      {
+        this.nuevobien.controls['idmarca'].setValue(0);
+      }
+      //Pasamos la foto para modificarla
+      this.nuevobien.controls['foto'].setValue(this.foto);
+        this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
+          //console.log(this.nuevobien.value);
+          this.modificar(this.nuevobien.value.idbien);
+          this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
+          
+        });
       
-     this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
-        console.log(this.nuevobien.value);
-        //le mando -1 para que reconozca un valor
-        if(this.nuevobien.value.plazopago==null)
-        {
-          this.nuevobien.controls['plazopago'].setValue(-1);
-        }
-        if(this.nuevobien.value.prima==null)
-        {
-          this.nuevobien.controls['prima'].setValue(-1);
-        }
-        if(this.nuevobien.value.cuotaasignada==null)
-        {
-          this.nuevobien.controls['cuotaasignada'].setValue(-1);
-        }
-        if(this.nuevobien.value.interes==null)
-        {
-          this.nuevobien.controls['interes'].setValue(-1);
-        }
-        //console.log("Es marca: "+this.nuevobien.value.idmarca);
-        if(this.nuevobien.value.idmarca==0)
-        {
-          this.nuevobien.controls['idmarca'].setValue(0);
-        }
-        //Pasamos la foto para modificarla
-        this.nuevobien.controls['foto'].setValue(this.foto);
-          this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
-            console.log(this.nuevobien.value);
-            this.modificar(this.nuevobien.value.idbien);
-            this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
-            
-          });
-          console.log("foto: "+this.nuevobien.value.foto);
-          this.recargo=1;
-          //this.router.navigate(['./tabla-activos']);
-            //console.log("Id Bien: "+this.nuevobien.value.idbien);
-           //listar bienes
-            this.router.navigate(['./tabla-activos']);
-          });
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Registro Modificado con éxito',
-                showConfirmButton: false,
-                timer: 3000,
-              }).then((result) => {
-                if (result.value) {
-                  this.router.navigate(['./tabla-activos']);
-                  window.location.href= "./tabla-activos" ;
-                } //else {
-                  //window.location.reload();
-               // }
-              });     
-    }
-    
-    this.display = 'none';
-
-    }
-    
+          this.router.navigate(['./tabla-activos']);
+        });
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Registro modificado con éxito',
+              showConfirmButton: false,
+              timer: 3000,
+            }).then((result) => {
+              //if (result.value) {
+                //this.router.navigate(['./tabla-activos']);
+                //window.location.href= "./tabla-activos" ;
+              //} //else {
+                //window.location.reload();
+             // }*/
+             if(this.idemp == 0){
+              this.router.navigate(['./tabla-activos']);
+              window.location.href= "./tabla-activos" ;
+             }else{
+              this.router.navigate(['./activos-asignados']);
+              //window.location.href= "./activos-asignados" ;
+             }
+            });    
   }
-
-
-  modificar(id) {
-   // console.log("Antes"+id);
-    this.controlService.RecuperarFormCompleto(id).subscribe((data) => {
-      this.nuevobien.controls['idbien'].setValue(data.idbien);
-      this.nuevobien.controls['color'].setValue(data.color);
-      this.nuevobien.controls['descripcion'].setValue(data.descripcion);
-      this.nuevobien.controls['modelo'].setValue(data.modelo);
-      this.nuevobien.controls['tipoadquicicion'].setValue(data.tipoadquicicion);
-      this.nuevobien.controls['idmarca'].setValue(data.idmarca);
-      this.nuevobien.controls['idclasificacion'].setValue(data.idclasificacion);
-      this.nuevobien.controls['idproveedor'].setValue(data.idproveedor);
-      this.nuevobien.controls['estadoingreso'].setValue(data.estadoingreso);
-      this.nuevobien.controls['plazopago'].setValue(data.plazopago);
-      this.nuevobien.controls['prima'].setValue(data.prima);
-      this.nuevobien.controls['cuotaasignada'].setValue(data.cuotaasignada);
-      this.nuevobien.controls['interes'].setValue(data.interes);
-      this.nuevobien.controls['valorresidual'].setValue(data.valorresidual);
-      this.nuevobien.controls['noformulario'].setValue(data.noformulario);
-      this.nuevobien.controls['nofactura'].setValue(data.nofactura);
-      this.nuevobien.controls['fechaingreso'].setValue(data.fechaingreso);
-      this.nuevobien.controls['personaentrega'].setValue(data.personaentrega);
-      this.nuevobien.controls['personarecibe'].setValue(data.personarecibe);
-      this.nuevobien.controls['observaciones'].setValue(data.observaciones);
-      this.nuevobien.controls['cantidad'].setValue(data.cantidad);
-      this.nuevobien.controls['foto'].setValue(data.foto);
-      this.nuevobien.controls['bandera'].setValue('1');
-      
-    });
-    
-  }
-
-  open() {
-    //limpia cache
-   // this.nuevobien.reset();
-    this.nuevobien.controls["idbien"].setValue("0");
-    this.nuevobien.controls["bandera"].setValue("0");
-    this.nuevobien.controls["color"].setValue("");
-    this.nuevobien.controls["descripcion"].setValue("");
-    this.nuevobien.controls["modelo"].setValue("");
-    this.nuevobien.controls["tipoadquicicion"].setValue("");
-    this.nuevobien.controls["idmarca"].setValue("");
-    this.nuevobien.controls["idclasificacion"].setValue("");
-    this.nuevobien.controls["idproveedor"].setValue("");
-    this.nuevobien.controls["estadoingreso"].setValue("");
-    this.nuevobien.controls["plazopago"].setValue("");
-    this.nuevobien.controls["prima"].setValue("");
-    this.nuevobien.controls["cuotaasignada"].setValue("");
-    this.nuevobien.controls["interes"].setValue("");
-    this.nuevobien.controls["noformulario"].setValue("");
-    this.nuevobien.controls["nofactura"].setValue("");
-    this.nuevobien.controls["fechaingreso"].setValue("");
-    this.nuevobien.controls["personaentrega"].setValue("");
-    this.nuevobien.controls["personarecibe"].setValue("");
-    this.nuevobien.controls["observaciones"].setValue("");
-    this.nuevobien.controls["cantidad"].setValue("");
-    this.nuevobien.controls["foto"].setValue("");
-    this.display = 'block';
   
+  this.display = 'none';
+
   }
+ // this.open();
+ 
+}
+
+modificar(id) {
+ // console.log("Antes"+id);
+  this.controlService.RecuperarFormCompleto(id).subscribe((data) => {
+    this.nuevobien.controls['idbien'].setValue(data.idbien);
+    this.nuevobien.controls['color'].setValue(data.color);
+    this.nuevobien.controls['descripcion'].setValue(data.descripcion);
+    this.nuevobien.controls['modelo'].setValue(data.modelo);
+    this.nuevobien.controls['tipoadquicicion'].setValue(data.tipoadquicicion);
+    this.nuevobien.controls['idmarca'].setValue(data.idmarca);
+    this.nuevobien.controls['idclasificacion'].setValue(data.idclasificacion);
+    this.nuevobien.controls['idproveedor'].setValue(data.idproveedor);
+    this.nuevobien.controls['idresponsable'].setValue(data.idresponsable);
+    this.nuevobien.controls['estadoingreso'].setValue(data.estadoingreso);
+    this.nuevobien.controls['plazopago'].setValue(data.plazopago);
+    this.nuevobien.controls['prima'].setValue(data.prima);
+    this.nuevobien.controls['cuotaasignada'].setValue(data.cuotaasignada);
+    this.nuevobien.controls['interes'].setValue(data.interes);
+    this.nuevobien.controls['valorresidual'].setValue(data.valorresidual);
+    this.nuevobien.controls['noformulario'].setValue(data.noformulario);
+    this.nuevobien.controls['nofactura'].setValue(data.nofactura);
+    this.nuevobien.controls['fechaingreso'].setValue(data.fechaingreso);
+    this.nuevobien.controls['personaentrega'].setValue(data.personaentrega);
+    this.nuevobien.controls['personarecibe'].setValue(data.personarecibe);
+    this.nuevobien.controls['observaciones'].setValue(data.observaciones);
+    this.nuevobien.controls['cantidad'].setValue(data.cantidad);
+    this.nuevobien.controls['foto'].setValue(data.foto);
+    this.nuevobien.controls['bandera'].setValue('1');
+    
+  });
+  //this.open();
+}
+
+open() {
+  //limpia cache
+ this.nuevobien.reset();
+  this.nuevobien.controls["idbien"].setValue("0");
+  this.nuevobien.controls["bandera"].setValue("0");
+  this.nuevobien.controls["color"].setValue("");
+  this.nuevobien.controls["descripcion"].setValue("");
+  this.nuevobien.controls["modelo"].setValue("");
+  this.nuevobien.controls["tipoadquicicion"].setValue("");
+  this.nuevobien.controls["idmarca"].setValue("");
+  this.nuevobien.controls["idclasificacion"].setValue("");
+  this.nuevobien.controls["idproveedor"].setValue("");
+  this.nuevobien.controls['idresponsable'].setValue("");
+  this.nuevobien.controls["estadoingreso"].setValue("");
+  this.nuevobien.controls["plazopago"].setValue("");
+  this.nuevobien.controls["prima"].setValue("");
+  this.nuevobien.controls["cuotaasignada"].setValue("");
+  this.nuevobien.controls["interes"].setValue("");
+  this.nuevobien.controls["noformulario"].setValue("");
+  this.nuevobien.controls["nofactura"].setValue("");
+  this.nuevobien.controls["fechaingreso"].setValue("");
+  this.nuevobien.controls["personaentrega"].setValue("");
+  this.nuevobien.controls["personarecibe"].setValue("");
+  this.nuevobien.controls["observaciones"].setValue("");
+  this.nuevobien.controls["cantidad"].setValue("");
+  this.nuevobien.controls["foto"].setValue("");
+  this.display = 'block';
+
+}
 
 
   noPuntoDecimal(control: FormControl) {

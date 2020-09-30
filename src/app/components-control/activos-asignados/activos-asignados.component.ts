@@ -102,7 +102,7 @@ this.controlService.VerDatosActivosAsig(id).subscribe((data) => {
   this.vidautil = data.vidautil;
   this.cuota = data.cuotaasignada;
   this.prima = data.prima;
-  this.interes = data.intereses;
+  this.interes = data.interes;
   this.modelo = data.Modelo;
   this.foto =data.foto;
   this.noformu = data.noformulario;
@@ -121,7 +121,7 @@ this.controlService.RecuperarFormCompleto(id).subscribe((res) => {
 };
 this.stateService.changeValue(datas);
 this.router.navigate(["./form-nuevoBien"]);
-});
+}); 
  
 }
 
@@ -141,6 +141,7 @@ this.nuevobien.controls["tipoadquicicion"].setValue("");
 this.nuevobien.controls["idmarca"].setValue("");
 this.nuevobien.controls["idclasificacion"].setValue("");
 this.nuevobien.controls["idproveedor"].setValue("");
+this.nuevobien.controls['idresponsable'].setValue("");
 this.nuevobien.controls["estadoingreso"].setValue("");
 this.nuevobien.controls["plazopago"].setValue("");
 this.nuevobien.controls["prima"].setValue("");
