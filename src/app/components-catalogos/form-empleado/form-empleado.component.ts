@@ -75,7 +75,7 @@ export class FormEmpleadoComponent implements OnInit {
   }
 
 
-  guardarDatos(id) {
+  guardarDatos() {
     /*this.catalogosServices.noGuardarEmpleado(id).subscribe(data => {
       if (data == 1) {
         this.edit = 1;
