@@ -164,7 +164,6 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     })
 this.matriz=[],[];
 this.solicitud.reset();
-//this.solicitud.controls["fechasolicitud"].setValue("");
 }else{
     Swal.fire({
       position: 'center',

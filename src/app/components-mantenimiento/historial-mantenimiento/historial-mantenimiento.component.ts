@@ -68,7 +68,7 @@ export class HistorialMantenimientoComponent implements OnInit {
 
   ngOnInit(): void {
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+    this.mantenimientoService.listarActivosHistorial().subscribe(data=>{this.bienes=data});
 
 //para historial
 /*this.mantenimientoService.historialInformes().subscribe(res=>{

@@ -83,6 +83,10 @@ public buscarInformes(buscador) {
 public buscarActivoHistorial(buscador) {
   return this.http.get(environment.urlService  + "api/InformeMantenimiento/buscarActivoHistorial/" + buscador).map(res => res.json());
 }
+//listar activos en historial
+public listarActivosHistorial(){
+  return this.http.get(environment.urlService + "api/InformeMantenimiento/listarActivosHistorial"  ).map(res=>res.json());
+ } 
 
 
 
