@@ -307,12 +307,16 @@ public validarDepenActivo(idSucursal) {
 
 //servicios exclusivos para catálogo de  empleados
 
-public listarCargoCombo(){
-  return this.http.get(environment.urlService + "api/Empleado/listarCargoCombo" ).map(res=>res.json());
+public listarCargoCombo(id){
+  return this.http.get(environment.urlService + "api/Empleado/listarCargoCombo/" + id).map(res=>res.json());
 }
 public listarAreaCombo(){
   return this.http.get(environment.urlService + "api/Empleado/listarAreaCombo" ).map(res=>res.json());
 }
+public listarCargoCombosinJ(id){
+  return this.http.get(environment.urlService + "api/Empleado/listarCargoCombosinJ/" + id ).map(res=>res.json());
+}
+
 
 public guardarEmpleado(idempleado) {
   return this.http.post(environment.urlService  + "api/Empleado/guardarEmpleado", idempleado).map(res => res.json());
@@ -346,6 +350,7 @@ public noModificarArea(idempleado) {
 public noEliminarEmpleado(idempleado) {
   return this.http.get(environment.urlService  + "api/Empleado/noEliminarEmpleado/" + idempleado).map(res => res.json());
 }
+
 
 //Services Areas de negcio
 public getAreas() {

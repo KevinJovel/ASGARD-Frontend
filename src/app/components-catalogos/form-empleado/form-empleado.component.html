@@ -1,4 +1,3 @@
-
 <br><br><br><br>
 <section class="panel">
   <h1>Empleados</h1>
@@ -6,17 +5,19 @@
     <div class="col-lg-6">
 
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo empleado</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
+            class="icon-plus-sign-alt"></i> Agregar nuevo empleado</button>
       </header>
     </div>
     <div class="col-lg-3">
 
     </div>
-    
+
     <div class="col-md-3">
-      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre
+        (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
-   
+
   </div>
 
   <div class="row">
@@ -34,44 +35,42 @@
                   <!--<th>Id Clasificación</th>-->
                   <th>DUI</th>
                   <th>Nombres</th>
-				          <th>Apellidos</th>
-				          <th>Dirección</th>
-				          <th>Teléfono</th>
+                  <th>Apellidos</th>
+                  <th>Dirección</th>
+                  <th>Teléfono</th>
                   <th>Teléfono personal</th>
                   <th>Área de negocio</th>
-				          <th>Cargo</th>
-				          
-                  <th  class="hidden-phone">Opciones</th>
+                  <th>Cargo</th>
+
+                  <th class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
               <tbody>
-     
+
                 <tr *ngFor="let empleado of empleados | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                 <!--<td>{{empleado.idempleado}}</td>--> 
+                  <!--<td>{{empleado.idempleado}}</td>-->
                   <td>{{empleado.dui}}</td>
                   <td>{{empleado.nombres}}</td>
-				          <td>{{empleado.apellidos}}</td>
-				          <td>{{empleado.direccion}}</td>
-				          <td>{{empleado.telefono}}</td>
-				          <td>{{empleado.telefonopersonal}}</td>
+                  <td>{{empleado.apellidos}}</td>
+                  <td>{{empleado.direccion}}</td>
+                  <td>{{empleado.telefono}}</td>
+                  <td>{{empleado.telefonopersonal}}</td>
                   <td>{{empleado.nombrearea +" - "+ empleado.nombresucursal+" - "+ empleado.ubicacion}}</td>
-				          <td>{{empleado.cargo}}</td>
-				  
-				  
+                  <td>{{empleado.cargo}}</td>
+
+
                   <td class="center hidden-phone">
-                    <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(empleado.idempleado)"><i class="icon-pencil"></i></button>
-                    <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(empleado.idempleado)"><i class="icon-trash "></i></button>
+                    <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(empleado.idempleado)"><i
+                        class="icon-pencil"></i></button>
+                    <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(empleado.idempleado)"><i
+                        class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-              
-            <!--darle color al cuadro que rellena el número-->
-        
-           
-
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
           </div>
         </div>
       </section>
@@ -80,160 +79,138 @@
 </section>
 
 <!--modal para ingresar y editar-->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog modal-lg" style="width:800px;" >
-    <div class="modal-content"  >
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
+  [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-lg" style="width:800px;">
+    <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-inline" id="default"  [formGroup]="empleado" (ngSubmit)="guardarDatos()">
-        <!--<td>-->  
-          <input type="hidden" class="form-control" formControlName="idempleado" id="exampleInputEmail3" autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
-          
-        <!--<td>--> 
-
+        <form class="form-inline" id="default" [formGroup]="empleado" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="idempleado" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
           <div class="form-group col-md-6">
-          
             <label for="exampleInputEmail1">* Nombres:</label>
-            <input   type="text" class="form-control" formControlName="nombres" id="exampleInputEmail3" placeholder="Ingrese nombres" autocomplete="off" maxlength="51">
+            <input type="text" class="form-control" formControlName="nombres" placeholder="Ingrese nombres"
+              autocomplete="off" maxlength="51">
           </div>
           <div class="form-group col-md-6">
             <label for="exampleFormControlTextarea2">* Apellidos:</label>
-            <input   type="text" class="form-control" formControlName="apellidos" id="exampleFormControlTextarea2" placeholder="Ingrese apellidos" autocomplete="off"  maxlength="51">
+            <input type="text" class="form-control" formControlName="apellidos" placeholder="Ingrese apellidos"
+              autocomplete="off" maxlength="51">
           </div>
-
-		  <div class="form-group col-md-6">
+          <div class="form-group col-md-6">
             <label for="exampleInputEmail1">* DUI:</label>
-            <input type="text" [dropSpecialCharacters]="false" mask="00000000-0" class="form-control" formControlName="dui" id="exampleInputEmail3" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
+            <input type="text" [dropSpecialCharacters]="false" mask="00000000-0" class="form-control"
+              formControlName="dui" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
           </div>
           <div class="form-group col-md-6">
             <label for="exampleFormControlTextarea2">* Dirección:</label>
-            <input class="form-control rounded-0" formControlName="direccion" id="exampleFormControlTextarea2" rows="3" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101">
+            <input class="form-control rounded-0" formControlName="direccion" rows="3" placeholder="Ingrese dirección"
+              autocomplete="off" maxlength="101">
           </div>
-          
           <div class="form-group col-md-6">
-            <label for="exampleFormControlTextarea1" >* Área de negocio:</label>
-            <select class="form-control" formControlName="idareadenegocio"  id="exampleFormControlTextarea1"  maxlength="51">
-              <option value="">---Seleccione---</option>	
-              <option [disabled]="this.edit==1" [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>	 
+            <label>* Área de negocio:</label>
+            <select class="form-control" (change)="filtrarCargo()" formControlName="idareadenegocio">
+              <option value="">---Seleccione---</option>
+              <option [disabled]="this.edit==1" [value]="area.idAreaNegocio" *ngFor="let area of areas">
+                {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
             </select>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="exampleFormControlTextarea2" >* Cargo:</label>
-              <select class="form-control" formControlName="idcargo"  id="exampleFormControlTextarea2"  maxlength="51">
-                <option value="">---Seleccione---</option>	
-                <option [value]="cargo.idcargo" *ngFor="let cargo of cargos">{{cargo.cargo}}</option>	 
-              </select>
-              </div>
-          
-          
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleFormControlTextarea2">* Cargo:</label>
+            <select class="form-control" formControlName="idcargo">
+              <option  [disabled]="this.edit==1" value="">---Seleccione---</option>
+              <option [value]="cargo.idcargo" *ngFor="let cargo of cargos">{{cargo.cargo}}</option>
+            </select>
+          </div>
           <div class="form-group col-md-6">
             <label for="exampleFormControlTextarea2">* Teléfono:</label>
-            <input type="text" [dropSpecialCharacters]="false" mask="0000-0000" class="form-control" formControlName="telefono" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
-          </div> 
-         
-       <!-- </td>  
-          <td>-->
-		
-      	<div class="form-group col-md-6">
-			<label for="exampleFormControlTextarea2">* Teléfono personal:</label>
-			<input type="text" [dropSpecialCharacters]="false"  mask="0000-0000" class="form-control" formControlName="telefonopersonal" id="exampleFormControlTextarea2" placeholder="Ingrese teléfono" autocomplete="off">
-    </div>
-
-   <!-- </td>-->
-
-   <div>
-    <br><br> <br><br> <br><br> <br> <br><br> <br> <br><br><br> <br>
-  </div>
- 
-  <!-- Validacion de pattern no acepta caracteres especiales -->
-  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.pattern">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Error!</strong> El campo nombres no acepta caracteres especiales.
-  </div>
-    <!-- Validacion de pattern no acepta caracteres especiales -->
-    <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.pattern">
-      <button data-dismiss="alert" class="close close-sm" type="button">
-        <i class="icon-remove"></i>
-      </button>
-      <strong>¡Error!</strong> El campo apellidos no acepta caracteres especiales.
-    </div>
-      <!-- Validacion de pattern no acepta caracteres especiales -->
-  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.pattern">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Error!</strong> El campo dirección no acepta algunos caracteres especiales.
-  </div>
-
-  <div class="alert alert-warning fade in" *ngIf="this.edit==1">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Advertencia!</strong> El área no se puede modificar porque hay activos referenciados al empleado. 
-    Para poder modificar el área del empleado primero debe desasignar los activos referenciados.
-  </div>
-
-  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.maxlength">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Error!</strong> Tamaño máximo permitido en campo nombres.
-  </div>
-
-  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.maxlength">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Error!</strong> Tamaño máximo permitido en campo apellidos.
-  </div>
-  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.maxlength">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Error!</strong> Tamaño máximo permitido en campo dirección.
-  </div>
- 
-  
-  
-  
-  <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['dui'].errors?.yaExisteDui">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Advertencia!</strong> Ya existe el DUI ingresado, por favor intente con uno nuevo.
-  </div>
-
-  
+            <input type="text" [dropSpecialCharacters]="false" mask="0000-0000" class="form-control"
+              formControlName="telefono" placeholder="Ingrese teléfono" autocomplete="off">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleFormControlTextarea2">* Teléfono personal:</label>
+            <input type="text" [dropSpecialCharacters]="false" mask="0000-0000" class="form-control"
+              formControlName="telefonopersonal" placeholder="Ingrese teléfono" autocomplete="off">
+          </div>
+          <div>
+            <br><br> <br><br> <br><br> <br> <br><br> <br> <br><br><br> <br>
+          </div>
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo nombres no acepta caracteres especiales.
+          </div>
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo apellidos no acepta caracteres especiales.
+          </div>
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo dirección no acepta algunos caracteres especiales.
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="this.edit==1">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> El área no se puede modificar porque hay activos referenciados al empleado.
+            Para poder modificar el área del empleado primero debe desasignar los activos referenciados.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo nombres.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo apellidos.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo dirección.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['dui'].errors?.yaExisteDui">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Ya existe el DUI ingresado, por favor intente con uno nuevo.
+          </div>
           <!--  WARNING-->
-         <div class="alert alert-warning fade in" *ngIf="!empleado.valid&&!empleado.controls['dui'].errors?.yaExisteDui">
+          <div class="alert alert-warning fade in"
+            *ngIf="!empleado.valid&&!empleado.controls['dui'].errors?.yaExisteDui">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
           </div>
-      
-     
-
-
-      <div class="alert alert-success fade in" *ngIf="empleado.valid&&empleado.controls['bandera'].value==0">
-        <button data-dismiss="alert" class="close close-sm" type="button">
-          <i class="icon-remove"></i>
-        </button>
-        <strong>Exelente!</strong> Datos ingresados correctamente
-      </div>
-   
- 
-          <button  type="submit" [disabled]="!empleado.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          <div class="alert alert-success fade in" *ngIf="empleado.valid&&empleado.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Exelente!</strong> Datos ingresados correctamente
+          </div>
+          <button type="submit" [disabled]="!empleado.valid" class="btn btn-primary"><i class="icon-save"></i>
+            Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-
