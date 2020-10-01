@@ -55,7 +55,16 @@ public cambiarEstadoDenegado(idsolicitud) {
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/cambiarEstadoDenegado/"+idsolicitud).map(res => res.json());
 }
 
+
 //metodo para guardar todos los informes de mantenimiento.
+public listarBienesMantenimientoInforme(){
+  return this.http.get(environment.urlService + "api/InformeMantenimiento/listarBienesMantenimientoInforme" ).map(res=>res.json());
+ }
+
+
+public cambiarEstadoActivoMantenimiento(idsolicitud) {
+  return this.http.get(environment.urlService  + "api/InformeMantenimiento/cambiarEstadoActivoMantenimiento/"+idsolicitud).map(res => res.json());
+}
 public guardarInformeMantenimiento(informe) {
   return this.http.post(environment.urlService  + "api/InformeMantenimiento/guardarInformeMantenimiento",informe).map(res => res.json());
 }

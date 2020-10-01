@@ -43,7 +43,7 @@ export class TablaInformeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+    this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res=>{
       this.bienes=res;
   
     });
@@ -70,7 +70,7 @@ export class TablaInformeComponent implements OnInit {
     
        
        //para recuerar el id 
-       this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+       this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res=>{
         this.bienes=res;
     
       });
@@ -117,9 +117,9 @@ export class TablaInformeComponent implements OnInit {
           timer: 3000
         })
         this.display = 'none';
-         this.mantenimientoService.cambiarEstadoDenegado(this.informe.controls["idBien"].value).subscribe(rest=>{
+         this.mantenimientoService.cambiarEstadoActivoMantenimiento(this.informe.controls["idBien"].value).subscribe(rest=>{
           if(rest==1){
-          this.mantenimientoService.listarBienesMantenimiento().subscribe(data=>{ this.bienes=data});
+          this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(data=>{ this.bienes=data});
           }
         });
       
@@ -145,7 +145,7 @@ export class TablaInformeComponent implements OnInit {
      this.informe.controls["costototal"].setValue("");
 
 this.display = 'none';
-this.mantenimientoService.listarBienesMantenimiento().subscribe(res=>{
+this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res=>{
   this.bienes=res;
 
 });
