@@ -306,15 +306,17 @@ public validarDepenActivo(idSucursal) {
   }
 
 //servicios exclusivos para catálogo de  empleados
-
-public listarCargoCombo(id){
-  return this.http.get(environment.urlService + "api/Empleado/listarCargoCombo/" + id).map(res=>res.json());
+public ValidarAreaJefe(idArea){
+  return this.http.get(environment.urlService + "api/Empleado/validarExisteCargo/"+idArea).map(res=>res.json());
+}
+public listarCargoCombo(){
+  return this.http.get(environment.urlService + "api/Empleado/listarCargoCombo").map(res=>res.json());
 }
 public listarAreaCombo(){
-  return this.http.get(environment.urlService + "api/Empleado/listarAreaCombo" ).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/Empleado/listarAreaCombo").map(res=>res.json());
 }
-public listarCargoCombosinJ(id){
-  return this.http.get(environment.urlService + "api/Empleado/listarCargoCombosinJ/" + id ).map(res=>res.json());
+public listarCargoCombosinJ(){
+  return this.http.get(environment.urlService + "api/Empleado/listarCargoCombosinJ/").map(res=>res.json());
 }
 
 
