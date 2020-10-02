@@ -27,8 +27,8 @@
           <div class="col-lg-3">
             <button type="button" class="btn btn-success" [routerLink]='["/tabla-activos"]'>
               <i ></i> Ver no asignados</button>
-              <button type="button" class="btn btn-success" [routerLink]='["/activos-asignados"]'>
-                <i ></i> Ver asignados </button>
+             <!-- <button type="button" class="btn btn-success" [routerLink]='["/activos-asignados"]'>
+                <i ></i> Ver asignados </button>-->
               
           </div>
             
@@ -74,7 +74,7 @@
 
                 <div class="form-row">
                     
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-6">
                     <label for="inputPassword4">* Tipo Adquisición</label>
                     <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
                       <option value="0">--Seleccione--</option>
@@ -83,20 +83,20 @@
                       <option value="3">Donado</option>
                       </select>
                   </div>
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-6">
                     <label for="inputPassword4">* {{tipocombo}}</label >
                   <select  class="form-control" formControlName="idproveedor" >
                     <option value="0">--Seleccione--</option >
                     <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
                     </select>
                   </div>
-                 <div class="form-group col-md-4" >
+               <!--  <div class="form-group col-md-4" >
                     <label for="inputPassword4"  > Empleado</label>
                   <select class="form-control" formControlName="idresponsable" [attr.disabled]="emple ? '' : null " >
                     <option [value]="0" >{{disabledempleado}}</option>
                     <option [value]="empleado.idempleado" *ngFor="let empleado of empleado" selected>{{empleado.nombres}} {{empleado.apellidos}} </option>
                     </select>
-                  </div><!---->
+                  </div>-->
               </div>
                 <div class="row">
                    

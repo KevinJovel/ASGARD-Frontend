@@ -8,11 +8,11 @@
         <div class="form-row">
           <form class="form-inline" id="default" [formGroup]="combo">
             <div class="row">
-              <div class="form-group col-md-2">
+       <!--   <div class="form-group col-md-2">
                 <br>
                   <button type="button" style="margin-top: 24px;" class="btn btn-success" data-toggle="modal" data-target="#myModal" [routerLink]='["/form-nuevoBien"]'><i class="icon-plus-sign-alt"></i> Nuevo activo</button>
                    </div>
-
+                  -->
               <div class="form-group col-md-3">
                 <br>
                 <label for="inputPassword4">Sucursal</label>
@@ -34,7 +34,8 @@
                 <br>
               <button title="Recargar datos" style="margin-top: 24px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>                 
             </div>
-
+            <div class="form-group col-md-2">
+              </div> 
               <div class="form-group col-md-3">
                 <br><br>
               <input type="search" style="margin-top: 5px; padding-left: 10px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
@@ -76,7 +77,7 @@
                             <td>{{combo.areaDeNegocio}}</td>
                             <td>{{combo.resposnsable}}</td>            
                             <td class="center hidden-phone">
-                              <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>
+                            <!--  <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>-->
                               <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
                             </td>
                             

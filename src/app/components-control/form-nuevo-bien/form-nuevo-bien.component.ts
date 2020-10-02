@@ -350,17 +350,11 @@ else if(this.nuevobien.controls['bandera'].value == '1'){
             }).then((result) => {
               //if (result.value) {
                 //this.router.navigate(['./tabla-activos']);
-                //window.location.href= "./tabla-activos" ;
+                window.location.href= "./tabla-activos" ;
               //} //else {
                 //window.location.reload();
-             // }*/
-             if(this.idemp == 0){
-              this.router.navigate(['./tabla-activos']);
-              window.location.href= "./tabla-activos" ;
-             }else{
-              this.router.navigate(['./activos-asignados']);
-              //window.location.href= "./activos-asignados" ;
-             }
+            // }
+           
             });    
   }
   
