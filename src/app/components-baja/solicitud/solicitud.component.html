@@ -42,7 +42,7 @@
                   <td>{{activos.nombredescargo}}</td>
                   <td>{{activos.observaciones}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(activos.idsolicitud)"><i class="glyphicon glyphicon-download-alt"></i></button>
+                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(activos.idsolicitud)"><i class="glyphicon glyphicon-import"></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -66,7 +66,7 @@
         <form role="form" [formGroup]="solicitudes" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
             <div class="form-group col-md-4">
-              <label><strong>Fecha solicitud:</strong></label> {{ fecha }}
+              <label><strong>Fecha solicitud:</strong></label> {{ fecha2 }}
             </div>
             <div class="form-group col-md-4">
               <label ><strong>Folio:</strong></label> {{ folio}}
@@ -92,23 +92,27 @@
               <label ></label> 
             </div>
 
-            <div class="form-group">
+            <div class="form-group col-md-6">
               <label for="exampleInputEmail1">*Acuerdo:</label>
-              <input size=45  type="text" class="form-control" formControlName="acuerdo" maxlength="31"  placeholder="Ingrese número de acuerdo"  autocomplete="off">
+              <input size=35  type="text" class="form-control" formControlName="acuerdo" maxlength="31"  placeholder="Ingrese número de acuerdo"  autocomplete="off">
             </div> 
-            <br><br>
+            <div class="form-group col-md-6">
+              <label for="exampleInputEmail1">Fecha baja:</label>
+              <input size=35  type="date" class="form-control"  formControlName="fecha2" readonly  autocomplete="off" maxlength="51">
+            </div>  <!---->
+            <br><br><br><br><br>
             <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.maxlength">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
-              <strong>Error!</strong> Tamaño máximo permitido en el campo.
+              <strong>¡Error!</strong> Tamaño máximo permitido en el campo acuerdo.
             </div>
 
             <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
-              <strong>Advertencia!</strong> ya existe el "Acuerdo" ingresado, por favor intente con un nuevo.
+              <strong>¡Advertencia!</strong> ya existe el "Acuerdo" ingresado, por favor intente con un nuevo.
             </div>
 
             <div class="alert alert-warning fade in" *ngIf="!solicitudes.valid&&!solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
@@ -121,11 +125,10 @@
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
-              <strong>Exelente!</strong> Dato ingresado correctamente
+              <strong>¡Exelente!</strong> Dato ingresado correctamente
             </div>
 
-            <br>
-          <button type="button" [disabled]="!solicitudes.valid" (click)="aprobarSolicitud()"  class="btn btn-success"><i class="icon-save"></i> Aprobar</button>
+          <button type="button" [disabled]="!solicitudes.valid" (click)="aprobarSolicitud()"  class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Aprobar</button>
           <button type="button" [disabled]="!solicitudes.valid" (click)="negarSolicitud()"  class="btn btn-primary"><i class="glyphicon glyphicon-ban-circle"></i> Denegar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
         </form>

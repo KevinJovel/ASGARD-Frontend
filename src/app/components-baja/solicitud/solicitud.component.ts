@@ -3,11 +3,13 @@ import { BajaService } from './../../services/baja.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.component.html',
-  styleUrls: ['./solicitud.component.css']
+  styleUrls: ['./solicitud.component.css'],
+  providers: [DatePipe]
 })
 export class SolicitudComponent implements OnInit {
 
@@ -19,16 +21,17 @@ export class SolicitudComponent implements OnInit {
   solicitudes: FormGroup;
   bienesS: any;
 
-  fecha:string; marca:string; area:string;  responsable:string; 
+  fecha2:string; marca:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService) 
+  constructor(private router: Router, private activateRoute: ActivatedRoute, 
+    private bajaService:BajaService , private miDatePipe: DatePipe) //
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
        'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(30)],this.noRepetirAcuerdo.bind(this)),
-      
+       'fecha2': new FormControl("")
     });
   }
 
@@ -41,21 +44,20 @@ export class SolicitudComponent implements OnInit {
 
   verSolicitud(id) {
     this.display = 'block';
-    this.titulo = "Autorización de Solicitud para dar de baja";
+    this.titulo = "Autorización de solicitud para dar de baja";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
+    var fecha = new Date();
+    let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
+    this.solicitudes.controls["fecha2"].setValue(f);
     this.bajaService.verSolicitud(id).subscribe((data) => {
-      
-      //this.area = data.AreaDeNegocio;
-     // this.responsable = data.responsable;
-      this.fecha = data.fechacadena;
+ 
+      this.fecha2 = data.fechacadena;
       this.codigo = data.codigo;
       this.descripcion = data.descripcion;
       this.nombredescargo = data.nombredescargo;
-     // this.ubicacion = data.ubicacion;
       this.observaciones = data.observaciones;
       this.folio = data.folio;
-      this.solicitud = data.noSolicitud;
-     // this.acuerdo = data.acuerdo;  
+      this.solicitud = data.noSolicitud;  
      this.bienesS = data.idbien; //para obtener el id del bien
     // console.log("Idbien: "+this.bienesS); 
     });
@@ -79,10 +81,11 @@ export class SolicitudComponent implements OnInit {
     var id=this.idsolicitud;
     //var idsolicitud=this.idsolicitud;
     this.acuerdo = this.solicitudes.value.acuerdo;
-    //console.log("Este de Acuerdo: "+this.acuerdo);
+    this.fecha2 = this.solicitudes.value.fecha2;
+    //console.log("Este de Acuerdo: "+this.fecha2);
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
-      text: "No podras revertir esta acción!",
+      text: "No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -105,22 +108,22 @@ export class SolicitudComponent implements OnInit {
          }      
    });   
    this.bienesS=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoAceptado(this.bienesS, this.acuerdo).subscribe(rest=>{ });
-      // console.log("Id Solicitud: "+ this.bienesS);
+       this.bajaService.cambiarEstadoAceptado(this.bienesS, this.acuerdo, this.fecha2).subscribe(rest=>{ });
+       console.log("fecha: "+ this.fecha2);
   }// del result
   })//de la alerta
 
   }//fin aprobar solicitud
 
-
 //negar la solicitud
 negarSolicitud() {
   var id=this.idsolicitud;
   this.acuerdo = this.solicitudes.value.acuerdo;
+  this.fecha2 = this.solicitudes.value.fecha2;
     //console.log("Este de Acuerdo: "+this.acuerdo);
     Swal.fire({
       title: '¿Estas seguro de negar esta solicitud?',
-      text: "No podras revertir esta acción!",
+      text: "No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -143,7 +146,7 @@ negarSolicitud() {
          }      
    });   
    this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoRechazado(this.bienesS ,this.acuerdo).subscribe(rest=>{ });
+       this.bajaService.cambiarEstadoRechazado(this.bienesS ,this.acuerdo, this.fecha2).subscribe(rest=>{ });
   
   }// del result
   })//de la alerta

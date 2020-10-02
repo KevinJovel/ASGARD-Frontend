@@ -70,7 +70,7 @@
                   <td>{{acti.clasificacion}}</td>
                   <td class="center hidden-phone">
                     <button title="Enviar" class="btn btn-primary btn-xs" (click)="ver(acti.idBien)">
-                      <i class="glyphicon glyphicon-open"></i></button> 
+                      <i class="glyphicon glyphicon-eye-open"></i></button> 
                 </tr> 
               </tbody>
             </table>
@@ -85,7 +85,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-              <h4 class="modal-title">Datos completos del activo</h4>
+              <h4 class="modal-title">Informe de baja</h4>
               <h4 class="modal-title"></h4>
             </div>
             <div class="modal-body" >
@@ -93,14 +93,14 @@
 
                <div class="col-lg-6">
                 <p>
-                 
-                  <span class="text-bold"><strong>Formulario:</strong> </span> {{ noformu}} <br/><br/>
+                  <span class="text-bold"><strong>Fecha de ingreso:</strong></span>  {{ fecha }}<br/><br/>
+                  <span class="text-bold"><strong>Acuerdo:</strong> </span> {{ acuerdo}} <br/><br/>
+                  <label><strong>Código:</strong></label> {{ codigo}}<br/><br/>
+                  <label><strong>Motivo:</strong></label> {{ motivo}}<br/><br/>
+                  <label><strong>Marca:</strong></label> {{ marca}}<br/><br/>
                   <label><strong>Clasificación:</strong></label> {{ clasificacion}}<br/><br/>
-                  <label><strong>Proveedor:</strong></label> {{ proveedor}}<br/><br/>
-                  <label><strong>Adquisición:</strong></label> {{ tipoadqui}} <br/><br/>
-                  <label ><strong>Valor adquisición:</strong></label> ${{ valor}}<br/><br/>
                   
-                  <label  ><strong>Estado:</strong></label> {{ estado}}<br/><br/>
+                  
              
                 </p>
              
@@ -109,13 +109,16 @@
                <div class="col-lg-6">
                   
                 <p>
-               
-                  <span class="text-bold"><strong>Fecha de ingreso:</strong></span>  {{ fecha }}<br/><br/>
+                  
+                  
+                  <span class="text-bold"><strong>Fecha de baja:</strong></span>  {{ fecha2 }}<br/><br/>
+                  <label><strong>Folio:</strong></label> {{ folio}}<br/><br/>
                   <span class="text-bold"><strong>Descripción:</strong></span> {{descripcion }}<br/><br/>
-                  <label ><strong>Marca:</strong></label> {{ marca }}<br/><br/>
+                  <label><strong>Responsable:</strong></label> {{ responsable}}<br/><br/>
                   <span class="text-bold"><strong>Color:</strong></span> {{ color }}<br/><br/>
-                  <label><strong>Donante:</strong></label> {{ donante}} <br/><br/>
-                  <label ><strong>Modelo:</strong></label> {{ modelo}}<br/><br/>
+                  <label ><strong>Valor adquisición:</strong></label> ${{ valor}}<br/><br/>
+                  
+                  
                   
                 </p>
              

@@ -23,11 +23,9 @@ export class GestionDescargoComponent implements OnInit {
   solicitud2: FormGroup;
 
   //para ver los datos
-  fecha: string; marca: string; area: string; proveedor: string; donante: string; clasificacion: string;
-  destino: string; responsable: string; codigo: string; descripcion: string; modelo: string;
-  tipoadqui: string; color: string; numserie: string; vidautil: string; estado: string; valor: string;
-  plazo: string; prima: string; cuota:string; interes: string; valorresidual: string; foto: string;
-  noformu: string ;
+  fecha: string; fecha2: string; marca: string; area: string; proveedor: string; donante: string; clasificacion: string;
+ responsable: string; codigo: string; descripcion: string;  folio: string; entidad: string;
+  tipoadqui: string; color: string;  estado: string; valor: string; acuerdo: string; motivo: string;
 
   constructor(private bajaService:BajaService,private catalogosServices: CatalogosService,private controlService: ControlService) 
   { 
@@ -58,27 +56,25 @@ export class GestionDescargoComponent implements OnInit {
   
   ver(id: any) {
     this.display = 'block';
-    this.controlService.VerDatosActivosNoAsig(id).subscribe((data) => {
-     
-      this.marca = data.marca;
-      this.fecha = data.fecha;
+    this.bajaService.verDescargos(id).subscribe((data) => {
+        
+      this.codigo = data.codigo;
+      this.folio = data.folio;
+      this.fecha = data.fechacadena;
+      this.fecha2 = data.fechacadena2;
+      this.entidad = data.entidadbeneficiaria;
       this.proveedor = data.proveedor;
       this.clasificacion = data.clasificacion;
-      this.destino = data.destino;
+      this.acuerdo = data.acuerdo;
       this.donante = data.donante;
-      this.color = data.Color;
-      this.descripcion = data.Desripcion;
+      this.color = data.color;
+      this.marca = data.marca;
+      this.descripcion = data.descripcion;
       this.estado = data.estadoingreso;
-      this.plazo = data.plazopago;
       this.tipoadqui = data.tipoadquicicion;
-      this.valor = data.valoradquicicion;
-      this.valorresidual = data.valorresidual;
-      this.cuota = data.cuotaasignada;
-      this.prima = data.prima;
-      this.interes = data.intereses;
-      this.modelo = data.Modelo;
-      this.foto =data.foto;
-      this.noformu = data.noformulario;
+      this.valor = data.valor;
+      this.motivo = data.nombredescargo;
+      this.responsable = data.responsable;
       //console.log(id);
     });
   }

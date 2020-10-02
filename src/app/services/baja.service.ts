@@ -51,8 +51,8 @@ export class BajaService {
     public aceptarSolicitud(idsolicitud) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/aceptarSolicitudBaja/"+idsolicitud).map(res => res.json());
     }
-    public cambiarEstadoAceptado(idbien, acuerdo) {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoAceptado/"+idbien + "/" + acuerdo).map(res => res.json());
+    public cambiarEstadoAceptado(idbien, acuerdo, fecha2) {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoAceptado/"+idbien + "/" + acuerdo + "/" + fecha2 ).map(res => res.json());
     }
 
     public guardarAcuerdo(acuerdo) {
@@ -61,11 +61,14 @@ export class BajaService {
     public denegarSolicitud(idsolicitud) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/denegarSolicitudBaja/"+idsolicitud).map(res => res.json());
     }
-    public cambiarEstadoRechazado(idbien, acuerdo) {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoRechazado/"+idbien+ "/" + acuerdo).map(res => res.json());
+    public cambiarEstadoRechazado(idbien, acuerdo, fecha2) {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoRechazado/"+idbien+ "/" + acuerdo+ "/" + fecha2).map(res => res.json());
     }
     public verSolicitud(idSolicitud){
       return this.http.get(environment.urlService + "api/SolicitudBaja/verSolicitudBaja/"+idSolicitud).map(res=>res.json());
+    }
+    public verDescargos(idSolicitud){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/verDescargos/"+idSolicitud).map(res=>res.json());
     }
     public validarSolicitud(idsolicitud, id){
         return this.http.get(environment.urlService + "api/SolicitudBaja/validarSolicitud/"+ idsolicitud + "/" + id).map(res => res.json());
