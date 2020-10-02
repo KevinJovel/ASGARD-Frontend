@@ -53,17 +53,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mantenimientoService.getBienes().subscribe(data=>{
-      if(this.matriz.length>0){
-      for (let datos of this.matriz) {  
-      while (data.idBien!=datos[0]) {
-        this.bienes=data;
-      }
-    }
-  }else{
-    this.bienes=data;
-  }
-    });
+    this.mantenimientoService.getBienes().subscribe(data=>{this.bienes=data});
     this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
       this.solicitudes=data;
     });
@@ -73,7 +63,6 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     });
   }
   ValidarDatosArray(){
-    console.log("entra");
   if(this.matriz.length>0){
       this.yaHayDatos=true;
   }else{
@@ -81,11 +70,25 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
   
   }
-
-  
- 
-
+  validarDatosEnArray(){
+    this.mantenimientoService.getBienes().subscribe(data=>{
+      if(this.matriz.length>0){  
+      for (let datos of this.matriz) {  
+      if (data.idBien!=datos[0]) {
+        this.bienes=data;
+      }
+    }
+  }else{
+    this.bienes=data;
+  }
+  for (let datas of data) {  
+    console.log(datas.idBien);
+  }
+    });
+   
+  }
   open2() {
+    this.validarDatosEnArray();
     this.titulo = "Activos a enviar a mantenimiento";
     this.display2 = 'block';
   }
@@ -114,6 +117,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.datosArray.controls["descripcionbien"].value,this.datosArray.controls["razonesMantenimiento"].value,
     this.datosArray.controls["periodoMantenimiento"].value]);
     this.ValidarDatosArray();
+
     this.display = 'none';
     this.display2 = 'none';
     this.mantenimientoService.getBienes().subscribe(data=>{
