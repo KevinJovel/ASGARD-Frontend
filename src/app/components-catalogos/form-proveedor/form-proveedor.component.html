@@ -183,7 +183,7 @@
             <strong>¡Advertencia!</strong> ya existe el telefono de proveedor ingresado, por favor intente con un nuevo.
           </div>
          
-          <div class="alert alert-warning fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>

@@ -220,8 +220,9 @@ export class FormProveedorComponent implements OnInit {
 
       if (control.value != "" && control.value != null) { 
         
-          this.catalogoService.validarTelProveedor(this.proveedores.controls["telefono"].value,control.value)
+          this.catalogoService.validarTelProveedor(this.proveedores.controls["idProveedor"].value,control.value)
           .subscribe(data => {
+            
             if (data == 1) {
               resolve({ yaExisteTelProveedor: true });
             } else {
@@ -243,6 +244,9 @@ export class FormProveedorComponent implements OnInit {
           this.catalogoService.validarTelEncargado(this.proveedores.controls["idProveedor"].value,control.value)
           .subscribe(data => {
             if (data == 1) {
+              console.log("data: "+data);
+              console.log("id proveedor: "+this.proveedores.controls["idProveedor"].value);
+              console.log("control "+control.value);
               resolve({ yaExisteTelEncargado: true });
             } else {
               resolve(null);
