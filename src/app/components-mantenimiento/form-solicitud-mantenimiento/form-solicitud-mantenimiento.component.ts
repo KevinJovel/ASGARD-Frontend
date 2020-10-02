@@ -29,7 +29,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   p: number = 1;
   matriz:(string | number)[][]=new Array();
    fecha = Date.now();
-  
+   yaHayDatos:boolean=false;
   //submitButton: any;
    
 
@@ -72,7 +72,15 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       this.codigos =data;
     });
   }
+  ValidarDatosArray(){
+    console.log("entra");
+  if(this.matriz.length>0){
+      this.yaHayDatos=true;
+  }else{
+    this.yaHayDatos=false;
+  }
   
+  }
 
   
  
@@ -105,6 +113,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.matriz.push([this.datosArray.controls["idBien"].value,this.datosArray.controls["codigobien"].value, 
     this.datosArray.controls["descripcionbien"].value,this.datosArray.controls["razonesMantenimiento"].value,
     this.datosArray.controls["periodoMantenimiento"].value]);
+    this.ValidarDatosArray();
     this.display = 'none';
     this.display2 = 'none';
     this.mantenimientoService.getBienes().subscribe(data=>{
