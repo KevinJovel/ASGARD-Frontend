@@ -20,6 +20,7 @@ export class FormEmpleadoComponent implements OnInit {
   titulo: string;
   edit: number = 0;
   guardar: number=0;
+  tipocombo: string;
   constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
     this.empleado = new FormGroup({
       'idempleado': new FormControl("0"),
@@ -52,8 +53,20 @@ export class FormEmpleadoComponent implements OnInit {
       this.cargos = data;
     });*/
 
+    this.tipocombo='ConJEFE o sinJEFE:';
 
+    //Para hacer el combo dinamico
+    var idArea =this.empleado.controls['idareadenegocio'].value;
+    var idCargo=this.empleado.controls['idcargo'].value;
+    if(idCargo == 1) {
+    this.tipocombo='Con Jefe'
+    this.catalogosServices.listarCargoCombo(idArea).subscribe(data=>{this.cargos=data});
+    } else {
+      this.tipocombo='Sin Jefe'
+      this.catalogosServices.listarCargoCombosinJ(idArea).subscribe(data=>{this.cargos=data});
+    }
   }
+
   open() {
     //limpia cache
     this.titulo = "Formulario empleados";
@@ -132,12 +145,14 @@ export class FormEmpleadoComponent implements OnInit {
   }
 
   filtrarCargo(){
-    var id = this.empleado.controls["idcargo"].value();
-    var empleadojefe = this.empleado.controls["cargo"].setValue("Jefe");
-    if(id==true){
-    this.catalogosServices.listarCargoCombo(id).subscribe(data=>{this.cargos=data});
+    var idArea =this.empleado.controls['idareadenegocio'].value;
+    var idCargo=this.empleado.controls['idcargo'].value;
+    if(idCargo == 1){
+      this.tipocombo='Con Feje'
+    this.catalogosServices.listarCargoCombo(idArea).subscribe(data=>{this.cargos=data});
   }else{
-    this.catalogosServices.listarCargoCombosinJ(id).subscribe(data=>{this.cargos=data});
+    this.tipocombo='Sin Feje'
+    this.catalogosServices.listarCargoCombosinJ(idArea).subscribe(data=>{this.cargos=data});
   }
     
   }
