@@ -34,9 +34,7 @@ public setSolicitud(datos) {
 public listarBienesSolicitados(id){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listaBienesSolicitados/"+id ).map(res=>res.json());
  } 
- public listarBienesMantenimiento(){
-  return this.http.get(environment.urlService + "api/SolicitudMantenimiento/listarBienesMantenimiento" ).map(res=>res.json());
- } 
+
  
  public listarDatosSolicitud(id){
   return this.http.get(environment.urlService + "api/SolicitudMantenimiento/DatosSolicitud/"+id ).map(res=>res.json());
@@ -54,6 +52,7 @@ public denegarSolicitud(idsolicitud) {
 public cambiarEstadoDenegado(idsolicitud) {
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/cambiarEstadoDenegado/"+idsolicitud).map(res => res.json());
 }
+
 
 
 //metodo para guardar todos los informes de mantenimiento.
