@@ -335,11 +335,9 @@ else if(this.nuevobien.controls['bandera'].value == '1'){
         this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
           //console.log(this.nuevobien.value);
           this.modificar(this.nuevobien.value.idbien);
-          this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
-          
+          this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });   
         });
-      
-          this.router.navigate(['./tabla-activos']);
+          //this.router.navigate(['./tabla-activos']);
         });
             Swal.fire({
               position: 'center',
@@ -349,12 +347,11 @@ else if(this.nuevobien.controls['bandera'].value == '1'){
               timer: 3000,
             }).then((result) => {
               //if (result.value) {
-                //this.router.navigate(['./tabla-activos']);
-                window.location.href= "./tabla-activos" ;
+                this.router.navigate(['tabla-activos']);  
+                //window.location.replace('./tabla-activos');  
               //} //else {
                 //window.location.reload();
             // }
-           
             });    
   }
   
