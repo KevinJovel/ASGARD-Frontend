@@ -3,11 +3,12 @@
   <h1>Informes de mantenimiento</h1>
 
   <div class="row">
- 
+
     <div class="col-lg-9">
     </div>
     <div class="col-md-3">
-      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre
+        (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
   </div>
 
@@ -15,27 +16,28 @@
     <div class="col-lg-12">
       <section class="panel panel-default">
 
-     
+
         <div class="panel-body">
           <div class="adv-table">
             <div class="adv-table">
               <table class="display table table-bordered table-striped">
                 <thead>
                   <tr>
-				   
-      <th scope="row">N°</th>  
-      <th scope="row">Fecha</th>
-      <th scope="row">Descripcion del bien</th>
-		  <th scope="row">Técino</th>
-		  <th scope="row">Costo de mano de obra</th>
-      <th scope="row">Costo de materiales</th>
-      <th scope="row">Costo total</th>
-      <th scope="row">Descripción de informe</th>
-      <th class="hidden-phone">Revalorizar</th>
+
+                    <th scope="row">N°</th>
+                    <th scope="row">Fecha</th>
+                    <th scope="row">Descripcion del bien</th>
+                    <th scope="row">Técino</th>
+                    <th scope="row">Costo de mano de obra</th>
+                    <th scope="row">Costo de materiales</th>
+                    <th scope="row">Costo total</th>
+                    <th scope="row">Descripción de informe</th>
+                    <th class="hidden-phone">Revalorizar</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
+               
                     <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                     <td>{{informe.fechacadena}}</td>
                     <td>{{informe.bienes}}</td>
@@ -44,18 +46,21 @@
                     <td>{{informe.costomo}}</td>
                     <td>{{informe.costototal}}</td>
                     <td>{{informe.descripcion}}</td>
-                   
-                   
-              
-			
-                   
+
+
+
+
+
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(informe.idBien,informe.idinformematenimiento,informe.vidautil)" ><i class="icon-edit"></i></button>
-                     </td>
+                      <button class="btn btn-primary btn-xs" id="clear"
+                        (click)="open(informe.idBien,informe.idinformematenimiento,informe.vidautil)"><i
+                          class="icon-edit"></i></button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" class="my-cuadro"></pagination-controls>
+              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"
+                class="my-cuadro"></pagination-controls>
             </div>
           </div>
         </div>
@@ -63,8 +68,9 @@
     </div>
   </div>
 </section>
-    
-<div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
+  [ngStyle]="{'display':display}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -72,68 +78,73 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-inline" id="default" [formGroup]="revalorizacion" (ngSubmit)="guardarDatos()">   
-      
+        <form class="form-inline" id="default" [formGroup]="revalorizacion" (ngSubmit)="guardarDatos()">
+
           <input type="hidden" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3">
           <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3">
-         
-            <div class="form-group col-md-6">
-              <label for="formGroupExampleInput2">* Valor de Revalorización:</label>
-              <input type="text" class="form-control" formControlName="valorRevalorizacion"  id="inputEmail4" placeholder="Ingrese valor de revalorización" autocomplete="off"  maxlength="7" >
-            </div>
-            <div class="form-group col-md-6">
-              <label for="formGroupExampleInput2">* Fecha:</label>
-              <input type="date" class="form-control" formControlName="fecha" [ngModel]='fecha | date:"yyyy-MM-dd" ' (ngModelChange)='fecha=$event' id="inputEmail4" autocomplete="off" disabled="off">
-            </div>
 
-            <!--Aqui va la recuperación de vida util-->
-            <div class="form-group col-md-6">
-              <label for="formGroupExampleInput2"> Vida útil:</label>
-              <input type="text" class="form-control" formControlName="vidaUtil"  id="inputEmail4" autocomplete="off"   >
-            </div>
-            <br><br> <br><br> <br>
-          
-       
-         
-        <div>
-          <br><br> <br><br> <br><br>
-        </div>
-        <div class="alert alert-warning fade in" *ngIf="!revalorizacion.valid">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
-        </div>
-                    <div class="alert alert-success fade in" *ngIf="revalorizacion.valid">
-                      <button data-dismiss="alert" class="close close-sm" type="button">
-                        <i class="icon-remove"></i>
-                      </button>
-                      <strong>¡Exelente!</strong> Datos ingresados correctamente.
-                    </div>
-       <!-- Validacion de pattern no acepta caracteres especiales -->
-       <div class="alert alert-block alert-danger fade in" *ngIf="revalorizacion.controls['valorRevalorizacion'].errors?.pattern">
-        <button data-dismiss="alert" class="close close-sm" type="button">
-          <i class="icon-remove"></i>
-        </button>
-        <strong>¡Error!</strong> El campo valor de revalorización solo se acepta números.
-      </div>
-       <!-- Validacion de pattern no acepta caracteres especiales -->
-       <div class="alert alert-block alert-danger fade in" *ngIf="revalorizacion.controls['vidaUtil'].errors?.pattern">
-        <button data-dismiss="alert" class="close close-sm" type="button">
-          <i class="icon-remove"></i>
-        </button>
-        <strong>¡Error!</strong> El campo vida útil solo se acepta números enteros.
-      </div>
-   
+          <div class="form-group col-md-6">
+            <label for="formGroupExampleInput2">* Valor de Revalorización:</label>
+            <input type="text" class="form-control" formControlName="valorRevalorizacion" id="inputEmail4"
+              placeholder="Ingrese valor de revalorización" autocomplete="off" maxlength="7">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="formGroupExampleInput2">* Fecha:</label>
+            <input type="date" class="form-control" formControlName="fecha" [ngModel]='fecha | date:"yyyy-MM-dd" '
+              (ngModelChange)='fecha=$event' id="inputEmail4" autocomplete="off" disabled="off">
+          </div>
+
+          <!--Aqui va la recuperación de vida util-->
+          <div class="form-group col-md-6">
+            <label for="formGroupExampleInput2"> Vida útil:</label>
+            <input type="text" class="form-control" formControlName="vidaUtil" id="inputEmail4" autocomplete="off">
+          </div>
+          <br><br> <br><br> <br>
+
+
+
           <div>
-          <button type="submit"  class="btn btn-primary"><i class="icon-save"></i>Revalorizar</button>
-          <button type="submit"  (click)="noRevalorizar()"  class="btn btn-danger"><i class="icon-remove"></i>No revalorizar</button>
-          <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
+            <br><br> <br><br> <br><br>
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="!revalorizacion.valid">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+          </div>
+          <div class="alert alert-success fade in" *ngIf="revalorizacion.valid">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+          </div>
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="revalorizacion.controls['valorRevalorizacion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo valor de revalorización solo se acepta números.
+          </div>
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="revalorizacion.controls['vidaUtil'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo vida útil solo se acepta números enteros.
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary"><i class="icon-save"></i>Revalorizar</button>
+            <button type="submit" (click)="noRevalorizar()" class="btn btn-danger"><i class="icon-remove"></i>No
+              revalorizar</button>
+            <button type="button" (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
           </div>
         </form>
 
-      
+
       </div>
     </div>
-   </div>
- </div>
+  </div>
+</div>
