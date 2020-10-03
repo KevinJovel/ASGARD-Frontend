@@ -25,11 +25,11 @@ export class FormProveedorComponent implements OnInit {
       'idProveedor': new FormControl("0"),
       'bandera': new FormControl("0"),
       'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")],this.noRepetirProveedor.bind(this)),
-      'telefono': new FormControl("", [Validators.required, Validators.maxLength(10)],this.noRepetirTelProveedor.bind(this)),
+      'telefono': new FormControl("", [Validators.required, Validators.maxLength(9), this.validarIguales.bind(this)],this.noRepetirTelProveedor.bind(this)),
       'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #.°]+$")]),
       'rubro': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z  ñÑáÁéÉíÍóÓúÚ]+$")]),
       'encargado': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")],this.noRepetirEncargado.bind(this)),
-      'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(10)],this.noRepetirTelEncargado.bind(this))
+      'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(9), this.validarContraIguales.bind(this)],this.noRepetirTelEncargado.bind(this))
     });
 
   }
@@ -244,9 +244,6 @@ export class FormProveedorComponent implements OnInit {
           this.catalogoService.validarTelEncargado(this.proveedores.controls["idProveedor"].value,control.value)
           .subscribe(data => {
             if (data == 1) {
-              console.log("data: "+data);
-              console.log("id proveedor: "+this.proveedores.controls["idProveedor"].value);
-              console.log("control "+control.value);
               resolve({ yaExisteTelEncargado: true });
             } else {
               resolve(null);
@@ -258,6 +255,41 @@ export class FormProveedorComponent implements OnInit {
     return promesa;
   }
   
+
+  validarContraIguales(control: FormControl) {
+    //con value sacamos el valor del control
+    if (control.value != "" && control.value != null) {
+     var aux: String="";
+      aux=control.value;
+      if (aux.length==9) {
+        //console.log(control.value);
+        if((this.proveedores.controls["telefono"].value != aux)){
+        return null;
+        }else {
+          //todo esta bien
+          return { noIguales: true };
+        }
+      } 
+    }
+  }
+
+  validarIguales(control: FormControl) {
+    //con value sacamos el valor del control
+    if (control.value != "" && control.value != null) {
+     var aux: String="";
+      aux=control.value;
+      if (aux.length==9) {
+        console.log(control.value);
+        //si es diferente mandamos error devolviendo un objeto
+        if((this.proveedores.controls["telefonoencargado"].value != aux)){
+        return null;
+        }else {
+          //todo esta bien
+          return { Iguales: true };
+        }
+      } 
+    }
+  }
 //validar formularios que permita solo letras
   //public inputValidator(event: any) {
         ////console.log(event.target.value);

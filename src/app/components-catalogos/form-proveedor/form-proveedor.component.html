@@ -86,7 +86,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="exampleInputEmail1">*Teléfono:</label>
-            <input size=35 type="text" mask="0000-0000" class="form-control" formControlName="telefono" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
+            <input size=35 type="text" mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
           </div>
        
           <div class="form-group col-md-6">
@@ -104,7 +104,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="exampleInputEmail1">*Teléfono encargado:</label>
-            <input type="text" mask="0000-0000" class="form-control" formControlName="telefonoencargado" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
+            <input type="text" mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefonoencargado" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
           </div>
  
       <br><br><br><br><br><br><br><br><br><br><br><br>
@@ -182,6 +182,12 @@
             </button>
             <strong>¡Advertencia!</strong> ya existe el telefono de proveedor ingresado, por favor intente con un nuevo.
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefono'].errors?.Iguales">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El teléfono del proveedor tiene que ser diferente.
+          </div><!---->
          
           <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -189,6 +195,12 @@
             </button>
             <strong>¡Advertencia!</strong> ya existe el telefono de encargado ingresado, por favor intente con un nuevo.
           </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.noIguales">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El teléfono del encargado tiene que ser diferente.
+          </div><!---->
   
              <div class="alert alert-warning fade in" *ngIf="!proveedores.valid&&!proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
             <button data-dismiss="alert" class="close close-sm" type="button">
