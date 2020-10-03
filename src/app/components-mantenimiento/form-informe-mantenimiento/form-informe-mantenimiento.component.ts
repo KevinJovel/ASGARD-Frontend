@@ -26,7 +26,8 @@ export class FormInformeMantenimientoComponent implements OnInit {
   idmante: any;
   fecha = Date.now();
 
- 
+  c: number= 0;
+ variableNumero: number = 0;
  
   constructor(private mantenimientoService: MantenimientoService) { 
 
@@ -51,15 +52,21 @@ export class FormInformeMantenimientoComponent implements OnInit {
   
   }
 
-          
+ 
+sumar() {
+this.variableNumero++;
+this.variableNumero= 1 +  this.revalorizacion.controls["vidaUtil"].value;
+//esto para ver por mensaje en que valor esta la variable:
+//alert(variableNumero);
+}        
 
  
-  open(idBien,idinformematenimiento,vidaUtil){
+  open(idBien,idinformematenimiento,vidtUtil){
    // alert(id);
     this.titulo = "Revalorización";
     this.revalorizacion.controls["idBien"].setValue(idBien);
     this.revalorizacion.controls["idinformematenimiento"].setValue(idinformematenimiento);
-    this.revalorizacion.controls["vidaUtil"].setValue(vidaUtil);
+    this.revalorizacion.controls["vidaUtil"].setValue(vidtUtil) ;
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
    // this.revalorizacion.controls["fecha"].setValue("");
     

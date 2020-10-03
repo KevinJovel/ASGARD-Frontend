@@ -169,7 +169,7 @@ import { FormCoopeComponent } from './components-configuracion/form-coope/form-c
       {path: 'activos-asignados', component: ActivosAsignadosComponent},
       {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
       {path: 'form-conficooperativa', component: FormCoopeComponent},
-
+      { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
       
     ]),
     NoopAnimationsModule

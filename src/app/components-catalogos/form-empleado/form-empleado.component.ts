@@ -132,9 +132,9 @@ export class FormEmpleadoComponent implements OnInit {
     var idArea =this.empleado.controls['idareadenegocio'].value;
     this.catalogosServices.ValidarAreaJefe(idArea).subscribe(data=>{
       if(data==1){
-        this.catalogosServices.listarCargoCombo().subscribe(data=>{this.cargos=data});
-      }else{
         this.catalogosServices.listarCargoCombosinJ().subscribe(data=>{this.cargos=data});
+      }else{
+        this.catalogosServices.listarCargoCombo().subscribe(data=>{this.cargos=data});
       }
     });
     
