@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { HashLocationStrategy } from '@angular/common';
-import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
-import { ViewChild, ElementRef } from '@angular/core';
-
-
-
 
 @Component({
   selector: 'app-form-solicitud-mantenimiento',
@@ -28,19 +21,16 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   display2 = 'none';
   p: number = 1;
   matriz:(string | number)[][]=new Array();
-   fecha = Date.now();
-   yaHayDatos:boolean=false;
-  //submitButton: any;
-   
-
-  constructor( private mantenimientoService: MantenimientoService) { 
+  //Revisar esta fecha da problemas en la consola
+  fecha = Date.now();
+  yaHayDatos:boolean=false;
   
+  constructor( private mantenimientoService: MantenimientoService) { 
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
        'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
-       
     }); 
     this.datosArray=new FormGroup({
       'idMantenimiento': new FormControl("0"),
@@ -62,37 +52,34 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       this.codigos =data;
     });
   }
+  CambiarEstado(){
+    this.mantenimientoService.cambiarEstadoSolicitud(this.datosArray.controls["idBien"].value).subscribe(data=>{
+      if(data==1){
+        this.mantenimientoService.getBienes().subscribe(data=>{this.bienes=data});
+      }
+    });
+  }
+  // Metodo para validar si ya hay por lo menos un dato en la matriz y asi proceder a guardar
   ValidarDatosArray(){
   if(this.matriz.length>0){
       this.yaHayDatos=true;
   }else{
     this.yaHayDatos=false;
   }
-  
   }
+  //Metodo auxiliar para aegurarse que cargue los datos nuevos
   validarDatosEnArray(){
     this.mantenimientoService.getBienes().subscribe(data=>{
-      if(this.matriz.length>0){  
-      for (let datos of this.matriz) {  
-      if (data.idBien!=datos[0]) {
         this.bienes=data;
-      }
-    }
-  }else{
-    this.bienes=data;
-  }
-  for (let datas of data) {  
-    console.log(datas.idBien);
-  }
     });
-   
   }
+  //abre el modal con los datos
   open2() {
     this.validarDatosEnArray();
     this.titulo = "Activos a enviar a mantenimiento";
     this.display2 = 'block';
   }
-
+//Metodo para los datos del modalito
   open(id,codigo,descripcion) {
     this.display2 = 'none';
     this.display = 'block';
@@ -111,13 +98,12 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   close2() {
     this.display2 = 'none';
   }
-
+//Manda los adtos al array y le cambia en estado en la base al activo
   arrayMostrar(){
     this.matriz.push([this.datosArray.controls["idBien"].value,this.datosArray.controls["codigobien"].value, 
     this.datosArray.controls["descripcionbien"].value,this.datosArray.controls["razonesMantenimiento"].value,
     this.datosArray.controls["periodoMantenimiento"].value]);
-    this.ValidarDatosArray();
-
+    this.CambiarEstado();
     this.display = 'none';
     this.display2 = 'none';
     this.mantenimientoService.getBienes().subscribe(data=>{

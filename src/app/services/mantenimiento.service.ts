@@ -52,6 +52,12 @@ public denegarSolicitud(idsolicitud) {
 public cambiarEstadoDenegado(idsolicitud) {
   return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/cambiarEstadoDenegado/"+idsolicitud).map(res => res.json());
 }
+public cambiarEstadoSolicitud(idBien) {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/CambiarEstadoSolicitud/"+idBien).map(res => res.json());
+}
+public cambiarEstadoActivosTemporal() {
+  return this.http.get(environment.urlService  + "api/SolicitudMantenimiento/CambiarEstadoActivosSolicitud").map(res => res.json());
+}
 
 
 

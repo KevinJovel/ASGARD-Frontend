@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CargarScriptsService} from './../services/cargar-scripts.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MantenimientoService } from './../services/mantenimiento.service';
+import {  FormGroup  } from '@angular/forms';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,7 +12,7 @@ export class NavMenuComponent {
   displayCierre='none';
   datos:FormGroup;
   aceptacion:boolean=false;
-  constructor( private _cargarScript:CargarScriptsService) {
+  constructor( private _cargarScript:CargarScriptsService,private mantenimientoService: MantenimientoService) {
     this._cargarScript.cargar(["/jquery.nicescroll"]);
 
    }
@@ -24,5 +25,9 @@ export class NavMenuComponent {
   toggle() {
     this.isExpanded = !this.isExpanded;
   }    
+  limiarSolicitud(){
+   this.mantenimientoService.cambiarEstadoActivosTemporal().subscribe(res=>{});
+  
+  }
   }
 

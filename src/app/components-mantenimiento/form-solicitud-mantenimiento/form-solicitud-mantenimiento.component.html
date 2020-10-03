@@ -6,9 +6,7 @@
         <div class="col-lg-3">
           <h2>Nueva solicitud</h2>
         </div>
-
         <div class="col-lg-6">
-
           <!-- Alertas de validaciones -->
           <div class="alert alert-warning fade in" *ngIf="!solicitud.valid">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -51,47 +49,35 @@
             </button>
             <strong>Advertencia!</strong> ya existe el folio ingresado, por favor intente con un nuevo.
           </div>
-
         </div>
-
-
-
       </div>
-
-
     </header>
-
-    <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
+    <input type="hidden" class="form-control" formControlName="idsolicitud" autocomplete="off">
     <div class="form-row">
-
       <div class="form-group col-md-4">
-        <label for="inputPassword4">* Fecha:</label>
+        <label>* Fecha:</label>
         <input type="date" formControlName="fechasolicitud" [ngModel]='fecha | date:"yyyy-MM-dd" '
           (ngModelChange)='fecha=$event' class="form-control" disabled="off">
       </div>
 
       <div class="form-group col-md-4">
-        <label for="formGroupExampleInput2">* Folio:</label>
+        <label>* Folio:</label>
         <input type="text" class="form-control" formControlName="folio" maxlength="11" (keyup)=" ValidarDatosArray()"
           placeholder="Ingrese folio" autocomplete="off">
       </div>
 
       <div class="form-group col-md-4">
-        <label for="exampleFormControlTextarea2">* Descripción:</label>
+        <label>* Descripción:</label>
         <textarea class="form-control rounded-0" formControlName="descripcion" maxlength="251"
           (keyup)=" ValidarDatosArray()" rows="1" placeholder="Ingrese descripción" autocomplete="off"></textarea>
       </div>
     </div>
-
-
     <br><br><br>
     <div class="col-lg-12">
       <button type="button" class="btn btn-success" (click)="open2()" data-toggle="modal" data-target="#myModal"><i
           class="icon-plus-sign-alt"></i> Agregar activos a solicitud</button>
     </div>
-
     <br>
-
     <div class="row">
       <div class="col-lg-12">
         <section class="panel panel-default">
@@ -115,7 +101,6 @@
 
                   <tr *ngFor="let datos of matriz | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                     <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-
                     <td>{{datos[1]}}</td>
                     <td>{{datos[2]}}</td>
                     <td>{{datos[3]}}</td>
@@ -127,7 +112,6 @@
                   </tr>
                 </tbody>
               </table>
-              <!--   <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>-->
             </div>
           </div>
 
@@ -152,11 +136,8 @@
           </div>
         </div>
       </div>
-
     </div>
-
   </form>
-
   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
     [ngStyle]="{'display':display2}">
     <div class="modal-dialog modal-lg" style="width:1000px;">
@@ -166,13 +147,10 @@
           <h4 class="modal-title">{{titulo}}</h4>
         </div>
         <div class="modal-body">
-
           <!--INICIO DE TABLA-->
           <div class="row">
             <div class="col-lg-12">
               <section class="panel panel-default">
-
-
                 <div class="col-lg-9">
                 </div>
                 <div class="col-md-3">
@@ -180,11 +158,9 @@
                     (keyup)="buscar(nombre)" placeholder="Buscar">
                 </div>
                 <br><br> <br>
-
                 <header class="panel-heading">
                   <h5>Activos a enviar a mantenimiento</h5>
                 </header>
-
                 <div class="panel-body">
                   <div class="adv-table">
                     <table class="display table table-bordered table-striped">
@@ -192,17 +168,14 @@
                       <thead>
                         <tr>
                           <th scope="row">N°</th>
-
                           <th scope="row">Código del activo</th>
                           <th scope="row">Descripción del activo</th>
                           <th scope="row" class="hidden-phone">Enviar</th>
-
                         </tr>
                       </thead>
                       <tbody>
-
-                        <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-                          *ngFor="let datos of this.matriz"
+                        <tr
+                          *ngFor="let bien of bienes;let datos of this.matriz | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                           <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                           <td>{{bien.codigobien}}</td>
                           <td>{{bien.descripcionbien}}</td>
@@ -245,12 +218,9 @@
         <div class="modal-body">
           <form class="form-inline" id="default" [formGroup]="datosArray" (ngSubmit)="arrayMostrar()">
             <input type="hidden" class="form-control" formControlName="idBien" autocomplete="off">
-
-
             <input type="hidden" class="form-control" formControlName="codigobien" autocomplete="off">
             <input type="hidden" class="form-control" formControlName="descripcionbien" autocomplete="off">
             <br>
-
             <div class="form-group">
               <label for="exampleInputEmail1">* Razones del mantenimiento:</label>
               <input type="text" class="form-control" formControlName="razonesMantenimiento"
