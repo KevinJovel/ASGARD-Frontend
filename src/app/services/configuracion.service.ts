@@ -31,4 +31,9 @@ export class ConfiguracionService {
     public validarCooperativa(idcooperativa, nombre) {
         return this.http.get(environment.urlService + "api/Cooperativa/validarCooperativa/" + idcooperativa + "/" + nombre).map(res=>res.json());
       }
+
+    //   Metodo generico para mostrar datos generales en un modal
+    public recuperarDatosGenrales(id) {
+        return this.http.get(environment.urlService  + "api/Configuracion/DatosGenerales/" + id).map(res => res.json());
+    }
 }

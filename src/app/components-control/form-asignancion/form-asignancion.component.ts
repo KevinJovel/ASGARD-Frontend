@@ -23,6 +23,7 @@ export class FormAsignancionComponent implements OnInit {
   display2 = 'none';
   titulo: string;
   titulo2: string;
+  vidaUtilCorrecta:boolean=false;
   //datos de informe
   @Input() noSoli: string;
   constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, private mantenimientoService: MantenimientoService) {
@@ -50,9 +51,24 @@ export class FormAsignancionComponent implements OnInit {
     this.activo.controls["codigo"].setValue("");
     this.activo.controls["idEmpleado"].setValue("0");
     this.activo.controls["noSerie"].setValue("");
+    // LLamar al metodo que me devuelva la vida util
+    // this.controlService.getVidaUtil(id).subscribe(data=>{
+    //   this.activo.controls["vidaUtil"].setValue(data.vidaUtil);
+    // });
     this.activo.controls["vidaUtil"].setValue("");
     this.display = 'block';
 
+  }
+  validarVidaUtil(vida){
+    var id=this.activo.controls["idBien"].value;
+    this.controlService.getVidaUtil(id).subscribe(data=>{
+      if(vida.value>0 &&vida.value<data.vidaUtil){
+        this.vidaUtilCorrecta=true;
+      }else{
+        this.vidaUtilCorrecta=false;
+      }
+    });
+   
   }
   Gcodigo() {
     if (this.activo.controls["idEmpleado"].value == 0) {
