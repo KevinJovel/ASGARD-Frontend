@@ -30,7 +30,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
        'idsolicitud': new FormControl("0"),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ., ]+$")])
     }); 
     this.datosArray=new FormGroup({
       'idMantenimiento': new FormControl("0"),
@@ -109,6 +109,13 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.mantenimientoService.getBienes().subscribe(data=>{
           this.bienes=data;
     });
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: '¡Datos agregados con éxito!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
   noRepetirFolio(control: FormControl) {
 
@@ -162,8 +169,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       timer: 3000
     })
 this.matriz=[],[];
-//this.solicitud.controls["fechasolicitud"].value;
-this.solicitud.reset();
+this.solicitud.controls["folio"].setValue("");
+this.solicitud.controls["descripcion"].setValue("");
 
 }else{
     Swal.fire({

@@ -5,15 +5,17 @@
     <div class="col-lg-6">
 
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nueva categoría</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
+            class="icon-plus-sign-alt"></i> Agregar nueva categoría</button>
       </header>
     </div>
     <div class="col-lg-3">
-    </div> 
-    <div class="col-md-3">
-      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
-   
+    <div class="col-md-3">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre
+        (keyup)="buscar(nombre)" placeholder="Buscar">
+    </div>
+
   </div>
 
   <div class="row">
@@ -31,28 +33,27 @@
                   <th scope="row">Categoría</th>
                   <th scope="row">Vida útil</th>
                   <th scope="row">Descripción</th>
-                  <th scope="row"  class="hidden-phone">Opciones</th>
+                  <th scope="row" class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
               <tbody>
-     
+
                 <tr *ngFor="let categoria of categorias | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                   <td>{{categoria.categoria}}</td>
                   <td>{{categoria.vidaUtil}}</td>
                   <td>{{categoria.descripcion}}</td>
                   <td class="center hidden-phone">
-                    <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(categoria.idCategoria)"><i class="icon-pencil"></i></button>
-                    <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(categoria.idCategoria)"><i class="icon-trash "></i></button>
+                    <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(categoria.idCategoria)"><i
+                        class="icon-pencil"></i></button>
+                    <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(categoria.idCategoria)"><i
+                        class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-              
-            <!--darle color al cuadro que rellena el número-->
-        
-           
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
 
           </div>
         </div>
@@ -61,7 +62,8 @@
   </div>
 </section>
 <!--modal para ingresar y editar-->
-<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display}">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -70,100 +72,108 @@
       </div>
       <div class="modal-body">
         <form role="form" [formGroup]="categoria" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="IdCategoria" id="exampleInputEmail3" autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="IdCategoria" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
             <label for="exampleInputEmail1">* Categoría:</label>
-            <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="Categoria" id="exampleInputEmail3" placeholder="Ingrese Categoría" autocomplete="off" maxlength="51">
+            <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="Categoria"
+              placeholder="Ingrese Categoría" autocomplete="off" maxlength="51">
           </div>
 
           <div class="form-group">
             <label for="exampleFormControlTextarea2">* Vida útil:</label>
-            <input [readOnly]="this.edit==1" type="text" min="1" max="50" class="form-control" formControlName="VidaUtil" id="exampleFormControlTextarea2" placeholder="Ingrese vida útil en años" autocomplete="off"  maxlength="2">
+            <input [readOnly]="this.edit==1" type="text" min="1" max="50" class="form-control"
+              formControlName="VidaUtil" placeholder="Ingrese vida útil en años" autocomplete="off" maxlength="2">
           </div>
- 
+
           <div class="form-group">
             <label for="exampleFormControlTextarea2"> Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="Descripcion" id="exampleFormControlTextarea2" rows="1" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
+            <textarea class="form-control rounded-0" formControlName="Descripcion" rows="1"
+              placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
           </div>
 
 
-            <!-- Validacion de pattern no acepta caracteres especiales -->
-            <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.pattern">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Error!</strong> El campo categoía no acepta caracteres especiales.
-            </div>
-			<div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.yaExisteCategoria">
-				<button data-dismiss="alert" class="close close-sm" type="button">
-				  <i class="icon-remove"></i>
-				</button>
-				<strong>¡Advertencia!</strong> Ya existe la categoría ingresada, por favor intente con una nueva.
-        </div>
-        <div class="alert alert-warning fade in" *ngIf="this.edit==1">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Advertencia!</strong> La categoria y la vida útil no se pueden modificar porque hay clasificaciones referenciadas.
-        </div>
-        
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo categoía no acepta caracteres especiales.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="categoria.controls['Categoria'].errors?.yaExisteCategoria">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Ya existe la categoría ingresada, por favor intente con una nueva.
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="this.edit==1">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> La categoria y la vida útil no se pueden modificar porque hay clasificaciones
+            referenciadas.
+          </div>
+
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo categoría.
           </div>
-     
-        
-            <!-- Validacion de pattern no acepta caracteres especiales -->
-            <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['VidaUtil'].errors?.pattern">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Error!</strong> El campo vida útil solo acepta números.
-            </div>
-         
+
+
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['VidaUtil'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo vida útil solo acepta números.
+          </div>
+
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['VidaUtil'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo vida útil-
           </div>
-            <!-- Validacion de pattern no acepta caracteres especiales -->
-            <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Descripcion'].errors?.pattern">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Error!</strong> El campo descripción no acepta algunos caracteres especiales.
-            </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Descripcion'].errors?.maxlength">
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Descripcion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo descripción no acepta algunos caracteres especiales.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="categoria.controls['Descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
           </div>
-       
-            <!--  WARNING-->
-         <div class="alert alert-warning fade in" *ngIf="!categoria.valid&&!categoria.controls['Descripcion'].errors?.maxlength">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
-        </div>
- 
+
+          <!--  WARNING-->
+          <div class="alert alert-warning fade in"
+            *ngIf="!categoria.valid&&!categoria.controls['Descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+          </div>
+
           <div class="alert alert-success fade in" *ngIf="categoria.valid&&categoria.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Exelente!</strong> Datos ingresados correctamente.
           </div>
-          <button [disabled]="!categoria.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          <button [disabled]="!categoria.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
+            Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-

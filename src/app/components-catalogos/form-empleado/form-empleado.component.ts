@@ -19,7 +19,7 @@ export class FormEmpleadoComponent implements OnInit {
   display = 'none';
   titulo: string;
   edit: number = 0;
-  guardar: number=0;
+  guardar: number = 0;
   tipocombo: string;
   constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
     this.empleado = new FormGroup({
@@ -33,7 +33,7 @@ export class FormEmpleadoComponent implements OnInit {
       'telefonopersonal': new FormControl("", [Validators.required]),
       'idareadenegocio': new FormControl("", [Validators.required]),
       'idcargo': new FormControl("", [Validators.required]),
-      'cargo': new FormControl(""),   
+      'cargo': new FormControl(""),
       'idsucursal': new FormControl("")
 
     });
@@ -73,12 +73,8 @@ export class FormEmpleadoComponent implements OnInit {
 
 
   guardarDatos() {
-    /*this.catalogosServices.noGuardarEmpleado(id).subscribe(data => {
-      if (data == 1) {
-        this.edit = 1;
-      }*/
     if ((this.empleado.controls["bandera"].value) == "0") {
-      
+
       if (this.empleado.valid == true) {
         this.catalogosServices.guardarEmpleado(this.empleado.value).subscribe(data => {
           this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
@@ -92,9 +88,9 @@ export class FormEmpleadoComponent implements OnInit {
           timer: 3000
         })
       }
-    }   
+    }
 
-     else {
+    else {
       //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
       this.empleado.controls["bandera"].setValue("0");
       if (this.empleado.valid == true) {
@@ -110,7 +106,7 @@ export class FormEmpleadoComponent implements OnInit {
         })
       }
     }
-  //});//aqui cierra el guardar
+
 
     this.empleado.controls["idempleado"].setValue("0");
     this.empleado.controls["bandera"].setValue("0");
@@ -128,16 +124,16 @@ export class FormEmpleadoComponent implements OnInit {
 
   }
 
-  filtrarCargo(){
-    var idArea =this.empleado.controls['idareadenegocio'].value;
-    this.catalogosServices.ValidarAreaJefe(idArea).subscribe(data=>{
-      if(data==1){
-        this.catalogosServices.listarCargoCombosinJ().subscribe(data=>{this.cargos=data});
-      }else{
-        this.catalogosServices.listarCargoCombo().subscribe(data=>{this.cargos=data});
+  filtrarCargo() {
+    var idArea = this.empleado.controls['idareadenegocio'].value;
+    this.catalogosServices.ValidarAreaJefe(idArea).subscribe(data => {
+      if (data == 1) {
+        this.catalogosServices.listarCargoCombosinJ().subscribe(data => { this.cargos = data });
+      } else {
+        this.catalogosServices.listarCargoCombo().subscribe(data => { this.cargos = data });
       }
     });
-    
+
   }
 
   modif(id) {
