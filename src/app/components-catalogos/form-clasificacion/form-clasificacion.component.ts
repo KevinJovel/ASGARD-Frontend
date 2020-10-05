@@ -17,25 +17,25 @@ export class FormClasificacionComponent implements OnInit {
   clasificacion: FormGroup;
   display = 'none';
   titulo: string;
-  edit: number=0;
-  constructor(private catalogosServices: CatalogosService,  private router: Router, private activateRoute: ActivatedRoute) {
+  edit: number = 0;
+  constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
     this.clasificacion = new FormGroup({
       'idclasificacion': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'clasificacion': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
-      'correlativo': new FormControl("",[Validators.required,  Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
-      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
-      'idcategoria': new FormControl("",[Validators.required])
+      'clasificacion': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
+      'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
+      'descripcion': new FormControl("", [Validators.maxLength(100), Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
+      'idcategoria': new FormControl("", [Validators.required])
 
     });
-   
+
 
 
   }
 
   ngOnInit() {
-    this.catalogosServices.getClasificacion().subscribe(data => { this.clasificaciones = data} );
-    this.catalogosServices.listarCategoriaCombo().subscribe(data =>{  this.categorias =data});
+    this.catalogosServices.getClasificacion().subscribe(data => { this.clasificaciones = data });
+    this.catalogosServices.listarCategoriaCombo().subscribe(data => { this.categorias = data });
 
   }
 
@@ -47,12 +47,12 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion.controls["clasificacion"].setValue("");
     this.clasificacion.controls["correlativo"].setValue("");
     this.clasificacion.controls["idcategoria"].setValue("");
-    this.clasificacion.controls["descripcion"].setValue(""); 
+    this.clasificacion.controls["descripcion"].setValue("");
     this.display = 'block';
   }
   close() {
     this.display = 'none';
-    this.edit=0;
+    this.edit = 0;
   }
 
 
@@ -61,9 +61,9 @@ export class FormClasificacionComponent implements OnInit {
     if ((this.clasificacion.controls["bandera"].value) == "0") {
       if (this.clasificacion.valid == true) {
         this.catalogosServices.guardarClasificacion(this.clasificacion.value).subscribe(data => {
-          this.catalogosServices.getClasificacion().subscribe(res => {this.clasificaciones = res});
-         });
-       
+          this.catalogosServices.getClasificacion().subscribe(res => { this.clasificaciones = res });
+        });
+
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -77,8 +77,8 @@ export class FormClasificacionComponent implements OnInit {
       this.clasificacion.controls["bandera"].setValue("0");
       if (this.clasificacion.valid == true) {
         this.catalogosServices.modificarclasificacion(this.clasificacion.value).subscribe(data => {
-          this.catalogosServices.getClasificacion().subscribe(res => {this.clasificaciones = res});
-         });
+          this.catalogosServices.getClasificacion().subscribe(res => { this.clasificaciones = res });
+        });
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -94,75 +94,75 @@ export class FormClasificacionComponent implements OnInit {
     this.clasificacion.controls["correlativo"].setValue("");
     this.clasificacion.controls["idcategoria"].setValue("");
     this.clasificacion.controls["descripcion"].setValue("");
-    this.edit=0;
+    this.edit = 0;
 
     this.display = 'none';
-    this.catalogosServices.getClasificacion().subscribe(res => {this.clasificaciones = res});
+    this.catalogosServices.getClasificacion().subscribe(res => { this.clasificaciones = res });
 
   }
 
   modif(id) {
     this.catalogosServices.noEditCorrelativoClasificacion(id).subscribe(data => {
       if (data == 1) {
-          this.edit = 1;
+        this.edit = 1;
       }
-    this.titulo = "Modificar clasificación";
-    this.display = 'block';
-    this.catalogosServices.RecuperarClasificacion(id).subscribe(data => {
-      this.clasificacion.controls["idclasificacion"].setValue(data.idclasificacion);
-      this.clasificacion.controls["clasificacion"].setValue(data.clasificacion);
-      this.clasificacion.controls["correlativo"].setValue(data.correlativo);
-      this.clasificacion.controls["idcategoria"].setValue(data.idcategoria);
-      this.clasificacion.controls["descripcion"].setValue(data.descripcion);
-      this.clasificacion.controls["bandera"].setValue("1");
-      this.catalogosServices.getClasificacion().subscribe(res => { this.clasificaciones = res });
+      this.titulo = "Modificar clasificación";
+      this.display = 'block';
+      this.catalogosServices.RecuperarClasificacion(id).subscribe(data => {
+        this.clasificacion.controls["idclasificacion"].setValue(data.idclasificacion);
+        this.clasificacion.controls["clasificacion"].setValue(data.clasificacion);
+        this.clasificacion.controls["correlativo"].setValue(data.correlativo);
+        this.clasificacion.controls["idcategoria"].setValue(data.idcategoria);
+        this.clasificacion.controls["descripcion"].setValue(data.descripcion);
+        this.clasificacion.controls["bandera"].setValue("1");
+        this.catalogosServices.getClasificacion().subscribe(res => { this.clasificaciones = res });
+      });
     });
-  });
   }
   eliminar(idclasificacion) {
     this.catalogosServices.validarActivo(idclasificacion).subscribe(data => {
-        if (data == 1) {
-            Swal.fire({
+      if (data == 1) {
+        Swal.fire({
+          icon: 'error',
+          title: '¡ERROR!',
+          text: 'No es posible eliminar este dato, ya existen activos denominados a esta clasificación',
+          confirmButtonText: 'Aceptar'
+
+        })
+      } else {
+        Swal.fire({
+          title: '¿Estas seguro de eliminar este registro?',
+          text: "¡No podrás revertir esta acción!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '¡Si, eliminar!',
+          cancelButtonText: "Cancelar"
+        }).then((result) => {
+          if (result.value) {
+            this.catalogosServices.eliminarCasificacion(idclasificacion).subscribe(data => {
+              Swal.fire({
                 icon: 'error',
-                title: '¡ERROR!',
-                text: 'No es posible eliminar este dato, ya existen activos denominados a esta clasificación',
+                title: '¡ELIMINADO!',
+                text: '¡El registro ha sido eliminado con éxito!',
                 confirmButtonText: 'Aceptar'
+              })
+              this.catalogosServices.getClasificacion().subscribe(
+                data => { this.clasificaciones = data }
+              );
+            });
 
-            })
-        } else {
-            Swal.fire({
-                title: '¿Estas seguro de eliminar este registro?',
-                text: "¡No podrás revertir esta acción!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '¡Si, eliminar!',
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.value) {
-                    this.catalogosServices.eliminarCasificacion(idclasificacion).subscribe(data => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: '¡ELIMINADO!',
-                            text: '¡El registro ha sido eliminado con éxito!',
-                            confirmButtonText: 'Aceptar'
-                        })
-                        this.catalogosServices.getClasificacion().subscribe(
-                          data => { this.clasificaciones = data }
-                        );
-                    });
-
-                }
-            })
-        }
+          }
+        })
+      }
     })
 
-}
+  }
 
   buscar(buscador) {
     this.p = 1;
-    this.catalogosServices.buscarClasificacion(buscador.value).subscribe(res => {this.clasificaciones = res});
+    this.catalogosServices.buscarClasificacion(buscador.value).subscribe(res => { this.clasificaciones = res });
   }
 
 

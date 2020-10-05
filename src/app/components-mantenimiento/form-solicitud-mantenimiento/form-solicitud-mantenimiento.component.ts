@@ -169,8 +169,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       timer: 3000
     })
 this.matriz=[],[];
-//this.solicitud.controls["fechasolicitud"].value;
-this.solicitud.reset();
+this.solicitud.controls["folio"].setValue("");
+this.solicitud.controls["descripcion"].setValue("");
 
 }else{
     Swal.fire({
