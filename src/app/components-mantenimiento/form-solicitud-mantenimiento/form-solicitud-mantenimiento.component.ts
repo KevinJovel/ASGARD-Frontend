@@ -109,6 +109,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.mantenimientoService.getBienes().subscribe(data=>{
           this.bienes=data;
     });
+    this. ValidarDatosArray();
     Swal.fire({
       position: 'center',
       icon: 'success',
