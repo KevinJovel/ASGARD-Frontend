@@ -1,0 +1,32 @@
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">Tipo Activo</h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="tipoActivo">
+
+          <input type="hidden" class="form-control" formControlName="idPeriodo" autocomplete="off">
+          <h5 style="text-align: center;">Seleccione el tipo de activo que desea ingresar</h5>
+          <br>
+          <div style="text-align: center;">
+            <button style="margin-right: 10px" type="submit" class="btn btn-primary" (click)="formEdificiosInsta()">Edificios e Instalaciones</button>
+            <button style="margin-right: 10px" type="submit" class="btn btn-primary" (click)="formTangible()">Bienes Muebles</button>
+            <button type="submit" class="btn btn-primary" (click)="formIntangible()">Bienes Inmuebles</button>
+          </div>
+        <br>
+          <div style="text-align: center;">
+            <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
+                Cancelar</button>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

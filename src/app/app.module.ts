@@ -73,6 +73,9 @@ import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-desc
 import { ActivosAsignadosComponent } from './components-control/activos-asignados/activos-asignados.component';
 import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-activos-asignados/solicitud-activos-asignados.component';
 import { FormCoopeComponent } from './components-configuracion/form-coope/form-coope.component';
+import { SelectTipoActivoComponent } from './components-control/select-tipo-activo/select-tipo-activo.component';
+import { FormEdificiosInstalacionesComponent } from './components-control/form-edificios-instalaciones/form-edificios-instalaciones.component';
+import { FormActivoIntangibleComponent } from './components-control/form-activo-intangible/form-activo-intangible.component';
 
 
 
@@ -119,6 +122,9 @@ import { FormCoopeComponent } from './components-configuracion/form-coope/form-c
     ActivosAsignadosComponent,
     SolicitudActivosAsignadosComponent,
     FormCoopeComponent,
+    SelectTipoActivoComponent,
+    FormEdificiosInstalacionesComponent,
+    FormActivoIntangibleComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -169,6 +175,9 @@ import { FormCoopeComponent } from './components-configuracion/form-coope/form-c
       {path: 'activos-asignados', component: ActivosAsignadosComponent},
       {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
       {path: 'form-conficooperativa', component: FormCoopeComponent},
+      {path: 'select-tipo-activo', component: SelectTipoActivoComponent},
+      {path: 'form-edificios-instalaciones', component: FormEdificiosInstalacionesComponent},
+      {path: 'form-activo-intangible', component: FormActivoIntangibleComponent},
       { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
       
     ]),
