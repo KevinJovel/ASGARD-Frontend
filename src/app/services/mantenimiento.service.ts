@@ -134,7 +134,9 @@ public ListarInformeMantenimiento(){
     return this.http.get(environment.urlService + "api/InformeMantenimiento/datosHistorial/" + idbien ).map(res=>res.json());
    }
 
-
+  public noHayHistorial (idActivo){
+    return this.http.get(environment.urlService  + "api/InformeMantenimiento/noHayHistorial/" + idActivo).map(res => res.json());
+  }
 
 
 }

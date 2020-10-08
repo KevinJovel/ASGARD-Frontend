@@ -94,7 +94,17 @@ export class HistorialMantenimientoComponent implements OnInit {
   }
 
   open(id) {
-    //if(id == true){
+ 
+     this.mantenimientoService.historialInformes(id).subscribe(res => {
+    if(res == 0){
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: '¡El activo seleccionado no tiene ningún mantenimiento realizado!',
+        showConfirmButton: false,
+        timer: 3000
+      })
+  }else{
     this.titulo = "Historial de mantenimientos";
     this.display = 'block';
     this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
@@ -102,17 +112,16 @@ export class HistorialMantenimientoComponent implements OnInit {
       this.descripcion=data.descripcion;
       this.encargado=data.encargado;
       this.areadenegocio=data.areadenegocio;
+     
     });
-   
     //para recuperar el id del bien 
     this.mantenimientoService.historialInformes(id).subscribe(res=>{
       this.informes=res;  
     });
-  //}else{
-   
-  //}
-    
-    this.idbien=id;
+  }
+    })//cierre de no ay historial
+    //this.idbien=id;
+
   }
 
   close(){
