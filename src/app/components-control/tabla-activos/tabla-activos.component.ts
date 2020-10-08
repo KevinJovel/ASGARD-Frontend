@@ -7,6 +7,7 @@ import { CatalogosService } from './../../services/catalogos.service';//filtro
 import {Router} from '@angular/router';
 import { State, StateService } from './../../services/state.service';
 
+
 @Component({
   selector: 'app-tabla-activos',
   templateUrl: './tabla-activos.component.html',
@@ -16,7 +17,6 @@ export class TablaActivosComponent implements OnInit {
 
   dataState:State;//hace referencia a la variable donde estan almacenados los datos
     comboAreaSucur:any;
-    //bienes: any;
     id:any;
     tipocombo:string;
     combo: FormGroup;
@@ -25,8 +25,7 @@ export class TablaActivosComponent implements OnInit {
     areas: any;
     sucursal: any;
     nuevobien: FormGroup;
-    
-    //descripcion: string;
+  
     bienObj: any ={};
     Bien: any ={};//para mandar datos
     disabled: boolean;
@@ -53,7 +52,6 @@ export class TablaActivosComponent implements OnInit {
 
    }
  
-
   ngOnInit() {
     
     this.controlService.getActivosSinAsignar().subscribe(res=> { this.comboAreaSucur=res});
@@ -111,12 +109,9 @@ ver(id: any) {
 }
 
 MandarDatos(id){
-  //console.log(id);
   this.Bien = this.bienObj;
   //creamos un nuevo objeto datas a partir de otro
   this.controlService.RecuperarFormCompleto(id).subscribe((res) => {
-    //console.log(res);
-    //this.controlService.DatosVer(id).subscribe(res => {this.Bien2 = res});
     let datas = {
       bienObj: res,  //en esto obtengo un solo objeto q es datas   
           // para acceder a los datos unicamente en el otro componente 
@@ -136,9 +131,8 @@ buscar(buscador) {
 
 
 open() {
-  //limpia cache
-     //this.combo.reset();
-    // location.href= "./form-nuevoBien" ;
+  //this.nuevobien.reset();
+ 
     
 }
 
