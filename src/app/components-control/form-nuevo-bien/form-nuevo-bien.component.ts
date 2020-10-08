@@ -44,7 +44,7 @@ export class FormNuevoBienComponent implements OnInit {
   emple : boolean;//para el disabley enable del editar
   titulo: string;
   idemp:Number = 0;
-
+  ban:Number = 0; // para el change
   @Input() bandera = false; //agrego input para hacer uso delas dos funciones
   //Variables de etiqueta
   disabledPrima: string;
@@ -133,6 +133,7 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['idmarca'].setValue(data.idmarca);
       this.nuevobien.controls['idclasificacion'].setValue(data.idclasificacion);
       this.nuevobien.controls['idproveedor'].setValue(data.idproveedor);
+      this.ban =data.tipoadquicicion;
       this.nuevobien.controls['estadoingreso'].setValue(data.estadoingreso);
       this.nuevobien.controls['plazopago'].setValue(data.plazopago);
       this.nuevobien.controls['prima'].setValue(data.prima);
@@ -149,13 +150,17 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['cantidad'].disable();
       this.nuevobien.controls['valorresidual'].setValue(data.valorresidual);
 
-      this.idemp=data.idresponsable;
-      this.nuevobien.controls['idresponsable'].setValue(this.idemp);
-      //console.log("empleado"+ this.idemp );
-      if(this.idemp == 0){
-        this.emple = true;
+      if(data.tipoadquicicion==1 || data.tipoadquicicion==3){
+        this.disabled = true;
+        this.disabledPrima = 'Inhabilitado';
+        this.disabledPlazo = 'Inhabilitado';
+        this.disabledCuota = 'Inhabilitado';
+        this.disabledInteres = 'Inhabilitado';
       }else{
-        this.emple = false;
+        this.nuevobien.controls['plazopago'].setValue(data.plazopago);
+        this.nuevobien.controls['prima'].setValue(data.prima);
+        this.nuevobien.controls['cuotaasignada'].setValue(data.cuotaasignada);
+        this.nuevobien.controls['interes'].setValue(data.interes);
       }
         
       //this.nuevobien.controls['foto'].setValue(data.foto);
@@ -197,12 +202,18 @@ export class FormNuevoBienComponent implements OnInit {
           this.comboProvDon = res;
         });
       }
+      if(idempleado != this.ban){
+          //lo mando vacio cuando cambia el tipo de adquicicion
+          this.nuevobien.controls['idproveedor'].setValue("");
+      }
+      
     });
   }
 
   //Método para cargar combo al guardar los datos
   ProveedorDonante() {
     var idempleado = this.nuevobien.controls['tipoadquicicion'].value;
+    
     if (idempleado == 1 || idempleado == 2) {
       this.tipocombo = 'Proveedor:';
       this.disabledPrima = 'Inhabilitado';
@@ -232,6 +243,9 @@ export class FormNuevoBienComponent implements OnInit {
         this.comboProvDon = res;
       });
     }
+    //lo mando vacio cuando cambia el tipo de adquicicion
+      this.nuevobien.controls['idproveedor'].setValue("");
+    
   }
 
   //Evento para guardar foto
@@ -305,40 +319,29 @@ export class FormNuevoBienComponent implements OnInit {
 else if(this.nuevobien.controls['bandera'].value == '1'){
   //// this.nuevobien.controls['bandera'].setValue('0');
   if (this.nuevobien.valid == true) {
-    
    this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
-     // console.log(this.nuevobien.value);
-      //le mando -1 para que reconozca un valor
-      if(this.nuevobien.value.plazopago==null)
+      //le mando 0 para que reconozca un valor
+      if(this.nuevobien.value.tipoadquicicion==1 || this.nuevobien.value.tipoadquicicion==3)
       {
-        this.nuevobien.controls['plazopago'].setValue(-1);
+        this.nuevobien.controls['plazopago'].setValue(0);
+        this.nuevobien.controls['prima'].setValue(0);
+        this.nuevobien.controls['cuotaasignada'].setValue(0);
+        this.nuevobien.controls['interes'].setValue(0);
       }
-      if(this.nuevobien.value.prima==null)
-      {
-        this.nuevobien.controls['prima'].setValue(-1);
-      }
-      if(this.nuevobien.value.cuotaasignada==null)
-      {
-        this.nuevobien.controls['cuotaasignada'].setValue(-1);
-      }
-      if(this.nuevobien.value.interes==null)
-      {
-        this.nuevobien.controls['interes'].setValue(-1);
-      }
-      //console.log("Es marca: "+this.nuevobien.value.idmarca);
       if(this.nuevobien.value.idmarca==0)
       {
         this.nuevobien.controls['idmarca'].setValue(0);
       }
+     
       //Pasamos la foto para modificarla
       this.nuevobien.controls['foto'].setValue(this.foto);
+      if (data == 1) {
         this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
-          //console.log(this.nuevobien.value);
+          if (res == 1) {
           this.modificar(this.nuevobien.value.idbien);
+          //this.open(); //limpia cache
           this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });   
-        });
           //this.router.navigate(['./tabla-activos']);
-        });
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -346,19 +349,25 @@ else if(this.nuevobien.controls['bandera'].value == '1'){
               showConfirmButton: false,
               timer: 3000,
             }).then((result) => {
-              //if (result.value) {
+              this.open();//limpia cache
                 this.router.navigate(['tabla-activos']);  
-                //window.location.replace('./tabla-activos');  
-              //} //else {
-                //window.location.reload();
-            // }
-            });    
+            });
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'warning',
+              title: 'No modificó',
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          } //else
+        });
+        } // de la data
+      });   
   }
-  
   this.display = 'none';
-
   }
- // this.open();
+ // this.open(); //limpiar cache
  
 }
 
@@ -424,7 +433,9 @@ open() {
 
 }
 
-
+limpiar(){
+  this.nuevobien.reset();
+}
   noPuntoDecimal(control: FormControl) {
     if (control.value != null && control.value != '') {
       if ((<string>control.value.toString()).indexOf('.') > -1) {
