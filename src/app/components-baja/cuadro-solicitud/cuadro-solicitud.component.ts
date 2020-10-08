@@ -40,7 +40,7 @@ export class CuadroSolicitudComponent implements OnInit {
       'idtipodescargo': new FormControl("",[Validators.required]),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ -.]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
+       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
        'entidadbeneficiaria': new FormControl("",[Validators.maxLength(80), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
        'domicilio': new FormControl("",[Validators.maxLength(100),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #°.]+$")]),
        'contacto': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
@@ -77,7 +77,7 @@ export class CuadroSolicitudComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'Solicitud Guardada con éxito',
+            title: 'Solicitud guardada con éxito',
             showConfirmButton: false,
             timer: 3000
           })
