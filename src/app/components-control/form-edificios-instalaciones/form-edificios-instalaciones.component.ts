@@ -56,23 +56,23 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         tipoactivo: new FormControl('1'),
         noformulario: new FormControl('0'),
         fechaingreso: new FormControl(''),
-        estadoingreso: new FormControl('0'),
-        tipoadquicicion: new FormControl('0'), //contado credito o donado
-        idproveedor: new FormControl('0'),
-        descripcion: new FormControl(''),
-        idclasificacion: new FormControl('0'),
+        estadoingreso: new FormControl('0',[Validators.required]),
+        tipoadquicicion: new FormControl('0',[Validators.required]), //contado credito o donado
+        idproveedor: new FormControl('0',[Validators.required]),
+        descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
+        idclasificacion: new FormControl('0',[Validators.required]),
       //  idsucursal: new FormControl('0'),
-        vidautil: new FormControl(''),
-        valoradquicicion: new FormControl(''), //Costo
-        plazopago: new FormControl(''),
-        prima: new FormControl(''),
-        cuotaasignada: new FormControl(''),
-        interes: new FormControl(''),
-        valorresidual: new FormControl(''),
+        vidautil: new FormControl('',[Validators.required,Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
+        valoradquicicion: new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]), //Costo
+        plazopago: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
+        prima: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
+        cuotaasignada: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
+        interes: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
+        valorresidual: new FormControl('',[Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]),
         foto: new FormControl(''),
-        personaentrega: new FormControl(''),
-        personarecibe: new FormControl(''),
-        observaciones: new FormControl(''),
+        personaentrega: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+        personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+        observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       });
 
      }

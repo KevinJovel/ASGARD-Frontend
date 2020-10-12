@@ -7,21 +7,21 @@
       
         </div>
           <div class="col-lg-6">
-            <!-- Alertas de validaciones 
-           <div class="alert alert-warning fade in" *ngIf="!nuevobien.valid">
+      
+           <div class="alert alert-warning fade in" *ngIf="!activoEdiInsta.valid">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
               <strong>¡Advertencia!</strong> Los campos con * son obligatorios.
            </div>
 
-           <div class="alert alert-success fade in" *ngIf="nuevobien.valid&&nuevobien.controls['bandera'].value==0">
+           <div class="alert alert-success fade in" *ngIf="activoEdiInsta.valid&&activoEdiInsta.controls['bandera'].value==0">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
               </button>
               <strong>¡Excelente!</strong> Datos ingresados correctamente.
            </div>
-           -->
+     
           </div>
 
           <div class="col-lg-3">        
@@ -53,7 +53,7 @@
 
                 <div class="form-row">
                       <div class="form-group col-md-4" >
-                      <label>Fecha de Ingreso</label>
+                      <label>* Fecha de Ingreso</label>
                       <input type="date" class="form-control" formControlName="fechaingreso" disabled="off" [ngModel]='fecha | date:"yyyy-MM-dd" ' (ngModelChange)='fecha=$event'>
                     </div>
 
@@ -97,7 +97,7 @@
                    </div>
 
                    <div class="form-group col-md-4">
-                    <label>Sucursal</label>
+                    <label>* Sucursal</label>
                     <select class="form-control" formControlName="">
                       <option value="0">--Seleccione--</option>
                       <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>
@@ -108,14 +108,14 @@
                 <div class="row">
 
                   <div class="form-group col-md-4">
-                    <label>* Vida útil</label>
-                    <input type="text" class="form-control" placeholder="" formControlName="vidautil" maxlength="8" autocomplete="off">
+                    <label>* Vida útil (en años)</label>
+                    <input type="text" class="form-control" placeholder="Ingrese vida útil" formControlName="vidautil" maxlength="3" autocomplete="off">
                   </div>
                 
                     <div class="col-lg-8">
                       <label>* Descripción </label>
                       <textarea class="form-control"
-                       rows="1" placeholder="Descripcion" autocomplete="off" formControlName="descripcion" maxlength="101"></textarea>
+                       rows="1" placeholder="Ingrese descripción" autocomplete="off" formControlName="descripcion" maxlength="101"></textarea>
                       </div>
                     
                 </div>
@@ -131,6 +131,41 @@
 
               <!--Div para validaciones en el centro-->
               <div class="form-group col-md-4">
+
+                <!-- DESCRIPCION -->
+                <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['descripcion'].errors?.maxlength">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
+                </div>
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['descripcion'].errors?.pattern">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
+                </div>
+                <!-- FIN DE DESCRIPCION -->
+
+                <!-- VIDA ÚTIL-->
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['vidautil'].errors?.pattern">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡Error!</strong> El campo vida útil no acepta caracteres especiales.
+                </div>
+
+                <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['vidautil'].errors?.maxlength">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡Error!</strong> Tamaño máximo permitido en campo vida útil.
+                </div>
+
+                <!-- FIN VIDA ÚTIL-->
+
               </div>
               <!--Fin iv para validaciones en el centro-->
 
@@ -192,7 +227,7 @@
                     </div>
               
                     <div class="form-group col-md-6">
-                      <label  for="formGroupExampleInput2"> Observaciones </label>
+                      <label  for="formGroupExampleInput2">Observaciones </label>
                       <textarea class="form-control"
                       rows="1" placeholder="Ingrese observaciones" autocomplete="off" formControlName="observaciones" maxlength="71"></textarea>
                     </div>
@@ -211,16 +246,156 @@
         <!--Div para alertas en el centro-->
         <div class="form-group col-md-4">
 
-          
+          <!-- COSTO DE ADQUISICION -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['valoradquicicion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo costo no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['valoradquicicion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo costo.
+          </div>
+          <!-- FIN COSTO DE ADQUISICION -->
+
+          <!-- PRIMA -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['prima'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo prima no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['prima'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo prima.
+          </div>
+          <!-- FIN PRIMA -->
+
+          <!-- PLAZO PAGO -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['plazopago'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo plazo no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['plazopago'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo plazo.
+          </div>
+          <!-- FIN PLAZO PAGO -->
+
+          <!-- CUOTA -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['cuotaasignada'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo cuota no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['cuotaasignada'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo cuota.
+          </div>
+          <!-- FIN CUOTA -->
+
+           <!-- INTERES -->
+           <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['interes'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo interes no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['interes'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en este campo interes.
+          </div>
+          <!-- FIN INTERES -->
+
+            <!-- PERSONA QUE ENTREGA -->
+            <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['personaentrega'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> Tamaño máximo permitido en campo persona que entrega.
+            </div>
+  
+            <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['personaentrega'].errors?.pattern">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> El campo persona que entrega no acepta caracteres especiales.
+            </div>
+            <!-- FIN PERSONA QUE ENTREGA -->
         
-      
+              <!-- PERSONA QUE RECIBE -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['personarecibe'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo persona que recibe.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['personarecibe'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo persona que recibe no acepta caracteres especiales.
+          </div>
+          <!-- FIN PERSONA QUE RECIBE -->
+
+          <!-- VALOR RESIDUAL -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['valorresidual'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo valor residual.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['valorresidual'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo valor residual no acepta caracteres especiales.
+          </div>
+          <!-- FIN VALOR RESIDUAL -->
+
+          <!-- OBSERVACIONES -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['observaciones'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo observaciones.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['observaciones'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo observaciones no acepta caracteres especiales.
+          </div>
+          <!-- FIN DE OBSERVACIONES -->
 
         </div>
         <!--Fin Div para alertas en el centro-->
               
           </fieldset>
               <br><br><br>
-              <input type="submit" class="finish btn btn-danger" value="Guardar"/>
+              <input [disabled]="!activoEdiInsta.valid" type="submit" class="finish btn btn-danger" value="Guardar"/>
               
          </form>
 
