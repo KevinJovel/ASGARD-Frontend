@@ -143,7 +143,7 @@ export class FormClasificacionComponent implements OnInit {
           if (result.value) {
             this.catalogosServices.eliminarCasificacion(idclasificacion).subscribe(data => {
               Swal.fire({
-                icon: 'error',
+                icon: 'success',
                 title: '¡ELIMINADO!',
                 text: '¡El registro ha sido eliminado con éxito!',
                 confirmButtonText: 'Aceptar'

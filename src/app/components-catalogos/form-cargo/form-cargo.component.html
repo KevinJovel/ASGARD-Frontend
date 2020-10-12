@@ -3,19 +3,17 @@
   <h1>Cargos</h1>
   <div class="row">
     <div class="col-lg-6">
-
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo cargo</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
+            class="icon-plus-sign-alt"></i> Agregar nuevo cargo</button>
       </header>
     </div>
     <div class="col-lg-3">
-
     </div>
-    
     <div class="col-md-3">
-      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre
+        (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
-   
   </div>
 
   <div class="row">
@@ -41,13 +39,16 @@
                   <td>{{cargo.cargo}}</td>
                   <td>{{cargo.descripcion}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modif(cargo.idcargo)"><i class="icon-pencil" title="Editar"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(cargo.idcargo)"><i class="icon-trash "></i></button>
+                    <button class="btn btn-primary btn-xs" (click)="modif(cargo.idcargo)"><i class="icon-pencil"
+                        title="Editar"></i></button>
+                    <button class="btn btn-danger btn-xs" (click)="eliminar(cargo.idcargo)"><i
+                        class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
           </div>
         </div>
       </section>
@@ -55,7 +56,8 @@
   </div>
 </section>
 <!--modal para ingresar y editar-->
-<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display}">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -65,12 +67,13 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="cargo" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idcargo" id="exampleInputEmail3" autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idcargo" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">* Cargo:</label>
-            <input type="text" class="form-control" formControlName="cargo" id="exampleInputEmail3" placeholder="Ingrese cargo" autocomplete="off" maxlength="26">
+            <label>* Cargo:</label>
+            <input type="text" class="form-control" formControlName="cargo" placeholder="Ingrese cargo"
+              autocomplete="off" maxlength="26">
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.yaExisteCargo">
@@ -95,7 +98,7 @@
           </div>
 
           <div class="form-group">
-            <label for="exampleInputEmail1">Descripción:</label>
+            <label>Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
               placeholder="Ingrese descripción" autocomplete="off" maxlength="51"></textarea>
           </div>
@@ -113,26 +116,28 @@
             </button>
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
-                      
-                           <!--  WARNING-->
-                           <div class="alert alert-warning fade in" *ngIf="!cargo.valid">
-                            <button data-dismiss="alert" class="close close-sm" type="button">
-                              <i class="icon-remove"></i>
-                            </button>
-                            <strong>Advertencia!</strong> El campo cargo es obligatorio.
-                          </div>
-                
-                           <!--  END-WARNING-->
-                           <div class="alert alert-success fade in" *ngIf="cargo.valid&&cargo.controls['bandera'].value==0">
-                            <button data-dismiss="alert" class="close close-sm" type="button">
-                              <i class="icon-remove"></i>
-                            </button>
-                            <strong>Excelente!</strong> Datos ingresados correctamente.
-                          </div>
-        
-            <button [disabled]="!cargo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-            <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
-       
+
+          <!--  WARNING-->
+          <div class="alert alert-warning fade in" *ngIf="!cargo.valid">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> El campo cargo es obligatorio.
+          </div>
+
+          <!--  END-WARNING-->
+          <div class="alert alert-success fade in" *ngIf="cargo.valid&&cargo.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Excelente!</strong> Datos ingresados correctamente.
+          </div>
+
+          <button [disabled]="!cargo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
+            Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
+
         </form>
       </div>
     </div>

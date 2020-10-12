@@ -32,7 +32,6 @@
                   <th>N°</th>
                   <th>Nombre</th>
                   <th>Descripción</th>
-                 
                   <th class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
@@ -71,22 +70,20 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="descargos" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idTipo" id="exampleInputEmail3" autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idTipo" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
     
           <div class="form-group">
-            <label for="exampleInputEmail1">*Nombre:</label>
+            <label>*Nombre:</label>
             <input size=35 type="text"  class="form-control" formControlName="nombre"  placeholder="Ingrese nombre" maxlength="51" autocomplete="off">
           </div>
        
           <div class="form-group">
-            <label for="exampleInputEmail1">Descripción:</label>
+            <label>Descripción:</label>
             <input type="text" class="form-control" formControlName="descripcion"  placeholder="Ingrese descripción" maxlength="101" autocomplete="off">
           </div> 
 
       <br>
-<!--  WARNING-->
-
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -120,8 +117,6 @@
             </button>
             <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
           </div>
-
-  
           <div class="alert alert-warning fade in" *ngIf="!descargos.valid&&!descargos.controls['nombre'].errors?.yaExisteDescargo">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>

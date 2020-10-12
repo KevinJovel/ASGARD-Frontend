@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,21 +16,17 @@ export class FormTipoTrasladoComponent implements OnInit {
    display='none';
    p:number=1;
 
-  constructor(private catalogoService: CatalogosService, private router: Router, private activatedRoute: ActivatedRoute) { 
+  constructor(private catalogoService: CatalogosService) { 
     this.traspaso =new FormGroup( {
-
       'idtipo': new FormControl("0"),
       'bandera': new FormControl("0"),
       'nombre': new FormControl("",[Validators.required,Validators.maxLength(25),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirNombre.bind(this)),
       'descripcion': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ.]+$")])
     });
   }
-
   ngOnInit() {
     this.catalogoService.getTipoTraspaso().subscribe(data=> {this.traspasos=data});
   }
-
-  //Métodos
   open() {
   //limpia cache  
   this.titulo = "Formulario tipo de traspaso";
@@ -41,7 +36,6 @@ export class FormTipoTrasladoComponent implements OnInit {
   this.traspaso.controls["descripcion"].setValue("");
   this.display = 'block';  
 }
-
 close() {
   this.display = 'none';
 }
@@ -87,7 +81,6 @@ guardarDatos() {
     this.traspaso.controls["descripcion"].setValue("");
     this.display = 'none';
     this.catalogoService.getTipoTraspaso().subscribe(data => { this.traspasos = data });
-
 }
 
 modif(id) {
@@ -137,9 +130,7 @@ buscar(buscador) {
 noRepetirNombre(control: FormControl) {
 
   var promesa = new Promise((resolve, reject) => {
-
     if (control.value != "" && control.value != null) {
-
       this.catalogoService.validarTipoTraspaso(this.traspaso.controls["idtipo"].value, control.value)
         .subscribe(data => {
           if (data == 1) {
@@ -147,14 +138,9 @@ noRepetirNombre(control: FormControl) {
           } else {
             resolve(null);
           }
-
         })
-
     }
-
-
   });
-
   return promesa;
 }
 

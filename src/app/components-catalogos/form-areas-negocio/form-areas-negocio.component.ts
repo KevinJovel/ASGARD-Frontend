@@ -33,7 +33,6 @@ export class FormAreasNegocioComponent implements OnInit {
   }
   open() {
     this.titulo = "Formulario áreas de negocio"
-    this.display = 'block';
     this.area.controls["idAreaNegocio"].setValue("0");
     this.area.controls["bandera"].setValue("0");
     this.area.controls["nombre"].setValue("");
@@ -48,7 +47,7 @@ export class FormAreasNegocioComponent implements OnInit {
     this.modif = 0;
   }
   validar(){
-   
+   if(this.area.controls["nombre"].value!=""&&this.area.controls["idSucursal"].value!=0){
     this.catalogosServices.validarAreaSucursal(this.area.controls["idAreaNegocio"].value,this.area.controls["nombre"].value,this.area.controls["idSucursal"].value)
     .subscribe(data => {
       if (data == 1) {
@@ -57,7 +56,9 @@ export class FormAreasNegocioComponent implements OnInit {
         this.yaExiste=false;
       }
 
-    })
+    });
+   }
+   
   }
   guardarDatos() {
     if ((this.area.controls["bandera"].value) == "0") {

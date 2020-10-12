@@ -9,15 +9,11 @@
       </header>
     </div>
     <div class="col-lg-3">
-
     </div>
-    
     <div class="col-md-3">
       <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
-   
   </div>
-
   <div class="row">
     <div class="col-lg-12">
       <section class="panel panel-default">
@@ -65,12 +61,12 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="traspaso" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idtipo" id="exampleInputEmail3" autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idtipo"  autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera"  autocomplete="off">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">* Nombre:</label>
-            <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off" maxlength="26">
+            <label>* Nombre:</label>
+            <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese nombre" autocomplete="off" maxlength="26">
           </div>
           <!-- Aletras para NOMBRE-->
           <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.yaExisteNombre">
@@ -96,7 +92,7 @@
           <!-- Fin Aletras para NOMBRE-->
 
           <div class="form-group">
-            <label for="exampleInputEmail1">Descripción:</label>
+            <label>Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
               placeholder="Ingrese descripción" autocomplete="off" maxlength="51"></textarea>
           </div>

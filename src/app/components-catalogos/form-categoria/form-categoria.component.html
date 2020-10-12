@@ -76,19 +76,19 @@
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">* Categoría:</label>
+            <label>* Categoría:</label>
             <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="Categoria"
               placeholder="Ingrese Categoría" autocomplete="off" maxlength="51">
           </div>
 
           <div class="form-group">
-            <label for="exampleFormControlTextarea2">* Vida útil:</label>
+            <label >* Vida útil:</label>
             <input [readOnly]="this.edit==1" type="text" min="1" max="50" class="form-control"
               formControlName="VidaUtil" placeholder="Ingrese vida útil en años" autocomplete="off" maxlength="2">
           </div>
 
           <div class="form-group">
-            <label for="exampleFormControlTextarea2"> Descripción:</label>
+            <label > Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="Descripcion" rows="1"
               placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
           </div>

@@ -57,8 +57,6 @@
             </table>
             <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
               nextLabel="Siguiente"></pagination-controls>
-
-
           </div>
         </div>
       </section>
@@ -80,18 +78,18 @@
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">* Correlativo:</label>
+            <label>* Correlativo:</label>
             <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="correlativo"
               placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
           </div>
 
           <div class="form-group">
-            <label for="exampleFormControlTextarea2">* Clasificación:</label>
+            <label>* Clasificación:</label>
             <input type="text" class="form-control" formControlName="clasificacion" placeholder="Ingrese clasificación"
               autocomplete="off" maxlength="51">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlTextarea2">* Categoria:</label>
+            <label>* Categoria:</label>
             <select class="form-control" formControlName="idcategoria" aria-readonly="false" maxlength="51">
               <option value="">---Seleccione---</option>
               <option [disabled]="this.edit==1" [value]="categoria.idCategoria" *ngFor="let categoria of categorias">
@@ -100,7 +98,7 @@
           </div>
 
           <div class="form-group">
-            <label for="exampleFormControlTextarea2"> Descripción:</label>
+            <label> Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
               placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
           </div>

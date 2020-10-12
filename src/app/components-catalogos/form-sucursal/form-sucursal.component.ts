@@ -15,8 +15,8 @@ export class FormSucursalComponent implements OnInit {
     sucursal: FormGroup;
     display = 'none';
     titulo: string;
-     modif: number=0;
-     yaExiste: boolean=false;
+    modif: number = 0;
+    yaExiste: boolean = false;
     constructor(private catalogoService: CatalogosService) {
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
@@ -43,23 +43,24 @@ export class FormSucursalComponent implements OnInit {
     close() {
         this.display = 'none';
         this.modif = 0;
+        this.yaExiste = false;
     }
     //Este metodo es el que puse en lugar de la promesa, porque daba error porque dependia de dos campos
-    validar(){
-
-        this.catalogoService.validarSucursalUbicacion(this.sucursal.controls["idSucursal"].value, this.sucursal.controls["nombre"].value, this.sucursal.controls["ubicacion"].value)
-                    .subscribe(data => {
-                        if (data == 1) {
-                           this.yaExiste=true;
-                        } else {
-                            this.yaExiste=false;
-                        }
-                    });
+    validar() {
+        if (this.sucursal.controls["nombre"].value != "" && this.sucursal.controls["ubicacion"].value != "") {
+            this.catalogoService.validarSucursalUbicacion(this.sucursal.controls["idSucursal"].value, this.sucursal.controls["nombre"].value, this.sucursal.controls["ubicacion"].value)
+                .subscribe(data => {
+                    if (data == 1) {
+                        this.yaExiste = true;
+                    } else {
+                        this.yaExiste = false;
+                    }
+                });
+        }
     }
     guardarDatos() {
         //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
         if ((this.sucursal.controls["bandera"].value) == "0") {
-
             if (this.sucursal.valid == true) {
                 this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
                     this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
@@ -74,9 +75,7 @@ export class FormSucursalComponent implements OnInit {
                 })
             }
             this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
-
         } else {
-
             this.sucursal.controls["bandera"].setValue("0");
             if (this.sucursal.valid == true) {
                 this.catalogoService.updateSucursal(this.sucursal.value).subscribe(data => {
@@ -123,7 +122,7 @@ export class FormSucursalComponent implements OnInit {
                     if (result.value) {
                         this.catalogoService.deleteSucursal(idSucursal).subscribe(data => {
                             Swal.fire({
-                                icon: 'error',
+                                icon: 'success',
                                 title: '¡ELIMINADO!',
                                 text: '¡El registro ha sido eliminado con éxito!',
                                 confirmButtonText: 'Aceptar'
@@ -171,7 +170,7 @@ export class FormSucursalComponent implements OnInit {
                             resolve({ yaExisteCorrelativo: true });
                         } else {
                             resolve(null);
-                       }
+                        }
 
                     })
             }

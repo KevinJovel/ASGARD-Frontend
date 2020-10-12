@@ -21,7 +21,6 @@ export class FormTecnicoComponent implements OnInit {
   constructor(private catalogoService: CatalogosService, private router: Router, private activatedRoute: ActivatedRoute) {
 
     this.tecnico =new FormGroup( {
-
       'idtecnico': new FormControl("0"),
       'bandera': new FormControl("0"),
       'nombre': new FormControl("", [Validators.required, Validators.maxLength(60), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirTecnico.bind(this)),
