@@ -51,19 +51,19 @@
        <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarDatoss()" >
          <fieldset title="1" class="step" id="default-step-0">
            <legend></legend>
-              <input type="hidden" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
-              <input type="hidden" class="form-control" formControlName="noformulario" id="exampleInputEmail3" autocomplete="off">
-              <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="idbien" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="noformulario" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
               <input type="hidden" class="form-control" formControlName="tipoactivo" autocomplete="off">
 
                 <div class="form-row">
                       <div class="form-group col-md-6" >
-                      <label for="inputPassword4">* Fecha de Ingreso</label>
+                      <label>* Fecha de Ingreso</label>
                       <input type="date" class="form-control" formControlName="fechaingreso" disabled="off" [ngModel]='fecha | date:"yyyy-MM-dd" ' (ngModelChange)='fecha=$event'> 
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label  for="formGroupExampleInput2">* Estado</label>
+                      <label>* Estado</label>
                       <select name="miselect"  class="form-control" formControlName="estadoingreso">
                           <option value="0">Seleccione...</option>
                           <option value="1">Nuevo</option>
@@ -77,7 +77,7 @@
                 <div class="form-row">
                     
                   <div class="form-group col-md-6">
-                    <label for="inputPassword4">* Tipo Adquisición</label>
+                    <label>* Tipo Adquisición</label>
                     <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
                       <option value="0">--Seleccione--</option>
                       <option value="1">Contado</option>
@@ -86,35 +86,29 @@
                       </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="inputPassword4">* {{tipocombo}}</label >
+                    <label>* {{tipocombo}}</label >
                   <select  class="form-control" formControlName="idproveedor">
                     <option value="0">--Seleccione--</option >
                     <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
                     </select>
                   </div>
-               <!--  <div class="form-group col-md-4" >
-                    <label for="inputPassword4"  > Empleado</label>
-                  <select class="form-control" formControlName="idresponsable" [attr.disabled]="emple ? '' : null " >
-                    <option [value]="0" >{{disabledempleado}}</option>
-                    <option [value]="empleado.idempleado" *ngFor="let empleado of empleado" selected>{{empleado.nombres}} {{empleado.apellidos}} </option>
-                    </select>
-                  </div>-->
+        
               </div>
                 <div class="row">
                    
                     <div class="col-lg-4">
-                    <label  for="formGroupExampleInput2">* Descripción </label>
-                    <textarea class="form-control" id="exampleFormControlTextarea2"
+                    <label>* Descripción </label>
+                    <textarea class="form-control"
                      rows="1" placeholder="Descripcion" autocomplete="off" formControlName="descripcion" maxlength="101"></textarea>
                     </div>
                     <div class="col-lg-4">
-                    <label for="inputPassword4">* Cantidad</label>
-                    <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese cantidad" formControlName="cantidad" maxlength="3" autocomplete="off">
+                    <label>* Cantidad</label>
+                    <input type="text" class="form-control" placeholder="Ingrese cantidad" formControlName="cantidad" maxlength="3" autocomplete="off">
                   </div>
                     
                     <div class="col-lg-4">
-                      <label for="inputPassword4">* Color</label>
-                      <input type="text" class="form-control" id="inputPassword4" placeholder="Ingrese color" formControlName="color" maxlength="21" autocomplete="off">
+                      <label>* Color</label>
+                      <input type="text" class="form-control" placeholder="Ingrese color" formControlName="color" maxlength="21" autocomplete="off">
                       </div>
 
                 </div>   
@@ -122,22 +116,22 @@
                 <div></div>     
                 <div class="row">
                     <div class="form-group col-md-4">
-                      <label for="inputCity">* Clasificación</label>
+                      <label>* Clasificación</label>
                       <select  class="form-control" formControlName="idclasificacion">
                         <option value="0">--Seleccione--</option>
                         <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.correlativo}}-{{clasificacion.clasificacion}}</option>
                       </select>
                      </div>
                     <div class="form-group col-md-4">
-                      <label for="inputState">Marca</label>
-                      <select id="inputState" class="form-control" formControlName="idmarca">
+                      <label>Marca</label>
+                      <select class="form-control" formControlName="idmarca">
                         <option value="0">--Seleccione--</option>
                         <option [value]="marca.idMarca" *ngFor="let marca of marcas">{{marca.marca}}</option>
                       </select>  
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="inputZip">Modelo</label>
-                      <input type="text" class="form-control" id="inputZip" placeholder="Ingrese modelo" formControlName="modelo" maxlength="31" autocomplete="off">
+                      <label>Modelo</label>
+                      <input type="text" class="form-control" placeholder="Ingrese modelo" formControlName="modelo" maxlength="31" autocomplete="off">
                      </div>
                     
                 </div>
@@ -226,61 +220,61 @@
               <legend> </legend>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                <label  for="formGroupExampleInput2"> # de Factura</label>
-                <input type="text" class="form-control" id="inputEmail4" placeholder="Ingrese # de factura" formControlName="nofactura" maxlength="31" autocomplete="off">
+                <label> # de Factura</label>
+                <input type="text" class="form-control" placeholder="Ingrese # de factura" formControlName="nofactura" maxlength="31" autocomplete="off">
                </div>
                 <div class="form-group col-md-4">
-                <label for="inputPassword4">* Costo</label>
+                <label>* Costo</label>
                 <input type="text" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion" maxlength="11" autocomplete="off">
               </div>
                 <div class="form-group col-md-4">
-                  <label for="inputPassword4">* Prima</label>
+                  <label>* Prima</label>
                   <input type="text" class="form-control" placeholder="{{disabledPrima}}" formControlName="prima" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                 </div>
                 </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                <label  for="formGroupExampleInput2">* Plazo en meses</label>
-                <input type="text" class="form-control" id="inputEmail4" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
+                <label >* Plazo en meses</label>
+                <input type="text" class="form-control" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                </div>
                 <div class="form-group col-md-4">
-                    <label  for="formGroupExampleInput2">* Cuota</label>
-                    <input type="text" class="form-control" id="inputEmail4" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
+                    <label>* Cuota</label>
+                    <input type="text" class="form-control" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                    </div>
                     <div class="form-group col-md-4">
-                      <label for="inputPassword4">* Interes en %</label>
+                      <label>* Interes en %</label>
                       <input type="text" class="form-control" placeholder="{{disabledInteres}}" formControlName="interes" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                     </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                <label  for="formGroupExampleInput2">* Persona que entrega</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51" autocomplete="off">
+                <label>* Persona que entrega</label>
+                <input type="text" class="form-control" placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51" autocomplete="off">
                </div>
                 <div class="form-group col-md-4">
-                <label for="inputPassword4">* Persona que recibe</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51" autocomplete="off">
+                <label>* Persona que recibe</label>
+                <input type="text" class="form-control" placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51" autocomplete="off">
                </div>
 
                <div class="form-group col-md-4">
-                <label for="inputPassword4">Valor residual</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese valor residual" formControlName="valorresidual" maxlength="11" autocomplete="off">
+                <label>Valor residual</label>
+                <input type="text" class="form-control" placeholder="Ingrese valor residual" formControlName="valorresidual" maxlength="11" autocomplete="off">
                </div>
 
               </div>
                 <div class="form-row">
 
                     <div class="form-group col-md-6">
-                      <label for="inputPassword4">Foto</label>
+                      <label>Foto</label>
                       <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" />
 
                     </div>
               
                     <div class="form-group col-md-6">
-                      <label  for="formGroupExampleInput2"> Observaciones </label>
-                      <textarea class="form-control" id="exampleFormControlTextarea2"
+                      <label> Observaciones </label>
+                      <textarea class="form-control"
                       rows="1" placeholder="Ingrese observaciones" autocomplete="off" formControlName="observaciones" maxlength="71"></textarea>
                     </div>
                                     
@@ -470,28 +464,3 @@
 
   </div>
 </section>
-
-<!-- 
-<label class="control-label col-md-2">Foto</label>
-                                          <div  class="col-md-4">
-                                              <div class="fileupload fileupload-new" data-provides="fileupload">
-                                                  <div class="fileupload-new thumbnail" style="width: 200px; height: 100px;">
-                                                      <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
-                                                  </div>
-                                                  <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 100px; line-height: 20px;"></div>
-                                                  <div>
-                                                   <span class="btn btn-white btn-file">
-                                                   <span class="fileupload-new"><i class="icon-paper-clip"></i> Select image</span>
-                                                   <span class="fileupload-exists"><i class="icon-undo"></i> Change</span>
-                                                   <input type="file" class="default" />
-                                                   </span>
-                                                      <a href="#" class="btn btn-danger fileupload-exists" data-dismiss="fileupload"><i class="icon-trash"></i> Remove</a>
-                                                  </div>
-                                              </div>
-                                              <span class="label label-danger">NOTE!</span>
-                                             <span>
-                                             Attached image thumbnail is
-                                             supported in Latest Firefox, Chrome, Opera,
-                                             Safari and Internet Explorer 10 only
-                                             </span>
-                                          </div>  -->
