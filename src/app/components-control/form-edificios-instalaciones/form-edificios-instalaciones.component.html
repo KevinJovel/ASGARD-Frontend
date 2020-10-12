@@ -43,12 +43,13 @@
                   </ul>
               </div>
      
-       <form class="form-inline" id="default" [formGroup]="activoEdiInsta">
+       <form class="form-inline" id="default" [formGroup]="activoEdiInsta" (ngSubmit)="guardarDatoss()">
          <fieldset title="1" class="step" id="default-step-0">
            <legend></legend>
-              <input type="hidden" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
-              <input type="hidden" class="form-control" formControlName="noformulario" id="exampleInputEmail3" autocomplete="off">
-              <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="idbien" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="noformulario" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+              <input type="hidden" class="form-control" formControlName="tipoactivo" autocomplete="off">
 
                 <div class="form-row">
                       <div class="form-group col-md-4" >
@@ -58,7 +59,7 @@
 
                     <div class="form-group col-md-4">
                       <label>* Estado</label>
-                      <select name="miselect"  class="form-control" formControlName="estadoingreso">
+                      <select class="form-control" formControlName="estadoingreso">
                           <option value="0">Seleccione...</option>
                           <option value="1">Nuevo</option>
                           <option value="2">Usado</option>
@@ -68,7 +69,7 @@
 
                     <div class="form-group col-md-4">
                       <label>* Tipo Adquisición</label>
-                      <select formControlName="tipoadquicicion" class="form-control">
+                      <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
                         <option value="0">--Seleccione--</option>
                         <option value="1">Contado</option>
                         <option value="2">Crédito</option>
@@ -80,9 +81,10 @@
 
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <label>* Proveedor o Donante</label >
-                  <select  class="form-control" formControlName="idproveedor" >
+                    <label>*{{tipocombo}}</label >
+                      <select  class="form-control" formControlName="idproveedor">
                     <option value="0">--Seleccione--</option >
+                      <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
                     </select>
                   </div>
 
@@ -90,13 +92,15 @@
                     <label>* Clasificación</label>
                     <select  class="form-control" formControlName="idclasificacion">
                       <option value="0">--Seleccione--</option>
+                      <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones"> {{clasificacion.clasificacion}} </option>
                     </select>
                    </div>
 
                    <div class="form-group col-md-4">
                     <label>Sucursal</label>
-                    <select id="inputState" class="form-control" formControlName="idmarca">
+                    <select class="form-control" formControlName="">
                       <option value="0">--Seleccione--</option>
+                      <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>
                     </select>  
                   </div>
               </div>
@@ -105,13 +109,13 @@
 
                   <div class="form-group col-md-4">
                     <label>* Vida útil</label>
-                    <input type="text" class="form-control" placeholder="" formControlName="prima" maxlength="8" autocomplete="off">
+                    <input type="text" class="form-control" placeholder="" formControlName="vidautil" maxlength="8" autocomplete="off">
                   </div>
                 
                     <div class="col-lg-8">
                       <label>* Descripción </label>
-                      <textarea class="form-control" id="exampleFormControlTextarea2"
-                       rows="1" placeholder="Descripcion" autocomplete="off" formControlName="Ingrese descripción" maxlength="101"></textarea>
+                      <textarea class="form-control"
+                       rows="1" placeholder="Descripcion" autocomplete="off" formControlName="descripcion" maxlength="101"></textarea>
                       </div>
                     
                 </div>
@@ -136,48 +140,60 @@
               <legend> </legend>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                <label for="inputPassword4">* Costo</label>
+                <label>* Costo</label>
                 <input type="text" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion" maxlength="11" autocomplete="off">
               </div>
                 <div class="form-group col-md-4">
-                  <label for="inputPassword4">* Prima</label>
-                  <input type="text" class="form-control" placeholder="" formControlName="prima" maxlength="8" autocomplete="off">
+                  <label>* Prima</label>
+                  <input type="text" class="form-control" placeholder="{{disabledPrima}}" formControlName="prima" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                 </div>
                 </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                <label  for="formGroupExampleInput2">* Plazo en meses</label>
-                <input type="text" class="form-control" id="inputEmail4" formControlName="plazopago" placeholder="" maxlength="3" autocomplete="off">
+                <label>* Plazo en meses</label>
+                <input type="text" class="form-control" id="inputEmail4" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                </div>
                 <div class="form-group col-md-4">
                     <label  for="formGroupExampleInput2">* Cuota</label>
-                    <input type="text" class="form-control" id="inputEmail4" formControlName="cuotaasignada" placeholder="" maxlength="8" autocomplete="off">
+                    <input type="text" class="form-control" id="inputEmail4" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                    </div>
                     <div class="form-group col-md-4">
-                      <label for="inputPassword4">* Interes en %</label>
-                      <input type="text" class="form-control" placeholder="" formControlName="interes"maxlength="3" autocomplete="off">
+                      <label>* Interes en %</label>
+                      <input type="text" class="form-control" placeholder="{{disabledInteres}}" formControlName="interes" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                     </div>
             </div>
 
             <div class="form-row">
                <div class="form-group col-md-4">
                 <label for="inputPassword4">Valor residual</label>
-                <input type="text" class="form-control" id="inputEmail4"  placeholder="Ingrese valor residual" formControlName="valorresidual" maxlength="11" autocomplete="off">
+                <input type="text" class="form-control" placeholder="Ingrese valor residual" formControlName="valorresidual" maxlength="11" autocomplete="off">
                </div>
 
               </div>
+              <div class="form-row">
+
+                <div class="form-group col-md-6">
+                  <label>* Persona que entrega</label>
+                  <input type="text" class="form-control" placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51" autocomplete="off">
+                 </div>
+                  <div class="form-group col-md-6">
+                  <label>* Persona que recibe</label>
+                  <input type="text" class="form-control" placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51" autocomplete="off">
+                 </div>
+                                
+            </div>
                 <div class="form-row">
 
                     <div class="form-group col-md-6">
                       <label for="inputPassword4">Foto</label>
-                      <input type="file" id="futFoto" class="form-control" accept="image/*" />
+                      <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" />
 
                     </div>
               
                     <div class="form-group col-md-6">
                       <label  for="formGroupExampleInput2"> Observaciones </label>
-                      <textarea class="form-control" id="exampleFormControlTextarea2"
+                      <textarea class="form-control"
                       rows="1" placeholder="Ingrese observaciones" autocomplete="off" formControlName="observaciones" maxlength="71"></textarea>
                     </div>
                                     

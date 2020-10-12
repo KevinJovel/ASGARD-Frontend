@@ -62,6 +62,7 @@ export class FormNuevoBienComponent implements OnInit {
     this.nuevobien = new FormGroup({
       idbien: new FormControl('0'),
       bandera: new FormControl('0'),
+      tipoactivo: new FormControl('2'),
       color: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
       modelo: new FormControl('', [Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
@@ -287,19 +288,11 @@ export class FormNuevoBienComponent implements OnInit {
                   if (res == 1) {
                     Swal.fire({
                       title: '¡Registro Guardado con éxito!',
-                      text: '¿Deseas realizar un nuevo registro?',
                       icon: 'success',
-                      showCancelButton: true,
                       confirmButtonColor: '#3085d6',
-                      cancelButtonColor: '#d33',
-                      cancelButtonText:'Cancelar',
-                      confirmButtonText: '¡Si, registrar!',
+                      confirmButtonText: '¡OK!',
                     }).then((result) => {
-                      if (result.value) {
-                        window.location.reload();
-                      } else {
                         this.router.navigate(['./tabla-activos']);
-                      }
                     });
                   } else {
                     Swal.fire({
