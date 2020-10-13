@@ -67,12 +67,15 @@ th, td {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px; 
 }
+/* .btn-success{
+   box-shadow: 0 1px 5px rgba(0,0,0,.5); 
+} */
 .btn-primary {
   background-color: #41cac0;
   border-color: hsl(176, 56%, 52%);
   color: #FFFFFF;
   margin-inline: 4px;
-  /* box-shadow: 0 1px 1px rgba(16, 138, 5, 0.05); */
+  /* box-shadow: 0 1px 5px rgba(0,0,0,.5); */
 }
 
 .btn-danger {
@@ -80,10 +83,11 @@ th, td {
   background-color: #ff6c60;
   border-color: #ff6c60;
   color: #FFFFFF;
-  /* box-shadow: 0 1px 1px rgba(16, 138, 5, 0.05); */
+  /* box-shadow: 0 1px 5px rgba(0,0,0,.5); */
 }
 .alert-success, .alert-danger, .alert-info, .alert-warning {
   border: none;
+  
 }
 .alert {
   font-family: Arial, Helvetica, sans-serif;
@@ -119,11 +123,22 @@ box-shadow: 0 20px 50px rgba(0,0,0,0.05);
   border-radius: 10px;
   font-size: 15px;
 }
-input, select, textarea,::placeholder {
+input, select, textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
   color: #797474;
+}
+::placeholder{
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-size: 14px;
+  color: #bbbbbb;
+}
+
+button{
+  margin: 0px 5px;
 }
 input[type=search] {
   border: 1px solid #e2e2e4;

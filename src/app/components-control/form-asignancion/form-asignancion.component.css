@@ -123,11 +123,22 @@ padding: 10px;
     font-size: 15px;
     margin-bottom: 12px;
   }
-  input, select, textarea,::placeholder {
+  input, select, textarea  {
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
     color: #797474;
+  }
+  ::placeholder{
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-size: 14px;
+    color: #bbbbbb;
+  }
+  
+  button{
+    margin: 0px 5px;
   }
   
   input[type=search] {

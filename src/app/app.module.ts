@@ -65,7 +65,6 @@ import { CargarScriptsService } from './services/cargar-scripts.service';
 import { CatalogosService } from './services/catalogos.service';
 import { UsuarioService } from './services/usuario.service';
 import { MantenimientoService } from './services/mantenimiento.service';
-import { SafePipe } from './components-control/safe.pipe';
 import { BajaService } from './services/baja.service';
 import { ConfiguracionService } from './services/configuracion.service';
 import { FormTipoTrasladoComponent } from './components-catalogos/form-tipo-traslado/form-tipo-traslado.component';
@@ -105,7 +104,6 @@ import { FormActivoIntangibleComponent } from './components-control/form-activo-
     TablaSolicitudComponent,
     FormInformeMantenimientoComponent,
     TablaInformeComponent,
-    SafePipe,
     CuadroSolicitudComponent,
     SolicitudComponent,
     GestionDescargoComponent,
