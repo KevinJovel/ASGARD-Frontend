@@ -61,7 +61,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         idproveedor: new FormControl('0',[Validators.required]),
         descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
         idclasificacion: new FormControl('0',[Validators.required]),
-      //  idsucursal: new FormControl('0'),
+       idsucursal: new FormControl('0'),
         vidautil: new FormControl('',[Validators.required,Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
         valoradquicicion: new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]), //Costo
         plazopago: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),

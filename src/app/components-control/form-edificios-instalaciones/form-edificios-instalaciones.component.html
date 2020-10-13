@@ -98,7 +98,7 @@
 
                    <div class="form-group col-md-4">
                     <label>* Sucursal</label>
-                    <select class="form-control" formControlName="">
+                    <select class="form-control" formControlName="idsucursal">
                       <option value="0">--Seleccione--</option>
                       <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>
                     </select>  
