@@ -108,8 +108,15 @@ table {
   border: 1px solid transparent;
   border-radius: 15px;
   box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-    
+  overflow: scroll;
   }
+  .panel::-webkit-scrollbar{
+    width: 7px;
+  }
+.panel::-webkit-scrollbar-thumb{
+    background-color:FF6C60 ;
+    border-radius: 5px;
+}
   .form-control {
     border: 1px solid #e2e2e4;
     box-shadow: none;

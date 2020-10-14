@@ -28,7 +28,7 @@
                     <th scope="row">Fecha</th>
                     <th scope="row">Descripcion del bien</th>
                     <th scope="row">Técino</th>
-                    <th scope="row">Costo de mano de obra</th>
+                    <th scope="row">Costo de MO</th>
                     <th scope="row">Costo de materiales</th>
                     <th scope="row">Costo total</th>
                     <th scope="row">Descripción de informe</th>
@@ -42,9 +42,9 @@
                     <td>{{informe.fechacadena}}</td>
                     <td>{{informe.bienes}}</td>
                     <td>{{informe.nombretecnico}}</td>
-                    <td>{{informe.costomateriales}}</td>
-                    <td>{{informe.costomo}}</td>
-                    <td>{{informe.costototal}}</td>
+                    <td>$ {{informe.costomateriales}}</td>
+                    <td>$ {{informe.costomo}}</td>
+                    <td>$ {{informe.costototal}}</td>
                     <td>{{informe.descripcion}}</td>
 
 
@@ -54,7 +54,7 @@
                     <td class="center hidden-phone">
                       <button class="btn btn-primary btn-xs" id="clear"
                         (click)="open(informe.idBien,informe.idinformematenimiento,informe.vidautil)"><i
-                          class="icon-edit"></i></button>
+                          class=" icon-arrow-up"></i></button>
                     </td>
                   </tr>
                 </tbody>
@@ -97,6 +97,10 @@
               <label for="formGroupExampleInput2"> Vida útil:</label>
               <input type="text" class="form-control" [ngModel]='sumar()'  formControlName="vidaUtil"  id="inputEmail4" autocomplete="off"   >
             </div>
+            <!-- <div class="form-group col-md-3">
+              <button title="Incrementar vida útil" style="margin-top: 27px;" (click)="incremantar()" class="btn btn-success"><i
+                  class="icon-arrow-up"></i></button>
+            </div> -->
             <br><br> <br><br> <br>
           
        
