@@ -31,8 +31,16 @@ public agregarNuevoBien(nuevoBien) {
     return this.http.get(environment.urlService + "api/ActivoFijo/listarClasificacionComboEdi").map(res=>res.json());
   }
 
+  public listarComboClasificacionIntan() {
+    return this.http.get(environment.urlService + "api/ActivoFijo/listarClasificacionComboIntan").map(res=>res.json());
+  }
+
   public comboSucursal() {
     return this.http.get(environment.urlService + "api/ActivoFijo/comboSucursal").map(res=>res.json());
+  }
+
+  public comboArea() {
+    return this.http.get(environment.urlService + "api/ActivoFijo/listarAreaCombo").map(res=>res.json());
   }
   
   public listarComboMarca() {

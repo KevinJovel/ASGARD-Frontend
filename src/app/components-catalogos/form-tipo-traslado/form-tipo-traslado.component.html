@@ -68,8 +68,15 @@
             <label>* Nombre:</label>
             <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese nombre" autocomplete="off" maxlength="26">
           </div>
-          <!-- Aletras para NOMBRE-->
-          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.yaExisteNombre">
+          
+          <div class="form-group">
+            <label>Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
+              placeholder="Ingrese descripción" autocomplete="off" maxlength="51"></textarea>
+          </div>
+
+           <!-- Alertas para nombre-->
+           <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.yaExisteNombre">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
@@ -89,14 +96,10 @@
             </button>
             <strong>¡Error!</strong> El campo nombre no acepta caracteres especiales.
           </div>
-          <!-- Fin Aletras para NOMBRE-->
+          <!-- Fin Aletras para nombre-->
 
-          <div class="form-group">
-            <label>Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
-              placeholder="Ingrese descripción" autocomplete="off" maxlength="51"></textarea>
-          </div>
-          <!-- Aletras para NOMBRE-->
+        
+          <!-- Aletras para descripción-->
           <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -110,7 +113,7 @@
             </button>
             <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
           </div>
-          <!-- Fin Aletras para NOMBRE-->
+          <!-- Fin Aletras para descripción-->
 
                            <!--  WARNING-->
                            <div class="alert alert-warning fade in" *ngIf="!traspaso.valid">
@@ -119,6 +122,8 @@
                             </button>
                             <strong>¡Advertencia!</strong> El campo nombre es obligatorio.
                           </div>
+
+                         
                 
                            <!--  END-WARNING-->
                            <div class="alert alert-success fade in" *ngIf="traspaso.valid&&traspaso.controls['bandera'].value==0">
