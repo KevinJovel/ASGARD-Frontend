@@ -75,7 +75,9 @@ ProvDon:string;
         this.observaciones=data.observaciones;
 
         });
-        this.depreciacionService.TarjetaListaTrasacciones(this.parametro).subscribe(data=>{this.bienes=data});
+        this.depreciacionService.TarjetaListaTrasacciones(this.parametro).subscribe(data=>{
+          this.bienes=data
+        });
     }
     FiltrarArea(sucursal){
       this.depreciacionService.ComboArea(sucursal.value).subscribe(data=>{this.areas=data});

@@ -112,12 +112,12 @@
                       <input type="text" class="form-control" formControlName="valorAdquicicion" readonly>
                     </div>
                     <div class="form-group">
-                      <label for="exampleFormControlTextarea2">Valor actual:</label>
-                      <input type="text" class="form-control" formControlName="valorActual" readonly>
+                      <label>Valor actual:</label>
+                      <input type="text" class="form-control"  value="{{valorActualStr}}" readonly>
                     </div>
                     <div class="form-group">
-                      <label for="exampleFormControlTextarea2">Valor a depreciar año {{anio}}:</label>
-                      <input type="text" class="form-control" formControlName="valorDepreciacion" readonly>
+                      <label>Valor a depreciar año {{anio}}:</label>
+                      <input type="text" class="form-control" value="{{this.valorDepreciarStr}}" readonly>
                     </div>
 
                     <button type="submit" class="btn btn-primary"><i class="icon-save"></i>

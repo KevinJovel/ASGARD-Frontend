@@ -32,6 +32,8 @@ export class TablaDepreciacionComponent implements OnInit {
   responsable:string;
   ubicacion:string;
   valorAcual:string;
+  valorActualStr:string;
+  valorDepreciarStr:string;
   provDon:string;
   noSerie:string;
   vidaUtil:string;
@@ -119,6 +121,14 @@ export class TablaDepreciacionComponent implements OnInit {
         this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
         this.datos.controls["valorDepreciacion"].setValue(data.valorDepreciacion);
         this.datos.controls["valorActual"].setValue(data.valorActual);
+      // pasar a 2 decimales el valor a depreciar
+        let valorRnDepreciar=Math.round(data.valorDepreciacion*100)/100;
+        valorRnDepreciar.toFixed(2);
+        this.valorDepreciarStr=valorRnDepreciar.toString();
+        //pasar a 2 decimales el valor actual
+        let valorRnActual=Math.round(data.valorActual*100)/100;
+        valorRnActual.toFixed(2);
+        this.valorActualStr=valorRnActual.toString();
         this.display='block';
       }
    
