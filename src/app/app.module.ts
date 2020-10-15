@@ -75,6 +75,7 @@ import { FormCoopeComponent } from './components-configuracion/form-coope/form-c
 import { SelectTipoActivoComponent } from './components-control/select-tipo-activo/select-tipo-activo.component';
 import { FormEdificiosInstalacionesComponent } from './components-control/form-edificios-instalaciones/form-edificios-instalaciones.component';
 import { FormActivoIntangibleComponent } from './components-control/form-activo-intangible/form-activo-intangible.component';
+import { RegistroActivosComponent } from './components-control/registro-activos/registro-activos.component';
 
 
 
@@ -123,6 +124,7 @@ import { FormActivoIntangibleComponent } from './components-control/form-activo-
     SelectTipoActivoComponent,
     FormEdificiosInstalacionesComponent,
     FormActivoIntangibleComponent,
+    RegistroActivosComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -153,6 +155,7 @@ import { FormActivoIntangibleComponent } from './components-control/form-activo-
       {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent},
       {path: 'form-usuario', component: FormUsuarioComponent},
       {path: 'form-nuevoBien', component: FormNuevoBienComponent},
+      {path: 'registro-activos', component: RegistroActivosComponent},
       {path: 'form-asignacion', component: FormAsignancionComponent},
       {path: 'form-desasignacion', component: FormDesasignarComponent},
       {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},
