@@ -81,6 +81,12 @@ public AsignarBien(bien) {
 public getBienesAsignados() {
   return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivosAsignados").map(res => res.json());
 }
+public getBienesAsignadosEdificios() {
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivosEdificios").map(res => res.json());
+}
+public getBienesAsignadosIntengibles() {
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivosIntangibles").map(res => res.json());
+}
 
 public listarComboArea() {
   return this.http.get(environment.urlService + "api/ActivoFIjo/listarAreaCombo").map(res => res.json());
@@ -113,10 +119,17 @@ public modificarFormIngreso(formularioIngreso) {
   public modificarBien(nuevoBien) {
     return this.http.post(environment.urlService + "api/FormularioIngreso/modificarActivoFijo", nuevoBien).map(res=>res.json());
     }
-
+// Buscadores de activos asignados
 public buscarActivoAsig(buscador) {
   return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivoAsig/" + buscador).map(res => res.json());
 }
+public buscarActivoEdificioAsig(buscador) {
+  return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivoEdificioAsig/" + buscador).map(res => res.json());
+}
+public buscarActivoIntengibleAsig(buscador) {
+  return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivoIntengibleAsig/" + buscador).map(res => res.json());
+}
+//FIn de buscadores asignados
 public buscarActivoNoAsig(buscador) {
   return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivoNoAsig/" + buscador).map(res => res.json());
 }
