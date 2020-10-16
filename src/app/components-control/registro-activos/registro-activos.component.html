@@ -11,7 +11,7 @@
                 <div class="form-group col-md-3">
                     <br>
                     <label for="inputPassword4">Tipo activo</label>
-                    <select class="form-control" (change)="CambiarTipo()" formControlName="idTipo">
+                    <select [attr.disabled]="disabledFiltroBotonAsignacion ? '' : null" class="form-control" (change)="CambiarTipo()" formControlName="idTipo">
                       <option value="0">Seleccione</option>
                       <option [value]="1" >Bienes Muebles</option>	
                       <option [value]="2" >Edificios</option>
@@ -22,7 +22,7 @@
 
                   </div>
                   <div class="form-group col-md-3">
-                  <button title="Recargar datos" style="margin-top: 27px; width: 200px; margin-right: 70px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i>  {{BtnAsinacion}}</button>                 
+                  <button [attr.disabled]="disabledFiltro ? '' : null"  title="Recargar datos" style="margin-top: 27px; width: 200px; margin-right: 70px;" class="btn btn-success" (click)="FiltrarAsignadosYNoAsignados()"><i class="glyphicon glyphicon-refresh"></i>  {{BtnAsinacion}}</button>                 
                 </div>
             </div>
             <div class="row">
@@ -34,7 +34,7 @@
               <div class="form-group col-md-3">
                 <br>
                 <label for="inputPassword4">Sucursal</label>
-                <select [attr.disabled]="disabledFiltro ? '' : null"  class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
+                <select [attr.disabled]="disabledFiltro||disabledFiltroBotonAsignacion ? '' : null"  class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
                   <option value="0">Seleccione</option>
                   <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursal">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
                 </select>
@@ -43,7 +43,7 @@
               <div class="form-group col-md-3">
                 <br>
                 <label for="inputPassword4">Área de negocio</label>
-                <select [attr.disabled]="disabledFiltro ? '' : null"  id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
+                <select [attr.disabled]="disabledFiltro||disabledFiltroBotonAsignacion ? '' : null"  id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
                   <option value="0" selected>Seleccione</option>
                   <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
                 </select> 
@@ -196,7 +196,51 @@
                   </section>
                 </div>
               </div>
+<!-- No asigandos -->
+ <!-- Inicia la table de bienes muebles dependiendo de la opción -->
+ <div class="row" [ngStyle]="{'display':tablaMueblesNoAsig}">
+  <div class="col-lg-12">
+    <section class="panel panel-default">
 
+      <header class="panel-heading">
+        <h5>Registros de bienes muebles no asignados</h5>
+      </header>
+      <div class="panel-body">
+        <div class="adv-table">
+          <table class="display table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>No. Formulario</th>
+                <th>Fecha ingreso</th>
+                <th>Descripción</th>
+                <th>Clasificación</th>
+               
+                <th class="hidden-phone" >Opciones </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let combo of activos | paginate: { itemsPerPage: 10, currentPage: p}; let i=index">
+                
+                <th scope="col">{{ 10 * (p - 1) + i+1 }}</th>
+                
+                <td style="font-size: 12px;">{{combo.noFormulario}}</td>
+                <td>{{combo.fechacadena}}</td>
+                <td>{{combo.desripcion}}</td>
+                <td>{{combo.clasificacion}}</td>        
+                <td class="center hidden-phone">
+                <!--  <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>-->
+                  <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
+                </td>
+                
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
             <div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
               <div class="modal-dialog .modal-dialog ">
                 <div class="modal-content">

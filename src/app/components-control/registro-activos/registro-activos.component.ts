@@ -15,9 +15,13 @@ export class RegistroActivosComponent implements OnInit {
   tablaEdificios='none';
   tablaMuebles='none';
   tablaIntengibles='none';
+  tablaMueblesNoAsig='none';
   disabledFiltro: boolean;
+  disabledFiltroBotonAsignacion:boolean;
   banderaBuscador:any=1;
+  BanderaAsignados:boolean=true;
   BtnAsinacion:string;
+
   dataState:State;//hace referencia a la variable donde estan almacenados los datos
   activos:any;
   //bienes: any;
@@ -67,30 +71,60 @@ CambiarTipo(){
     case '1':
       this.tablaEdificios='none'
       this.tablaIntengibles='none'
-      this.controlService.getBienesAsignados().subscribe(res=> { this.activos=res});
-      this.tablaMuebles='block'
+      this.controlService.getBienesAsignados().subscribe(res=> { this.activos=res
+        this.tablaMuebles='block'});
       this.disabledFiltro=false;
       this.banderaBuscador=1;
     break;
     case '2':
       this.tablaMuebles='none'
       this.tablaIntengibles='none'
-      this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.activos=res});
-      this.tablaEdificios='block'
+      this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.activos=res
+        this.tablaEdificios='block'});
       this.disabledFiltro=true;
       this.banderaBuscador=2;
     break;
     case '3':
       this.tablaEdificios='none'
       this.tablaMuebles='none'
-      this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.activos=res});
-      this.tablaIntengibles='block'
+      this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.activos=res
+        this.tablaIntengibles='block'
+      });
+     
       this.disabledFiltro=true;
       this.banderaBuscador=3;
     break;
     default:
       console.log("ocurrio un error en la consulta de datos");
   }
+}
+FiltrarAsignadosYNoAsignados(){
+  if(this.BanderaAsignados==true){
+    this.BtnAsinacion="Ver asignados";
+    this.tablaEdificios='none';
+    this.tablaIntengibles='none';
+    this.tablaMuebles='none';
+    this.controlService.getActivosSinAsignar().subscribe(res=> { 
+      this.activos=res
+      this.tablaMueblesNoAsig='block';
+      this.banderaBuscador=4;
+    });
+ this.disabledFiltroBotonAsignacion=true;
+    this.BanderaAsignados=false;
+  }else {
+    this.BtnAsinacion="Ver no asignados";
+    this.tablaMueblesNoAsig='none';
+    this.tablaEdificios='none';
+    this.tablaIntengibles='none';
+    this.controlService.getBienesAsignados().subscribe(res=> { 
+      this.activos=res
+      this.tablaMuebles='block';
+      this.banderaBuscador=1;
+    });
+    this.disabledFiltroBotonAsignacion=false;
+    this.BanderaAsignados=true
+  }
+  
 }
 FiltrarArea(){
   var id= this.combo.controls['idSucursal'].value;
@@ -106,7 +140,18 @@ Reload(){
   this.combo.controls['idSucursal'].setValue(0);
   this.combo.controls['idArea'].setValue(0);
   this.combo.controls['idTipo'].setValue(1);
-  this.controlService.getBienesAsignados().subscribe(res=> { this.activos=res});
+  this.BtnAsinacion="Ver no asignados";
+  this.tablaMueblesNoAsig='none';
+  this.tablaEdificios='none';
+  this.tablaIntengibles='none';
+  this.controlService.getBienesAsignados().subscribe(res=> { 
+    this.activos=res
+    this.tablaMuebles='block';
+    this.banderaBuscador=1;
+  });
+  this.disabledFiltroBotonAsignacion=false;
+  this.BanderaAsignados=true
+
 }
 
 
@@ -169,8 +214,9 @@ if(this.banderaBuscador==1){
   this.controlService.buscarActivoEdificioAsig(buscador.value).subscribe(res => {this.activos = res});
 }else if(this.banderaBuscador==3){
   this.controlService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => {this.activos = res});
+}else if(this.banderaBuscador==4){
+this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.activos = res});
 }
-
 }
 
 open() {
