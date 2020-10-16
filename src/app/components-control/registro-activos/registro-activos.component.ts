@@ -3,7 +3,7 @@ import { FormGroup, FormControl} from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 import { CatalogosService } from './../../services/catalogos.service';//filtro
-import {Router} from '@angular/router';
+import {Router,ActivatedRoute} from '@angular/router';
 import { State, StateService } from './../../services/state.service';//para compartir entre componentes
 @Component({
   selector: 'app-registro-activos',
@@ -49,7 +49,7 @@ export class RegistroActivosComponent implements OnInit {
   plazo: string; prima: string; cuota:string; interes: string; valorresidual: string; foto: string;
   noformu: string ;
 
-constructor(private router:Router ,private stateService:StateService ,private controlService: ControlService,
+constructor(private router:Router, private activatedRoute:ActivatedRoute ,private stateService:StateService ,private controlService: ControlService,
   private catalogosServices: CatalogosService) {
 
   this.combo = new FormGroup({
@@ -61,14 +61,55 @@ constructor(private router:Router ,private stateService:StateService ,private co
     'idEmpleado':new FormControl("0"),
     'tipoadquicicion': new FormControl("0")                                            
   }); 
-
+  this.activatedRoute.params.subscribe(parametro=>{
+    this.parametro=parametro["param"];
+  })
 }
 
 ngOnInit() { 
-  this.controlService.getBienesAsignados().subscribe(res=> { this.activos=res});
-  this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro  
-  this.tablaMuebles='block'; 
+if(this.parametro=="ver"){
+  this.tablaMuebles='none';
+  this.tablaIntengibles='none';
+  this.tablaMueblesNoAsig='none';
+  this.tablaEdificios='none'
+  this.controlService.getBienesAsignados().subscribe(res=> { this.activos=res
+    this.tablaMuebles='block'; 
+  });
   this.BtnAsinacion="Ver no asignados"
+  this.banderaBuscador=1;
+}else if(this.parametro=="edificios"){
+      this.BtnAsinacion="Ver asignados";
+      this.tablaMuebles='none';
+      this.tablaIntengibles='none';
+      this.tablaMueblesNoAsig='none';
+      this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.activos=res
+     this.tablaEdificios='block'});
+      this.disabledFiltro=true;
+      this.banderaBuscador=2;
+  }else if(this.parametro=="tangibles"){
+    this.BtnAsinacion="Ver asignados";
+    this.tablaEdificios='none';
+    this.tablaIntengibles='none';
+    this.tablaMuebles='none';
+    this.controlService.getActivosSinAsignar().subscribe(res=> { 
+      this.activos=res
+      this.tablaMueblesNoAsig='block';
+      this.banderaBuscador=4;
+    });
+ this.disabledFiltroBotonAsignacion=true;
+    this.BanderaAsignados=false;
+  }else if(this.parametro=="intangible"){
+    this.BtnAsinacion="Ver asignados";
+    this.tablaEdificios='none'
+    this.tablaMuebles='none'
+    this.tablaMueblesNoAsig='none';
+    this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.activos=res
+      this.tablaIntengibles='block'
+    });
+    this.disabledFiltro=true;
+    this.banderaBuscador=3;
+  }
+  this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro  
 }
 CambiarTipo(){
   switch(this.combo.controls["idTipo"].value){
@@ -155,6 +196,7 @@ Reload(){
   });
   this.disabledFiltroBotonAsignacion=false;
   this.BanderaAsignados=true
+  this.disabledFiltro=false;
 
 }
 

@@ -110,13 +110,13 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
           this.bienes=data;
     });
     this. ValidarDatosArray();
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: '¡Datos agregados con éxito!',
-      showConfirmButton: false,
-      timer: 3000
-    })
+    // Swal.fire({
+    //   position: 'center',
+    //   icon: 'success',
+    //   title: '¡Datos agregados con éxito!',
+    //   showConfirmButton: false,
+    //   timer: 3000
+    // })
   }
   noRepetirFolio(control: FormControl) {
 
