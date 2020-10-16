@@ -34,6 +34,9 @@ export class RegistroActivosComponent implements OnInit {
   areas: any;
   sucursal: any;
   nuevobien: FormGroup;
+
+  //Variable para redireccionar
+  parametro:string;
   
   //descripcion: string;
   bienObj: any ={};
@@ -58,6 +61,7 @@ constructor(private router:Router ,private stateService:StateService ,private co
     'idEmpleado':new FormControl("0"),
     'tipoadquicicion': new FormControl("0")                                            
   }); 
+
 }
 
 ngOnInit() { 

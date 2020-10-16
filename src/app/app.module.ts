@@ -155,7 +155,7 @@ import { RegistroActivosComponent } from './components-control/registro-activos/
       {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent},
       {path: 'form-usuario', component: FormUsuarioComponent},
       {path: 'form-nuevoBien', component: FormNuevoBienComponent},
-      {path: 'registro-activos', component: RegistroActivosComponent},
+      {path: 'registro-activos/:param', component: RegistroActivosComponent},
       {path: 'form-asignacion', component: FormAsignancionComponent},
       {path: 'form-desasignacion', component: FormDesasignarComponent},
       {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},

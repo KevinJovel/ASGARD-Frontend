@@ -292,7 +292,7 @@ export class FormNuevoBienComponent implements OnInit {
                       confirmButtonColor: '#3085d6',
                       confirmButtonText: '¡OK!',
                     }).then((result) => {
-                        this.router.navigate(['./tabla-activos']);
+                        this.router.navigate(['./registro-activos/tangibles']);
                     });
                   } else {
                     Swal.fire({

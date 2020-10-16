@@ -198,7 +198,7 @@ ProveedorDonante() {
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: '¡OK!',
                       }).then((result) => {                    
-                          this.router.navigate(['./tabla-activos']);         
+                          this.router.navigate(['./registro-activos/intangible']);         
                       });
                     } else {
                       Swal.fire({
