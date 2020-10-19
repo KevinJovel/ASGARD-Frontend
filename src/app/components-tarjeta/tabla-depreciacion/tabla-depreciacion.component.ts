@@ -3,6 +3,7 @@ import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { ConfiguracionService } from './../../services/configuracion.service';
+import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,6 +16,13 @@ export class TablaDepreciacionComponent implements OnInit {
   sucursales: any;
   areas:any;
   combos: FormGroup;
+  // Variables para tipos de activos
+  tablaEdificios='none';
+  tablaMuebles='none';
+  tablaIntengibles='none';
+  disabledFiltroBotonAsignacion:boolean;
+  banderaBuscador:any=1;//bandera para cambiar el buscador
+  disabledFiltro: boolean;//Esta bandera sirve para inhabilitar los filtros en edificios e intangibles
   p: number=1;
   titulo:string;
   datos:FormGroup;
@@ -38,10 +46,11 @@ export class TablaDepreciacionComponent implements OnInit {
   noSerie:string;
   vidaUtil:string;
   Observaciones:string;
-  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService,private configuracionService:ConfiguracionService) { 
+  constructor(private catalogosServices: CatalogosService,private controlService: ControlService,private depreciacionService:DepreciacionService,private configuracionService:ConfiguracionService) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
-      'idSucursal': new FormControl("0")
+      'idSucursal': new FormControl("0"),
+      'idTipo': new FormControl("0")
      });
      this.datos = new FormGroup({
       'idBien': new FormControl("0"),
@@ -57,7 +66,42 @@ export class TablaDepreciacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data
+      this.tablaMuebles='block'; 
+    });
+  }
+  CambiarTipo(){
+    switch(this.combos.controls["idTipo"].value){
+      case '1':
+        this.tablaEdificios='none'
+        this.tablaIntengibles='none'
+        this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data
+          this.tablaMuebles='block'; 
+        });
+        this.disabledFiltro=false;
+        this.banderaBuscador=1;
+      break;
+      case '2':
+        this.tablaMuebles='none'
+        this.tablaIntengibles='none'
+        this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.bienes=res
+          this.tablaEdificios='block'});
+        this.disabledFiltro=true;
+        this.banderaBuscador=2;
+      break;
+      case '3':
+        this.tablaEdificios='none'
+        this.tablaMuebles='none'
+        this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.bienes=res
+          this.tablaIntengibles='block'
+        });
+       
+        this.disabledFiltro=true;
+        this.banderaBuscador=3;
+      break;
+      default:
+        console.log("ocurrio un error en la consulta de datos");
+    }
   }
   FiltrarArea(){
     var id= this.combos.controls['idSucursal'].value;
