@@ -17,6 +17,12 @@ export class DepreciacionService {
   public TablaDepreciacion() {
     return this.http.get(environment.urlService + "api/Depreciacion/listarActivosDepreciacion").map(res => res.json());
   }
+  public TablaDepreciacionEdificios() {
+    return this.http.get(environment.urlService + "api/Depreciacion/listarActivosEdificiosDepreciacion").map(res => res.json());
+  }
+  public TablaDepreciacionIntangibles() {
+    return this.http.get(environment.urlService + "api/Depreciacion/listarActivosIntangiblesDepreciacion").map(res => res.json());
+  }
   public BuscarTablaDepreciacion(buscador) {
     return this.http.get(environment.urlService + "api/Depreciacion/buscarActivos/" + buscador).map(res => res.json());
   }

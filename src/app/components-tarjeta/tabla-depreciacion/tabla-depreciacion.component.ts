@@ -28,6 +28,8 @@ export class TablaDepreciacionComponent implements OnInit {
   datos:FormGroup;
   display = 'none';
   display2 = 'none';
+  displayfoto = 'none';
+  displayMensaje='none';
   //Datos del modal
   coopertativa:string;
   anio:string;
@@ -84,7 +86,7 @@ export class TablaDepreciacionComponent implements OnInit {
       case '2':
         this.tablaMuebles='none'
         this.tablaIntengibles='none'
-        this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.bienes=res
+        this.depreciacionService.TablaDepreciacionEdificios().subscribe(res=> { this.bienes=res
           this.tablaEdificios='block'});
         this.disabledFiltro=true;
         this.banderaBuscador=2;
@@ -92,7 +94,7 @@ export class TablaDepreciacionComponent implements OnInit {
       case '3':
         this.tablaEdificios='none'
         this.tablaMuebles='none'
-        this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.bienes=res
+        this.depreciacionService.TablaDepreciacionIntangibles().subscribe(res=> { this.bienes=res
           this.tablaIntengibles='block'
         });
        
@@ -114,7 +116,16 @@ export class TablaDepreciacionComponent implements OnInit {
   Reload(){
     this.combos.controls['idSucursal'].setValue(0);
     this.combos.controls['idArea'].setValue(0);
-    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+    this.combos.controls['idTipo'].setValue(0);
+    this.tablaEdificios='none';
+    this.tablaIntengibles='none';
+    this.depreciacionService.TablaDepreciacion().subscribe(data=>{
+      this.bienes=data
+      this.tablaMuebles='block';
+      this.banderaBuscador=1;
+    });
+    this.disabledFiltroBotonAsignacion=false;
+    this.disabledFiltro=false;
   }
   AplicarDepreciacion(){
      console.log(this.datos.value);
@@ -130,7 +141,12 @@ export class TablaDepreciacionComponent implements OnInit {
           timer: 3000
         })
         this.display='none';
-        this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
+        this.tablaEdificios='none'
+        this.tablaIntengibles='none'
+        this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data
+          this.tablaMuebles='block'
+          this.combos.controls['idTipo'].setValue(0);
+        });
       }else{
         Swal.fire({
           position: 'center',
@@ -145,8 +161,7 @@ export class TablaDepreciacionComponent implements OnInit {
 
   }
   open(id){
-   
-    
+
     this.depreciacionService.DatosDepreciacion(id).subscribe(data=>{
       if(data.valorActual<=0){
         Swal.fire({
@@ -180,7 +195,16 @@ export class TablaDepreciacionComponent implements OnInit {
   }
   detalles(id){
     this.configuracionService.recuperarDatosGenrales(id).subscribe(data=>{
-      this.foto=data.foto;
+      this.displayfoto='none';
+      this.displayMensaje='none';
+      if(data.foto!=null){
+        this.foto=data.foto;
+        this.displayfoto='block';
+        this.displayMensaje='none';
+      }else{
+        this.displayMensaje='block';
+        this.displayfoto='none';
+      }
       this.descripcion=data.descripcion;
       this.codigo=data.codigo;
       this.fecha=data.fecha;
@@ -204,7 +228,13 @@ export class TablaDepreciacionComponent implements OnInit {
   }
   buscar(buscador){
     this.p = 1;
+    if(this.banderaBuscador==1){
     this.depreciacionService.BuscarTablaDepreciacion(buscador.value).subscribe(res => {this.bienes = res});
+  }else if(this.banderaBuscador==2){
+      this.controlService.buscarActivoEdificioAsig(buscador.value).subscribe(res => {this.bienes = res});
+    }else if(this.banderaBuscador==3){
+      this.controlService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => {this.bienes = res});
+    }
   }
   // if (this.persona.valid == true) {
   //   var fechaNac = this.persona.controls["fechaNacimiento"].value.split("-");
