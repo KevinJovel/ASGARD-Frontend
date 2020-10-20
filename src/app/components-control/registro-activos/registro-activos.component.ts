@@ -33,6 +33,8 @@ export class RegistroActivosComponent implements OnInit {
   display2 = 'none';
   display3 = 'none';
   display4 = 'none';
+  displayfoto = 'none';
+  displayMensaje='none';
   //filtro combo
   areas: any;
   sucursal: any;
@@ -232,6 +234,17 @@ this.controlService.VerDatosActivosAsig(id).subscribe((data) => {
    } else {
     this.tipocombo="Donante:";
    }
+   //Mensaje cuando no hay imagen
+   this.displayfoto='none';
+   this.displayMensaje='none';
+   if(data.foto!=null){
+     this.foto=data.foto;
+     this.displayfoto='block';
+     this.displayMensaje='none';
+   }else{
+     this.displayMensaje='block';
+     this.displayfoto='none';
+   }
   this.fecha=data.fecha; 
   this.codigo=data.codigo;
   this.descripcion=data.descripcion;
@@ -266,6 +279,17 @@ verNoAsignados(id: any) {
    } else {
     this.tipocombo="Donante:";
    }
+   //Mensaje cuando no hay imagen
+   this.displayfoto='none';
+   this.displayMensaje='none';
+   if(data.foto!=null){
+     this.foto=data.foto;
+     this.displayfoto='block';
+     this.displayMensaje='none';
+   }else{
+     this.displayMensaje='block';
+     this.displayfoto='none';
+   }
   this.fecha=data.fecha; 
   this.descripcion=data.descripcion;
   this.valor=data.valorAquisicion;
@@ -296,6 +320,17 @@ verEdificios(id: any) {
      } else {
       this.tipocombo="Donante:";
      }
+     //Mensaje cuando no hay imagen
+     this.displayfoto='none';
+      this.displayMensaje='none';
+      if(data.foto!=null){
+        this.foto=data.foto;
+        this.displayfoto='block';
+        this.displayMensaje='none';
+      }else{
+        this.displayMensaje='block';
+        this.displayfoto='none';
+      }
     this.fecha=data.fecha; 
     this.descripcion=data.descripcion;
     this.codigo=data.codigo;
@@ -326,6 +361,17 @@ verIntangibles(id: any) {
      } else {
       this.tipocombo="Donante:";
      }
+     //Mensaje cuando no hay imagen
+     this.displayfoto='none';
+      this.displayMensaje='none';
+      if(data.foto!=null){
+        this.foto=data.foto;
+        this.displayfoto='block';
+        this.displayMensaje='none';
+      }else{
+        this.displayMensaje='block';
+        this.displayfoto='none';
+      }
     this.fecha=data.fecha; 
     this.descripcion=data.descripcion;
     this.codigo=data.codigo;
