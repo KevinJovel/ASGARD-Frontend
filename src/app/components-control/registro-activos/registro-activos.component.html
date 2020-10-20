@@ -15,7 +15,7 @@
                       <option value="0">Seleccione</option>
                       <option [value]="1" >Bienes Muebles</option>	
                       <option [value]="2" >Edificios</option>
-                      <option [value]="3" >Intengibles</option>		
+                      <option [value]="3" >Intangibles</option>		
                     </select>
                   </div>
                   <div class="form-group col-md-6">
@@ -140,7 +140,7 @@
                               <td>{{combo.clasificacion}}</td>         
                               <td class="center hidden-phone">
                               <!--  <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>-->
-                                <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
+                                <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="verEdificios(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
                               </td>
                               
                           </tbody>
@@ -185,7 +185,7 @@
                           
                               <td class="center hidden-phone">
                               <!--  <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>-->
-                                <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
+                                <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="verIntangibles(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
                               </td>
                               
                           </tbody>
@@ -230,7 +230,7 @@
                 <td>{{combo.clasificacion}}</td>        
                 <td class="center hidden-phone">
                 <!--  <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>-->
-                  <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
+                  <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="verNoAsignados(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
                 </td>
                 
             </tbody>
@@ -241,65 +241,122 @@
     </section>
   </div>
 </div>
+
             <div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
               <div class="modal-dialog .modal-dialog ">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-                    <h4 class="modal-title">Datos completos del activo</h4>
+                    <h4 class="modal-title">Datos del activo</h4>
                     <h4 class="modal-title"></h4>
                   </div>
                   <div class="modal-body" >
-                  
 
-                     <div class="col-lg-4">
-                      <p>
-                       
-                        <span class="text-bold"><strong># Formulario:</strong> </span> {{ noformu}} <br/><br/>
-                         <span class="text-bold"><strong>Código:</strong></span>{{ codigo }}<br/><br/>
-                        <span class="text-bold"><strong>Área:</strong></span> {{ area}}<br/><br/>
-                        <span class="text-bold"><strong>Responsable:</strong></span> {{ responsable}}<br/><br/>
-                        <label><strong>Clasificación:</strong></label> {{ clasificacion}}<br/><br/>
-                        <label><strong>Proveedor:</strong></label> {{ proveedor}}<br/><br/>
-                        <label><strong>Adquisición:</strong></label> {{ tipoadqui}} <br/><br/>
-                        <label ><strong>Destino inicial:</strong></label> {{destino}} <br/><br/>
-                        <label ><strong>Valor adquisición:</strong></label> ${{ valor}}<br/><br/>
-                        <label ><strong>Cuota:</strong></label> $ {{ cuota}} <br/><br/>
-                        <label  ><strong>Prima:</strong></label> $ {{ prima}} <br/><br/>
-                        <label ><strong>Valor residual:</strong></label> {{ valorresidual}} <br/>
-                   
-                      </p>
-                   
+                    <!--Para la imagen-->
+                    <div class="row">
+                      <div class="col-lg-12" style="text-align: center;">
+                        <img src="{{foto}}" width="300" height="150" />
+                      </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Fecha Adquisición:</strong> {{fecha}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Código:</strong> {{codigo}}</p>
+                      </div>
                     </div>
 
-                     <div class="col-lg-4">
-                        
-                      <p>
-                     
-                        <span class="text-bold"><strong>Fecha de ingreso:</strong></span>  {{ fecha }}<br/><br/>
-                        <span class="text-bold"><strong>N° serie:</strong></span> {{ numserie }}<br/><br/>
-                        <span class="text-bold"><strong>Descripción:</strong></span> {{descripcion }}<br/><br/>
-                        <label ><strong>Marca:</strong></label> {{ marca }}<br/><br/>
-                        <span class="text-bold"><strong>Color:</strong></span> {{ color }}<br/><br/>
-                        <label><strong>Donante:</strong></label> {{ donante}} <br/><br/>
-                        <label ><strong>Modelo:</strong></label> {{ modelo}}<br/><br/>
-                        <label  ><strong>Estado:</strong></label> {{ estado}}<br/><br/>
-                        <label ><strong>Vida útil:</strong></label> {{vidautil}}<br/><br/>
-                        <label  ><strong>Plazo:</strong></label> {{ plazo}} <br/><br/>
-                        <label ><strong>Interés:</strong></label> {{ interes}} % <br/><br/>
-                        
-                      </p>
-                   
-                  </div>
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Marca:</strong> {{marca}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Modelo:</strong> {{modelo}}</p>
+                      </div>     
+                    </div>
 
-                  <div class="col-lg-4">     
-                    <p>
-                      <br/><br/>
-                      <img [src]="foto" alt=""  width="290" height="190" class="">  
-                    </p>
-                 
-                </div>
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Descripción:</strong> {{descripcion}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Color:</strong> {{color}}</p>
+                      </div> 
+                    </div>
 
+                    
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                      <p><strong>Estado:</strong> {{estado}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Valor de adquisición:</strong> ${{valor}}</p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Clasificación:</strong> {{clasificacion}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Responsable:</strong> {{responsable}}</p>
+                        
+                      </div>
+                         
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Adquisición:</strong> {{tipoadqui}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>{{tipocombo}}</strong> {{provDon}}</p>
+                      </div>
+                         
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Prima:</strong> ${{prima}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Cuota:</strong> ${{cuota}}</p>
+                      </div>  
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Interés:</strong> {{interes}} %</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Plazo:</strong> {{plazo}} meses</p>
+                      </div>   
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Vida útil:</strong> {{vidautil}} años</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Valor residual:</strong> ${{valorresidual}}</p>
+                      </div> 
+
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Ubicación:</strong> {{ubicacion}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Observaciones:</strong> {{Observaciones}}</p>
+                      </div>
+                         
+                    </div>
+                  
                    <div class="row">
                     <div class="col-xs-3">
                       
@@ -313,4 +370,328 @@
                   </div>
                 </div>
               </div>
+
+<!--Modal para activos no asignados-->
+ <div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display4}">
+                <div class="modal-dialog .modal-dialog ">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+                      <h4 class="modal-title">Datos del activo</h4>
+                      <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body" >
+  
+                      <!--Para la imagen-->
+                      <div class="row">
+                        <div class="col-lg-12" style="text-align: center;">
+                          <img src="{{foto}}" width="300" height="150" />
+                        </div>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p><strong>Fecha Adquisición:</strong> {{fecha}}</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <p><strong>Descripción:</strong> {{descripcion}}</p>
+                        </div>
+                      
+                      </div>
+  
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p><strong>Marca:</strong> {{marca}}</p>
+                          
+                        </div>
+                        <div class="col-xs-6">
+                          <p><strong>Modelo:</strong> {{modelo}}</p>
+                          
+                        </div> 
+                      </div>
+  
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p><strong>Clasificación:</strong> {{clasificacion}}</p>
+                          
+                        </div>
+                        <div class="col-xs-6">
+                          <p><strong>Color:</strong> {{color}}</p>
+                        </div>     
+                      </div>
+  
+                      <div class="row">
+                        <div class="col-xs-6">
+                        <p><strong>Estado:</strong> {{estado}}</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <p><strong>Valor de adquisición:</strong> ${{valor}}</p>
+                        </div>
+                      </div>
+  
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p><strong>Adquisición:</strong> {{tipoadqui}}</p>
+                        </div>
+                        <div class="col-xs-6"> 
+                          <p><strong>{{tipocombo}}</strong> {{provDon}}</p>
+                        </div>
+                           
+                      </div>
+  
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p><strong>Cuota:</strong> ${{cuota}}</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <p><strong>Prima:</strong> ${{prima}}</p>
+                        </div> 
+  
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p><strong>Plazo:</strong> {{plazo}} meses</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <p><strong>Interés:</strong> {{interes}} %</p>
+                        </div> 
+                      </div>
+
+                      <div class="row">
+                        <div class="col-xs-6">
+                          <p><strong>Valor residual:</strong> ${{valorresidual}}</p>
+                        </div>
+                        <div class="col-xs-6">
+                          <p><strong>Observaciones:</strong> {{Observaciones}}</p>
+                        </div> 
+                      </div>
+  
+                     <div class="row">
+                      <div class="col-xs-3">
+                        
+                      </div>
+                     </div>
+       <!-- aca -->
+  
+       <button type="button" (click)="close4()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+         
+                       </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--Modal para edificios-->
+<div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
+  <div class="modal-dialog .modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">Datos del activo</h4>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body" >
+
+        <!--Para la imagen-->
+        <div class="row">
+          <div class="col-lg-12" style="text-align: center;">
+            <img src="{{foto}}" width="300" height="150" />
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Fecha Adquisición:</strong> {{fecha}}</p>
+          </div>
+          <div class="col-xs-6">
+           
+            <p><strong>Código:</strong> {{codigo}}</p>
+            
+          </div>
+        
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Descripción:</strong> {{descripcion}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Valor de adquisición:</strong> ${{valor}}</p>
+          </div> 
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+          <p><strong>Estado:</strong> {{estado}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Clasificación:</strong> {{clasificacion}}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Adquisición:</strong> {{tipoadqui}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>{{tipocombo}}</strong> {{provDon}}</p>
+          </div>
+             
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Prima:</strong> ${{prima}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Cuota:</strong> ${{cuota}}</p>
+          </div> 
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Valor residual:</strong> ${{valorresidual}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Plazo:</strong> {{plazo}} meses</p>
+          </div>
+             
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Interés:</strong> {{interes}} %</p>
+            
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Vida util:</strong> {{vidautil}} años</p>
+          </div>
+             
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <p><strong>Observaciones:</strong> {{Observaciones}}</p>
+          </div>      
+        </div>
+      
+       <div class="row">
+        <div class="col-xs-3">
+          
+        </div>
+       </div>
+<!-- aca -->
+
+<button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+
+         </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal para activos intangibles-->
+<div #basicModal  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display3}">
+  <div class="modal-dialog .modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close3()">×</button>
+        <h4 class="modal-title">Datos del activo</h4>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body" >
+
+        <!--Para la imagen-->
+        <div class="row">
+          <div class="col-lg-12" style="text-align: center;">
+            <img src="{{foto}}" width="300" height="150" />
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Fecha Adquisición:</strong> {{fecha}}</p>
+          </div>
+          <div class="col-xs-6">
+           
+            <p><strong>Código:</strong> {{codigo}}</p>
+            
+          </div>
+        
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Descripción:</strong> {{descripcion}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Valor de adquisición:</strong> ${{valor}}</p>
+          </div> 
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Adquisición:</strong> {{tipoadqui}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Clasificación:</strong> {{clasificacion}}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Prima:</strong> ${{prima}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>{{tipocombo}}</strong> {{provDon}}</p>
+          </div>
+             
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Valor residual:</strong> ${{valorresidual}}</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Cuota:</strong> ${{cuota}}</p>
+          </div> 
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Interés:</strong> {{interes}} %</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Plazo:</strong> {{plazo}} meses</p>
+          </div>
+             
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Vida util:</strong> {{vidautil}} años</p>
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Observaciones:</strong> {{Observaciones}}</p>
+          </div>
+             
+        </div>
+      
+       <div class="row">
+        <div class="col-xs-3">
+          
+        </div>
+       </div>
+<!-- aca -->
+
+<button type="button" (click)="close3()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+
+         </div>
+      </div>
+    </div>
+  </div>
+
 

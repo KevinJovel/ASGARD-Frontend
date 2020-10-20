@@ -135,18 +135,26 @@ public buscarActivoNoAsig(buscador) {
 }
 
 public VerDatosActivosAsig(id){
-  return this.http.get(environment.urlService + "api/ActivoFijo/VerDatosActivoAsig/"+id).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/ActivoFijo/DatosGeneralesActivosAsignados/"+id).map(res=>res.json());
  }
  public VerDatosActivosNoAsig(id){
-  return this.http.get(environment.urlService + "api/ActivoFijo/VerDatosActivoNoAsig/"+id).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/ActivoFijo/DatosGeneralesActivosNoAsignados/"+id).map(res=>res.json());
  }
 
  public RecuperarFormCompleto(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/RecuperarFormCompleto/"+id).map(res=>res.json());
  } 
 
+ //Datos generales de eficios
+ public DatosGeneralesEdificios(id){
+  return this.http.get(environment.urlService + "api/ActivoFijo/DatosGeneralesEdificios/"+id).map(res=>res.json());
+ }
 
- 
+ //Datos generales de activos intangibles
+ public DatosGeneralesIntangibles(id){
+  return this.http.get(environment.urlService + "api/ActivoFijo/DatosGeneralesIntangibles/"+id).map(res=>res.json());
+ }
+
 }
 
 

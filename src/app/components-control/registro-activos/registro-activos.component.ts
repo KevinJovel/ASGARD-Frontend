@@ -30,6 +30,9 @@ export class RegistroActivosComponent implements OnInit {
   combo: FormGroup;
   p: number = 1;
   display = 'none';
+  display2 = 'none';
+  display3 = 'none';
+  display4 = 'none';
   //filtro combo
   areas: any;
   sucursal: any;
@@ -48,6 +51,9 @@ export class RegistroActivosComponent implements OnInit {
   tipoadqui: string; color: string; numserie: string; vidautil: string; estado: string; valor: string;
   plazo: string; prima: string; cuota:string; interes: string; valorresidual: string; foto: string;
   noformu: string ;
+  ubicacion:string;
+  provDon:string;
+  Observaciones:string;
 
 constructor(private router:Router, private activatedRoute:ActivatedRoute ,private stateService:StateService ,private controlService: ControlService,
   private catalogosServices: CatalogosService) {
@@ -205,36 +211,139 @@ close() {
 this.display = 'none';
 }
 
+close2() {
+  this.display2 = 'none';
+  }
+
+close3() {
+    this.display3 = 'none';
+    }
+
+close4() {
+      this.display4 = 'none';
+      }    
+
 ver(id: any) {
 this.display = 'block';
 this.controlService.VerDatosActivosAsig(id).subscribe((data) => {
- 
+  //Validacion para cambiar si es proveedor o donantes
+  if(data.isProvDon==1) {
+    this.tipocombo="Proveedor:";
+   } else {
+    this.tipocombo="Donante:";
+   }
+  this.fecha=data.fecha; 
+  this.codigo=data.codigo;
+  this.descripcion=data.descripcion;
+  this.valor=data.valorAquisicion;
   this.marca = data.marca;
-  this.area = data.area;
-  this.responsable = data.responsable;
-  this.fecha = data.fecha;
-  this.proveedor = data.proveedor;
-  this.clasificacion = data.clasificacion;
-  this.destino = data.destino;
-  this.donante = data.donante;
-  this.codigo = data.Codigo;
-  this.color = data.Color;
-  this.descripcion = data.Desripcion;
+  this.modelo=data.modelo;
+  this.color=data.color;
   this.estado = data.estadoingreso;
-  this.numserie = data.numserie;
-  this.plazo = data.plazopago;
+  this.clasificacion = data.clasificacion;
+  this.responsable=data.responsable;
+  this.ubicacion=data.ubicacion;
   this.tipoadqui = data.tipoadquicicion;
-  this.valor = data.valoradquicicion;
-  this.valorresidual = data.valorresidual;
-  this.vidautil = data.vidautil;
-  this.cuota = data.cuotaasignada;
+  this.provDon=data.provDon;
   this.prima = data.prima;
+  this.cuota = data.cuota;
+  this.plazo = data.plazo;
   this.interes = data.interes;
-  this.modelo = data.Modelo;
-  this.foto =data.foto;
-  this.noformu = data.noformulario;
-  //console.log(id);
+  this.valorresidual = data.valorresidual;
+  this.vidautil=data.vidaUtil;
+  this.foto=data.foto;
+  this.Observaciones=data.observaciones;
+  
 });
+}
+
+verNoAsignados(id: any) {
+  this.display4 = 'block';
+  this.controlService.VerDatosActivosNoAsig(id).subscribe((data) => {
+    //Validacion para cambiar si es proveedor o donantes
+  if(data.isProvDon==1) {
+    this.tipocombo="Proveedor:";
+   } else {
+    this.tipocombo="Donante:";
+   }
+  this.fecha=data.fecha; 
+  this.descripcion=data.descripcion;
+  this.valor=data.valorAquisicion;
+  this.marca = data.marca;
+  this.modelo=data.modelo;
+  this.color=data.color;
+  this.estado = data.estadoingreso;
+  this.clasificacion = data.clasificacion;
+  this.tipoadqui = data.tipoadquicicion;
+  this.provDon=data.provDon;
+  this.prima = data.prima;
+  this.cuota = data.cuota;
+  this.plazo = data.plazo;
+  this.interes = data.interes;
+  this.valorresidual = data.valorresidual;
+  this.vidautil=data.vidaUtil;
+  this.foto=data.foto;
+  this.Observaciones=data.observaciones;
+  });
+  }
+
+verEdificios(id: any) {
+  this.display2='block';
+  this.controlService.DatosGeneralesEdificios(id).subscribe((data) => {
+     //Validacion para cambiar si es proveedor o donantes
+     if(data.isProvDon==1) {
+      this.tipocombo="Proveedor:";
+     } else {
+      this.tipocombo="Donante:";
+     }
+    this.fecha=data.fecha; 
+    this.descripcion=data.descripcion;
+    this.codigo=data.codigo;
+    this.valor=data.valorAquisicion;
+    this.ubicacion=data.ubicacion;
+    this.foto=data.foto;
+    this.Observaciones=data.observaciones;
+    this.vidautil=data.vidaUtil;
+    this.cuota = data.cuota;
+    this.prima = data.prima;
+    this.provDon=data.provDon;
+    this.interes = data.interes;
+    this.plazo = data.plazo;
+    this.estado = data.estadoingreso;
+    this.clasificacion = data.clasificacion;
+    this.tipoadqui = data.tipoadquicicion;
+    this.valorresidual = data.valorresidual;
+  });
+
+}
+
+verIntangibles(id: any) {
+  this.display3='block';
+  this.controlService.DatosGeneralesIntangibles(id).subscribe((data) => {
+    //Validacion para cambiar si es proveedor o donantes
+    if(data.isProvDon==1) {
+      this.tipocombo="Proveedor:";
+     } else {
+      this.tipocombo="Donante:";
+     }
+    this.fecha=data.fecha; 
+    this.descripcion=data.descripcion;
+    this.codigo=data.codigo;
+    this.valor=data.valorAquisicion;
+    this.ubicacion=data.ubicacion;
+    this.provDon=data.provDon;
+    this.foto=data.foto;
+    this.Observaciones=data.observaciones;
+    this.vidautil=data.vidaUtil;
+    this.cuota = data.cuota;
+    this.prima = data.prima;
+    this.interes = data.interes;
+    this.plazo = data.plazo;
+    this.clasificacion = data.clasificacion;
+    this.tipoadqui = data.tipoadquicicion;
+    this.valorresidual = data.valorresidual;
+  });
+
 }
 
 MandarDatos(id){

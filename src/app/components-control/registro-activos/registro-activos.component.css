@@ -35,9 +35,9 @@ table {
   }
   
   .modal-dialog {
-    width: 1050px;   /*agrandar el modal*/
-	margin-right: -4px;
-	margin-left: 215px;   /*alinear a la izq*/
+    width: 600px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 
 }
   
