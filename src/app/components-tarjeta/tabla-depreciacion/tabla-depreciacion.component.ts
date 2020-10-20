@@ -28,6 +28,7 @@ export class TablaDepreciacionComponent implements OnInit {
   datos:FormGroup;
   display = 'none';
   display2 = 'none';
+  display3 = 'none';
   displayfoto = 'none';
   displayMensaje='none';
   //Datos del modal
@@ -39,6 +40,7 @@ export class TablaDepreciacionComponent implements OnInit {
   codigo:string;
   fecha:string;
   valorAdquisicion:string;
+  clasificacion:string;
   responsable:string;
   ubicacion:string;
   valorAcual:string;
@@ -193,31 +195,57 @@ export class TablaDepreciacionComponent implements OnInit {
    
     });
   }
-  detalles(id){
-    this.configuracionService.recuperarDatosGenrales(id).subscribe(data=>{
-      this.displayfoto='none';
-      this.displayMensaje='none';
-      if(data.foto!=null){
-        this.foto=data.foto;
-        this.displayfoto='block';
-        this.displayMensaje='none';
-      }else{
-        this.displayMensaje='block';
+  detalles(id,tipo){
+    if(tipo==1){
+      this.configuracionService.recuperarDatosGenrales(id).subscribe(data=>{
         this.displayfoto='none';
-      }
-      this.descripcion=data.descripcion;
-      this.codigo=data.codigo;
-      this.fecha=data.fecha;
-      this.valorAdquisicion=data.valorAquisicion;
-      this.responsable=data.respondable;
-      this.ubicacion=data.ubicacion;
-      this.valorAcual=data.valorActual;
-      this.provDon=data.provDon;
-     this.noSerie=data.noSerie;
-      this.vidaUtil=data.vidaUtil;
-      this.Observaciones=data.observaciones;
-    });
-    this.display2='block';
+        this.displayMensaje='none';
+        if(data.foto!=null){
+          this.foto=data.foto;
+          this.displayfoto='block';
+          this.displayMensaje='none';
+        }else{
+          this.displayMensaje='block';
+          this.displayfoto='none';
+        }
+        this.descripcion=data.descripcion;
+        this.codigo=data.codigo;
+        this.fecha=data.fecha;
+        this.valorAdquisicion=data.valorAquisicion;
+        this.responsable=data.respondable;
+        this.ubicacion=data.ubicacion;
+        this.valorAcual=data.valorActual;
+        this.provDon=data.provDon;
+       this.noSerie=data.noSerie;
+        this.vidaUtil=data.vidaUtil;
+        this.Observaciones=data.observaciones;
+      });
+      this.display2='block';
+    }else{
+      this.configuracionService.recuperarDatosGenralesEdificiosIntangibles(id).subscribe(data=>{
+        this.displayfoto='none';
+        this.displayMensaje='none';
+        if(data.foto!=null){
+          this.foto=data.foto;
+          this.displayfoto='block';
+          this.displayMensaje='none';
+        }else{
+          this.displayMensaje='block';
+          this.displayfoto='none';
+        }
+        this.descripcion=data.descripcion;
+        this.codigo=data.codigo;
+        this.fecha=data.fecha;
+        this.valorAdquisicion=data.valorAquisicion;
+        this.valorAcual=data.valorActual;
+        this.provDon=data.provDon;
+        this.clasificacion=data.clasificacion;
+        this.vidaUtil=data.vidaUtil;
+        this.Observaciones=data.observaciones;
+
+      });
+      this.display3='block';
+    }
   
   }
   close(){
@@ -225,6 +253,9 @@ export class TablaDepreciacionComponent implements OnInit {
   }
   close2(){
     this.display2='none';
+  }
+  close3(){
+    this.display3='none';
   }
   buscar(buscador){
     this.p = 1;

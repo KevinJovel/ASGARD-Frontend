@@ -35,5 +35,11 @@ export class ConfiguracionService {
     //   Metodo generico para mostrar datos generales en un modal
     public recuperarDatosGenrales(id) {
         return this.http.get(environment.urlService  + "api/Configuracion/DatosGenerales/" + id).map(res => res.json());
+ 
     }
+    public recuperarDatosGenralesEdificiosIntangibles(id) {
+        return this.http.get(environment.urlService  + "api/Configuracion/DatosGeneralesEdificiosIntangibles/" + id).map(res => res.json());
+ 
+    }
+    
 }
