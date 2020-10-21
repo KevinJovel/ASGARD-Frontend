@@ -12,7 +12,7 @@
                            
     <h4 style="text-align: center;">CONTROL DE EXISTENCIAS DE MOBILIARIO, EQUIPO E INSTALACIONES </h4>
 
-
+    <!--Bienes muebles-->
     <div class="row">
         <div class="col-lg-14">
             <section class="panel panel-default">
@@ -158,5 +158,130 @@
             </section>
             </div>
             </div>
+
+            <!--Edificios e Instalaciones-->
+            <div class="row">
+                <div class="col-lg-14">
+                    <section class="panel panel-default">
+                        <div class="form-row">
+        
+                            <div class="row">
+                                <!-- Primera columna -->
+                                <div class="form-group col-md-4">
+                                    <label>Fecha de adquicicion:</label>
+                                    <p>{{fecha}}</p>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Denominacion:</label>
+                                    <p>{{descripcion}}</p>
+                                </div>
+        
+                                <div class="form-group col-md-4">
+                                    <label>Codigo:</label>
+                                    <p>{{codigo}}</p>
+                                </div>
+                                <!-- segunda columna -->
+        
+                                <div class="form-group col-md-3">
+                                    <label>Valor de adquicicion:</label>
+                                    <p>$ {{valor}}</p>
+                                </div>
+        
+                                <div class="form-group col-md-3">
+                                    <label>Prima:</label>
+                                    <p>${{prima}}</p>
+                                </div>
+        
+                                <div class="form-group col-md-3">
+                                    <label>Saldo por medio de:</label>
+                                    <p>{{plazo}}</p>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Cuotas de:</label>
+                                    <p>${{cuota}}</p>
+                                </div>
+                                <!-- tercera columna -->
+                                <div class="form-group col-md-3">
+                                    <label>Mas interes del:</label>
+                                    <p>{{interes}}%</p>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>{{ProvDon}}:</label>
+                                    <p>{{proveedor}}</p>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Direccion:</label>
+                                    <p>{{direccion}}</p>
+                                </div>
+                               
+                                <div class="form-group col-md-3">
+                                    <label>Vida util segun referencia de fábrica:</label>
+                                    <p>{{vidaUtil}}años</p>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Tasa anual de depreciación:</label>
+                                    <p>{{tasa}}%</p>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Valor residual:</label>
+                                    <p>${{valorresidual}}</p>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Observaciones:</label>
+                                    <p>{{observaciones}}</p>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel panel-default">
+        
+                                    <header class="panel-heading">
+                                        <h5 style="text-align: center;">MOVIMIENTO DEL VALOR - DEPRECIACIONES - GASTOS DE CONSEVACION</h5>
+                                    </header>
+                                    <div class="panel-body">
+                                        <div class="adv-table">
+                                            <table class="display table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                      
+                                                        <th>Fecha</th>
+                                                        <th>Concepto</th>
+                                                        <th>Valor de adquisición y mejoras</th>
+                                                        <th>Depreciación Anual</th>
+                                                        <th>Depreciación Acum.</th>
+                                                        <th>Valor actual</th>
+        
+                                                
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let bien of bienes">
+        
+        
+                                                        <td>{{bien.fecha}}</td>
+                                                        <td>{{bien.concepto}}</td>
+                                                        <td>$ {{bien.montoTransaccion}}</td>
+                                                        <td>$ {{bien.depreciacionAnual}}</td>
+                                                        <td>$ {{bien.depreciacionAcumulada}}</td>
+                                                        <td>$ {{bien.valorActual}}</td>
+                                                    </tr>
+                                                
+                                                </tbody>
+                                            </table>
+                                         
+                                        </div>
+                                        <div style="text-align: center;">
+                                            <button title="Imprimir tarjeta de depreciación" style="margin-top: 20px; margin-bottom: 100px; text-align: center;" class="btn btn-success">Imprimir<i class="icon-print"></i></button>
+                                   
+                                        </div>
+                                     </div>
+                                </section>
+                            </div>
+                        </div>
+                    </section>
+                    </div>
+                    </div>
     </section>
           

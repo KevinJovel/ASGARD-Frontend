@@ -18,6 +18,7 @@ export class ReportTarjetaComponent implements OnInit {
   Datos:any;
   p: number=1;
   parametro: string;
+  tipo:any;
   //Variables para objeto que viene de peticion get
   fecha:string;
   descripcion:string;
@@ -48,6 +49,7 @@ ProvDon:string;
   }
   ngOnInit(): void {
       this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
+     if(this.tipo==1) {
       this.depreciacionService.DatosTarjeta(this.parametro).subscribe(data=>{
         if(data.isProvDon==1){
           this.ProvDon="Proveedor";
@@ -78,7 +80,35 @@ ProvDon:string;
         this.depreciacionService.TarjetaListaTrasacciones(this.parametro).subscribe(data=>{
           this.bienes=data
         });
+     } else {
+       this.depreciacionService.DatosTarjetaEdificios(this.parametro).subscribe(data=>{
+        if(data.isProvDon==1){
+          this.ProvDon="Proveedor";
+        }else{
+          this.ProvDon="Donante";
+        }
+        this.fecha=data.fechaAdquicicion;
+        this.codigo=data.codigo;
+        this.descripcion=data.descripcion;
+        this.valor=data.valor;
+        this.prima=data.prima;
+        this.cuota=data.cuota;
+        this.plazo=data.plazo;
+        this.interes=data.interes;
+        this.proveedor=data.proveedor;
+        this.direccion=data.direccion;
+        this.vidaUtil=data.vidaUtil;
+        this.tasa=data.tasaAnual;
+        this.valorresidual=data.valorResidual;
+        this.observaciones=data.observaciones;
+       });
+       this.depreciacionService.TarjetaListaTrasacciones(this.parametro).subscribe(data=>{
+        this.bienes=data
+      });
+     }
+
     }
+    
     FiltrarArea(sucursal){
       this.depreciacionService.ComboArea(sucursal.value).subscribe(data=>{this.areas=data});
     }

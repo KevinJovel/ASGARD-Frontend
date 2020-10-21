@@ -3,17 +3,31 @@
 <br />
 <br />
 <br />
-<section class="panel">
+<section class="pane__general">
 <h1>Tarjeta de depreciación</h1>
   <div class="row">
     <div class="col-lg-14">
       <section class="panel panel-default">
         <div class="form-row">
           <form class="form-inline" id="default" [formGroup]="combos">
+
+            <div class="row">
+              <div class="form-group col-md-3">
+                     <br>
+                     <label for="inputPassword4">Tipo activo</label>
+                     <select [attr.disabled]="disabledFiltroBotonAsignacion ? '' : null" class="form-control" (change)="CambiarTipo()" formControlName="idTipo">
+                       <option value="0">Seleccione</option>
+                       <option [value]="1" >Bienes Muebles</option>	
+                       <option [value]="2" >Edificios</option>
+                       <option [value]="3" >Intangibles</option>		
+                     </select>
+                   </div>
+                      </div>
+
             <div class="row">
               <div class="col-md-3">
                 <label>Sucursal:</label>
-                <select class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
+                <select [attr.disabled]="disabledFiltro? '' : null" class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
                   <option value="0">Seleccione</option>
                   <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
                 </select>
@@ -21,7 +35,7 @@
 
           <div class="form-group col-md-3">
             <label>Área de negocio:</label>
-            <select class="form-control" formControlName="idArea" (change)="Filtrar()">
+            <select [attr.disabled]="disabledFiltro ? '' : null" class="form-control" formControlName="idArea" (change)="Filtrar()">
               <option value="0" selected>Seleccione</option>
               <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
             </select> 
@@ -36,11 +50,11 @@
             </div>
             </form>
             <br>
-            <div class="row">
+            <div class="row" [ngStyle]="{'display':tablaMuebles}">
               <div class="col-lg-12">
                 <section class="panel panel-default">
                   <header class="panel-heading">
-                    <h5>Registro de Activos</h5>
+                    <h5>Registros de bienes muebles</h5>
                   </header>
                   <div class="panel-body">
                     <div class="adv-table">
@@ -59,7 +73,6 @@
                         <tbody>
                           <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
                             <th scope="col">{{i+(5*p)-4}}</th>
-                            <!-- <td>{{marca.idMarca}}</td> -->
                             <td>{{bien.codigo}}</td>
                             <td>{{bien.descripcion}}</td>
                             <td>{{bien.sucursal}}</td>
@@ -68,7 +81,7 @@
                               <button class="btn btn-warning btn-xs" (click)="mostrarFoto(bien.idBien)"><i class="icon-eye-open"></i></button>
                            </td>
                             <td class="center hidden-phone" style="text-align: center;">
-                               <button title="Generar Tarjeta" class="btn btn-success btn-xs" [routerLink]="['/report-tarjeta',bien.idBien]"><i class="icon-list-alt"></i></button>
+                               <button title="Generar Tarjeta" class="btn btn-success btn-xs" [routerLink]="['/report-tarjeta',bien.idBien,1]"><i class="icon-list-alt"></i></button>
                             </td>
                           </tr>
                         </tbody>
@@ -79,6 +92,102 @@
                 </section>
               </div>
             </div>
+
+            <!-- Inicia tabla de bienes edificios  -->
+            <div class="row" [ngStyle]="{'display':tablaEdificios}">
+              <div class="col-lg-12">
+                <section class="panel panel-default">
+          
+                  <header class="panel-heading">
+                    <h5>Registros de Edidicios</h5>
+                  </header>
+                  <div class="panel-body">
+                    <div class="adv-table">
+                      <table class="display table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>N°</th>
+                            <th>Código</th>
+                            <th>Fecha ingreso</th>
+                            <th>Descripción</th>
+                            <th>Clasificación</th>                 
+                            <th>Foto</th>                  
+                            <th class="hidden-phone" >Generar tarjeta </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+                            
+                            <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                            
+                            <td>{{bien.codigo}}</td>
+                            <td>{{bien.fechacadena}}</td>
+                            <td>{{bien.descripcion}}</td>
+                            <td>{{bien.clasificacion}}</td>         
+                            <td class="center hidden-phone">
+                              <button class="btn btn-warning btn-xs" (click)="mostrarFoto(bien.idBien)"><i class="icon-eye-open"></i></button>
+                           </td>
+                            <td class="center hidden-phone" style="text-align: center;">
+                               <button title="Generar Tarjeta" class="btn btn-success btn-xs" [routerLink]="['/report-tarjeta',bien.idBien,2]"><i class="icon-list-alt"></i></button>
+                            </td>
+                            
+                        </tbody>
+                      </table>
+                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+             <!-- inicia la tabla de intagibles -->
+             <div class="row" [ngStyle]="{'display':tablaIntengibles}">
+              <div class="col-lg-12">
+                <section class="panel panel-default">
+          
+                  <header class="panel-heading">
+                    <h5>Registros bienes intangibles</h5>
+                  </header>
+                  <div class="panel-body">
+                    <div class="adv-table">
+                      <table class="display table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>N°</th>
+                            <th>Código</th>
+                            <th>Fecha ingreso</th>
+                            <th>Descripción</th>
+                            <th>Clasificación</th>
+                            <th>Foto</th>                  
+                            <th class="hidden-phone" >Generar tarjeta </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+                            
+                            <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                            
+                            <td>{{bien.codigo}}</td>
+                            <td>{{bien.fechacadena}}</td>
+                            <td>{{bien.descripcion}}</td>
+                            <td>{{bien.clasificacion}}</td>
+                        
+                            <td class="center hidden-phone">
+                              <button class="btn btn-warning btn-xs" (click)="mostrarFoto(bien.idBien)"><i class="icon-eye-open"></i></button>
+                           </td>
+                            <td class="center hidden-phone" style="text-align: center;">
+                               <button title="Generar Tarjeta" class="btn btn-success btn-xs" [routerLink]="['/report-tarjeta',bien.idBien]"><i class="icon-list-alt"></i></button>
+                            </td>
+                            
+                        </tbody>
+                      </table>
+                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
             <!--modal para mostrar-->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display2}">
   <div class="modal-dialog">
