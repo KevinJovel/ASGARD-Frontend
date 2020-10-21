@@ -12,12 +12,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ReportTarjetaComponent implements OnInit {
   display = 'none';
+  displayDatosMuebles='none';
+  displayDatosEdificios='none';
   bienes: any;
   sucursales: any;
   areas:any;
   Datos:any;
   p: number=1;
-  parametro: string;
+  parametro: any;
+  parametro2: any;
   tipo:any;
   //Variables para objeto que viene de peticion get
   fecha:string;
@@ -45,12 +48,15 @@ ProvDon:string;
   
     this.activateRoute.params.subscribe(parametro => {
       this.parametro = parametro["id"];
+      this.parametro2 = parametro["tipo"];
   });
   }
   ngOnInit(): void {
       this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-     if(this.tipo==1) {
+     if(this.parametro2==1) {
+       this.displayDatosEdificios='none';
       this.depreciacionService.DatosTarjeta(this.parametro).subscribe(data=>{
+        
         if(data.isProvDon==1){
           this.ProvDon="Proveedor";
         }else{
@@ -75,12 +81,10 @@ ProvDon:string;
         this.tasa=data.tasaAnual;
         this.valorresidual=data.valorResidual;
         this.observaciones=data.observaciones;
-
+        this.displayDatosMuebles='block';
         });
-        this.depreciacionService.TarjetaListaTrasacciones(this.parametro).subscribe(data=>{
-          this.bienes=data
-        });
-     } else {
+     } else if(this.parametro2==2) {
+       this.displayDatosMuebles='none';
        this.depreciacionService.DatosTarjetaEdificios(this.parametro).subscribe(data=>{
         if(data.isProvDon==1){
           this.ProvDon="Proveedor";
@@ -101,12 +105,13 @@ ProvDon:string;
         this.tasa=data.tasaAnual;
         this.valorresidual=data.valorResidual;
         this.observaciones=data.observaciones;
+        this.displayDatosEdificios='block';
        });
-       this.depreciacionService.TarjetaListaTrasacciones(this.parametro).subscribe(data=>{
-        this.bienes=data
-      });
+   
      }
-
+     this.depreciacionService.TarjetaListaTrasacciones(this.parametro).subscribe(data=>{
+      this.bienes=data
+    });
     }
     
     FiltrarArea(sucursal){
