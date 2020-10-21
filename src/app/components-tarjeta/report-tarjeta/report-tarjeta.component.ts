@@ -83,9 +83,9 @@ ProvDon:string;
         this.observaciones=data.observaciones;
         this.displayDatosMuebles='block';
         });
-     } else if(this.parametro2==2) {
+     } else {
        this.displayDatosMuebles='none';
-       this.depreciacionService.DatosTarjetaEdificios(this.parametro).subscribe(data=>{
+       this.depreciacionService.DatosTarjetaEdificiosIntangibles(this.parametro).subscribe(data=>{
         if(data.isProvDon==1){
           this.ProvDon="Proveedor";
         }else{

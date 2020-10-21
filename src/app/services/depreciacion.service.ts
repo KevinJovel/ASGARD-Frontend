@@ -44,7 +44,7 @@ export class DepreciacionService {
   public DatosTarjeta(id) {
     return this.http.get(environment.urlService + "api/Depreciacion/TarjetaDatos/" + id).map(res => res.json());
   }
-  public DatosTarjetaEdificios(id) {
+  public DatosTarjetaEdificiosIntangibles(id) {
     return this.http.get(environment.urlService + "api/Depreciacion/TarjetaDatosEdificios/" + id).map(res => res.json());
   }
   public TarjetaListaTrasacciones(id) {
