@@ -168,7 +168,7 @@ import { RegistroActivosComponent } from './components-control/registro-activos/
       {path: 'gestion-descargo', component: GestionDescargoComponent},
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
       {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
-      {path: 'report-tarjeta/:id', component: ReportTarjetaComponent},
+      {path: 'report-tarjeta/:id/:tipo', component: ReportTarjetaComponent},
       {path: 'cuadro-control', component: CuadroControlComponent},
       {path: 'cierre-anio', component: CierreAnioComponent},
       {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent},
