@@ -49,6 +49,7 @@ export class TablaRevalorizarComponent implements OnInit {
   noSerie:string;
   vidaUtil:string;
   Observaciones:string;
+  vidaUtilCorrecta:boolean=false;
   revalorizacion: FormGroup;
   constructor(private mantenimientoService: MantenimientoService, private catalogosServices: CatalogosService,private controlService: ControlService,private depreciacionService:DepreciacionService,private configuracionService:ConfiguracionService) { 
     this.combos=new FormGroup({
@@ -152,9 +153,9 @@ export class TablaRevalorizarComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         })  
-            this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
-              this.tablaMuebles='block'; 
-            });
+            //this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
+              //this.tablaMuebles='block'; 
+           // });
       } 
       
     });
@@ -165,26 +166,33 @@ export class TablaRevalorizarComponent implements OnInit {
    
 
 this.display = 'none';
-this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
-  this.tablaMuebles='block'; 
-});
-
   }
-  open(idBien,vidtUtil){
+  open(idBien,vidaUtil){
 // alert(id);
 this.titulo = "Revalorización";
 this.revalorizacion.controls["idBien"].setValue(idBien);
-this.revalorizacion.controls["vidaUtil"].setValue(vidtUtil) ;
+this.revalorizacion.controls["vidaUtil"].setValue(vidaUtil) ;
 this.revalorizacion.controls["valorRevalorizacion"].setValue("");
 this.revalorizacion.controls["fecha"].setValue("");
 
 //this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
- // this.tablaMuebles='block'; 
+  //this.tablaMuebles='block'; 
 //});
 this.display='block';
-
-
   }
+  
+  validarVidaUtil(vida){
+    var id=this.revalorizacion.controls["idBien"].value;
+    this.controlService.getVidaUtil(id).subscribe(data=>{
+      if(vida.value>0 &&vida.value<data.vidaUtil){
+        this.vidaUtilCorrecta=true;
+      }else{
+        this.vidaUtilCorrecta=false;
+      }
+    });
+   
+  }
+
   detalles(id,tipo){
     if(tipo==1){
       this.configuracionService.recuperarDatosGenrales(id).subscribe(data=>{

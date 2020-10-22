@@ -71,7 +71,6 @@
                       <tbody>
                         <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
                           <th scope="col">{{i+(5*p)-4}}</th>
-                          <!-- <td>{{marca.idMarca}}</td> -->
                           <td>{{bien.codigo}}</td>
                           <td>{{bien.descripcion}}</td>
                           <td>{{bien.responsable}}</td>
@@ -99,7 +98,7 @@
                 <section class="panel panel-default">
           
                   <header class="panel-heading">
-                    <h5>Bienes disponibles para depreciación</h5>
+                    <h5>Activos disponibles para revalorizar</h5>
                   </header>
                   <div class="panel-body">
                     <div class="adv-table">
@@ -127,7 +126,7 @@
                               <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                   (click)="detalles(bien.idBien,2)"></i></button>
                               <button title="Revalorizar" class="btn btn-warning btn-xs"
-                              (click)="open(bien.idBien,bien.vidautil)"><i class="icon-sort-by-attributes-alt"></i></button>
+                              (click)="open(bien.idBien,bien.vidautil)"><i class="icon-arrow-up"></i></button>
                             </td>
                             
                         </tbody>
@@ -144,7 +143,7 @@
                 <section class="panel panel-default">
           
                   <header class="panel-heading">
-                    <h5>Bienes disponibles para depreciación</h5>
+                    <h5>Activos disponibles para revalorizar</h5>
                   </header>
                   <div class="panel-body">
                     <div class="adv-table">
@@ -212,8 +211,8 @@ class="modal" [ngStyle]="{'display':display}">
 
             <!--Aqui va la recuperación de vida util-->
             <div class="form-group col-md-6">
-              <label for="formGroupExampleInput2"> Vida útil:</label>
-              <input type="text" class="form-control"  formControlName="vidaUtil"  id="inputEmail4" autocomplete="off" >
+              <label> Vida útil:</label>
+              <input #vida type="text" class="form-control" (keyup)="validarVidaUtil(vida)" maxlength="3"  formControlName="vidaUtil"  id="inputEmail4" autocomplete="off" >
             </div>
             <br><br> <br><br> <br>
           
@@ -233,6 +232,12 @@ class="modal" [ngStyle]="{'display':display}">
                         <i class="icon-remove"></i>
                       </button>
                       <strong>¡Exelente!</strong> Datos ingresados correctamente.
+                    </div>
+                    <div class="alert alert-block alert-danger fade in" *ngIf="this.vidaUtilCorrecta==true">
+                      <button data-dismiss="alert" class="close close-sm" type="button">
+                        <i class="icon-remove"></i>
+                      </button>
+                      <strong>¡Error!</strong> La vida útil ingresada no es correcta.
                     </div>
        <!-- Validacion de pattern no acepta caracteres especiales -->
        <div class="alert alert-block alert-danger fade in" *ngIf="revalorizacion.controls['valorRevalorizacion'].errors?.pattern">

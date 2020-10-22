@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ControlService } from './../../services/control.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 //import { format } from 'path';
 
@@ -22,14 +23,13 @@ export class FormInformeMantenimientoComponent implements OnInit {
   revalorizacion: FormGroup;
   display = 'none';
   titulo: string;
-
   idmante: any;
   //fecha = Date.now();
-
   c: number = 0;
   variableNumero: number = 0;
+  vidaUtilCorrecta:boolean=false;
 
-  constructor(private mantenimientoService: MantenimientoService) {
+  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService) {
 
 
     //form para la revalorización 
@@ -49,7 +49,17 @@ export class FormInformeMantenimientoComponent implements OnInit {
     });
 
   }
-
+  validarVidaUtil(vida){
+    var id=this.revalorizacion.controls["idBien"].value;
+    this.controlService.getVidaUtil(id).subscribe(data=>{
+      if(vida.value>0 &&vida.value<data.vidaUtil){
+        this.vidaUtilCorrecta=true;
+      }else{
+        this.vidaUtilCorrecta=false;
+      }
+    });
+   
+  }
 
 
   open(idBien, idinformematenimiento, vidtUtil) {

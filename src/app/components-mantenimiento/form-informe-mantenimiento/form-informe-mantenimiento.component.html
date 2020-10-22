@@ -94,7 +94,7 @@ class="modal" [ngStyle]="{'display':display}">
             <!--Aqui va la recuperación de vida util-->
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2"> Vida útil:</label>
-              <input type="text" class="form-control" formControlName="vidaUtil"  id="inputEmail4" autocomplete="off"   >
+              <input #vida type="text" class="form-control" (keyup)="validarVidaUtil(vida)" formControlName="vidaUtil"  id="inputEmail4" autocomplete="off"   >
             </div>
           
             <br><br> <br><br> <br>
@@ -115,6 +115,12 @@ class="modal" [ngStyle]="{'display':display}">
                         <i class="icon-remove"></i>
                       </button>
                       <strong>¡Exelente!</strong> Datos ingresados correctamente.
+                    </div>
+                    <div class="alert alert-block alert-danger fade in" *ngIf="this.vidaUtilCorrecta==true">
+                      <button data-dismiss="alert" class="close close-sm" type="button">
+                        <i class="icon-remove"></i>
+                      </button>
+                      <strong>¡Error!</strong> La vida útil ingresada no es correcta.
                     </div>
        <!-- Validacion de pattern no acepta caracteres especiales -->
        <div class="alert alert-block alert-danger fade in" *ngIf="revalorizacion.controls['valorRevalorizacion'].errors?.pattern">
