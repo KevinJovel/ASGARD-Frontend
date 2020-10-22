@@ -76,6 +76,7 @@ import { SelectTipoActivoComponent } from './components-control/select-tipo-acti
 import { FormEdificiosInstalacionesComponent } from './components-control/form-edificios-instalaciones/form-edificios-instalaciones.component';
 import { FormActivoIntangibleComponent } from './components-control/form-activo-intangible/form-activo-intangible.component';
 import { RegistroActivosComponent } from './components-control/registro-activos/registro-activos.component';
+import { TablaRevalorizarComponent } from './components-control/tabla-revalorizar/tabla-revalorizar.component';
 
 
 
@@ -125,6 +126,7 @@ import { RegistroActivosComponent } from './components-control/registro-activos/
     FormEdificiosInstalacionesComponent,
     FormActivoIntangibleComponent,
     RegistroActivosComponent,
+    TablaRevalorizarComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -170,6 +172,7 @@ import { RegistroActivosComponent } from './components-control/registro-activos/
       {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
       {path: 'report-tarjeta/:id/:tipo', component: ReportTarjetaComponent},
       {path: 'cuadro-control', component: CuadroControlComponent},
+      {path: 'tabla-revalorizar', component: TablaRevalorizarComponent},
       {path: 'cierre-anio', component: CierreAnioComponent},
       {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent},
       {path: 'form-tipo-descargo', component: FormTipoDescargoComponent},

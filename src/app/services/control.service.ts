@@ -154,6 +154,11 @@ public VerDatosActivosAsig(id){
  public DatosGeneralesIntangibles(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/DatosGeneralesIntangibles/"+id).map(res=>res.json());
  }
+ public listarActivosRevalorizar(){
+  return this.http.get(environment.urlService + "api/Revalorizar/listarActivosRevalorizar").map(res=>res.json());
+ }
+
+ 
 
 }
 
