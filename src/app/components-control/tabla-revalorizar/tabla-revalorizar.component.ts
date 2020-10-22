@@ -213,7 +213,7 @@ export class TablaRevalorizarComponent implements OnInit {
    
 
 this.display = 'none';
-this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data
+this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
   this.tablaMuebles='block'; 
 });
 
@@ -226,7 +226,11 @@ this.revalorizacion.controls["vidaUtil"].setValue(vidtUtil) ;
 this.revalorizacion.controls["valorRevalorizacion"].setValue("");
 this.revalorizacion.controls["fecha"].setValue("");
 
-        this.display='block';
+this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
+  this.tablaMuebles='block'; 
+});
+this.display='block';
+
 
   }
   detalles(id,tipo){

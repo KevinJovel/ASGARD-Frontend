@@ -80,7 +80,7 @@
                             <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                 (click)="detalles(bien.idBien,1)"></i></button>
                             <button title="Aplicar depreciación" class="btn btn-warning btn-xs"
-                              (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>
+                            (click)="open(bien.idBien,bien.vidautil)"><i class="icon-sort-by-attributes-alt"></i></button>
                           </td>
                         </tr>
                       </tbody>
@@ -126,8 +126,8 @@
                             <td class="center hidden-phone" style="text-align: center;">
                               <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                   (click)="detalles(bien.idBien,2)"></i></button>
-                              <button title="Aplicar depreciación" class="btn btn-warning btn-xs"
-                                (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>
+                              <button title="Revalorizar" class="btn btn-warning btn-xs"
+                              (click)="open(bien.idBien,bien.vidautil)"><i class="icon-sort-by-attributes-alt"></i></button>
                             </td>
                             
                         </tbody>
@@ -169,11 +169,12 @@
                             <td>{{bien.fechacadena}}</td>
                             <td>{{bien.descripcion}}</td>
                             <td>{{bien.clasificacion}}</td>
+
                         
                             <td class="center hidden-phone" style="text-align: center;">
                               <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                   (click)="detalles(bien.idBien,2)"></i></button>
-                              <button title="Aplicar depreciación" class="btn btn-warning btn-xs"
+                              <button title="Revalorizar" class="btn btn-warning btn-xs"
                               (click)="open(bien.idBien,bien.vidautil)"><i class="icon-sort-by-attributes-alt"></i></button>
                             </td>
                             
@@ -198,8 +199,7 @@ class="modal" [ngStyle]="{'display':display}">
       <div class="modal-body">
         <form class="form-inline" id="default" [formGroup]="revalorizacion" (ngSubmit)="guardarDatos()">
 
-          <input type="hidden" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3">
-          <input type="hidden" class="form-control" formControlName="idBien" id="exampleInputEmail3">
+          <input type="hidden" class="form-control" formControlName="idBien">
          
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2">* Valor de Revalorización:</label>
@@ -213,7 +213,7 @@ class="modal" [ngStyle]="{'display':display}">
             <!--Aqui va la recuperación de vida util-->
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2"> Vida útil:</label>
-              <input type="text" class="form-control"  formControlName="vidaUtil"  id="inputEmail4" autocomplete="off"   >
+              <input type="text" class="form-control"  formControlName="vidaUtil"  id="inputEmail4" autocomplete="off" >
             </div>
             <br><br> <br><br> <br>
           
@@ -332,7 +332,7 @@ class="modal" [ngStyle]="{'display':display}">
                 </div>
                 <div class="row">
                   <div class="col-xs-6">
-                    <p><strong>Numero de Seie:</strong> {{noSerie}}</p>
+                    <p><strong>Numero de Serie:</strong> {{noSerie}}</p>
                     
                   </div>
                   <div class="col-xs-6">
