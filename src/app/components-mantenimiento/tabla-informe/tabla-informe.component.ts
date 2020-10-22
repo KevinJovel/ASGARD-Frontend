@@ -137,12 +137,11 @@ export class TablaInformeComponent implements OnInit {
     });
       this.informe.controls["idinformematenimiento"].setValue("0");
       this.informe.controls["idmantenimiento"].setValue("");
-     // this.informe.controls["fechainforme"].setValue("");
+      this.informe.controls["fechainforme"].setValue("");
       this.informe.controls["idtecnico"].setValue("");
       this.informe.controls["descripcion"].setValue("");
     this.informe.controls["costomateriales"].setValue("");
    this.informe.controls["costomo"].setValue("");
-     this.informe.controls["costototal"].setValue("");
 
 this.display = 'none';
 this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res=>{

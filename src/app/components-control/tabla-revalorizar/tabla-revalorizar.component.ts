@@ -33,9 +33,6 @@ export class TablaRevalorizarComponent implements OnInit {
   display3 = 'none';
   displayfoto = 'none';
   displayMensaje='none';
-  //Datos del modal
-  coopertativa:string;
-  anio:string;
   //Modal de detalles
   foto: any;
   descripcion:string;
@@ -143,42 +140,8 @@ export class TablaRevalorizarComponent implements OnInit {
     this.disabledFiltroBotonAsignacion=false;
     this.disabledFiltro=false;
   }
-  AplicarDepreciacion(){
-     console.log(this.datos.value);
-    if (this.datos.valid == true) {
-      this.datos.controls["fecha"].setValue(12 + "/" + 31 + "/" +this.anio );
-      this.depreciacionService.transaccionDepreciacion(this.datos.value).subscribe((data) => {
-        if (data == 1) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Depreciación aplicada con exito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
-        this.display='none';
-        this.tablaEdificios='none'
-        this.tablaIntengibles='none'
-        this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
-          this.tablaMuebles='block'
-          this.combos.controls['idTipo'].setValue(0);
-        });
-      }else{
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: '¡Ocurrio un error!',
-          showConfirmButton: false,
-          timer: 3000
-        })
-      }
-      });
-    }
-
-  }
   guardarDatos(){
-
-    console.log(this.revalorizacion.value);
+   // console.log(this.revalorizacion.value);
    // console.log(this.idmante);
     this.mantenimientoService.insertarRevalorizacion(this.revalorizacion.value).subscribe(res => {
       if(res==1){
@@ -188,17 +151,10 @@ export class TablaRevalorizarComponent implements OnInit {
           title: '¡Revalorización Guardada con exito!',
           showConfirmButton: false,
           timer: 3000
-        })
-         this.mantenimientoService.estadoInformeRevalorizado(this.revalorizacion.controls["idinformematenimiento"].value).subscribe(rest=>{
-          if(rest==1){
-           
+        })  
             this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
               this.tablaMuebles='block'; 
             });
-          
-          }
-        });
-      
       } 
       
     });
@@ -206,10 +162,6 @@ export class TablaRevalorizarComponent implements OnInit {
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
     this.revalorizacion.controls["fecha"].setValue("");
     this.revalorizacion.controls["vidaUtil"].setValue("");
-
-       
-
-      //this.costototal= this.costomateriales.s + this.cotomo;
    
 
 this.display = 'none';
@@ -226,9 +178,9 @@ this.revalorizacion.controls["vidaUtil"].setValue(vidtUtil) ;
 this.revalorizacion.controls["valorRevalorizacion"].setValue("");
 this.revalorizacion.controls["fecha"].setValue("");
 
-this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
-  this.tablaMuebles='block'; 
-});
+//this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
+ // this.tablaMuebles='block'; 
+//});
 this.display='block';
 
 

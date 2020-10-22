@@ -7,7 +7,7 @@
     <div class="col-lg-14">
       <section class="panel panel-default">
         <div class="form-row">
-          <h1>Depreciación</h1>
+          <h1>Revalorizar</h1>
           <form class="form-inline" id="default" [formGroup]="combos">
             <div class="row">
              <div class="form-group col-md-3">
@@ -53,7 +53,7 @@
             <div class="col-lg-12">
               <section class="panel panel-default">
                 <header class="panel-heading">
-                  <h5>Bienes disponibles para depreciación</h5>
+                  <h5>Activos disponibles para revalorizar</h5>
                 </header>
                 <div class="panel-body">
                   <div class="adv-table">
@@ -79,8 +79,8 @@
                           <td class="center hidden-phone" style="text-align: center;">
                             <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                 (click)="detalles(bien.idBien,1)"></i></button>
-                            <button title="Aplicar depreciación" class="btn btn-warning btn-xs"
-                            (click)="open(bien.idBien,bien.vidautil)"><i class="icon-sort-by-attributes-alt"></i></button>
+                            <button title="Revalorizar" class="btn btn-warning btn-xs"
+                            (click)="open(bien.idBien,bien.vidautil)"><i class="icon-arrow-up"></i></button>
                           </td>
                         </tr>
                       </tbody>
@@ -175,7 +175,7 @@
                               <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                   (click)="detalles(bien.idBien,2)"></i></button>
                               <button title="Revalorizar" class="btn btn-warning btn-xs"
-                              (click)="open(bien.idBien,bien.vidautil)"><i class="icon-sort-by-attributes-alt"></i></button>
+                              (click)="open(bien.idBien,bien.vidautil)"><i class="icon-arrow-up"></i></button>
                             </td>
                             
                         </tbody>

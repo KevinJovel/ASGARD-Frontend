@@ -22,7 +22,6 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   p: number = 1;
   matriz:(string | number)[][]=new Array();
   //Revisar esta fecha da problemas en la consola
-  fecha = Date.now();
   yaHayDatos:boolean=false;
   
   constructor( private mantenimientoService: MantenimientoService) { 
@@ -172,6 +171,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
 this.matriz=[],[];
 this.solicitud.controls["folio"].setValue("");
 this.solicitud.controls["descripcion"].setValue("");
+this.solicitud.controls["fechasolicitud"].setValue("");
 
 }else{
     Swal.fire({
