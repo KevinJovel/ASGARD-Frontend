@@ -54,6 +54,13 @@ export class DepreciacionService {
   public transaccionDepreciacion(transac) {
     return this.http.post(environment.urlService + "api/Depreciacion/transaccionDepreciacion", transac).map(res=>res.json());
     }
+    public transaccionDepreciacionTotal() {
+      return this.http.get(environment.urlService + "api/Depreciacion/DepreciacionTotal").map(res=>res.json());
+      }
+      public validarDatosDepreciar() {
+        return this.http.get(environment.urlService + "api/Depreciacion/ValidarActivosADepreciar").map(res=>res.json());
+        }
+  
 
 
   //Servicio para el cuadro de control

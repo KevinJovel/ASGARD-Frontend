@@ -69,7 +69,6 @@ import { BajaService } from './services/baja.service';
 import { ConfiguracionService } from './services/configuracion.service';
 import { FormTipoTrasladoComponent } from './components-catalogos/form-tipo-traslado/form-tipo-traslado.component';
 import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-descargo/form-tipo-descargo.component';
-import { ActivosAsignadosComponent } from './components-control/activos-asignados/activos-asignados.component';
 import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-activos-asignados/solicitud-activos-asignados.component';
 import { FormCoopeComponent } from './components-configuracion/form-coope/form-coope.component';
 import { SelectTipoActivoComponent } from './components-control/select-tipo-activo/select-tipo-activo.component';
@@ -77,6 +76,7 @@ import { FormEdificiosInstalacionesComponent } from './components-control/form-e
 import { FormActivoIntangibleComponent } from './components-control/form-activo-intangible/form-activo-intangible.component';
 import { RegistroActivosComponent } from './components-control/registro-activos/registro-activos.component';
 import { TablaRevalorizarComponent } from './components-control/tabla-revalorizar/tabla-revalorizar.component';
+import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacion/tipo-depreciacion.component';
 
 
 
@@ -119,7 +119,6 @@ import { TablaRevalorizarComponent } from './components-control/tabla-revaloriza
     FormDesasignarComponent,
     FormTipoTrasladoComponent,
     FormTipoDescargoComponent,
-    ActivosAsignadosComponent,
     SolicitudActivosAsignadosComponent,
     FormCoopeComponent,
     SelectTipoActivoComponent,
@@ -127,6 +126,7 @@ import { TablaRevalorizarComponent } from './components-control/tabla-revaloriza
     FormActivoIntangibleComponent,
     RegistroActivosComponent,
     TablaRevalorizarComponent,
+    TipoDepreciacionComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -176,12 +176,12 @@ import { TablaRevalorizarComponent } from './components-control/tabla-revaloriza
       {path: 'cierre-anio', component: CierreAnioComponent},
       {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent},
       {path: 'form-tipo-descargo', component: FormTipoDescargoComponent},
-      {path: 'activos-asignados', component: ActivosAsignadosComponent},
       {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
       {path: 'form-conficooperativa', component: FormCoopeComponent},
       {path: 'select-tipo-activo', component: SelectTipoActivoComponent},
       {path: 'form-edificios-instalaciones', component: FormEdificiosInstalacionesComponent},
       {path: 'form-activo-intangible', component: FormActivoIntangibleComponent},
+      {path: 'tipo-depreciacion', component: TipoDepreciacionComponent},
       { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
       
     ]),
