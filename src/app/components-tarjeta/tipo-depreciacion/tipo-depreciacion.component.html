@@ -1,0 +1,22 @@
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':displayCierre}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{cooperativa}} - Depreciación año {{anio}} </h4>
+      </div>
+      <div class="modal-body">
+          <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" (click)="ValidarActivos()"><i class="icon-sort-by-attributes-alt"></i>
+              Depreciación Parcial </button>
+            <button type="button" class="btn btn-primary" (click)="Total()"><i class="icon-sort-by-attributes-alt"></i>
+              Depreciación Total</button>
+          </div>
+
+
+        <!-- </form> -->
+      </div>
+    </div>
+  </div>
+</div>
