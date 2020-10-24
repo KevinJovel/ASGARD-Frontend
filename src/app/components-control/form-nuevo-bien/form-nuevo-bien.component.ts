@@ -89,6 +89,15 @@ export class FormNuevoBienComponent implements OnInit {
      idresponsable: new FormControl(''),
     });
     
+    //Mando el id para comparar si es nuevo ingreso o editar
+    this.activateRoute.params.subscribe(parametro => {
+      this.parametro=parametro["id"];
+      if(this.parametro=="nuevo") {
+        this.titulo="Ingreso de nuevo activo";
+      } else {
+        this.titulo="Edición de activo";
+      }
+  });
   }
 
   ngOnInit() {
@@ -121,7 +130,6 @@ export class FormNuevoBienComponent implements OnInit {
 
     //Recuperación de información
     if(this.parametro!="nuevo") {
-      this.titulo="Editar bien";
       this.controlService.RecuperarBienNoAsignado(this.parametro).subscribe(param=>{
         //Valores
         this.nuevobien.controls["idbien"].setValue(param.idbien);
@@ -331,6 +339,25 @@ else if(this.nuevobien.controls['bandera'].value == '1'){
  // this.open(); //limpiar cache
  
 }
+
+cancelar() {
+      Swal.fire({
+        title: '¿Seguro que quieres salir?',
+        text: "¡Se perderán todos los datos que no hayas guardado!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '¡Si!',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if(result.value) {
+          this.router.navigate(["./"]); 
+        }
+        
+      });
+
+    }
 
 modificar(id) {
  // console.log("Antes"+id);
