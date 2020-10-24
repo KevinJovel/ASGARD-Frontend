@@ -103,7 +103,7 @@ export class FormNuevoBienComponent implements OnInit {
     var disa =this.nuevobien.controls['idresponsable'].value;//evaluo si es cero
     if(disa ==0){
     this.emple = true;// si es cero lo desabilito
-    this.titulo = "Ingreso de nuevo activo";
+   // this.titulo = "Ingreso de nuevo activo";
     }
     this.controlService.listarComboClasificacion().subscribe((data) => {
       this.clasificaciones = data;
@@ -121,6 +121,7 @@ export class FormNuevoBienComponent implements OnInit {
 
     //Recuperación de información
     if(this.parametro!="nuevo") {
+      this.titulo="Editar bien";
       this.controlService.RecuperarBienNoAsignado(this.parametro).subscribe(param=>{
         //Valores
         this.nuevobien.controls["idbien"].setValue(param.idbien);
