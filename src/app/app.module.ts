@@ -156,7 +156,7 @@ import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacio
       {path: 'form-tecnico', component: FormTecnicoComponent},
       {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent},
       {path: 'form-usuario', component: FormUsuarioComponent},
-      {path: 'form-nuevoBien', component: FormNuevoBienComponent},
+      {path: 'form-nuevoBien/:id', component: FormNuevoBienComponent},
       {path: 'registro-activos/:param', component: RegistroActivosComponent},
       {path: 'form-asignacion', component: FormAsignancionComponent},
       {path: 'form-desasignacion', component: FormDesasignarComponent},
