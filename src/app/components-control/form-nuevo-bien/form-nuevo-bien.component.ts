@@ -174,6 +174,7 @@ export class FormNuevoBienComponent implements OnInit {
         this.nuevobien.controls['personarecibe'].setValue(param.personarecibe);
         this.nuevobien.controls['observaciones'].setValue(param.observaciones);
         this.nuevobien.controls['cantidad'].setValue(param.cantidad);
+        
         if(param.foto==null) {
           this.foto="";
         } else {
@@ -237,7 +238,6 @@ export class FormNuevoBienComponent implements OnInit {
   }
 
   guardarDatoss() {
-    // console.log(this.nuevobien.value);
     //Le agrego una bandera para englobar los datos y verificar si fueron ingresados o no en el formulario
     if (this.nuevobien.controls['bandera'].value == '0') {
       if (this.nuevobien.valid == true) {
@@ -283,11 +283,27 @@ export class FormNuevoBienComponent implements OnInit {
           });
       }
     } else {
+      //Editar
       this.nuevobien.controls["bandera"].setValue("0");
       if(this.nuevobien.valid==true) {
         console.log(this.nuevobien.value);
         this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
           if(data==1) {
+            //Creo esta condicion para modificar, si es contado o donado mando valor 0 sino ingresa lo de credito al modificar
+          var tip = this.nuevobien.controls['tipoadquicicion'].value;
+          var valorR=this.nuevobien.controls['valorresidual'].value;
+          if(tip==1 || tip==3) {
+            this.nuevobien.controls['prima'].setValue('0');
+            this.nuevobien.controls['plazopago'].setValue('0');
+            this.nuevobien.controls['cuotaasignada'].setValue('0');
+            this.nuevobien.controls['interes'].setValue('0');
+          } else{
+          } 
+          if(valorR =='') {
+            this.nuevobien.controls['valorresidual'].setValue('0');
+          }
+            //Pasamos la foto para modificarla
+            this.nuevobien.controls['foto'].setValue(this.foto);
             this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
               if (res == 1) {
                 Swal.fire({
@@ -343,38 +359,6 @@ cancelar() {
       });
 
     }
-
-modificar(id) {
- // console.log("Antes"+id);
-  this.controlService.RecuperarFormCompleto(id).subscribe((data) => {
-    this.nuevobien.controls['idbien'].setValue(data.idbien);
-    this.nuevobien.controls['color'].setValue(data.color);
-    this.nuevobien.controls['descripcion'].setValue(data.descripcion);
-    this.nuevobien.controls['modelo'].setValue(data.modelo);
-    this.nuevobien.controls['tipoadquicicion'].setValue(data.tipoadquicicion);
-    this.nuevobien.controls['idmarca'].setValue(data.idmarca);
-    this.nuevobien.controls['idclasificacion'].setValue(data.idclasificacion);
-    this.nuevobien.controls['idproveedor'].setValue(data.idproveedor);
-    this.nuevobien.controls['idresponsable'].setValue(data.idresponsable);
-    this.nuevobien.controls['estadoingreso'].setValue(data.estadoingreso);
-    this.nuevobien.controls['plazopago'].setValue(data.plazopago);
-    this.nuevobien.controls['prima'].setValue(data.prima);
-    this.nuevobien.controls['cuotaasignada'].setValue(data.cuotaasignada);
-    this.nuevobien.controls['interes'].setValue(data.interes);
-    this.nuevobien.controls['valorresidual'].setValue(data.valorresidual);
-    this.nuevobien.controls['noformulario'].setValue(data.noformulario);
-    this.nuevobien.controls['nofactura'].setValue(data.nofactura);
-    this.nuevobien.controls['fechaingreso'].setValue(data.fechaingreso);
-    this.nuevobien.controls['personaentrega'].setValue(data.personaentrega);
-    this.nuevobien.controls['personarecibe'].setValue(data.personarecibe);
-    this.nuevobien.controls['observaciones'].setValue(data.observaciones);
-    this.nuevobien.controls['cantidad'].setValue(data.cantidad);
-    this.nuevobien.controls['foto'].setValue(data.foto);
-    this.nuevobien.controls['bandera'].setValue('1');
-    
-  });
-  //this.open();
-}
 
 open() {
   //limpia cache
