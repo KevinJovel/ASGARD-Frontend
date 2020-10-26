@@ -167,7 +167,7 @@ export class FormNuevoBienComponent implements OnInit {
         this.nuevobien.controls['estadoingreso'].setValue(param.estadoingreso);
         this.nuevobien.controls['valorresidual'].setValue(param.valorresidual);
         this.nuevobien.controls['valoradquicicion'].setValue(param.valoradquicicion);
-        this.nuevobien.controls['noformulario'].setValue(param.noformulario);
+        this.nuevobien.controls['noformulario'].setValue(param.noformularioactivo);
         this.nuevobien.controls['nofactura'].setValue(param.nofactura);
         this.nuevobien.controls['fechaingreso'].setValue(param.fechaingreso);
         this.nuevobien.controls['personaentrega'].setValue(param.personaentrega);
@@ -285,8 +285,8 @@ export class FormNuevoBienComponent implements OnInit {
     } else {
       this.nuevobien.controls["bandera"].setValue("0");
       if(this.nuevobien.valid==true) {
+        console.log(this.nuevobien.value);
         this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
-
           if(data==1) {
             this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
               if (res == 1) {
@@ -308,6 +308,16 @@ export class FormNuevoBienComponent implements OnInit {
                 });
               }
             })
+          } else {
+            //No modifica
+            Swal.fire({
+              position: 'center',
+              icon: 'warning',
+              title: 'No Modificó',
+              showConfirmButton: false,
+              timer: 3000,
+            });
+
           }
         })
       }
