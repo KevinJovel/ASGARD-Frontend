@@ -82,8 +82,8 @@ table {
   }
   .alert {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 15px;
-	padding: 15px;
+	font-size: 12px;
+	padding: 12px;
 	margin-bottom: 20px;
 	border: 1px solid transparent;
 	border-radius: 4px;
