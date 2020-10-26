@@ -38,9 +38,8 @@ export class FormNuevoBienComponent implements OnInit {
   empleado : any;
   lista: any;
   parametro: string;
-  //recargo: number=0;
   //Para la fecha
-  fecha=Date.now();
+ // fecha=Date.now();
   lista2: any;
   emple : boolean;//para el disabley enable del editar
   titulo: string;
@@ -283,62 +282,38 @@ export class FormNuevoBienComponent implements OnInit {
             }
           });
       }
-    }
-//inicia el MODIFICAR mandamos 1 a la bandera para identificar q es un editar
-else if(this.nuevobien.controls['bandera'].value == '1'){
-  //// this.nuevobien.controls['bandera'].setValue('0');
-  if (this.nuevobien.valid == true) {
-   this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
-      //le mando 0 para que reconozca un valor
-      if(this.nuevobien.value.tipoadquicicion==1 || this.nuevobien.value.tipoadquicicion==3)
-      {
-        this.nuevobien.controls['plazopago'].setValue(0);
-        this.nuevobien.controls['prima'].setValue(0);
-        this.nuevobien.controls['cuotaasignada'].setValue(0);
-        this.nuevobien.controls['interes'].setValue(0);
+    } else {
+      this.nuevobien.controls["bandera"].setValue("0");
+      if(this.nuevobien.valid==true) {
+        this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
+
+          if(data==1) {
+            this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
+              if (res == 1) {
+                Swal.fire({
+                  title: '¡Registro Modificado con éxito!',
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: '¡OK!',
+                }).then((result) => {
+                    this.router.navigate(['./registro-activos/tangibles']);
+                });
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'No Modificó',
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+              }
+            })
+          }
+        })
       }
-      if(this.nuevobien.value.idmarca==0)
-      {
-        this.nuevobien.controls['idmarca'].setValue(0);
-      }
-     
-      //Pasamos la foto para modificarla
-      this.nuevobien.controls['foto'].setValue(this.foto);
-      if (data == 1) {
-        this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
-          if (res == 1) {
-          this.modificar(this.nuevobien.value.idbien);
-          //this.open(); //limpia cache
-          this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });   
-          //this.router.navigate(['./tabla-activos']);
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              title: 'Registro modificado con éxito',
-              showConfirmButton: false,
-              timer: 3000,
-            }).then((result) => {
-              this.open();//limpia cache
-                this.router.navigate(['tabla-activos']);  
-            });
-          } else {
-            Swal.fire({
-              position: 'center',
-              icon: 'warning',
-              title: 'No modificó',
-              showConfirmButton: false,
-              timer: 3000,
-            });
-          } //else
-        });
-        } // de la data
-      });   
+      
+} 
   }
-  this.display = 'none';
-  }
- // this.open(); //limpiar cache
- 
-}
 
 cancelar() {
       Swal.fire({

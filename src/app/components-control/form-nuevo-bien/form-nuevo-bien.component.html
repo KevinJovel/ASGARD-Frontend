@@ -49,15 +49,15 @@
        <form class="form-inline" id="default" [formGroup]="nuevobien" (ngSubmit)="guardarDatoss()" >
          <fieldset title="1" class="step" id="default-step-0">
            <legend></legend>
-              <input type="hidden" class="form-control" formControlName="idbien" autocomplete="off">
+              <input type="text" class="form-control" formControlName="idbien" autocomplete="off">
               <input type="hidden" class="form-control" formControlName="noformulario" autocomplete="off">
-              <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+              <input type="text" class="form-control" formControlName="bandera" autocomplete="off">
               <input type="hidden" class="form-control" formControlName="tipoactivo" autocomplete="off">
 
                 <div class="form-row">
                       <div class="form-group col-md-6" >
                       <label>* Fecha de Ingreso</label>
-                      <input type="date" class="form-control" formControlName="fechaingreso" disabled="off" [ngModel]='fecha | date:"yyyy-MM-dd" ' (ngModelChange)='fecha=$event'> 
+                      <input type="date" class="form-control" formControlName="fechaingreso"> 
                     </div>
 
                     <div class="form-group col-md-6">
