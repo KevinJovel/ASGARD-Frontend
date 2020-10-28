@@ -184,6 +184,63 @@ export class FormNuevoBienComponent implements OnInit {
       })
     }
 
+    //RECUPERAR INFORMACIÓN DE ACTIVOS ASIGNADOS
+    if(this.parametro!="nuevo") {
+      this.controlService.recuperarActivoAsignado(this.parametro).subscribe(param=>{
+        //Valores
+        this.nuevobien.controls["idbien"].setValue(param.idbien);
+        this.nuevobien.controls['bandera'].setValue('1');
+        this.nuevobien.controls['color'].setValue(param.color);
+        this.nuevobien.controls['descripcion'].setValue(param.descripcion);
+        this.nuevobien.controls['modelo'].setValue(param.modelo);
+        this.nuevobien.controls['tipoadquicicion'].setValue(param.tipoadquicicion);
+        this.nuevobien.controls['idmarca'].setValue(param.idmarca);
+        this.nuevobien.controls['idclasificacion'].setValue(param.idclasificacion);
+        //Validacion para cambiar si es proveedor o donantes
+         if(param.isProvDon==1) {
+            this.tipocombo="Proveedor:";
+            this.controlService.listarComboProveedor().subscribe((res) => {
+              this.comboProvDon = res;
+            });
+            this.nuevobien.controls['idproveedor'].setValue(param.idproveedor);
+         } else {
+            this.tipocombo="Donante:";
+            this.controlService.listarComboDonante().subscribe((res) => {
+              this.comboProvDon = res;
+            });
+            this.nuevobien.controls['idproveedor'].setValue(param.iddonante);
+        }
+        //Validación para crédito
+          if (param.tipoadquicicion == 1 || param.tipoadquicicion == 3) {
+            this.disabled = true;
+          } else {
+            this.disabled = false;
+            this.nuevobien.controls['plazopago'].setValue(param.plazopago);
+            this.nuevobien.controls['prima'].setValue(param.prima);
+            this.nuevobien.controls['cuotaasignada'].setValue(param.cuotaasignada);
+            this.nuevobien.controls['interes'].setValue(param.interes);
+          }
+        
+        this.nuevobien.controls['estadoingreso'].setValue(param.estadoingreso);
+        this.nuevobien.controls['valorresidual'].setValue(param.valorresidual);
+        this.nuevobien.controls['valoradquicicion'].setValue(param.valoradquicicion);
+        this.nuevobien.controls['noformulario'].setValue(param.noformularioactivo);
+        this.nuevobien.controls['nofactura'].setValue(param.nofactura);
+        this.nuevobien.controls['fechaingreso'].setValue(param.fechaingreso);
+        this.nuevobien.controls['personaentrega'].setValue(param.personaentrega);
+        this.nuevobien.controls['personarecibe'].setValue(param.personarecibe);
+        this.nuevobien.controls['observaciones'].setValue(param.observaciones);
+        this.nuevobien.controls['cantidad'].setValue(param.cantidad);
+        
+        if(param.foto==null) {
+          this.foto="";
+        } else {
+          this.foto=param.foto;
+        }
+        
+      })
+    }
+
 
   }
 

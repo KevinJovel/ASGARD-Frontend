@@ -152,6 +152,10 @@ public VerDatosActivosAsig(id){
  public RecuperarBienNoAsignado(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/recuperarBienMueble/"+id).map(res=>res.json());
  } 
+ public recuperarActivoAsignado(id){
+  return this.http.get(environment.urlService + "api/ActivoFijo/recuperarActivoAsignado/"+id).map(res=>res.json());
+ } 
+ 
 
  public RecuperarEdificiosInstalaciones(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/recuperarEdificioInsta/"+id).map(res=>res.json());
