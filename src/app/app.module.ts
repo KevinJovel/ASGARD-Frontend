@@ -179,7 +179,7 @@ import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacio
       {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
       {path: 'form-conficooperativa', component: FormCoopeComponent},
       {path: 'select-tipo-activo', component: SelectTipoActivoComponent},
-      {path: 'form-edificios-instalaciones', component: FormEdificiosInstalacionesComponent},
+      {path: 'form-edificios-instalaciones/:id', component: FormEdificiosInstalacionesComponent},
       {path: 'form-activo-intangible', component: FormActivoIntangibleComponent},
       {path: 'tipo-depreciacion', component: TipoDepreciacionComponent},
       { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first

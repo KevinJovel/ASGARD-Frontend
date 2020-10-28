@@ -29,6 +29,8 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   comboAreaSucur:any;
   empleado : any;
   lista: any;
+  parametro: string;
+  titulo: string;
 
  //Para la fecha
  fecha = Date.now();
@@ -74,6 +76,16 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
         observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       });
+
+       //Mando el id para comparar si es nuevo ingreso o editar
+    this.activateRoute.params.subscribe(parametro => {
+      this.parametro=parametro["id"];
+      if(this.parametro=="nuevo") {
+        this.titulo="Ingreso de Edificios e Instalaciones";
+      } else {
+        this.titulo="Editar Edificios e Instalaciones"; 
+      }
+  });
 
      }
 
@@ -121,6 +133,59 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
     this.controlService.comboSucursal().subscribe((data) => {
       this.sucursales=data;
     });
+
+    //Recuperación de información
+    if(this.parametro!="nuevo") {
+      this.controlService.RecuperarEdificiosInstalaciones(this.parametro).subscribe(param=>{
+        //Valores
+        this.activoEdiInsta.controls["idbien"].setValue(param.idbien);
+        this.activoEdiInsta.controls['bandera'].setValue('1');
+        this.activoEdiInsta.controls['descripcion'].setValue(param.descripcion);
+        this.activoEdiInsta.controls['tipoadquicicion'].setValue(param.tipoadquicicion);
+        this.activoEdiInsta.controls['idclasificacion'].setValue(param.idclasificacion);
+        //Validacion para cambiar si es proveedor o donantes
+         if(param.isProvDon==1) {
+            this.tipocombo="Proveedor:";
+            this.controlService.listarComboProveedor().subscribe((res) => {
+              this.comboProvDon = res;
+            });
+            this.activoEdiInsta.controls['idproveedor'].setValue(param.idproveedor);
+         } else {
+            this.tipocombo="Donante:";
+            this.controlService.listarComboDonante().subscribe((res) => {
+              this.comboProvDon = res;
+            });
+            this.activoEdiInsta.controls['idproveedor'].setValue(param.iddonante);
+        }
+        //Validación para crédito
+          if (param.tipoadquicicion == 1 || param.tipoadquicicion == 3) {
+            this.disabled = true;
+          } else {
+            this.disabled = false;
+            this.activoEdiInsta.controls['plazopago'].setValue(param.plazopago);
+            this.activoEdiInsta.controls['prima'].setValue(param.prima);
+            this.activoEdiInsta.controls['cuotaasignada'].setValue(param.cuotaasignada);
+            this.activoEdiInsta.controls['interes'].setValue(param.interes);
+          }
+        
+        this.activoEdiInsta.controls['estadoingreso'].setValue(param.estadoingreso);
+        this.activoEdiInsta.controls['valorresidual'].setValue(param.valorresidual);
+        this.activoEdiInsta.controls['valoradquicicion'].setValue(param.valoradquicicion);
+        this.activoEdiInsta.controls['noformulario'].setValue(param.noformularioactivo);
+        this.activoEdiInsta.controls['fechaingreso'].setValue(param.fechaingreso);
+        this.activoEdiInsta.controls['personaentrega'].setValue(param.personaentrega);
+        this.activoEdiInsta.controls['personarecibe'].setValue(param.personarecibe);
+        this.activoEdiInsta.controls['observaciones'].setValue(param.observaciones);
+        this.activoEdiInsta.controls['vidautil'].setValue(param.vidautil);
+        
+        if(param.foto==null) {
+          this.foto="";
+        } else {
+          this.foto=param.foto;
+        }
+        
+      })
+    }
 
   }
 

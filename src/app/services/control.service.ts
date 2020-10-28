@@ -149,6 +149,10 @@ public VerDatosActivosAsig(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/recuperarBienMueble/"+id).map(res=>res.json());
  } 
 
+ public RecuperarEdificiosInstalaciones(id){
+  return this.http.get(environment.urlService + "api/ActivoFijo/recuperarEdificioInsta/"+id).map(res=>res.json());
+ }
+
  //Datos generales de eficios
  public DatosGeneralesEdificios(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/DatosGeneralesEdificios/"+id).map(res=>res.json());
