@@ -25,6 +25,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   sucursal: FormGroup;
   display = 'none';
   disabled: boolean;
+  disabledd: boolean;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
   comboAreaSucur:any;
   empleado : any;
@@ -33,7 +34,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   titulo: string;
 
  //Para la fecha
- fecha = Date.now();
+ //fecha = Date.now();
 
  //Variables para combos
  comboProvDon: any;
@@ -63,7 +64,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         idproveedor: new FormControl('0',[Validators.required]),
         descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
         idclasificacion: new FormControl('0',[Validators.required]),
-       idsucursal: new FormControl('0'),
+        idsucursal: new FormControl('0'),
         vidautil: new FormControl('',[Validators.required,Validators.maxLength(3),Validators.pattern("^[0-9´´ ]+$")]),
         valoradquicicion: new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]), //Costo
         plazopago: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
@@ -143,6 +144,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         this.activoEdiInsta.controls['descripcion'].setValue(param.descripcion);
         this.activoEdiInsta.controls['tipoadquicicion'].setValue(param.tipoadquicicion);
         this.activoEdiInsta.controls['idclasificacion'].setValue(param.idclasificacion);
+        
         //Validacion para cambiar si es proveedor o donantes
          if(param.isProvDon==1) {
             this.tipocombo="Proveedor:";
@@ -183,7 +185,10 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         } else {
           this.foto=param.foto;
         }
-        
+
+        //Para desbilitar la sucursal
+        this.disabledd = true;
+      
       })
     }
 
@@ -285,7 +290,82 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
             }
           });
       }
+    } else {
+      //Editar
+      this.activoEdiInsta.controls["bandera"].setValue("0");
+      if(this.activoEdiInsta.valid==true) {
+        console.log(this.activoEdiInsta.value);
+        this.controlService.modificarFormIngreso(this.activoEdiInsta.value).subscribe((data) => {
+          if(data==1) {
+            //Creo esta condicion para modificar, si es contado o donado mando valor 0 sino ingresa lo de credito al modificar
+          var tip = this.activoEdiInsta.controls['tipoadquicicion'].value;
+          var valorR=this.activoEdiInsta.controls['valorresidual'].value;
+          if(tip==1 || tip==3) {
+            this.activoEdiInsta.controls['prima'].setValue('0');
+            this.activoEdiInsta.controls['plazopago'].setValue('0');
+            this.activoEdiInsta.controls['cuotaasignada'].setValue('0');
+            this.activoEdiInsta.controls['interes'].setValue('0');
+          } else{
+          } 
+          if(valorR =='') {
+            this.activoEdiInsta.controls['valorresidual'].setValue('0');
+          }
+            //Pasamos la foto para modificarla
+            this.activoEdiInsta.controls['foto'].setValue(this.foto);
+            this.controlService.modificarEdificiosInstalaciones(this.activoEdiInsta.value).subscribe((res) => {
+              if (res == 1) {
+                Swal.fire({
+                  title: '¡Registro Modificado con éxito!',
+                  icon: 'success',
+                  confirmButtonColor: '#3085d6',
+                  confirmButtonText: '¡OK!',
+                }).then((result) => {
+                    this.router.navigate(['./registro-activos/edificios']);
+                });
+              } else {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'No Modificó',
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+              }
+            })
+          } else {
+            //No modifica
+            Swal.fire({
+              position: 'center',
+              icon: 'warning',
+              title: 'No Modificó',
+              showConfirmButton: false,
+              timer: 3000,
+            });
+
+          }
+        })
+      }
+      
+} 
+}
+
+cancelar() {
+  Swal.fire({
+    title: '¿Seguro que quieres salir?',
+    text: "¡Se perderán todos los datos que no hayas guardado!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '¡Si!',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if(result.value) {
+      this.router.navigate(["./"]); 
     }
+    
+  });
+
 }
 
 

@@ -116,9 +116,13 @@ public modificarFormIngreso(formularioIngreso) {
   return this.http.post(environment.urlService + "api/FormularioIngreso/modificarFormularioIngreso", formularioIngreso).map(res=>res.json());
  }
 
-  public modificarBien(nuevoBien) {
+public modificarBien(nuevoBien) {
     return this.http.post(environment.urlService + "api/FormularioIngreso/modificarActivoFijo", nuevoBien).map(res=>res.json());
     }
+
+public modificarEdificiosInstalaciones(nuevoBien) {
+      return this.http.post(environment.urlService + "api/FormularioIngreso/modificarEdificiosInstalaciones", nuevoBien).map(res=>res.json());
+      }
 // Buscadores de activos asignados
 public buscarActivoAsig(buscador) {
   return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivoAsig/" + buscador).map(res => res.json());

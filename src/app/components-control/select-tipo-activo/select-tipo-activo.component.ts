@@ -37,7 +37,7 @@ export class SelectTipoActivoComponent implements OnInit {
   }
 
   formEdificiosInsta() {
-    this.router.navigate(["./form-edificios-instalaciones"]);
+    this.router.navigate(["./form-edificios-instalaciones/nuevo"]);
   }
   formTangible() {
     this.router.navigate(["./form-nuevoBien/nuevo"]);
