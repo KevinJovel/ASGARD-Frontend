@@ -33,6 +33,7 @@ export class FormNuevoBienComponent implements OnInit {
   p: number = 1;
   display = 'none';
   disabled: boolean;
+  disabledd: boolean;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
   comboAreaSucur:any;
   empleado : any;
@@ -180,6 +181,9 @@ export class FormNuevoBienComponent implements OnInit {
         } else {
           this.foto=param.foto;
         }
+
+        //Para desbilitar la cantidad
+        this.disabledd = true;
         
       })
     }

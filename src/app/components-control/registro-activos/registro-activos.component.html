@@ -189,6 +189,8 @@
                               <td class="center hidden-phone">
                               <!--  <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>-->
                                 <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="verIntangibles(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
+                                <button [routerLink]="['/form-activo-intangible',combo.idBien]" class="btn btn-primary btn-xs"><i class="icon-pencil"
+                                  title="Editar"></i></button>
                               </td>
                               
                           </tbody>

@@ -101,7 +101,7 @@
                     </div>
                     <div class="col-lg-4">
                     <label>* Cantidad</label>
-                    <input type="text" class="form-control" placeholder="Ingrese cantidad" formControlName="cantidad" maxlength="3" autocomplete="off">
+                    <input type="text" class="form-control" placeholder="Ingrese cantidad" formControlName="cantidad" maxlength="3" autocomplete="off" [attr.disabled]="disabledd ? '' : null">
                   </div>
                     
                     <div class="col-lg-4">

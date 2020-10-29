@@ -21,11 +21,15 @@ export class FormActivoIntangibleComponent implements OnInit {
   foto: any;
   display = 'none';
   disabled: boolean;
+  disabledd: boolean;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
   
 
   //Para la fecha
- fecha = Date.now();
+ //fecha = Date.now();
+
+ parametro: string;
+ titulo: string;
 
   //Variables para combos
   clasificaciones: any;
@@ -67,6 +71,17 @@ export class FormActivoIntangibleComponent implements OnInit {
       observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
 
     });
+
+    //Mando el id para comparar si es nuevo ingreso o editar
+    this.activateRoute.params.subscribe(parametro => {
+      this.parametro=parametro["id"];
+      if(this.parametro=="nuevo") {
+        this.titulo="Ingreso de activo intangible";
+      } else {
+        this.titulo="Editar activo intangible";
+      }
+  });
+
    }
 
   ngOnInit() {
@@ -114,6 +129,62 @@ export class FormActivoIntangibleComponent implements OnInit {
     this.controlService.listarComboArea().subscribe((data) => {
       this.areas=data;
     });
+
+    //Recuperación de información
+    if(this.parametro!="nuevo") {
+      this.controlService.RecuperarEdificiosInstalaciones(this.parametro).subscribe(param=>{
+        //Valores
+        this.activoIntangible.controls["idbien"].setValue(param.idbien);
+        this.activoIntangible.controls['bandera'].setValue('1');
+        this.activoIntangible.controls['descripcion'].setValue(param.descripcion);
+        this.activoIntangible.controls['tipoadquicicion'].setValue(param.tipoadquicicion);
+        this.activoIntangible.controls['idclasificacion'].setValue(param.idclasificacion);
+        //Validacion para cambiar si es proveedor o donantes
+         if(param.isProvDon==1) {
+            this.tipocombo="Proveedor:";
+            this.controlService.listarComboProveedor().subscribe((res) => {
+              this.comboProvDon = res;
+            });
+            this.activoIntangible.controls['idproveedor'].setValue(param.idproveedor);
+         } else {
+            this.tipocombo="Donante:";
+            this.controlService.listarComboDonante().subscribe((res) => {
+              this.comboProvDon = res;
+            });
+            this.activoIntangible.controls['idproveedor'].setValue(param.iddonante);
+        }
+        //Validación para crédito
+          if (param.tipoadquicicion == 1 || param.tipoadquicicion == 3) {
+            this.disabled = true;
+          } else {
+            this.disabled = false;
+            this.activoIntangible.controls['plazopago'].setValue(param.plazopago);
+            this.activoIntangible.controls['prima'].setValue(param.prima);
+            this.activoIntangible.controls['cuotaasignada'].setValue(param.cuotaasignada);
+            this.activoIntangible.controls['interes'].setValue(param.interes);
+          }
+        
+        this.activoIntangible.controls['valorresidual'].setValue(param.valorresidual);
+        this.activoIntangible.controls['vidautil'].setValue(param.vidautil);
+        this.activoIntangible.controls['valoradquicicion'].setValue(param.valoradquicicion);
+        this.activoIntangible.controls['noformulario'].setValue(param.noformularioactivo);
+        this.activoIntangible.controls['fechaingreso'].setValue(param.fechaingreso);
+        this.activoIntangible.controls['personaentrega'].setValue(param.personaentrega);
+        this.activoIntangible.controls['personarecibe'].setValue(param.personarecibe);
+        this.activoIntangible.controls['observaciones'].setValue(param.observaciones);
+        
+        
+        if(param.foto==null) {
+          this.foto="";
+        } else {
+          this.foto=param.foto;
+        }
+
+        //Para desbilitar el área
+        this.disabledd = true;
+        
+      })
+    }
 
   }
 
@@ -213,7 +284,82 @@ ProveedorDonante() {
               }
             });
         }
+      } else {
+        //Editar
+        this.activoIntangible.controls["bandera"].setValue("0");
+        if(this.activoIntangible.valid==true) {
+          console.log(this.activoIntangible.value);
+          this.controlService.modificarFormIngreso(this.activoIntangible.value).subscribe((data) => {
+            if(data==1) {
+              //Creo esta condicion para modificar, si es contado o donado mando valor 0 sino ingresa lo de credito al modificar
+            var tip = this.activoIntangible.controls['tipoadquicicion'].value;
+            var valorR=this.activoIntangible.controls['valorresidual'].value;
+            if(tip==1 || tip==3) {
+              this.activoIntangible.controls['prima'].setValue('0');
+              this.activoIntangible.controls['plazopago'].setValue('0');
+              this.activoIntangible.controls['cuotaasignada'].setValue('0');
+              this.activoIntangible.controls['interes'].setValue('0');
+            } else{
+            } 
+            if(valorR =='') {
+              this.activoIntangible.controls['valorresidual'].setValue('0');
+            }
+              //Pasamos la foto para modificarla
+              this.activoIntangible.controls['foto'].setValue(this.foto);
+              this.controlService.modificarEdificiosInstalaciones(this.activoIntangible.value).subscribe((res) => {
+                if (res == 1) {
+                  Swal.fire({
+                    title: '¡Registro Modificado con éxito!',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: '¡OK!',
+                  }).then((result) => {
+                      this.router.navigate(['./registro-activos/intangible']);
+                  });
+                } else {
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'No Modificó',
+                    showConfirmButton: false,
+                    timer: 3000,
+                  });
+                }
+              })
+            } else {
+              //No modifica
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'No Modificó',
+                showConfirmButton: false,
+                timer: 3000,
+              });
+  
+            }
+          })
+        }
+        
+  }
+  }
+
+  cancelar() {
+    Swal.fire({
+      title: '¿Seguro que quieres salir?',
+      text: "¡Se perderán todos los datos que no hayas guardado!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if(result.value) {
+        this.router.navigate(["./"]); 
       }
+      
+    });
+
   }
 
 
