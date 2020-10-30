@@ -155,6 +155,11 @@ public VerDatosActivosAsig(id){
  public recuperarActivoAsignado(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/recuperarActivoAsignado/"+id).map(res=>res.json());
  } 
+
+ //Recuperar año
+ public mostrarAnio(){
+  return this.http.get(environment.urlService + "api/ActivoFijo/listarAnio").map(res=>res.json());
+ }
  
 
  public RecuperarEdificiosInstalaciones(id){

@@ -40,7 +40,9 @@ export class FormNuevoBienComponent implements OnInit {
   lista: any;
   parametro: string;
   //Para la fecha
- // fecha=Date.now();
+  fecha: string;
+  anio: string;
+  //fechaa=Date.now();
   lista2: any;
   emple : boolean;//para el disabley enable del editar
   titulo: string;
@@ -101,6 +103,8 @@ export class FormNuevoBienComponent implements OnInit {
   }
 
   ngOnInit() {
+   // this.fecha=this.anio+"-12-31";
+   //this.fecha=this.fechaa;
     this.tipocombo = 'Proveedor o Donante:';
     this.disabledPrima = 'Ingrese prima';
     this.disabledPlazo = 'Ingrese plazo';
@@ -127,6 +131,11 @@ export class FormNuevoBienComponent implements OnInit {
 
     this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
     this.controlService.getBienesAsignados().subscribe((data) => {this.lista = data; });
+
+    this.controlService.mostrarAnio().subscribe((data)=> {
+     // this.anio=data.anio;
+      this.fecha=data.anio+"-12-31";
+    })
 
     //Recuperación de información
     if(this.parametro!="nuevo") {
@@ -285,7 +294,6 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['idproveedor'].setValue("");
     
   }
-
   //Evento para guardar foto
   changeFoto() {
     var file = (<HTMLInputElement>document.getElementById('futFoto')).files[0];
