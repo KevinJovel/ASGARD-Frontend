@@ -33,7 +33,7 @@ export class TablaDepreciacionComponent implements OnInit {
   displayMensaje='none';
   //Datos del modal
   coopertativa:string;
-  anio:string;
+  anio:any;
   //Modal de detalles
   foto: any;
   descripcion:string;
@@ -58,7 +58,7 @@ export class TablaDepreciacionComponent implements OnInit {
      });
      this.datos = new FormGroup({
       'idBien': new FormControl("0"),
-      // 'bandera': new FormControl("0"),
+       'Ultimafecha': new FormControl(""),
       'codigo': new FormControl(""),
       'descripcion': new FormControl(""),
       'valorAdquicicion': new FormControl(""),
@@ -180,10 +180,35 @@ export class TablaDepreciacionComponent implements OnInit {
         this.datos.controls["codigo"].setValue(data.codigo);
         this.datos.controls["descripcion"].setValue(data.descipcion);
         this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
-        this.datos.controls["valorDepreciacion"].setValue(data.valorDepreciacion);
+
         this.datos.controls["valorActual"].setValue(data.valorActual);
+        // Se recupera la fecha de a ultima transaccion
+        this.datos.controls["Ultimafecha"].setValue(data.fecha);
+        //se guarda en una variable el split de la cadena para separar y poder enviar al metodo con exito
+        var fecha = this.datos.controls["Ultimafecha"].value.split("-");
+      // guardo en variables los componentes del split
+         let dia = fecha[0];
+         let mes = fecha[1];
+         let anio = fecha[2];
+         //Le envio el split a variable de ultima transaccion realizada
+         console.log(dia);
+         console.log(mes-1);
+         console.log(anio);
+        const UltimaTransaccion=new Date(anio,mes-1,dia)
+        // Variable de transaccion actual Depreciacion al 31 de diciembre
+        const transaccion=new Date(this.anio,11,31);
+        const diasTranscurridos=this.diasDepreciacion(UltimaTransaccion,transaccion); 
+        // console.log(UltimaTransaccion);
+        // console.log(transaccion);
+        // console.log(diasTranscurridos);
+        const montoDepreciacion=(data.valorDepreciacion/365)*diasTranscurridos;
+            // // const hoy=new Date();
+        this.datos.controls["valorDepreciacion"].setValue(montoDepreciacion);
+            // const ingreso=new Date(2010,0,1)
+            // // // const kevinNacimiento=new Date(1996,3,14)
+            // console.log(diasDepreciacion(depreciacion,ingreso));
       // pasar a 2 decimales el valor a depreciar
-        let valorRnDepreciar=Math.round(data.valorDepreciacion*100)/100;
+        let valorRnDepreciar=Math.round(montoDepreciacion*100)/100;
         valorRnDepreciar.toFixed(2);
         this.valorDepreciarStr=valorRnDepreciar.toString();
         //pasar a 2 decimales el valor actual
@@ -195,6 +220,11 @@ export class TablaDepreciacionComponent implements OnInit {
    
     });
   }
+  diasDepreciacion(fechaIngreso,fechaDepreciacion){
+    let unDia=1000*60*60*24;
+    const diferecia=Math.abs(fechaIngreso-fechaDepreciacion)
+    return Math.floor(diferecia/unDia);
+}
   detalles(id,tipo){
     if(tipo==1){
       this.configuracionService.recuperarDatosGenrales(id).subscribe(data=>{

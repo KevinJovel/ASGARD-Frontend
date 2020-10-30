@@ -40,7 +40,8 @@ export class FormNuevoBienComponent implements OnInit {
   lista: any;
   parametro: string;
   //Para la fecha
-  fecha: string;
+  fechaMaxima: any;
+  fechaMinima: any;
   anio: string;
   //fechaa=Date.now();
   lista2: any;
@@ -132,10 +133,14 @@ export class FormNuevoBienComponent implements OnInit {
     this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
     this.controlService.getBienesAsignados().subscribe((data) => {this.lista = data; });
 
-    this.controlService.mostrarAnio().subscribe((data)=> {
+    this.controlService.mostrarAnio().subscribe((res)=> {
      // this.anio=data.anio;
-      this.fecha=data.anio+"-12-31";
-    })
+      this.fechaMaxima=`${res.anio}-12-31`;
+      this.fechaMinima=`${(res.anio-10).toString()}-12-31`;
+      console.log(`La fecha maxima es: ${this.fechaMaxima} y la minima ${this.fechaMinima}`);
+      // console.log(res.anio);
+    });
+ 
 
     //Recuperación de información
     if(this.parametro!="nuevo") {

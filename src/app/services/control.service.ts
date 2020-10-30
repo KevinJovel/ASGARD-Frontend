@@ -158,7 +158,7 @@ public VerDatosActivosAsig(id){
 
  //Recuperar año
  public mostrarAnio(){
-  return this.http.get(environment.urlService + "api/ActivoFijo/listarAnio").map(res=>res.json());
+  return this.http.get(environment.urlService + "api/Depreciacion/RecuperarAnio").map(res=>res.json());
  }
  
 
