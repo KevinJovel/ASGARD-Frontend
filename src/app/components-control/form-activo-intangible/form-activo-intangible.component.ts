@@ -26,7 +26,8 @@ export class FormActivoIntangibleComponent implements OnInit {
   
 
   //Para la fecha
- //fecha = Date.now();
+  fechaMaxima: any;
+  fechaMinima: any;
 
  parametro: string;
  titulo: string;
@@ -121,6 +122,8 @@ export class FormActivoIntangibleComponent implements OnInit {
       });
     }
 
+    
+
     this.controlService.listarComboClasificacionIntan().subscribe((data) => {
       this.clasificaciones=data;
     });
@@ -128,6 +131,12 @@ export class FormActivoIntangibleComponent implements OnInit {
     //Combo para área de negocio
     this.controlService.listarComboArea().subscribe((data) => {
       this.areas=data;
+    });
+
+     //Método para recuperar año
+     this.controlService.mostrarAnio().subscribe((res)=> {
+      this.fechaMaxima=`${res.anio}-12-31`;
+      this.fechaMinima=`${(res.anio-10).toString()}-01-01`;
     });
 
     //Recuperación de información

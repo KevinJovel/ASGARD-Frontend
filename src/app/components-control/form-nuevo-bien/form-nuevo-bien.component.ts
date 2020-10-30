@@ -104,8 +104,6 @@ export class FormNuevoBienComponent implements OnInit {
   }
 
   ngOnInit() {
-   // this.fecha=this.anio+"-12-31";
-   //this.fecha=this.fechaa;
     this.tipocombo = 'Proveedor o Donante:';
     this.disabledPrima = 'Ingrese prima';
     this.disabledPlazo = 'Ingrese plazo';
@@ -133,12 +131,10 @@ export class FormNuevoBienComponent implements OnInit {
     this.controlService.getActivosSinAsignar().subscribe((data) => {this.lista2 = data; });
     this.controlService.getBienesAsignados().subscribe((data) => {this.lista = data; });
 
+    //Método para recuperar año
     this.controlService.mostrarAnio().subscribe((res)=> {
-     // this.anio=data.anio;
       this.fechaMaxima=`${res.anio}-12-31`;
-      this.fechaMinima=`${(res.anio-10).toString()}-12-31`;
-      console.log(`La fecha maxima es: ${this.fechaMaxima} y la minima ${this.fechaMinima}`);
-      // console.log(res.anio);
+      this.fechaMinima=`${(res.anio-10).toString()}-01-01`;
     });
  
 

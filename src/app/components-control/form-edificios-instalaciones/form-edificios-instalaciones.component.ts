@@ -34,7 +34,8 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   titulo: string;
 
  //Para la fecha
- //fecha = Date.now();
+ fechaMaxima: any;
+ fechaMinima: any;
 
  //Variables para combos
  comboProvDon: any;
@@ -133,6 +134,12 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
 
     this.controlService.comboSucursal().subscribe((data) => {
       this.sucursales=data;
+    });
+
+     //Método para recuperar año
+     this.controlService.mostrarAnio().subscribe((res)=> {
+      this.fechaMaxima=`${res.anio}-12-31`;
+      this.fechaMinima=`${(res.anio-10).toString()}-01-01`;
     });
 
     //Recuperación de información

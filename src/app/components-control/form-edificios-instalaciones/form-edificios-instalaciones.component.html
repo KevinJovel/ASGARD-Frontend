@@ -55,7 +55,7 @@
                 <div class="form-row">
                       <div class="form-group col-md-4" >
                       <label>* Fecha de Ingreso</label>
-                      <input type="date" class="form-control" formControlName="fechaingreso">
+                      <input type="date" class="form-control" formControlName="fechaingreso" min="{{fechaMinima}}" max="{{fechaMaxima}}">
                     </div>
 
                     <div class="form-group col-md-4">
