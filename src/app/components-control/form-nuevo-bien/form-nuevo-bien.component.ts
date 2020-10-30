@@ -394,7 +394,8 @@ export class FormNuevoBienComponent implements OnInit {
                 });
               }
             })
-          } else {
+          }
+          else {
             //No modifica
             Swal.fire({
               position: 'center',

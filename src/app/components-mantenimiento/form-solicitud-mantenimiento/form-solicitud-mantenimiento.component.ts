@@ -22,6 +22,8 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   p: number = 1;
   matriz:(string | number)[][]=new Array();
   //Revisar esta fecha da problemas en la consola
+ // fecha = Date.now();
+  anio: string;
   yaHayDatos:boolean=false;
   
   constructor( private mantenimientoService: MantenimientoService) { 

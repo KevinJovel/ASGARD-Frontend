@@ -58,7 +58,7 @@
         <label>* Fecha:</label>
         <input type="date" formControlName="fechasolicitud" class="form-control">
       </div>
-
+         <!--[ngModel]='fecha | date:"yyyy-MM-dd"' (ngModelChange)='fecha=$event'-->
       <div class="form-group col-md-4">
         <label>* Folio:</label>
         <input type="text" class="form-control" formControlName="folio" maxlength="11" (keyup)=" ValidarDatosArray()"
