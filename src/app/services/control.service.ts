@@ -123,7 +123,13 @@ public modificarBien(nuevoBien) {
 public modificarEdificiosInstalaciones(nuevoBien) {
       return this.http.post(environment.urlService + "api/FormularioIngreso/modificarEdificiosInstalaciones", nuevoBien).map(res=>res.json());
       }
-// Buscadores de activos asignados
+  // MODIFICAR ACTIVOS ASIGNADOS.
+public modificarActivoAsignado(nuevoBien) {
+ return this.http.post(environment.urlService + "api/FormularioIngreso/modificarActivoAsignado", nuevoBien).map(res=>res.json());
+      }
+
+ 
+// Buscadores de activos asignados 
 public buscarActivoAsig(buscador) {
   return this.http.get(environment.urlService  + "api/ActivoFijo/buscarActivoAsig/" + buscador).map(res => res.json());
 }
@@ -152,6 +158,7 @@ public VerDatosActivosAsig(id){
  public RecuperarBienNoAsignado(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/recuperarBienMueble/"+id).map(res=>res.json());
  } 
+ //RECUPERAR DATOS DE ACTIVOS ASIGNADOS
  public recuperarActivoAsignado(id){
   return this.http.get(environment.urlService + "api/ActivoFijo/recuperarActivoAsignado/"+id).map(res=>res.json());
  } 
