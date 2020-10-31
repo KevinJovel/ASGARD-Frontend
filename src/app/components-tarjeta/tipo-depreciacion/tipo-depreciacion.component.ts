@@ -23,7 +23,7 @@ export class TipoDepreciacionComponent implements OnInit {
     this.depreciacionService.DatosCierre().subscribe(data => {
       this.anio = data.anio;
       this.cooperativa = data.cooperativa;
-      this.periodo.controls["idPeriodo"].setValue(data.idPeriodo);
+      // this.periodo.controls["idPeriodo"].setValue(data.idPeriodo);
     });
   }
   close() {
