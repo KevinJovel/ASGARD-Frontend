@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ControlService } from './../../services/control.service';
@@ -12,11 +12,12 @@ declare var $;
 import { State, StateService } from './../../services/state.service';
 
 @Component({
-  selector: 'app-form-nuevo-bien',
-  templateUrl: './form-nuevo-bien.component.html',
-  styleUrls: ['./form-nuevo-bien.component.css'],
+  selector: 'app-form-modificar-asignados',
+  templateUrl: './form-modificar-asignados.component.html',
+  styleUrls: ['./form-modificar-asignados.component.css']
 })
-export class FormNuevoBienComponent implements OnInit {
+export class FormModificarAsignadosComponent implements OnInit {
+
   dataState: State; //hace referencia a la variable donde estan almacenados los datos
   //Variables para combos
   comboProvDon: any;
@@ -56,52 +57,52 @@ export class FormNuevoBienComponent implements OnInit {
   disabledCuota: string;
   disabledInteres: string;
   disabledempleado: string;
-  //@Output() clickOpen: EventEmitter<any>;
-  constructor(
-    private catalogoService: CatalogosService,private _cargarScript: CargarScriptsService,private controlService: ControlService,
-    private activateRoute: ActivatedRoute,private router: Router,private stateService: StateService) {
-    this._cargarScript.cargar(['/jquery.stepy', '/sortingTable']);
 
-    //this.clickOpen = new EventEmitter();
-    this.nuevobien = new FormGroup({
-      idbien: new FormControl('0'),
-      bandera: new FormControl('0'),
-      tipoactivo: new FormControl('2'),
-      color: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-      descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
-      modelo: new FormControl('', [Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
-      tipoadquicicion: new FormControl('0',[Validators.required]), //contado credito o donado
-      idmarca: new FormControl('0'),
-      idclasificacion: new FormControl('0',[Validators.required]),
-      idproveedor: new FormControl('0', [Validators.required]),
-      estadoingreso: new FormControl('0',[Validators.required]),
-      valoradquicicion: new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]),
-      plazopago: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
-      prima: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
-      cuotaasignada: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
-      interes: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
-     noformulario: new FormControl('0'),
-     nofactura: new FormControl('', [Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
-     fechaingreso: new FormControl(''),
-     personaentrega: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-     personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-     valorresidual: new FormControl('',[Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]),
-     observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
-     cantidad: new FormControl('', [Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
-     foto: new FormControl(''),
-     idresponsable: new FormControl(''),
-    });
-    
-    //Mando el id para comparar si es nuevo ingreso o editar
-    this.activateRoute.params.subscribe(parametro => {
+  constructor(private catalogoService: CatalogosService,private _cargarScript: CargarScriptsService,private controlService: ControlService,
+    private activateRoute: ActivatedRoute,private router: Router,private stateService: StateService) {
+
+      this._cargarScript.cargar(['/jquery.stepy', '/sortingTable']);
+      this.nuevobien = new FormGroup({
+        idbien: new FormControl('0'),
+        bandera: new FormControl('0'),
+        tipoactivo: new FormControl('2'),
+        color: new FormControl('', [Validators.required,Validators.maxLength(20),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+        descripcion: new FormControl('', [Validators.required,Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
+        modelo: new FormControl('', [Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
+        tipoadquicicion: new FormControl('0',[Validators.required]), //contado credito o donado
+        idmarca: new FormControl('0'),
+        noserie: new FormControl('',[Validators.required, Validators.maxLength(50)]),
+        idclasificacion: new FormControl('0',[Validators.required]),
+        idproveedor: new FormControl('0', [Validators.required]),
+        estadoingreso: new FormControl('0',[Validators.required]),
+        valoradquicicion: new FormControl('',[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]),
+        plazopago: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
+        prima: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
+        cuotaasignada: new FormControl('',[Validators.maxLength(7),Validators.pattern("^[0-9.´´ ]+$")]),
+        interes: new FormControl('',[Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
+        noformulario: new FormControl('0'),
+        nofactura: new FormControl('', [Validators.maxLength(30),Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
+        fechaingreso: new FormControl(''),
+        personaentrega: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+        personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+        valorresidual: new FormControl('',[Validators.maxLength(10),Validators.pattern("^[0-9.´´ ]+$")]),
+        observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
+        cantidad: new FormControl('', [Validators.maxLength(2),Validators.pattern("^[0-9´´ ]+$")]),
+        foto: new FormControl(''),
+        idresponsable: new FormControl(''),
+      });
+
+      //Mando el id para comparar si es nuevo ingreso o editar
+      this.activateRoute.params.subscribe(parametro => {
       this.parametro=parametro["id"];
       if(this.parametro=="nuevo") {
         this.titulo="Ingreso de nuevo activo";
       } else {
-        this.titulo="Edición de activo no asignado";
+        this.titulo="Edición de activo asignado";
       }
-  });
-  }
+      });
+
+     }
 
   ngOnInit() {
     this.tipocombo = 'Proveedor o Donante:';
@@ -136,11 +137,10 @@ export class FormNuevoBienComponent implements OnInit {
       this.fechaMaxima=`${res.anio}-12-31`;
       this.fechaMinima=`${(res.anio-10).toString()}-01-01`;
     });
- 
 
     //Recuperación de información
     if(this.parametro!="nuevo") {
-      this.controlService.RecuperarBienNoAsignado(this.parametro).subscribe(param=>{
+      this.controlService.recuperarActivoAsignado(this.parametro).subscribe(param=>{
         //Valores
         this.nuevobien.controls["idbien"].setValue(param.idbien);
         this.nuevobien.controls['bandera'].setValue('1');
@@ -149,6 +149,7 @@ export class FormNuevoBienComponent implements OnInit {
         this.nuevobien.controls['modelo'].setValue(param.modelo);
         this.nuevobien.controls['tipoadquicicion'].setValue(param.tipoadquicicion);
         this.nuevobien.controls['idmarca'].setValue(param.idmarca);
+        this.nuevobien.controls['noserie'].setValue(param.noserie);
         this.nuevobien.controls['idclasificacion'].setValue(param.idclasificacion);
         //Validacion para cambiar si es proveedor o donantes
          if(param.isProvDon==1) {
@@ -197,6 +198,7 @@ export class FormNuevoBienComponent implements OnInit {
         
       })
     }
+
   }
 
   //Método para cargar combo al guardar los datos
@@ -236,8 +238,9 @@ export class FormNuevoBienComponent implements OnInit {
       this.nuevobien.controls['idproveedor'].setValue("");
     
   }
-  //Evento para guardar foto
-  changeFoto() {
+
+   //Evento para guardar foto
+   changeFoto() {
     var file = (<HTMLInputElement>document.getElementById('futFoto')).files[0];
     var fileReader = new FileReader();
 
@@ -316,7 +319,7 @@ export class FormNuevoBienComponent implements OnInit {
             //Pasamos la foto para modificarla
             this.nuevobien.controls['foto'].setValue(this.foto);
             console.log(this.nuevobien.value);
-            this.controlService.modificarBien(this.nuevobien.value).subscribe((res) => {
+            this.controlService.modificarActivoAsignado(this.nuevobien.value).subscribe((res) => {
               if (res == 1) {
                 Swal.fire({
                   title: '¡Registro Modificado con éxito!',
@@ -354,67 +357,24 @@ export class FormNuevoBienComponent implements OnInit {
 } 
   }
 
-cancelar() {
-      Swal.fire({
-        title: '¿Seguro que quieres salir?',
-        text: "¡Se perderán todos los datos que no hayas guardado!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '¡Si!',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if(result.value) {
-          this.router.navigate(["./"]); 
-        }
-        
-      });
-
-    }
-
-open() {
-  //limpia cache
- this.nuevobien.reset();
-  this.nuevobien.controls["idbien"].setValue("0");
-  this.nuevobien.controls["bandera"].setValue("0");
-  this.nuevobien.controls["color"].setValue("");
-  this.nuevobien.controls["descripcion"].setValue("");
-  this.nuevobien.controls["modelo"].setValue("");
-  this.nuevobien.controls["tipoadquicicion"].setValue("");
-  this.nuevobien.controls["idmarca"].setValue("");
-  this.nuevobien.controls["idclasificacion"].setValue("");
-  this.nuevobien.controls["idproveedor"].setValue("");
-  this.nuevobien.controls['idresponsable'].setValue("");
-  this.nuevobien.controls["estadoingreso"].setValue("");
-  this.nuevobien.controls["plazopago"].setValue("");
-  this.nuevobien.controls["prima"].setValue("");
-  this.nuevobien.controls["cuotaasignada"].setValue("");
-  this.nuevobien.controls["interes"].setValue("");
-  this.nuevobien.controls["noformulario"].setValue("");
-  this.nuevobien.controls["nofactura"].setValue("");
-  this.nuevobien.controls["fechaingreso"].setValue("");
-  this.nuevobien.controls["personaentrega"].setValue("");
-  this.nuevobien.controls["personarecibe"].setValue("");
-  this.nuevobien.controls["observaciones"].setValue("");
-  this.nuevobien.controls["cantidad"].setValue("");
-  this.nuevobien.controls["foto"].setValue("");
-  this.display = 'block';
-
-}
-
-limpiar(){
-  this.nuevobien.reset();
-}
-  noPuntoDecimal(control: FormControl) {
-    if (control.value != null && control.value != '') {
-      if ((<string>control.value.toString()).indexOf('.') > -1) {
-        return { puntoDecimal: true };
+  cancelar() {
+    Swal.fire({
+      title: '¿Seguro que quieres salir?',
+      text: "¡Se perderán todos los datos que no hayas guardado!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if(result.value) {
+        this.router.navigate(["./"]); 
       }
-      return null;
-    }
-  }
+      
+    });
 
+  }
 
 
 }

@@ -77,6 +77,7 @@ import { FormActivoIntangibleComponent } from './components-control/form-activo-
 import { RegistroActivosComponent } from './components-control/registro-activos/registro-activos.component';
 import { TablaRevalorizarComponent } from './components-control/tabla-revalorizar/tabla-revalorizar.component';
 import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacion/tipo-depreciacion.component';
+import { FormModificarAsignadosComponent } from './components-control/form-modificar-asignados/form-modificar-asignados.component';
 
 
 
@@ -127,6 +128,7 @@ import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacio
     RegistroActivosComponent,
     TablaRevalorizarComponent,
     TipoDepreciacionComponent,
+    FormModificarAsignadosComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -182,6 +184,7 @@ import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacio
       {path: 'form-edificios-instalaciones/:id', component: FormEdificiosInstalacionesComponent},
       {path: 'form-activo-intangible/:id', component: FormActivoIntangibleComponent},
       {path: 'tipo-depreciacion', component: TipoDepreciacionComponent},
+      {path: 'form-modificar-asignados/:id', component: FormModificarAsignadosComponent},
       { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
       
     ]),
