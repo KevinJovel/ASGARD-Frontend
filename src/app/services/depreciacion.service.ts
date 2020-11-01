@@ -68,6 +68,14 @@ export class DepreciacionService {
     return this.http.get(environment.urlService  + "api/CuadroControl/listarCuadroControl").map(res => res.json());
   }
 
+  public getCuadroControlEdificios() {
+    return this.http.get(environment.urlService  + "api/CuadroControl/listarCuadroEdificios").map(res => res.json());
+  }
+
+  public getCuadroControlIntangibles() {
+    return this.http.get(environment.urlService  + "api/CuadroControl/listarCuadroIntangibles").map(res => res.json());
+  }
+
   //Servicio para buscar en cuadro de control
   public buscarCuadro(buscador) {
     return this.http.get(environment.urlService  + "api/CuadroControl/buscarCuadro/" + buscador).map(res => res.json());
