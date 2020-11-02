@@ -11,14 +11,11 @@
         <form role="form" [formGroup]="periodo" (ngSubmit)="cierre()">
 
           <input type="hidden" class="form-control" formControlName="idPeriodo" autocomplete="off">
-          <p>*Al realizar el cierre del sistema usted como usuario administrador adquiere la responsabilidad de
-            asegurarse que todos los datos esten realizados bajo la supervision y audioria de las autoridades</p>
-          <p>*Al momento de realizar el cierre se generará una partida única que será utilizada para el asiento contable
-            del presente año</p>
-          <p>*Toda la informacion que realice en procesos como: Depreciacion,amortizacion, revalorizacion, traspasos,
-            bajas, serán registrados en el año que esta apunto de aperturar.</p>
-          <p>*Es responsabilidad del administrador mantener la informacion debidamente auditada en todo momento</p>
-          <label><input #aceptar type="checkbox" (click)="Aceptar(aceptar)"> Acepto los terminos
+          <p>*Al realizar el cierre del sistema usted como usuario administrador adquiere la responsabilidad de asegurarse que todos los procesos estén realizados bajo la supervisión y auditoria de las autoridades.</p>
+          <p> *Al momento de realizar el cierre se generará una partida única que será utilizada para el asiento contable del presente año.</p>
+          <p> *A partir de hoy toda la información que realice en procesos como: Depreciación, amortización, revalorización, traspasos, bajas, serán registrados en el año que está apunto de apertura.</p>
+          <p> *Es responsabilidad del administrador mantener la información debidamente auditada en todo momento</p>
+          <label><input #aceptar type="checkbox" (click)="Aceptar(aceptar)"> Acepto los términos
             y condiciones</label><br>
 
           <div style="text-align: center;">

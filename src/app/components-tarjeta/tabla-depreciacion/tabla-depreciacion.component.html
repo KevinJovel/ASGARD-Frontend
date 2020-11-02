@@ -12,8 +12,8 @@
             <h1>Depreciación</h1>
           </div>
           <div class="form-group col-md-3">
-            <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i
-                class="glyphicon glyphicon-refresh"></i>Aplicar depreciación</button>
+            <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="AplicarDepreciacionTotal()"><i
+              class="icon-sort-by-attributes-alt"></i>Aplicar depreciación</button>
           </div>
         </div>
           <form class="form-inline" id="default" [formGroup]="combos">
@@ -233,8 +233,8 @@
                       <input type="text" class="form-control" value="{{this.valorDepreciarStr}}" readonly>
                     </div>
 
-                    <button type="submit" class="btn btn-primary"><i class="icon-save"></i>
-                      Aplicar </button>
+                    <!-- <button type="submit" class="btn btn-primary"><i class="icon-save"></i>
+                      Aplicar </button> -->
                     <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
                       Cancelar</button>
                   </form>

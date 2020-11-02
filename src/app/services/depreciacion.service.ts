@@ -54,6 +54,9 @@ export class DepreciacionService {
   public transaccionDepreciacion(transac) {
     return this.http.post(environment.urlService + "api/Depreciacion/transaccionDepreciacion", transac).map(res=>res.json());
     }
+ public ListaActivosDepreciar() {
+      return this.http.get(environment.urlService + "api/Depreciacion/ListaActivosADepreciar").map(res=>res.json());
+      }
     public transaccionDepreciacionTotal() {
       return this.http.get(environment.urlService + "api/Depreciacion/DepreciacionTotal").map(res=>res.json());
       }

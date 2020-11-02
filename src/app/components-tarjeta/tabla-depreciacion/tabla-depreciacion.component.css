@@ -133,7 +133,7 @@ table {
     font-size: 13px;
   }
   .form-group {
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
   input, select, textarea  {
     font-family: inherit;

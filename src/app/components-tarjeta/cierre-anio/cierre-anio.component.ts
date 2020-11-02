@@ -33,56 +33,68 @@ export class CierreAnioComponent implements OnInit {
 
   }
   cierre() {
-    this.depreciacionService.EjecutarCierre(this.periodo.value).subscribe(data => {
-      if (data == 1) {
-        this.displayCierre = 'none';
-        this.router.navigate(["./"]);
-        let timerInterval
+    this.depreciacionService.validarDatosDepreciar().subscribe(data => {
+      if(data==1){
         Swal.fire({
-          title: 'Ejecutando cierre de año!',
-          html: 'Procesando',
-          timer: 5000,
-          timerProgressBar: true,
-          onBeforeOpen: () => {
-            Swal.showLoading()
-            timerInterval = setInterval(() => {
-              const content = Swal.getContent()
-              if (content) {
-                const b = content.querySelector('b')
-                if (b) {
-                  Swal.getTimerLeft()
-                }
+          position: 'center',
+          icon: 'error',
+          title: '¡l proceso de cierre de año no se puede realizar, porque hay activos pendientes de depreciación !',
+          showConfirmButton: true,
+        })
+      }else{
+        this.depreciacionService.EjecutarCierre(this.periodo.value).subscribe(data => {
+          if (data == 1) {
+            this.displayCierre = 'none';
+            this.router.navigate(["./"]);
+            let timerInterval
+            Swal.fire({
+              title: 'Ejecutando cierre de año!',
+              html: 'Procesando',
+              timer: 5000,
+              timerProgressBar: true,
+              onBeforeOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                  const content = Swal.getContent()
+                  if (content) {
+                    const b = content.querySelector('b')
+                    if (b) {
+                      Swal.getTimerLeft()
+                    }
+                  }
+                }, 100)
+              },
+              onClose: () => {
+                clearInterval(timerInterval)
               }
-            }, 100)
-          },
-          onClose: () => {
-            clearInterval(timerInterval)
-          }
-        }).then((result) => {
-          /* Read more about handling dismissals below */
-          if (result.dismiss === Swal.DismissReason.timer) {
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Se realizó el cierre correctamente',
+                  showConfirmButton: false,
+                  timer: 3000
+                })
+              }
+            })
+           
+          } else {
+            this.displayCierre = 'none';
+            this.router.navigate(["./"]);
             Swal.fire({
               position: 'center',
-              icon: 'success',
-              title: 'Se realizó el cierre correctamente',
+              icon: 'error',
+              title: 'No se jecutó',
               showConfirmButton: false,
               timer: 3000
             })
           }
-        })
-       
-      } else {
-        this.displayCierre = 'none';
-        this.router.navigate(["./"]);
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'No se jecutó',
-          showConfirmButton: false,
-          timer: 3000
-        })
+        });
       }
     });
+   
   }
   close() {
     this.displayCierre = 'none';

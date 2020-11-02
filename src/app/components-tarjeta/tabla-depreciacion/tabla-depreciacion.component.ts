@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
@@ -26,6 +27,7 @@ export class TablaDepreciacionComponent implements OnInit {
   p: number=1;
   titulo:string;
   datos:FormGroup;
+  datosTotal:FormGroup;
   display = 'none';
   display2 = 'none';
   display3 = 'none';
@@ -51,7 +53,7 @@ export class TablaDepreciacionComponent implements OnInit {
   vidaUtil:string;
   Observaciones:string;
 
-  constructor(private catalogosServices: CatalogosService,private controlService: ControlService,private depreciacionService:DepreciacionService,private configuracionService:ConfiguracionService) { 
+  constructor(private catalogosServices: CatalogosService,private controlService: ControlService,private depreciacionService:DepreciacionService,private configuracionService:ConfiguracionService,private router: Router) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0"),
@@ -68,6 +70,11 @@ export class TablaDepreciacionComponent implements OnInit {
       'valorDepreciacion': new FormControl("0.00"),
       'fecha': new FormControl("")
   });
+  this.datosTotal = new FormGroup({
+    'idBien': new FormControl("0"),
+    'fecha': new FormControl(""),
+    'valorDepreciacion': new FormControl("0.00")
+});
   }
 
   ngOnInit(): void {
@@ -163,6 +170,139 @@ export class TablaDepreciacionComponent implements OnInit {
       });
     }
 
+  }
+  AplicarDepreciacionTotal(){
+    this.depreciacionService.ListaActivosDepreciar().subscribe(data=>{
+      data.forEach(item => {
+        try {
+          //sentencias del metodo
+          this.depreciacionService.DatosDepreciacion(item.id).subscribe(data=>{
+            if(data.valorActual<=0){
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '¡Ocurrio un error!',
+                showConfirmButton: false,
+                timer: 3000
+              })
+            }else{
+              this.datosTotal.controls["idBien"].setValue(data.idBien);
+              this.anio=data.anio;
+              this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
+              this.datos.controls["valorActual"].setValue(data.valorActual);
+              this.datos.controls["Ultimafecha"].setValue(data.fecha);
+              this.datos.controls["fechaAdquisicion"].setValue(data.fechaAdquisicion);
+              //split a la fecha de adquisicion para calculos
+              var fechaAdquisicion = this.datos.controls["fechaAdquisicion"].value.split("-");
+              let diaA = fechaAdquisicion[0];
+              let mesA = fechaAdquisicion[1];
+              let anioA = fechaAdquisicion[2];
+               //split a la fecha de la ultima transaccion para calculos
+              var Ultimafecha = this.datos.controls["Ultimafecha"].value.split("-");
+              let dia = Ultimafecha[0];
+              let mes = Ultimafecha[1];
+              let anio = Ultimafecha[2];
+              //Decalracion de variables de tiempo, cada variable hace referencia a un momento en el tiempo
+              //de vida util del activo
+              const FECHA_ADQUISICION=new Date(anioA,mesA-1,diaA);//La fecha en la que se adquirio el bien
+              const FECHA_FINAL_DEPRECIACION=new Date((parseInt(anioA)+data.vidaUtil),mesA-1,diaA);//La fecha final de vida util del bien, se le suma la vida util al año
+              const ULTIMA_TRANSACCION=new Date(anio,mes-1,dia);//La ultima transaccion registrada en el sistema con este id
+              //dias totales epara depreciacion
+              let diasTotalesDepreciacion=this.diasToatales(FECHA_ADQUISICION,FECHA_FINAL_DEPRECIACION); 
+              //transaccion actual
+              let transaccion=new Date(this.anio,11,31);
+              //Dias transcurridos entre la ultima depreciacion y la fecha de adquisicon
+              const DIAS_TOTALES_TRANSCURRIDOS=this.diasToatales(FECHA_ADQUISICION,ULTIMA_TRANSACCION); 
+              //dias transcurridos entre la ultima transaccion "Depreciaocion" y la transaccion actual
+              const DIAS_TOTALES_TRANSACCION_ACTUAL=this.diasToatales(ULTIMA_TRANSACCION,transaccion); 
+              //Validacion de valor a depreciar
+              const DIAS_DESPUES_TRANSACCION_ACTUAL=(this.diasToatales(FECHA_ADQUISICION,transaccion));
+              var montoDepreciacion;
+              if(DIAS_DESPUES_TRANSACCION_ACTUAL>diasTotalesDepreciacion){
+                transaccion=FECHA_FINAL_DEPRECIACION;
+                 let valorActual=data.valorActual;
+                 let valorDiario=valorActual/(diasTotalesDepreciacion-DIAS_TOTALES_TRANSCURRIDOS);
+                 const DIAS_TOTALES_ULTIMA_TRANSACCION=this.diasToatales(ULTIMA_TRANSACCION,FECHA_FINAL_DEPRECIACION); 
+                 montoDepreciacion=(valorDiario*DIAS_TOTALES_ULTIMA_TRANSACCION);
+                 this.datosTotal.controls["fecha"].setValue(mesA + "/" +diaA+ "/" +(parseInt(anioA)+data.vidaUtil));
+              }else{
+                let valorActual=data.valorActual;
+                let valorDiario=valorActual/(diasTotalesDepreciacion-DIAS_TOTALES_TRANSCURRIDOS);
+                montoDepreciacion=(valorDiario*DIAS_TOTALES_TRANSACCION_ACTUAL);
+                this.datosTotal.controls["fecha"].setValue(12 + "/" + 31 + "/" +this.anio );
+              }
+              this.datosTotal.controls["valorDepreciacion"].setValue(montoDepreciacion);
+              if (this.datosTotal.valid == true) {
+                this.depreciacionService.transaccionDepreciacion(this.datosTotal.value).subscribe((data) => {
+                  if (data == 1) {
+                    console.log("Realizo depreciación");
+
+                }else{
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: '¡Ocurrio un error!',
+                    showConfirmButton: false,
+                    timer: 3000
+                  })
+                }
+                });
+              }else{
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  title: '¡Ocurrio un error!',
+                  showConfirmButton: false,
+                  timer: 3000
+                })
+              }
+            }
+          });
+        } catch (error) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '¡Ocurrio un error!',
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }
+      });
+      let timerInterval
+            Swal.fire({
+              title: '¡Ejecutando Depreciación!',
+              html: 'Espere un momento',
+              timer: 5000,
+              timerProgressBar: true,
+              onBeforeOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                  const content = Swal.getContent()
+                  if (content) {
+                    const b = content.querySelector('b')
+                    if (b) {
+                      Swal.getTimerLeft()
+                    }
+                  }
+                }, 100)
+              },
+              onClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: '¡Depreciacion realizada con exito!',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
+                this.router.navigate(["/tabla-tarjeta"]);
+              }
+            })
+    });
   }
   open(id){
 
