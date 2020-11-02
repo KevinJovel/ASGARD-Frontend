@@ -50,6 +50,8 @@ export class TablaRevalorizarComponent implements OnInit {
   vidaUtil:string;
   Observaciones:string;
   vidaUtilCorrecta:boolean=false;
+  fechaMaxima: any;
+  fechaMinima: any;
   revalorizacion: FormGroup;
   constructor(private mantenimientoService: MantenimientoService, private catalogosServices: CatalogosService,private controlService: ControlService,private depreciacionService:DepreciacionService,private configuracionService:ConfiguracionService) { 
     this.combos=new FormGroup({
@@ -85,6 +87,11 @@ export class TablaRevalorizarComponent implements OnInit {
     this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
       this.tablaMuebles='block'; 
     });
+      //Método para recuperar año
+   this.controlService.mostrarAnio().subscribe((res)=> {
+    this.fechaMaxima=`${res.anio}-12-31`;
+    this.fechaMinima=`${(res.anio-10).toString()}-01-01`;
+  });
   }
   CambiarTipo(){
     switch(this.combos.controls["idTipo"].value){

@@ -56,7 +56,7 @@
     <div class="form-row">
       <div class="form-group col-md-4">
         <label>* Fecha:</label>
-        <input type="date" formControlName="fechasolicitud" class="form-control">
+        <input type="date" formControlName="fechasolicitud" class="form-control" min="{{fechaMinima}}" max="{{fechaMaxima}}">
       </div>
          <!--[ngModel]='fecha | date:"yyyy-MM-dd"' (ngModelChange)='fecha=$event'-->
       <div class="form-group col-md-4">

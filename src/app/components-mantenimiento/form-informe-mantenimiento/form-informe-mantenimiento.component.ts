@@ -28,6 +28,9 @@ export class FormInformeMantenimientoComponent implements OnInit {
   c: number = 0;
   variableNumero: number = 0;
   vidaUtilCorrecta:boolean=false;
+  vidaUtilCierta: boolean= false;
+  fechaMaxima: any;
+  fechaMinima: any;
 
   constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService) {
 
@@ -47,19 +50,23 @@ export class FormInformeMantenimientoComponent implements OnInit {
       this.informes = res;
 
     });
-
+   //Método para recuperar año
+   this.controlService.mostrarAnio().subscribe((res)=> {
+    this.fechaMaxima=`${res.anio}-12-31`;
+    this.fechaMinima=`${(res.anio-10).toString()}-01-01`;
+  });
   }
   validarVidaUtil(vida){
     var id=this.revalorizacion.controls["idBien"].value;
     this.controlService.getVidaUtil(id).subscribe(data=>{
-      if(vida.value>0 &&vida.value<data.vidaUtil){
+      if(vida.value>0 && vida.value<data.vidaUtil || vida.value<this.revalorizacion.controls["vidaUtil"].value){
         this.vidaUtilCorrecta=true;
       }else{
         this.vidaUtilCorrecta=false;
       }
     });
-   
   }
+
 
 
   open(idBien, idinformematenimiento, vidtUtil) {

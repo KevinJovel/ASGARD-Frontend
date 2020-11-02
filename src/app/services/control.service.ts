@@ -185,8 +185,10 @@ public VerDatosActivosAsig(id){
  public listarActivosRevalorizar(){
   return this.http.get(environment.urlService + "api/Revalorizar/listarActivosRevalorizar").map(res=>res.json());
  }
-
  
+ public noEditarfecha(idbien){
+  return this.http.get(environment.urlService + "api/ActivoFIjo/noEditarfecha/"+ idbien).map(res=>res.json());
+ }
 
 }
 

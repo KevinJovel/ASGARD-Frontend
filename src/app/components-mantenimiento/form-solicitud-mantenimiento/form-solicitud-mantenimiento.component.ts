@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,13 +21,15 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   display = 'none';
   display2 = 'none';
   p: number = 1;
+  fechaMaxima: any;
+  fechaMinima: any;
   matriz:(string | number)[][]=new Array();
   //Revisar esta fecha da problemas en la consola
  // fecha = Date.now();
   anio: string;
   yaHayDatos:boolean=false;
   
-  constructor( private mantenimientoService: MantenimientoService) { 
+  constructor( private mantenimientoService: MantenimientoService,private controlService: ControlService) { 
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
@@ -52,6 +55,12 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.mantenimientoService.listarCodigoCombo().subscribe(data =>{
       this.codigos =data;
     });
+
+     //Método para recuperar año
+  this.controlService.mostrarAnio().subscribe((res)=> {
+    this.fechaMaxima=`${res.anio}-12-31`;
+    this.fechaMinima=`${(res.anio-10).toString()}-01-01`;
+  });
   }
   CambiarEstado(){
     this.mantenimientoService.cambiarEstadoSolicitud(this.datosArray.controls["idBien"].value).subscribe(data=>{
@@ -68,6 +77,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     this.yaHayDatos=false;
   }
   }
+ 
   //Metodo auxiliar para aegurarse que cargue los datos nuevos
   validarDatosEnArray(){
     this.mantenimientoService.getBienes().subscribe(data=>{

@@ -58,6 +58,8 @@ export class FormModificarAsignadosComponent implements OnInit {
   disabledInteres: string;
   disabledempleado: string;
 
+  edit: number = 0;
+
   constructor(private catalogoService: CatalogosService,private _cargarScript: CargarScriptsService,private controlService: ControlService,
     private activateRoute: ActivatedRoute,private router: Router,private stateService: StateService) {
 
@@ -139,6 +141,10 @@ export class FormModificarAsignadosComponent implements OnInit {
     });
 
     //Recuperación de información
+    this.controlService.noEditarfecha(this.parametro).subscribe(data => {
+      if (data == 1) {
+        this.edit = 1;
+      }
     if(this.parametro!="nuevo") {
       this.controlService.recuperarActivoAsignado(this.parametro).subscribe(param=>{
         //Valores
@@ -198,6 +204,7 @@ export class FormModificarAsignadosComponent implements OnInit {
         
       })
     }
+  });
 
   }
 
@@ -292,12 +299,14 @@ export class FormModificarAsignadosComponent implements OnInit {
                       timer: 3000,
                     });
                   }
+                  this.edit = 0;
                 });
             }
           });
       }
     } else {
       //Editar
+    
       this.nuevobien.controls["bandera"].setValue("0");
       if(this.nuevobien.valid==true) {
         console.log(this.nuevobien.value);
@@ -339,6 +348,7 @@ export class FormModificarAsignadosComponent implements OnInit {
                 });
               }
             })
+            this.edit = 0;
           }
           else {
             //No modifica
@@ -352,6 +362,7 @@ export class FormModificarAsignadosComponent implements OnInit {
 
           }
         })
+     // });
       }
       
 } 
@@ -371,7 +382,7 @@ export class FormModificarAsignadosComponent implements OnInit {
       if(result.value) {
         this.router.navigate(["./"]); 
       }
-      
+      this.edit = 0;
     });
 
   }
