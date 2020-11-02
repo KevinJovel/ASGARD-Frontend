@@ -54,7 +54,7 @@ table {
   h1{
     color: #797979;
     font-family: 'Open Sans', sans-serif;
-    margin-left: 35px;
+    margin-left: 5px;
   }
    h5, label {
     color: #797979;
@@ -132,6 +132,9 @@ table {
     border-radius: 10px;
     font-size: 13px;
   }
+  .form-group {
+    margin-bottom: 0px;
+}
   input, select, textarea  {
     font-family: inherit;
     font-size: inherit;

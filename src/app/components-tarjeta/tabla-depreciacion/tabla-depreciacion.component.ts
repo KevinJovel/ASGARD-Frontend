@@ -176,7 +176,6 @@ export class TablaDepreciacionComponent implements OnInit {
           timer: 3000
         })
       }else{
-        console.log(data.idBien);
         this.datos.controls["idBien"].setValue(data.idBien);
         this.coopertativa=data.cooperativa;
         this.anio=data.anio;
@@ -186,35 +185,31 @@ export class TablaDepreciacionComponent implements OnInit {
         this.datos.controls["valorActual"].setValue(data.valorActual);
         this.datos.controls["Ultimafecha"].setValue(data.fecha);
         this.datos.controls["fechaAdquisicion"].setValue(data.fechaAdquisicion);
+        //split a la fecha de adquisicion para calculos
         var fechaAdquisicion = this.datos.controls["fechaAdquisicion"].value.split("-");
-        // guardo en variables los componentes del split
         let diaA = fechaAdquisicion[0];
         let mesA = fechaAdquisicion[1];
         let anioA = fechaAdquisicion[2];
+         //split a la fecha de la ultima transaccion para calculos
         var Ultimafecha = this.datos.controls["Ultimafecha"].value.split("-");
         let dia = Ultimafecha[0];
         let mes = Ultimafecha[1];
         let anio = Ultimafecha[2];
-        const FECHA_ADQUISICION=new Date(anioA,mesA-1,diaA);
-        const FECHA_FINAL_DEPRECIACION=new Date((parseInt(anioA)+data.vidaUtil),mesA-1,diaA);
-        const ULTIMA_TRANSACCION=new Date(anio,mes-1,dia);
-        console.log(`Fecha adquisicion ${FECHA_ADQUISICION}`);
-        console.log(`Ultima Final de depreciacion ${FECHA_FINAL_DEPRECIACION}`);
-        console.log(`Ultima transaccion "Depreciacion" ${ULTIMA_TRANSACCION}`);
+        //Decalracion de variables de tiempo, cada variable hace referencia a un momento en el tiempo
+        //de vida util del activo
+        const FECHA_ADQUISICION=new Date(anioA,mesA-1,diaA);//La fecha en la que se adquirio el bien
+        const FECHA_FINAL_DEPRECIACION=new Date((parseInt(anioA)+data.vidaUtil),mesA-1,diaA);//La fecha final de vida util del bien, se le suma la vida util al año
+        const ULTIMA_TRANSACCION=new Date(anio,mes-1,dia);//La ultima transaccion registrada en el sistema con este id
         //dias totales epara depreciacion
         let diasTotalesDepreciacion=this.diasToatales(FECHA_ADQUISICION,FECHA_FINAL_DEPRECIACION); 
-        console.log(`Dias totales a depreciar ${diasTotalesDepreciacion}`);
         //transaccion actual
         let transaccion=new Date(this.anio,11,31);
         //Dias transcurridos entre la ultima depreciacion y la fecha de adquisicon
         const DIAS_TOTALES_TRANSCURRIDOS=this.diasToatales(FECHA_ADQUISICION,ULTIMA_TRANSACCION); 
         //dias transcurridos entre la ultima transaccion "Depreciaocion" y la transaccion actual
         const DIAS_TOTALES_TRANSACCION_ACTUAL=this.diasToatales(ULTIMA_TRANSACCION,transaccion); 
-        console.log(`Dias trascurridos ${DIAS_TOTALES_TRANSCURRIDOS}`);
-        console.log(`Dias trascurridos ACTUAL ${DIAS_TOTALES_TRANSACCION_ACTUAL}`);
         //Validacion de valor a depreciar
         const DIAS_DESPUES_TRANSACCION_ACTUAL=(this.diasToatales(FECHA_ADQUISICION,transaccion));
-        console.log(`Dias DESPUES DE ACTUAL ${DIAS_DESPUES_TRANSACCION_ACTUAL}`);
         var montoDepreciacion;
         if(DIAS_DESPUES_TRANSACCION_ACTUAL>diasTotalesDepreciacion){
           transaccion=FECHA_FINAL_DEPRECIACION;
@@ -231,9 +226,6 @@ export class TablaDepreciacionComponent implements OnInit {
           montoDepreciacion=(valorDiario*DIAS_TOTALES_TRANSACCION_ACTUAL);
           this.datos.controls["fecha"].setValue(12 + "/" + 31 + "/" +this.anio );
         }
-        console.log(transaccion);
-        console.log(ULTIMA_TRANSACCION);
-        console.log(transaccion);
         this.datos.controls["valorDepreciacion"].setValue(montoDepreciacion);
         let valorRnDepreciar=Math.round(montoDepreciacion*100)/100;
         valorRnDepreciar.toFixed(2);
@@ -243,6 +235,19 @@ export class TablaDepreciacionComponent implements OnInit {
         valorRnActual.toFixed(2);
         this.valorActualStr=valorRnActual.toString();
         this.display='block';
+        //Console logs
+        console.log(data.idBien);
+        //Console logs de prueba --- se eliminara una vez se tenga claro que funciona correctamente
+        console.log(`Fecha adquisicion ${FECHA_ADQUISICION}`);
+        console.log(`Ultima Final de depreciacion ${FECHA_FINAL_DEPRECIACION}`);
+        console.log(`Ultima transaccion "Depreciacion" ${ULTIMA_TRANSACCION}`);
+        console.log(`Dias totales a depreciar ${diasTotalesDepreciacion}`);
+        console.log(`Dias trascurridos ${DIAS_TOTALES_TRANSCURRIDOS}`);
+        console.log(`Dias trascurridos ACTUAL ${DIAS_TOTALES_TRANSACCION_ACTUAL}`);
+        console.log(`Dias DESPUES DE ACTUAL ${DIAS_DESPUES_TRANSACCION_ACTUAL}`);
+        console.log(transaccion);
+        console.log(ULTIMA_TRANSACCION);
+        console.log(transaccion);
       }
    
     });

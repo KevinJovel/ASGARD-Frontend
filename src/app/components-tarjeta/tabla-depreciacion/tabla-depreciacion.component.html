@@ -7,7 +7,15 @@
     <div class="col-lg-14">
       <section class="panel panel-default">
         <div class="form-row">
-          <h1>Depreciación</h1>
+          <div class="row" style="margin-bottom: 0px;">
+          <div class="form-group col-md-3">
+            <h1>Depreciación</h1>
+          </div>
+          <div class="form-group col-md-3">
+            <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i
+                class="glyphicon glyphicon-refresh"></i>Aplicar depreciación</button>
+          </div>
+        </div>
           <form class="form-inline" id="default" [formGroup]="combos">
             <div class="row">
              <div class="form-group col-md-3">
