@@ -174,6 +174,11 @@ export class FormModificarAsignadosComponent implements OnInit {
         //Validación para crédito
           if (param.tipoadquicicion == 1 || param.tipoadquicicion == 3) {
             this.disabled = true;
+            this.disabledPrima = 'Inhabilitado';
+            this.disabledPlazo = 'Inhabilitado';
+            this.disabledCuota = 'Inhabilitado';
+            this.disabledInteres = 'Inhabilitado';
+            
           } else {
             this.disabled = false;
             this.nuevobien.controls['plazopago'].setValue(param.plazopago);
@@ -380,7 +385,7 @@ export class FormModificarAsignadosComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if(result.value) {
-        this.router.navigate(["./"]); 
+        this.router.navigate(["./registro-activos/tangibles"]); 
       }
       this.edit = 0;
     });

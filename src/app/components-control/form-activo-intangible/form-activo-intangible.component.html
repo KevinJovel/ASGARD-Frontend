@@ -91,7 +91,7 @@
                    <div class="form-group col-md-4">
                     <label>* Área de negocio</label>
                     <select  class="form-control" formControlName="idarea" [attr.disabled]="disabledd ? '' : null">
-                      <option value="0">--Seleccione--</option>
+                      <option value="0">{{selectionDisable}}</option>
                       <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
                     </select>
                    </div>

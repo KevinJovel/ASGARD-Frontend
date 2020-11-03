@@ -44,6 +44,7 @@ export class FormActivoIntangibleComponent implements OnInit {
    disabledPlazo: string;
    disabledCuota: string;
    disabledInteres: string;
+   selectionDisable: string;
 
   constructor(private catalogosService: CatalogosService, private activateRoute: ActivatedRoute, private router: Router,
     private controlService:ControlService, private _cargarScript: CargarScriptsService) {
@@ -92,6 +93,7 @@ export class FormActivoIntangibleComponent implements OnInit {
     this.disabledPlazo = 'Ingrese plazo';
     this.disabledCuota = 'Ingrese cuota';
     this.disabledInteres = 'Ingrese interes';
+    this.selectionDisable="--Seleccione--";
 
     var idempleado = this.activoIntangible.controls['tipoadquicicion'].value;
     if (idempleado == 1 || idempleado == 2) {
@@ -100,6 +102,7 @@ export class FormActivoIntangibleComponent implements OnInit {
       this.disabledPlazo = 'Inhabilitado';
       this.disabledCuota = 'Inhabilitado';
       this.disabledInteres = 'Inhabilitado';
+      this.selectionDisable="--Inhabilitado--";
       if (idempleado == 1) {
         this.disabled = true;
         this.donaprov = true;
@@ -110,6 +113,7 @@ export class FormActivoIntangibleComponent implements OnInit {
         this.disabledPlazo = 'Ingrese plazo';
         this.disabledCuota = 'Ingrese cuota';
         this.disabledInteres = 'Ingrese interes';
+        this.selectionDisable="--Seleccione--";
       }
       this.controlService.listarComboProveedor().subscribe((res) => {
         this.comboProvDon = res;
@@ -192,6 +196,7 @@ export class FormActivoIntangibleComponent implements OnInit {
 
         //Para desbilitar el área
         this.disabledd = true;
+        this.selectionDisable="--Inhabilitado--";
         
       })
     }
@@ -365,7 +370,7 @@ ProveedorDonante() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if(result.value) {
-        this.router.navigate(["./"]); 
+        this.router.navigate(["./registro-activos/intangible"]); 
       }
       
     });

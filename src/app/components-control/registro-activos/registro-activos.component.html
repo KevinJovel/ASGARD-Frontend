@@ -78,7 +78,7 @@
                             <th>Código</th>
                             <th>Fecha ingreso</th>
                             <th>Descripción</th>
-                            <th>Clasificación</th>
+                        <!-- <th>Clasificación</th>  -->
                             <th>Área de negocio</th>
                             <th>Responsable</th>                     
                             <th class="hidden-phone" >Opciones </th>
@@ -89,16 +89,17 @@
                             
                             <th scope="col">{{ 10 * (p - 1) + i+1 }}</th>
                             
-                            <td style="font-size: 12px;">{{combo.codigo}}</td>
+                            <td>{{combo.codigo}}</td>
                             <td>{{combo.fechacadena}}</td>
                             <td>{{combo.descripcion}}</td>
-                            <td>{{combo.clasificacion}}</td>
+                       <!-- <td>{{combo.clasificacion}}</td> -->
                             <td>{{combo.areaDeNegocio}}</td>
                             <td>{{combo.responsable}}</td>            
                             <td class="center hidden-phone">
                             <!--  <button  class="btn btn-primary btn-xs" (click)="MandarDatos(combo.idBien)" ><i class="icon-pencil" ></i></button>-->
                               <button title="Ver detalles" class="btn btn-success btn-xs"  (click)="ver(combo.idBien)" ><i class="glyphicon glyphicon-eye-open"></i></button>
-                              <button [routerLink]="['/form-modificar-asignados',combo.idBien]" class="btn btn-primary btn-xs"><i class="icon-pencil" title="Editar"></i></button>
+                              <button [routerLink]="['/form-modificar-asignados',combo.idBien]" class="btn btn-primary btn-xs"><i class="icon-pencil"
+                                title="Editar"></i></button>
                             </td>
                             
                         </tbody>

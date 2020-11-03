@@ -167,6 +167,10 @@ export class FormNuevoBienComponent implements OnInit {
         //Validación para crédito
           if (param.tipoadquicicion == 1 || param.tipoadquicicion == 3) {
             this.disabled = true;
+            this.disabledPrima = 'Inhabilitado';
+            this.disabledPlazo = 'Inhabilitado';
+            this.disabledCuota = 'Inhabilitado';
+            this.disabledInteres = 'Inhabilitado';
           } else {
             this.disabled = false;
             this.nuevobien.controls['plazopago'].setValue(param.plazopago);
@@ -366,7 +370,7 @@ cancelar() {
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if(result.value) {
-          this.router.navigate(["./"]); 
+          this.router.navigate(["./registro-activos/tangibles"]); 
         }
         
       });

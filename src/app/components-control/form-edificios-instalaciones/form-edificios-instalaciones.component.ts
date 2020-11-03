@@ -49,6 +49,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
  disabledPlazo: string;
  disabledCuota: string;
  disabledInteres: string;
+ selectionDisable: string;
 
   constructor(private catalogosService: CatalogosService,private _cargarScript: CargarScriptsService ,private catalogoService: CatalogosService, private controlService:ControlService,
     private activateRoute: ActivatedRoute,private router: Router) {
@@ -97,6 +98,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
     this.disabledPlazo = 'Ingrese plazo';
     this.disabledCuota = 'Ingrese cuota';
     this.disabledInteres = 'Ingrese interes';
+    this.selectionDisable="--Seleccione--";
 
     var idempleado = this.activoEdiInsta.controls['tipoadquicicion'].value;
     if (idempleado == 1 || idempleado == 2) {
@@ -105,16 +107,20 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
       this.disabledPlazo = 'Inhabilitado';
       this.disabledCuota = 'Inhabilitado';
       this.disabledInteres = 'Inhabilitado';
+      this.selectionDisable="--Inhabilitado--";
       if (idempleado == 1) {
         this.disabled = true;
         this.donaprov = true;
+        this.disabledd=true;
       } else {
         this.disabled = false;
         this.donaprov = true;
+        this.disabledd=false;
         this.disabledPrima = 'Ingrese prima';
         this.disabledPlazo = 'Ingrese plazo';
         this.disabledCuota = 'Ingrese cuota';
         this.disabledInteres = 'Ingrese interes';
+        this.selectionDisable="--Seleccione--";
       }
       this.controlService.listarComboProveedor().subscribe((res) => {
         this.comboProvDon = res;
@@ -169,6 +175,10 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         //Validación para crédito
           if (param.tipoadquicicion == 1 || param.tipoadquicicion == 3) {
             this.disabled = true;
+            this.disabledPrima = 'Inhabilitado';
+            this.disabledPlazo = 'Inhabilitado';
+            this.disabledCuota = 'Inhabilitado';
+            this.disabledInteres = 'Inhabilitado';
           } else {
             this.disabled = false;
             this.activoEdiInsta.controls['plazopago'].setValue(param.plazopago);
@@ -195,6 +205,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
 
         //Para desbilitar la sucursal
         this.disabledd = true;
+        this.selectionDisable="--Inhabilitado--";
       
       })
     }
@@ -368,7 +379,7 @@ cancelar() {
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if(result.value) {
-      this.router.navigate(["./"]); 
+      this.router.navigate(["./registro-activos/edificios"]); 
     }
     
   });
