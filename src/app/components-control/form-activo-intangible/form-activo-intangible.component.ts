@@ -22,6 +22,7 @@ export class FormActivoIntangibleComponent implements OnInit {
   display = 'none';
   disabled: boolean;
   disabledd: boolean;
+  edit: number = 0;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
   
 

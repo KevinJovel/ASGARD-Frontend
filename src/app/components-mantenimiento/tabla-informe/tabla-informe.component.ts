@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MantenimientoService } from './../../services/mantenimiento.service';
+import { ControlService } from './../../services/control.service';
 
 @Component({
   selector: 'app-tabla-informe',
@@ -25,9 +26,11 @@ export class TablaInformeComponent implements OnInit {
   cotomo: any;
   costomateriales: any;
   costototal: any;
+  fechaMaxima: any;
+  fechaMinima: any;
  // fecha = Date.now();
   
-  constructor(private mantenimientoService: MantenimientoService) { 
+  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService) { 
     this.informe=new FormGroup({
       'idinformematenimiento': new FormControl("0"),
       'idmantenimiento': new FormControl("0"),
@@ -50,6 +53,11 @@ export class TablaInformeComponent implements OnInit {
     this.mantenimientoService.listarTecnicoCombo().subscribe(data=>{
       this.tecnicos=data;    
       });
+      //Método para recuperar año
+   this.controlService.mostrarAnio().subscribe((res)=> {
+    this.fechaMaxima=`${res.anio}-12-31`;
+    this.fechaMinima=`${(res.anio).toString()}-01-01`;
+  });
   }
   open(id,idbien){
    // alert(id);
@@ -150,7 +158,7 @@ this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res=>{
 });
 
   }
-  
+
   close() {
     this.display = 'none';
   }
