@@ -32,7 +32,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   lista: any;
   parametro: string;
   titulo: string;
-
+  edit: number = 0;
  //Para la fecha
  fechaMaxima: any;
  fechaMinima: any;
@@ -149,6 +149,10 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
     });
 
     //Recuperación de información
+    this.controlService.noEditarfecha(this.parametro).subscribe(data => {
+      if (data == 1) {
+        this.edit = 1;
+      }
     if(this.parametro!="nuevo") {
       this.controlService.RecuperarEdificiosInstalaciones(this.parametro).subscribe(param=>{
         //Valores
@@ -209,6 +213,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
       
       })
     }
+  });
 
   }
 
@@ -304,6 +309,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
                       timer: 3000,
                     });
                   }
+                  this.edit = 0;
                 });
             }
           });
@@ -350,6 +356,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
                 });
               }
             })
+            this.edit = 0;
           } else {
             //No modifica
             Swal.fire({
@@ -381,7 +388,7 @@ cancelar() {
     if(result.value) {
       this.router.navigate(["./registro-activos/edificios"]); 
     }
-    
+    this.edit = 0;
   });
 
 }

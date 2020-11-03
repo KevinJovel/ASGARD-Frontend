@@ -55,7 +55,7 @@
                 <div class="form-row">
                       <div class="form-group col-md-4" >
                       <label>* Fecha de Ingreso</label>
-                      <input type="date" class="form-control" formControlName="fechaingreso" min="{{fechaMinima}}" max="{{fechaMaxima}}">
+                      <input [readOnly]="this.edit==1" type="date" class="form-control" formControlName="fechaingreso" min="{{fechaMinima}}" max="{{fechaMaxima}}">
                     </div>
 
                     <div class="form-group col-md-4">
@@ -140,6 +140,13 @@
                   </button>
                   <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
                 </div>
+                <div class="alert alert-warning fade in" *ngIf="this.edit==1">
+                  <button data-dismiss="alert" class="close close-sm" type="button">
+                    <i class="icon-remove"></i>
+                  </button>
+                  <strong>¡Advertencia!</strong> La fecha y el costo no se pueden editar porque el activo seleccionado ya ha sido depreciado al menos una vez.
+                </div>
+  
 
                 <div class="alert alert-block alert-danger fade in" *ngIf="activoEdiInsta.controls['descripcion'].errors?.pattern">
                   <button data-dismiss="alert" class="close close-sm" type="button">
@@ -177,7 +184,7 @@
               <div class="form-row">
                 <div class="form-group col-md-4">
                 <label>* Costo</label>
-                <input type="text" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion" maxlength="11" autocomplete="off">
+                <input [readOnly]="this.edit==1" type="text" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion" maxlength="11" autocomplete="off">
               </div>
                 <div class="form-group col-md-4">
                   <label>* Prima</label>

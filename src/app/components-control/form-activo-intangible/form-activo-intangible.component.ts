@@ -145,6 +145,10 @@ export class FormActivoIntangibleComponent implements OnInit {
     });
 
     //Recuperación de información
+    this.controlService.noEditarfecha(this.parametro).subscribe(data => {
+      if (data == 1) {
+        this.edit = 1;
+      }
     if(this.parametro!="nuevo") {
       this.controlService.RecuperarEdificiosInstalaciones(this.parametro).subscribe(param=>{
         //Valores
@@ -200,7 +204,7 @@ export class FormActivoIntangibleComponent implements OnInit {
         
       })
     }
-
+  });
   }
 
 //Método para cargar combo al guardar los datos
@@ -295,6 +299,7 @@ ProveedorDonante() {
                         timer: 3000,
                       });
                     }
+                    this.edit = 0;
                   });
               }
             });
@@ -341,6 +346,7 @@ ProveedorDonante() {
                   });
                 }
               })
+              this.edit = 0;
             } else {
               //No modifica
               Swal.fire({
@@ -372,7 +378,7 @@ ProveedorDonante() {
       if(result.value) {
         this.router.navigate(["./registro-activos/intangible"]); 
       }
-      
+      this.edit = 0;
     });
 
   }
