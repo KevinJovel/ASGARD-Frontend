@@ -25,7 +25,7 @@ export class TablaInformeComponent implements OnInit {
   cotomo: any;
   costomateriales: any;
   costototal: any;
-  fecha = Date.now();
+ // fecha = Date.now();
   
   constructor(private mantenimientoService: MantenimientoService) { 
     this.informe=new FormGroup({
@@ -60,7 +60,7 @@ export class TablaInformeComponent implements OnInit {
       this.informe.controls["idinformematenimiento"].setValue("0");
       this.informe.controls["idmantenimiento"].setValue(id);
       this.informe.controls["idBien"].setValue(idbien);
-     // this.informe.controls["fechainforme"].setValue("");
+      this.informe.controls["fechainforme"].setValue("");
        this.informe.controls["idtecnico"].setValue("");
        this.informe.controls["descripcion"].setValue("");
        this.informe.controls["costomateriales"].setValue("");
@@ -150,10 +150,7 @@ this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res=>{
 });
 
   }
-
-
-
-
+  
   close() {
     this.display = 'none';
   }

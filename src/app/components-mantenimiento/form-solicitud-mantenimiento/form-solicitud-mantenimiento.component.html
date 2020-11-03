@@ -168,8 +168,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr
-                          *ngFor="let bien of bienes;let datos of this.matriz | paginate: { itemsPerPage: 3, currentPage: p }; let i = index">
+                        <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 3, currentPage: p }; let i = index">
                           <th scope="col">{{ 3 * (p - 1) + i+1 }}</th>
                           <td>{{bien.codigobien}}</td>
                           <td>{{bien.descripcionbien}}</td>

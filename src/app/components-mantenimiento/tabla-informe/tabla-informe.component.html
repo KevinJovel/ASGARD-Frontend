@@ -75,12 +75,12 @@
          
          <div class="form-group col-md-6">
           <label for="inputPassword4">* Fecha:</label>
-          <input type="date" formControlName="fechainforme" [ngModel]='fecha | date:"yyyy-MM-dd" ' (ngModelChange)='fecha=$event' class="form-control"  disabled="off">
+          <input type="date" formControlName="fechainforme" class="form-control">
         </div>
           
           
           <div class="form-group col-md-6">
-            <label for="formGroupExampleInput2">* Costo de mano de obra:</label>
+            <label for="formGroupExampleInput2">* Costo de mano de obra ($):</label>
             <input maxlength="7"  type="text" class="form-control" formControlName="costomo" id="inputEmail4"  ng-model="Property.Field1" placeholder="Ingrese costo de mano de obra" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
@@ -92,7 +92,7 @@
             </div>
            
             <div class="form-group col-md-6">         
-              <label  for="exampleInputEmail1">* Costo de materiales:</label>
+              <label  for="exampleInputEmail1">* Costo de materiales ($):</label>
               <input maxlength="7" type="text" class="form-control" formControlName="costomateriales" id="exampleInputEmail3" ng-model="Property.Field2"  placeholder="Ingrese costo de materiales" autocomplete="off">
             </div>
            
