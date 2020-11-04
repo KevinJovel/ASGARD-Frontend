@@ -59,7 +59,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
      //Método para recuperar año
   this.controlService.mostrarAnio().subscribe((res)=> {
     this.fechaMaxima=`${res.anio}-12-31`;
-    this.fechaMinima=`${(res.anio-10).toString()}-01-01`;
+    this.fechaMinima=`${(res.anio).toString()}-01-01`;
   });
   }
   CambiarEstado(){
