@@ -6,7 +6,7 @@ import { CargarScriptsService } from './../../services/cargar-scripts.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import Swal from 'sweetalert2';
 //importaciones para pdf make wrapper
-import { PdfMakeWrapper, Txt, SVG, QR, Columns, Table, Toc, Cell, Stack } from 'pdfmake-wrapper';
+// import { PdfMakeWrapper, Txt, SVG, QR, Columns, Table, Toc, Cell, Stack } from 'pdfmake-wrapper';
 
 @Component({
   selector: 'app-form-asignancion',
@@ -149,7 +149,7 @@ export class FormAsignancionComponent implements OnInit {
     this.mantenimientoService.listarDatosSolicitud(1).subscribe(data => {
       //alert(data.areanegocio);
       //this.noSoli=data.areanegocio;
-      this.generatePDF(data);
+      // this.generatePDF(data);
     });
     this.mantenimientoService.listarBienesSolicitados(1).subscribe(res => {
       this.bienes = res;
@@ -158,96 +158,96 @@ export class FormAsignancionComponent implements OnInit {
 
 
   }
-  generatePDF(data) {
-    //  this.recuperar().finally;
-    //crea el objeto del tipo pdf marker
-    const pdf = new PdfMakeWrapper();
-    pdf.info({
-      title: 'CODIGO DE QR',
-      author: 'ASGARD',
-      subject: 'subject of document',
-    });
-    //*este se usa para darle formato por defecto a todo el reporte
-    //--------------------------
-    //  pdf.defaultStyle({
-    //   bold: true,
-    //   fontSize: 15
-    // });
-    //------------------------
-    //*son los margenes del reporte
-    pdf.pageMargins([30, 50, 30, 50]);
+  // generatePDF(data) {
+  //   //  this.recuperar().finally;
+  //   //crea el objeto del tipo pdf marker
+  //   const pdf = new PdfMakeWrapper();
+  //   pdf.info({
+  //     title: 'CODIGO DE QR',
+  //     author: 'ASGARD',
+  //     subject: 'subject of document',
+  //   });
+  //   //*este se usa para darle formato por defecto a todo el reporte
+  //   //--------------------------
+  //   //  pdf.defaultStyle({
+  //   //   bold: true,
+  //   //   fontSize: 15
+  //   // });
+  //   //------------------------
+  //   //*son los margenes del reporte
+  //   pdf.pageMargins([30, 50, 30, 50]);
 
-    //pdf.pageMargins(40);
-    //para crear el header
-    //pdf.header('ASOCIACION COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, CREDITO Y CONSUMO DE SAN SEBASTIAN DE RESPONSABILIDAD LIMITADA');
-    pdf.add(new Txt('ASOCIACION COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, ').fontSize(11).alignment("center").end);
-    pdf.add(new Txt('CREDITO Y CONSUMO DE SAN SEBASTIAN DE RESPONSABILIDAD LIMITADA').fontSize(11).alignment("center").end);
+  //   //pdf.pageMargins(40);
+  //   //para crear el header
+  //   //pdf.header('ASOCIACION COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, CREDITO Y CONSUMO DE SAN SEBASTIAN DE RESPONSABILIDAD LIMITADA');
+  //   pdf.add(new Txt('ASOCIACION COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, ').fontSize(11).alignment("center").end);
+  //   pdf.add(new Txt('CREDITO Y CONSUMO DE SAN SEBASTIAN DE RESPONSABILIDAD LIMITADA').fontSize(11).alignment("center").end);
 
-    pdf.add(new Txt('ACASS DE R.L.').bold().fontSize(15).alignment("center").end);
+  //   pdf.add(new Txt('ACASS DE R.L.').bold().fontSize(15).alignment("center").end);
 
-    pdf.add(new Txt('CONTROL DE EXISTENCUAS DE MOBILIARIO, EQUIPO E INTALACIONES').bold().fontSize(13).alignment("center").end);
-    //  pdf.add( new Txt(this.activo.controls["codigo"].value).bold().italics().decoration("underline").end);
-    //  pdf.add(
-    //   new QR(this.activo.controls["codigo"].value).end);
-
-
-    // var imagen=document.getElementById("barcode");
-    // pdf.add(
-    //   // If no width/height/fit is used, then dimensions from the svg element is used.
-    //   new SVG(imagen).end
-    // );
+  //   pdf.add(new Txt('CONTROL DE EXISTENCUAS DE MOBILIARIO, EQUIPO E INTALACIONES').bold().fontSize(13).alignment("center").end);
+  //   //  pdf.add( new Txt(this.activo.controls["codigo"].value).bold().italics().decoration("underline").end);
+  //   //  pdf.add(
+  //   //   new QR(this.activo.controls["codigo"].value).end);
 
 
-    pdf.add(new Columns(['No Solicitud:' + data.noSolicitud, 'Area: ' + data.areanegocio, 'Jefe: ' + data.jefe]).end);
+  //   // var imagen=document.getElementById("barcode");
+  //   // pdf.add(
+  //   //   // If no width/height/fit is used, then dimensions from the svg element is used.
+  //   //   new SVG(imagen).end
+  //   // );
+
+
+  //   pdf.add(new Columns(['No Solicitud:' + data.noSolicitud, 'Area: ' + data.areanegocio, 'Jefe: ' + data.jefe]).end);
 
 
 
 
-    // pdf.add(new Table([
-    //   ['valor','Depreciacion','valor','gastos']
+  //   // pdf.add(new Table([
+  //   //   ['valor','Depreciacion','valor','gastos']
 
-    // ]).widths([130, 125,125,120]).fontSize(10).bold().end);
-    // new Cell([
-    //   ['valor','Depreciacion','valor','gastos'],
-    // ]);
+  //   // ]).widths([130, 125,125,120]).fontSize(10).bold().end);
+  //   // new Cell([
+  //   //   ['valor','Depreciacion','valor','gastos'],
+  //   // ]);
 
-    // pdf.add(new Table([
+  //   // pdf.add(new Table([
 
-    //   ['valor','Depreciacion'],
-    //  // 
-    // ]).widths([275,245]).fontSize(10).bold().end);
+  //   //   ['valor','Depreciacion'],
+  //   //  // 
+  //   // ]).widths([275,245]).fontSize(10).bold().end);
 
-    //Aqui va la tabla
+  //   //Aqui va la tabla
 
-    for (let bien of this.activos) {
-      pdf.add(new Table(
-        [
+  //   for (let bien of this.activos) {
+  //     pdf.add(new Table(
+  //       [
 
-          [bien.noFormulario, bien.fechacadena, bien.desripcion, bien.marca],
-        ]
+  //         [bien.noFormulario, bien.fechacadena, bien.desripcion, bien.marca],
+  //       ]
 
-      ).widths([130, 125, 125, 120]).dontBreakRows(true).fontSize(8).end);
-    }
-    pdf.add(new Cell(new Txt('Column 2 with colspan').bold().end).border([true]).colSpan(2)
+  //     ).widths([130, 125, 125, 120]).dontBreakRows(true).fontSize(8).end);
+  //   }
+  //   pdf.add(new Cell(new Txt('Column 2 with colspan').bold().end).border([true]).colSpan(2)
 
-      .end);
+  //     .end);
 
 
-    //pdf.add(new Stack([ 'Hello', 'world' ]).end); // { columns: [ 'Hello', 'world' ] }
-    let footer: any;
-    footer = (pagenumber: number, pagecount: number) => {
-      return {
-        margin: [50, 5],
-        text: 'pagina ' + pagenumber + ' de ' + pagecount,
-        fontSize: 9
-      };
-    };
-    pdf.footer(footer);
-    //pdf.footer(function(currentPage, pageCount) { return 'pagina'+ currentPage.toString() + ' de ' + pageCount.toString(); });
-    //informaicon del documento
+  //   //pdf.add(new Stack([ 'Hello', 'world' ]).end); // { columns: [ 'Hello', 'world' ] }
+  //   let footer: any;
+  //   footer = (pagenumber: number, pagecount: number) => {
+  //     return {
+  //       margin: [50, 5],
+  //       text: 'pagina ' + pagenumber + ' de ' + pagecount,
+  //       fontSize: 9
+  //     };
+  //   };
+  //   pdf.footer(footer);
+  //   //pdf.footer(function(currentPage, pageCount) { return 'pagina'+ currentPage.toString() + ' de ' + pageCount.toString(); });
+  //   //informaicon del documento
 
-    pdf.create().open();
-  }
+  //   pdf.create().open();
+  // }
   close2() {
     this.display2 = 'none';
   }
