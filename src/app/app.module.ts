@@ -8,9 +8,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { PdfMakeWrapper } from 'pdfmake-wrapper';
-import pdfFonts from "pdfmake/build/vfs_fonts";
-PdfMakeWrapper.setFonts(pdfFonts);
  
 //Importaciones personales
 import { NgxPaginationModule } from 'ngx-pagination';
