@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 //para filtro de areas y sucursales
 import { CatalogosService } from './../../services/catalogos.service';
+import { ControlService } from './../../services/control.service';
 //para la fecha actual
 import {DatePipe} from '@angular/common';
 
@@ -26,9 +27,12 @@ export class SolicitudActivosAsignadosComponent implements OnInit {
 //para filtro
   areas: any;
   sucursal: any;
+   //Para la fecha
+ fechaMaxima: any;
+ fechaMinima: any;
  
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService
+  constructor(private router: Router, private activateRoute: ActivatedRoute,private controlService:ControlService, private bajaService:BajaService
     ,private catalogosServices: CatalogosService, private miDatePipe: DatePipe) 
   {
     this.solicitud = new FormGroup({
@@ -54,6 +58,12 @@ export class SolicitudActivosAsignadosComponent implements OnInit {
     this.bajaService.listarBienesAsignados().subscribe(res => { this.activo = res });
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
     this.catalogosServices.getTipoDescargo().subscribe(data=>{this.descargo=data});//combo
+
+     //Método para recuperar año
+   this.controlService.mostrarAnio().subscribe((res)=> {
+    this.fechaMaxima=`${res.anio}-12-31`;
+    this.fechaMinima=`${(res.anio).toString()}-01-01`;
+  });
   }
 
   guardarDatos(){
@@ -102,9 +112,7 @@ export class SolicitudActivosAsignadosComponent implements OnInit {
    this.solicitud.controls["idtipodescargo"].setValue("0");
    this.solicitud.controls["idsolicitud"].setValue("0");
    this.solicitud.controls["folio"].setValue("");
-   var fecha = new Date();
-   let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
-   this.solicitud.controls["fechasolicitud"].setValue(f);
+   this.solicitud.controls["fechasolicitud"].setValue("");
    this.solicitud.controls["observaciones"].setValue("");
    this.solicitud.controls["entidadbeneficiaria"].setValue("");
    this.solicitud.controls["domicilio"].setValue("");

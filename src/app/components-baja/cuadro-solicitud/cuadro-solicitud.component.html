@@ -1,6 +1,6 @@
 <br><br><br><br>
 <section class="panel">
-  <h1>Nueva solicitud</h1>
+  <h1>Activos no asignados</h1>
   <div class="row">
     <div class="col-lg-6">
      
@@ -15,7 +15,7 @@
     <div class="col-lg-12">
       <section class="panel panel-default">
         <header class="panel-heading">
-          <h5>Activos no asignados</h5>
+          <h5>Realizar solicitud a activos no asignados</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -69,13 +69,13 @@
           <div class="form-group col-md-6">
             <label for="exampleInputEmail1">*Fecha:</label>
           
-            <input size=35  type="date" class="form-control"  formControlName="fechasolicitud" readonly  autocomplete="off" maxlength="51">
+            <input type="date" class="form-control"  formControlName="fechasolicitud" min="{{fechaMinima}}" max="{{fechaMaxima}}" autocomplete="off">
           </div>
 
           <div class="form-group col-md-6">
             <label  for="formGroupExampleInput2">*Motivo</label>
             <select class="form-control"  formControlName="idTipo" maxlength="51">
-              <option value="0">--Seleccione--</option>
+              <option value="0">---Seleccione---</option>
               <option [value]="descargo.idTipo" *ngFor="let descargo of descargo">{{descargo.nombre}}</option>	
             </select>
             </div>

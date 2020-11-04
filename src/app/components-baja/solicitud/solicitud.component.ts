@@ -26,7 +26,7 @@ export class SolicitudComponent implements OnInit {
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
-    private bajaService:BajaService , private miDatePipe: DatePipe) //
+    private bajaService:BajaService , private miDatePipe: DatePipe)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -46,9 +46,9 @@ export class SolicitudComponent implements OnInit {
     this.display = 'block';
     this.titulo = "Autorización de solicitud para dar de baja";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
-    var fecha = new Date();
-    let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
-    this.solicitudes.controls["fecha2"].setValue(f);
+  //  var fecha = new Date();
+   // let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
+    this.solicitudes.controls["fecha2"].setValue("");
     this.bajaService.verSolicitud(id).subscribe((data) => {
  
       this.fecha2 = data.fechacadena;
@@ -85,20 +85,20 @@ export class SolicitudComponent implements OnInit {
     //console.log("Este de Acuerdo: "+this.fecha2);
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
-      text: "No podrás revertir esta acción!",
+      text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText:'Cancelar',
-      confirmButtonText: 'Si, aprobar!'
+      confirmButtonText: '¡Si, aprobar!'
     }).then((result) => {
       if (result.value) {
     this.bajaService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
           Swal.fire({
             icon: 'success',
-            title: '¡APROBADA!',
+            title: '¡Aprobada!',
             text: 'La solicitud ha sido aprobada con éxito.',
             confirmButtonText: 'Aceptar'
         })
@@ -123,26 +123,25 @@ negarSolicitud() {
     //console.log("Este de Acuerdo: "+this.acuerdo);
     Swal.fire({
       title: '¿Estas seguro de negar esta solicitud?',
-      text: "No podrás revertir esta acción!",
+      text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       cancelButtonText:'Cancelar',
-      confirmButtonText: 'Si, negar!'
+      confirmButtonText: '¡Sí, denegar!'
     }).then((result) => {
       if (result.value) {
     this.bajaService.denegarSolicitud(id).subscribe(res=>{
          if(res==1){
           Swal.fire({
             icon: 'success',
-            title: '¡RECHAZADA!',
-            text: 'La solicitud ha sido rechazada con éxito.',
+            title: '¡Denegada!',
+            text: 'La solicitud ha sido denegada con éxito.',
             confirmButtonText: 'Aceptar'
         })
           this.display = 'none'; 
           this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
-         // console.log("IdSoliiii: "+id);
          }      
    });   
    this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien

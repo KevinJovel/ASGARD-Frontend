@@ -32,7 +32,6 @@
               <thead>
                 <tr>
                   <th scope="row">N°</th>
-                  <!--<th>Id Clasificación</th>-->
                   <th>DUI</th>
                   <th>Nombres</th>
                   <th>Apellidos</th>
@@ -49,7 +48,6 @@
 
                 <tr *ngFor="let empleado of empleados | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <!--<td>{{empleado.idempleado}}</td>-->
                   <td>{{empleado.dui}}</td>
                   <td>{{empleado.nombres}}</td>
                   <td>{{empleado.apellidos}}</td>
