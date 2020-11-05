@@ -1,0 +1,140 @@
+<br><br><br><br>
+<section class="panel">
+  <h1>Solicitudes de descargo</h1>
+  <div class="row">
+    <div class="col-lg-6">
+      
+    </div>
+    
+    <div class="col-lg-3">
+    </div>
+    <div class="col-md-3">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
+  
+        <header class="panel-heading">
+        <h5>Solicitudes de descargo</h5>
+      </header>
+      <div class="panel-body">
+        <div class="adv-table">
+          <table class="display table table-bordered table-striped">
+            <thead>
+              <tr>
+                  <th>N°</th>
+                  <th>Folio</th>
+                  <th>Fecha</th>
+                  <th>Motivo</th>
+                  <th>Observaciones</th>
+                  <th class="hidden-phone">Dar de baja</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let activos of activo2 | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                  <td>{{activos.folio}}</td>
+                  <td>{{activos.fechacadena}}</td>
+                  <td>{{activos.nombredescargo}}</td>
+                  <td>{{activos.observaciones}}</td>
+                  <td class="center hidden-phone">
+                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(activos.idsolicitud)"><i class="glyphicon glyphicon-import"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+          </div>
+        </div>
+      </section>
+
+<!--modal para ingresar y editar-->
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog .modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="solicitudes" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
+            <div class="form-group col-md-4">
+              <label><strong>Fecha solicitud:</strong></label> {{ fecha2 }}
+            </div>
+            <div class="form-group col-md-4">
+              <label ><strong>Folio:</strong></label> {{ folio}}
+            </div>
+
+            <div class="form-group col-md-4">
+              <label ><strong>Código:</strong></label> {{ codigo}}
+            </div>
+        <br><br>
+            <div class="form-group col-md-4">
+              <label ><strong>Descripción:</strong></label> {{ descripcion}}
+            </div>
+         
+            <div class="form-group col-md-4">
+              <label ><strong>Motivo:</strong></label> {{ nombredescargo}}
+            </div>
+            
+
+            <div class="form-group col-md-4">
+              <label ><strong>Observaciones:</strong></label> {{ observaciones}}
+            </div>
+            <div class="form-group col-md-12">
+              <label ></label> 
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="exampleInputEmail1">*Acuerdo:</label>
+              <input size=35  type="text" class="form-control" formControlName="acuerdo" maxlength="31"  placeholder="Ingrese número de acuerdo"  autocomplete="off">
+            </div> 
+            <div class="form-group col-md-6">
+              <label for="exampleInputEmail1">Fecha de baja:</label>
+              <input type="date" class="form-control"  formControlName="fecha2"  autocomplete="off">
+            </div>  <!---->
+            <br><br><br><br><br>
+            <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> Tamaño máximo permitido en el campo acuerdo.
+            </div>
+
+            <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Advertencia!</strong> ya existe el "Acuerdo" ingresado, por favor intente con un nuevo.
+            </div>
+
+            <div class="alert alert-warning fade in" *ngIf="!solicitudes.valid&&!solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Advertencia!</strong> El número de acuerdo es obligatorio
+            </div>
+            <div class="alert alert-success fade in" *ngIf="solicitudes.valid">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Exelente!</strong> Dato ingresado correctamente
+            </div>
+
+          <button type="button" [disabled]="!solicitudes.valid" (click)="aprobarSolicitud()"  class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Aprobar</button>
+          <button type="button" (click)="negarSolicitud()"  class="btn btn-primary"><i class="glyphicon glyphicon-ban-circle"></i> Denegar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+

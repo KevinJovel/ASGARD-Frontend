@@ -1,0 +1,188 @@
+
+<br />
+<br />
+<br />
+<br />
+
+<section class="panel">
+<h1>Historial de mantenimientos</h1>
+  <div class="row">
+    <div class="col-lg-14">
+      <section class="panel panel-default">
+        <div class="form-row">
+          <form class="form-inline" id="default" [formGroup]="combos">
+            <div class="row">
+              <div class="col-md-3">
+                <label for="inputPassword4">Sucursal</label>
+                <select class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
+                  <option value="0">Seleccione</option>
+                  <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
+                </select>
+              </div>
+
+          <div class="form-group col-md-3">
+            <label for="inputPassword4">Area de negocio</label>
+            <select id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
+              <option value="0" selected>Seleccione</option>
+              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
+            </select> 
+          </div>
+          <div class="form-group col-md-3">
+            <button title="Recargar datos" style="margin-top: 20px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>
+                          
+        </div>
+          
+             
+              <div class="col-md-3">
+        
+               <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+             </div>
+            </div>
+            </form>
+            <br>
+            <div class="row">
+              <div class="col-lg-12">
+                <section class="panel panel-default">
+          
+                  <header class="panel-heading">
+                    <h5>Registro de Bienes</h5>
+                  </header>
+                  <div class="panel-body">
+                    <div class="adv-table">
+                      <table class="display table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>N°</th>
+                            <th>Correlativo</th>
+                            <th>Descripción</th>
+                            <th>Responsable</th>
+                            <th>Area de negocio</th>
+                           
+                                                 
+                            <th class="hidden-phone" >Ver historial </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
+                            <th scope="col">{{i+(5*p)-4}}</th>
+                            <!-- <td>{{marca.idMarca}}</td> -->
+                            <td>{{bien.codigo}}</td>
+                            <td>{{bien.descripcion}}</td>
+                            <td>{{bien.responsable}}</td>
+                            <td>{{bien.areanegocio}}</td>
+                            
+                           
+                            <td class="center hidden-phone" style="text-align: center;">
+                              <button title="Ver historial" class="btn btn-primary btn-xs" (click)="open(bien.idBien)" ><i class="icon-time"></i></button> 
+                              <!--<button title="Aplicar depreciación" class="btn btn-warning btn-xs" (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>-->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+
+           
+
+<!--INICIO DE MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENTO-->
+
+<div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-lg" style="width:1000px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+       
+
+             <!--INICIO DE LOS VALORES DEL BIEN-->
+             <input type="hidden" class="form-control" value="{{idbien}}">
+             <div class="row">
+               <div class="col-lg-2"></div>
+               <div class="form-group col-md-4">
+                 <label><strong>Correlativo :</strong></label> {{ codigo }}<br/>
+                 </div>
+                 <div class="form-group col-md-4">
+                   <label><strong>Descripcion:</strong></label> {{ descripcion }}<br/>
+                  </div>
+              
+              </div>
+              <div class="row">
+               <div class="col-lg-2"></div>
+               <div class="form-group col-md-4">
+                 <label><strong>Encargado:</strong></label> {{ encargado }}<br/>
+                 </div>
+                 <div class="form-group col-md-4">
+                   <label><strong>Area de negocio:</strong></label> {{ areadenegocio }}<br/>
+                  </div>
+                  <div class="col-lg-4">
+                   
+                 </div>
+              
+              </div>
+       
+
+
+        <!--INICIO DE TABLA-->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel panel-default">
+              <header class="panel-heading">
+                <h5>Historial de mantenimientos</h5>
+              </header>
+              <div class="panel-body">
+                <div class="adv-table">
+                  <table class="display table table-bordered table-striped">
+                   <!----> <thead>
+                   <tr>
+                        <th scope="row">N°</th>                   
+                        <th scope="row">Fecha</th>
+                        <th scope="row">Tecnico</th>
+                        <th scope="row">Costo de mano de obra</th>
+                        <th scope="row">Costo de materiales</th>
+                        <th scope="row">Costo total</th>
+                        <th scope="row">Descripción</th>
+                       <!-- <th scope="row" class="hidden-phone">Enviar</th>-->
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+               <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                
+               <td>{{informe.fechacadena}}</td>
+               <td>{{informe.nombretecnico}}</td>
+               <td>$ {{informe.costomateriales}}</td>
+               <td>$ {{informe.costomo}}</td>
+               <td>$ {{informe.costototal}}</td>
+               <td>{{informe.descripcion}}</td>
+              
+              </tr>
+                    </tbody>
+                  </table>
+                   <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+          <div>
+          <!--<button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>-->
+          <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          </div>
+       
+      </div>
+    </div>
+   </div>
+ </div>
+
+<!--FIN DEL MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENOT-->
+
+
+         

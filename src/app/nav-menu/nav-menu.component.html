@@ -82,8 +82,9 @@
           <span>Traspasos</span>
         </a>
         <ul class="sub">
-          <!-- <li><a href="grids.html">Cuadro de Solicitudes</a></li>
-          <li><a href="grids.html">Gestón del Traspaso</a></li> -->
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-solicitud-traspaso"]' (click)='collapse()'>Nueva solicitud</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/historial-solicitud-traspaso"]' (click)='collapse()'>Historial de traspasos</a></li>
+         
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
@@ -104,7 +105,7 @@
         </a>
         <ul class="sub">
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-solicitud"]' (click)='collapse()'>Solicitudes de mantenimiento</a></li> 
-          <li><a href="calendar.html">Solicitudes de Traspaso</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-solicitud-traspaso"]' (click)='collapse()'>Solicitudes de traspaso</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/solicitud"]' (click)='collapse()'>Solicitudes de descargo</a></li>
         </ul>
       </li>

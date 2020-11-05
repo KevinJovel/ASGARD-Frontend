@@ -44,6 +44,11 @@ import { TablaSolicitudComponent } from './components-mantenimiento/tabla-solici
 import { FormInformeMantenimientoComponent } from './components-mantenimiento/form-informe-mantenimiento/form-informe-mantenimiento.component';
 import { TablaInformeComponent } from './components-mantenimiento/tabla-informe/tabla-informe.component';
 
+//componentes de traspaso de activos
+import { FormSolicitudTraspasoComponent } from './components-traspaso/form-solicitud-traspaso/form-solicitud-traspaso.component';
+import { HistorialSolicitudTraspasoComponent } from './components-traspaso/historial-solicitud-traspaso/historial-solicitud-traspaso.component';
+import { TablaSolicitudTraspasoComponent } from './components-traspaso/tabla-solicitud-traspaso/tabla-solicitud-traspaso.component';
+
 //componentes baja
 import { CuadroSolicitudComponent } from './components-baja/cuadro-solicitud/cuadro-solicitud.component';
 import { SolicitudComponent } from './components-baja/solicitud/solicitud.component';
@@ -74,9 +79,9 @@ import { RegistroActivosComponent } from './components-control/registro-activos/
 import { TablaRevalorizarComponent } from './components-control/tabla-revalorizar/tabla-revalorizar.component';
 import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacion/tipo-depreciacion.component';
 import { FormModificarAsignadosComponent } from './components-control/form-modificar-asignados/form-modificar-asignados.component';
-import { FormSolicitudDescargoComponent } from './components-descargo/form-solicitud-descargo/form-solicitud-descargo.component';
-import { TablaSolicitudDescargoComponent } from './components-descargo/tabla-solicitud-descargo/tabla-solicitud-descargo.component';
-import { HistorialSolicitudDescargoComponent } from './components-descargo/historial-solicitud-descargo/historial-solicitud-descargo.component';
+
+
+
 
 
 
@@ -128,9 +133,10 @@ import { HistorialSolicitudDescargoComponent } from './components-descargo/histo
     TablaRevalorizarComponent,
     TipoDepreciacionComponent,
     FormModificarAsignadosComponent,
-    FormSolicitudDescargoComponent,
-    TablaSolicitudDescargoComponent,
-    HistorialSolicitudDescargoComponent,
+    FormSolicitudTraspasoComponent,
+    HistorialSolicitudTraspasoComponent,
+    TablaSolicitudTraspasoComponent,
+
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
@@ -165,6 +171,9 @@ import { HistorialSolicitudDescargoComponent } from './components-descargo/histo
       {path: 'form-asignacion', component: FormAsignancionComponent},
       {path: 'form-desasignacion', component: FormDesasignarComponent},
       {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},
+      {path: 'form-solicitud-traspaso', component: FormSolicitudTraspasoComponent},
+      {path: 'historial-solicitud-traspaso', component: HistorialSolicitudTraspasoComponent},
+      {path: 'tabla-solicitud-traspaso', component: TablaSolicitudTraspasoComponent},
       {path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent},
       {path: 'historial-mantenimiento', component: HistorialMantenimientoComponent},
       {path: 'tabla-informe', component: TablaInformeComponent},
