@@ -74,6 +74,9 @@ import { RegistroActivosComponent } from './components-control/registro-activos/
 import { TablaRevalorizarComponent } from './components-control/tabla-revalorizar/tabla-revalorizar.component';
 import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacion/tipo-depreciacion.component';
 import { FormModificarAsignadosComponent } from './components-control/form-modificar-asignados/form-modificar-asignados.component';
+import { FormSolicitudDescargoComponent } from './components-descargo/form-solicitud-descargo/form-solicitud-descargo.component';
+import { TablaSolicitudDescargoComponent } from './components-descargo/tabla-solicitud-descargo/tabla-solicitud-descargo.component';
+import { HistorialSolicitudDescargoComponent } from './components-descargo/historial-solicitud-descargo/historial-solicitud-descargo.component';
 
 
 
@@ -125,6 +128,9 @@ import { FormModificarAsignadosComponent } from './components-control/form-modif
     TablaRevalorizarComponent,
     TipoDepreciacionComponent,
     FormModificarAsignadosComponent,
+    FormSolicitudDescargoComponent,
+    TablaSolicitudDescargoComponent,
+    HistorialSolicitudDescargoComponent,
 
    
     //Aqui vamos a agregar los compoenentes del proyecto
