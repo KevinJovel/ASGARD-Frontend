@@ -9,7 +9,6 @@ import { ControlService } from './../../services/control.service';
 //para la fecha actual
 import {DatePipe} from '@angular/common';
 
-
 @Component({
   selector: 'app-cuadro-solicitud',
   templateUrl: './cuadro-solicitud.component.html',
@@ -18,23 +17,37 @@ import {DatePipe} from '@angular/common';
 })
 export class CuadroSolicitudComponent implements OnInit {
 
+  tablaEdificios='none';
+  tablaMuebles='none';
+  tablaIntengibles='none';
+  tablaMueblesNoAsig='none';
+  disabledFiltro: boolean;
+  disabledFiltroBotonAsignacion:boolean;
+  banderaBuscador:any=1;
+  BanderaAsignados:boolean=true;
+  BtnAsinacion:string;
+
   solicitud: FormGroup;
- //Para la fecha
- fechaMaxima: any;
- fechaMinima: any;
   acti: any;
   activo: any;
+  descargo: any;
   display = 'none';
+  display2 = 'none';
+  display3 = 'none';
+  display4 = 'none';
   titulo: string;
   p: number = 1;
 //para filtro
   areas: any;
   sucursal: any;
-  descargo: any;
+   //Para la fecha
+ fechaMaxima: any;
+ fechaMinima: any; 
+//Variable para redireccionar
+  parametro:string;
  
-
-  constructor(private router: Router,private controlService:ControlService, private activateRoute: ActivatedRoute, private bajaService:BajaService
-    ,private catalogosServices: CatalogosService) 
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService:BajaService
+    ,private catalogosServices: CatalogosService, private miDatePipe: DatePipe,private controlService: ControlService) 
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -47,69 +60,100 @@ export class CuadroSolicitudComponent implements OnInit {
        'domicilio': new FormControl("",[Validators.maxLength(100),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #°.]+$")]),
        'contacto': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
        'telefono': new FormControl(""),
+  
        'idbien': new FormControl("0"),
-       
+       //para filtro
+       'idArea': new FormControl("0"),
+       'idSucursal': new FormControl("0"),
+       'idTipo2': new FormControl("0"),
     });
-    
+    this.activateRoute.params.subscribe(parametro=>{
+      this.parametro=parametro["param"];
+    })
   }
 
    ngOnInit() {
-    this.bajaService.listarBienesNoAsignados().subscribe(res => { this.activo = res });
+    //this.bajaService.listarBienesAsignados().subscribe(res => { this.activo = res });
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
     this.catalogosServices.getTipoDescargo().subscribe(data=>{this.descargo=data});//combo
-   //Método para recuperar año
+
+     //Método para recuperar año
    this.controlService.mostrarAnio().subscribe((res)=> {
     this.fechaMaxima=`${res.anio}-12-31`;
     this.fechaMinima=`${(res.anio).toString()}-01-01`;
   });
+    if(this.parametro=="ver"){
+      this.tablaMuebles='none';
+      this.tablaIntengibles='none';
+      this.tablaMueblesNoAsig='none';
+      this.tablaEdificios='none'
+      this.controlService.getBienesAsignados().subscribe(res=> { this.activo=res
+        this.tablaMuebles='block'; 
+      });
+      this.BtnAsinacion="Ver no asignados"
+      this.banderaBuscador=1;
+    }else if(this.parametro=="edificios"){
+          this.BtnAsinacion="Ver asignados";
+          this.tablaMuebles='none';
+          this.tablaIntengibles='none';
+          this.tablaMueblesNoAsig='none';
+          this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.activo=res
+         this.tablaEdificios='block'});
+          this.disabledFiltro=true;
+          this.banderaBuscador=2;
+      }else if(this.parametro=="tangibles"){
+        this.BtnAsinacion="Ver asignados";
+        this.tablaEdificios='none';
+        this.tablaIntengibles='none';
+        this.tablaMuebles='none';
+        this.controlService.getActivosSinAsignar().subscribe(res=> { 
+          this.activo=res
+          this.tablaMueblesNoAsig='block';
+          this.banderaBuscador=4;
+        });
+     this.disabledFiltroBotonAsignacion=true;
+        this.BanderaAsignados=false;
+      }else if(this.parametro=="intangible"){
+        this.BtnAsinacion="Ver asignados";
+        this.tablaEdificios='none'
+        this.tablaMuebles='none'
+        this.tablaMueblesNoAsig='none';
+        this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.activo=res
+          this.tablaIntengibles='block'
+        });
+        this.disabledFiltro=true;
+        this.banderaBuscador=3;
+      }
   }
 
   guardarDatos(){
-       // console.log("solicitud : "+this.solicitud.value.idTipo);
-        if (this.solicitud.valid == true) {
-          this.solicitud.controls["idtipodescargo"].setValue(this.solicitud.value.idTipo);
-          
-          this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => { 
-            //console.log("solicitud : "+this.solicitud.value.idTipo);
-            this.bajaService.guardarBien(this.solicitud.value).subscribe(data => {
-               //listar bienes 
-              this.bajaService.listarBienesNoAsignados().subscribe(res=>{ this.activo=res });
-            });
-            this.display = 'none';
-            
-          });
-      //  });
-      
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Solicitud guardada con éxito',
-            showConfirmButton: false,
-            timer: 3000
-          })
-         // this.solicitud.reset()
+    // console.log("solicitud : "+this.solicitud.value.idTipo);
+     if (this.solicitud.valid == true) {
+       this.solicitud.controls["idtipodescargo"].setValue(this.solicitud.value.idTipo);
+       
+       this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => { 
+         console.log("solicitud : "+this.solicitud);
+         this.bajaService.guardarBien(this.solicitud.value).subscribe(data => {
+            //listar bienes 
+           this.bajaService.listarBienesAsignados().subscribe(res=>{ this.activo=res });
+         });
+         this.display = 'none';
          
-        }
-     // }
-  }
-  
-  open(id) {
-    //limpia cache
-    this.titulo = "Solicitud para dar de baja";
-    this.solicitud.controls["idTipo"].setValue("0");
-    this.solicitud.controls["idtipodescargo"].setValue("0");
-    this.solicitud.controls["idsolicitud"].setValue("0");
-    this.solicitud.controls["folio"].setValue("");
-    this.solicitud.controls["fechasolicitud"].setValue("");
-    this.solicitud.controls["observaciones"].setValue("");
-    this.solicitud.controls["entidadbeneficiaria"].setValue("");
-    this.solicitud.controls["domicilio"].setValue("");
-    this.solicitud.controls["contacto"].setValue("");
-    this.solicitud.controls["telefono"].setValue("");
-    this.solicitud.controls["idbien"].setValue(id);
-    this.display = 'block';
-  }
-
+       });
+   //  });
+   
+       Swal.fire({
+         position: 'center',
+         icon: 'success',
+         title: 'Solicitud Guardada con éxito',
+         showConfirmButton: false,
+         timer: 3000
+       })
+      // this.solicitud.reset()
+      
+     }
+  // }
+}
   close() {
     this.display = 'none';
   }
@@ -121,11 +165,122 @@ export class CuadroSolicitudComponent implements OnInit {
     }
   }
 
+  open(id) {
+   //limpia cache
+   this.titulo = "Solicitud para dar de baja";
+   this.solicitud.controls["idTipo"].setValue("0");
+   this.solicitud.controls["idtipodescargo"].setValue("0");
+   this.solicitud.controls["idsolicitud"].setValue("0");
+   this.solicitud.controls["folio"].setValue("");
+   this.solicitud.controls["fechasolicitud"].setValue("");
+   this.solicitud.controls["observaciones"].setValue("");
+   this.solicitud.controls["entidadbeneficiaria"].setValue("");
+   this.solicitud.controls["domicilio"].setValue("");
+   this.solicitud.controls["contacto"].setValue("");
+   this.solicitud.controls["telefono"].setValue("");
+   this.solicitud.controls["idbien"].setValue(id);
+   this.display = 'block';
+  }
+  
   buscar(buscador) {
     this.p = 1;
-   this.bajaService.buscarBienNoA(buscador.value).subscribe(res => { this.activo = res });
+if(this.banderaBuscador==1){
+  this.controlService.buscarActivoAsig(buscador.value).subscribe(res => {this.activo = res});
+}else if(this.banderaBuscador==2){
+  this.controlService.buscarActivoEdificioAsig(buscador.value).subscribe(res => {this.activo = res});
+}else if(this.banderaBuscador==3){
+  this.controlService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => {this.activo = res});
+}else if(this.banderaBuscador==4){
+this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.activo = res});
+}
    }
-
+ 
+   CambiarTipo(){
+    switch(this.solicitud.controls["idTipo2"].value){
+      case '1':
+        this.tablaEdificios='none'
+        this.tablaIntengibles='none'
+        this.controlService.getBienesAsignados().subscribe(res=> { this.activo=res
+          this.tablaMuebles='block'});
+        this.disabledFiltro=false;
+        this.banderaBuscador=1;
+      break;
+      case '2':
+        this.tablaMuebles='none'
+        this.tablaIntengibles='none'
+        this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.activo=res
+          this.tablaEdificios='block'});
+        this.disabledFiltro=true;
+        this.banderaBuscador=2;
+      break;
+      case '3':
+        this.tablaEdificios='none'
+        this.tablaMuebles='none'
+        this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.activo=res
+          this.tablaIntengibles='block'
+        });
+       
+        this.disabledFiltro=true;
+        this.banderaBuscador=3;
+      break;
+      default:
+        console.log("ocurrio un error en la consulta de datos");
+    }
+  }
+  FiltrarAsignadosYNoAsignados(){
+    if(this.BanderaAsignados==true){
+      this.BtnAsinacion="Ver asignados";
+      this.tablaEdificios='none';
+      this.tablaIntengibles='none';
+      this.tablaMuebles='none';
+      this.controlService.getActivosSinAsignar().subscribe(res=> { 
+        this.activo=res
+        this.tablaMueblesNoAsig='block';
+        this.banderaBuscador=4;
+      });
+   this.disabledFiltroBotonAsignacion=true;
+      this.BanderaAsignados=false;
+    }else {
+      this.BtnAsinacion="Ver no asignados";
+      this.tablaMueblesNoAsig='none';
+      this.tablaEdificios='none';
+      this.tablaIntengibles='none';
+      this.controlService.getBienesAsignados().subscribe(res=> { 
+        this.activo=res
+        this.tablaMuebles='block';
+        this.banderaBuscador=1;
+      });
+      this.disabledFiltroBotonAsignacion=false;
+      this.BanderaAsignados=true
+    }
+    
+  }
+  FiltrarArea(){
+    var id= this.solicitud.controls['idSucursal'].value;
+    this.controlService.ComboArea(id).subscribe(data=>{this.areas=data});
+  }
+  
+  Filtrar(){
+    var id= this.solicitud.controls['idArea'].value;
+    this.controlService.FiltroTablaActivos(id).subscribe(data=>{this.activo=data});
+  }
+  Reload(){
+  this.solicitud.controls['idSucursal'].setValue(0);
+  this.solicitud.controls['idArea'].setValue(0);
+  this.solicitud.controls['idTipo2'].setValue(1);
+  this.BtnAsinacion="Ver no asignados";
+  this.tablaMueblesNoAsig='none';
+  this.tablaEdificios='none';
+  this.tablaIntengibles='none';
+  this.controlService.getBienesAsignados().subscribe(res=> { 
+    this.activo=res
+    this.tablaMuebles='block';
+    this.banderaBuscador=1;
+  });
+  this.disabledFiltroBotonAsignacion=false;
+  this.BanderaAsignados=true
+  this.disabledFiltro=false;
+  }
 
   noRepetirFolio1(control: FormControl) {
 
@@ -145,9 +300,5 @@ export class CuadroSolicitudComponent implements OnInit {
     });
     return promesa;
   }
-
-
-
-
   
 }

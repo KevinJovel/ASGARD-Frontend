@@ -178,7 +178,7 @@ import { FormModificarAsignadosComponent } from './components-control/form-modif
       {path: 'historial-mantenimiento', component: HistorialMantenimientoComponent},
       {path: 'tabla-informe', component: TablaInformeComponent},
       {path: 'tabla-solicitud', component: TablaSolicitudComponent},
-      {path: 'cuadro-solicitud', component: CuadroSolicitudComponent},
+      {path: 'cuadro-solicitud/:param', component: CuadroSolicitudComponent},
       {path: 'solicitud', component: SolicitudComponent},
       {path: 'gestion-descargo', component: GestionDescargoComponent},
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},

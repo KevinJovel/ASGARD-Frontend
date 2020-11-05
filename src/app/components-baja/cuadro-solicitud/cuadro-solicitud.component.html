@@ -1,57 +1,241 @@
 <br><br><br><br>
-<section class="panel">
-  <h1>Activos no asignados</h1>
+<section class="pane__general">
+
   <div class="row">
-    <div class="col-lg-6">
-     
-    </div>
-    <div class="col-lg-3">
-    </div>
-    <div class="col-md-3">
-      <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">  
-</div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-16">
       <section class="panel panel-default">
-        <header class="panel-heading">
-          <h5>Realizar solicitud a activos no asignados</h5>
-        </header>
-        <div class="panel-body">
-          <div class="adv-table">
-            <table class="display table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>N°</th>
-                  <th>Fecha</th>
-                  <th>Descripción</th>
-                  <th>Clasificación</th>
-                  
-                  <th class="hidden-phone">Realizar solicitud</th>
-                </tr>
-              </thead>
+        <div class="form-row">
+            <h1>Nueva solicitud </h1>
+          <form class="form-inline" id="default" [formGroup]="solicitud">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <br>
+                    <label for="inputPassword4">Tipo activo</label>
+                    <select [attr.disabled]="disabledFiltroBotonAsignacion ? '' : null" class="form-control" (change)="CambiarTipo()" formControlName="idTipo2">
+                      <option value="0">Seleccione</option>
+                      <option [value]="1" >Bienes Muebles</option>	
+                      <option [value]="2" >Edificios</option>
+                      <option [value]="3" >Intangibles</option>		
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
 
-              <tbody>
-              <tr *ngFor="let acti of activo | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
-                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{acti.fechacadena}}</td>
-                    <td>{{acti.desripcion}}</td>
-                    <td>{{acti.clasificacion}}</td>
-                  <td class="center hidden-phone">
-                    <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(acti.idBien)">
-                      <i class="glyphicon glyphicon-share-alt"></i></button>
-                </tr>
-              </tbody>
-            </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-          </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                  <button [attr.disabled]="disabledFiltro ? '' : null"  title="Recargar datos" style="margin-top: 27px; width: 200px; margin-right: 70px;" class="btn btn-success" (click)="FiltrarAsignadosYNoAsignados()"><i class="glyphicon glyphicon-refresh"></i>  {{BtnAsinacion}}</button>                 
+                </div>
+            </div>
+            <div class="row">
+    
+              <div class="form-group col-md-3">
+                <br>
+                <label for="inputPassword4">Sucursal</label>
+                <select [attr.disabled]="disabledFiltro||disabledFiltroBotonAsignacion ? '' : null"  class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
+                  <option value="0">Seleccione</option>
+                  <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursal">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
+                </select>
+              </div>
+
+              <div class="form-group col-md-3">
+                <br>
+                <label for="inputPassword4">Área de negocio</label>
+                <select [attr.disabled]="disabledFiltro||disabledFiltroBotonAsignacion ? '' : null"  id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
+                  <option value="0" selected>Seleccione</option>
+                  <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
+                </select> 
+              </div>
+              <div class="form-group col-md-1">
+                <br>
+              <button title="Recargar datos" style="margin-top: 24px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>                 
+            </div>
+            <div class="form-group col-md-2">
+              </div> 
+              <div class="form-group col-md-3">
+                <br><br>
+              <input type="search" style="margin-top: 5px; padding-left: 10px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+            </div>     
+            </div>
+
+            <br>
+            <!-- Inicia la table de bienes muebles dependiendo de la opción -->
+            <div class="row" [ngStyle]="{'display':tablaMuebles}">
+              <div class="col-lg-12">
+                <section class="panel panel-default">
+          
+                  <header class="panel-heading">
+                    <h5>Registros de bienes muebles</h5>
+                  </header>
+                  <div class="panel-body">
+                    <div class="adv-table">
+                      <table class="display table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>N°</th>
+                            <th>Código</th>
+                            <th>Fecha ingreso</th>
+                            <th>Descripción</th>
+                            <th>Área de negocio</th>
+                            <th>Responsable</th>                     
+                            <th class="hidden-phone" >Opciones </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let solicitud of activo | paginate: { itemsPerPage: 10, currentPage: p}; let i=index">
+                            
+                            <th scope="col">{{ 10 * (p - 1) + i+1 }}</th>
+                            
+                            <td>{{solicitud.codigo}}</td>
+                            <td>{{solicitud.fechacadena}}</td>
+                            <td>{{solicitud.descripcion}}</td>
+                            <td>{{solicitud.areaDeNegocio}}</td>
+                            <td>{{solicitud.responsable}}</td>            
+                            <td class="center hidden-phone">
+                              <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien)">
+                                <i class="glyphicon glyphicon-share-alt"></i></button>
+                          </tr>
+                            
+                        </tbody>
+                      </table>
+                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+            <!-- Inicia tabla de bienes edificios  -->
+            <div class="row" [ngStyle]="{'display':tablaEdificios}">
+                <div class="col-lg-12">
+                  <section class="panel panel-default">
+            
+                    <header class="panel-heading">
+                      <h5>Registros de Edificios</h5>
+                    </header>
+                    <div class="panel-body">
+                      <div class="adv-table">
+                        <table class="display table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>N°</th>
+                              <th>Código</th>
+                              <th>Fecha ingreso</th>
+                              <th>Descripción</th>
+                              <th>Clasificación</th>                 
+                              <th class="hidden-phone" >Opciones </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let solicitud of activo | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+                              
+                              <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                              
+                              <td>{{solicitud.codigo}}</td>
+                              <td>{{solicitud.fechacadena}}</td>
+                              <td>{{solicitud.descripcion}}</td>
+                              <td>{{solicitud.clasificacion}}</td>         
+                              <td class="center hidden-phone">
+                                <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien)">
+                                  <i class="glyphicon glyphicon-share-alt"></i></button>
+                            </tr>
+                              
+                          </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <!-- inicia la tabla de intagibles -->
+              <div class="row" [ngStyle]="{'display':tablaIntengibles}">
+                <div class="col-lg-12">
+                  <section class="panel panel-default">
+            
+                    <header class="panel-heading">
+                      <h5>Registros bienes intangibles</h5>
+                    </header>
+                    <div class="panel-body">
+                      <div class="adv-table">
+                        <table class="display table table-bordered table-striped">
+                          <thead>
+                            <tr>
+                              <th>N°</th>
+                              <th>Código</th>
+                              <th>Fecha ingreso</th>
+                              <th>Descripción</th>
+                              <th>Clasificación</th>
+                        
+                              <th class="hidden-phone" >Opciones </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let solicitud of activo | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+                              
+                              <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                              
+                              <td>{{solicitud.codigo}}</td>
+                              <td>{{solicitud.fechacadena}}</td>
+                              <td>{{solicitud.descripcion}}</td>
+                              <td>{{solicitud.clasificacion}}</td>
+                          
+                              <td class="center hidden-phone">
+                                <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien)">
+                                  <i class="glyphicon glyphicon-share-alt"></i></button>
+                            </tr>
+                              
+                          </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+<!-- No asigandos -->
+ <!-- Inicia la tabla de bienes muebles no asignados -->
+ <div class="row" [ngStyle]="{'display':tablaMueblesNoAsig}">
+  <div class="col-lg-12">
+    <section class="panel panel-default">
+
+      <header class="panel-heading">
+        <h5>Registros de bienes muebles no asignados</h5>
+      </header>
+      <div class="panel-body">
+        <div class="adv-table">
+          <table class="display table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>No. Formulario</th>
+                <th>Fecha ingreso</th>
+                <th>Descripción</th>
+                <th>Clasificación</th>
+               
+                <th class="hidden-phone" >Opciones </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let solicitud of activo | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+                              
+                <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                
+                <td style="font-size: 12px;">{{solicitud.noFormulario}}</td>
+                <td>{{solicitud.fechacadena}}</td>
+                <td>{{solicitud.desripcion}}</td>
+                <td>{{solicitud.clasificacion}}</td>        
+                <td class="center hidden-phone">
+                  <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien)">
+                    <i class="glyphicon glyphicon-share-alt"></i></button>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
+</div>
 
-
-<!--modal para ingresar y editar-->
+  <!--modal para ingresar y editar-->
 <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
   <div class="modal-dialog .modal-dialog ">
     <div class="modal-content">
@@ -69,13 +253,13 @@
           <div class="form-group col-md-6">
             <label for="exampleInputEmail1">*Fecha:</label>
           
-            <input type="date" class="form-control"  formControlName="fechasolicitud" min="{{fechaMinima}}" max="{{fechaMaxima}}" autocomplete="off">
+            <input type="date" class="form-control"  formControlName="fechasolicitud"  min="{{fechaMinima}}" max="{{fechaMaxima}}" autocomplete="off">
           </div>
 
           <div class="form-group col-md-6">
             <label  for="formGroupExampleInput2">*Motivo</label>
             <select class="form-control"  formControlName="idTipo" maxlength="51">
-              <option value="0">---Seleccione---</option>
+              <option value="0">--Seleccione--</option>
               <option [value]="descargo.idTipo" *ngFor="let descargo of descargo">{{descargo.nombre}}</option>	
             </select>
             </div>
@@ -110,103 +294,106 @@
             <input size=30 type="text"  class="form-control" formControlName="observaciones"  placeholder="Ingrese observación" autocomplete="off"  maxlength="151">
           </div> 
 
+          <!--Alert-->
+<br><br><br><br><br><br><br><br>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Tamaño máximo permitido en el campo folio.
+</div>
 
-<!--Alert-->
-<br><br><br><br><br><br><br><br><br><br>
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> Tamaño máximo permitido en el campo folio.
-        </div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Advertencia!</strong> ya existe el folio ingresado, por favor intente con un nuevo.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> El campo folio no acepta caracteres especiales.
+</div>
 
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Advertencia!</strong> ya existe el folio ingresado, por favor intente con un nuevo.
-        </div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Tamaño máximo permitido en el campo domicilio.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> El campo  domicilio no acepta caracteres especiales.
+</div>
 
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.pattern">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> El campo folio no acepta caracteres especiales.
-        </div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre de contacto.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> El campo nombre de contacto no acepta caracteres especiales.
+</div>
 
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.maxlength">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> Tamaño máximo permitido en el campo domicilio.
-        </div>
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.pattern">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> El campo domicilio no acepta caracteres especiales.
-        </div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Tamaño máximo permitido en el campo entidad beneficiaria.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> El campo entidad beneficiaria no acepta caracteres especiales.
+</div>
 
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.maxlength">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre de contacto.
-        </div>
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.pattern">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> E campo nombre de contacto no acepta caracteres especiales.
-        </div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Tamaño máximo permitido en el campo observaciones.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> El campo observaciones no acepta caracteres especiales.
+</div>
 
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.maxlength">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> Tamaño máximo permitido en el campo entidad beneficiaria.
-        </div>
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.pattern">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> El campo entidad beneficiaria no acepta caracteres especiales.
-        </div>
-
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.maxlength">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> Tamaño máximo permitido en el campo observaciones.
-        </div>
-        <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.pattern">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> El campo observaciones no acepta caracteres especiales.
-        </div>
-
-        <div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['folio'].errors?.yaExisteFolio">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
-        </div>
+<div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['folio'].errors?.yaExisteFolio">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+</div>
 
 
-        <div class="alert alert-success fade in" *ngIf="solicitud.valid">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Exelente!</strong> Datos ingresados correctamente.
-        </div>
-  
+<div class="alert alert-success fade in" *ngIf="solicitud.valid">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Exelente!</strong> Datos ingresados correctamente.
+</div>
+
+
           <button  type="submit" [disabled]="!solicitud.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
 
         </form>
 
+
       </div>
     </div>
   </div>
 </div>
+
+
+
