@@ -3,7 +3,7 @@ import { BajaService } from './../../services/baja.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {DatePipe} from '@angular/common';
+
 
 @Component({
   selector: 'app-tabla-solicitud-traspaso',
@@ -26,7 +26,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
-    private bajaService:BajaService , private miDatePipe: DatePipe)
+    private bajaService:BajaService)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),

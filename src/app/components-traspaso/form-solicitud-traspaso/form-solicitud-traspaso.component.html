@@ -1,6 +1,6 @@
 <br><br><br><br>
 <section class="panel">
-  <h1>Activos asignados</h1>
+  <h1>Registro de activos</h1>
     <div class="row">
       <div class="col-lg-16">
       
@@ -48,7 +48,7 @@
                   <section class="panel panel-default">
             
         <header class="panel-heading">
-          <h5>Realizar solicitud a activos asignados</h5>
+          <h5>Realizar solicitud de traspaso</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -59,7 +59,7 @@
                   <th>Código</th>
                   <th>Fecha</th>
                   <th>Descripción</th>
-                  <th>Área</th>
+                  <th>Área de negocio</th>
                   <th>Responsable</th>
                   
                   <th class="hidden-phone">Realizar solicitud</th>
@@ -75,7 +75,7 @@
                   <td>{{acti22.areaDeNegocio}}</td>
                   <td>{{acti22.resposnsable}}</td>
                   <td class="center hidden-phone">
-                    <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(acti22.idBien)">
+                    <button title="Realizar solicitud" class="btn btn-primary btn-xs" (click)="open(acti22.idBien)">
                       <i class="glyphicon glyphicon-share-alt"></i></button>
                 </tr>
               </tbody>
@@ -110,7 +110,7 @@
           </div>
 
           <div class="form-group col-md-6">
-            <label  for="formGroupExampleInput2">*Motivo</label>
+            <label  for="formGroupExampleInput2">*Folio</label>
             <select class="form-control"  formControlName="idTipo" maxlength="51">
               <option value="0">--Seleccione--</option>
               <option [value]="descargo.idTipo" *ngFor="let descargo of descargo">{{descargo.nombre}}</option>	
@@ -119,33 +119,27 @@
             
           <br> <br>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Folio:</label>
+            <label for="exampleInputEmail1">*Area de negocio actual:</label>
             <input size=28  type="text" class="form-control" formControlName="folio" maxlength="11" id="direccion" placeholder="Ingrese folio"  autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Entidad beneficiaria:</label>
+            <label for="exampleInputEmail1">Area de negocio de destino:</label>
             <input size=26  type="text"  class="form-control"  formControlName="entidadbeneficiaria" placeholder="Ingrese entidad beneficiaria" maxlength="81" autocomplete="off">
           </div> 
 
           <br> <br>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Nombre de contacto:</label>
+            <label for="exampleInputEmail1">Nuevo responsable:</label>
             <input size=25  type="text"  class="form-control" formControlName="contacto" placeholder="Ingrese nombre de contacto"  maxlength="51" autocomplete="off">
           </div> 
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Domicilio:</label>
-            <input size=25 type="text" class="form-control" formControlName="domicilio" placeholder="Ingrese domicilio"   maxlength="101" autocomplete="off">
+            <label>* Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" maxlength="251"
+               rows="2" placeholder="Ingrese descripción" autocomplete="off"></textarea>
           </div>
 
           <br> <br>
-          <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Teléfono: </label>
-            <input size=26 type="text" mask="0000-0000" class="form-control" placeholder="Ingrese teléfono" formControlName="telefono"  maxlength="10" autocomplete="off">
-          </div>  
-          <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Observaciones:</label>
-            <input size=30 type="text"  class="form-control" formControlName="observaciones"  placeholder="Ingrese observación" autocomplete="off"  maxlength="151">
-          </div> 
+    
 
           <!--Alert-->
 <br><br><br><br><br><br><br><br>

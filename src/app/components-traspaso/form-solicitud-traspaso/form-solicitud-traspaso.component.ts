@@ -7,8 +7,6 @@ import Swal from 'sweetalert2';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ControlService } from './../../services/control.service';
 //para la fecha actual
-import {DatePipe} from '@angular/common';
-
 @Component({
   selector: 'app-form-solicitud-traspaso',
   templateUrl: './form-solicitud-traspaso.component.html',
@@ -32,7 +30,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
  
 
   constructor(private router: Router, private activateRoute: ActivatedRoute,private controlService:ControlService, private bajaService:BajaService
-    ,private catalogosServices: CatalogosService, private miDatePipe: DatePipe) 
+    ,private catalogosServices: CatalogosService) 
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -106,7 +104,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
 
   open(id) {
    //limpia cache
-   this.titulo = "Solicitud para dar de baja";
+   this.titulo = "Solicitud de traspaso";
    this.solicitud.controls["idTipo"].setValue("0");
    this.solicitud.controls["idtipodescargo"].setValue("0");
    this.solicitud.controls["idsolicitud"].setValue("0");
