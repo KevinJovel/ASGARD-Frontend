@@ -77,29 +77,6 @@
                         <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3" placeholder="Ingrese nombre" autocomplete="off"  maxlength="36">
                     </div>
 
-                    <!-- Alertas para campo nombre-->
-                    <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.yaExisteCooperativa">
-                        <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
-                        </button>
-                        <strong>¡ADVERTENCIA!</strong> El nombre de la cooperativa ya está en uso.
-                      </div>
-
-                      <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.maxlength">
-                        <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
-                        </button>
-                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
-                      </div>
-
-                      <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.pattern">
-                        <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
-                        </button>
-                        <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
-                      </div>
-                    <!-- Fin de Alertas para campo nombre-->
-
                     <div class="form-group">
                       <label for="inputPassword4">Logo</label>
                       <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" />
@@ -115,6 +92,29 @@
                         <label for="exampleFormControlTextarea2">* Descripción:</label>
                         <input type="text" class="form-control" formControlName="descripcion" id="exampleFormControlTextarea2" placeholder="Ingrese descripción" autocomplete="off" maxlength="51">
                     </div>
+
+                    <!-- Alertas para campo nombre-->
+                    <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.yaExisteCooperativa">
+                      <button data-dismiss="alert" class="close close-sm" type="button">
+                        <i class="icon-remove"></i>
+                      </button>
+                      <strong>¡ADVERTENCIA!</strong> El nombre de la cooperativa ya está en uso.
+                    </div>
+
+                    <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.maxlength">
+                      <button data-dismiss="alert" class="close close-sm" type="button">
+                        <i class="icon-remove"></i>
+                      </button>
+                      <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+                    </div>
+
+                    <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['nombre'].errors?.pattern">
+                      <button data-dismiss="alert" class="close close-sm" type="button">
+                        <i class="icon-remove"></i>
+                      </button>
+                      <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+                    </div>
+                  <!-- Fin de Alertas para campo nombre-->
 
                      <!--Alertas para campo descripción-->
                       <div class="alert alert-block alert-danger fade in" *ngIf="cooperativa.controls['descripcion'].errors?.maxlength">
