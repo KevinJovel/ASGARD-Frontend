@@ -14,6 +14,8 @@ export class FormAreasNegocioComponent implements OnInit {
   sucursales: any;
   area: FormGroup;
   display = 'none';
+  display2 = 'none';
+  display3 = 'none';
   titulo: string;
   yaExiste:boolean=false;
   modif: number=0;
@@ -41,10 +43,22 @@ export class FormAreasNegocioComponent implements OnInit {
     this.display = 'block';
 
   }
+  open2() {
+    
+    this.display2 = 'block';
+  }
+  open3() {
+    
+    this.display3 = 'block';
+  }
   close() {
     this.display = "none";
     this.yaExiste=false;
     this.modif = 0;
+  }
+  close2() {
+    this.display3 = "none";
+
   }
   validar(){
    if(this.area.controls["nombre"].value!=""&&this.area.controls["idSucursal"].value!=0){
@@ -183,4 +197,6 @@ export class FormAreasNegocioComponent implements OnInit {
 
     return promesa;
   }
+  
+  
 }
