@@ -99,12 +99,12 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'warning',
-        title: '¡El activo seleccionado no tiene ningún mantenimiento realizado!',
+        title: '¡El activo seleccionado no tiene ningún traspaso realizado!',
         showConfirmButton: false,
         timer: 3000
       })
   }else{
-    this.titulo = "Historial de mantenimientos";
+    this.titulo = "Historial de traspasos";
     this.display = 'block';
     this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
       this.codigo=data.codigo;

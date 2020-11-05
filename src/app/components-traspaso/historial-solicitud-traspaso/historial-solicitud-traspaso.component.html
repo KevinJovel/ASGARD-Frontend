@@ -5,7 +5,7 @@
 <br />
 
 <section class="panel">
-<h1>Historial de mantenimientos</h1>
+<h1>Historial de traspasos</h1>
   <div class="row">
     <div class="col-lg-14">
       <section class="panel panel-default">
@@ -56,10 +56,10 @@
                             <th>Correlativo</th>
                             <th>Descripción</th>
                             <th>Responsable</th>
-                            <th>Area de negocio</th>
+                            <th>Área de negocio</th>
                            
                                                  
-                            <th class="hidden-phone" >Ver historial </th>
+                            <th class="hidden-phone">Ver historial </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -74,7 +74,6 @@
                            
                             <td class="center hidden-phone" style="text-align: center;">
                               <button title="Ver historial" class="btn btn-primary btn-xs" (click)="open(bien.idBien)" ><i class="icon-time"></i></button> 
-                              <!--<button title="Aplicar depreciación" class="btn btn-warning btn-xs" (click)="open(bien.idBien)"><i class="icon-sort-by-attributes-alt"></i></button>-->
                             </td>
                           </tr>
                         </tbody>
@@ -116,10 +115,10 @@
               <div class="row">
                <div class="col-lg-2"></div>
                <div class="form-group col-md-4">
-                 <label><strong>Encargado:</strong></label> {{ encargado }}<br/>
+                 <label><strong>Encargado actual:</strong></label> {{ encargado }}<br/>
                  </div>
                  <div class="form-group col-md-4">
-                   <label><strong>Area de negocio:</strong></label> {{ areadenegocio }}<br/>
+                   <label><strong>Area de negocio actual:</strong></label> {{ areadenegocio }}<br/>
                   </div>
                   <div class="col-lg-4">
                    
@@ -134,20 +133,19 @@
           <div class="col-lg-12">
             <section class="panel panel-default">
               <header class="panel-heading">
-                <h5>Historial de mantenimientos</h5>
+                <h5>Historial de traspasos</h5>
               </header>
               <div class="panel-body">
                 <div class="adv-table">
                   <table class="display table table-bordered table-striped">
                    <!----> <thead>
                    <tr>
-                        <th scope="row">N°</th>                   
-                        <th scope="row">Fecha</th>
-                        <th scope="row">Tecnico</th>
-                        <th scope="row">Costo de mano de obra</th>
-                        <th scope="row">Costo de materiales</th>
-                        <th scope="row">Costo total</th>
-                        <th scope="row">Descripción</th>
+                        <th scope="row">N°</th>        
+                        <th scope="row">Fecha de solicitud</th>           
+                        <th scope="row">Fecha de traslado</th>
+                        <th scope="row">encargado anterior</th>
+                        <th scope="row">area de negocio anterior</th>
+                        
                        <!-- <th scope="row" class="hidden-phone">Enviar</th>-->
                       </tr>
                     </thead>
@@ -160,9 +158,6 @@
                <td>{{informe.nombretecnico}}</td>
                <td>$ {{informe.costomateriales}}</td>
                <td>$ {{informe.costomo}}</td>
-               <td>$ {{informe.costototal}}</td>
-               <td>{{informe.descripcion}}</td>
-              
               </tr>
                     </tbody>
                   </table>
