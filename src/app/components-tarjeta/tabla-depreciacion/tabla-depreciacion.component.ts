@@ -188,10 +188,21 @@ export class TablaDepreciacionComponent implements OnInit {
             }else{
               this.datosTotal.controls["idBien"].setValue(data.idBien);
               this.anio=data.anio;
+              this.datos.controls["codigo"].setValue(data.codigo);
+              this.datos.controls["descripcion"].setValue(data.descipcion);
               this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
               this.datos.controls["valorActual"].setValue(data.valorActual);
-              this.datos.controls["Ultimafecha"].setValue(data.fecha);
-              this.datos.controls["fechaAdquisicion"].setValue(data.fechaAdquisicion);
+              if(data.tipo==2){
+                if(data.concepto="Compra"){
+                  this.datos.controls["Ultimafecha"].setValue(data.fechaAsignacion);
+                }else{
+                  this.datos.controls["Ultimafecha"].setValue(data.fecha);
+                }
+                this.datos.controls["fechaAdquisicion"].setValue(data.fechaAsignacion);
+              }else{
+                this.datos.controls["fechaAdquisicion"].setValue(data.fechaAdquisicion);
+                this.datos.controls["Ultimafecha"].setValue(data.fecha);
+              }
               //split a la fecha de adquisicion para calculos
               var fechaAdquisicion = this.datos.controls["fechaAdquisicion"].value.split("-");
               let diaA = fechaAdquisicion[0];
@@ -241,7 +252,7 @@ export class TablaDepreciacionComponent implements OnInit {
                   Swal.fire({
                     position: 'center',
                     icon: 'error',
-                    title: '¡Ocurrio un error!',
+                    title: '¡Ocurrio un error 1!',
                     showConfirmButton: false,
                     timer: 3000
                   })
@@ -251,7 +262,7 @@ export class TablaDepreciacionComponent implements OnInit {
                 Swal.fire({
                   position: 'center',
                   icon: 'error',
-                  title: '¡Ocurrio un error!',
+                  title: '¡Ocurrio un error 2!',
                   showConfirmButton: false,
                   timer: 3000
                 })
@@ -262,7 +273,7 @@ export class TablaDepreciacionComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'error',
-            title: '¡Ocurrio un error!',
+            title: '¡Ocurrio un error catch!',
             showConfirmButton: false,
             timer: 3000
           });
@@ -323,8 +334,17 @@ export class TablaDepreciacionComponent implements OnInit {
         this.datos.controls["descripcion"].setValue(data.descipcion);
         this.datos.controls["valorAdquicicion"].setValue(data.valorAdquicicon);
         this.datos.controls["valorActual"].setValue(data.valorActual);
-        this.datos.controls["Ultimafecha"].setValue(data.fecha);
-        this.datos.controls["fechaAdquisicion"].setValue(data.fechaAdquisicion);
+        if(data.tipo==2){
+          if(data.concepto="Compra"){
+            this.datos.controls["Ultimafecha"].setValue(data.fechaAsignacion);
+          }else{
+            this.datos.controls["Ultimafecha"].setValue(data.fecha);
+          }
+          this.datos.controls["fechaAdquisicion"].setValue(data.fechaAsignacion);
+        }else{
+          this.datos.controls["fechaAdquisicion"].setValue(data.fechaAdquisicion);
+          this.datos.controls["Ultimafecha"].setValue(data.fecha);
+        }
         //split a la fecha de adquisicion para calculos
         var fechaAdquisicion = this.datos.controls["fechaAdquisicion"].value.split("-");
         let diaA = fechaAdquisicion[0];

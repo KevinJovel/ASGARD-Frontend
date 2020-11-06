@@ -24,6 +24,9 @@ export class FormAsignancionComponent implements OnInit {
   titulo: string;
   titulo2: string;
   vidaUtilCorrecta:boolean=false;
+  fechaMaxima: any;
+  fechaMinima: any;
+  anio: string;
   //datos de informe
   @Input() noSoli: string;
   constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, private mantenimientoService: MantenimientoService) {
@@ -35,20 +38,34 @@ export class FormAsignancionComponent implements OnInit {
       'idEmpleado': new FormControl("0"),
       'Responsable': new FormControl(""),
       'codigo': new FormControl(""),
-      'codigoBarras': new FormControl("")
+      'codigoBarras': new FormControl(""),
+      'fecha':new FormControl("")
     });
   }
   ngOnInit(): void {
     this.controlService.getActivosSinAsignar().subscribe(res => { this.activos = res });
-    this.controlService.listarComboAsigar().subscribe(res => { this.empleados = res })
+    this.controlService.listarComboAsigar().subscribe(res => { this.empleados = res });
+      //Método para recuperar año
+
   }
   close() {
     this.display = 'none';
   }
-  asignar(id) {
+  asignar(id,fecha) {
+    this.activo.controls["fecha"].setValue(fecha);
+    var fecharecup = this.activo.controls["fecha"].value.split("-");
+    let dia=fecharecup[0];
+    let mes=fecharecup[1];
+    let anio=fecharecup[2];
+    this.controlService.mostrarAnio().subscribe((res)=> {
+      this.fechaMaxima=`${res.anio}-12-31`;
+      this.fechaMinima=`${anio}-${mes}-${dia}`;
+    });
+    
     this.titulo = "Asignar nuevo activo ";
     this.activo.controls["idBien"].setValue(id);
     this.activo.controls["codigo"].setValue("");
+    // this.activo.controls["fecha"].setValue("");
     this.activo.controls["idEmpleado"].setValue("0");
     this.activo.controls["noSerie"].setValue("");
     // LLamar al metodo que me devuelva la vida util
@@ -123,17 +140,36 @@ export class FormAsignancionComponent implements OnInit {
           timer: 3000
         })
       } else {
+     
+          var fecha = this.activo.controls["fecha"].value.split("-");
+           var anio = fecha[0];
+            var mes = fecha[1];
+            var dia = fecha[2];
+            this.activo.controls["fecha"].setValue(mes + "/" + dia + "/" + anio);
+            console.log(this.activo.value);
         this.controlService.AsignarBien(this.activo.value).subscribe(data => {
+          if(data==1){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Activo asignado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.controlService.getActivosSinAsignar().subscribe(res => { this.activos = res });
+          }else{
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '¡Error alasignar activo!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          }
           this.display = 'none';
-          this.controlService.getActivosSinAsignar().subscribe(res => { this.activos = res });
+        
         });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Activo asignado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
+   
 
       }
     }

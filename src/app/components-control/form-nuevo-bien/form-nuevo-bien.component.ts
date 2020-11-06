@@ -301,7 +301,7 @@ export class FormNuevoBienComponent implements OnInit {
       //Editar
       this.nuevobien.controls["bandera"].setValue("0");
       if(this.nuevobien.valid==true) {
-        console.log(this.nuevobien.value);
+        // console.log(this.nuevobien.value);
         this.controlService.modificarFormIngreso(this.nuevobien.value).subscribe((data) => {
           if(data==1) {
             //Creo esta condicion para modificar, si es contado o donado mando valor 0 sino ingresa lo de credito al modificar
