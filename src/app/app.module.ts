@@ -80,6 +80,7 @@ import { TablaRevalorizarComponent } from './components-control/tabla-revaloriza
 import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacion/tipo-depreciacion.component';
 import { FormModificarAsignadosComponent } from './components-control/form-modificar-asignados/form-modificar-asignados.component';
 import { TraspasoService } from './services/traspaso.service';
+import { MenuReportesComponent } from './components-reportes/menu-reportes/menu-reportes.component';
 
 
 
@@ -137,6 +138,7 @@ import { TraspasoService } from './services/traspaso.service';
     FormSolicitudTraspasoComponent,
     HistorialSolicitudTraspasoComponent,
     TablaSolicitudTraspasoComponent,
+    MenuReportesComponent,
 
 
    
@@ -197,6 +199,7 @@ import { TraspasoService } from './services/traspaso.service';
       {path: 'form-activo-intangible/:id', component: FormActivoIntangibleComponent},
       {path: 'tipo-depreciacion', component: TipoDepreciacionComponent},
       {path: 'form-modificar-asignados/:id', component: FormModificarAsignadosComponent},
+       {path: 'menu-reportes', component: MenuReportesComponent},
       { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
       
     ]),

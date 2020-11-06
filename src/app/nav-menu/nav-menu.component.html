@@ -117,8 +117,8 @@
           <span>Consultas y Reportes</span>
         </a>
         <ul class="sub">
-          <li><a href="grids.html">Consultas estadisticas</a></li>
-          <li><a href="calendar.html">Consultas generales</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/menu-reportes"]' (click)='collapse()'>Reportes</a></li>
+          <li><a href="calendar.html">Consultas gereficas</a></li>
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
