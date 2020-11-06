@@ -79,6 +79,7 @@ import { RegistroActivosComponent } from './components-control/registro-activos/
 import { TablaRevalorizarComponent } from './components-control/tabla-revalorizar/tabla-revalorizar.component';
 import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacion/tipo-depreciacion.component';
 import { FormModificarAsignadosComponent } from './components-control/form-modificar-asignados/form-modificar-asignados.component';
+import { TraspasoService } from './services/traspaso.service';
 
 
 
@@ -201,7 +202,7 @@ import { FormModificarAsignadosComponent } from './components-control/form-modif
     ]),
     NoopAnimationsModule
     ],
-    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService],
+    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService,TraspasoService],
 
     bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
 })

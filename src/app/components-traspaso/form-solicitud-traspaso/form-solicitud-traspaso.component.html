@@ -100,38 +100,48 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="idsolicitud" autocomplete="off">
      
          
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Fecha:</label>
-          
+            <label for="exampleInputEmail1">*Fecha:</label>         
             <input type="date" class="form-control"  formControlName="fechasolicitud"  min="{{fechaMinima}}" max="{{fechaMaxima}}" autocomplete="off">
           </div>
 
           <div class="form-group col-md-6">
-            <label  for="formGroupExampleInput2">*Folio</label>
-            <select class="form-control"  formControlName="idTipo" maxlength="51">
-              <option value="0">--Seleccione--</option>
-              <option [value]="descargo.idTipo" *ngFor="let descargo of descargo">{{descargo.nombre}}</option>	
+            <label for="exampleInputEmail1">*Folio:</label>
+            <input size=25  type="text"  class="form-control" formControlName="contacto" placeholder="Ingrese folio"  maxlength="51" autocomplete="off">
+          </div> 
+          <div class="form-group col-md-6">
+            <label>* Área de negocio:</label>
+            <select class="form-control">
+              <option value="">---Seleccione---</option>
+              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
+                {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
             </select>
-            </div>
+          </div>
             
           <br> <br>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Area de negocio actual:</label>
-            <input size=28  type="text" class="form-control" formControlName="folio" maxlength="11" id="direccion" placeholder="Ingrese folio"  autocomplete="off">
+            <label>* Área de negocio nueva:</label>
+            <select class="form-control">
+              <option value="">---Seleccione---</option>
+              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
+                {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
+            </select>
           </div>
-          <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Area de negocio de destino:</label>
-            <input size=26  type="text"  class="form-control"  formControlName="entidadbeneficiaria" placeholder="Ingrese entidad beneficiaria" maxlength="81" autocomplete="off">
-          </div> 
+      
 
+            <div class="form-group col-md-6">
+              <label for="formGroupExampleInput2">*Nuevo responsable:</label>
+              <select class="form-control" (change)="Gcodigo()">
+                <option value="0">---Seleccione---</option>
+                <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
+              </select>
+              </div>
+          
           <br> <br>
-          <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Nuevo responsable:</label>
-            <input size=25  type="text"  class="form-control" formControlName="contacto" placeholder="Ingrese nombre de contacto"  maxlength="51" autocomplete="off">
-          </div> 
+         
           <div class="form-group col-md-6">
             <label>* Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="descripcion" maxlength="251"

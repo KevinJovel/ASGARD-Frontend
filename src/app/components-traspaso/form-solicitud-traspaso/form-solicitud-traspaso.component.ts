@@ -6,6 +6,9 @@ import Swal from 'sweetalert2';
 //para filtro de areas y sucursales
 import { CatalogosService } from './../../services/catalogos.service';
 import { ControlService } from './../../services/control.service';
+import { TraspasoService } from 'src/app/services/traspaso.service';
+
+
 //para la fecha actual
 @Component({
   selector: 'app-form-solicitud-traspaso',
@@ -27,10 +30,11 @@ export class FormSolicitudTraspasoComponent implements OnInit {
    //Para la fecha
  fechaMaxima: any;
  fechaMinima: any;
+ empleados: any;
  
 
   constructor(private router: Router, private activateRoute: ActivatedRoute,private controlService:ControlService, private bajaService:BajaService
-    ,private catalogosServices: CatalogosService) 
+    ,private catalogosServices: CatalogosService, private TraspasoService: TraspasoService) 
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -55,6 +59,9 @@ export class FormSolicitudTraspasoComponent implements OnInit {
     this.bajaService.listarBienesAsignados().subscribe(res => { this.activo = res });
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
     this.catalogosServices.getTipoDescargo().subscribe(data=>{this.descargo=data});//combo
+    //listar en solicitud (empleados y area de negocio)
+    this.TraspasoService.listarEmpleadosCombo().subscribe(res => { this.empleados = res });
+    this.TraspasoService.listarAreaCombo().subscribe(res =>{this.areas=res});
 
      //Método para recuperar año
    this.controlService.mostrarAnio().subscribe((res)=> {
@@ -157,5 +164,27 @@ export class FormSolicitudTraspasoComponent implements OnInit {
       }
     });
     return promesa;
+  }
+
+
+ //creo que lo ocuparé despues.
+  Gcodigo() {
+    if (this.activo.controls["idEmpleado"].value == 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR',
+        text: 'Seleccione un empleado para generar el codigos',
+      })
+    } else {
+      var idempleado = this.activo.controls["idEmpleado"].value;
+      var idbien = this.activo.controls["idBien"].value;
+      this.controlService.GenerarCodigo(idempleado, idbien).subscribe(data => {
+        var correlativoSucursal = data.correlativoSucursal;
+        var correlativoArea = data.correlativoArea;
+        var correlativoClasificacion = data.correlativoClasificacion;
+        var correlativo = data.correlativo;
+        this.activo.controls["codigo"].setValue(correlativoSucursal + "-" + correlativoArea + "-" + correlativoClasificacion + "-" + correlativo);
+      });
+    }
   }
 }

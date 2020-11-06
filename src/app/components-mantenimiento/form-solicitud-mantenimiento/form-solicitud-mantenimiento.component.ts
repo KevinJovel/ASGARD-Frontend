@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-form-solicitud-mantenimiento',
   templateUrl: './form-solicitud-mantenimiento.component.html',
