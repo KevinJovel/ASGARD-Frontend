@@ -38,7 +38,7 @@ export class CierreAnioComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: '¡l proceso de cierre de año no se puede realizar, porque hay activos pendientes de depreciación !',
+          title: '¡El proceso de cierre de año no se puede realizar, porque hay activos pendientes de depreciación !',
           showConfirmButton: true,
         })
       }else{
