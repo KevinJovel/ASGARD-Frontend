@@ -125,7 +125,7 @@
                       <label>* Clasificación</label>
                       <select  class="form-control" formControlName="idclasificacion">
                         <option value="0">--Seleccione--</option>
-                        <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.correlativo}}-{{clasificacion.clasificacion}}</option>
+                        <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.clasificacion}}</option>
                       </select>
                      </div>
                     <div class="form-group col-md-4">
