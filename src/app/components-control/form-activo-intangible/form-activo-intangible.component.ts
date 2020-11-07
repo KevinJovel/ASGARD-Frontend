@@ -122,9 +122,9 @@ export class FormActivoIntangibleComponent implements OnInit {
       this.disabled = true;
       this.donaprov = false;
       this.tipocombo = 'Donante:';
-      this.controlService.listarComboDonante().subscribe((res) => {
-        this.comboProvDon = res;
-      });
+     // this.controlService.listarComboDonante().subscribe((res) => {
+   //     this.comboProvDon = res;
+   //   });
     }
 
     
