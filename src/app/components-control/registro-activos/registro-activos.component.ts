@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
 import { ControlService } from './../../services/control.service';
-import Swal from 'sweetalert2';
 import { CatalogosService } from './../../services/catalogos.service';//filtro
 import {Router,ActivatedRoute} from '@angular/router';
-import { DepreciacionService } from './../../services/depreciacion.service';
 import { State, StateService } from './../../services/state.service';//para compartir entre componentes
 @Component({
   selector: 'app-registro-activos',
@@ -60,7 +58,7 @@ export class RegistroActivosComponent implements OnInit {
   Observaciones:string;
 
 constructor(private router:Router, private activatedRoute:ActivatedRoute ,private stateService:StateService ,private controlService: ControlService,
-  private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService) {
+  private catalogosServices: CatalogosService) {
 
   this.combo = new FormGroup({
     'idArea': new FormControl("0"),
