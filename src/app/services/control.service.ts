@@ -185,7 +185,12 @@ public VerDatosActivosAsig(id){
  public listarActivosRevalorizar(){
   return this.http.get(environment.urlService + "api/Revalorizar/listarActivosRevalorizar").map(res=>res.json());
  }
- 
+ public tablaedificios(){
+  return this.http.get(environment.urlService + "api/Revalorizar/listarActivosEdificiosRevalorizar").map(res=>res.json());
+ }
+ public tablaintangibles(){
+  return this.http.get(environment.urlService + "api/Revalorizar/listarActivosIntangiblesRevalorizar").map(res=>res.json());
+ }
  public noEditarfecha(idbien){
   return this.http.get(environment.urlService + "api/ActivoFIjo/noEditarfecha/"+ idbien).map(res=>res.json());
  }

@@ -115,7 +115,7 @@ export class TablaRevalorizarComponent implements OnInit {
       case '3':
         this.tablaEdificios='none'
         this.tablaMuebles='none'
-        this.depreciacionService.TablaDepreciacionIntangibles().subscribe(res=> { this.bienes=res
+        this.controlService.tablaintangibles().subscribe(res=> { this.bienes=res
           this.tablaIntengibles='block'
         });
        
