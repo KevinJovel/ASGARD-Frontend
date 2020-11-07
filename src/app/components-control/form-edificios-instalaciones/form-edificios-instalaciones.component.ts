@@ -5,10 +5,7 @@ import { ControlService } from './../../services/control.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
 import Swal from 'sweetalert2';
-declare var jQuery: any;
-declare var $;
 //para compartir parametros de diferentes componentess
-import { State, StateService } from './../../services/state.service';
 
 @Component({
   selector: 'app-form-edificios-instalaciones',
@@ -51,7 +48,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
  disabledInteres: string;
  selectionDisable: string;
 
-  constructor(private catalogosService: CatalogosService,private _cargarScript: CargarScriptsService ,private catalogoService: CatalogosService, private controlService:ControlService,
+  constructor(private _cargarScript: CargarScriptsService, private controlService:ControlService,
     private activateRoute: ActivatedRoute,private router: Router) {
       this._cargarScript.cargar(['/jquery.stepy', '/sortingTable']);
 
@@ -129,9 +126,9 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
       this.disabled = true;
       this.donaprov = false;
       this.tipocombo = 'Donante:';
-      this.controlService.listarComboDonante().subscribe((res) => {
-        this.comboProvDon = res;
-      });
+      // this.controlService.listarComboDonante().subscribe((res) => {
+      //   this.comboProvDon = res;
+      // });
     }
 
     this.controlService.listarComboClasificacionEdi().subscribe((data) => {
@@ -161,21 +158,22 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         this.activoEdiInsta.controls['descripcion'].setValue(param.descripcion);
         this.activoEdiInsta.controls['tipoadquicicion'].setValue(param.tipoadquicicion);
         this.activoEdiInsta.controls['idclasificacion'].setValue(param.idclasificacion);
-        
         //Validacion para cambiar si es proveedor o donantes
-         if(param.isProvDon==1) {
-            this.tipocombo="Proveedor:";
-            this.controlService.listarComboProveedor().subscribe((res) => {
-              this.comboProvDon = res;
-            });
-            this.activoEdiInsta.controls['idproveedor'].setValue(param.idproveedor);
-         } else {
-            this.tipocombo="Donante:";
-            this.controlService.listarComboDonante().subscribe((res) => {
-              this.comboProvDon = res;
-            });
-            this.activoEdiInsta.controls['idproveedor'].setValue(param.iddonante);
-        }
+        if(param.isProvDon==1) {
+          this.tipocombo="Proveedor:";
+          this.controlService.listarComboProveedor().subscribe((res) => {
+            this.comboProvDon = res;
+          });
+          this.activoEdiInsta.controls['idproveedor'].setValue(param.idproveedor);
+       } else {
+          this.tipocombo="Donante:";
+          this.controlService.listarComboDonante().subscribe((res) => {
+            this.comboProvDon = res;
+          });
+          this.activoEdiInsta.controls['idproveedor'].setValue(param.iddonante);
+      }
+
+        // console.log(this.comboProvDon);
         //Validación para crédito
           if (param.tipoadquicicion == 1 || param.tipoadquicicion == 3) {
             this.disabled = true;
@@ -210,8 +208,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         //Para desbilitar la sucursal
         this.disabledd = true;
         this.selectionDisable="--Inhabilitado--";
-      
-      })
+      });
     }
   });
 
