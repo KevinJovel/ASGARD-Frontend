@@ -107,7 +107,7 @@ export class TablaRevalorizarComponent implements OnInit {
       case '2':
         this.tablaMuebles='none'
         this.tablaIntengibles='none'
-        this.depreciacionService.TablaDepreciacionEdificios().subscribe(res=> { this.bienes=res
+        this.controlService.listarActivosEdificiosRevalorizar().subscribe(res=> { this.bienes=res
           this.tablaEdificios='block'});
         this.disabledFiltro=true;
         this.banderaBuscador=2;
@@ -115,7 +115,7 @@ export class TablaRevalorizarComponent implements OnInit {
       case '3':
         this.tablaEdificios='none'
         this.tablaMuebles='none'
-        this.controlService.tablaintangibles().subscribe(res=> { this.bienes=res
+        this.controlService.listarActivosIntangiblesRevalorizar().subscribe(res=> { this.bienes=res
           this.tablaIntengibles='block'
         });
        
