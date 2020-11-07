@@ -82,10 +82,10 @@
 
                 <div class="form-row">
                   <div class="form-group col-md-4">
-                    <label>*{{tipocombo}}</label >
-                      <select  class="form-control" formControlName="idproveedor">
+                    <label>* {{tipocombo}}</label >
+                  <select  class="form-control" formControlName="idproveedor">
                     <option value="0">--Seleccione--</option >
-                      <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
+                    <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
                     </select>
                   </div>
 
