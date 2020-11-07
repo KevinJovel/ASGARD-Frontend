@@ -293,7 +293,7 @@ export class FormModificarAsignadosComponent implements OnInit {
                       confirmButtonColor: '#3085d6',
                       confirmButtonText: '¡OK!',
                     }).then((result) => {
-                        this.router.navigate(['./registro-activos/tangibles']);
+                        this.router.navigate(['./registro-activos/ver']);
                     });
                   } else {
                     Swal.fire({
@@ -341,7 +341,7 @@ export class FormModificarAsignadosComponent implements OnInit {
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: '¡OK!',
                 }).then((result) => {
-                    this.router.navigate(['./registro-activos/tangibles']);
+                    this.router.navigate(['./registro-activos/ver']);
                 });
               } else {
                 Swal.fire({
@@ -385,7 +385,7 @@ export class FormModificarAsignadosComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if(result.value) {
-        this.router.navigate(["./registro-activos/tangibles"]); 
+        this.router.navigate(["./registro-activos/ver"]); 
       }
       this.edit = 0;
     });
