@@ -191,6 +191,19 @@ public VerDatosActivosAsig(id){
  public listarActivosIntangiblesRevalorizar(){
   return this.http.get(environment.urlService + "api/Revalorizar/listarActivosIntangiblesRevalorizar").map(res => res.json());
 }
+
+//buscadores de revalorización
+public buscarActivoRevalorizar(buscador) {
+  return this.http.get(environment.urlService  + "api/Revalorizar/buscarActivoRevalorizar/" + buscador).map(res => res.json());
+}
+public buscarEdificiosRevalorizar(buscador) {
+  return this.http.get(environment.urlService  + "api/Revalorizar/buscarEdificiosRevalorizar/" + buscador).map(res => res.json());
+}
+public buscarActivoIntangibleRevalorizar(buscador) {
+  return this.http.get(environment.urlService  + "api/Revalorizar/buscarActivoIntangibleRevalorizar/" + buscador).map(res => res.json());
+}
+
+
  public noEditarfecha(idbien){
   return this.http.get(environment.urlService + "api/ActivoFIjo/noEditarfecha/"+ idbien).map(res=>res.json());
  }

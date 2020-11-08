@@ -62,9 +62,10 @@
                         <tr>
                           <th>N°</th>
                           <th>Código</th>
+                          <th>Fecha ingreso</th>
                           <th>Descripción</th>
                           <th>Responsable</th>
-                          <th>Clasificación</th>
+                         
                           <th class="hidden-phone">Opciones </th>
                         </tr>
                       </thead>
@@ -72,9 +73,10 @@
                         <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
                           <th scope="col">{{i+(5*p)-4}}</th>
                           <td>{{bien.codigo}}</td>
+                          <td>{{bien.fechacadena}}</td>
                           <td>{{bien.descripcion}}</td>
                           <td>{{bien.responsable}}</td>
-                          <td>{{bien.clasificacion}}</td>
+                          
                           <td class="center hidden-phone" style="text-align: center;">
                             <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                 (click)="detalles(bien.idBien,1)"></i></button>

@@ -265,11 +265,11 @@ this.display='block';
   buscar(buscador){
     this.p = 1;
     if(this.banderaBuscador==1){
-    this.depreciacionService.BuscarTablaDepreciacion(buscador.value).subscribe(res => {this.bienes = res});
+    this.controlService.buscarActivoRevalorizar(buscador.value).subscribe(res => {this.bienes = res});
   }else if(this.banderaBuscador==2){
-      this.controlService.buscarActivoEdificioAsig(buscador.value).subscribe(res => {this.bienes = res});
+      this.controlService.buscarEdificiosRevalorizar(buscador.value).subscribe(res => {this.bienes = res});
     }else if(this.banderaBuscador==3){
-      this.controlService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => {this.bienes = res});
+      this.controlService.buscarActivoIntangibleRevalorizar(buscador.value).subscribe(res => {this.bienes = res});
     }
   }
 }
