@@ -19,8 +19,10 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   id: any;
   foto: any;
   marca: FormGroup;
+  proveedores: FormGroup;
   sucursal: FormGroup;
   display = 'none';
+  displayProveedor = 'none';
   disabled: boolean;
   disabledd: boolean;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
@@ -29,6 +31,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   lista: any;
   parametro: string;
   titulo: string;
+  titulo2: string;
   edit: number = 0;
  //Para la fecha
  fechaMaxima: any;
@@ -49,7 +52,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
  selectionDisable: string;
 
   constructor(private _cargarScript: CargarScriptsService, private controlService:ControlService,
-    private activateRoute: ActivatedRoute,private router: Router) {
+    private activateRoute: ActivatedRoute,private router: Router, private catalogoService: CatalogosService) {
       this._cargarScript.cargar(['/jquery.stepy', '/sortingTable']);
 
       this.activoEdiInsta=new FormGroup({
@@ -76,6 +79,19 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         personarecibe: new FormControl('',[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
         observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       });
+
+       //Proveedores
+    this.proveedores = new FormGroup({
+
+      'idProveedor': new FormControl("0"),
+      'bandera': new FormControl("0"),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")], this.noRepetirProveedor.bind(this)),
+      'telefono': new FormControl("", [Validators.required, Validators.maxLength(9), this.validarIguales.bind(this)], this.noRepetirTelProveedor.bind(this)),
+      'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #.°]+$")]),
+      'rubro': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z  ñÑáÁéÉíÍóÓúÚ]+$")]),
+      'encargado': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")], this.noRepetirEncargado.bind(this)),
+      'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(9), this.validarContraIguales.bind(this)], this.noRepetirTelEncargado.bind(this))
+    });
 
        //Mando el id para comparar si es nuevo ingreso o editar
     this.activateRoute.params.subscribe(parametro => {
@@ -388,6 +404,173 @@ cancelar() {
     this.edit = 0;
   });
 
+}
+
+//Métodos para proveedores
+openProveedor() {
+  //limpia cache
+  this.titulo2 = "Formulario proveedor";
+  this.proveedores.controls["idProveedor"].setValue("0");
+  this.proveedores.controls["bandera"].setValue("0");
+  this.proveedores.controls["nombre"].setValue("");
+  this.proveedores.controls["telefono"].setValue("");
+  this.proveedores.controls["direccion"].setValue("");
+  this.proveedores.controls["rubro"].setValue("");
+  this.proveedores.controls["encargado"].setValue("");
+  this.proveedores.controls["telefonoencargado"].setValue("");
+  this.displayProveedor = 'block';
+}
+closeProveedor() {
+  this.displayProveedor = 'none';
+}
+
+guardarProveedor() {
+  if ((this.proveedores.controls["bandera"].value) == "0") {
+    if (this.proveedores.valid == true) {
+      this.catalogoService.agregarProveedor(this.proveedores.value).subscribe(data => {
+    //    this.catalogoService.getProveedores().subscribe(res => { this.proveedor = res });
+    this.controlService.listarComboProveedor().subscribe((res) => {
+      this.comboProvDon = res;
+    });
+      });
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registro guardado con éxito',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+  }
+  this.proveedores.controls["idProveedor"].setValue("0");
+  this.proveedores.controls["bandera"].setValue("0");
+  this.proveedores.controls["nombre"].setValue("");
+  this.proveedores.controls["telefono"].setValue("");
+  this.proveedores.controls["direccion"].setValue("");
+  this.proveedores.controls["rubro"].setValue("");
+  this.proveedores.controls["encargado"].setValue("");
+  this.proveedores.controls["telefonoencargado"].setValue("");
+
+  this.displayProveedor = 'none';
+  this.controlService.listarComboProveedor().subscribe((res) => {
+    this.comboProvDon = res;
+  });
+}
+
+noRepetirProveedor(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarProveedor(this.proveedores.controls["idProveedor"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteProveedor: true });
+          } else {
+            resolve(null);
+          }
+        });
+    }
+  });
+
+  return promesa;
+}
+
+noRepetirEncargado(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarEncargado(this.proveedores.controls["idProveedor"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteEncargado: true });
+          } else {
+            resolve(null);
+          }
+        });
+    }
+  });
+
+  return promesa;
+}
+
+noRepetirTelProveedor(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarTelProveedor(this.proveedores.controls["idProveedor"].value, control.value)
+        .subscribe(data => {
+
+          if (data == 1) {
+            resolve({ yaExisteTelProveedor: true });
+          } else {
+            resolve(null);
+          }
+        });
+    }
+  });
+
+  return promesa;
+}
+
+noRepetirTelEncargado(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarTelEncargado(this.proveedores.controls["idProveedor"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteTelEncargado: true });
+          } else {
+            resolve(null);
+          }
+        });
+    }
+  });
+
+  return promesa;
+}
+
+validarContraIguales(control: FormControl) {
+  //con value sacamos el valor del control
+  if (control.value != "" && control.value != null) {
+    var aux: String = "";
+    aux = control.value;
+    if (aux.length == 9) {
+      //console.log(control.value);
+      if ((this.proveedores.controls["telefono"].value != aux)) {
+        return null;
+      } else {
+        //todo esta bien
+        return { noIguales: true };
+      }
+    }
+  }
+}
+
+validarIguales(control: FormControl) {
+  //con value sacamos el valor del control
+  if (control.value != "" && control.value != null) {
+    var aux: String = "";
+    aux = control.value;
+    if (aux.length == 9) {
+      console.log(control.value);
+      //si es diferente mandamos error devolviendo un objeto
+      if ((this.proveedores.controls["telefonoencargado"].value != aux)) {
+        return null;
+      } else {
+        //todo esta bien
+        return { Iguales: true };
+      }
+    }
+  }
 }
 
 
