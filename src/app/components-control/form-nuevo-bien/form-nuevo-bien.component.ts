@@ -21,6 +21,7 @@ export class FormNuevoBienComponent implements OnInit {
   //Variables para combos
   comboProvDon: any;
   clasificaciones: any;
+  categorias: any;
   tipocombo: string;
   marcas: any;
 
@@ -33,7 +34,9 @@ export class FormNuevoBienComponent implements OnInit {
   p: number = 1;
   display = 'none';
   displayProveedor = 'none';
+  displayClasificacion = 'none';
   proveedores: FormGroup;
+  clasificacion: FormGroup;
   proveedor: any;
   disabled: boolean;
   disabledd: boolean;
@@ -51,7 +54,9 @@ export class FormNuevoBienComponent implements OnInit {
   emple : boolean;//para el disabley enable del editar
   titulo: string;
   titulo2: string;
+  titulo3: string;
   idemp:Number = 0;
+  edit: number = 0;
   ban:Number = 0; // para el change
   @Input() bandera = false; //agrego input para hacer uso delas dos funciones
   //Variables de etiqueta
@@ -107,6 +112,17 @@ export class FormNuevoBienComponent implements OnInit {
       'rubro': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z  ñÑáÁéÉíÍóÓúÚ]+$")]),
       'encargado': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")], this.noRepetirEncargado.bind(this)),
       'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(9), this.validarContraIguales.bind(this)], this.noRepetirTelEncargado.bind(this))
+    });
+
+    //Clasificación
+    this.clasificacion = new FormGroup({
+      'idclasificacion': new FormControl("0"),
+      'bandera': new FormControl("0"),
+      'clasificacion': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
+      'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
+      'descripcion': new FormControl("", [Validators.maxLength(100), Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
+      'idcategoria': new FormControl("", [Validators.required])
+
     });
     
     //Mando el id para comparar si es nuevo ingreso o editar
@@ -218,6 +234,7 @@ export class FormNuevoBienComponent implements OnInit {
         
       })
     }
+    this.catalogoService.listarCategoriaCombo().subscribe(data => { this.categorias = data });
   }
 
   //Método para cargar combo al guardar los datos
@@ -431,7 +448,7 @@ limpiar(){
 //Métodos para proveedores
 openProveedor() {
   //limpia cache
-  this.titulo2 = "Formulario registro de proveedores";
+  this.titulo2 = "Formulario proveedor";
   this.proveedores.controls["idProveedor"].setValue("0");
   this.proveedores.controls["bandera"].setValue("0");
   this.proveedores.controls["nombre"].setValue("");
@@ -610,8 +627,117 @@ validarIguales(control: FormControl) {
   }
 }
 
+//Métodos para clasificaciones
+openClasificacion() {
+  //limpia cache
+  this.titulo3 = "Formulario clasificación";
+  this.clasificacion.controls["idclasificacion"].setValue("0");
+  this.clasificacion.controls["bandera"].setValue("0");
+  this.clasificacion.controls["clasificacion"].setValue("");
+  this.clasificacion.controls["correlativo"].setValue("");
+  this.clasificacion.controls["idcategoria"].setValue("");
+  this.clasificacion.controls["descripcion"].setValue("");
+  this.displayClasificacion = 'block';
+}
+closeClasificacion() {
+  this.displayClasificacion = 'none';
+  this.edit = 0;
+}
+
+guardarClasificacion() {
+  if ((this.clasificacion.controls["bandera"].value) == "0") {
+    if (this.clasificacion.valid == true) {
+      this.catalogoService.guardarClasificacion(this.clasificacion.value).subscribe(data => {
+        this.controlService.listarComboClasificacion().subscribe((data) => {
+          this.clasificaciones = data;
+        });
+      });
+
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '¡Registro guardado con éxito!',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+  } else {
+    //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
+    this.clasificacion.controls["bandera"].setValue("0");
+    if (this.clasificacion.valid == true) {
+      this.catalogoService.modificarclasificacion(this.clasificacion.value).subscribe(data => {
+        this.catalogoService.getClasificacion().subscribe(res => { this.clasificaciones = res });
+      });
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '¡Registro modificado con éxito!',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+  }
+  this.clasificacion.controls["idclasificacion"].setValue("0");
+  this.clasificacion.controls["bandera"].setValue("0");
+  this.clasificacion.controls["clasificacion"].setValue("");
+  this.clasificacion.controls["correlativo"].setValue("");
+  this.clasificacion.controls["idcategoria"].setValue("");
+  this.clasificacion.controls["descripcion"].setValue("");
+  this.edit = 0;
+
+  this.displayClasificacion = 'none';
+  this.controlService.listarComboClasificacion().subscribe((data) => {
+    this.clasificaciones = data;
+  });
+
+}
+
+noRepetirCorrelativo(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarCorrelativo(this.clasificacion.controls["idclasificacion"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteCorrelativo: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
 
 
+  });
+
+  return promesa;
+}
+noRepetirClasificacion(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarClasificacion(this.clasificacion.controls["idclasificacion"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteClasificacion: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
+
+
+  });
+
+  return promesa;
+}
 
 
 }
