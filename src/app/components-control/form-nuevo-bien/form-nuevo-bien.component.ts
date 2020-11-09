@@ -24,6 +24,7 @@ export class FormNuevoBienComponent implements OnInit {
   categorias: any;
   tipocombo: string;
   marcas: any;
+  
 
   //Variables
   id: any;
@@ -35,6 +36,7 @@ export class FormNuevoBienComponent implements OnInit {
   display = 'none';
   displayProveedor = 'none';
   displayClasificacion = 'none';
+  displayMarca = 'none';
   proveedores: FormGroup;
   clasificacion: FormGroup;
   proveedor: any;
@@ -55,6 +57,7 @@ export class FormNuevoBienComponent implements OnInit {
   titulo: string;
   titulo2: string;
   titulo3: string;
+  titulo4: string;
   idemp:Number = 0;
   edit: number = 0;
   ban:Number = 0; // para el change
@@ -124,6 +127,14 @@ export class FormNuevoBienComponent implements OnInit {
       'idcategoria': new FormControl("", [Validators.required])
 
     });
+
+    //Marca
+    this.marca = new FormGroup({
+      'idMarca': new FormControl("0"),
+      'bandera': new FormControl("0"),
+      'marca': new FormControl("", [Validators.required, Validators.maxLength(25), Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ]+$")], this.noRepetirMarca.bind(this)),
+      'descripcion': new FormControl("",[ Validators.maxLength(100),Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ.]+$")])
+  });
     
     //Mando el id para comparar si es nuevo ingreso o editar
     this.activateRoute.params.subscribe(parametro => {
@@ -481,21 +492,6 @@ guardarProveedor() {
       })
     }
   }
-  else {
-    this.proveedores.controls["bandera"].setValue("0");
-    if (this.proveedores.valid == true) {
-      this.catalogoService.ActualizarProveedor(this.proveedores.value).subscribe(data => {
-        this.catalogoService.getProveedores().subscribe(res => { this.proveedor = res });
-      });
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Registro modificado con éxito',
-        showConfirmButton: false,
-        timer: 3000
-      })
-    }
-  }
   this.proveedores.controls["idProveedor"].setValue("0");
   this.proveedores.controls["bandera"].setValue("0");
   this.proveedores.controls["nombre"].setValue("");
@@ -661,22 +657,7 @@ guardarClasificacion() {
         timer: 3000
       })
     }
-  } else {
-    //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
-    this.clasificacion.controls["bandera"].setValue("0");
-    if (this.clasificacion.valid == true) {
-      this.catalogoService.modificarclasificacion(this.clasificacion.value).subscribe(data => {
-        this.catalogoService.getClasificacion().subscribe(res => { this.clasificaciones = res });
-      });
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: '¡Registro modificado con éxito!',
-        showConfirmButton: false,
-        timer: 3000
-      })
-    }
-  }
+  } 
   this.clasificacion.controls["idclasificacion"].setValue("0");
   this.clasificacion.controls["bandera"].setValue("0");
   this.clasificacion.controls["clasificacion"].setValue("");
@@ -725,6 +706,73 @@ noRepetirClasificacion(control: FormControl) {
         .subscribe(data => {
           if (data == 1) {
             resolve({ yaExisteClasificacion: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
+
+
+  });
+
+  return promesa;
+}
+
+//Métodos para marca
+openMarca() {
+  //limpia cache
+  this.titulo4 = "Formulario marca";
+  this.marca.controls["idMarca"].setValue("0");
+  this.marca.controls["bandera"].setValue("0");
+  this.marca.controls["marca"].setValue("");
+  this.marca.controls["descripcion"].setValue("");
+  this.displayMarca = 'block';
+}
+closeMarca() {
+  this.displayMarca = 'none';
+}
+
+guardarMarca() {
+  if ((this.marca.controls["bandera"].value) == "0") {
+      if (this.marca.valid == true) {
+          this.catalogoService.setMarca(this.marca.value).subscribe(data => { 
+            this.controlService.listarComboMarca().subscribe((data) => {
+              this.marcas = data;
+            });
+          });
+         
+          Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro Guardado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+          })
+      }
+  } 
+  this.marca.controls["idMarca"].setValue("0");
+  this.marca.controls["bandera"].setValue("0");
+  this.marca.controls["marca"].setValue("");
+  this.marca.controls["descripcion"].setValue("");
+  this.displayMarca = 'none';
+  this.controlService.listarComboMarca().subscribe((data) => {
+    this.marcas = data;
+  });
+
+}
+
+noRepetirMarca(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogoService.validarExisteMarca(this.marca.controls["idMarca"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteMarca: true });
           } else {
             resolve(null);
           }
