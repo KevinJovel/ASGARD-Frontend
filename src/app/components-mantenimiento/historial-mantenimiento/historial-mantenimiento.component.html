@@ -63,8 +63,8 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 5, currentPage: p };let i=index">
-                            <th scope="col">{{i+(5*p)-4}}</th>
+                          <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 4, currentPage: p };let i=index">
+                            <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
                             <!-- <td>{{marca.idMarca}}</td> -->
                             <td>{{bien.codigo}}</td>
                             <td>{{bien.descripcion}}</td>
@@ -144,8 +144,8 @@
                         <th scope="row">N°</th>                   
                         <th scope="row">Fecha</th>
                         <th scope="row">Tecnico</th>
-                        <th scope="row">Costo de mano de obra</th>
-                        <th scope="row">Costo de materiales</th>
+                        <th scope="row">Costo mano de obra</th>
+                        <th scope="row">Costo materiales</th>
                         <th scope="row">Costo total</th>
                         <th scope="row">Descripción</th>
                        <!-- <th scope="row" class="hidden-phone">Enviar</th>-->
@@ -153,8 +153,8 @@
                     </thead>
                     <tbody>
 
-                <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-               <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+               <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
                 
                <td>{{informe.fechacadena}}</td>
                <td>{{informe.nombretecnico}}</td>

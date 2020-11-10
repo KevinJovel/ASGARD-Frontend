@@ -53,14 +53,20 @@ export class TablaInformeComponent implements OnInit {
     this.mantenimientoService.listarTecnicoCombo().subscribe(data=>{
       this.tecnicos=data;    
       });
-      //Método para recuperar año
-   this.controlService.mostrarAnio().subscribe((res)=> {
-    this.fechaMaxima=`${res.anio}-12-31`;
-    this.fechaMinima=`${(res.anio).toString()}-01-01`;
-  });
+    
   }
-  open(id,idbien){
+  open(id,idbien,fecha){
    // alert(id);
+   this.informe.controls["fechainforme"].setValue(fecha);
+   var fecharecup = this.informe.controls["fechainforme"].value.split("-");
+   let dia=fecharecup[0];
+   let mes=fecharecup[1];
+   let anio=fecharecup[2];
+   this.controlService.mostrarAnio().subscribe((res)=> {
+     this.fechaMaxima=`${res.anio}-12-31`;
+     this.fechaMinima=`${anio}-${mes}-${dia}`;
+   });
+   
  
   
     this.titulo = "Informe de mantenimiento";
@@ -68,7 +74,7 @@ export class TablaInformeComponent implements OnInit {
       this.informe.controls["idinformematenimiento"].setValue("0");
       this.informe.controls["idmantenimiento"].setValue(id);
       this.informe.controls["idBien"].setValue(idbien);
-      this.informe.controls["fechainforme"].setValue("");
+     // this.informe.controls["fechainforme"].setValue("");
        this.informe.controls["idtecnico"].setValue("");
        this.informe.controls["descripcion"].setValue("");
        this.informe.controls["costomateriales"].setValue("");
@@ -130,6 +136,11 @@ export class TablaInformeComponent implements OnInit {
           this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(data=>{ this.bienes=data});
           }
         });
+        var fecha = this.bienes.controls["fechainforme"].value.split("-");
+           var anio = fecha[0];
+            var mes = fecha[1];
+            var dia = fecha[2];
+            this.bienes.controls["fechainforme"].setValue(mes + "/" + dia + "/" + anio);
       
       }else{
         Swal.fire({
