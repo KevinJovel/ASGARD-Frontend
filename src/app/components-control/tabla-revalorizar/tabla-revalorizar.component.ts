@@ -61,7 +61,6 @@ export class TablaRevalorizarComponent implements OnInit {
      });
      this.datos = new FormGroup({
       'idBien': new FormControl("0"),
-      // 'bandera': new FormControl("0"),
       'codigo': new FormControl(""),
       'descripcion': new FormControl(""),
       'valorAdquicicion': new FormControl(""),
@@ -75,8 +74,6 @@ export class TablaRevalorizarComponent implements OnInit {
       'idBien': new FormControl(""),
       'valorRevalorizacion': new FormControl("",[Validators.required,Validators.pattern("^[0-9.]+$")]),
       'idinformematenimiento': new FormControl(""),
-     // 'valorActual': new FormControl(""),
-     // 'valorDepreciacion': new FormControl("0.00"),
       'vidaUtil': new FormControl("",[Validators.pattern("^[0-9]+$")]),
       'fecha': new FormControl("",[Validators.required])
   });
@@ -145,8 +142,8 @@ export class TablaRevalorizarComponent implements OnInit {
       this.tablaMuebles='block';
       this.banderaBuscador=1;
     });
-    this.disabledFiltroBotonAsignacion=false;
-    this.disabledFiltro=false;
+    //this.disabledFiltroBotonAsignacion=false;
+    //this.disabledFiltro=false;
   }
   guardarDatos(){
    // console.log(this.revalorizacion.value);
