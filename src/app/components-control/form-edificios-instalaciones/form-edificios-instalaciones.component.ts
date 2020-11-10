@@ -26,6 +26,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   display = 'none';
   displayProveedor = 'none';
   displayClasificacion = 'none';
+  displaySucursal = 'none';
   disabled: boolean;
   disabledd: boolean;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
@@ -36,7 +37,10 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   titulo: string;
   titulo2: string;
   titulo3: string;
+  titulo4: string;
   edit: number = 0;
+  modif: number = 0;
+  yaExiste: boolean = false;
  //Para la fecha
  fechaMaxima: any;
  fechaMinima: any;
@@ -106,7 +110,16 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
       'descripcion': new FormControl("", [Validators.maxLength(100), Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
       'idcategoria': new FormControl("", [Validators.required])
 
-    })
+    });
+
+    //Sucursal
+    this.sucursal = new FormGroup({
+      'idSucursal': new FormControl("0"),
+      'bandera': new FormControl("0"),
+      'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ]+$")]),
+      'ubicacion': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9Ññáéíóú,ÁÉÍÓÚ#,.]+$")]),
+      'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[a-zA-Z 0-9Ññ]+$")], this.noRepetirCorrelativoSucursal.bind(this))
+  });
 
        //Mando el id para comparar si es nuevo ingreso o editar
     this.activateRoute.params.subscribe(parametro => {
@@ -684,6 +697,88 @@ noRepetirClasificacion(control: FormControl) {
   });
 
   return promesa;
+}
+
+//Métodos para sucursal
+openSucursal() {
+  //limpia cache
+  this.titulo4 = "Formulario sucursal";
+  this.sucursal.controls["idSucursal"].setValue("0");
+  this.sucursal.controls["bandera"].setValue("0");
+  this.sucursal.controls["nombre"].setValue("");
+  this.sucursal.controls["ubicacion"].setValue("");
+  this.sucursal.controls["correlativo"].setValue("");
+  this.displaySucursal = 'block';
+}
+closeSucursal() {
+  this.displaySucursal = 'none';
+  this.modif = 0;
+  this.yaExiste = false;
+}
+
+validar() {
+  if (this.sucursal.controls["nombre"].value != "" && this.sucursal.controls["ubicacion"].value != "") {
+      this.catalogoService.validarSucursalUbicacion(this.sucursal.controls["idSucursal"].value, this.sucursal.controls["nombre"].value, this.sucursal.controls["ubicacion"].value)
+          .subscribe(data => {
+              if (data == 1) {
+                  this.yaExiste = true;
+              } else {
+                  this.yaExiste = false;
+              }
+          });
+  }
+}
+
+noRepetirCorrelativoSucursal(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+      if (control.value != "" && control.value != null) {
+
+          this.catalogoService.validarCorrelativoSucursal(this.sucursal.controls["idSucursal"].value, control.value)
+              .subscribe(data => {
+                  if (data == 1) {
+                      resolve({ yaExisteCorrelativo: true });
+                  } else {
+                      resolve(null);
+                  }
+
+              })
+      }
+  });
+
+  return promesa;
+}
+
+guardarSucursal() {
+  //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
+  if ((this.sucursal.controls["bandera"].value) == "0") {
+      if (this.sucursal.valid == true) {
+          this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
+            this.controlService.comboSucursal().subscribe((data) => {
+              this.sucursales=data;
+            });
+              this.display = 'none';
+          });
+          Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro guardado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+          })
+      }
+  }
+  this.sucursal.controls["idSucursal"].setValue("0");
+  this.sucursal.controls["bandera"].setValue("0");
+  this.sucursal.controls["nombre"].setValue("");
+  this.sucursal.controls["ubicacion"].setValue("");
+  this.sucursal.controls["correlativo"].setValue("");
+  this.displaySucursal = 'none';
+  this.modif = 0;
+  this.controlService.comboSucursal().subscribe((data) => {
+    this.sucursales=data;
+  });
 }
 
 }
