@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="form-row">
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-3">
                     <label>*{{tipocombo}}</label >
                       <select  class="form-control" formControlName="idproveedor">
                     <option value="0">--Seleccione--</option >
@@ -80,7 +80,13 @@
                     </select>
                   </div>
 
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-1">
+                    <label></label>
+                    <button type="button" style="margin-right: 70px;" class="btn btn-success" (click)="openProveedor()" data-toggle="modal" data-target="#myModal"><i
+                      class="icon-plus-sign-alt"></i> </button>
+                  </div>
+
+                  <div class="form-group col-md-3">
                     <label>* Clasificación</label>
                     <select  class="form-control" formControlName="idclasificacion">
                       <option value="0">--Seleccione--</option>
@@ -88,13 +94,25 @@
                     </select>
                    </div>
 
-                   <div class="form-group col-md-4">
+                   <div class="form-group col-md-1">
+                    <label></label>
+                    <button type="button" style="margin-right: 70px;" class="btn btn-success" (click)="openClasificacion()" data-toggle="modall" data-target="#myModal"><i
+                      class="icon-plus-sign-alt"></i> </button>
+                  </div>
+
+                   <div class="form-group col-md-3">
                     <label>* Área de negocio</label>
                     <select  class="form-control" formControlName="idarea" [attr.disabled]="disabledd ? '' : null">
                       <option value="0">{{selectionDisable}}</option>
                       <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
                     </select>
                    </div>
+
+                   <div class="form-group col-md-1">
+                    <label></label>
+                    <button type="button" style="margin-right: 70px;" class="btn btn-success" (click)="openArea()" data-toggle="modalll" data-target="#myModal"><i
+                      class="icon-plus-sign-alt"></i> </button>
+                  </div>
               </div>
                 
                 <div class="row">
@@ -402,3 +420,405 @@
   </div>
 </section>
 
+<!--modal para ingresar Proveedor-->
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':displayProveedor}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="closeProveedor()">×</button>
+
+        <h4 class="modal-title">{{titulo2}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="proveedores" (ngSubmit)="guardarProveedor()">
+          <input type="hidden" class="form-control" formControlName="idProveedor" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+         
+    
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Nombre:</label>
+            <input size=35 type="text"  class="form-control" formControlName="nombre" id="nombre" placeholder="Ingrese nombre" maxlength="51" autocomplete="off">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Teléfono:</label>
+            <input size=35 type="text" mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
+          </div>
+       
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Dirección:</label>
+            <input type="text" class="form-control" formControlName="direccion" id="direccion" placeholder="Ingrese dirección" maxlength="101" autocomplete="off">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Rubro:</label>
+            <input type="text"  class="form-control" formControlName="rubro" id="rubro" placeholder=" Ingrese rubro" maxlength="51" autocomplete="off">
+          </div>
+        
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Encargado:</label>
+            <input type="text"  class="form-control" formControlName="encargado" id="encargado" placeholder="Ingrese encargado" maxlength="51" autocomplete="off">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">*Teléfono encargado:</label>
+            <input type="text" mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefonoencargado" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
+          </div>
+ 
+      <br><br><br><br><br><br><br><br><br><br><br><br>
+<!--  WARNING-->
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['nombre'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['nombre'].errors?.yaExisteProveedor">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> ya existe el nombre de proveedor ingresado, por favor intente con un nuevo.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['nombre'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo nombre no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['direccion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo dirección.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['direccion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo dirección no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['encargado'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre encargado.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['encargado'].errors?.yaExisteEncargado">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> ya existe el nombre de encargado ingresado, por favor intente con un nuevo.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['encargado'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo nombre encargado no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['rubro'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en el campo rubro.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['rubro'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo rubro no acepta caracteres especiales.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefono'].errors?.yaExisteTelProveedor">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> ya existe el telefono de proveedor ingresado, por favor intente con un nuevo.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefono'].errors?.Iguales">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El teléfono del proveedor tiene que ser diferente.
+          </div><!---->
+         
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> ya existe el telefono de encargado ingresado, por favor intente con un nuevo.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="proveedores.controls['telefonoencargado'].errors?.noIguales">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El teléfono del encargado tiene que ser diferente.
+          </div><!---->
+  
+             <div class="alert alert-warning fade in" *ngIf="!proveedores.valid&&!proveedores.controls['telefonoencargado'].errors?.yaExisteTelEncargado">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
+          </div>
+
+          <div class="alert alert-success fade in" *ngIf="proveedores.valid&&proveedores.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+          </div>
+      
+          <button type="submit" [disabled]="!proveedores.valid"  class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="button" (click)="closeProveedor()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal para ingresar Clasificación-->
+<div #basicModall aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modall" [ngStyle]="{'display':displayClasificacion}">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="closeClasificacion()">×</button>
+        <h4 class="modal-title">{{titulo3}}</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" [formGroup]="clasificacion" (ngSubmit)="guardarClasificacion()">
+          <input type="hidden" class="form-control" formControlName="idclasificacion" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+
+          <div class="form-group">
+            <label>* Correlativo:</label>
+            <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="correlativo"
+              placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+          </div>
+
+          <div class="form-group">
+            <label>* Clasificación:</label>
+            <input type="text" class="form-control" formControlName="clasificacion" placeholder="Ingrese clasificación"
+              autocomplete="off" maxlength="51">
+          </div>
+          <div class="form-group">
+            <label>* Categoria:</label>
+            <select class="form-control" formControlName="idcategoria" aria-readonly="false" maxlength="51">
+              <option value="">---Seleccione---</option>
+              <option [disabled]="this.edit==1" [value]="categoria.idCategoria" *ngFor="let categoria of categorias">
+                {{categoria.categoria}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label> Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
+              placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
+          </div>
+
+
+
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['correlativo'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo correlativo no acepta caracteres especiales.
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="this.edit==1">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> El correlativo y la categoría no se pueden modificar porque hay activos
+            referenciados.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['correlativo'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo correlativo.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['correlativo'].errors?.yaExisteCorrelativo">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Ya existe el correlativo ingresado, por favor intente con uno nuevo.
+          </div>
+
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['clasificacion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo clasificación no acepta caracteres especiales.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['clasificacion'].errors?.yaExisteClasificacion">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Ya existe la clasificación ingresada, por favor intente con una nueva.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['clasificacion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo clasificación.
+          </div>
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['descripcion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo descripción no acepta algunos caracteres especiales.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
+          </div>
+
+
+          <!--  WARNING-->
+          <div class="alert alert-warning fade in"
+            *ngIf="!clasificacion.valid&&!clasificacion.controls['descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+          </div>
+
+          <div class="alert alert-success fade in"
+            *ngIf="clasificacion.valid&&clasificacion.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+          </div>
+          <button [disabled]="!clasificacion.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
+            Guardar</button>
+          <button type="button" (click)="closeClasificacion()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal para ingresar Área-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modalll"
+  [ngStyle]="{'display':displayArea}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="closeArea()">×</button>
+        <h4 class="modal-title">{{titulo4}}</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" [formGroup]="area" (ngSubmit)="guardarArea()">
+          <input type="hidden" class="form-control" formControlName="idAreaNegocio" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+          <div class="form-group">
+            <label>* Área de Negocio:</label>
+            <input type="text" class="form-control" formControlName="nombre" (keyup)="validarArea()"
+              placeholder="Ingrese área de negocio" autocomplete="off" maxlength="51">
+          </div>
+          <div class="form-group">
+            <label>* Sucursal:</label>
+            <select class="form-control" formControlName="idSucursal" (change)="validarArea()">
+              <option value="">---Seleccione---</option>
+              <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">
+                {{sucursal.nombre+" , "+sucursal.ubicacion}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>* Correlativo:</label>
+            <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo"
+              id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+          </div>
+          <!-- Alertas campo areas de negocio -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['nombre'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo área de negocio.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['nombre'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo área de negocio no acepta caracteres especiales.
+          </div>
+          <!-- Alertas de campo sucursal -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="this.yaExiste==true">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Esta combinación de área de negocio y sucursal ya existe.
+          </div>
+          <!-- Alertas de campo correlativo correlativo -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo correlativo.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo correlativo no acepta caracteres especiales.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="area.controls['correlativo'].errors?.yaExisteCorrelativo">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Ya existe el correlativo ingresado.
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="this.modif==1">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> El correlativo no se puede modificar, porque hay activos referenciados.
+          </div>
+          <!--  WARNING-->
+          <div class="alert alert-warning fade in"
+            *ngIf="!area.valid&&!area.controls['correlativo'].errors?.yaExisteCorrelativo||this.yaExiste==true">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
+          </div>
+          <!--  END-WARNING-->
+          <div class="alert alert-success fade in"
+            *ngIf="area.valid&&area.controls['bandera'].value==0&&this.yaExiste==false">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+          </div>
+          <button [disabled]="!area.valid||this.yaExiste==true" type="submit" class="btn btn-primary"><i
+              class="icon-save"></i> Guardar</button>
+          <button type="button" (click)="closeArea()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
