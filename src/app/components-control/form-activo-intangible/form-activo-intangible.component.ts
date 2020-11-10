@@ -16,14 +16,25 @@ declare var $;
 export class FormActivoIntangibleComponent implements OnInit {
   //Variables
   activoIntangible: FormGroup;
+  proveedores: FormGroup;
+  clasificacion: FormGroup;
   p:number=1;
   id: any;
   foto: any;
+  areas: any;
+  sucursales: any;
+  area: FormGroup;
+  categorias: any;
   display = 'none';
+  displayProveedor = 'none';
+  displayClasificacion = 'none';
+  displayArea = 'none';
   disabled: boolean;
   disabledd: boolean;
   edit: number = 0;
+  yaExiste:boolean=false;
   donaprov = false; //utilizo boolean para recuperar doannte o prov
+  modif: number=0;
   
 
   //Para la fecha
@@ -32,10 +43,12 @@ export class FormActivoIntangibleComponent implements OnInit {
 
  parametro: string;
  titulo: string;
+ titulo2: string;
+  titulo3: string;
+  titulo4: string;
 
   //Variables para combos
   clasificaciones: any;
-  areas: any;
   tipocombo: string;
   comboProvDon: any;
 
@@ -74,6 +87,39 @@ export class FormActivoIntangibleComponent implements OnInit {
       observaciones: new FormControl('',[Validators.maxLength(70),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
 
     });
+
+       //Proveedores
+       this.proveedores = new FormGroup({
+
+        'idProveedor': new FormControl("0"),
+        'bandera': new FormControl("0"),
+        'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")], this.noRepetirProveedor.bind(this)),
+        'telefono': new FormControl("", [Validators.required, Validators.maxLength(9), this.validarIguales.bind(this)], this.noRepetirTelProveedor.bind(this)),
+        'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #.°]+$")]),
+        'rubro': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z  ñÑáÁéÉíÍóÓúÚ]+$")]),
+        'encargado': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")], this.noRepetirEncargado.bind(this)),
+        'telefonoencargado': new FormControl("", [Validators.required, Validators.maxLength(9), this.validarContraIguales.bind(this)], this.noRepetirTelEncargado.bind(this))
+      });
+  
+      //Clasificación
+      this.clasificacion = new FormGroup({
+        'idclasificacion': new FormControl("0"),
+        'bandera': new FormControl("0"),
+        'clasificacion': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirClasificacion.bind(this)),
+        'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirCorrelativo.bind(this)),
+        'descripcion': new FormControl("", [Validators.maxLength(100), Validators.pattern("^[a-zA-Z 0-9-ñÑ@.,#+?¿¡''!áéíóúÁÉÍÓÚ ]+$")]),
+        'idcategoria': new FormControl("", [Validators.required])
+  
+      });
+
+      //Área de negocio
+      this.area = new FormGroup({
+        'idAreaNegocio': new FormControl("0"),
+        'bandera': new FormControl("0"),
+        'nombre': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-Z 0-9ÑñáéíóúÁÉÍÓÚ]+$")]),
+        'idSucursal': new FormControl("0",[Validators.required]),
+        'correlativo': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[a-zA-Z 0-9]+$")], this.noRepetirCorrelativoArea.bind(this))
+      });
 
     //Mando el id para comparar si es nuevo ingreso o editar
     this.activateRoute.params.subscribe(parametro => {
@@ -205,6 +251,9 @@ export class FormActivoIntangibleComponent implements OnInit {
       })
     }
   });
+  this.catalogosService.listarCategoriaCombo().subscribe(data => { this.categorias = data });
+  this.catalogosService.getAreas().subscribe(data => { this.areas = data });
+    this.catalogosService.getComboSucursal().subscribe(data => { this.sucursales = data });
   }
 
 //Método para cargar combo al guardar los datos
@@ -383,5 +432,351 @@ ProveedorDonante() {
 
   }
 
+  //Métodos para proveedores
+openProveedor() {
+  //limpia cache
+  this.titulo2 = "Formulario proveedor";
+  this.proveedores.controls["idProveedor"].setValue("0");
+  this.proveedores.controls["bandera"].setValue("0");
+  this.proveedores.controls["nombre"].setValue("");
+  this.proveedores.controls["telefono"].setValue("");
+  this.proveedores.controls["direccion"].setValue("");
+  this.proveedores.controls["rubro"].setValue("");
+  this.proveedores.controls["encargado"].setValue("");
+  this.proveedores.controls["telefonoencargado"].setValue("");
+  this.displayProveedor = 'block';
+}
+closeProveedor() {
+  this.displayProveedor = 'none';
+}
+
+guardarProveedor() {
+  if ((this.proveedores.controls["bandera"].value) == "0") {
+    if (this.proveedores.valid == true) {
+      this.catalogosService.agregarProveedor(this.proveedores.value).subscribe(data => {
+    //    this.catalogoService.getProveedores().subscribe(res => { this.proveedor = res });
+    this.controlService.listarComboProveedor().subscribe((res) => {
+      this.comboProvDon = res;
+    });
+      });
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Registro guardado con éxito',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+  }
+  this.proveedores.controls["idProveedor"].setValue("0");
+  this.proveedores.controls["bandera"].setValue("0");
+  this.proveedores.controls["nombre"].setValue("");
+  this.proveedores.controls["telefono"].setValue("");
+  this.proveedores.controls["direccion"].setValue("");
+  this.proveedores.controls["rubro"].setValue("");
+  this.proveedores.controls["encargado"].setValue("");
+  this.proveedores.controls["telefonoencargado"].setValue("");
+
+  this.displayProveedor = 'none';
+  this.controlService.listarComboProveedor().subscribe((res) => {
+    this.comboProvDon = res;
+  });
+}
+
+noRepetirProveedor(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogosService.validarProveedor(this.proveedores.controls["idProveedor"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteProveedor: true });
+          } else {
+            resolve(null);
+          }
+        });
+    }
+  });
+
+  return promesa;
+}
+
+noRepetirEncargado(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogosService.validarEncargado(this.proveedores.controls["idProveedor"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteEncargado: true });
+          } else {
+            resolve(null);
+          }
+        });
+    }
+  });
+
+  return promesa;
+}
+
+noRepetirTelProveedor(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogosService.validarTelProveedor(this.proveedores.controls["idProveedor"].value, control.value)
+        .subscribe(data => {
+
+          if (data == 1) {
+            resolve({ yaExisteTelProveedor: true });
+          } else {
+            resolve(null);
+          }
+        });
+    }
+  });
+
+  return promesa;
+}
+
+noRepetirTelEncargado(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogosService.validarTelEncargado(this.proveedores.controls["idProveedor"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteTelEncargado: true });
+          } else {
+            resolve(null);
+          }
+        });
+    }
+  });
+
+  return promesa;
+}
+
+validarContraIguales(control: FormControl) {
+  //con value sacamos el valor del control
+  if (control.value != "" && control.value != null) {
+    var aux: String = "";
+    aux = control.value;
+    if (aux.length == 9) {
+      //console.log(control.value);
+      if ((this.proveedores.controls["telefono"].value != aux)) {
+        return null;
+      } else {
+        //todo esta bien
+        return { noIguales: true };
+      }
+    }
+  }
+}
+
+validarIguales(control: FormControl) {
+  //con value sacamos el valor del control
+  if (control.value != "" && control.value != null) {
+    var aux: String = "";
+    aux = control.value;
+    if (aux.length == 9) {
+      console.log(control.value);
+      //si es diferente mandamos error devolviendo un objeto
+      if ((this.proveedores.controls["telefonoencargado"].value != aux)) {
+        return null;
+      } else {
+        //todo esta bien
+        return { Iguales: true };
+      }
+    }
+  }
+}
+
+//Métodos para clasificaciones
+openClasificacion() {
+  //limpia cache
+  this.titulo3 = "Formulario clasificación";
+  this.clasificacion.controls["idclasificacion"].setValue("0");
+  this.clasificacion.controls["bandera"].setValue("0");
+  this.clasificacion.controls["clasificacion"].setValue("");
+  this.clasificacion.controls["correlativo"].setValue("");
+  this.clasificacion.controls["idcategoria"].setValue("");
+  this.clasificacion.controls["descripcion"].setValue("");
+  this.displayClasificacion = 'block';
+}
+closeClasificacion() {
+  this.displayClasificacion = 'none';
+  this.edit = 0;
+}
+
+guardarClasificacion() {
+  if ((this.clasificacion.controls["bandera"].value) == "0") {
+    if (this.clasificacion.valid == true) {
+      this.catalogosService.guardarClasificacion(this.clasificacion.value).subscribe(data => {
+        this.controlService.listarComboClasificacionIntan().subscribe((data) => {
+          this.clasificaciones=data;
+        });
+      });
+
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '¡Registro guardado con éxito!',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+  } 
+  this.clasificacion.controls["idclasificacion"].setValue("0");
+  this.clasificacion.controls["bandera"].setValue("0");
+  this.clasificacion.controls["clasificacion"].setValue("");
+  this.clasificacion.controls["correlativo"].setValue("");
+  this.clasificacion.controls["idcategoria"].setValue("");
+  this.clasificacion.controls["descripcion"].setValue("");
+  this.edit = 0;
+
+  this.displayClasificacion = 'none';
+  this.controlService.listarComboClasificacion().subscribe((data) => {
+    this.clasificaciones = data;
+  });
+
+}
+
+noRepetirCorrelativo(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogosService.validarCorrelativo(this.clasificacion.controls["idclasificacion"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteCorrelativo: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
+
+
+  });
+
+  return promesa;
+}
+noRepetirClasificacion(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogosService.validarClasificacion(this.clasificacion.controls["idclasificacion"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteClasificacion: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
+
+
+  });
+
+  return promesa;
+}
+
+//Métodos área de negocio
+openArea() {
+  this.titulo4 = "Formulario áreas de negocio"
+  this.area.controls["idAreaNegocio"].setValue("0");
+  this.area.controls["bandera"].setValue("0");
+  this.area.controls["nombre"].setValue("");
+  this.area.controls["idSucursal"].setValue("");
+  this.area.controls["correlativo"].setValue("");
+  this.displayArea = 'block';
+
+}
+
+closeArea() {
+  this.displayArea = "none";
+  this.yaExiste=false;
+  this.modif = 0;
+}
+
+guardarArea() {
+  if ((this.area.controls["bandera"].value) == "0") {
+    if (this.area.valid == true) {
+      this.catalogosService.setArea(this.area.value).subscribe(data => {
+        this.controlService.listarComboArea().subscribe((data) => {
+          this.areas=data;
+        });
+      });
+
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '¡Registro Guardado con éxito!',
+        showConfirmButton: false,
+        timer: 3000
+      })
+    }
+  }
+  this.area.controls["idAreaNegocio"].setValue("0");
+  this.area.controls["bandera"].setValue("0");
+  this.area.controls["nombre"].setValue("");
+  this.area.controls["idSucursal"].setValue("");
+  this.area.controls["correlativo"].setValue("");
+  this.displayArea = 'none';
+}
+
+noRepetirCorrelativoArea(control: FormControl) {
+
+  var promesa = new Promise((resolve, reject) => {
+
+    if (control.value != "" && control.value != null) {
+
+      this.catalogosService.validarCorrelativoArea(this.area.controls["idAreaNegocio"].value, control.value)
+        .subscribe(data => {
+          if (data == 1) {
+            resolve({ yaExisteCorrelativo: true });
+          } else {
+            resolve(null);
+          }
+
+        })
+
+    }
+
+
+  });
+
+  return promesa;
+}
+
+validarArea(){
+  if(this.area.controls["nombre"].value!=""&&this.area.controls["idSucursal"].value!=0){
+   this.catalogosService.validarAreaSucursal(this.area.controls["idAreaNegocio"].value,this.area.controls["nombre"].value,this.area.controls["idSucursal"].value)
+   .subscribe(data => {
+     if (data == 1) {
+       this.yaExiste=true;
+     } else {
+       this.yaExiste=false;
+     }
+
+   });
+  }
+  
+ }
 
 }
