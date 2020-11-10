@@ -95,7 +95,7 @@
                       class="icon-plus-sign-alt"></i> </button>
                   </div>
 
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-3">
                     <label>* Clasificación</label>
                     <select  class="form-control" formControlName="idclasificacion">
                       <option value="0">--Seleccione--</option>
@@ -103,13 +103,25 @@
                     </select>
                    </div>
 
-                   <div class="form-group col-md-4">
+                   <div class="form-group col-md-1">
+                    <label></label>
+                    <button type="button" style="margin-right: 70px;" class="btn btn-success" (click)="openClasificacion()" data-toggle="modall" data-target="#myModal"><i
+                      class="icon-plus-sign-alt"></i> </button>
+                  </div>
+
+                   <div class="form-group col-md-3">
                     <label>* Sucursal</label>
                     <select class="form-control" formControlName="idsucursal" [attr.disabled]="disabledd ? '' : null">
                       <option value="0">{{selectionDisable}}</option>
                       <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>
                     </select>  
                   </div>
+              </div>
+
+              <div class="form-group col-md-1">
+                <label></label>
+                <button type="button" style="margin-right: 70px;" class="btn btn-success" (click)="openProveedor()" data-toggle="modal" data-target="#myModal"><i
+                  class="icon-plus-sign-alt"></i> </button>
               </div>
                 
                 <div class="row">
@@ -578,3 +590,140 @@
   </div>
 </div>
 
+<!--modal para ingresar Clasificación-->
+<div #basicModall aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modall" [ngStyle]="{'display':displayClasificacion}">
+  <div class="modal-dialog" style="width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="closeClasificacion()">×</button>
+        <h4 class="modal-title">{{titulo3}}</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" [formGroup]="clasificacion" (ngSubmit)="guardarClasificacion()">
+          <input type="hidden" class="form-control" formControlName="idclasificacion" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+
+          <div class="form-group">
+            <label>* Correlativo:</label>
+            <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="correlativo"
+              placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+          </div>
+
+          <div class="form-group">
+            <label>* Clasificación:</label>
+            <input type="text" class="form-control" formControlName="clasificacion" placeholder="Ingrese clasificación"
+              autocomplete="off" maxlength="51">
+          </div>
+          <div class="form-group">
+            <label>* Categoria:</label>
+            <select class="form-control" formControlName="idcategoria" aria-readonly="false" maxlength="51">
+              <option value="">---Seleccione---</option>
+              <option [disabled]="this.edit==1" [value]="categoria.idCategoria" *ngFor="let categoria of categorias">
+                {{categoria.categoria}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label> Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
+              placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
+          </div>
+
+
+
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['correlativo'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo correlativo no acepta caracteres especiales.
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="this.edit==1">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> El correlativo y la categoría no se pueden modificar porque hay activos
+            referenciados.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['correlativo'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo correlativo.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['correlativo'].errors?.yaExisteCorrelativo">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Ya existe el correlativo ingresado, por favor intente con uno nuevo.
+          </div>
+
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['clasificacion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo clasificación no acepta caracteres especiales.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['clasificacion'].errors?.yaExisteClasificacion">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Ya existe la clasificación ingresada, por favor intente con una nueva.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['clasificacion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo clasificación.
+          </div>
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['descripcion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo descripción no acepta algunos caracteres especiales.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="clasificacion.controls['descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
+          </div>
+
+
+          <!--  WARNING-->
+          <div class="alert alert-warning fade in"
+            *ngIf="!clasificacion.valid&&!clasificacion.controls['descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+          </div>
+
+          <div class="alert alert-success fade in"
+            *ngIf="clasificacion.valid&&clasificacion.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+          </div>
+          <button [disabled]="!clasificacion.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
+            Guardar</button>
+          <button type="button" (click)="closeClasificacion()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
