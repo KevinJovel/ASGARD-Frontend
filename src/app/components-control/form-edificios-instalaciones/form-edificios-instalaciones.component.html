@@ -162,7 +162,7 @@
                   <button data-dismiss="alert" class="close close-sm" type="button">
                     <i class="icon-remove"></i>
                   </button>
-                  <strong>¡Advertencia!</strong> La fecha y el costo no se pueden editar porque el activo seleccionado ya ha sido depreciado al menos una vez.
+                  <strong>¡Advertencia!</strong> La fecha, costo y valor residual no se pueden editar porque el activo seleccionado ya ha sido depreciado al menos una vez.
                 </div>
   
 
@@ -228,7 +228,7 @@
             <div class="form-row">
                <div class="form-group col-md-4">
                 <label for="inputPassword4">Valor residual</label>
-                <input type="text" class="form-control" placeholder="Ingrese valor residual" formControlName="valorresidual" maxlength="11" autocomplete="off">
+                <input [readOnly]="this.edit==1" type="text" class="form-control" placeholder="Ingrese valor residual" formControlName="valorresidual" maxlength="11" autocomplete="off">
                </div>
 
               </div>
