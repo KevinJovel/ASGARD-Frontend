@@ -9,12 +9,27 @@ export class TraspasoService {
   constructor(private http: Http) {
     
   }
-
+  public listarActivosAsignados(){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/listarActivosAsignados").map(res=>res.json());
+  }
   public listarAreaCombo(){
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/listarAreaCombo").map(res=>res.json());
   }
   public listarEmpleadosCombo(){
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/listarEmpleadosCombo").map(res=>res.json());
   }
+  public guardarSolicitudTraspaso(id) {
+    return this.http.post(environment.urlService + "api/SolicitudTraspaso/guardarSolicitudTraspaso", id).map(res => res.json());
+  } 
+  public cambiarEstadoSolicitud(id) {
+    return this.http.post(environment.urlService + "api/SolicitudTraspaso/cambiarEstadoSolicitud", id).map(res => res.json());
+  }
+  public listarSolicitudTraspaso(){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/listarSolicitudTraspaso").map(res=>res.json());
+  }
+  public verSolicitudTraspaso(id){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/verSolicitudTraspaso/" + id).map(res=>res.json());
+  }
+  
   
 }

@@ -67,15 +67,15 @@
               </thead>
 
               <tbody>
-              <tr *ngFor="let acti22 of activo | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+              <tr *ngFor="let activo of activos | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{acti22.codigo}}</td>
-                  <td>{{acti22.fechacadena}}</td>
-                  <td>{{acti22.desripcion}}</td>
-                  <td>{{acti22.areaDeNegocio}}</td>
-                  <td>{{acti22.resposnsable}}</td>
+                  <td>{{activo.codigo}}</td>
+                  <td>{{activo.fechacadena}}</td>
+                  <td>{{activo.desripcion}}</td>
+                  <td>{{activo.areaDeNegocio}}</td>
+                  <td>{{activo.resposnsable}}</td>
                   <td class="center hidden-phone">
-                    <button title="Realizar solicitud" class="btn btn-primary btn-xs" (click)="open(acti22.idBien)">
+                    <button title="Realizar solicitud" class="btn btn-primary btn-xs" (click)="open(activo.idBien)">
                       <i class="glyphicon glyphicon-share-alt"></i></button>
                 </tr>
               </tbody>
@@ -100,7 +100,8 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idsolicitud" autocomplete="off">
+          <input type="text" class="form-control" formControlName="idsolicitud" autocomplete="off">
+          <input type="text" class="form-control" formControlName="idbien" autocomplete="off">
      
          
           <div class="form-group col-md-6">
@@ -110,21 +111,13 @@
 
           <div class="form-group col-md-6">
             <label for="exampleInputEmail1">*Folio:</label>
-            <input size=25  type="text"  class="form-control" formControlName="contacto" placeholder="Ingrese folio"  maxlength="51" autocomplete="off">
+            <input size=25  type="text"  class="form-control" formControlName="folio" placeholder="Ingrese folio"  maxlength="51" autocomplete="off">
           </div> 
-          <div class="form-group col-md-6">
-            <label>* Área de negocio:</label>
-            <select class="form-control">
-              <option value="">---Seleccione---</option>
-              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
-                {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
-            </select>
-          </div>
             
           <br> <br>
           <div class="form-group col-md-6">
             <label>* Área de negocio nueva:</label>
-            <select class="form-control">
+            <select class="form-control" formControlName="nuevaarea">
               <option value="">---Seleccione---</option>
               <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
                 {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
@@ -134,7 +127,7 @@
 
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2">*Nuevo responsable:</label>
-              <select class="form-control" (change)="Gcodigo()">
+              <select class="form-control" formControlName="nuevoresponsable" >
                 <option value="0">---Seleccione---</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
               </select>
@@ -153,93 +146,6 @@
 
           <!--Alert-->
 <br><br><br><br><br><br><br><br>
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> Tamaño máximo permitido en el campo folio.
-</div>
-
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Advertencia!</strong> ya existe el folio ingresado, por favor intente con un nuevo.
-</div>
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.pattern">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> El campo folio no acepta caracteres especiales.
-</div>
-
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.maxlength">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> Tamaño máximo permitido en el campo domicilio.
-</div>
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['domicilio'].errors?.pattern">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> El campo  domicilio no acepta caracteres especiales.
-</div>
-
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.maxlength">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre de contacto.
-</div>
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['contacto'].errors?.pattern">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> El campo nombre de contacto no acepta caracteres especiales.
-</div>
-
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.maxlength">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> Tamaño máximo permitido en el campo entidad beneficiaria.
-</div>
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['entidadbeneficiaria'].errors?.pattern">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> El campo entidad beneficiaria no acepta caracteres especiales.
-</div>
-
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.maxlength">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> Tamaño máximo permitido en el campo observaciones.
-</div>
-<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['observaciones'].errors?.pattern">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Error!</strong> El campo observaciones no acepta caracteres especiales.
-</div>
-
-<div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['folio'].errors?.yaExisteFolio">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
-</div>
-
-
-<div class="alert alert-success fade in" *ngIf="solicitud.valid">
-  <button data-dismiss="alert" class="close close-sm" type="button">
-    <i class="icon-remove"></i>
-  </button>
-  <strong>¡Exelente!</strong> Datos ingresados correctamente.
-</div>
-
 
           <button  type="submit" [disabled]="!solicitud.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>

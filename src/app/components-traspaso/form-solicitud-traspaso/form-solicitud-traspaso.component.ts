@@ -19,7 +19,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
  
   solicitud: FormGroup;
   acti: any;
-  activo: any;
+  activos: any;
   descargo: any;
   display = 'none';
   titulo: string;
@@ -38,17 +38,14 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
-      'idTipo': new FormControl("",[Validators.required, Validators.min(1)]),
-      'idtipodescargo': new FormControl("",[Validators.required]),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ -.]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'observaciones': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
-       'entidadbeneficiaria': new FormControl("",[Validators.maxLength(80), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
-       'domicilio': new FormControl("",[Validators.maxLength(100),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #°.]+$")]),
-       'contacto': new FormControl("",[Validators.maxLength(50),Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ]+$")]),
-       'telefono': new FormControl(""),
-  
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
+       'nuevoresponsable': new FormControl("",[Validators.required]),
+       'nuevaarea': new FormControl("",[Validators.required]),
        'idbien': new FormControl("0"),
+       'areadenegocio': new FormControl("0"),
+       //'responsable': new FormControl("0"),
        //para filtro
        'idArea': new FormControl("0"),
        'idSucursal': new FormControl("0")
@@ -56,9 +53,9 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   }
 
    ngOnInit() {
-    this.bajaService.listarBienesAsignados().subscribe(res => { this.activo = res });
+    this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
-    this.catalogosServices.getTipoDescargo().subscribe(data=>{this.descargo=data});//combo
+   // this.catalogosServices.getTipoDescargo().subscribe(data=>{this.descargo=data});//combo
     //listar en solicitud (empleados y area de negocio)
     this.TraspasoService.listarEmpleadosCombo().subscribe(res => { this.empleados = res });
     this.TraspasoService.listarAreaCombo().subscribe(res =>{this.areas=res});
@@ -73,13 +70,12 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   guardarDatos(){
     // console.log("solicitud : "+this.solicitud.value.idTipo);
      if (this.solicitud.valid == true) {
-       this.solicitud.controls["idtipodescargo"].setValue(this.solicitud.value.idTipo);
        
-       this.bajaService.guardarSolicitud(this.solicitud.value).subscribe(data => { 
-         console.log("solicitud : "+this.solicitud);
-         this.bajaService.guardarBien(this.solicitud.value).subscribe(data => {
+       this.TraspasoService.guardarSolicitudTraspaso(this.solicitud.value).subscribe(data => { 
+         //console.log("solicitud : "+this.solicitud);
+         this.TraspasoService.cambiarEstadoSolicitud(this.solicitud.value).subscribe(data => {
             //listar bienes 
-           this.bajaService.listarBienesAsignados().subscribe(res=>{ this.activo=res });
+           this.TraspasoService.listarActivosAsignados().subscribe(res=>{ this.activos=res });
          });
          this.display = 'none';
          
@@ -95,6 +91,12 @@ export class FormSolicitudTraspasoComponent implements OnInit {
        })
       // this.solicitud.reset()
       
+     }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR',
+        text: 'Seleccione un empleado para generar el codigos',
+      })
      }
   // }
 }
@@ -112,23 +114,22 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   open(id) {
    //limpia cache
    this.titulo = "Solicitud de traspaso";
-   this.solicitud.controls["idTipo"].setValue("0");
-   this.solicitud.controls["idtipodescargo"].setValue("0");
    this.solicitud.controls["idsolicitud"].setValue("0");
    this.solicitud.controls["folio"].setValue("");
    this.solicitud.controls["fechasolicitud"].setValue("");
-   this.solicitud.controls["observaciones"].setValue("");
-   this.solicitud.controls["entidadbeneficiaria"].setValue("");
-   this.solicitud.controls["domicilio"].setValue("");
-   this.solicitud.controls["contacto"].setValue("");
-   this.solicitud.controls["telefono"].setValue("");
+   this.solicitud.controls["descripcion"].setValue("");
+   this.solicitud.controls["nuevoresponsable"].setValue("");
+   this.solicitud.controls["nuevaarea"].setValue("");
    this.solicitud.controls["idbien"].setValue(id);
+   //this.solicitud.controls["areadenegocio"].setValue(areadenegocio);
+   //para listar el area
+   //this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
    this.display = 'block';
   }
   
   buscar(buscador) {
     this.p = 1;
-   this.bajaService.buscarBienAsig(buscador.value).subscribe(res => { this.activo = res });
+   this.bajaService.buscarBienAsig(buscador.value).subscribe(res => { this.activos = res });
    }
  
   FiltrarArea(){
@@ -138,13 +139,13 @@ export class FormSolicitudTraspasoComponent implements OnInit {
 
   Filtrar(){
     var id= this.solicitud.controls['idArea'].value;
-    this.bajaService.FiltroTablaActivos(id).subscribe(data=>{this.activo=data});
+    this.bajaService.FiltroTablaActivos(id).subscribe(data=>{this.activos=data});
   }
   
   Reload(){
     this.solicitud.controls['idSucursal'].setValue(0);
     this.solicitud.controls['idArea'].setValue(0);
-    this.bajaService.listarBienesAsignados().subscribe(res=> { this.activo=res});
+    this.bajaService.listarBienesAsignados().subscribe(res=> { this.activos=res});
   }
 
   noRepetirFolio1(control: FormControl) {
@@ -169,21 +170,21 @@ export class FormSolicitudTraspasoComponent implements OnInit {
 
  //creo que lo ocuparé despues.
   Gcodigo() {
-    if (this.activo.controls["idEmpleado"].value == 0) {
+    if (this.activos.controls["idEmpleado"].value == 0) {
       Swal.fire({
         icon: 'error',
         title: 'ERROR',
         text: 'Seleccione un empleado para generar el codigos',
       })
     } else {
-      var idempleado = this.activo.controls["idEmpleado"].value;
-      var idbien = this.activo.controls["idBien"].value;
+      var idempleado = this.activos.controls["idEmpleado"].value;
+      var idbien = this.activos.controls["idBien"].value;
       this.controlService.GenerarCodigo(idempleado, idbien).subscribe(data => {
         var correlativoSucursal = data.correlativoSucursal;
         var correlativoArea = data.correlativoArea;
         var correlativoClasificacion = data.correlativoClasificacion;
         var correlativo = data.correlativo;
-        this.activo.controls["codigo"].setValue(correlativoSucursal + "-" + correlativoArea + "-" + correlativoClasificacion + "-" + correlativo);
+        this.activos.controls["codigo"].setValue(correlativoSucursal + "-" + correlativoArea + "-" + correlativoClasificacion + "-" + correlativo);
       });
     }
   }

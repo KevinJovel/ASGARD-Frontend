@@ -35,14 +35,14 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let activos of activo2 | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                <tr *ngFor="let solicitudtraspaso of solicitudesTraspasos | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{activos.folio}}</td>
-                  <td>{{activos.fechacadena}}</td>
-                  <td>{{activos.nombredescargo}}</td>
-                  <td>{{activos.observaciones}}</td>
+                  <td>{{solicitudtraspaso.folio}}</td>
+                  <td>{{solicitudtraspaso.fechacadena}}</td>
+                  <td>{{solicitudtraspaso.nombredescargo}}</td>
+                  <td>{{solicitudtraspaso.observaciones}}</td>
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(activos.idsolicitud)"><i class="glyphicon glyphicon-import"></i></button>
+                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(solicitudtraspaso.idsolicitud)"><i class="glyphicon glyphicon-import"></i></button>
                   </td>
                 </tr>
               </tbody>

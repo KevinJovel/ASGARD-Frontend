@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { BajaService } from './../../services/baja.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TraspasoService } from 'src/app/services/traspaso.service';
 import Swal from 'sweetalert2';
 
 
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
 export class TablaSolicitudTraspasoComponent implements OnInit {
 
 
-  activo2: any;
+  solicitudesTraspasos: any;
   idsolicitud: any;
   display = 'none';
   titulo: string;
@@ -26,7 +27,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
-    private bajaService:BajaService)
+    private bajaService:BajaService, private TraspasoService: TraspasoService)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -36,7 +37,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+    this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
    
   }
 
@@ -49,7 +50,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   //  var fecha = new Date();
    // let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
     this.solicitudes.controls["fecha2"].setValue("");
-    this.bajaService.verSolicitud(id).subscribe((data) => {
+    this.TraspasoService.verSolicitudTraspaso(id).subscribe((data) => {
  
       this.fecha2 = data.fechacadena;
       this.codigo = data.codigo;
@@ -73,7 +74,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
 
   buscar(buscador) {
     this.p = 1;
-   this.bajaService.buscarSolicitud(buscador.value).subscribe(res => { this.activo2 = res });
+   this.bajaService.buscarSolicitud(buscador.value).subscribe(res => { this.solicitudesTraspasos = res });
    }
 
    aprobarSolicitud() {
@@ -103,7 +104,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
             confirmButtonText: 'Aceptar'
         })
           this.display = 'none'; 
-          this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+          this.bajaService.listarSolicitud().subscribe(res=>{ this.solicitudesTraspasos=res });
         //  console.log("IdSoliiii: "+id);
          }      
    });   
@@ -141,7 +142,7 @@ negarSolicitud() {
             confirmButtonText: 'Aceptar'
         })
           this.display = 'none'; 
-          this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+          this.bajaService.listarSolicitud().subscribe(res=>{ this.solicitudesTraspasos=res });
          }      
    });   
    this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien
