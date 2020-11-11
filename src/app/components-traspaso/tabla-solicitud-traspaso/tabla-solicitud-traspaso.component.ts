@@ -22,7 +22,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   solicitudes: FormGroup;
   bienesS: any;
 
-  fecha2:string; marca:string; area:string;  responsable:string; 
+  fecha2:string; nuevoresponsable:string;  nuevaarea:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
@@ -45,7 +45,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
 
   verSolicitud(id) {
     this.display = 'block';
-    this.titulo = "Autorización de solicitud para dar de baja";
+    this.titulo = "Autorización de solicitud para realizar traspaso";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
   //  var fecha = new Date();
    // let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
@@ -56,9 +56,12 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       this.codigo = data.codigo;
       this.descripcion = data.descripcion;
       this.nombredescargo = data.nombredescargo;
-      this.observaciones = data.observaciones;
       this.folio = data.folio;
       this.solicitud = data.noSolicitud;  
+      this.responsable= data.responsableactual;
+      this.area= data.areanegocioactual;
+      this.nuevaarea= data.areanegocioanterior;
+      this.nuevoresponsable= data.responsableanterior;
      this.bienesS = data.idbien; //para obtener el id del bien
     // console.log("Idbien: "+this.bienesS); 
     });
@@ -123,7 +126,7 @@ negarSolicitud() {
   this.fecha2 = this.solicitudes.value.fecha2;
     //console.log("Este de Acuerdo: "+this.acuerdo);
     Swal.fire({
-      title: '¿Estas seguro de negar esta solicitud?',
+      title: '¿Estas seguro de denegar esta solicitud?',
       text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
