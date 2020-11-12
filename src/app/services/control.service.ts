@@ -203,9 +203,12 @@ public buscarActivoIntangibleRevalorizar(buscador) {
   return this.http.get(environment.urlService  + "api/Revalorizar/buscarActivoIntangibleRevalorizar/" + buscador).map(res => res.json());
 }
 
+public ValidarActivosARevalorizar(){
+  return this.http.get(environment.urlService + "api/Revalorizar/ValidarActivosARevalorizar").map(res=>res.json());
+ }
 
  public noEditarfecha(idbien){
-  return this.http.get(environment.urlService + "api/ActivoFIjo/noEditarfecha/"+ idbien).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/ActivoFijo/noEditarfecha/"+ idbien).map(res=>res.json());
  }
 
 }

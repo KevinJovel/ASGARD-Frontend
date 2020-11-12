@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { ConfiguracionService } from './../../services/configuracion.service';
 import { ControlService } from './../../services/control.service';
+import { Router } from '@angular/router';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import Swal from 'sweetalert2';
 
@@ -53,7 +54,9 @@ export class TablaRevalorizarComponent implements OnInit {
   fechaMaxima: any;
   fechaMinima: any;
   revalorizacion: FormGroup;
-  constructor(private mantenimientoService: MantenimientoService, private catalogosServices: CatalogosService,private controlService: ControlService,private depreciacionService:DepreciacionService,private configuracionService:ConfiguracionService) { 
+  constructor(private mantenimientoService: MantenimientoService, private catalogosServices: CatalogosService,
+    private controlService: ControlService,private depreciacionService:DepreciacionService,
+    private configuracionService:ConfiguracionService, private router: Router) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0"),
@@ -160,7 +163,15 @@ export class TablaRevalorizarComponent implements OnInit {
             //this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
               //this.tablaMuebles='block'; 
            // });
-      } 
+      } else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡Los activos ya han sido depreciados en el periodo actual!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
       
     });
     this.revalorizacion.controls["idBien"].setValue("0");
@@ -258,6 +269,23 @@ this.display='block';
   }
   close3(){
     this.display3='none';
+  }
+  ValidarActivos(){
+    this.controlService.ValidarActivosARevalorizar().subscribe(data => {
+      if(data==1){
+        
+        this.router.navigate(["/tabla-revalorizar"]);
+      }else{
+           Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡Los activos ya han sido depreciados en el periodo actual!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+    this.close();
+      }
+    });
   }
   buscar(buscador){
     this.p = 1;
