@@ -87,7 +87,7 @@ export class CuadroSolicitudComponent implements OnInit {
       this.tablaIntengibles='none';
       this.tablaMueblesNoAsig='none';
       this.tablaEdificios='none'
-      this.controlService.getBienesAsignados().subscribe(res=> { this.activo=res
+      this.bajaService.listarBienesAsignados().subscribe(res => { this.activo = res
         this.tablaMuebles='block'; 
       });
       this.BtnAsinacion="Ver no asignados"
@@ -145,7 +145,7 @@ export class CuadroSolicitudComponent implements OnInit {
        Swal.fire({
          position: 'center',
          icon: 'success',
-         title: 'Solicitud Guardada con éxito',
+         title: 'Solicitud guardada con éxito',
          showConfirmButton: false,
          timer: 3000
        })
@@ -200,7 +200,7 @@ this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.ac
       case '1':
         this.tablaEdificios='none'
         this.tablaIntengibles='none'
-        this.controlService.getBienesAsignados().subscribe(res=> { this.activo=res
+        this.bajaService.listarBienesAsignados().subscribe(res => { this.activo = res
           this.tablaMuebles='block'});
         this.disabledFiltro=false;
         this.banderaBuscador=1;
@@ -272,8 +272,8 @@ this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.ac
   this.tablaMueblesNoAsig='none';
   this.tablaEdificios='none';
   this.tablaIntengibles='none';
-  this.controlService.getBienesAsignados().subscribe(res=> { 
-    this.activo=res
+  this.bajaService.listarBienesAsignados().subscribe(res => { 
+    this.activo = res
     this.tablaMuebles='block';
     this.banderaBuscador=1;
   });
