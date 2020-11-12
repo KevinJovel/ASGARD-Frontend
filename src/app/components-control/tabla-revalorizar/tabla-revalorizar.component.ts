@@ -172,6 +172,7 @@ export class TablaRevalorizarComponent implements OnInit {
           timer: 3000
         })
       }
+     // this.ValidarActivosRevalorizacion();
       
     });
     this.revalorizacion.controls["idBien"].setValue("0");
@@ -270,7 +271,7 @@ this.display='block';
   close3(){
     this.display3='none';
   }
-  ValidarActivos(){
+  ValidarActivosRevalorizacion(){
     this.controlService.ValidarActivosARevalorizar().subscribe(data => {
       if(data==1){
         
