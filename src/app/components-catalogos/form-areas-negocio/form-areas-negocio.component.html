@@ -1,24 +1,26 @@
 <br><br><br><br>
 
 <section class="panel">
-  <!-- <div class="col-lg-3"></div><div class="col-lg-3"></div><div class="col-lg-3"></div><div class="col-lg-1"></div>
- <button type="button" class="btn btn-danger" (click)="open2()" data-toggle="modal" data-target="#myModal1"><i
-    class="glyphicon glyphicon-question-sign"></i> Imagen</button>
-    <button type="button" class="btn btn-danger" (click)="open3()" data-toggle="modal" data-target="#myModal2"><i
-      class="glyphicon glyphicon-question-sign"></i> PDF</button> -->
+  <div class="col-lg-3"></div><div class="col-lg-3"></div><div class="col-lg-3"></div><div class="col-lg-1"></div>
+    <!--  -->
   <h1>Áreas de negocio</h1>
   <div class="row">
     <div class="col-lg-3">
       <header class="panel-heading form-in-line">
         <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
-            class="icon-plus-sign-alt"></i> Agregar nueva área de negocio</button>      
+            class="icon-plus-sign-alt"></i> Agregar nueva área de negocio</button> 
+                 
       </header>
     </div>
     
     <div class="col-lg-3">
+      <header class="panel-heading form-in-line">
+        <button type="button" class="btn btn-danger" (click)="open3()" data-toggle="modal" data-target="#myModal2"><i
+          class="glyphicon glyphicon-question-sign"></i></button>
+        </header>
     </div>
     <div class="col-lg-3">
-      
+     
     </div>
     <div class="col-md-3">
       <input style="margin-top: 15px; padding-left: 30px;" type="search" class="form-control" #nombre
@@ -203,7 +205,7 @@
 <!--modal para ayuda con pdf-->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"
   [ngStyle]="{'display':display3}">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
@@ -211,7 +213,7 @@
       </div>
       <div class="modal-body">
         <div style="text-align: center;">
-<iframe src="assets/img/Imagenes/area.pdf" style="width:500px; height:500px;" frameborder="0"></iframe>
+<iframe src="assets/img/Imagenes/area.pdf" style="width:700px; height:415px;" frameborder="0"></iframe>
 </div>
       </div>
     

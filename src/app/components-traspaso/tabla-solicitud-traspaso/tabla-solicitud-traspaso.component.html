@@ -28,21 +28,21 @@
                   <th>N°</th>
                   <th>Folio</th>
                   <th>Fecha</th>
-                  <th>Motivo</th>
-                  <th>Observaciones</th>
+                  <th>Descripción</th>
                   <th class="hidden-phone">Realizar traspaso</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr *ngFor="let activos of activo2 | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                <tr *ngFor="let solicitudtraspaso of solicitudesTraspasos | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{activos.folio}}</td>
-                  <td>{{activos.fechacadena}}</td>
-                  <td>{{activos.nombredescargo}}</td>
-                  <td>{{activos.observaciones}}</td>
+                  <td>{{solicitudtraspaso.folio}}</td>
+                  <td>{{solicitudtraspaso.fechacadena}}</td>
+                  <td>{{solicitudtraspaso.descripcion}}</td>
+                  
+                  
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(activos.idsolicitud)"><i class="glyphicon glyphicon-import"></i></button>
+                    <button class="btn btn-primary btn-xs" (click)="verSolicitud(solicitudtraspaso.idsolicitud)"><i class="glyphicon glyphicon-import"></i></button>
                   </td>
                 </tr>
               </tbody>
@@ -65,32 +65,38 @@
 
         <form role="form" [formGroup]="solicitudes" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
-            <div class="form-group col-md-4">
-              <label><strong>Fecha solicitud:</strong></label> {{ fecha2 }}
-            </div>
-            <div class="form-group col-md-4">
-              <label ><strong>Folio:</strong></label> {{ folio}}
-            </div>
-
-            <div class="form-group col-md-4">
-              <label ><strong>Código:</strong></label> {{ codigo}}
-            </div>
-        <br><br>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
+              <label><strong>Código:</strong></label> {{ codigo }}
+            </div>      
+            <div class="form-group col-md-6">
               <label ><strong>Descripción:</strong></label> {{ descripcion}}
             </div>
+            <br><br>
          
-            <div class="form-group col-md-4">
-              <label ><strong>Motivo:</strong></label> {{ nombredescargo}}
+            <div class="form-group col-md-6">
+              <label ><strong>Área de negocio actual:</strong></label> {{ area}}
             </div>
             
 
-            <div class="form-group col-md-4">
-              <label ><strong>Observaciones:</strong></label> {{ observaciones}}
+            <div class="form-group col-md-6">
+              <label ><strong>Responsable actual:</strong></label> {{ responsable}}
             </div>
             <div class="form-group col-md-12">
               <label ></label> 
             </div>
+          <br><br>
+         
+            <div class="form-group col-md-6">
+              <label ><strong>Nueva área de negocio:</strong></label> {{ nuevaarea}}
+            </div>
+            
+            <div class="form-group col-md-6">
+              <label ><strong> Nuevo Responsable:</strong></label> {{ nuevoresponsable}}
+            </div>
+            <div class="form-group col-md-12">
+              <label ></label> 
+            </div>
+            <br><br>
 
             <div class="form-group col-md-6">
               <label for="exampleInputEmail1">*Acuerdo:</label>
@@ -100,7 +106,7 @@
               <label for="exampleInputEmail1">Fecha de baja:</label>
               <input type="date" class="form-control"  formControlName="fecha2"  autocomplete="off">
             </div>  <!---->
-            <br><br><br><br><br>
+            <br><br><br><br><br> 
             <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.maxlength">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>

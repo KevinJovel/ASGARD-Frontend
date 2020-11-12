@@ -31,7 +31,7 @@ export class SolicitudComponent implements OnInit {
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
        'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(30)],this.noRepetirAcuerdo.bind(this)),
-       'fecha2': new FormControl("")
+       'fecha2': new FormControl("",[Validators.required])
     });
   }
 
@@ -84,7 +84,7 @@ export class SolicitudComponent implements OnInit {
     this.fecha2 = this.solicitudes.value.fecha2;
     //console.log("Este de Acuerdo: "+this.fecha2);
     Swal.fire({
-      title: '¿Estas seguro de aprobar esta solicitud?',
+      title: '¿Estás seguro de aprobar esta solicitud?',
       text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
@@ -122,7 +122,7 @@ negarSolicitud() {
   this.fecha2 = this.solicitudes.value.fecha2;
     //console.log("Este de Acuerdo: "+this.acuerdo);
     Swal.fire({
-      title: '¿Estas seguro de negar esta solicitud?',
+      title: '¿Estás seguro de negar esta solicitud?',
       text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
