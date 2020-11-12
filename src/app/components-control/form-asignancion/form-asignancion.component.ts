@@ -255,15 +255,15 @@ export class FormAsignancionComponent implements OnInit {
 
   //   //Aqui va la tabla
 
-  //   for (let bien of this.activos) {
-  //     pdf.add(new Table(
-  //       [
+    // for (let bien of this.activos) {
+    //   pdf.add(new Table(
+    //     [
 
-  //         [bien.noFormulario, bien.fechacadena, bien.desripcion, bien.marca],
-  //       ]
+    //       [bien.noFormulario, bien.fechacadena, bien.desripcion, bien.marca],
+    //     ]
 
-  //     ).widths([130, 125, 125, 120]).dontBreakRows(true).fontSize(8).end);
-  //   }
+    //   ).widths([130, 125, 125, 120]).dontBreakRows(true).fontSize(8).end);
+    // }
   //   pdf.add(new Cell(new Txt('Column 2 with colspan').bold().end).border([true]).colSpan(2)
 
   //     .end);

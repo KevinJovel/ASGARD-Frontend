@@ -2,20 +2,22 @@
 <br />
 <br />
 <br />
-<section class="panel">
-    <div style="text-align:right;">
-        <button title="Regresar" style="margin-top: 10px; margin-right: 20px;" class="btn btn-warning" [routerLink]="['/tabla-tarjeta']"><i class="icon-mail-reply"></i></button>
-
-    <button title="Imprimir tarjeta de depreciación" style="margin-top: 10px; margin-right: 20px;" class="btn btn-success"><i class="icon-print"></i></button>
-</div>
-    <h3 style="text-align: center;">ACAASS de R.L.</h3>
-                           
-    <h4 style="text-align: center;">CONTROL DE EXISTENCIAS DE MOBILIARIO, EQUIPO E INSTALACIONES </h4>
-
+<section class="pane__general">
+   
+  
     <!--Bienes muebles-->
     <div class="row">
         <div class="col-lg-14">
             <section class="panel panel-default">
+                <div style="text-align:right;">
+                    <button title="Regresar" style="margin-top: 10px; margin-right: 20px;" class="btn btn-warning" [routerLink]="['/tabla-tarjeta']"><i class="icon-mail-reply"></i></button>
+            
+                <button title="Imprimir tarjeta de depreciación" style="margin-top: 10px; margin-right: 20px;" class="btn btn-success"><i class="icon-print"></i></button>
+            </div>
+                <h3 style="text-align: center;">ACAASS de R.L.</h3>
+                           
+                <h4 style="text-align: center;">CONTROL DE EXISTENCIAS DE MOBILIARIO, EQUIPO E INSTALACIONES </h4>
+            
                 <!-- Inicia el primer objeto, donde estab los datos si el bien es mueble -->
                 <div class="form-row" [ngStyle]="{'display':displayDatosMuebles}">
 
@@ -175,6 +177,7 @@
                                               
                                                 <th>Fecha</th>
                                                 <th>Concepto</th>
+                                                <th>valor</th>
                                                 <th>Valor de adquisición y mejoras</th>
                                                 <th>Depreciación Anual</th>
                                                 <th>Depreciación Acum.</th>
@@ -185,6 +188,7 @@
                                             <tr *ngFor="let bien of bienes">
                                                 <td>{{bien.fecha}}</td>
                                                 <td>{{bien.concepto}}</td>
+                                                <td>$ {{bien.valorTransaccion}}</td>
                                                 <td>$ {{bien.montoTransaccion}}</td>
                                                 <td>$ {{bien.depreciacionAnual}}</td>
                                                 <td>$ {{bien.depreciacionAcumulada}}</td>
