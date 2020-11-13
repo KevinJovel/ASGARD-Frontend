@@ -16,6 +16,14 @@ import {NgxSpinnerModule} from 'ngx-spinner'
 import { SharedComponent } from './components/shared/shared.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeaderComponent } from './components/shared/header/header.component';
+
+//Importaciones para reportes
+import { PdfMakeWrapper } from 'pdfmake-wrapper';
+import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
+ 
+// Set the fonts to use
+PdfMakeWrapper.setFonts(pdfFonts);
+
 //componnete catalogos
 import { TablaActivosComponent } from './components-control/tabla-activos/tabla-activos.component';
 import { FormEmpleadoComponent } from './components-catalogos/form-empleado/form-empleado.component';
@@ -81,6 +89,8 @@ import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacio
 import { FormModificarAsignadosComponent } from './components-control/form-modificar-asignados/form-modificar-asignados.component';
 import { TraspasoService } from './services/traspaso.service';
 import { MenuReportesComponent } from './components-reportes/menu-reportes/menu-reportes.component';
+
+
 
 
 
