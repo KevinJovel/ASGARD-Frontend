@@ -119,10 +119,10 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   }//fin aprobar solicitud
 
 //negar la solicitud
-negarSolicitud() {
+denegarSolicitud() {
   var id=this.idsolicitud;
-  this.acuerdo = this.solicitudes.value.acuerdo;
-  this.fechasolicitud = this.solicitudes.value.fecha2;
+ // this.acuerdo = this.solicitudes.value.acuerdo;
+ // this.fechasolicitud = this.solicitudes.value.fecha2;
     //console.log("Este de Acuerdo: "+this.acuerdo);
     Swal.fire({
       title: '¿Estas seguro de denegar esta solicitud?',
@@ -135,7 +135,7 @@ negarSolicitud() {
       confirmButtonText: '¡Sí, denegar!'
     }).then((result) => {
       if (result.value) {
-    this.bajaService.denegarSolicitud(id).subscribe(res=>{
+    this.TraspasoService.denegarSolicitud(id).subscribe(res=>{
          if(res==1){
           Swal.fire({
             icon: 'success',
@@ -144,11 +144,11 @@ negarSolicitud() {
             confirmButtonText: 'Aceptar'
         })
           this.display = 'none'; 
-          this.bajaService.listarSolicitud().subscribe(res=>{ this.solicitudesTraspasos=res });
+          this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
          }      
    });   
    this.idactivado=id; //almacenamos el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoRechazado(this.idactivado ,this.acuerdo, this.idactivado).subscribe(rest=>{ });
+       this.TraspasoService.estadoSolicitudDenegada(this.idactivado).subscribe(rest=>{ });
   
   }// del result
   })//de la alerta
