@@ -3,13 +3,11 @@ import { BajaService } from './../../services/baja.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-solicitud',
   templateUrl: './solicitud.component.html',
-  styleUrls: ['./solicitud.component.css'],
-  providers: [DatePipe]
+  styleUrls: ['./solicitud.component.css']
 })
 export class SolicitudComponent implements OnInit {
 
@@ -26,7 +24,7 @@ export class SolicitudComponent implements OnInit {
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
-    private bajaService:BajaService , private miDatePipe: DatePipe)
+    private bajaService:BajaService)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -46,8 +44,6 @@ export class SolicitudComponent implements OnInit {
     this.display = 'block';
     this.titulo = "Autorización de solicitud para dar de baja";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
-  //  var fecha = new Date();
-   // let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
     this.solicitudes.controls["fecha2"].setValue("");
     this.bajaService.verSolicitud(id).subscribe((data) => {
  

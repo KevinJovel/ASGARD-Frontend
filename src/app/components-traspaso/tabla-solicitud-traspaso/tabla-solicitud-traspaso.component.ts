@@ -20,9 +20,9 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   titulo: string;
   p: number = 1;
   solicitudes: FormGroup;
-  bienesS: any;
+  idactivado: any;
 
-  fecha2:string; nuevoresponsable:string;  nuevaarea:string; area:string;  responsable:string; 
+  fechasolicitud:string; nuevoresponsable:string;  nuevaarea:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
@@ -31,8 +31,8 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
-       'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(30)],this.noRepetirAcuerdo.bind(this)),
-       'fecha2': new FormControl("")
+       'acuerdo': new FormControl("",[Validators.required]),
+       'fechasolicitud': new FormControl("",[Validators.required])
     });
   }
 
@@ -47,12 +47,10 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.display = 'block';
     this.titulo = "Autorización de solicitud para realizar traspaso";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
-  //  var fecha = new Date();
-   // let f = this.miDatePipe.transform(fecha,'yyyy-MM-dd');
-    this.solicitudes.controls["fecha2"].setValue("");
+    this.solicitudes.controls["fechasolicitud"].setValue("");
     this.TraspasoService.verSolicitudTraspaso(id).subscribe((data) => {
  
-      this.fecha2 = data.fechacadena;
+      this.fechasolicitud = data.fechacadena;
       this.codigo = data.codigo;
       this.descripcion = data.descripcion;
       this.nombredescargo = data.nombredescargo;
@@ -62,7 +60,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       this.area= data.areanegocioactual;
       this.nuevaarea= data.areanegocioanterior;
       this.nuevoresponsable= data.responsableanterior;
-     this.bienesS = data.idbien; //para obtener el id del bien
+     this.idactivado = data.idbien; //para obtener el id del bien
     // console.log("Idbien: "+this.bienesS); 
     });
    
@@ -83,10 +81,11 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
    aprobarSolicitud() {
      //en id 
     var id=this.idsolicitud;
-    //var idsolicitud=this.idsolicitud;
+    //vamos a guardar el acuerdo y la solicitud
     this.acuerdo = this.solicitudes.value.acuerdo;
-    this.fecha2 = this.solicitudes.value.fecha2;
-    //console.log("Este de Acuerdo: "+this.fecha2);
+    this.fechasolicitud = this.solicitudes.value.fechasolicitud;
+   // console.log("Este de Acuerdo: "+this.acuerdo);
+    
     Swal.fire({
       title: '¿Estas seguro de aprobar esta solicitud?',
       text: "¡No podrás revertir esta acción!",
@@ -98,7 +97,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       confirmButtonText: '¡Si, aprobar!'
     }).then((result) => {
       if (result.value) {
-    this.bajaService.aceptarSolicitud(id).subscribe(res=>{
+    this.TraspasoService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
           Swal.fire({
             icon: 'success',
@@ -107,13 +106,13 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
             confirmButtonText: 'Aceptar'
         })
           this.display = 'none'; 
-          this.bajaService.listarSolicitud().subscribe(res=>{ this.solicitudesTraspasos=res });
-        //  console.log("IdSoliiii: "+id);
-         }      
+          this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
+         }//cierre de if      
    });   
-   this.bienesS=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoAceptado(this.bienesS, this.acuerdo, this.fecha2).subscribe(rest=>{ });
-       console.log("fecha: "+ this.fecha2);
+   this.idactivado=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
+       this.TraspasoService.cambiarEstadoAceptoTraspaso(this.idactivado, this.acuerdo, this.fechasolicitud).subscribe(rest=>{ });
+       console.log("fecha: "+ this.fechasolicitud);
+       console.log("acuerdo: "+ this.acuerdo);
   }// del result
   })//de la alerta
 
@@ -123,7 +122,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
 negarSolicitud() {
   var id=this.idsolicitud;
   this.acuerdo = this.solicitudes.value.acuerdo;
-  this.fecha2 = this.solicitudes.value.fecha2;
+  this.fechasolicitud = this.solicitudes.value.fecha2;
     //console.log("Este de Acuerdo: "+this.acuerdo);
     Swal.fire({
       title: '¿Estas seguro de denegar esta solicitud?',
@@ -148,8 +147,8 @@ negarSolicitud() {
           this.bajaService.listarSolicitud().subscribe(res=>{ this.solicitudesTraspasos=res });
          }      
    });   
-   this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoRechazado(this.bienesS ,this.acuerdo, this.fecha2).subscribe(rest=>{ });
+   this.idactivado=id; //almacenamos el id de la solicitud en lugar del bien
+       this.bajaService.cambiarEstadoRechazado(this.idactivado ,this.acuerdo, this.idactivado).subscribe(rest=>{ });
   
   }// del result
   })//de la alerta

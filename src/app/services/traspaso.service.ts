@@ -30,6 +30,13 @@ export class TraspasoService {
   public verSolicitudTraspaso(id){
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/verSolicitudTraspaso/" + id).map(res=>res.json());
   }
+  public aceptarSolicitud(id){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/aceptarSolicitud/" + id).map(res=>res.json());
+  }
+
+  public cambiarEstadoAceptoTraspaso(id, acuerdo, fechasolicitud) {
+    return this.http.get(environment.urlService  + "api/SolicitudTraspaso/cambiarEstadoAceptoTraspaso/"+ id + "/" + acuerdo + "/" + fechasolicitud ).map(res => res.json());
+  }
   
   
 }

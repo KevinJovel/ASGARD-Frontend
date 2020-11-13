@@ -103,30 +103,12 @@
               <input size=35  type="text" class="form-control" formControlName="acuerdo" maxlength="31"  placeholder="Ingrese número de acuerdo"  autocomplete="off">
             </div> 
             <div class="form-group col-md-6">
-              <label for="exampleInputEmail1">Fecha de baja:</label>
-              <input type="date" class="form-control"  formControlName="fecha2"  autocomplete="off">
+              <label for="exampleInputEmail1">*Fecha de traspaso:</label>
+              <input type="date" class="form-control"  formControlName="fechasolicitud"  autocomplete="off">
             </div>  <!---->
             <br><br><br><br><br> 
-            <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.maxlength">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Error!</strong> Tamaño máximo permitido en el campo acuerdo.
-            </div>
+          
 
-            <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Advertencia!</strong> ya existe el "Acuerdo" ingresado, por favor intente con un nuevo.
-            </div>
-
-            <div class="alert alert-warning fade in" *ngIf="!solicitudes.valid&&!solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Advertencia!</strong> El número de acuerdo es obligatorio
-            </div>
             <div class="alert alert-success fade in" *ngIf="solicitudes.valid">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>
