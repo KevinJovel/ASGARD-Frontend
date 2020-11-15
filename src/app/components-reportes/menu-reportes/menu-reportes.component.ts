@@ -101,7 +101,9 @@ export class MenuReportesComponent implements OnInit {
       new Txt('Catalogo de Cargos').alignment('center').italics().bold().end
     );
     //Cadena para la fecha y hora
-    pdf.add(new Txt('Fecha: ' + this.dia.toString() + '/' + this.mes.toString() + '/' + this.anio.toString() + ' | ' + this.hora.toString() + ':' + this.minuto.toString() + ':' +  this.segundo.toString()).end);
+    pdf.add(new Txt('Fecha: ' + this.dia.toString() + '/' + this.mes.toString() + '/' + this.anio.toString()).end);
+    pdf.add(new Txt('Hora: ' + this.hora.toString() + ':' + this.minuto.toString() + ':' +  this.segundo.toString()).end);
+
     pdf.add(pdf.ln(1));
     //Llamo al método listar
     this.catalogoService.getCargo().subscribe(data=> {this.cargos=data});
