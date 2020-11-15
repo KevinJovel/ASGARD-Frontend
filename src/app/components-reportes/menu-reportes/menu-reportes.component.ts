@@ -22,6 +22,7 @@ export class MenuReportesComponent implements OnInit {
   dia=this.fecha.getDate();
   hora=this.fecha.getHours();
   minuto=this.fecha.getMinutes();
+  segundo= this.fecha.getSeconds();
 
   //Colores personalizados
   private greenA: string='#72b05e';
@@ -100,7 +101,7 @@ export class MenuReportesComponent implements OnInit {
       new Txt('Catalogo de Cargos').alignment('center').italics().bold().end
     );
     //Cadena para la fecha y hora
-    pdf.add(new Txt('Fecha: ' + this.dia.toString() + '/' + this.mes.toString() + '/' + this.anio.toString() + ' | ' + this.hora.toString() + ':' + this.minuto.toString()).end);
+    pdf.add(new Txt('Fecha: ' + this.dia.toString() + '/' + this.mes.toString() + '/' + this.anio.toString() + ' | ' + this.hora.toString() + ':' + this.minuto.toString() + ':' +  this.segundo.toString()).end);
     pdf.add(pdf.ln(1));
     //Llamo al método listar
     this.catalogoService.getCargo().subscribe(data=> {this.cargos=data});
