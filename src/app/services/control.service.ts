@@ -61,6 +61,9 @@ public agregarNuevoBien(nuevoBien) {
 public getActivosSinAsignar() {
   return this.http.get(environment.urlService + "api/ActivoFIjo/listarActivosNoAsignados").map(res => res.json());
 }
+public validarActivosAsignar() {
+  return this.http.get(environment.urlService + "api/ActivoFIjo/validarActivosAsignar").map(res => res.json());
+}
 public getVidaUtil(idBien) {
   return this.http.get(environment.urlService + "api/ActivoFIjo/RecuperarVidaUtil/"+idBien).map(res => res.json());
 }

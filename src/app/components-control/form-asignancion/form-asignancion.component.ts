@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
@@ -29,7 +30,7 @@ export class FormAsignancionComponent implements OnInit {
   anio: string;
   //datos de informe
   @Input() noSoli: string;
-  constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, private mantenimientoService: MantenimientoService) {
+  constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, private mantenimientoService: MantenimientoService,private router: Router) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
     this.activo = new FormGroup({
       'idBien': new FormControl("0"),
@@ -43,9 +44,23 @@ export class FormAsignancionComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.controlService.getActivosSinAsignar().subscribe(res => { this.activos = res });
-    this.controlService.listarComboAsigar().subscribe(res => { this.empleados = res });
-      //Método para recuperar año
+    this.controlService.validarActivosAsignar().subscribe(res =>{
+      if(res==1){
+        this.controlService.getActivosSinAsignar().subscribe(res => { this.activos = res });
+        this.controlService.listarComboAsigar().subscribe(res => { this.empleados = res });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Todos los activos estan asignados.',
+          showConfirmButton: false,
+          timer: 4000
+        });
+        this.router.navigate(["/"]);
+      }
+    })
+
+    
 
   }
   close() {
