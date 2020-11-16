@@ -110,8 +110,8 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="submit" [disabled]="!solicitud.valid||this.yaHayDatos==false" class="finish btn btn-danger"
-              value="Enviar solicitud" />
+            <button type="submit" [disabled]="!solicitud.valid||this.yaHayDatos==false" class="finish btn btn-danger"><i class="icon-mail-forward (alias)"></i>
+              Enviar solicitud</button>
           </div>
           <br><br><br><br><br><br>
         </section>
@@ -175,7 +175,7 @@
                           <td class="center hidden-phone">
                             <header class="panel-heading form-in-line">
                               <button title="Enviar a mantenimiento" type="button" class="btn btn-primary"
-                                (click)="open(bien.idbien,bien.codigobien,bien.descripcionbien)"><i class="icon-plus-sign-alt"></i></button>
+                                (click)="open(bien.idbien,bien.codigobien,bien.descripcionbien)"><i class="icon-mail-forward (alias)"></i></button>
                             </header>
                           </td>
                         </tr>
@@ -271,7 +271,7 @@
             </div>
             <div>
               <button type="submit" [disabled]="!datosArray.valid" class="btn btn-primary"><i
-                  class="icon-save"></i>Enviar</button>
+                  class="icon-mail-forward (alias)"></i> Enviar</button>
               <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
                 Cerrar</button>
             </div>
