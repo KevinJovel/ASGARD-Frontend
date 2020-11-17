@@ -164,7 +164,7 @@ export class MenuReportesComponent implements OnInit {
 
     //Agregamos el logo
     this.confiService.getLogoCoop().subscribe(param=>{
-      new Img(param.logo).relativePosition(0,-255).height(50).width(65).build().then(img=> {
+      new Img(param.logo).relativePosition(0,-220).height(50).width(65).build().then(img=> {
 
         pdf.add(img);
         pdf.create().open();
@@ -203,7 +203,7 @@ export class MenuReportesComponent implements OnInit {
      pdf.add(
        new Table([
          [ 'CORRELATIVO', 'NOMBRE DE SUCURSAL', 'UBICACIÓN']
-     ]).bold().widths([ 90, 100, 90]).alignment('center').end
+     ]).bold().widths([ 110, '*', 140]).alignment('center').end
      );
 
      //Método para listar
@@ -216,7 +216,7 @@ export class MenuReportesComponent implements OnInit {
            [sucursal.correlativo, sucursal.nombre, sucursal.ubicacion],
          ]
  
-       ).widths([ 90, 100, 90]).end);
+       ).widths([ 110, '*', 140]).end);
     };
   });
       pdf.info( {
@@ -239,13 +239,22 @@ export class MenuReportesComponent implements OnInit {
 
 
   //Reporte área de negocio
-  async   reporteAreaN() {
+  async   areasPdf() {
     const pdf=new PdfMakeWrapper();
 
+    //Agregamos el logo
+    this.confiService.getLogoCoop().subscribe(param=>{
+      new Img(param.logo).relativePosition(0,-470).height(50).width(65).build().then(img=> {
+
+        pdf.add(img);
+        pdf.create().open();
+      });
+    });
+
     //Encabezado
-     pdf.add(new Txt('ASOCIACIÓN COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, ').bold().color('green').fontSize(10).alignment("center").end);
-     pdf.add(new Txt('CRÉDITO Y CONSUMO DE SAN SEBASTIAN DE RESPONSABILIDAD LIMITADA').bold().color('green').fontSize(10).alignment("center").end);
-     pdf.add(new Txt('ACASS DE R.L.').bold().fontSize(15).color('green').alignment("center").end);
+     pdf.add(new Txt('ASOCIACIÓN COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, ').bold().fontSize(10).alignment("center").end);
+     pdf.add(new Txt('CRÉDITO Y CONSUMO DE SAN SEBASTIÁN DE RESPONSABILIDAD LIMITADA').bold().fontSize(10).alignment("center").end);
+     pdf.add(new Txt('ACASS DE R.L.').bold().fontSize(15).alignment("center").end);
 
      //Salto de línea
      pdf.add(pdf.ln(1));
@@ -262,21 +271,23 @@ export class MenuReportesComponent implements OnInit {
     //Salto de línea
     pdf.add(pdf.ln(1));
     pdf.add(
-      new Txt('Catalogo de Área de negocio').alignment('center').italics().bold().end
+      new Txt('Catálogo de Áreas de negocio').alignment('center').italics().bold().end
     );
     //Cadena para la fecha y hora
     pdf.add(new Txt('Fecha: ' + this.dia.toString() + '/' + this.mes.toString() + '/' + this.anio.toString()).end);
     pdf.add(new Txt('Hora: ' + this.hora.toString() + ':' + this.minuto.toString() + ':' +  this.segundo.toString()).end);
 
     pdf.add(pdf.ln(1));
-    //Llamo al método listar
-    this.catalogoService.getAreas().subscribe(data=> {this.areas=data});
-    //Agrego la tabla
-    pdf.add(
+
+     //Agrego la tabla
+     pdf.add(
       new Table([
         [ 'CORRELATIVO', 'NOMBRE DE ÁREA', 'NOMBRE DE SUCURSAL', 'UBICACIÓN']
-    ]).bold().widths([100, 150,150,95]).alignment('center').end
+    ]).bold().widths([100, 150,'*','*']).alignment('center').end
     );
+
+    //Llamo al método listar
+    this.catalogoService.getAreas().subscribe(data=> {this.areas=data
     //Recorro la lista con el for
   for (let area of this.areas) {
        pdf.add(new Table(
@@ -285,8 +296,9 @@ export class MenuReportesComponent implements OnInit {
           [area.correlativo, area.nombre, area.nombreSucursal, area.ubicacion],
         ]
 
-      ).widths([100, 150,150,95]).end);
+      ).widths([100, 150,'*','*']).end);
    };
+  });
 
     pdf.info( {
       title:'Area de negocio',
