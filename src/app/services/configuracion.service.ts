@@ -17,6 +17,11 @@ export class ConfiguracionService {
         return this.http.get(environment.urlService + "api/Cooperativa/listarCooperativa").map(res => res.json());
     }
 
+    //Recuperar logo para reportes
+    public getLogoCoop() {
+        return this.http.get(environment.urlService + "api/Cooperativa/recuperarLogoCooperativa").map(res => res.json());
+    }
+
     //Para guardar
     public setCooperativa(cooperativa) {
         return this.http.post(environment.urlService  + "api/Cooperativa/guardarCooperativa", cooperativa).map(res => res.json());
