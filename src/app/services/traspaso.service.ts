@@ -34,14 +34,14 @@ export class TraspasoService {
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/aceptarSolicitud/" + id).map(res=>res.json());
   }
 
-  public cambiarEstadoAceptoTraspaso(id, acuerdo, fechasolicitud) {
-    return this.http.get(environment.urlService  + "api/SolicitudTraspaso/cambiarEstadoAceptoTraspaso/"+ id + "/" + acuerdo + "/" + fechasolicitud ).map(res => res.json());
+  public cambiarEstadoAceptoTraspaso(id, acuerdo, fechatraspaso) {
+    return this.http.get(environment.urlService  + "api/SolicitudTraspaso/cambiarEstadoAceptoTraspaso/"+ id + "/" + acuerdo + "/" + fechatraspaso ).map(res => res.json());
   }
   public denegarSolicitud(id){
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/denegarSolicitud/" + id).map(res=>res.json());
   }
-  public estadoSolicitudDenegada(id){
-    return this.http.get(environment.urlService + "api/SolicitudTraspaso/estadoSolicitudDenegada/" + id).map(res=>res.json());
+  public estadoSolicitudDenegada(idsolicitud){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/estadoSolicitudDenegada/" + idsolicitud).map(res=>res.json());
   }
   
   

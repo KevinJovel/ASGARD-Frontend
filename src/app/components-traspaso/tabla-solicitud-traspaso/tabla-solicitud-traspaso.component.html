@@ -63,7 +63,7 @@
       </div>
       <div class="modal-body">
 
-        <form role="form" [formGroup]="solicitudes" (ngSubmit)="guardarDatos()">
+        <form role="form" [formGroup]="solicitudes" (ngSubmit)="aprobarSolicitud()">
           <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
             <div class="form-group col-md-6">
               <label><strong>Código:</strong></label> {{ codigo }}
@@ -116,7 +116,7 @@
               <strong>¡Exelente!</strong> Dato ingresado correctamente
             </div>
 
-          <button type="button" [disabled]="!solicitudes.valid" (click)="aprobarSolicitud()"  class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Aprobar</button>
+          <button type="submit" [disabled]="!solicitudes.valid"  class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> Aprobar</button>
           <button type="button" (click)="denegarSolicitud()"  class="btn btn-primary"><i class="glyphicon glyphicon-ban-circle"></i> Denegar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
         </form>
