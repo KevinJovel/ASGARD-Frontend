@@ -81,7 +81,7 @@
                             <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                 (click)="detalles(bien.idBien,1)"></i></button>
                             <button title="Revalorizar" class="btn btn-warning btn-xs"
-                            (click)="open(bien.idBien,bien.vidautil)"><i class="icon-arrow-up"></i></button>
+                            (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
                           </td>
                         </tr>
                       </tbody>
@@ -128,7 +128,7 @@
                               <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                   (click)="detalles(bien.idBien,2)"></i></button>
                               <button title="Revalorizar" class="btn btn-warning btn-xs"
-                              (click)="open(bien.idBien,bien.vidautil)"><i class="icon-arrow-up"></i></button>
+                              (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
                             </td>
                             
                         </tbody>
@@ -176,7 +176,7 @@
                               <button title="Ver detalles" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
                                   (click)="detalles(bien.idBien,2)"></i></button>
                               <button title="Revalorizar" class="btn btn-warning btn-xs"
-                              (click)="open(bien.idBien,bien.vidautil)"><i class="icon-arrow-up"></i></button>
+                              (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
                             </td>
                             
                         </tbody>
@@ -257,7 +257,7 @@ class="modal" [ngStyle]="{'display':display}">
       </div>
    
           <div>
-            <button type="submit" [disabled]="!revalorizacion.valid"class="btn btn-primary"><i class="icon-save"></i> Revalorizar</button>
+            <button type="submit" [disabled]="!revalorizacion.valid"class="btn btn-primary"><i class=" icon-ok"></i> Revalorizar</button>
             <button type="button" (click)="close()" class="btn btn-default"><i class="icon-pencil"></i> Cerrar</button>
           </div>
         </form>

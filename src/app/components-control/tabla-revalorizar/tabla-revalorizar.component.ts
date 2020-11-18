@@ -88,10 +88,10 @@ export class TablaRevalorizarComponent implements OnInit {
       this.tablaMuebles='block'; 
     });
       //Método para recuperar año
-   this.controlService.mostrarAnio().subscribe((res)=> {
+   /*this.controlService.mostrarAnio().subscribe((res)=> {
     this.fechaMaxima=`${res.anio}-12-31`;
     this.fechaMinima=`${(res.anio).toString()}-01-01`;
-  });
+  });*/
   }
   CambiarTipo(){
     switch(this.combos.controls["idTipo"].value){
@@ -183,18 +183,26 @@ export class TablaRevalorizarComponent implements OnInit {
 
 this.display = 'none';
   }
-  open(idBien,vidaUtil){
+  open(idBien,vidaUtil,fechacadena){
 // alert(id);
+this.revalorizacion.controls["fecha"].setValue(fechacadena);
+var fecharecup = this.revalorizacion.controls["fecha"].value.split("-");
+let dia=fecharecup[0];
+let mes=fecharecup[1];
+let anio=fecharecup[2];
+this.controlService.mostrarAnio().subscribe((res)=> {
+  this.fechaMaxima=`${res.anio}-12-31`;
+  this.fechaMinima=`${anio}-${mes}-${dia}`;
+});
+
+
+
+
 this.titulo = "Revalorización";
 this.revalorizacion.controls["idBien"].setValue(idBien);
 this.revalorizacion.controls["vidaUtil"].setValue(vidaUtil) ;
 this.revalorizacion.controls["valorRevalorizacion"].setValue("");
-this.revalorizacion.controls["fecha"].setValue("");
-
-//this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
-  //this.tablaMuebles='block'; 
-//});
-this.display='block';
+//this.revalorizacion.controls["fecha"].setValue("");
   }
   
   validarVidaUtil(vida){
