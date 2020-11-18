@@ -14,6 +14,7 @@ export class FormCoopeComponent implements OnInit {
   cooperativas: any;
   display = 'none';
   display2 = 'none';
+  display3 = 'none';
   p: number = 1;
   logo: any;
   titulo: string;
@@ -53,6 +54,12 @@ export class FormCoopeComponent implements OnInit {
   
     close2() {
       this.display2 = 'none';
+    }
+    open3() { //para modal de ayuda
+      this.display3 = 'block';
+    }
+    close3() { //para modal de ayuda
+      this.display3 = "none";
     }
   
    //Evento para guardar foto
