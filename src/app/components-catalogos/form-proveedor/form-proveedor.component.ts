@@ -13,6 +13,7 @@ export class FormProveedorComponent implements OnInit {
   proveedores: FormGroup;
   @Input() proveedor: any;
   display = 'none';
+  display3 = 'none';
   titulo: string;
   //parametro: string;
   p: number = 1;
@@ -51,6 +52,12 @@ export class FormProveedorComponent implements OnInit {
   }
   close() {
     this.display = 'none';
+  }
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
   }
   guardarDatos() {
     if ((this.proveedores.controls["bandera"].value) == "0") {

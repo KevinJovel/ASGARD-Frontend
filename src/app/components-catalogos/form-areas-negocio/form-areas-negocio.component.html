@@ -4,12 +4,11 @@
         <div class="col-lg-6">
           <h2>Áreas de negocio</h2>
         </div>
-        <br>
+        <!-- <br>
           <div class="col-lg-6">
             <button type="button" class="btn btn-danger" (click)="open3()" data-toggle="modal" data-target="#myModal2"><i
               class="glyphicon glyphicon-question-sign"></i></button>
-          </div>
-            
+          </div> -->    
      </div>
 
   <div class="row">
@@ -174,32 +173,6 @@
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
             Cancelar</button>
         </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--modal para ayuda con imagen-->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal"
-  [ngStyle]="{'display':display2}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-        <h4 class="modal-title">Ayuda</h4>
-      </div>
-      <div class="modal-body">
-            
-        <div>
-          <img src="assets/img/Imagenes/area.PNG" alt="imagen" height="300px" width="540px" >
-          <h5><strong>1. Se muestra el menú de opciones dentro del módulo de catálogos, 
-            dar clic en ´´Áreas de negocio´´. <br>
-            2. Se muestra un botón para agregar un nuevo registro, al dar clic se mostrará 
-            el siguiente formulario de áreas de negocio donde se pide el nombre, sucursal 
-            y el correlativo, cada uno de los campos esta validado por lo cual si se comete 
-            un error se muestra una alerta en color rojo<br>
-          </strong> </h5>
-          </div>
       </div>
     </div>
   </div>

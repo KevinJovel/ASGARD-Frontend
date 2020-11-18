@@ -17,6 +17,7 @@ export class FormCargoComponent implements OnInit {
   cargo: FormGroup;
   titulo: string;
   display='none';
+  display3='none';
   p:number=1;
 
   constructor( private catalogoService: CatalogosService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -50,6 +51,13 @@ export class FormCargoComponent implements OnInit {
 }
 close() {
     this.display = 'none';
+}
+
+open3() {  //para modal de ayuda 
+  this.display3 = 'block';
+}
+close2() { //para modal de ayuda
+  this.display3 = "none";
 }
 
 guardarDatos() {

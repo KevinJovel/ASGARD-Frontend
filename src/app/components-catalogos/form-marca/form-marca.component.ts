@@ -12,6 +12,7 @@ export class FormMarcaComponent implements OnInit {
    marcas: any;
    marca: FormGroup;
     display = 'none';
+    display3 = 'none';
     titulo: string;
     p:number=1;
     constructor(private catalogoService: CatalogosService) {
@@ -39,6 +40,12 @@ export class FormMarcaComponent implements OnInit {
     close() {
         this.display = 'none';
     }
+    open3() { //para modal de ayuda
+        this.display3 = 'block';
+      }
+      close2() { //para modal de ayuda
+        this.display3 = "none";
+      }
 //metodo para guardar los datos
   //quitar bifurcacion
     guardarDatos() {

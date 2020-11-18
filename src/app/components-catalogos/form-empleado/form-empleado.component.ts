@@ -17,6 +17,7 @@ export class FormEmpleadoComponent implements OnInit {
   p: number = 1;
   empleado: FormGroup;
   display = 'none';
+  display3 = 'none';
   titulo: string;
   edit: number = 0;
   guardar: number = 0;
@@ -70,7 +71,12 @@ export class FormEmpleadoComponent implements OnInit {
     this.display = 'none';
     this.edit = 0;
   }
-
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
+  }
 
   guardarDatos() {
     if ((this.empleado.controls["bandera"].value) == "0") {

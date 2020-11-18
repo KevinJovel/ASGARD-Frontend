@@ -12,6 +12,7 @@ export class FormTipoDescargoComponent implements OnInit {
   descargos: FormGroup;
   @Input() descargo: any;
   display = 'none';
+  display3 = 'none';
   titulo: string;
   p: number = 1;
   constructor(private catalogoService: CatalogosService) {
@@ -36,6 +37,12 @@ export class FormTipoDescargoComponent implements OnInit {
   }
   close() {
     this.display = 'none';
+  }
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
   }
   guardarDatos() {
     this.display = 'none';

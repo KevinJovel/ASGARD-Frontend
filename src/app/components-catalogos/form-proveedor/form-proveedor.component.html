@@ -1,9 +1,15 @@
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br>
 <section class="panel">
-  <h1>Proveedores</h1>
+    <div class="row">
+        <div class="col-lg-6">
+          <h2>Proveedores</h2>
+        </div>
+        <!-- <br>
+          <div class="col-lg-6">
+            <button type="button" class="btn btn-danger" (click)="open3()" data-toggle="modal" data-target="#myModal2"><i
+              class="glyphicon glyphicon-question-sign"></i></button>
+          </div> -->    
+     </div>
   <div class="row">
     <div class="col-lg-6">
       <header class="panel-heading form-in-line">
@@ -222,6 +228,25 @@
         </form>
 
       </div>
+    </div>
+  </div>
+</div>
+
+<!--modal para ayuda con pdf-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"
+  [ngStyle]="{'display':display3}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">Ayuda</h4>
+      </div>
+      <div class="modal-body">
+        <div style="text-align: center;">
+<iframe src="assets/img/Imagenes/area.pdf" style="width:700px; height:415px;" frameborder="0"></iframe>
+</div>
+      </div>
+    
     </div>
   </div>
 </div>

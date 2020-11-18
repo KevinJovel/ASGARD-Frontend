@@ -14,6 +14,7 @@ export class FormSucursalComponent implements OnInit {
     p: number = 1;
     sucursal: FormGroup;
     display = 'none';
+    display3 = 'none';
     titulo: string;
     modif: number = 0;
     yaExiste: boolean = false;
@@ -45,6 +46,12 @@ export class FormSucursalComponent implements OnInit {
         this.modif = 0;
         this.yaExiste = false;
     }
+    open3() { //para modal de ayuda
+        this.display3 = 'block';
+      }
+      close2() { //para modal de ayuda
+        this.display3 = "none";
+      }
     //Este metodo es el que puse en lugar de la promesa, porque daba error porque dependia de dos campos
     validar() {
         if (this.sucursal.controls["nombre"].value != "" && this.sucursal.controls["ubicacion"].value != "") {

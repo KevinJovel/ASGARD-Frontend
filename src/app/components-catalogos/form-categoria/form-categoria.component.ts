@@ -14,6 +14,7 @@ export class FormCategoriaComponent implements OnInit {
   p: number = 1;
   categoria: FormGroup;
   display = 'none';
+  display3 = 'none';
   titulo: string;
   edit: number = 0;
   constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
@@ -41,6 +42,12 @@ export class FormCategoriaComponent implements OnInit {
   close() {
     this.display = 'none';
     this.edit = 0;
+  }
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
   }
   guardarDatos() {
     if ((this.categoria.controls["bandera"].value) == "0") {

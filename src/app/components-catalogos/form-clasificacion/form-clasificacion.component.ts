@@ -16,6 +16,7 @@ export class FormClasificacionComponent implements OnInit {
   p: number = 1;
   clasificacion: FormGroup;
   display = 'none';
+  display3 = 'none';
   titulo: string;
   edit: number = 0;
   constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
@@ -54,7 +55,12 @@ export class FormClasificacionComponent implements OnInit {
     this.display = 'none';
     this.edit = 0;
   }
-
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
+  }
 
   guardarDatos() {
     console.log(this.clasificacion.value);

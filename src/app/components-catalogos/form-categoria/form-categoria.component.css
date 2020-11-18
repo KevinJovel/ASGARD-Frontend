@@ -33,6 +33,12 @@ table {
 	padding-top: 30px;
 	padding-bottom: 30px;
   }
+  .modal-lg {
+	width: 750px;
+	height:415px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+  }
   .modal-content {
 	animation-name: modal;
 	animation-duration: 1s;

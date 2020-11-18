@@ -44,22 +44,20 @@ export class FormAreasNegocioComponent implements OnInit {
 
   }
   open2() {
-    
     this.display2 = 'block';
   }
-  open3() {
-    
+  open3() { //para modal de ayuda
     this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
   }
   close() {
     this.display = "none";
     this.yaExiste=false;
     this.modif = 0;
   }
-  close2() {
-    this.display3 = "none";
 
-  }
   validar(){
    if(this.area.controls["nombre"].value!=""&&this.area.controls["idSucursal"].value!=0){
     this.catalogosServices.validarAreaSucursal(this.area.controls["idAreaNegocio"].value,this.area.controls["nombre"].value,this.area.controls["idSucursal"].value)

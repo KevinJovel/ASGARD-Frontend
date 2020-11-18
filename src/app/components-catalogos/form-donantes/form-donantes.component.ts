@@ -15,6 +15,7 @@ export class FormDonantesComponent implements OnInit {
   donantes: FormGroup;
   dontes: any;
   display = 'none';
+  display3 = 'none';
   titulo: string;
   p: number = 1;
 
@@ -52,7 +53,12 @@ export class FormDonantesComponent implements OnInit {
   close() {
     this.display = 'none';
   }
-
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
+  }
   guardarDatos() {
     //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
 
