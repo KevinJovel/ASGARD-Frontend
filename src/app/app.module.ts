@@ -89,6 +89,11 @@ import { TipoDepreciacionComponent } from './components-tarjeta/tipo-depreciacio
 import { FormModificarAsignadosComponent } from './components-control/form-modificar-asignados/form-modificar-asignados.component';
 import { TraspasoService } from './services/traspaso.service';
 import { MenuReportesComponent } from './components-reportes/menu-reportes/menu-reportes.component';
+import { ReportesCatalogosComponent } from './components-reportes/reportes-catalogos/reportes-catalogos.component';
+import { ReportesControlActivoComponent } from './components-reportes/reportes-control-activo/reportes-control-activo.component';
+import { ReportesMantenimientoComponent } from './components-reportes/reportes-mantenimiento/reportes-mantenimiento.component';
+import { ReportesTraspasoComponent } from './components-reportes/reportes-traspaso/reportes-traspaso.component';
+import { ReportesDescargoComponent } from './components-reportes/reportes-descargo/reportes-descargo.component';
 
 
 
@@ -149,6 +154,11 @@ import { MenuReportesComponent } from './components-reportes/menu-reportes/menu-
     HistorialSolicitudTraspasoComponent,
     TablaSolicitudTraspasoComponent,
     MenuReportesComponent,
+    ReportesCatalogosComponent,
+    ReportesControlActivoComponent,
+    ReportesMantenimientoComponent,
+    ReportesTraspasoComponent,
+    ReportesDescargoComponent,
 
 
    
