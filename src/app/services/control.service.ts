@@ -209,6 +209,9 @@ public buscarActivoIntangibleRevalorizar(buscador) {
 public ValidarActivosARevalorizar(){
   return this.http.get(environment.urlService + "api/Revalorizar/ValidarActivosARevalorizar").map(res=>res.json());
  }
+ public listarfechacadena (){
+  return this.http.get(environment.urlService  + "api/Revalorizar/listarfechacadena").map(res => res.json());
+}
 
  public noEditarfecha(idbien){
   return this.http.get(environment.urlService + "api/ActivoFijo/noEditarfecha/"+ idbien).map(res=>res.json());

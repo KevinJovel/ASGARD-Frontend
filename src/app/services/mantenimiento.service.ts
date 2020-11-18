@@ -137,6 +137,7 @@ public ListarInformeMantenimiento(){
   public noHayHistorial (idActivo){
     return this.http.get(environment.urlService  + "api/InformeMantenimiento/noHayHistorial/" + idActivo).map(res => res.json());
   }
+ 
 
-
+  
 }

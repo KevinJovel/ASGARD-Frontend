@@ -84,7 +84,9 @@ export class TablaRevalorizarComponent implements OnInit {
 
   ngOnInit(): void {
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
+    this.controlService.listarfechacadena().subscribe(data=>{this.bienes=data});  
     this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
+ 
       this.tablaMuebles='block'; 
     });
       //Método para recuperar año
@@ -203,6 +205,9 @@ this.revalorizacion.controls["idBien"].setValue(idBien);
 this.revalorizacion.controls["vidaUtil"].setValue(vidaUtil) ;
 this.revalorizacion.controls["valorRevalorizacion"].setValue("");
 //this.revalorizacion.controls["fecha"].setValue("");
+
+
+//this.controlService.listarfechacadena().subscribe(data=>{this.bienes=data}); 
   }
   
   validarVidaUtil(vida){

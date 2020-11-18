@@ -27,6 +27,10 @@ export class ReportesCatalogosComponent implements OnInit {
   donante: FormGroup;
   proveedores: any;
   proveedor: FormGroup;
+  tecnicos: any;
+  tecnico: FormGroup;
+  marcas:any;
+  marca:FormGroup;
   
 
   //Fecha
@@ -54,6 +58,8 @@ export class ReportesCatalogosComponent implements OnInit {
     this.catalogoService.getEmpleado().subscribe(data => { this.empleados = data;});
     this.catalogoService.getDonantes().subscribe(data => { this.donantes = data });
     this.catalogoService.getProveedores().subscribe(res => { this.proveedores = res });
+    this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
+    this.catalogoService.getMarcas().subscribe(res => {this.marcas = res});
   }
 
   pixel(x:number, y: number, color: string) {
@@ -741,5 +747,165 @@ export class ReportesCatalogosComponent implements OnInit {
        pdf.footer(footer);
   }
   //FIN DE REPORTE DE PROVEEDORES
+
+ //INICIO DE REPORTE DE TECNICOS
+ async   tecnicosPdf() {
+  const pdf=new PdfMakeWrapper();
+
+  //Agregamos el logo
+  this.confiService.getLogoCoop().subscribe(param=>{
+    new Img(param.logo).relativePosition(0,-205).height(50).width(65).build().then(img=> {
+
+      pdf.add(img);
+      pdf.create().open();
+    });
+  });
+
+  //Encabezado
+   pdf.add(new Txt('ASOCIACIÓN COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, ').bold().fontSize(10).alignment("center").end);
+   pdf.add(new Txt('CRÉDITO Y CONSUMO DE SAN SEBASTIÁN DE RESPONSABILIDAD LIMITADA').bold().fontSize(10).alignment("center").end);
+   pdf.add(new Txt('ACAASS DE R.L.').bold().fontSize(15).alignment("center").end);
+
+   //Salto de línea
+   pdf.add(pdf.ln(1));
+
+   //Línea de color
+   pdf.add(
+   pdf.add(
+     new Canvas([
+       this.pixel(1,1,this.blackA)
+     ]).end
+   ) 
+);
+
+  //Salto de línea
+  pdf.add(pdf.ln(1));
+  pdf.add(
+    new Txt('REPORTE DE TÉCNICOS').alignment('center').italics().bold().end
+  );
+  //Cadena para la fecha y hora
+  pdf.add(new Txt('Fecha: ' + this.dia.toString() + '/' + this.mes.toString() + '/' + this.anio.toString()).end);
+  pdf.add(new Txt('Hora: ' + this.hora.toString() + ':' + this.minuto.toString() + ':' +  this.segundo.toString()).end);
+
+  pdf.add(pdf.ln(1));
+
+  //Llamo al método listar
+  this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
+
+  //Agrego la tabla
+  pdf.add(
+    new Table([
+      [ 'NOMBRE','EMPRESA']
+  ]).bold().widths(['*','*']).alignment('center').end
+  );
+  //Recorro la lista con el for
+for (let tecnico of this.tecnicos) {
+     pdf.add(new Table(
+       [
+        //Lleno las celdas con la lista recorrida
+        [tecnico.nombre, tecnico.empresa],
+      ]
+
+    ).widths([ '*','*']).end);
+ };
+
+  pdf.info( {
+    title:'Técnicos',
+    author:'ASGARD',
+    subject:'Documento informativo',
+  });
+
+  //paginado
+  let footer: any;
+     footer = (pagenumber: number, pagecount: number) => {
+       return {
+         margin: [50, 5],
+         text: 'página ' + pagenumber + ' de ' + pagecount,
+         fontSize: 9
+       };
+     };
+     pdf.footer(footer);
+}
+ // FIN DE REPORTE DE TECNICOS
+
+ //INICIO DE REPORTE MARCAS
+ async   marcasPdf() {
+  const pdf=new PdfMakeWrapper();
+
+  //Agregamos el logo
+  this.confiService.getLogoCoop().subscribe(param=>{
+    new Img(param.logo).relativePosition(0,-480).height(50).width(65).build().then(img=> {
+
+      pdf.add(img);
+      pdf.create().open();
+    });
+  });
+
+  //Encabezado
+   pdf.add(new Txt('ASOCIACIÓN COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, ').bold().fontSize(10).alignment("center").end);
+   pdf.add(new Txt('CRÉDITO Y CONSUMO DE SAN SEBASTIÁN DE RESPONSABILIDAD LIMITADA').bold().fontSize(10).alignment("center").end);
+   pdf.add(new Txt('ACAASS DE R.L.').bold().fontSize(15).alignment("center").end);
+
+   //Salto de línea
+   pdf.add(pdf.ln(1));
+
+   //Línea de color
+   pdf.add(
+   pdf.add(
+     new Canvas([
+       this.pixel(1,1,this.blackA)
+     ]).end
+   ) 
+);
+
+  //Salto de línea
+  pdf.add(pdf.ln(1));
+  pdf.add(
+    new Txt('Reporte de marcas').alignment('center').italics().bold().end
+  );
+  //Cadena para la fecha y hora
+  pdf.add(new Txt('Fecha: ' + this.dia.toString() + '/' + this.mes.toString() + '/' + this.anio.toString()).end);
+  pdf.add(new Txt('Hora: ' + this.hora.toString() + ':' + this.minuto.toString() + ':' +  this.segundo.toString()).end);
+
+  pdf.add(pdf.ln(1));
+
+  //Llamo al método listar
+ this.catalogoService.getMarcas().subscribe(res => {this.marcas = res});
+  //Agrego la tabla
+  pdf.add(
+    new Table([
+      [ 'MARCA','DESCRIPCIÓN']
+  ]).bold().widths(['*','*']).alignment('center').end
+  );
+  //Recorro la lista con el for
+for (let marca of this.marcas) {
+     pdf.add(new Table(
+       [
+        //Lleno las celdas con la lista recorrida
+        [marca.marca, marca.descripcion],
+      ]
+
+    ).widths([ '*','*']).end);
+ };
+
+  pdf.info( {
+    title:'Marcas',
+    author:'ASGARD',
+    subject:'Documento informativo',
+  });
+
+  //paginado
+  let footer: any;
+     footer = (pagenumber: number, pagecount: number) => {
+       return {
+         margin: [50, 5],
+         text: 'página ' + pagenumber + ' de ' + pagecount,
+         fontSize: 9
+       };
+     };
+     pdf.footer(footer);
+}
+ //FIN DE REPORTE MARCA
+
 
 }
