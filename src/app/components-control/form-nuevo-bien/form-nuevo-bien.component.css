@@ -2,7 +2,9 @@
   margin: 10px 3px;
  
 }
-
+.default-buttons P{
+  margin: 10 0 0px; 
+}
 /* Structure */
 
 .btn {
@@ -162,4 +164,5 @@ button{
     opacity: 1;
   }
 }
+
 
