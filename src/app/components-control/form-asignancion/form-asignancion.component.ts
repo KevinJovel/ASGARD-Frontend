@@ -106,8 +106,8 @@ export class FormAsignancionComponent implements OnInit {
     if (this.activo.controls["idEmpleado"].value == 0) {
       Swal.fire({
         icon: 'error',
-        title: 'ERROR',
-        text: 'Seleccione un empleado para generar el codigos',
+        title: 'ADVERTENCIA',
+        text: 'Seleccione un empleado para generar el código',
       })
     } else {
       var idempleado = this.activo.controls["idEmpleado"].value;
@@ -149,7 +149,7 @@ export class FormAsignancionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'warning',
-          title: '¡Error!',
+          title: '¡Advertencia!',
           text:'Selecciona el empleado a asignar',
           showConfirmButton: false,
           timer: 3000
