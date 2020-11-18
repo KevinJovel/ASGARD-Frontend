@@ -164,7 +164,7 @@ export class MenuReportesComponent implements OnInit {
 
     //Agregamos el logo
     this.confiService.getLogoCoop().subscribe(param=>{
-      new Img(param.logo).relativePosition(0,-220).height(50).width(65).build().then(img=> {
+      new Img(param.logo).relativePosition(0,-235).height(50).width(65).build().then(img=> {
 
         pdf.add(img);
         pdf.create().open();
@@ -254,7 +254,7 @@ export class MenuReportesComponent implements OnInit {
     //Encabezado
      pdf.add(new Txt('ASOCIACIÓN COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, ').bold().fontSize(10).alignment("center").end);
      pdf.add(new Txt('CRÉDITO Y CONSUMO DE SAN SEBASTIÁN DE RESPONSABILIDAD LIMITADA').bold().fontSize(10).alignment("center").end);
-     pdf.add(new Txt('ACASS DE R.L.').bold().fontSize(15).alignment("center").end);
+     pdf.add(new Txt('ACAASS DE R.L.').bold().fontSize(15).alignment("center").end);
 
      //Salto de línea
      pdf.add(pdf.ln(1));
