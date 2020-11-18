@@ -244,6 +244,7 @@ export class TablaDepreciacionComponent implements OnInit {
               }
               this.datosTotal.controls["valorDepreciacion"].setValue(montoDepreciacion);
               if (this.datosTotal.valid == true) {
+                console.log(this.datosTotal.value);
                 this.depreciacionService.transaccionDepreciacion(this.datosTotal.value).subscribe((data) => {
                   if (data == 1) {
                     console.log("Realizo depreciación");
