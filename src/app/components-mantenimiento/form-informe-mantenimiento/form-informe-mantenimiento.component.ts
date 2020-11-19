@@ -48,13 +48,8 @@ export class FormInformeMantenimientoComponent implements OnInit {
   ngOnInit(): void {
     this.mantenimientoService.ListarInformeMantenimiento().subscribe(res => {
       this.informes = res;
-
     });
-   //Método para recuperar año
-   this.controlService.mostrarAnio().subscribe((res)=> {
-    this.fechaMaxima=`${res.anio}-12-31`;
-    this.fechaMinima=`${(res.anio).toString()}-01-01`;
-  });
+
   }
   validarVidaUtil(vida){
     var id=this.revalorizacion.controls["idBien"].value;
@@ -69,14 +64,24 @@ export class FormInformeMantenimientoComponent implements OnInit {
 
 
 
-  open(idBien, idinformematenimiento, vidtUtil) {
+  open(idBien, idinformematenimiento, vidtUtil,fecha) {
     // alert(id);
+    this.revalorizacion.controls["fecha"].setValue(fecha);
+var fecharecup = this.revalorizacion.controls["fecha"].value.split("-");
+let dia=fecharecup[0];
+let mes=fecharecup[1];
+let anio=fecharecup[2];
+this.controlService.mostrarAnio().subscribe((res)=> {
+  this.fechaMaxima=`${res.anio}-12-31`;
+  this.fechaMinima=`${anio}-${mes}-${dia}`;
+});
+
     this.titulo = "Revalorización";
     this.revalorizacion.controls["idBien"].setValue(idBien);
     this.revalorizacion.controls["idinformematenimiento"].setValue(idinformematenimiento);
     this.revalorizacion.controls["vidaUtil"].setValue(vidtUtil);
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
-    this.revalorizacion.controls["fecha"].setValue("");
+    //this.revalorizacion.controls["fecha"].setValue("");
 
     this.mantenimientoService.ListarInformeMantenimiento().subscribe(res => {
       this.informes = res;

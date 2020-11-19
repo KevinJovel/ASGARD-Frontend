@@ -42,8 +42,8 @@
                     <td>{{informe.fechacadena}}</td>
                     <td>{{informe.bienes}}</td>
                     <td>{{informe.nombretecnico}}</td>
-                    <td>$ {{informe.costomateriales}}</td>
                     <td>$ {{informe.costomo}}</td>
+                    <td>$ {{informe.costomateriales}}</td>
                     <td>$ {{informe.costototal}}</td>
                     <td>{{informe.descripcion}}</td>
 
@@ -53,7 +53,7 @@
 
                     <td class="center hidden-phone">
                       <button class="btn btn-primary btn-xs" id="clear" title="Revalorizar"
-                        (click)="open(informe.idBien,informe.idinformematenimiento,informe.vidautil)"><i
+                        (click)="open(informe.idBien,informe.idinformematenimiento,informe.vidautil,informe.fechacadena)"><i
                           class=" icon-arrow-up"></i></button>
                     </td>
                   </tr>

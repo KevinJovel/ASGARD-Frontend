@@ -470,7 +470,7 @@ export class ReportesCatalogosComponent implements OnInit {
     pdf.add(pdf.ln(1));
 
     //Llamo al método listar
-    this.catalogoService.getCargo().subscribe(data=> {this.cargos=data});
+    this.catalogoService.getClasificacion().subscribe(data=> {this.clasificaciones=data});
 
     //Agrego la tabla
     pdf.add(
