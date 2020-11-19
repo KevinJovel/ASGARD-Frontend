@@ -84,7 +84,6 @@ export class TablaRevalorizarComponent implements OnInit {
 
   ngOnInit(): void {
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-    this.controlService.listarfechacadena().subscribe(data=>{this.bienes=data});  
     this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
  
       this.tablaMuebles='block'; 
@@ -185,9 +184,9 @@ export class TablaRevalorizarComponent implements OnInit {
 
 this.display = 'none';
   }
-  open(idBien,vidaUtil,fechacadena){
+  open(idBien,vidaUtil,fecha){
 // alert(id);
-this.revalorizacion.controls["fecha"].setValue(fechacadena);
+this.revalorizacion.controls["fecha"].setValue(fecha);
 var fecharecup = this.revalorizacion.controls["fecha"].value.split("-");
 let dia=fecharecup[0];
 let mes=fecharecup[1];
@@ -197,15 +196,12 @@ this.controlService.mostrarAnio().subscribe((res)=> {
   this.fechaMinima=`${anio}-${mes}-${dia}`;
 });
 
-
-
-
 this.titulo = "Revalorización";
 this.revalorizacion.controls["idBien"].setValue(idBien);
 this.revalorizacion.controls["vidaUtil"].setValue(vidaUtil) ;
 this.revalorizacion.controls["valorRevalorizacion"].setValue("");
-//this.revalorizacion.controls["fecha"].setValue("");
-
+this.revalorizacion.controls["fecha"].setValue("");
+this.display='block';
 
 //this.controlService.listarfechacadena().subscribe(data=>{this.bienes=data}); 
   }
