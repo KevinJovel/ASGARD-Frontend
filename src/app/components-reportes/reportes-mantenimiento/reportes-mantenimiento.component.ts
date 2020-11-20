@@ -4,7 +4,7 @@ import { ConfiguracionService } from './../../services/configuracion.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
-import { info } from 'console';
+
 @Component({
   selector: 'app-reportes-mantenimiento',
   templateUrl: './reportes-mantenimiento.component.html',
