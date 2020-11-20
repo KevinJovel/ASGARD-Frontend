@@ -108,7 +108,7 @@ table {
   border: 1px solid transparent;
   border-radius: 15px;
   box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-  
+  overflow: scroll;
 }
 .pane__general{
   padding: 5px;
