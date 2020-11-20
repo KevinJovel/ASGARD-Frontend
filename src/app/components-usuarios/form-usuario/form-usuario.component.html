@@ -7,7 +7,8 @@
   <div class="row">
     <div class="col-lg-6">
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar Nuevo Usuario</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
+            class="icon-plus-sign-alt"></i> Agregar nuevo usuario</button>
       </header>
     </div>
     <div class="col-lg-3">
@@ -22,7 +23,7 @@
       <section class="panel panel-default">
 
         <header class="panel-heading">
-          <h5>Registro de Usuarios</h5>
+          <h5>Registro de usuarios</h5>
         </header>
         <div class="panel-body">
           <div class="adv-table">
@@ -30,9 +31,9 @@
               <thead>
                 <tr>
                   <th>N°</th>
-                  <th>Nombre Usuario</th>
-                  <th>Nombre Completo del Empleado</th>
-                  <th>Nombre Tipo Usuario</th>
+                  <th>Nombre del empleado</th>
+                  <th>Usuario</th>
+                  <th>Tipo de Usuario</th>
                   <th class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
@@ -40,19 +41,22 @@
               <tbody>
                 <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{usuario.nombreusuario}}</td>
                   <td>{{usuario.nombreEmpleado}}</td>
+                  <td>{{usuario.nombreusuario}}</td>
                   <td>{{usuario.nombreTipoUsuario}}</td>
                   <!--son los atributos de la clase-->
 
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modificar(usuario.iidusuario)"><i class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(usuario.iidusuario)"><i class="icon-trash "></i></button>
+                    <button class="btn btn-primary btn-xs" (click)="modificar(usuario.iidusuario)"><i
+                        class="icon-pencil"></i></button>
+                    <button class="btn btn-danger btn-xs" (click)="eliminar(usuario.iidusuario)"><i
+                        class="icon-trash "></i></button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
           </div>
         </div>
       </section>
@@ -62,84 +66,89 @@
 
 
 <!--modal para ingresar y editar-->
-<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display}">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-
+    
         <form role="form" [formGroup]="usuario" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="iidusuario" id="exampleInputEmail3" autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="iidusuario" id="exampleInputEmail3"
+            autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
+            autocomplete="off">
 
-
+            <div class="form-group" formControlName="iidEmpleado" *ngIf="usuario.controls['bandera'].value==0">
+              <label for="exampleFormControlTextarea2">Empleado:</label>
+              <select class="form-control" formControlName="iidEmpleado" id="exampleFormControlTextarea2"
+                maxlength="51">
+                <option value="">--Seleccione--</option>
+                <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres}}</option>
+              </select>
+            </div>
+            <div class="form-group" formControlName="iidTipousuario">
+              <label for="exampleFormControlTextarea2">Tipo Usuario:</label>
+              <select class="form-control" formControlName="iidTipousuario" id="exampleFormControlTextarea2"
+                maxlength="51">
+                <option value="">--Seleccione--</option>
+                <option [value]="tipoUsuario.iidtipousuario" *ngFor="let tipoUsuario of tipoUsuarios">
+                  {{tipoUsuario.tipo}}</option>
+              </select>
+            </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Nombre Usuario</label>
-            <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario" placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
+            <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario"
+              placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['nombreusuario'].errors?.maxlength">
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="usuario.controls['nombreusuario'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>Error!</strong> Tamaño máximo permitido en este campo.
           </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['nombreusuario'].errors?.yaExiste">
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="usuario.controls['nombreusuario'].errors?.yaExiste">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong>  Ya existe el nombre de Usuario, por favor intente con uno nuevo.
+            <strong>Error!</strong> Ya existe el nombre de Usuario, por favor intente con uno nuevo.
           </div>
 
-  <td>
-          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
-            <label for="exampleInputEmail1">Ingrese Contraseña</label>
-            <input size=35 type="password" class="form-control" formControlName="contra" id="contra" placeholder="Ingrese Contraseña" maxlength="31" autocomplete="off">
-          </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra'].errors?.maxlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo.
-          </div>
-          <div class="form-group" formControlName="iidEmpleado" *ngIf="usuario.controls['bandera'].value==0">
-            <label for="exampleFormControlTextarea2">Empleado:</label>
-            <select class="form-control" formControlName="iidEmpleado" id="exampleFormControlTextarea2" maxlength="51">
-              <option value="">--Seleccione--</option>
-              <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres}}</option>
-              </select>
-          </div>
-  </td>
-          
-  <td>
-          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
-            <label for="exampleInputEmail1">Repita Contraseña</label>
-            <input size=35 type="password" class="form-control" formControlName="contra2" id="contra2" placeholder="Repita Contraseña" maxlength="31" autocomplete="off">
-          </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.maxlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Error!</strong> Tamaño máximo permitido en este campo.
-          </div>
-          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.noIguales">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>Error!</strong> La contraseña no es igual.
-          </div>
-          <div class="form-group" formControlName="iidTipousuario">
-            <label for="exampleFormControlTextarea2">Tipo Usuario:</label>
-            <select class="form-control" formControlName="iidTipousuario" id="exampleFormControlTextarea2" maxlength="51">
-              <option value="">--Seleccione--</option>
-            <option [value]="tipoUsuario.iidtipousuario" *ngFor="let tipoUsuario of tipoUsuarios">{{tipoUsuario.tipo}}</option>
-            </select>
-          </div>
-  </td>
+         
+            <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+              <label for="exampleInputEmail1">Ingrese Contraseña</label>
+              <input size=35 type="password" class="form-control" formControlName="contra" id="contra"
+                placeholder="Ingrese Contraseña" maxlength="31" autocomplete="off">
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            </div>
 
+            <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+              <label for="exampleInputEmail1">Repita Contraseña</label>
+              <input size=35 type="password" class="form-control" formControlName="contra2" id="contra2"
+                placeholder="Repita Contraseña" maxlength="31" autocomplete="off">
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.noIguales">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>Error!</strong> La contraseña no es igual.
+            </div>
           <div class="alert alert-warning fade in" *ngIf="usuario.controls['iidTipousuario'].errors?.required">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -155,7 +164,8 @@
           </div>
 
           <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
 
         </form>
 
@@ -163,6 +173,3 @@
     </div>
   </div>
 </div>
-
-
-

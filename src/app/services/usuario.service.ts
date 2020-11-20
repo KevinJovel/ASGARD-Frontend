@@ -2,14 +2,52 @@ import { Injectable, Inject  } from '@angular/core';
 import { Http } from '@angular/http'
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
+import { Router} from '@angular/router'
 import {environment} from '../../environments/environment'
 @Injectable()
 export class UsuarioService {
   
-    constructor(private http: Http) {
+    constructor(private http: Http, private router: Router) {
 
     }
-
+    public login(usuario) {
+      return this.http.post(environment.urlService  + "api/Usuario/login", usuario).map(res => res.json());
+    }
+    public crearSession() {
+      return this.http.get(environment.urlService  + "api/Usuario/crearSession").map(res => res.json());
+    }
+    public obtenervariableSesion() {
+      return this.http.get(environment.urlService + "api/Usuario/recuperarSession").map(res =>{
+        var data=res.json();
+        console.log(data);
+        var inf=data.valor;
+        
+        if(inf==null){
+          this.router.navigate(["/pagina-error-login"])
+          return false;
+        }else{
+          return true;
+        }
+      });
+      }
+    public obtenerSesion() {
+      return this.http.get(environment.urlService + "api/Usuario/validarSession").map(res => {
+        var data = res.json();
+        if (data.valor == "") {
+          return false;
+        } else {
+          return true;
+        }
+  
+      }
+  
+      );
+  
+    }
+    public cerrarSesion() {
+      return this.http.get(environment.urlService + "api/Usuario/CerrarSesion").map(res => res.json());
+  
+    }
     //SERVICIOS PARA USUARIO
   public getUsuario() {
     return this.http.get(environment.urlService+ "api/Usuario/listarUsuario")

@@ -7,6 +7,7 @@ import {ExcelService} from './excel.service';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit{
+  login:boolean=false;
   data: any = [
     {
        
@@ -37,6 +38,12 @@ export class AppComponent implements OnInit{
         
     }
     ngOnInit(){
+      let usuario=sessionStorage.getItem("nombre");
+      if(usuario){
+        this.login= false;
+      }else{
+        this.login= true;
+      }
       this.spinner.show();
  
     setTimeout(() => {

@@ -48,7 +48,7 @@
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
         <a href="javascript:;" (click)='collapse()'>
           <i class="icon-building"></i>
-          <span>Control de Activo FIjo</span>
+          <span>Control de Activo Fijo</span>
         </a>
         <ul class="sub">
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/select-tipo-activo"]' (click)='collapse()'>Ingreso de nuevo activo</a></li>
@@ -121,13 +121,14 @@
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
-        <a href="javascript:;" [routerLink]='["/fetch-data"]' (click)='collapse()'>
+        <a href="javascript:;" (click)='collapse()'>
           <i class="icon-unlock-alt"></i>
           <span>Seguridad</span>
         </a>
         <ul class="sub">
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-usuario"]' (click)='collapse()'>Usuarios</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-tipo-usuario"]' (click)='collapse()'>Tipos de Usuarios</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/login"]' (click)='collapse()'>Login</a></li>
           <li><a href="gallery.html">Bitacora</a></li>
           <li><a href="gallery.html">Backup</a></li>
 

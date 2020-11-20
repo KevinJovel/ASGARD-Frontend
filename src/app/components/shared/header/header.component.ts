@@ -17,5 +17,9 @@ export class HeaderComponent implements OnInit {
   collapse() {
     this.isExpanded = false;
   }
+  logout(){
+    sessionStorage.removeItem("nombre");
+    window.location.href = "/";
+  }
 
 }

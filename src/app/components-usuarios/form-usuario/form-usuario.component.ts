@@ -17,6 +17,7 @@ export class FormUsuarioComponent implements OnInit {
    usuarios: any;
   titulo: string = "";
   display = 'none';
+  displayU = 'none';
   p: number = 1;
   tipoUsuarios: any;
   empleados: any;
@@ -62,7 +63,7 @@ export class FormUsuarioComponent implements OnInit {
 
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de Usuario";
+    this.titulo = "Formulario registro usuario";
     this.usuario.controls["iidusuario"].setValue("0");
     this.usuario.controls["bandera"].setValue("0");
     this.usuario.controls["nombreusuario"].setValue("");

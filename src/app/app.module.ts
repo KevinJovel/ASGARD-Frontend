@@ -94,12 +94,11 @@ import { ReportesControlActivoComponent } from './components-reportes/reportes-c
 import { ReportesMantenimientoComponent } from './components-reportes/reportes-mantenimiento/reportes-mantenimiento.component';
 import { ReportesTraspasoComponent } from './components-reportes/reportes-traspaso/reportes-traspaso.component';
 import { ReportesDescargoComponent } from './components-reportes/reportes-descargo/reportes-descargo.component';
+import { LoginComponent } from './components-usuarios/login/login.component';
 
-
-
-
-
-
+// Guardas
+import {SeguridadGuard} from './guards/seguridad.guard';
+import { PaginaErrorLoginComponent } from './components-usuarios/pagina-error-login/pagina-error-login.component';
 
 
 @NgModule({
@@ -159,6 +158,8 @@ import { ReportesDescargoComponent } from './components-reportes/reportes-descar
     ReportesMantenimientoComponent,
     ReportesTraspasoComponent,
     ReportesDescargoComponent,
+    LoginComponent,
+    PaginaErrorLoginComponent,
 
 
    
@@ -177,16 +178,16 @@ import { ReportesDescargoComponent } from './components-reportes/reportes-descar
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'shared', component: SharedComponent },
       { path: 'tabla-activos', component: TablaActivosComponent },
-      { path: 'form-empleado', component: FormEmpleadoComponent },
-      { path: 'form-marca', component: FormMarcaComponent },
-      { path: 'form-sucursal', component: FormSucursalComponent },
-      { path: 'form-donantes', component: FormDonantesComponent },
-      { path: 'form-proveedor', component: FormProveedorComponent },
-      { path: 'form-clasificacion', component: FormClasificacionComponent },
-      { path: 'form-categoria', component: FormCategoriaComponent },
-      { path: 'form-cargo', component: FormCargoComponent },
-      {path: 'form-area-negocio', component: FormAreasNegocioComponent},
-      {path: 'form-tecnico', component: FormTecnicoComponent},
+      { path: 'form-empleado', component: FormEmpleadoComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-marca', component: FormMarcaComponent, canActivate: [SeguridadGuard]},
+      { path: 'form-sucursal', component: FormSucursalComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-donantes', component: FormDonantesComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-proveedor', component: FormProveedorComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-clasificacion', component: FormClasificacionComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-categoria', component: FormCategoriaComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-cargo', component: FormCargoComponent , canActivate: [SeguridadGuard]},
+      {path: 'form-area-negocio', component: FormAreasNegocioComponent, canActivate: [SeguridadGuard]},
+      {path: 'form-tecnico', component: FormTecnicoComponent, canActivate: [SeguridadGuard]},
       {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent},
       {path: 'form-usuario', component: FormUsuarioComponent},
       {path: 'form-nuevoBien/:id', component: FormNuevoBienComponent},
@@ -220,12 +221,14 @@ import { ReportesDescargoComponent } from './components-reportes/reportes-descar
       {path: 'tipo-depreciacion', component: TipoDepreciacionComponent},
       {path: 'form-modificar-asignados/:id', component: FormModificarAsignadosComponent},
        {path: 'menu-reportes', component: MenuReportesComponent},
+       {path: 'login', component: LoginComponent},
+       {path: 'pagina-error-login', component: PaginaErrorLoginComponent},
       { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
       
     ]),
     NoopAnimationsModule
     ],
-    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService,TraspasoService],
+    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService,TraspasoService,SeguridadGuard],
 
     bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
 })

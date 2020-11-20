@@ -30,7 +30,9 @@ body {
   .header {
     position: absolute;
   }
-
+.logout{
+cursor: pointer;
+}
   /*sidebar*/
 
   #sidebar {
