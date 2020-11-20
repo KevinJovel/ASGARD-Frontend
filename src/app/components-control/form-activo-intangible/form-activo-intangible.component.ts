@@ -343,7 +343,8 @@ ProveedorDonante() {
                       Swal.fire({
                         position: 'center',
                         icon: 'warning',
-                        title: 'No guardó',
+                        title: '¡Error!',
+                        text:'Ocurrió un error al registrar el activo',
                         showConfirmButton: false,
                         timer: 3000,
                       });
