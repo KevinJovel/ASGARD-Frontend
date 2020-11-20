@@ -79,7 +79,7 @@ export class TablaInformeComponent implements OnInit {
        this.informe.controls["descripcion"].setValue("");
        this.informe.controls["costomateriales"].setValue("");
        this.informe.controls["costomo"].setValue("");
-       this.informe.controls["costototal"].setValue("");
+      // this.informe.controls["costototal"].setValue("");
 
     
        
