@@ -50,6 +50,9 @@ export class LoginComponent implements OnInit {
             timer: 3000
         })
           sessionStorage.setItem("nombre",res.nombreusuario);
+          sessionStorage.setItem("idUser",res.iidusuario);
+          sessionStorage.setItem("empleado",res.iidEmpleado);
+          sessionStorage.setItem("tipo",res.iidTipousuario);          
           this.error=false;
           window.location.href = "/";
           // this.router.navigate(["/"]);

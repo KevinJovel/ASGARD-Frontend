@@ -98,6 +98,7 @@ import { LoginComponent } from './components-usuarios/login/login.component';
 
 // Guardas
 import {SeguridadGuard} from './guards/seguridad.guard';
+import {JefeGuard} from './guards/jefe.guard';
 import { PaginaErrorLoginComponent } from './components-usuarios/pagina-error-login/pagina-error-login.component';
 
 
@@ -228,7 +229,7 @@ import { PaginaErrorLoginComponent } from './components-usuarios/pagina-error-lo
     ]),
     NoopAnimationsModule
     ],
-    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService,TraspasoService,SeguridadGuard],
+    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService,TraspasoService,SeguridadGuard,JefeGuard],
 
     bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
 })

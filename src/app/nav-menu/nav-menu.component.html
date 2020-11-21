@@ -12,7 +12,7 @@
         </a>
       </li>
 
-      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
+      <!-- <li class="sub-menu" [routerLinkActive]='["link-active"]' *ngIf="jefe==true">
         <a href="javascript:;" (click)='collapse()'>
           <i class="icon-cogs"></i>
           <span>Configuración</span>
@@ -21,10 +21,10 @@
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-conficooperativa"]' (click)='collapse()'>Configuración de Cooperativa</a></li>
         
         </ul>
-      </li>
+      </li> -->
 
 
-      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
+      <li class="sub-menu" [routerLinkActive]='["link-active"]' *ngIf="admin==true">
         <a href="javascript:;" (click)='collapse()'>
           <i class="glyphicon glyphicon-list-alt"></i>
           <span>   Catálogos</span>
@@ -51,16 +51,16 @@
           <span>Control de Activo Fijo</span>
         </a>
         <ul class="sub">
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/select-tipo-activo"]' (click)='collapse()'>Ingreso de nuevo activo</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/registro-activos/ver"]' (click)='collapse()'>Registros de activos</a></li>
+          <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/select-tipo-activo"]' (click)='collapse()'>Ingreso de nuevo activo</a></li>
+          <li  [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/registro-activos/ver"]' (click)='collapse()'>Registros de activos</a></li>
           <!-- <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-activos"]' (click)='collapse()'>Registros de activos2</a></li> -->
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-asignacion"]' (click)='collapse()'>Asignanción de activos</a></li>
+          <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-asignacion"]' (click)='collapse()'>Asignanción de activos</a></li>
           <!-- <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-desasignacion"]' (click)='collapse()'>Desasignación de activos</a></li> -->
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" (click)='ValidarActivos()'>Depreciación</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;"  [routerLink]='["/tabla-revalorizar"]' (click)='collapse()' >Revalorización</a></li>
+          <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" (click)='ValidarActivos()'>Depreciación</a></li>
+          <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;"  [routerLink]='["/tabla-revalorizar"]' (click)='collapse()' >Revalorización</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-tarjeta"]' (click)='collapse()'>Tarjeta de depreciación</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cuadro-control"]' (click)='collapse()'>Cuadro de control de activos</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cierre-anio"]' (click)='collapse()'>Cierre</a></li>
+          <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cierre-anio"]' (click)='collapse()'>Cierre</a></li>
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]'>
@@ -96,7 +96,7 @@
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/gestion-descargo"]' (click)='collapse()'>Historial de descargos</a></li>
         </ul>
       </li>
-      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
+      <li class="sub-menu" [routerLinkActive]='["link-active"]' *ngIf="admin==true">
         <a href="javascript:;" (click)='collapse()'>
           <i class="icon-folder-open"></i>
           <span>Solicitudes</span>
@@ -110,7 +110,7 @@
       
 
 
-      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
+      <li class="sub-menu" [routerLinkActive]='["link-active"]' *ngIf="admin==true">
         <a href="javascript:;" (click)='collapse()'>
           <i class="icon-file-text"></i>
           <span>Consultas y Reportes</span>
@@ -120,7 +120,7 @@
           <li><a href="calendar.html">Consultas gereficas</a></li>
         </ul>
       </li>
-      <li class="sub-menu" [routerLinkActive]='["link-active"]'>
+      <li class="sub-menu" [routerLinkActive]='["link-active"]' *ngIf="admin==true">
         <a href="javascript:;" (click)='collapse()'>
           <i class="icon-unlock-alt"></i>
           <span>Seguridad</span>

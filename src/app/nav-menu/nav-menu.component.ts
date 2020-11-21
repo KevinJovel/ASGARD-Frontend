@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CargarScriptsService} from './../services/cargar-scripts.service';
 import { MantenimientoService } from './../services/mantenimiento.service';
@@ -13,14 +13,26 @@ import { ControlService } from '../services/control.service';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit{
   displayCierre='none';
   datos:FormGroup;
   aceptacion:boolean=false;
+  admin:boolean=false;
+  jefe:boolean=false;
   constructor( private _cargarScript:CargarScriptsService,private controlService: ControlService ,private mantenimientoService: MantenimientoService,private depreciacionService: DepreciacionService,private router: Router) {
     this._cargarScript.cargar(["/jquery.nicescroll"]);
 
    }
+   ngOnInit(): void {
+    let tipousuario=sessionStorage.getItem("tipo");  
+    if(tipousuario=="1"){
+      this.jefe=false;
+      this.admin=true;
+    }else if (tipousuario=="2"){
+    this.admin=false;
+    this.jefe=true;
+    }
+  }
   isExpanded = false;
 
   collapse() {
