@@ -153,8 +153,8 @@
                     </thead>
                     <tbody>
 
-                <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
-               <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                <tr *ngFor="let informe of informes; let i = index">
+               <th scope="col">{{i+1 }}</th>
                 
                <td>{{informe.fechacadena}}</td>
                <td>{{informe.nombretecnico}}</td>
@@ -166,7 +166,7 @@
               </tr>
                     </tbody>
                   </table>
-                   <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                  <!--<pagination-controls (pageChange)="p3 = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>-->
                 </div>
               </div>
             </section>

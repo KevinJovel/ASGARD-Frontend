@@ -22,6 +22,7 @@ export class HistorialMantenimientoComponent implements OnInit {
   areas:any;
   combos: FormGroup;
   p: number=1;
+  p3: number=1;
   titulo:string;
   datos:FormGroup;
   display = 'none';
