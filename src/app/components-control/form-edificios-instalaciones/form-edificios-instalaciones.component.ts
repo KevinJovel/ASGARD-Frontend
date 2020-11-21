@@ -314,6 +314,21 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
     //Le agrego una bandera para englobar los datos y verificar si fueron ingresados o no en el formulario
     if (this.activoEdiInsta.controls['bandera'].value == '0') {
       if (this.activoEdiInsta.valid == true) {
+
+        //condición para validar si el valor residual es mayor al costo
+        var vResidual=this.activoEdiInsta.controls['valorresidual'].value;
+        var vCosto=this.activoEdiInsta.controls['valoradquicicion'].value;
+        if(vResidual>vCosto){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '¡ERROR!',
+            text: '¡El valor residual es mayor al costo!',
+            showConfirmButton: false,
+            timer: 3000
+        })
+        } else {
+
         this.controlService.agregarFormIngreso(this.activoEdiInsta.value).subscribe((data) => {
             //Creo esta condicion, si es contado o donado mando valor 0 sino ingresa lo de credito
           var tip = this.activoEdiInsta.controls['tipoadquicicion'].value;
@@ -356,6 +371,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
                 });
             }
           });
+        }
       }
     } else {
       //Editar

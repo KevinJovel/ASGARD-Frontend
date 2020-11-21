@@ -301,6 +301,21 @@ export class FormNuevoBienComponent implements OnInit {
     //Le agrego una bandera para englobar los datos y verificar si fueron ingresados o no en el formulario
     if (this.nuevobien.controls['bandera'].value == '0') {
       if (this.nuevobien.valid == true) {
+
+        //condición para validar si el valor residual es mayor al costo
+        var vResidual=this.nuevobien.controls['valorresidual'].value;
+        var vCosto=this.nuevobien.controls['valoradquicicion'].value;
+        if(vResidual>vCosto){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '¡ERROR!',
+            text: '¡El valor residual es mayor al costo!',
+            showConfirmButton: false,
+            timer: 3000
+        })
+        } else {
+
         this.controlService.agregarFormIngreso(this.nuevobien.value).subscribe((data) => {
             //Creo esta condicion, si es contado o donado mando valor 0 sino ingresa lo de credito
           var tip = this.nuevobien.controls['tipoadquicicion'].value;
@@ -342,6 +357,8 @@ export class FormNuevoBienComponent implements OnInit {
                 });
             }
           });
+
+        }
       }
     } else {
       //Editar

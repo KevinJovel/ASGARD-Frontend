@@ -311,6 +311,20 @@ ProveedorDonante() {
       //Le agrego una bandera para englobar los datos y verificar si fueron ingresados o no en el formulario
       if (this.activoIntangible.controls['bandera'].value == '0') {
         if (this.activoIntangible.valid == true) {
+
+          //condición para validar si el valor residual es mayor al costo
+        var vResidual=this.activoIntangible.controls['valorresidual'].value;
+        var vCosto=this.activoIntangible.controls['valoradquicicion'].value;
+        if(vResidual>vCosto){
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '¡ERROR!',
+            text: '¡El valor residual es mayor al costo!',
+            showConfirmButton: false,
+            timer: 3000
+        })
+        } else {
           this.controlService.agregarFormIngreso(this.activoIntangible.value).subscribe((data) => {
               //Creo esta condicion, si es contado o donado mando valor 0 sino ingresa lo de credito
             var tip = this.activoIntangible.controls['tipoadquicicion'].value;
@@ -354,6 +368,7 @@ ProveedorDonante() {
               }
             });
         }
+      }
       } else {
         //Editar
         this.activoIntangible.controls["bandera"].setValue("0");
