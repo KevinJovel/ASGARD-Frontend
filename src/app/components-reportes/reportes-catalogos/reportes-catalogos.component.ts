@@ -66,6 +66,10 @@ export class ReportesCatalogosComponent implements OnInit {
     return new Rect([x,y],[516,2]).color(color).end;
   }
 
+  generatePDF() {
+    this.catalogoService.reportePrueba().subscribe();
+  }
+
   async nuevoPDF() {
     const pdf2=new PdfMakeWrapper();
 

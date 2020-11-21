@@ -107,7 +107,7 @@ public validarDepenActivo(idSucursal) {
 
   //Prueba para reporte
   public reportePrueba() {
-    return this.http.get(environment.urlService  + "api/Reporte/reporte");
+    return this.http.get(environment.urlService  + "api/Reporte/reporte").map(res => res.json());
   }
 
   //Serve para Tipo de Traspaso
