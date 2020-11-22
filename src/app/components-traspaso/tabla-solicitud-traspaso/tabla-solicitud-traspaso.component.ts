@@ -32,7 +32,8 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
        'acuerdo': new FormControl("",[Validators.required]),
-       'fechasolicitud': new FormControl("",[Validators.required])
+       'fechasolicitud': new FormControl("",[Validators.required]),
+       'idEmpleado': new FormControl("",[Validators.required]),
     });
   }
 
@@ -48,6 +49,8 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.titulo = "Autorización de solicitud para realizar traspaso";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
     this.solicitudes.controls["fechasolicitud"].setValue("");
+    //Aqui se le teiene que enviar el codigo del nuevo empleado
+    this.solicitudes.controls["idEmpleado"].setValue(2);
     this.TraspasoService.verSolicitudTraspaso(id).subscribe((data) => {
  
       this.fechasolicitud = data.fechacadena;
@@ -105,14 +108,32 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
             text: 'La solicitud ha sido aprobada con éxito.',
             confirmButtonText: 'Aceptar'
         })
+       console.log(this.solicitudes.value);
+        this.TraspasoService.cambiarEstadoAceptoTraspaso(this.solicitudes.value).subscribe(rest=>{ 
+          if(rest==1){
+            Swal.fire({
+              icon: 'success',
+              title: '¡Aprobada!',
+              text: 'Cambio codigo.',
+              confirmButtonText: 'Aceptar'
+          })
           this.display = 'none'; 
           this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
-         }//cierre de if      
+      
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: 'Cambio codigo.',
+              confirmButtonText: 'Aceptar'
+          })
+          }
+         });
+           }//cierre de if      
    });   
    this.idactivado=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
-       this.TraspasoService.cambiarEstadoAceptoTraspaso(this.idactivado, this.acuerdo, this.fechasolicitud).subscribe(rest=>{ });
-       console.log("fecha: "+ this.fechasolicitud);
-       console.log("acuerdo: "+ this.acuerdo);
+    
+    
   }// del result
   })//de la alerta
 
@@ -144,6 +165,7 @@ denegarSolicitud() {
             confirmButtonText: 'Aceptar'
         })
           this.display = 'none'; 
+         
           this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
          }      
    });   
