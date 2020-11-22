@@ -1,143 +1,72 @@
-<br><br><br><br>
-<section class="panel">
-  <h1>Tipos de traspaso</h1>
-  <div class="row">
-    <div class="col-lg-6">
-
-      <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo tipo de traspaso</button>
-      </header>
-    </div>
-    <div class="col-lg-3">
-    </div>
-    <div class="col-md-3">
-      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12">
-      <section class="panel panel-default">
-        <header class="panel-heading">
-          <h5>Registro de tipos de traspaso</h5>
-        </header>
-        <div class="panel-body">
-          <div class="adv-table">
-            <table class="display table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>N°</th>
-                  <th>Nombre</th>
-                  <th>Descripción</th>
-                  <th class="hidden-phone">Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let traspaso of traspasos | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
-                  <th scope="col">{{i+(5*p)-4}}</th>
-                  <td>{{traspaso.nombre}}</td>
-                  <td>{{traspaso.descripcion}}</td>
-                  <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modif(traspaso.idtipo)"><i class="icon-pencil" title="Editar"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(traspaso.idtipo)" ><i class="icon-trash "></i></button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-          </div>
+<!-- 
+<br><br><br><br><br><br>
+<body>
+  <div class="container">
+    <section id="content">
+      <form action="">
+        <h1>Login Form</h1>
+        <div>
+          <input type="text" placeholder="Username" required="" id="username" />
         </div>
-      </section>
-    </div>
-  </div>
-</section>
-<!--modal para ingresar y editar-->
-<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-        <h4 class="modal-title">{{titulo}}</h4>
-      </div>
-      <div class="modal-body">
+        <div>
+          <input type="password" placeholder="Password" required="" id="password" />
+        </div>
+        <div>
+          <input type="submit" value="Log in" />
+          <a href="#">Lost your password?</a>
+          <a href="#">Register</a>
+        </div>
+      </form> 
+      <div class="button">
+        <a href="#">Download source file</a>
+      </div>   button 
+    </section> 
+  </div> container 
+  </body>
+  primer login de varias paginitas -->
 
-        <form role="form" [formGroup]="traspaso" (ngSubmit)="guardarDatos()">
-          <input type="hidden" class="form-control" formControlName="idtipo"  autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="bandera"  autocomplete="off">
 
-          <div class="form-group">
-            <label>* Nombre:</label>
-            <input type="text" class="form-control" formControlName="nombre"  placeholder="Ingrese nombre" autocomplete="off" maxlength="26">
+
+
+
+<!-- COMIENZA EL OTRO-->
+  <!--  
+  <br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <form class="login">
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <button>Login</button>
+  </form>
+  
+  <a href="https://codepen.io/davinci/" target="_blank">check my other pens</a>
+
+  -->
+
+
+
+
+
+
+  <br>
+  <div id="logo" > 
+    <h1><i> BIENVENIDO</i></h1>
+  </div > 
+  <section class="stark-login form" >
+    
+    <form action="" method="" >	
+      <div id="fade-box form" >
+        <input type="text" name="username" id="username" placeholder="Usuario" required>
+          <input type="password" placeholder="Contraseña" required>
+            
+            <button>Iniciar Sesión</button> 
           </div>
-          
-          <div class="form-group">
-            <label>Descripción:</label>
-            <textarea class="form-control rounded-0" formControlName="descripcion" rows="1"
-              placeholder="Ingrese descripción" autocomplete="off" maxlength="51"></textarea>
-          </div>
-
-           <!-- Alertas para nombre-->
-           <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.yaExisteNombre">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Advertencia!</strong> El tipo de traspaso ya existe.
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.maxlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en campo nombre.
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['nombre'].errors?.pattern">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Error!</strong> El campo nombre no acepta caracteres especiales.
-          </div>
-          <!-- Fin Aletras para nombre-->
-
-        
-          <!-- Aletras para descripción-->
-          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['descripcion'].errors?.maxlength">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
-          </div>
-
-          <div class="alert alert-block alert-danger fade in" *ngIf="traspaso.controls['descripcion'].errors?.pattern">
-            <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
-            </button>
-            <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
-          </div>
-          <!-- Fin Aletras para descripción-->
-
-                           <!--  WARNING-->
-                           <div class="alert alert-warning fade in" *ngIf="!traspaso.valid">
-                            <button data-dismiss="alert" class="close close-sm" type="button">
-                              <i class="icon-remove"></i>
-                            </button>
-                            <strong>¡Advertencia!</strong> El campo nombre es obligatorio.
-                          </div>
-
-                         
-                
-                           <!--  END-WARNING-->
-                           <div class="alert alert-success fade in" *ngIf="traspaso.valid&&traspaso.controls['bandera'].value==0">
-                            <button data-dismiss="alert" class="close close-sm" type="button">
-                              <i class="icon-remove"></i>
-                            </button>
-                            <strong>¡Excelente!</strong> Datos ingresados correctamente.
-                          </div>
-        
-            <button  type="submit" [disabled]="!traspaso.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-            <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
-       
         </form>
-      </div>
-    </div>
-  </div>
-</div>
+              </section> 
+              
+              <div id="circle1">
+                <div id="inner-cirlce1">
+                  <h2> </h2>
+                </div>
+              </div>
+              
