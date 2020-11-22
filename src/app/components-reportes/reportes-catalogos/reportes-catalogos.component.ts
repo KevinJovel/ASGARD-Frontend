@@ -3,7 +3,10 @@ import { PdfMakeWrapper, Txt, Img, Columns, Stack, Table, Cell, Canvas, Rect, SV
 import { CatalogosService } from './../../services/catalogos.service';
 import { ConfiguracionService } from './../../services/configuracion.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {HttpClient} from '@angular/common/http'
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
+import {environment} from '../../../environments/environment';
+import {saveAs} from 'file-saver/dist/FileSaver';
 @Component({
   selector: 'app-reportes-catalogos',
   templateUrl: './reportes-catalogos.component.html',
@@ -46,7 +49,7 @@ export class ReportesCatalogosComponent implements OnInit {
   //Colores personalizados
   private blackA: string='#000000';
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
-    private confiService:ConfiguracionService) {
+    private confiService:ConfiguracionService, private http:HttpClient) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
     
    }
@@ -67,9 +70,19 @@ export class ReportesCatalogosComponent implements OnInit {
   }
 
   generatePDF() {
-    this.catalogoService.reportePrueba().subscribe();
+    this.http.get(environment.urlService+"api/Reporte/reporte",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
   }
-
+  dowloadPDF() {
+    this.http.get(environment.urlService+"api/Reporte/reporte",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const fileName='prueba.pdf';
+      saveAs(blod,fileName);
+    });
+  }
   async nuevoPDF() {
     const pdf2=new PdfMakeWrapper();
 
