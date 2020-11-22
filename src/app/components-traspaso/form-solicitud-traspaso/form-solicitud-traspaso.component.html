@@ -128,7 +128,7 @@
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2">*Nuevo responsable:</label>
               <select class="form-control" formControlName="nuevoresponsable" >
-                <option value="0">---Seleccione---</option>
+                <option value="">---Seleccione---</option>
                 <option [value]="empleado.nombres +' '+ empleado.apellidos" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
               </select>
               </div>
