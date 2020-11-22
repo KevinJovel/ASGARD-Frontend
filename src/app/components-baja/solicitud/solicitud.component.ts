@@ -141,7 +141,7 @@ negarSolicitud() {
          }      
    });   
    this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoRechazado(this.bienesS ,this.acuerdo, this.fecha2).subscribe(rest=>{ });
+       this.bajaService.cambiarEstadoDenegado(this.bienesS).subscribe(rest=>{ });
   
   }// del result
   })//de la alerta
