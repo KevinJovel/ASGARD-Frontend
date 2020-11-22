@@ -35,7 +35,7 @@ export class TraspasoService {
   }
 
   public cambiarEstadoAceptoTraspaso(traspaso) {
-    return this.http.get(environment.urlService  + "api/SolicitudTraspaso/cambiarEstadoAceptoTraspaso",traspaso).map(res => res.json());
+    return this.http.post(environment.urlService  + "api/SolicitudTraspaso/cambiarEstadoAceptoTraspaso",traspaso).map(res => res.json());
   }
   public denegarSolicitud(id){
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/denegarSolicitud/" + id).map(res=>res.json());

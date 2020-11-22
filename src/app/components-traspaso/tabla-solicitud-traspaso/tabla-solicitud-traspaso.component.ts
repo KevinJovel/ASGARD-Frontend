@@ -49,6 +49,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.titulo = "Autorización de solicitud para realizar traspaso";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
     this.solicitudes.controls["fechasolicitud"].setValue("");
+    this.solicitudes.controls["idsolicitud"].setValue(id);
     //Aqui se le teiene que enviar el codigo del nuevo empleado
     this.solicitudes.controls["idEmpleado"].setValue(2);
     this.TraspasoService.verSolicitudTraspaso(id).subscribe((data) => {
