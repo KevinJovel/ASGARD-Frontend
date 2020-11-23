@@ -67,6 +67,9 @@ public validarActivosAsignar() {
 public getVidaUtil(idBien) {
   return this.http.get(environment.urlService + "api/ActivoFIjo/RecuperarVidaUtil/"+idBien).map(res => res.json());
 }
+public DatosCodigoBarras(idBien) {
+  return this.http.get(environment.urlService + "api/ActivoFijo/datosCodigoBarra/"+idBien).map(res => res.json());
+}
 
 
 public listarComboAsigar() {

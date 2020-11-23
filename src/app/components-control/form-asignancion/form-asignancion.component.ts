@@ -29,6 +29,10 @@ export class FormAsignancionComponent implements OnInit {
   fechaMinima: any;
   anio: string;
   //datos de informe
+  //Datos de modal de codigo de barras
+  nombreActivo:any;
+  modelo:any;
+  marca: any;
   @Input() noSoli: string;
   constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, private mantenimientoService: MantenimientoService,private router: Router) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
@@ -73,8 +77,13 @@ export class FormAsignancionComponent implements OnInit {
     let mes=fecharecup[1];
     let anio=fecharecup[2];
     this.controlService.mostrarAnio().subscribe((res)=> {
+      if(res.anio>anio){
+        this.fechaMinima=`${res.anio}-01-01`;
+      }else{
+        this.fechaMinima=`${anio}-${mes}-${dia}`;
+      }
       this.fechaMaxima=`${res.anio}-12-31`;
-      this.fechaMinima=`${anio}-${mes}-${dia}`;
+    
     });
     
     this.titulo = "Asignar nuevo activo ";
@@ -122,6 +131,7 @@ export class FormAsignancionComponent implements OnInit {
     }
   }
   GcodigoBarra() {
+
     if(this.activo.controls["codigo"].value==""){
       Swal.fire({
         icon: 'error',
@@ -130,6 +140,11 @@ export class FormAsignancionComponent implements OnInit {
       })
     }else{
       this.titulo = "Codigo de barras generado";
+      this.controlService.DatosCodigoBarras(this.activo.controls["idBien"].value).subscribe(res=>{
+        this.nombreActivo=res.nombre;
+        this.modelo=res.modelo;
+        this.marca=res.marca;
+      })
       this.display2 = 'block';
     }
   }

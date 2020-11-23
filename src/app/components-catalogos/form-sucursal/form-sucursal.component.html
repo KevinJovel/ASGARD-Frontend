@@ -97,7 +97,7 @@
           <div class="form-group">
             <label>*Correlativo:</label>
             <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo"
-              placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
+              placeholder="Ingrese correlativo" autocomplete="off" maxlength="6">
           </div>
            <!-- Alertas sucursal -->
            <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['nombre'].errors?.maxlength">

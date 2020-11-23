@@ -33,7 +33,9 @@ table {
     height: 100%;
     background: rgba(0,0,0,0.452);
   }
-  
+    .modal-dialog {
+      width: 700px;
+  }
   .modal-content {
     animation-name: modal;
     animation-duration: 1s;
