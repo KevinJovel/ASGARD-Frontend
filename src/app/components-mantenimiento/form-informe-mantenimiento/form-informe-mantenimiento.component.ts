@@ -72,8 +72,13 @@ let dia=fecharecup[0];
 let mes=fecharecup[1];
 let anio=fecharecup[2];
 this.controlService.mostrarAnio().subscribe((res)=> {
+  if(res.anio>anio){
+    this.fechaMinima=`${res.anio}-01-01`;
+  }else{
+    this.fechaMinima=`${anio}-${mes}-${dia}`;
+  }
   this.fechaMaxima=`${res.anio}-12-31`;
-  this.fechaMinima=`${anio}-${mes}-${dia}`;
+
 });
 
     this.titulo = "Revalorización";

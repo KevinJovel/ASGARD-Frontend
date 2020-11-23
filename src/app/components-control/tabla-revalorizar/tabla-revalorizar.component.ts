@@ -83,11 +83,31 @@ export class TablaRevalorizarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
+   /* this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
+    this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
+ 
+      this.tablaMuebles='block'; 
+    });*/
+//METODO PARA TABLA VACIA
+this.controlService.validarActivosRevalorizar().subscribe(res =>{
+  if(res==1){
     this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
  
       this.tablaMuebles='block'; 
     });
+    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
+  }else{
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'No se encontraron activos para revalorizar.',
+      showConfirmButton: false,
+      timer: 4000
+    });
+    this.router.navigate(["/"]);
+  }
+})
+
       //Método para recuperar año
    /*this.controlService.mostrarAnio().subscribe((res)=> {
     this.fechaMaxima=`${res.anio}-12-31`;
@@ -192,8 +212,13 @@ let dia=fecharecup[0];
 let mes=fecharecup[1];
 let anio=fecharecup[2];
 this.controlService.mostrarAnio().subscribe((res)=> {
+  if(res.anio>anio){
+    this.fechaMinima=`${res.anio}-01-01`;
+  }else{
+    this.fechaMinima=`${anio}-${mes}-${dia}`;
+  }
   this.fechaMaxima=`${res.anio}-12-31`;
-  this.fechaMinima=`${anio}-${mes}-${dia}`;
+
 });
 
 this.titulo = "Revalorización";

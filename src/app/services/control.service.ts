@@ -212,6 +212,11 @@ public buscarActivoIntangibleRevalorizar(buscador) {
 public ValidarActivosARevalorizar(){
   return this.http.get(environment.urlService + "api/Revalorizar/ValidarActivosARevalorizar").map(res=>res.json());
  }
+ //para tabla vacía
+ public validarActivosRevalorizar(){
+  return this.http.get(environment.urlService + "api/Revalorizar/validarActivosRevalorizar").map(res=>res.json());
+ }
+ 
 
  public noEditarfecha(idbien){
   return this.http.get(environment.urlService + "api/ActivoFijo/noEditarfecha/"+ idbien).map(res=>res.json());
