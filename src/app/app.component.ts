@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ExcelService} from './excel.service';
+import {UsuarioService} from './services/usuario.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit{
+  login:boolean=false;
+  registro:boolean=false;
+    // display:'none';
   data: any = [
     {
        
@@ -33,11 +37,23 @@ export class AppComponent implements OnInit{
         "STATUS": "TRUE"
     }
 ]
-    constructor(private spinner: NgxSpinnerService, private excelService:ExcelService) {
+    constructor(private spinner: NgxSpinnerService, private excelService:ExcelService, private usuarioService:UsuarioService) {
         
     }
     ngOnInit(){
-      this.spinner.show();
+      this.usuarioService.validarusuariosRegistrados().subscribe(res=>{
+        if(res!=1){
+         this.login=true;
+         this.registro=true;
+        }
+      });
+      let usuario=sessionStorage.getItem("nombre");
+      if(usuario){
+        this.login= false;
+      }else{
+        this.login= true;
+      }
+     this.spinner.show();
  
     setTimeout(() => {
       /** spinner ends after 5 seconds */

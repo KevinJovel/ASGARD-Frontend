@@ -1,84 +1,60 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-//importamos
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UsuarioService } from './../../services/usuario.service';
 import { CatalogosService } from './../../services/catalogos.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { UsuarioService } from './../../services/usuario.service';
 import Swal from 'sweetalert2';
-
 @Component({
-  selector: 'form-usuario',
-  templateUrl: './form-usuario.component.html',
-  styleUrls: ['./form-usuario.component.css']
+  selector: 'app-pagina-registro',
+  templateUrl: './pagina-registro.component.html',
+  styleUrls: ['./pagina-registro.component.css']
 })
-export class FormUsuarioComponent implements OnInit {
-
+export class PaginaRegistroComponent implements OnInit {
   usuario: FormGroup;
-   usuarios: any;
-  titulo: string = "";
-  display = 'none';
-  displayU = 'none';
-  p: number = 1;
-  tipoUsuarios: any;
+  usuarios: any;
+ titulo: string = "";
+ display = 'none';
+ tipoUsuarios: any;
   empleados: any;
-  //variable para el formulario dinamico
-  //ver: boolean = true;
+  constructor(private usuarioService: UsuarioService,
+    private catalogoService: CatalogosService,) { 
+      this.usuario = new FormGroup(
+        {
+          
+          'iidusuario': new FormControl("0"),
+          'bandera': new FormControl("0"),
+          'nombreusuario': new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirUsuario.bind(this)),
+          'contra': new FormControl("", [Validators.required, Validators.maxLength(30)]),
+          'contra2': new FormControl("", [Validators.required, Validators.maxLength(30), this.validarContraIguales.bind(this)]),
+          'iidEmpleado': new FormControl("", [Validators.required]),
+          'iidTipousuario': new FormControl("")
+        }
+      );
 
-  constructor(private activatedRoute: ActivatedRoute, private usuarioService: UsuarioService,
-    private catalogoService: CatalogosService,
-    private router: Router) {
+    }
 
-    this.usuario = new FormGroup(
-      {
-        
-        'iidusuario': new FormControl("0"),
-        'bandera': new FormControl("0"),
-        'nombreusuario': new FormControl("", [Validators.required, Validators.maxLength(50)], this.noRepetirUsuario.bind(this)),
-        'contra': new FormControl("", [Validators.required, Validators.maxLength(30)]),
-        'contra2': new FormControl("", [Validators.required, Validators.maxLength(30), this.validarContraIguales.bind(this)]),
-        'iidEmpleado': new FormControl("", [Validators.required]),
-        'iidTipousuario': new FormControl("")
-      }
-    );
-  }
-
-  ngOnInit() {
-
-    this.usuarioService.getUsuario().subscribe(data => { 
-      this.usuarios = data;
-     });
-    //llenamos la lista de persona
-    //lo que esta en data lo guardamos en empleado
+  ngOnInit(): void {
+     //limpia cache
+     this.titulo = "Formulario registro usuario";
+     this.usuario.controls["iidusuario"].setValue("0");
+     this.usuario.controls["bandera"].setValue("0");
+     this.usuario.controls["nombreusuario"].setValue("");
+     this.usuario.controls["contra"].setValue("");
+     this.usuario.controls["contra2"].setValue("");
+     this.usuario.controls["iidEmpleado"].setValue("");
+     this.usuario.controls["iidTipousuario"].setValue("");
+     this.display = 'block';
     this.usuarioService.listarEmpleadoCombo().subscribe(data => {
-     this.empleados = data;
-
-         //llenamos los combo
-    //lo qu esta en data lo guardamos en usuario
-    this.usuarioService.listarTipoCombo().subscribe(data => {
-      this.tipoUsuarios = data;
+      this.empleados = data;
+ 
     });
-
-    });
+     this.usuarioService.listarTipoCombo().subscribe(data => {
+       this.tipoUsuarios = data;
+     });
+ 
   }
-
-  open() {
-    //limpia cache
-    this.titulo = "Formulario registro usuario";
-    this.usuario.controls["iidusuario"].setValue("0");
-    this.usuario.controls["bandera"].setValue("0");
-    this.usuario.controls["nombreusuario"].setValue("");
-    this.usuario.controls["contra"].setValue("");
-    this.usuario.controls["contra2"].setValue("");
-    this.usuario.controls["iidEmpleado"].setValue("");
-    this.usuario.controls["iidTipousuario"].setValue("");
-    this.display = 'block';
-
-  }
-
   close() {
     this.display = 'none';
   }
-
   guardarDatos() {
     if ((this.usuario.controls["bandera"].value) == "0") {
       if (this.usuario.valid == true) {
@@ -173,12 +149,6 @@ export class FormUsuarioComponent implements OnInit {
     })
   }
 
-
-  buscar(buscador) {
-    this.p = 1;
-    this.usuarioService.buscarUsuario(buscador.value).subscribe(res => { this.usuarios = res });
-  }
-
   noRepetirUsuario(control: FormControl) {
     var promesa = new Promise((resolve, reject) => {
       if (control.value != "" && control.value != null) {
@@ -210,5 +180,4 @@ export class FormUsuarioComponent implements OnInit {
       }
     }
   }
-
 }

@@ -2,14 +2,35 @@ import { Injectable, Inject  } from '@angular/core';
 import { Http } from '@angular/http'
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
+import { Router} from '@angular/router'
 import {environment} from '../../environments/environment'
 @Injectable()
 export class UsuarioService {
   
-    constructor(private http: Http) {
+    constructor(private http: Http, private router: Router) {
 
     }
-
+    public login(usuario) {
+      return this.http.post(environment.urlService  + "api/Usuario/login", usuario).map(res => res.json());
+    }
+    public crearSession() {
+      return this.http.get(environment.urlService  + "api/Usuario/crearSession").map(res => res.json());
+    }
+    public validarusuariosRegistrados() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarUsuariosregistrados").map(res => res.json());
+    }
+    public validarCooperativasRegistradas() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarCooperativasRegistradas").map(res => res.json());
+    }
+    public validarSucursalesRegistradas() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarSucursalesRegistradas").map(res => res.json());
+    }
+    public validarAreasRegistrados() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarAreasRegistradas").map(res => res.json());
+    }
+    public validarEmpleadosRegistrados() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarEmpleadosRegistrados").map(res => res.json());
+    }
     //SERVICIOS PARA USUARIO
   public getUsuario() {
     return this.http.get(environment.urlService+ "api/Usuario/listarUsuario")
