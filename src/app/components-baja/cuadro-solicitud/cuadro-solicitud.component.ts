@@ -97,7 +97,7 @@ export class CuadroSolicitudComponent implements OnInit {
           this.tablaMuebles='none';
           this.tablaIntengibles='none';
           this.tablaMueblesNoAsig='none';
-          this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.activo=res
+          this.bajaService.getBienesAsignadosEdificios().subscribe(res=> { this.activo=res
          this.tablaEdificios='block'});
           this.disabledFiltro=true;
           this.banderaBuscador=2;
@@ -106,7 +106,7 @@ export class CuadroSolicitudComponent implements OnInit {
         this.tablaEdificios='none';
         this.tablaIntengibles='none';
         this.tablaMuebles='none';
-        this.controlService.getActivosSinAsignar().subscribe(res=> { 
+        this.bajaService.listarBienesNoAsignados().subscribe(res=> { 
           this.activo=res
           this.tablaMueblesNoAsig='block';
           this.banderaBuscador=4;
@@ -118,7 +118,7 @@ export class CuadroSolicitudComponent implements OnInit {
         this.tablaEdificios='none'
         this.tablaMuebles='none'
         this.tablaMueblesNoAsig='none';
-        this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.activo=res
+        this.bajaService.getBienesAsignadosIntengibles().subscribe(res=> { this.activo=res
           this.tablaIntengibles='block'
         });
         this.disabledFiltro=true;
@@ -135,7 +135,8 @@ export class CuadroSolicitudComponent implements OnInit {
          console.log("solicitud : "+this.solicitud);
          this.bajaService.guardarBien(this.solicitud.value).subscribe(data => {
             //listar bienes 
-           this.bajaService.listarBienesAsignados().subscribe(res=>{ this.activo=res });
+              this.bajaService.listarBienesAsignados().subscribe(res=>{ this.activo=res });
+           
          });
          this.display = 'none';
          
@@ -185,13 +186,13 @@ export class CuadroSolicitudComponent implements OnInit {
   buscar(buscador) {
     this.p = 1;
 if(this.banderaBuscador==1){
-  this.controlService.buscarActivoAsig(buscador.value).subscribe(res => {this.activo = res});
+  this.bajaService.buscarActivoAsig(buscador.value).subscribe(res => {this.activo = res});
 }else if(this.banderaBuscador==2){
-  this.controlService.buscarActivoEdificioAsig(buscador.value).subscribe(res => {this.activo = res});
+  this.bajaService.buscarActivoEdificioAsig(buscador.value).subscribe(res => {this.activo = res});
 }else if(this.banderaBuscador==3){
-  this.controlService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => {this.activo = res});
+  this.bajaService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => {this.activo = res});
 }else if(this.banderaBuscador==4){
-this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.activo = res});
+this.bajaService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.activo = res});
 }
    }
  
@@ -208,7 +209,7 @@ this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.ac
       case '2':
         this.tablaMuebles='none'
         this.tablaIntengibles='none'
-        this.controlService.getBienesAsignadosEdificios().subscribe(res=> { this.activo=res
+        this.bajaService.getBienesAsignadosEdificios().subscribe(res=> { this.activo=res
           this.tablaEdificios='block'});
         this.disabledFiltro=true;
         this.banderaBuscador=2;
@@ -216,7 +217,7 @@ this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.ac
       case '3':
         this.tablaEdificios='none'
         this.tablaMuebles='none'
-        this.controlService.getBienesAsignadosIntengibles().subscribe(res=> { this.activo=res
+        this.bajaService.getBienesAsignadosIntengibles().subscribe(res=> { this.activo=res
           this.tablaIntengibles='block'
         });
        
@@ -257,12 +258,12 @@ this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.ac
   }
   FiltrarArea(){
     var id= this.solicitud.controls['idSucursal'].value;
-    this.controlService.ComboArea(id).subscribe(data=>{this.areas=data});
+    this.bajaService.ComboArea(id).subscribe(data=>{this.areas=data});
   }
   
   Filtrar(){
     var id= this.solicitud.controls['idArea'].value;
-    this.controlService.FiltroTablaActivos(id).subscribe(data=>{this.activo=data});
+    this.bajaService.FiltroTablaActivos(id).subscribe(data=>{this.activo=data});
   }
   Reload(){
   this.solicitud.controls['idSucursal'].setValue(0);

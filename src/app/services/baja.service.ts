@@ -12,6 +12,27 @@ export class BajaService {
   constructor(private http: Http) { }
 
 //BIENES BAJA
+
+public getBienesAsignadosEdificios() {
+  return this.http.get(environment.urlService  + "api/SolicitudBaja/listarActivosEdificios").map(res => res.json());
+}
+public getBienesAsignadosIntengibles() {
+  return this.http.get(environment.urlService  + "api/SolicitudBaja/listarActivosIntangibles").map(res => res.json());
+}
+
+public listarComboArea() {
+  return this.http.get(environment.urlService + "api/SolicitudBaja/listarAreaCombo").map(res => res.json());
+}
+
+public listarComboSucursal() {
+  return this.http.get(environment.urlService + "api/SolicitudBaja/listarSucursalCombo").map(res => res.json());
+}
+
+public FiltroTablaActivos(id) {
+return this.http.get(environment.urlService + "api/SolicitudBaja/listarActivosFiltro/"+id).map(res => res.json());
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////
     public listarBienesAsignados() {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/listarBienesAsignados").map(res => res.json());
     }
@@ -28,21 +49,31 @@ export class BajaService {
     public validarAcuerdo(idsolicitud, acuerdo){
       return this.http.get(environment.urlService + "api/SolicitudBaja/validarAcuerdo/"+ idsolicitud + "/" + acuerdo).map(res => res.json());
     }
-    public buscarBienNoA(buscador) {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarBienesBajaNoA/" + buscador).map(res => res.json());
-    }
     public buscarDescargos(buscador) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarDescargos/" + buscador).map(res => res.json());
-    }
-    public buscarBienAsig(buscador) {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarBienesBajaAsig/" + buscador).map(res => res.json());
-    }
-    public FiltroTablaActivos(id) {
-      return this.http.get(environment.urlService + "api/SolicitudBaja/listarActivosFiltro/"+id).map(res => res.json());
     }
     public ComboArea(id) {
       return this.http.get(environment.urlService + "api/AreasNegocios/comboAreaDeSucursal/"+id).map(res => res.json());
     }
+
+    public buscarBienAsig(buscador) {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarBienesBajaAsig/" + buscador).map(res => res.json());
+    }
+
+    // Buscadores de activos asignados 
+public buscarActivoAsig(buscador) {
+  return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarActivoAsig/" + buscador).map(res => res.json());
+}
+public buscarActivoEdificioAsig(buscador) {
+  return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarActivoEdificioAsig/" + buscador).map(res => res.json());
+}
+public buscarActivoIntengibleAsig(buscador) {
+  return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarActivoIntengibleAsig/" + buscador).map(res => res.json());
+}
+//FIn de buscadores asignados
+public buscarActivoNoAsig(buscador) {
+  return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarActivoNoAsig/" + buscador).map(res => res.json());
+}
 
     //SOLICITUDES
     public listarSolicitud() {
