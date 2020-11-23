@@ -5,7 +5,7 @@
       <div class="login-wrap">
         <form role="form" [formGroup]="usuario" (ngSubmit)="IniciarSesion()">
 
-          <input type="text" class="form-control" placeholder="Usuario" autofocus formControlName="nombreusuario">
+          <input type="text" class="form-control" placeholder="Usuario" formControlName="nombreusuario">
           <input type="password" class="form-control" placeholder="Contraseña" formControlName="contra">
           <!-- <label class="checkbox">
               <a data-toggle="modal" href="#myModal"> Forgot Password?</a>

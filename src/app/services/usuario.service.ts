@@ -16,37 +16,20 @@ export class UsuarioService {
     public crearSession() {
       return this.http.get(environment.urlService  + "api/Usuario/crearSession").map(res => res.json());
     }
-    public obtenervariableSesion() {
-      return this.http.get(environment.urlService + "api/Usuario/recuperarSession").map(res =>{
-        var data=res.json();
-        console.log(data);
-        var inf=data.valor;
-        
-        if(inf==null){
-          this.router.navigate(["/pagina-error-login"])
-          return false;
-        }else{
-          return true;
-        }
-      });
-      }
-    public obtenerSesion() {
-      return this.http.get(environment.urlService + "api/Usuario/validarSession").map(res => {
-        var data = res.json();
-        if (data.valor == "") {
-          return false;
-        } else {
-          return true;
-        }
-  
-      }
-  
-      );
-  
+    public validarusuariosRegistrados() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarUsuariosregistrados").map(res => res.json());
     }
-    public cerrarSesion() {
-      return this.http.get(environment.urlService + "api/Usuario/CerrarSesion").map(res => res.json());
-  
+    public validarCooperativasRegistradas() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarCooperativasRegistradas").map(res => res.json());
+    }
+    public validarSucursalesRegistradas() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarSucursalesRegistradas").map(res => res.json());
+    }
+    public validarAreasRegistrados() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarAreasRegistradas").map(res => res.json());
+    }
+    public validarEmpleadosRegistrados() {
+      return this.http.get(environment.urlService  + "api/Usuario/validarEmpleadosRegistrados").map(res => res.json());
     }
     //SERVICIOS PARA USUARIO
   public getUsuario() {
