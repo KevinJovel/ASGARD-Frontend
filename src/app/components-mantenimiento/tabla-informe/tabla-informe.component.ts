@@ -30,7 +30,7 @@ export class TablaInformeComponent implements OnInit {
   fechaMinima: any;
  // fecha = Date.now();
   
-  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService) { 
+  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService, private router: Router) { 
     this.informe=new FormGroup({
       'idinformematenimiento': new FormControl("0"),
       'idmantenimiento': new FormControl("0"),
@@ -46,13 +46,27 @@ export class TablaInformeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res=>{
-      this.bienes=res;
-  
-    });
-    this.mantenimientoService.listarTecnicoCombo().subscribe(data=>{
-      this.tecnicos=data;    
-      });
+      //METODO PARA TABLA VACIA
+      this.mantenimientoService.validarActivosEnMantenimiento().subscribe(res =>{
+        if(res==1){
+          this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res=>{
+            this.bienes=res; 
+          });
+          this.mantenimientoService.listarTecnicoCombo().subscribe(data=>{
+            this.tecnicos=data;    
+            });
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No se encontraron activos en mantenimiento.',
+            showConfirmButton: false,
+            timer: 4000
+          });
+          this.router.navigate(["/"]);
+        }
+      })
+   
     
   }
   open(id,idbien,fecha){

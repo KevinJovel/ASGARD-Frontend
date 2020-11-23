@@ -137,6 +137,26 @@ public ListarInformeMantenimiento(){
   public noHayHistorial (idActivo){
     return this.http.get(environment.urlService  + "api/InformeMantenimiento/noHayHistorial/" + idActivo).map(res => res.json());
   }
+  public validarActivosParaMantenimiento(){
+    return this.http.get(environment.urlService + "api/SolicitudMantenimiento/validarActivosParaMantenimiento"  ).map(res=>res.json());
+   } 
+   public validarSolicitudesParaMantenimiento(){
+    return this.http.get(environment.urlService + "api/SolicitudMantenimiento/validarSolicitudesParaMantenimiento"  ).map(res=>res.json());
+   } 
+   public validarActivosEnMantenimiento(){
+    return this.http.get(environment.urlService + "api/InformeMantenimiento/validarActivosEnMantenimiento"  ).map(res=>res.json());
+   } 
+   public validarListarInformeMantenimiento(){
+    return this.http.get(environment.urlService + "api/InformeMantenimiento/validarListarInformeMantenimiento"  ).map(res=>res.json());
+   } 
+   public validarHistorialMantenimiento(){
+    return this.http.get(environment.urlService + "api/InformeMantenimiento/validarHistorialMantenimiento"  ).map(res=>res.json());
+   } 
+   
+   
+   
+   
+  
  
 
   

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 
@@ -30,7 +31,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   anio: string;
   yaHayDatos:boolean=false;
   
-  constructor( private mantenimientoService: MantenimientoService,private controlService: ControlService) { 
+  constructor( private mantenimientoService: MantenimientoService,private controlService: ControlService, private router: Router) { 
     this.solicitud=new FormGroup({
        'idsolicitud': new FormControl("0"),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")],this.noRepetirFolio.bind(this)),
@@ -48,14 +49,31 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mantenimientoService.getBienes().subscribe(data=>{this.bienes=data});
+    //METODO PARA TABLA VACIA
+    this.mantenimientoService.validarActivosParaMantenimiento().subscribe(res =>{
+      if(res==1){
+        this.mantenimientoService.getBienes().subscribe(data=>{this.bienes=data});
+        this.mantenimientoService.listarCodigoCombo().subscribe(data =>{
+          this.codigos =data;
+        });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No se encontraron activos para enviar a mantenimiento.',
+          showConfirmButton: false,
+          timer: 4000
+        });
+        this.router.navigate(["/"]);
+      }
+    })
+
+    //this.mantenimientoService.getBienes().subscribe(data=>{this.bienes=data});
     this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
       this.solicitudes=data;
     });
   
-    this.mantenimientoService.listarCodigoCombo().subscribe(data =>{
-      this.codigos =data;
-    });
+   
 
      //Método para recuperar año
   this.controlService.mostrarAnio().subscribe((res)=> {

@@ -83,11 +83,6 @@ export class TablaRevalorizarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   /* this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-    this.controlService.listarActivosRevalorizar().subscribe(data=>{this.bienes=data
- 
-      this.tablaMuebles='block'; 
-    });*/
 //METODO PARA TABLA VACIA
 this.controlService.validarActivosRevalorizar().subscribe(res =>{
   if(res==1){
@@ -107,12 +102,6 @@ this.controlService.validarActivosRevalorizar().subscribe(res =>{
     this.router.navigate(["/"]);
   }
 })
-
-      //Método para recuperar año
-   /*this.controlService.mostrarAnio().subscribe((res)=> {
-    this.fechaMaxima=`${res.anio}-12-31`;
-    this.fechaMinima=`${(res.anio).toString()}-01-01`;
-  });*/
   }
   CambiarTipo(){
     switch(this.combos.controls["idTipo"].value){

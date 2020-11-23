@@ -27,18 +27,30 @@ export class TablaSolicitudComponent implements OnInit {
   idSoli: any;
 
 
-  constructor(private mantenimientoService: MantenimientoService) { 
+  constructor(private mantenimientoService: MantenimientoService, private router: Router) { 
 
 
 
   }
   
   ngOnInit(): void {
+       //METODO PARA TABLA VACIA
+       this.mantenimientoService.validarSolicitudesParaMantenimiento().subscribe(res =>{
+        if(res==1){
+          this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{this.solicitudes=data});
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No se encontraron solicitudes de mantenimiento.',
+            showConfirmButton: false,
+            timer: 4000
+          });
+          this.router.navigate(["/"]);
+        }
+      })
 
-    this.mantenimientoService.getSolicitudMantenimiento().subscribe(data=>{
-      this.solicitudes=data;
-      
-    });
+   
   }
   crearinforme(){
     

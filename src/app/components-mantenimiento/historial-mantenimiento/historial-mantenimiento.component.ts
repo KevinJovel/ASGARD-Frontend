@@ -49,7 +49,7 @@ export class HistorialMantenimientoComponent implements OnInit {
   
    idmante: any;
  
-  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService,private mantenimientoService: MantenimientoService) { 
+  constructor(private catalogosServices: CatalogosService,private router: Router,private depreciacionService:DepreciacionService,private mantenimientoService: MantenimientoService) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0")
@@ -68,8 +68,22 @@ export class HistorialMantenimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mantenimientoService.validarHistorialMantenimiento().subscribe(res =>{
+      if(res==1){
+        this.mantenimientoService.listarActivosHistorial().subscribe(data=>{this.bienes=data});
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No se encontraron activos registrados.',
+          showConfirmButton: false,
+          timer: 4000
+        });
+        this.router.navigate(["/"]);
+      }
+    })
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-    this.mantenimientoService.listarActivosHistorial().subscribe(data=>{this.bienes=data});
+    
 
 //para historial
 /*this.mantenimientoService.historialInformes().subscribe(res=>{

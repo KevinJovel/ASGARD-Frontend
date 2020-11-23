@@ -32,7 +32,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
   fechaMaxima: any;
   fechaMinima: any;
 
-  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService) {
+  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService,private router: Router) {
 
 
     //form para la revalorización 
@@ -46,9 +46,23 @@ export class FormInformeMantenimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mantenimientoService.ListarInformeMantenimiento().subscribe(res => {
-      this.informes = res;
-    });
+    this.mantenimientoService.validarListarInformeMantenimiento().subscribe(res =>{
+      if(res==1){
+        this.mantenimientoService.ListarInformeMantenimiento().subscribe(res => {
+          this.informes = res;
+        });
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No se encontraron informes de mantenimiento.',
+          showConfirmButton: false,
+          timer: 4000
+        });
+        this.router.navigate(["/"]);
+      }
+    })
+  
 
   }
   validarVidaUtil(vida){
@@ -111,8 +125,10 @@ this.controlService.mostrarAnio().subscribe((res)=> {
           timer: 3000
         })
         this.mantenimientoService.ListarInformeMantenimiento().subscribe(data => { this.informes = data });
+       this.display = 'none';
       }
     });
+  
   }
 
   guardarDatos() {
