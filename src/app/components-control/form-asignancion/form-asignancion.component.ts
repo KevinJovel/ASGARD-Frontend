@@ -56,7 +56,7 @@ export class FormAsignancionComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: 'Todos los activos estan asignados.',
+          title: 'Todos los activos están asignados.',
           showConfirmButton: false,
           timer: 4000
         });
