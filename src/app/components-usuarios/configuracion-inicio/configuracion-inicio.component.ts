@@ -4,7 +4,7 @@ import { ConfiguracionService } from './../../services/configuracion.service';
 import { CatalogosService } from './../../services/catalogos.service';
 import { UsuarioService } from './../../services/usuario.service';
 import Swal from 'sweetalert2';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-configuracion-inicio',
   templateUrl: './configuracion-inicio.component.html',
@@ -30,7 +30,7 @@ export class ConfiguracionInicioComponent implements OnInit {
   usuario: FormGroup;
   tipoUsuarios: any;
   empleados: any;
-  constructor(private configuracionService: ConfiguracionService, private catalogoService: CatalogosService, private usuarioService: UsuarioService,private router:Router) {
+  constructor(private configuracionService: ConfiguracionService, private catalogoService: CatalogosService, private usuarioService: UsuarioService, private router: Router) {
 
     this.cooperativa = new FormGroup({
       'idcooperativa': new FormControl("0"),
@@ -38,7 +38,7 @@ export class ConfiguracionInicioComponent implements OnInit {
       'nombre': new FormControl("", [Validators.required, Validators.maxLength(35), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ. ]+$")]),
       'logo': new FormControl(""),
       'anio': new FormControl("", [Validators.required]),
-      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
+      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(150), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
     });
     this.sucursal = new FormGroup({
       'idSucursal': new FormControl("0"),
@@ -108,68 +108,68 @@ export class ConfiguracionInicioComponent implements OnInit {
   AceptarBienvenida() {
     this.displaybienvenida = 'none';
     let timerInterval
-            Swal.fire({
-              title: '¡Espera un momento!',
-              html: 'Estamos preparando todo para ti',
-              timer: 5000,
-              timerProgressBar: true,
-              onBeforeOpen: () => {
-                Swal.showLoading()
-                timerInterval = setInterval(() => {
-                  const content = Swal.getContent()
-                  if (content) {
-                    const b = content.querySelector('b')
-                    if (b) {
-                      Swal.getTimerLeft()
-                    }
-                  }
-                }, 100)
-              },
-              onClose: () => {
-                clearInterval(timerInterval)
-              }
-            }).then((result) => {
-              /* Read more about handling dismissals below */
-              if (result.dismiss === Swal.DismissReason.timer) {
-                this.usuarioService.validarCooperativasRegistradas().subscribe(res=>{
-                  if(res!=1){
-                    this.displayDatos = 'block';
-                  }else{
-                    this.usuarioService.validarSucursalesRegistradas().subscribe(res=>{
-                      if(res!=1){
-                        this.displaySucursal = 'block';
-                      }else{
-                        this.usuarioService.validarAreasRegistrados().subscribe(res=>{
-                          if(res!=1){
-                            this.catalogoService.getComboSucursal().subscribe(data => { this.sucursales = data });
-                            this.displayAreas = 'block';
-                          }else{ 
-                            this.usuarioService.validarEmpleadosRegistrados().subscribe(res=>{
-                              if(res!=1){
-                                this.catalogoService.listarAreaCombo().subscribe(data => {
-                                  this.areas = data;
-                                });
-                                this.displayEmpleado = 'block';
-                              }else{
-                                this.usuarioService.listarEmpleadoCombo().subscribe(data => {
-                                  this.empleados = data;
-                                });
-                                 this.usuarioService.listarTipoCombo().subscribe(data => {
-                                   this.tipoUsuarios = data;
-                                 });
-                                this.displayUsuarios='block';
-                              }
-                            });
-                          }
+    Swal.fire({
+      title: '¡Espera un momento!',
+      html: 'Estamos preparando todo para ti',
+      timer: 5000,
+      timerProgressBar: true,
+      onBeforeOpen: () => {
+        Swal.showLoading()
+        timerInterval = setInterval(() => {
+          const content = Swal.getContent()
+          if (content) {
+            const b = content.querySelector('b')
+            if (b) {
+              Swal.getTimerLeft()
+            }
+          }
+        }, 100)
+      },
+      onClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        this.usuarioService.validarCooperativasRegistradas().subscribe(res => {
+          if (res != 1) {
+            this.displayDatos = 'block';
+          } else {
+            this.usuarioService.validarSucursalesRegistradas().subscribe(res => {
+              if (res != 1) {
+                this.displaySucursal = 'block';
+              } else {
+                this.usuarioService.validarAreasRegistrados().subscribe(res => {
+                  if (res != 1) {
+                    this.catalogoService.getComboSucursal().subscribe(data => { this.sucursales = data });
+                    this.displayAreas = 'block';
+                  } else {
+                    this.usuarioService.validarEmpleadosRegistrados().subscribe(res => {
+                      if (res != 1) {
+                        this.catalogoService.listarAreaCombo().subscribe(data => {
+                          this.areas = data;
                         });
+                        this.displayEmpleado = 'block';
+                      } else {
+                        this.usuarioService.listarEmpleadoCombo().subscribe(data => {
+                          this.empleados = data;
+                        });
+                        this.usuarioService.listarTipoCombo().subscribe(data => {
+                          this.tipoUsuarios = data;
+                        });
+                        this.displayUsuarios = 'block';
                       }
                     });
                   }
                 });
               }
-            })
-   
-    
+            });
+          }
+        });
+      }
+    })
+
+
 
   }
   changeFoto() {
@@ -218,20 +218,32 @@ export class ConfiguracionInicioComponent implements OnInit {
   guardarDatosSucursal() {
     //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
     if (this.sucursal.valid == true) {
+      console.log(this.sucursal.value)
       this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
+        if (data == 1) {
+          this.displaySucursal = 'none';
+          this.sucursal.controls["idSucursal"].setValue("0");
+          this.sucursal.controls["bandera"].setValue("0");
+          this.sucursal.controls["nombre"].setValue("");
+          this.sucursal.controls["ubicacion"].setValue("");
+          this.sucursal.controls["correlativo"].setValue("");
+          this.displaySucursal = 'none';
+          this.catalogoService.getComboSucursal().subscribe(data => { this.sucursales = data });
+          this.displayAreas='block';
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'No guardado con éxito!',
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }
 
-        this.displaySucursal = 'none';
-        this.catalogoService.getComboSucursal().subscribe(data => { this.sucursales = data });
-        this.displayAreas = 'block';
+
       });
-    }
 
-    this.sucursal.controls["idSucursal"].setValue("0");
-    this.sucursal.controls["bandera"].setValue("0");
-    this.sucursal.controls["nombre"].setValue("");
-    this.sucursal.controls["ubicacion"].setValue("");
-    this.sucursal.controls["correlativo"].setValue("");
-    this.displaySucursal = 'none';
+    }
 
   }
   guardarDatosArea() {
@@ -270,11 +282,11 @@ export class ConfiguracionInicioComponent implements OnInit {
           this.usuarioService.listarEmpleadoCombo().subscribe(data => {
             this.empleados = data;
           });
-           this.usuarioService.listarTipoCombo().subscribe(data => {
-             this.tipoUsuarios = data;
-           });
-           this.titulo="Creacion de usuarios"
-          this.displayUsuarios='block';
+          this.usuarioService.listarTipoCombo().subscribe(data => {
+            this.tipoUsuarios = data;
+          });
+          this.titulo = "Creacion de usuarios"
+          this.displayUsuarios = 'block';
         }
       });
     }
@@ -303,65 +315,65 @@ export class ConfiguracionInicioComponent implements OnInit {
           this.usuario.controls["iidTipousuario"].setValue("");
           this.displayUsuarios = 'none';
           let timerInterval
-            Swal.fire({
-              title: '¡Creando usuario!',
-              html: 'Espere un momento',
-              timer: 1000,
-              timerProgressBar: true,
-              onBeforeOpen: () => {
-                Swal.showLoading()
-                timerInterval = setInterval(() => {
-                  const content = Swal.getContent()
-                  if (content) {
-                    const b = content.querySelector('b')
-                    if (b) {
-                      Swal.getTimerLeft()
-                    }
+          Swal.fire({
+            title: '¡Creando usuario!',
+            html: 'Espere un momento',
+            timer: 1000,
+            timerProgressBar: true,
+            onBeforeOpen: () => {
+              Swal.showLoading()
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent()
+                if (content) {
+                  const b = content.querySelector('b')
+                  if (b) {
+                    Swal.getTimerLeft()
                   }
-                }, 100)
-              },
-              onClose: () => {
-                clearInterval(timerInterval)
-              }
-            }).then((result) => {
-              /* Read more about handling dismissals below */
-              if (result.dismiss === Swal.DismissReason.timer) {
-                let timerInterval
-                Swal.fire({
-                  title: '¡Recuperando información!',
-                  html: 'Espere un momento',
-                  timer: 5000,
-                  timerProgressBar: true,
-                  onBeforeOpen: () => {
-                    Swal.showLoading()
-                    timerInterval = setInterval(() => {
-                      const content = Swal.getContent()
-                      if (content) {
-                        const b = content.querySelector('b')
-                        if (b) {
-                          Swal.getTimerLeft()
-                        }
+                }
+              }, 100)
+            },
+            onClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              let timerInterval
+              Swal.fire({
+                title: '¡Recuperando información!',
+                html: 'Espere un momento',
+                timer: 5000,
+                timerProgressBar: true,
+                onBeforeOpen: () => {
+                  Swal.showLoading()
+                  timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                      const b = content.querySelector('b')
+                      if (b) {
+                        Swal.getTimerLeft()
                       }
-                    }, 100)
-                  },
-                  onClose: () => {
-                    clearInterval(timerInterval)
-                  }
-                }).then((result) => {
-                  /* Read more about handling dismissals below */
-                  if (result.dismiss === Swal.DismissReason.timer) {
-                    Swal.fire({
-                      icon: 'success',
-                      title: '¡Bienvenido a ASGARD!',
-                      text: 'De ahora en adelante eres el administrador principal, puedes acceder ahora mismo con las credenciales recien creadas',
-                      confirmButtonText: 'Aceptar'
-            
-                    })
-                    this.router.navigate(["/login"]);
-                  }
-                })
-              }
-            })
+                    }
+                  }, 100)
+                },
+                onClose: () => {
+                  clearInterval(timerInterval)
+                }
+              }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Bienvenido a ASGARD!',
+                    text: 'De ahora en adelante eres el administrador principal, puedes acceder ahora mismo con las credenciales recien creadas',
+                    confirmButtonText: 'Aceptar'
+
+                  })
+                  this.router.navigate(["/login"]);
+                }
+              })
+            }
+          })
         }
       });
     }

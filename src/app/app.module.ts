@@ -100,7 +100,6 @@ import { LoginComponent } from './components-usuarios/login/login.component';
 import {SeguridadGuard} from './guards/seguridad.guard';
 import {JefeGuard} from './guards/jefe.guard';
 import { PaginaErrorLoginComponent } from './components-usuarios/pagina-error-login/pagina-error-login.component';
-import { PaginaRegistroComponent } from './components-usuarios/pagina-registro/pagina-registro.component';
 import { ConfiguracionInicioComponent } from './components-usuarios/configuracion-inicio/configuracion-inicio.component';
 
 
@@ -163,7 +162,6 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
     ReportesDescargoComponent,
     LoginComponent,
     PaginaErrorLoginComponent,
-    PaginaRegistroComponent,
     ConfiguracionInicioComponent,
 
 

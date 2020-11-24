@@ -106,7 +106,7 @@ export class NavMenuComponent implements OnInit{
                 Swal.fire({
                   position: 'center',
                   icon: 'error',
-                  title: '¡Los activos ya han sido depreciados en el periodo actual!',
+                  title: '¡No hay activos disponibles para depreciar!',
                   showConfirmButton: false,
                   timer: 3000
                 })
