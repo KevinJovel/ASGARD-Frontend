@@ -69,8 +69,8 @@ export class ReportesCatalogosComponent implements OnInit {
     return new Rect([x,y],[516,2]).color(color).end;
   }
 
-  generatePDF() {
-    this.http.get(environment.urlService+"api/Reporte/reporte",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+  areasDeNegociopdf() {
+    this.http.get(environment.urlService+"api/Reporte/areasDeNegociopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
@@ -83,6 +83,45 @@ export class ReportesCatalogosComponent implements OnInit {
       saveAs(blod,fileName);
     });
   }
+
+  //PDF PARA SUCURSALES
+  sucursalespdf() {
+    this.http.get(environment.urlService+"api/Reporte/sucursalespdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
+    //PDF PARA SUCURSALES
+    categoriaspdf() {
+      this.http.get(environment.urlService+"api/Reporte/categoriaspdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+        const blod=new Blob([pdf],{type:"application/pdf"});
+        const url= window.URL.createObjectURL(blod);
+         window.open(url);
+      });
+    }
+       //PDF PARA SUCURSALES
+       clasificacionespdf() {
+        this.http.get(environment.urlService+"api/Reporte/clasificacionespdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+      }
+      cargospdf() {
+        this.http.get(environment.urlService+"api/Reporte/cargospdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+      }
+      empleadospdf() {
+        this.http.get(environment.urlService+"api/Reporte/empleadospdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+      }
   async nuevoPDF() {
     const pdf2=new PdfMakeWrapper();
 

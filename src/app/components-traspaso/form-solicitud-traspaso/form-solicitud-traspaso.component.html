@@ -111,7 +111,7 @@
 
           <div class="form-group col-md-6">
             <label for="exampleInputEmail1">*Folio:</label>
-            <input size=25  type="text"  class="form-control" formControlName="folio" placeholder="Ingrese folio"  maxlength="51" autocomplete="off">
+            <input size=25  type="text"  class="form-control" formControlName="folio" placeholder="Ingrese folio"  maxlength="11" autocomplete="off">
           </div> 
             
           <br> <br>
@@ -146,6 +146,52 @@
 
           <!--Alert-->
 <br><br><br><br><br><br><br><br>
+  <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>¡Error!</strong> Tamaño máximo permitido en el campo folio.
+  </div>
+  <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.yaExisteFolio">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>¡Advertencia!</strong> ya existe el folio ingresado, por favor intente con un nuevo.
+  </div>
+  <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.pattern">
+    <button data-dismiss="alert" class="close close-sm" type="button">
+      <i class="icon-remove"></i>
+    </button>
+    <strong>¡Error!</strong> El campo folio no acepta caracteres especiales.
+  </div>
+  
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['descripcion'].errors?.maxlength">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> Tamaño máximo permitido en el campo observaciones.
+</div>
+<div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['descripcion'].errors?.pattern">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Error!</strong> El campo observaciones no acepta caracteres especiales.
+</div>
+
+<div class="alert alert-warning fade in" *ngIf="!solicitud.valid&&!solicitud.controls['folio'].errors?.yaExisteFolio">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+</div>
+
+
+<div class="alert alert-success fade in" *ngIf="solicitud.valid">
+  <button data-dismiss="alert" class="close close-sm" type="button">
+    <i class="icon-remove"></i>
+  </button>
+  <strong>¡Exelente!</strong> Datos ingresados correctamente.
+</div>
 
 
           <button  type="submit" [disabled]="!solicitud.valid" class="btn btn-danger"><i class="icon-mail-forward (alias)"></i> Enviar</button>

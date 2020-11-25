@@ -38,9 +38,9 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
-       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ -.]+$")],this.noRepetirFolio1.bind(this)),
+       'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ -]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(150), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
        'nuevoresponsable': new FormControl("",[Validators.required]),
        'nuevaarea': new FormControl("",[Validators.required]),
        'idbien': new FormControl("0"),
