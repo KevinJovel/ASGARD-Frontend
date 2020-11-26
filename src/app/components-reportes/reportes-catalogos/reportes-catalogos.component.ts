@@ -7,47 +7,14 @@ import {HttpClient} from '@angular/common/http'
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
 import {environment} from '../../../environments/environment';
 import {saveAs} from 'file-saver/dist/FileSaver';
+
 @Component({
   selector: 'app-reportes-catalogos',
   templateUrl: './reportes-catalogos.component.html',
   styleUrls: ['./reportes-catalogos.component.css']
 })
 export class ReportesCatalogosComponent implements OnInit {
-  //Variables  
-  //Catálogos
-  cargos: any;
-  sucursales: any;
-  areas: any;
-  cargo: FormGroup;
-  cooperativas: any;
-  categorias: any;
-  categoria: FormGroup;
-  clasificaciones: any;
-  clasificacion: FormGroup;
-  empleados:any;
-  empleado:FormGroup;
-  donantes: any;
-  donante: FormGroup;
-  proveedores: any;
-  proveedor: FormGroup;
-  tecnicos: any;
-  tecnico: FormGroup;
-  marcas:any;
-  marca:FormGroup;
-  
 
-  //Fecha
-  fecha=new Date();
-  //división de fecha y hora
-  anio=this.fecha.getFullYear();
-  mes=this.fecha.getMonth()+1;
-  dia=this.fecha.getDate();
-  hora=this.fecha.getHours();
-  minuto=this.fecha.getMinutes();
-  segundo= this.fecha.getSeconds();
-
-  //Colores personalizados
-  private blackA: string='#000000';
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
     private confiService:ConfiguracionService, private http:HttpClient) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
@@ -55,18 +22,6 @@ export class ReportesCatalogosComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.catalogoService.getCargo().subscribe(data=> {this.cargos=data});
-    this.catalogoService.getCategorias().subscribe(data=> {this.categorias=data});
-    this.catalogoService.getClasificacion().subscribe(data => { this.clasificaciones = data });
-    this.catalogoService.getEmpleado().subscribe(data => { this.empleados = data;});
-    this.catalogoService.getDonantes().subscribe(data => { this.donantes = data });
-    this.catalogoService.getProveedores().subscribe(res => { this.proveedores = res });
-    this.catalogoService.getTecnico().subscribe(data=>{this.tecnicos=data});
-    this.catalogoService.getMarcas().subscribe(res => {this.marcas = res});
-  }
-
-  pixel(x:number, y: number, color: string) {
-    return new Rect([x,y],[516,2]).color(color).end;
   }
 
   dowloadPDF() {
@@ -78,7 +33,6 @@ export class ReportesCatalogosComponent implements OnInit {
   }
 
   //MÉTODOS PARA LOS REPORTES DE CATÁLOGOS
-
   areasDeNegocioPDF() {
     this.http.get(environment.urlService+"api/Reporte/areasDeNegociopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
@@ -167,5 +121,37 @@ export class ReportesCatalogosComponent implements OnInit {
     });
   }
 
+  //MÉTODOS PARA REPORTES DE CONTROL DE ACTIVO 
+  activosAsigandosPDF() {
+    this.http.get(environment.urlService+"api/Reporte/activosAsignadosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
+
+  activosNoAsigandosPDF() {
+    this.http.get(environment.urlService+"api/Reporte/activosNoAsignadosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
+
+  edificiosInstalacionesPDF() {
+    this.http.get(environment.urlService+"api/Reporte/edificiosInstalacionesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
+
+  activosIntangiblesPDF() {
+    this.http.get(environment.urlService+"api/Reporte/activosIntangiblesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
 
 }
