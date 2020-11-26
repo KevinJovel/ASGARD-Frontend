@@ -24,7 +24,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
 
   fechasolicitud:string; nuevoresponsable:string;  nuevaarea:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
-  cargo:string; folio:string; solicitud: string; acuerdo: string;
+  cargo:string; folio:string; solicitud: string; acuerdo: string; idresponsable: any;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
     private bajaService:BajaService, private TraspasoService: TraspasoService)
@@ -51,7 +51,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.solicitudes.controls["fechasolicitud"].setValue("");
     this.solicitudes.controls["idsolicitud"].setValue(id);
     //Aqui se le teiene que enviar el codigo del nuevo empleado
-    this.solicitudes.controls["idEmpleado"].setValue(2);
+    this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
     this.TraspasoService.verSolicitudTraspaso(id).subscribe((data) => {
  
       this.fechasolicitud = data.fechacadena;
@@ -60,11 +60,13 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       this.nombredescargo = data.nombredescargo;
       this.folio = data.folio;
       this.solicitud = data.noSolicitud;  
-      this.responsable= data.responsableactual;
-      this.area= data.areanegocioactual;
-      this.nuevaarea= data.areanegocioanterior;
-      this.nuevoresponsable= data.responsableanterior;
-     this.idactivado = data.idbien; //para obtener el id del bien
+      this.responsable= data.responsableanterior;
+      this.area=  data.areanegocioanterior;
+      this.nuevaarea= data.areanegocioactual;
+      this.nuevoresponsable= data.responsableactual;
+      this.idactivado = data.idbien; //para obtener el id del bien
+      this.idresponsable= data.idresponsable;
+
     // console.log("Idbien: "+this.bienesS); 
     });
    
@@ -120,7 +122,8 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
           })
           this.display = 'none'; 
           this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
-      
+          this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
+          //AQUI VOY  AAGREGAR EL NUEVO RESPONSABLE PARA HACER EL CAMBIO
           }else{
             Swal.fire({
               icon: 'error',

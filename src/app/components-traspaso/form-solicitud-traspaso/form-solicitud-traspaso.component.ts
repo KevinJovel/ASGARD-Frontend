@@ -43,8 +43,11 @@ export class FormSolicitudTraspasoComponent implements OnInit {
        'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
        'nuevoresponsable': new FormControl("",[Validators.required]),
        'nuevaarea': new FormControl("",[Validators.required]),
-       'idbien': new FormControl("0"),
-       'areadenegocio': new FormControl("0"),
+       'responsableanterior': new FormControl(""),
+       'areaanterior': new FormControl(""),
+       'idbien': new FormControl(""),
+       //'areadenegocio': new FormControl(""),
+       'idresponsable': new FormControl(""),
        //'responsable': new FormControl("0"),
        //para filtro
        'idArea': new FormControl("0"),
@@ -111,7 +114,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
     }
   }
 
-  open(id) {
+  open(id,idempleado,areadenegocio,responsable) {
    //limpia cache
    this.titulo = "Solicitud de traspaso";
    this.solicitud.controls["idsolicitud"].setValue("0");
@@ -121,6 +124,12 @@ export class FormSolicitudTraspasoComponent implements OnInit {
    this.solicitud.controls["nuevoresponsable"].setValue("");
    this.solicitud.controls["nuevaarea"].setValue("");
    this.solicitud.controls["idbien"].setValue(id);
+
+   //para nuevo responsable y area 
+   this.solicitud.controls["idresponsable"].setValue(idempleado);
+   this.solicitud.controls["areaanterior"].setValue(areadenegocio);
+   this.solicitud.controls["responsableanterior"].setValue(responsable);
+   
    //this.solicitud.controls["areadenegocio"].setValue(areadenegocio);
    //para listar el area
    //this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
