@@ -15,8 +15,9 @@
                     <header class="panel-heading">
                         Módulo de catálogos
                         <span class="tools pull-right">
-                            <button (click)="areasDeNegociopdf()">Generar PDF</button>
+                           <!--
                             <button (click)="dowloadPDF()">Descargar PDF</button>
+                            -->
                           <a href="javascript:;" class="icon-chevron-down"></a>
                           <a href="javascript:;" class="icon-remove"></a>
                       </span>
@@ -25,36 +26,39 @@
                         <div class="dd" id="nestable_list_1">
                             <ol class="dd-list">
                                 <li class="dd-item" data-id="1">
-                                    <div class="dd-handle" (click)="sucursalespdf()">Reporte de registro de sucursales.</div>
+                                    <div class="dd-handle" (click)="sucursalesPDF()">Reporte de registro de sucursales.</div>
                                     
                                 </li>
                                 <li class="dd-item" data-id="2">
-                                    <div class="dd-handle" (click)="areasDeNegociopdf()">Reporte de áreas de negocio.</div>
+                                    <div class="dd-handle" (click)="areasDeNegocioPDF()">Reporte de áreas de negocio.</div>
                                     
                                 </li>
                                 <li class="dd-item" data-id="3">
-                                    <div class="dd-handle" (click)="categoriaspdf()">Reporte de registro de categorias.</div>                                   
+                                    <div class="dd-handle" (click)="categoriasPDF()">Reporte de registro de categorias.</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div class="dd-handle" (click)="clasificacionespdf()">Reporte de registro de clasificaciones.</div>                                   
+                                    <div class="dd-handle" (click)="clasificacionesPDF()">Reporte de registro de clasificaciones.</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div class="dd-handle"  (click)="cargospdf()">Reporte de registro de cargos.</div>                                   
+                                    <div class="dd-handle"  (click)="cargosPDF()">Reporte de registro de cargos.</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div class="dd-handle" (click)="empleadospdf()">Reporte de registro de empleados.</div>                                   
+                                    <div class="dd-handle" (click)="empleadosPDF()">Reporte de registro de empleados.</div>                                   
                                 </li> 
                                 <li class="dd-item" data-id="1">
-                                    <div class="dd-handle" (click)="proveedoresPdf()">Reporte de registro de proveedores.</div>                                   
+                                    <div class="dd-handle" (click)="proveedoresPDF()">Reporte de registro de proveedores.</div>                                   
                                 </li> 
                                 <li class="dd-item" data-id="1">
-                                    <div class="dd-handle" (click)="donantesPdf()">Reporte de registro de donantes.</div>                                   
+                                    <div class="dd-handle" (click)="donantesPDF()">Reporte de registro de donantes.</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div class="dd-handle" (click)="marcasPdf()">Reporte de registro de marcas.</div>                                   
+                                    <div class="dd-handle" (click)="marcasPDF()">Reporte de registro de marcas.</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div class="dd-handle" (click)="tecnicosPdf()">Reporte de registro de técnicos.</div>                                   
+                                    <div class="dd-handle" (click)="tecnicosPDF()">Reporte de registro de técnicos.</div>                                   
+                                </li>
+                                <li class="dd-item" data-id="1">
+                                    <div class="dd-handle" (click)="tipoDescargoPDF()">Reporte de tipo de descargos.</div>                                   
                                 </li>
                             </ol>
                         </div>
