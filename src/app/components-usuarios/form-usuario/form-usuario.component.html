@@ -33,7 +33,7 @@
                   <th>N°</th>
                   <th>Nombre del empleado</th>
                   <th>Usuario</th>
-                  <th>Tipo de Usuario</th>
+                  <th>Tipo de usuario</th>
                   <th class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
@@ -47,7 +47,9 @@
                   <!--son los atributos de la clase-->
 
                   <td class="center hidden-phone">
-                    <button title="Agregar usuario asistente" class="btn btn-warning btn-xs" (click)="modificar(usuario.iidusuario)"><i
+                    <button title="Ver detalles" class="btn btn-primary btn-xs" (click)="ver(usuario.iidusuario)"><i
+                      class="icon-eye-open"></i></button>
+                    <button title="Agregar usuario asistente" class="btn btn-warning btn-xs" (click)="OpenAsignarAsistente(usuario.iidusuario)"><i
                       class=" icon-user"></i></button>
                     <button title="Modificar usuario" class="btn btn-primary btn-xs" (click)="modificar(usuario.iidusuario)"><i
                         class="icon-pencil"></i></button>
@@ -89,7 +91,7 @@
               <select class="form-control" formControlName="iidEmpleado"
                 maxlength="51">
                 <option value="">--Seleccione--</option>
-                <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres}}</option>
+                <option [value]="empleado.id" *ngFor="let empleado of empleados">{{empleado.nombre}}</option>
               </select>
             </div>
             <div class="form-group">
@@ -168,6 +170,106 @@
 
           <button type="submit" [disabled]="!usuario.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal para ingresar y editar-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display2}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+    
+        <form role="form" [formGroup]="usuario" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="iidusuario" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+          <!-- <input type="hidden" class="form-control"  formControlName="iidTipousuario" value="3" autocomplete="off">
+            -->
+            <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+              <label for="exampleFormControlTextarea2">* Empleado:</label>
+              <select class="form-control" formControlName="iidEmpleado"
+                maxlength="51">
+                <option value="">--Seleccione--</option>
+                <option [value]="empleado.id" *ngFor="let empleado of empleados">{{empleado.nombre}}</option>
+              </select>
+            </div>
+       
+          <div class="form-group">
+            <label for="exampleInputEmail1">* Nombre de usuario:</label>
+            <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario"
+              placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="usuario.controls['nombreusuario'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="usuario.controls['nombreusuario'].errors?.yaExiste">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Ya existe el nombre de Usuario, por favor intente con uno nuevo.
+          </div>
+
+         
+            <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+              <label for="exampleInputEmail1">* Ingrese Contraseña:</label>
+              <input size=35 type="password" class="form-control" formControlName="contra" id="contra"
+                placeholder="Ingrese Contraseña" maxlength="31" autocomplete="off">
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            </div>
+
+            <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+              <label for="exampleInputEmail1">* Repita contraseña:</label>
+              <input size=35 type="password" class="form-control" formControlName="contra2" id="contra2"
+                placeholder="Repita Contraseña" maxlength="31" autocomplete="off">
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.maxlength">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>Error!</strong> Tamaño máximo permitido en este campo.
+            </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.noIguales">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>Error!</strong> La contraseña no es igual.
+            </div>
+          <div class="alert alert-warning fade in" *ngIf="usuario.controls['iidTipousuario'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> Todos los campos son obligatorios
+          </div>
+
+          <div class="alert alert-success fade in" *ngIf="usuario.valid&&usuario.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Exelente!</strong> Datos ingresados correctamente
+          </div>
+
+          <button type="submit" [disabled]="!usuario.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
             Cerrar</button>
 
         </form>

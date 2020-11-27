@@ -46,7 +46,7 @@ export class UsuarioService {
   }
 
   public eliminarUsuario(iidUsuario) {
-    return this.http.get(environment.urlService  + "api/Usuario/eliminarUsuario/" + iidUsuario).map(res => res.json());
+    return this.http.get(environment.urlService  + "api/TipoUsuario/eliminarUsuario/" + iidUsuario).map(res => res.json());
   }
 
   public buscarUsuario(buscador) {
@@ -62,6 +62,12 @@ export class UsuarioService {
   
   public listarEmpleadoCombo(){
     return this.http.get(environment.urlService + "api/Usuario/listarEmpleadoCombo" ).map(res=>res.json());
+  }
+  public listarEmpleadoComboAsistente(idEmpleado){
+    return this.http.get(environment.urlService + "api/Usuario/listarEmpleadoAsistente/"+idEmpleado ).map(res=>res.json());
+  }
+  public validarEmpleadoComboAsistente(idEmpleado){
+    return this.http.get(environment.urlService + "api/Usuario/ValidarEmpleadoAsistente/"+idEmpleado ).map(res=>res.json());
   }
 
   public listarTipoCombo(){

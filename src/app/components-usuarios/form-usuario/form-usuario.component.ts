@@ -18,6 +18,7 @@ export class FormUsuarioComponent implements OnInit {
   titulo: string = "";
   display = 'none';
   displayU = 'none';
+  display2='none';
   p: number = 1;
   tipoUsuarios: any;
   empleados: any;
@@ -52,18 +53,21 @@ export class FormUsuarioComponent implements OnInit {
     //lo que esta en data lo guardamos en empleado
     this.usuarioService.listarEmpleadoCombo().subscribe(data => {
      this.empleados = data;
-
+    });
          //llenamos los combo
     //lo qu esta en data lo guardamos en usuario
     this.usuarioService.listarTipoCombo().subscribe(data => {
       this.tipoUsuarios = data;
     });
 
-    });
+
   }
 
   open() {
     //limpia cache
+    this.usuarioService.listarEmpleadoCombo().subscribe(data => {
+      this.empleados = data;
+     });
     this.titulo = "Formulario registro usuario";
     this.usuario.controls["iidusuario"].setValue("0");
     this.usuario.controls["bandera"].setValue("0");
@@ -78,6 +82,11 @@ export class FormUsuarioComponent implements OnInit {
 
   close() {
     this.display = 'none';
+    this.editar=false;
+  }
+  close2() {
+    this.display2 = 'none';
+  
   }
 
   guardarDatos() {
@@ -106,6 +115,7 @@ export class FormUsuarioComponent implements OnInit {
                 })
                 this.limpiar();
                 this.display='none';
+                this.display2 = 'none';
                 this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
               }else{
                 alert("ocurrio un error")
@@ -129,6 +139,7 @@ export class FormUsuarioComponent implements OnInit {
           this.limpiar();
           this.display='none';
           this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
+          this.editar=false;
          }else{
            alert(`ocurrio un error.`);
          }
@@ -196,7 +207,7 @@ limpiar(){
               title: 'Usuario eliminado con éxito',
               showConfirmButton: false,
               timer: 3000
-            })
+            });
             this.usuarioService.getUsuario().subscribe( data => { this.usuarios = data });
           }
         });
@@ -204,7 +215,34 @@ limpiar(){
     });
   }
   }
+ver(id){
+alert("hola ver datos")
+}
+OpenAsignarAsistente(id){
+ this.usuarioService.validarEmpleadoComboAsistente(id).subscribe(res=>{
+  if(res==1){
+    this.usuarioService.listarEmpleadoComboAsistente(id).subscribe(data=>{
+      this.empleados = data;
+    });
+       this.titulo="Asignar empleado asistente";
+       this.usuario.controls["iidTipousuario"].setValue(3);
+      this.display2='block';
 
+  }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'No hay empleados disponibles para asistente',
+        showConfirmButton: false,
+        timer: 3000
+      });
+     }
+
+ });
+}
+AsignarAsistente(){
+
+}
 
   buscar(buscador) {
     this.p = 1;
