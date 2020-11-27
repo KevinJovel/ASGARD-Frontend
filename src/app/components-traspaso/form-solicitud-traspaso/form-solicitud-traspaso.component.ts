@@ -42,7 +42,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ -]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
        'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
-       'nuevoresponsable': new FormControl("",[Validators.required]),
+       'nuevoresponsable': new FormControl(""),
        'nuevaarea': new FormControl("",[Validators.required]),
        'responsableanterior': new FormControl(""),
        'areaanterior': new FormControl(""),
@@ -50,7 +50,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
        //'idarea': new FormControl(""),
        
        //'areadenegocio': new FormControl(""),
-       'idresponsable': new FormControl(""),
+       'idresponsable': new FormControl("",[Validators.required]),
        //'responsable': new FormControl("0"),
        //para filtro
        'idArea': new FormControl("0"),
@@ -182,7 +182,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
 
   //A FILTRAR EL EMPLEADO SEGUN AREA DE NEGOCIO
   FiltrarEmpleado(){
-    var id= this.solicitud.controls['idArea'].value;
+    var id= this.solicitud.controls['nuevaarea'].value;
     this.TraspasoService.comboEmpleados(id).subscribe(data=>{this.empleados=data});
   }
 
