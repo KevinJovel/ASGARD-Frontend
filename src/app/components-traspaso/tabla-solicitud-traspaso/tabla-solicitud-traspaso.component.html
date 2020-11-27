@@ -39,8 +39,6 @@
                   <td>{{solicitudtraspaso.folio}}</td>
                   <td>{{solicitudtraspaso.fechacadena}}</td>
                   <td>{{solicitudtraspaso.descripcion}}</td>
-                  
-                  
                   <td class="center hidden-phone">
                     <button class="btn btn-primary btn-xs" (click)="open(solicitudtraspaso.idsolicitud,solicitudtraspaso.fechacadena)"><i class="glyphicon glyphicon-import"></i></button>
                   </td>
@@ -64,8 +62,9 @@
       <div class="modal-body">
 
         <form role="form" [formGroup]="solicitudes" (ngSubmit)="aprobarSolicitud()">
-          <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
+          <input type="text" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
           <input type="text" class="form-control" formControlName="idEmpleado" id="exampleInputEmail3" autocomplete="off">
+         
             <div class="form-group col-md-6">
               <label><strong>Código:</strong></label> {{ codigo }}
             </div>      
@@ -141,9 +140,11 @@
               </button>
               <strong>¡Exelente!</strong> Datos ingresados correctamente.
             </div>
-          <button type="submit" [disabled]="!solicitudes.valid"  class="btn btn-primary"><i class=" icon-ok"></i> Aprobar</button>
-          <button type="button" (click)="denegarSolicitud()"  class="btn btn-danger"><i class="icon-ban-circle"></i> Denegar</button>
-          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          <button type="submit" [disabled]="!solicitudes.valid"  class="btn btn-primary"><i class=" icon-ok"></i> Aprobar  </button>
+          <button type="button" (click)="denegarSolicitud()"  class="btn btn-danger"><i class="icon-ban-circle"></i> Denegar  </button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar  </button>
+
+          
         </form>
         
       </div>

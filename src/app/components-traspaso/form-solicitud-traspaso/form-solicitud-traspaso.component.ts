@@ -186,13 +186,6 @@ export class FormSolicitudTraspasoComponent implements OnInit {
     this.TraspasoService.comboEmpleados(id).subscribe(data=>{this.empleados=data});
   }
 
-  /*
-  Filtrars(){
-    var id= this.solicitud.controls['idEmpleado'].value;
-    this.TraspasoService.listarEmpleadosFiltro(id).subscribe(data=>{this.empleados=data});
-  }*/
-
-
  //creo que lo ocuparé despues.
   Gcodigo() {
     if (this.activos.controls["idEmpleado"].value == 0) {

@@ -36,7 +36,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       'idsolicitud': new FormControl("0"),
        'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(50), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ ,.]+$")],this.noRepetirAcuerdo.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'idEmpleado': new FormControl("",[Validators.required]),
+       'idEmpleado': new FormControl(""),
     });
   }
 
@@ -58,7 +58,9 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.TraspasoService.buscarSolicitud(buscador.value).subscribe(res => { this.solicitudesTraspasos = res });
    }
    open(id,fecha) {
+    this.display = 'block';
     this.titulo = "Autorización de solicitud para realizar traspaso";
+    
     this.solicitudes.controls["fechasolicitud"].setValue(fecha);
     var fecharecup = this.solicitudes.controls["fechasolicitud"].value.split("-");
     let dia=fecharecup[0];
@@ -88,7 +90,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.solicitudes.controls["idsolicitud"].setValue(id);
     this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
     this.idsolicitud=id;
-    this.display = 'block';
+   
   }
 
    aprobarSolicitud() {
@@ -121,12 +123,6 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
        console.log(this.solicitudes.value);
         this.TraspasoService.cambiarEstadoAceptoTraspaso(this.solicitudes.value).subscribe(rest=>{ 
           if(rest==1){
-            Swal.fire({
-              icon: 'success',
-              title: '¡Aprobada!',
-              text: 'Cambio codigo.',
-              confirmButtonText: 'Aceptar'
-          })
           this.display = 'none'; 
           this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
          // this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
