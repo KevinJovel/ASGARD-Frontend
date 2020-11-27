@@ -47,9 +47,11 @@
                   <!--son los atributos de la clase-->
 
                   <td class="center hidden-phone">
-                    <button class="btn btn-primary btn-xs" (click)="modificar(usuario.iidusuario)"><i
+                    <button title="Agregar usuario asistente" class="btn btn-warning btn-xs" (click)="modificar(usuario.iidusuario)"><i
+                      class=" icon-user"></i></button>
+                    <button title="Modificar usuario" class="btn btn-primary btn-xs" (click)="modificar(usuario.iidusuario)"><i
                         class="icon-pencil"></i></button>
-                    <button class="btn btn-danger btn-xs" (click)="eliminar(usuario.iidusuario)"><i
+                    <button title="Eliminar usuario" class="btn btn-danger btn-xs" (click)="eliminar(usuario.iidusuario)"><i
                         class="icon-trash "></i></button>
                   </td>
                 </tr>
@@ -82,25 +84,26 @@
           <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
             autocomplete="off">
 
-            <div class="form-group" formControlName="iidEmpleado" *ngIf="usuario.controls['bandera'].value==0">
-              <label for="exampleFormControlTextarea2">Empleado:</label>
-              <select class="form-control" formControlName="iidEmpleado" id="exampleFormControlTextarea2"
+            <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+              <label for="exampleFormControlTextarea2">* Empleado:</label>
+              <select class="form-control" formControlName="iidEmpleado"
                 maxlength="51">
                 <option value="">--Seleccione--</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres}}</option>
               </select>
             </div>
-            <div class="form-group" formControlName="iidTipousuario">
-              <label for="exampleFormControlTextarea2">Tipo Usuario:</label>
-              <select class="form-control" formControlName="iidTipousuario" id="exampleFormControlTextarea2"
-                maxlength="51">
-                <option value="">--Seleccione--</option>
-                <option [value]="tipoUsuario.iidtipousuario" *ngFor="let tipoUsuario of tipoUsuarios">
-                  {{tipoUsuario.tipo}}</option>
-              </select>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea2">* Tipo usuario:</label>
+              <select class="form-control" formControlName="iidTipousuario" 
+              maxlength="51" [attr.disabled]="editar ? '' : null">
+              <option value="">--Seleccione--</option>
+              <option [value]="1">Administrador</option>
+              <option [value]="2">Jefe de área</option>
+              <!-- <option [value]="3">Asistente temporal</option> -->
+            </select>
             </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Nombre Usuario</label>
+            <label for="exampleInputEmail1">* Nombre de usuario:</label>
             <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario"
               placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
           </div>
@@ -121,7 +124,7 @@
 
          
             <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
-              <label for="exampleInputEmail1">Ingrese Contraseña</label>
+              <label for="exampleInputEmail1">* Ingrese Contraseña:</label>
               <input size=35 type="password" class="form-control" formControlName="contra" id="contra"
                 placeholder="Ingrese Contraseña" maxlength="31" autocomplete="off">
             </div>
@@ -133,7 +136,7 @@
             </div>
 
             <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
-              <label for="exampleInputEmail1">Repita Contraseña</label>
+              <label for="exampleInputEmail1">* Repita contraseña:</label>
               <input size=35 type="password" class="form-control" formControlName="contra2" id="contra2"
                 placeholder="Repita Contraseña" maxlength="31" autocomplete="off">
             </div>
@@ -163,7 +166,7 @@
             <strong>Exelente!</strong> Datos ingresados correctamente
           </div>
 
-          <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
+          <button type="submit" [disabled]="!usuario.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
           <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
             Cerrar</button>
 

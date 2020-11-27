@@ -10,16 +10,12 @@
             <div class="modal-body">
 
                
-                <p>*Al realizar el cierre del sistema usted como usuario administrador adquiere la responsabilidad de
-                    asegurarse que todos los procesos estén realizados bajo la supervisión y auditoria de las
-                    autoridades.</p>
-                <p> *A partir de hoy todos los procesos que realice como: Depreciación, revalorización, traspasos,
-                    bajas, etc. Serán registrados en el año que está apunto de apertura.</p>
-                <p> *Es responsabilidad del administrador mantener la información debidamente auditada en todo momento.
-                </p>
-
+                <p> Bienvenido al proceso de configuración de ASGARD, a continuación, vamos a preparar el sistema para que pueda ser utilizado por el administrador.</p> 
+                <p> Es necesario que la siguiente información sea ingresada por la persona que será el administrador general del sistema. </p>
+                <p> Todos los formularios son requeridos y es necesario ingresar la información de manera precisa.</p>
+                <p> Cualquier duda se podrá apoyar del apartado de ayuda en cada uno de los formularios.</p>
                 <div style="text-align: center;">
-                    <button (click)="AceptarBienvenida()" type="button" class="btn btn-primary"><i class="icon-check-sign" ></i> Iniciar Configuración
+                    <button (click)="AceptarBienvenida()" type="button" class="btn btn-primary"><i class="icon-check-sign" ></i> Comenzar
                     </button>
                     <button type="button" class="btn btn-default" (click)="closeBienvenida()"><i
                             class="icon-remove-sign"></i> Cancelar</button>
@@ -489,11 +485,12 @@ class="modal" [ngStyle]="{'display':displayUsuarios}">
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea2">Tipo Usuario:</label>
-            <select class="form-control" formControlName="iidTipousuario" id="exampleFormControlTextarea2"
+            <select class="form-control" formControlName="iidTipousuario" 
               maxlength="51">
-              <option value="">--Seleccione--</option>
-              <option [value]="tipoUsuario.iidtipousuario" *ngFor="let tipoUsuario of tipoUsuarios">
-                {{tipoUsuario.tipo}}</option>
+              <option [value]="0">--Seleccione--</option>
+              <option [value]="1">Administrador</option>
+              <option [value]="2">Jefe de área</option>
+              <option [value]="3">Asistente temporal</option>
             </select>
           </div>
         <div class="form-group">

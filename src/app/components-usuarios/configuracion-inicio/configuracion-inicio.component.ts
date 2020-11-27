@@ -38,7 +38,7 @@ export class ConfiguracionInicioComponent implements OnInit {
       'nombre': new FormControl("", [Validators.required, Validators.maxLength(35), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ. ]+$")]),
       'logo': new FormControl(""),
       'anio': new FormControl("", [Validators.required]),
-      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(150), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
+      'descripcion': new FormControl("", [Validators.required, Validators.maxLength(150), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$")])
     });
     this.sucursal = new FormGroup({
       'idSucursal': new FormControl("0"),
@@ -184,16 +184,8 @@ export class ConfiguracionInicioComponent implements OnInit {
   }
 
   guardarDatos() {
-    Swal.fire({
-      title: '¿Esta seguro de guardar este registro?',
-      text: "¡No podrá modificar estos datos!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, guardar!'
-    }).then((result) => {
-      if (result.value) {
+
+      if (this.cooperativa.valid==true) {
         if ((this.cooperativa.controls["bandera"].value) == "0") {
           //Pasamos la foto         
           this.cooperativa.controls["logo"].setValue(this.logo);
@@ -213,12 +205,11 @@ export class ConfiguracionInicioComponent implements OnInit {
           }
         }
       }
-    })
+
   }
   guardarDatosSucursal() {
     //Si la vandera es cero que es el que trae por defecto en el metodo open() entra en la primera a insertar
     if (this.sucursal.valid == true) {
-      console.log(this.sucursal.value)
       this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
         if (data == 1) {
           this.displaySucursal = 'none';
@@ -234,17 +225,13 @@ export class ConfiguracionInicioComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: 'No guardado con éxito!',
+            title:'¡Ocurrio un error al guardar el registro!',
             showConfirmButton: false,
             timer: 3000
           })
         }
-
-
       });
-
     }
-
   }
   guardarDatosArea() {
     if (this.area.valid == true) {
@@ -260,6 +247,14 @@ export class ConfiguracionInicioComponent implements OnInit {
             this.areas = data;
           });
           this.displayEmpleado = 'block';
+        }else {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title:'¡Ocurrio un error al guardar el registro!',
+            showConfirmButton: false,
+            timer: 3000
+          })
         }
       });
     }
@@ -287,6 +282,14 @@ export class ConfiguracionInicioComponent implements OnInit {
           });
           this.titulo = "Creacion de usuarios"
           this.displayUsuarios = 'block';
+        }else {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title:'¡Ocurrio un error al guardar el registro!',
+            showConfirmButton: false,
+            timer: 3000
+          })
         }
       });
     }
@@ -365,7 +368,7 @@ export class ConfiguracionInicioComponent implements OnInit {
                   Swal.fire({
                     icon: 'success',
                     title: '¡Bienvenido a ASGARD!',
-                    text: 'De ahora en adelante eres el administrador principal, puedes acceder ahora mismo con las credenciales recien creadas',
+                    text: 'De ahora en adelante eres el administrador principal, puedes acceder ahora mismo con las credenciales recién creadas',
                     confirmButtonText: 'Aceptar'
 
                   })
@@ -373,6 +376,14 @@ export class ConfiguracionInicioComponent implements OnInit {
                 }
               })
             }
+          })
+        }else {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title:'¡Ocurrio un error al guardar el registro!',
+            showConfirmButton: false,
+            timer: 3000
           })
         }
       });

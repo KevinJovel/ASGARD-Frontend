@@ -26,6 +26,10 @@ export class ConfiguracionService {
     public setCooperativa(cooperativa) {
         return this.http.post(environment.urlService  + "api/Cooperativa/guardarCooperativa", cooperativa).map(res => res.json());
     }
+    public updateCooperativa(cooperativa) {
+        return this.http.post(environment.urlService  + "api/Configuracion/modificarCooperativa", cooperativa).map(res => res.json());
+    }
+    
 
     //Para recuperar
     public recuperarCooperativa(id) {

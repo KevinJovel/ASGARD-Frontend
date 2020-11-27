@@ -46,7 +46,7 @@ export class UsuarioService {
   }
 
   public eliminarUsuario(iidUsuario) {
-    return this.http.get(environment.urlService  + "api/Usuario/eliminarUsuario" + iidUsuario).map(res => res.json());
+    return this.http.get(environment.urlService  + "api/Usuario/eliminarUsuario/" + iidUsuario).map(res => res.json());
   }
 
   public buscarUsuario(buscador) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfiguracionService } from './../../services/configuracion.service';
+import { ControlService } from './../../services/control.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -18,8 +19,9 @@ export class FormCoopeComponent implements OnInit {
   p: number = 1;
   logo: any;
   titulo: string;
+  aniomodif:boolean;
 
-  constructor(private configuracionService: ConfiguracionService) { 
+  constructor(private configuracionService: ConfiguracionService,private controlService: ControlService) { 
     this.cooperativa =new FormGroup( {
 
       'idcooperativa': new FormControl("0"),
@@ -27,7 +29,7 @@ export class FormCoopeComponent implements OnInit {
       'nombre': new FormControl("",[Validators.required, Validators.maxLength(35),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ. ]+$")], this.noRepetirCooperativa.bind(this)),
       'logo': new FormControl(""),
       'anio':new FormControl("",[Validators.required]),
-      'descripcion': new FormControl("",[Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")])
+      'descripcion': new FormControl("",[Validators.required, Validators.maxLength(150),Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ,. ]+$")])
 
     });
   }
@@ -74,47 +76,6 @@ export class FormCoopeComponent implements OnInit {
     fileReader.readAsDataURL(file);
   }
   
-  guardarDatos() { 
-    Swal.fire({
-        title: '¿Esta seguro de guardar este registro?',
-        text: "¡No podrá modificar estos datos!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, guardar!'
-    }).then((result) => {
-        if (result.value) {
-          if ((this.cooperativa.controls["bandera"].value) == "0") {
-            //Pasamos la foto         
-            this.cooperativa.controls["logo"].setValue(this.logo);
-            if (this.cooperativa.valid == true) {
-              this.configuracionService.setCooperativa(this.cooperativa.value).subscribe(data => {
-                console.log(this.cooperativa.value);
-                this.configuracionService.getCooperativa().subscribe(data => { this.cooperativas = data });
-                  });
-                 
-                  Swal.fire({
-                      position: 'center',
-                      icon: 'success',
-                      title: 'Dato Guardado con éxito',
-                      showConfirmButton: false,
-                      timer: 3000
-                  })
-              }
-      
-          this.cooperativa.controls["idcooperativa"].setValue("0");
-          this.cooperativa.controls["bandera"].setValue("0");
-          this.cooperativa.controls["nombre"].setValue("");
-          this.cooperativa.controls["logo"].setValue("");
-          this.cooperativa.controls["anio"].setValue("");
-          this.cooperativa.controls["descripcion"].setValue("");
-          this.display ='none';
-          }
-           
-        }
-    })
-  }
   
   mostrarLogo(id){
     this.display2 = 'block';
@@ -154,5 +115,56 @@ export class FormCoopeComponent implements OnInit {
   
     return promesa;
   }
+  modif(id){
+ //Limpiar
+ this.configuracionService.recuperarCooperativa(id).subscribe(res=>{
+  this.cooperativa.controls["idcooperativa"].setValue(res.idcooperativa);
+ this.cooperativa.controls["nombre"].setValue(res.nombre);
+ if(res.logo==null) {
+  this.logo="";
+} else {
+  this.logo=res.logo;
+}
+this.controlService.validarActivosTransacciones().subscribe(res => {
+  if (res == 1) {
+    // this.depreciacionService.getCuadroControl().subscribe(data=> {this.cuadros=data});
+    this.aniomodif=true;
+  } else {
+    this.aniomodif=false;
+  }
+});
+ this.cooperativa.controls["anio"].setValue(res.anio);
+ this.cooperativa.controls["descripcion"].setValue(res.descripcion);
+  this.display = 'block';
+ });
+ 
+  }
+  modificarDatos(){
+    if(this.cooperativa.valid==true){
+      this.cooperativa.controls["logo"].setValue(this.logo);
+      console.log(this.cooperativa.value);
+      this.configuracionService.updateCooperativa(this.cooperativa.value).subscribe(res=>{
+        if(res==1){
+          Swal.fire({
+            icon: 'success',
+            title: '¡Registro modificado con exito!',
+            // text: 'No es posible eliminar este registro, esta categoía ya tiene activos asignados.',
+            confirmButtonText: 'Aceptar'
+  
+          });
+          this.display='none';
+          this.configuracionService.getCooperativa().subscribe(data => { this.cooperativas = data });
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: '¡Ocurrio un error!',
+            // text: 'No es posible eliminar este registro, esta categoía ya tiene activos asignados.',
+            confirmButtonText: 'Aceptar'
+  
+          })
+        }
+      });
 
+    }
+  }
 }
