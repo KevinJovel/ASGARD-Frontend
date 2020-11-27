@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ControlService } from './../../services/control.service';
 import { TraspasoService } from 'src/app/services/traspaso.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 //para la fecha actual
@@ -40,12 +41,14 @@ export class FormSolicitudTraspasoComponent implements OnInit {
       'idsolicitud': new FormControl("0"),
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ -]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
-       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250), Validators.pattern("^[a-z A-Z ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
+       'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
        'nuevoresponsable': new FormControl("",[Validators.required]),
        'nuevaarea': new FormControl("",[Validators.required]),
        'responsableanterior': new FormControl(""),
        'areaanterior': new FormControl(""),
        'idbien': new FormControl(""),
+       //'idarea': new FormControl(""),
+       
        //'areadenegocio': new FormControl(""),
        'idresponsable': new FormControl(""),
        //'responsable': new FormControl("0"),
@@ -60,7 +63,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
    // this.catalogosServices.getTipoDescargo().subscribe(data=>{this.descargo=data});//combo
     //listar en solicitud (empleados y area de negocio)
-    this.TraspasoService.listarEmpleadosCombo().subscribe(res => { this.empleados = res });
+ //   this.TraspasoService.listarEmpleadosCombo().subscribe(res => { this.empleados = res });
     this.TraspasoService.listarAreaCombo().subscribe(res =>{this.areas=res});
 
      //Método para recuperar año
@@ -143,18 +146,19 @@ export class FormSolicitudTraspasoComponent implements OnInit {
  
   FiltrarArea(){
     var id= this.solicitud.controls['idSucursal'].value;
-    this.bajaService.ComboArea(id).subscribe(data=>{this.areas=data});
+    this.controlService.comboAreaDeSucursal(id).subscribe(data=>{this.areas=data});
   }
 
   Filtrar(){
     var id= this.solicitud.controls['idArea'].value;
-    this.bajaService.FiltroTablaActivos(id).subscribe(data=>{this.activos=data});
+    this.TraspasoService.listarActivosFiltroT(id).subscribe(data=>{this.activos=data});
   }
+
   
   Reload(){
     this.solicitud.controls['idSucursal'].setValue(0);
     this.solicitud.controls['idArea'].setValue(0);
-    this.bajaService.listarBienesAsignados().subscribe(res=> { this.activos=res});
+    this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res});
   }
 
   noRepetirFolio1(control: FormControl) {
@@ -163,7 +167,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
 
       if (control.value != "" && control.value != null) {
 
-        this.bajaService.validarFolio(this.solicitud.controls["idsolicitud"].value, control.value)
+        this.TraspasoService.validarFolio(this.solicitud.controls["idsolicitud"].value, control.value)
           .subscribe(data => {
             if (data == 1) {
               resolve({ yaExisteFolio: true });
@@ -175,6 +179,18 @@ export class FormSolicitudTraspasoComponent implements OnInit {
     });
     return promesa;
   }
+
+  //A FILTRAR EL EMPLEADO SEGUN AREA DE NEGOCIO
+  FiltrarEmpleado(){
+    var id= this.solicitud.controls['idArea'].value;
+    this.TraspasoService.comboEmpleados(id).subscribe(data=>{this.empleados=data});
+  }
+
+  /*
+  Filtrars(){
+    var id= this.solicitud.controls['idEmpleado'].value;
+    this.TraspasoService.listarEmpleadosFiltro(id).subscribe(data=>{this.empleados=data});
+  }*/
 
 
  //creo que lo ocuparé despues.

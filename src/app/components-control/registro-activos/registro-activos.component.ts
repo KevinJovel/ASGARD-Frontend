@@ -181,7 +181,7 @@ FiltrarAsignadosYNoAsignados(){
 }
 FiltrarArea(){
   var id= this.combo.controls['idSucursal'].value;
-  this.controlService.ComboArea(id).subscribe(data=>{this.areas=data});
+  this.controlService.comboAreaDeSucursal(id).subscribe(data=>{this.areas=data});
 }
 
 Filtrar(){

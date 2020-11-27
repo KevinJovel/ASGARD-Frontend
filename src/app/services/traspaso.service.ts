@@ -43,8 +43,27 @@ export class TraspasoService {
   public estadoSolicitudDenegada(idsolicitud){
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/estadoSolicitudDenegada/" + idsolicitud).map(res=>res.json());
   }
-  
-  
-  
-  
+  public listarEmpleadosFiltro(id){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/listarEmpleadosFiltro/" + id).map(res=>res.json());
+  }
+
+  public comboEmpleados(id){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/comboEmpleados/" + id).map(res=>res.json());
+  }
+  public listarActivosFiltroT(id){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/listarActivosFiltroT/" + id).map(res=>res.json());
+  }
+  public validarFolio(idsolicitud, folio){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/validarFolio/"+ idsolicitud + "/" + folio).map(res => res.json());
+  }
+  public validarAcuerdo(idsolicitud, acuerdo){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/validarAcuerdo/"+ idsolicitud + "/" + acuerdo).map(res => res.json());
+  }
+  public buscarSolicitud(buscador) {
+    return this.http.get(environment.urlService  + "api/SolicitudTraspaso/buscarSolicitud/" + buscador).map(res => res.json());
+}
+public  historialSolicitudesTraspasos (idactivo){
+  return this.http.get(environment.urlService + "api/SolicitudTraspaso/historialSolicitudesTraspasos/" + idactivo ).map(res=>res.json());
+ }
+
 }

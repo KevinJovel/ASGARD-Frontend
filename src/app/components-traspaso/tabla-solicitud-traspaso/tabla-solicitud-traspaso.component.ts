@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TraspasoService } from 'src/app/services/traspaso.service';
 import Swal from 'sweetalert2';
+import { ControlService } from './../../services/control.service';
 
 
 @Component({
@@ -21,17 +22,19 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   p: number = 1;
   solicitudes: FormGroup;
   idactivado: any;
+  fechaMaxima: any;
+  fechaMinima: any;
 
   fechasolicitud:string; nuevoresponsable:string;  nuevaarea:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
   cargo:string; folio:string; solicitud: string; acuerdo: string; idresponsable: any;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
-    private bajaService:BajaService, private TraspasoService: TraspasoService)
+    private bajaService:BajaService, private TraspasoService: TraspasoService, private controlService: ControlService)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
-       'acuerdo': new FormControl("",[Validators.required]),
+       'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(50), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ ,.]+$")],this.noRepetirAcuerdo.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
        'idEmpleado': new FormControl("",[Validators.required]),
     });
@@ -44,16 +47,30 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
 
   guardarDatos(){ }
 
-  verSolicitud(id) {
-    this.display = 'block';
-    this.titulo = "Autorización de solicitud para realizar traspaso";
-    this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
-    this.solicitudes.controls["fechasolicitud"].setValue("");
-    this.solicitudes.controls["idsolicitud"].setValue(id);
-    //Aqui se le teiene que enviar el codigo del nuevo empleado
-    this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
-    this.TraspasoService.verSolicitudTraspaso(id).subscribe((data) => {
  
+
+  close() {
+    this.display = 'none';
+  }
+ // me falta el buscar
+  buscar(buscador) {
+    this.p = 1;
+    this.TraspasoService.buscarSolicitud(buscador.value).subscribe(res => { this.solicitudesTraspasos = res });
+   }
+   open(id,fecha) {
+    this.titulo = "Autorización de solicitud para realizar traspaso";
+    this.solicitudes.controls["fechasolicitud"].setValue(fecha);
+    var fecharecup = this.solicitudes.controls["fechasolicitud"].value.split("-");
+    let dia=fecharecup[0];
+    let mes=fecharecup[1];
+    let anio=fecharecup[2];
+    this.controlService.mostrarAnio().subscribe((res)=> {
+      this.fechaMaxima=`${res.anio}-12-31`;
+      this.fechaMinima=`${anio}-${mes}-${dia}`;
+    });
+    //limpia cache
+
+    this.TraspasoService.verSolicitudTraspaso(id).subscribe((data) => {
       this.fechasolicitud = data.fechacadena;
       this.codigo = data.codigo;
       this.descripcion = data.descripcion;
@@ -66,23 +83,13 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       this.nuevoresponsable= data.responsableactual;
       this.idactivado = data.idbien; //para obtener el id del bien
       this.idresponsable= data.idresponsable;
-
-    // console.log("Idbien: "+this.bienesS); 
     });
-   
-//para la aprobacion
+    this.solicitudes.controls["acuerdo"].setValue("");
+    this.solicitudes.controls["idsolicitud"].setValue(id);
+    this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
     this.idsolicitud=id;
- 
+    this.display = 'block';
   }
-
-  close() {
-    this.display = 'none';
-  }
-
-  buscar(buscador) {
-    this.p = 1;
-   this.bajaService.buscarSolicitud(buscador.value).subscribe(res => { this.solicitudesTraspasos = res });
-   }
 
    aprobarSolicitud() {
      //en id 
@@ -122,7 +129,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
           })
           this.display = 'none'; 
           this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
-          this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
+         // this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
           //AQUI VOY  AAGREGAR EL NUEVO RESPONSABLE PARA HACER EL CAMBIO
           }else{
             Swal.fire({
@@ -186,7 +193,7 @@ noRepetirAcuerdo(control: FormControl) {
 
     if (control.value != "" && control.value != null) {
 
-      this.bajaService.validarAcuerdo(this.solicitudes.controls["idsolicitud"].value, control.value)
+      this.TraspasoService.validarAcuerdo(this.solicitudes.controls["idsolicitud"].value, control.value)
         .subscribe(data => {
           if (data == 1) {
             resolve({ yaExisteAcuerdo: true });

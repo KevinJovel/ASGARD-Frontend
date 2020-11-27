@@ -138,11 +138,11 @@ this.controlService.validarActivosRevalorizar().subscribe(res =>{
   }
   FiltrarArea(){
     var id= this.combos.controls['idSucursal'].value;
-    this.depreciacionService.ComboArea(id).subscribe(data=>{this.areas=data});
+    this.controlService.comboAreaDeSucursal(id).subscribe(data=>{this.areas=data});
   }
   Filtrar(){
     var id= this.combos.controls['idArea'].value;
-    this.depreciacionService.FiltroTablaDepreciacion(id).subscribe(data=>{this.bienes=data});
+    this.controlService.FiltroTablaActivos(id).subscribe(data=>{this.bienes=data});
   }
   Reload(){
     this.combos.controls['idSucursal'].setValue(0);

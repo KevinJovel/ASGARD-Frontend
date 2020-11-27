@@ -91,7 +91,7 @@
 <!--INICIO DE MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENTO-->
 
 <div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog modal-lg" style="width:1000px;">
+  <div class="modal-dialog modal-lg" style="width:1200px;">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
@@ -141,27 +141,34 @@
                    <!----> <thead>
                    <tr>
                         <th scope="row">N°</th>        
-                        <th scope="row">Fecha de solicitud</th>           
-                        <th scope="row">Fecha de traslado</th>
-                        <th scope="row">encargado anterior</th>
+                        <th scope="row">Folio</th>           
+                        <th scope="row">Fecha de solicitud</th>
+                        <th scope="row">Fecha de traspaso</th>
+                        <th scope="row">responsable anterior</th>
                         <th scope="row">area de negocio anterior</th>
+                        <th scope="row">nuevo encargado</th>
+                        <th scope="row">Nueva área de negocio</th>
                         
                        <!-- <th scope="row" class="hidden-phone">Enviar</th>-->
                       </tr>
                     </thead>
                     <tbody>
 
-                <tr *ngFor="let informe of informes | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-               <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                <tr *ngFor="let solicitud of solicitudes let i = index">
+                  <th scope="col">{{i+1 }}</th>
                 
-               <td>{{informe.fechacadena}}</td>
-               <td>{{informe.nombretecnico}}</td>
-               <td>$ {{informe.costomateriales}}</td>
-               <td>$ {{informe.costomo}}</td>
+               <td>{{solicitud.folio}}</td>
+               <td>{{solicitud.fechacadena}}</td>
+               <td>{{solicitud.fechacadenatraspaso}}</td>              
+               <td>{{solicitud.responsableanterior}}</td>
+               <td>{{solicitud.areaanterior}}</td>
+               <td>{{solicitud.nuevoresponsable}}</td>
+               <td>{{solicitud.nuevaarea}}</td>
+               
               </tr>
                     </tbody>
                   </table>
-                   <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                 <!--  <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>-->
                 </div>
               </div>
             </section>

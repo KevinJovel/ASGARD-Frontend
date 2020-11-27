@@ -3,6 +3,7 @@ import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
+import { TraspasoService } from 'src/app/services/traspaso.service';
 
 import Swal from 'sweetalert2';
 
@@ -36,9 +37,9 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   areadenegocio: any;
 
   // para listar el historial
-  informes: any;
+  solicitudes: any;
    tecnicos:any;
-   informe: FormGroup;
+   solicitud: FormGroup;
    revalorizacion: FormGroup;
    display3 = 'none';
    titulo3: string;
@@ -47,7 +48,8 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   
    idmante: any;
  
-  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService,private mantenimientoService: MantenimientoService) { 
+  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService,
+    private mantenimientoService: MantenimientoService,  private TraspasoService: TraspasoService) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0")
@@ -68,6 +70,9 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   ngOnInit(): void {
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
     this.mantenimientoService.listarActivosHistorial().subscribe(data=>{this.bienes=data});
+
+
+    
 
 //para historial
 /*this.mantenimientoService.historialInformes().subscribe(res=>{
@@ -93,8 +98,8 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   }
 
   open(id) {
- 
-     this.mantenimientoService.historialInformes(id).subscribe(res => {
+    //this.TraspasoService.historialSolicitudesTraspasos(id).subscribe(data=>{this.sucursales=data});
+     this.TraspasoService.historialSolicitudesTraspasos(id).subscribe(res => {
     if(res == 0){
       Swal.fire({
         position: 'center',
@@ -114,8 +119,8 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
      
     });
     //para recuperar el id del bien 
-    this.mantenimientoService.historialInformes(id).subscribe(res=>{
-      this.informes=res;  
+    this.TraspasoService.historialSolicitudesTraspasos(id).subscribe(res=>{
+      this.solicitudes=res;  
     });
   }
     })//cierre de no ay historial

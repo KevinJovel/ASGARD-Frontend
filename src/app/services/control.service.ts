@@ -217,6 +217,10 @@ public ValidarActivosARevalorizar(){
   return this.http.get(environment.urlService + "api/Revalorizar/validarActivosRevalorizar").map(res=>res.json());
  }
  
+ public comboAreaDeSucursal(id) {
+  return this.http.get(environment.urlService + "api/AreasNegocios/comboAreaDeSucursal/" + id).map(res => res.json());
+}
+ 
 
  public noEditarfecha(idbien){
   return this.http.get(environment.urlService + "api/ActivoFijo/noEditarfecha/"+ idbien).map(res=>res.json());
