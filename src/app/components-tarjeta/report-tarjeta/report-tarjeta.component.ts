@@ -129,8 +129,8 @@ ProvDon:string;
       this.display = 'none';
     }
 
-    reporteTarjetaPdf(id) {
-      this.http.get(environment.urlService+"api/Reporte/tarjetaPdf/" + id,{responseType: 'arraybuffer'}).subscribe(pdf=>{
+    reporteTarjetaPdf() {
+      this.http.get(environment.urlService+"api/Reporte/tarjetaPdf/" + parseInt(this.parametro),{responseType: 'arraybuffer'}).subscribe(pdf=>{
         const blod=new Blob([pdf],{type:"application/pdf"});
         const url= window.URL.createObjectURL(blod);
          window.open(url);
