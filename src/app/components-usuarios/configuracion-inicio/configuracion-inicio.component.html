@@ -480,7 +480,7 @@ class="modal" [ngStyle]="{'display':displayUsuarios}">
             <select class="form-control" formControlName="iidEmpleado"
               maxlength="51">
               <option value="">--Seleccione--</option>
-              <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres}}</option>
+              <option [value]="empleado.id" *ngFor="let empleado of empleados">{{empleado.nombre}}</option>
             </select>
           </div>
           <div class="form-group">
