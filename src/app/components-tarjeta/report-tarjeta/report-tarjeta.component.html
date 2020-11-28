@@ -199,10 +199,14 @@
                                     </table>
                                  
                                 </div>
-                                <div style="text-align: center;">
-                                    <button title="Imprimir tarjeta de depreciación" style="margin-top: 20px; margin-bottom: 100px; text-align: center;" class="btn btn-success"><i class="icon-print"></i> Imprimir</button>
-                           
-                                </div>
+                                
+                                <tr style="text-align: center;" *ngFor="let activo of bienes">
+                                    <div>
+                                        <button title="Imprimir tarjeta de depreciación" style="margin-top: 20px; margin-bottom: 50px; margin-left: 450px;" class="btn btn-success" (click)="reporteTarjetaPdf(activo.idBien)"><i class="icon-print"></i> Imprimir</button>
+                               
+                                    </div>
+                                </tr>
+                                
                              </div>
                         </section>
                     </div>

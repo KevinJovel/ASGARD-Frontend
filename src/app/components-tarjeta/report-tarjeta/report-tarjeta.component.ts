@@ -3,7 +3,8 @@ import { CatalogosService } from './../../services/catalogos.service';
 //import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import {environment} from '../../../environments/environment';
+import {HttpClient} from '@angular/common/http'
 
 @Component({
   selector: 'app-report-tarjeta',
@@ -44,7 +45,7 @@ valorresidual:string;
 observaciones:string;
 
 ProvDon:string;
-  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService, private route: Router, private activateRoute: ActivatedRoute) {
+  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService, private route: Router, private activateRoute: ActivatedRoute, private http:HttpClient) {
   
     this.activateRoute.params.subscribe(parametro => {
       this.parametro = parametro["id"];
@@ -127,4 +128,14 @@ ProvDon:string;
     close() {
       this.display = 'none';
     }
+
+    reporteTarjetaPdf(id) {
+      this.http.get(environment.urlService+"api/Reporte/tarjetaPdf/" + id,{responseType: 'arraybuffer'}).subscribe(pdf=>{
+        const blod=new Blob([pdf],{type:"application/pdf"});
+        const url= window.URL.createObjectURL(blod);
+         window.open(url);
+      });
+
+    }
+
   }
