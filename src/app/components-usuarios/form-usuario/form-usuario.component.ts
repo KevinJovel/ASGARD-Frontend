@@ -19,12 +19,17 @@ export class FormUsuarioComponent implements OnInit {
   display = 'none';
   displayU = 'none';
   display2='none';
+  display3='none';
   p: number = 1;
   tipoUsuarios: any;
   empleados: any;
-  //variable para el formulario dinamico
-  //ver: boolean = true;
   editar:boolean;
+  //variables para modal de ver detalles de usuarios
+  nombreEmpleado:string;
+  nombreusuario:string;
+  tipoUsuario:string;
+  sucursal:string;
+  areanegocio:string;
 
   constructor(private activatedRoute: ActivatedRoute, private usuarioService: UsuarioService,
     private catalogoService: CatalogosService,
@@ -88,6 +93,10 @@ export class FormUsuarioComponent implements OnInit {
     this.display2 = 'none';
   
   }
+  close3() {
+    this.display3 = 'none';
+  
+  } 
 
   guardarDatos() {
     if ((this.usuario.controls["bandera"].value) == "0") {
@@ -196,7 +205,8 @@ limpiar(){
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
         this.usuarioService.eliminarUsuario(idUsuario).subscribe(data => {
@@ -216,7 +226,14 @@ limpiar(){
   }
   }
 ver(id){
-alert("hola ver datos")
+this.usuarioService.recuperarDetallesUsuario(id).subscribe(data=>{
+  this.nombreEmpleado=data.nombre;
+  this.nombreusuario=data.nombreusuario;
+  this.tipoUsuario=data.tipousuario; 
+  this.sucursal=data.sucursal; 
+  this.areanegocio=data.area;
+  this.display3='block';
+});
 }
 OpenAsignarAsistente(id){
  this.usuarioService.validarEmpleadoComboAsistente(id).subscribe(res=>{

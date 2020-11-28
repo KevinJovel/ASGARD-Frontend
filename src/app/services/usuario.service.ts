@@ -59,6 +59,9 @@ export class UsuarioService {
   public recuperarUsuario(id) {
     return this.http.get(environment.urlService + "api/Usuario/RecuperarUsuario/" + id).map(res => res.json());
   }
+  public recuperarDetallesUsuario(id) {
+    return this.http.get(environment.urlService + "api/Usuario/RecuperarDetallesusuarios/" + id).map(res => res.json());
+  }
   
   public listarEmpleadoCombo(){
     return this.http.get(environment.urlService + "api/Usuario/listarEmpleadoCombo" ).map(res=>res.json());
