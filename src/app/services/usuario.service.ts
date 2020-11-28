@@ -1,39 +1,39 @@
-import { Injectable, Inject  } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http'
 import 'rxjs/add/operator/map'
 import { Observable } from 'rxjs/Observable';
-import { Router} from '@angular/router'
-import {environment} from '../../environments/environment'
+import { Router } from '@angular/router'
+import { environment } from '../../environments/environment'
 @Injectable()
 export class UsuarioService {
-  
-    constructor(private http: Http, private router: Router) {
 
-    }
-    public login(usuario) {
-      return this.http.post(environment.urlService  + "api/Usuario/login", usuario).map(res => res.json());
-    }
-    public crearSession() {
-      return this.http.get(environment.urlService  + "api/Usuario/crearSession").map(res => res.json());
-    }
-    public validarusuariosRegistrados() {
-      return this.http.get(environment.urlService  + "api/Usuario/validarUsuariosregistrados").map(res => res.json());
-    }
-    public validarCooperativasRegistradas() {
-      return this.http.get(environment.urlService  + "api/Usuario/validarCooperativasRegistradas").map(res => res.json());
-    }
-    public validarSucursalesRegistradas() {
-      return this.http.get(environment.urlService  + "api/Usuario/validarSucursalesRegistradas").map(res => res.json());
-    }
-    public validarAreasRegistrados() {
-      return this.http.get(environment.urlService  + "api/Usuario/validarAreasRegistradas").map(res => res.json());
-    }
-    public validarEmpleadosRegistrados() {
-      return this.http.get(environment.urlService  + "api/Usuario/validarEmpleadosRegistrados").map(res => res.json());
-    }
-    //SERVICIOS PARA USUARIO
+  constructor(private http: Http, private router: Router) {
+
+  }
+  public login(usuario) {
+    return this.http.post(environment.urlService + "api/Usuario/login", usuario).map(res => res.json());
+  }
+  public crearSession() {
+    return this.http.get(environment.urlService + "api/Usuario/crearSession").map(res => res.json());
+  }
+  public validarusuariosRegistrados() {
+    return this.http.get(environment.urlService + "api/Usuario/validarUsuariosregistrados").map(res => res.json());
+  }
+  public validarCooperativasRegistradas() {
+    return this.http.get(environment.urlService + "api/Usuario/validarCooperativasRegistradas").map(res => res.json());
+  }
+  public validarSucursalesRegistradas() {
+    return this.http.get(environment.urlService + "api/Usuario/validarSucursalesRegistradas").map(res => res.json());
+  }
+  public validarAreasRegistrados() {
+    return this.http.get(environment.urlService + "api/Usuario/validarAreasRegistradas").map(res => res.json());
+  }
+  public validarEmpleadosRegistrados() {
+    return this.http.get(environment.urlService + "api/Usuario/validarEmpleadosRegistrados").map(res => res.json());
+  }
+  //SERVICIOS PARA USUARIO
   public getUsuario() {
-    return this.http.get(environment.urlService+ "api/Usuario/listarUsuario")
+    return this.http.get(environment.urlService + "api/Usuario/listarUsuario")
       .map(res => res.json());
   }
   public agregarUsuario(usuario) {
@@ -46,13 +46,13 @@ export class UsuarioService {
   }
 
   public eliminarUsuario(iidUsuario) {
-    return this.http.get(environment.urlService  + "api/TipoUsuario/eliminarUsuario/" + iidUsuario).map(res => res.json());
+    return this.http.get(environment.urlService + "api/TipoUsuario/eliminarUsuario/" + iidUsuario).map(res => res.json());
   }
 
   public buscarUsuario(buscador) {
     return this.http.get(environment.urlService + "api/Usuario/buscarUsuario/" + buscador).map(res => res.json());
   }
-  
+
   public ActualizarUsuario(usuario) {
     return this.http.post(environment.urlService + "api/Usuario/modificarUsuario", usuario).map(res => res.json());
   }
@@ -62,19 +62,19 @@ export class UsuarioService {
   public recuperarDetallesUsuario(id) {
     return this.http.get(environment.urlService + "api/Usuario/RecuperarDetallesusuarios/" + id).map(res => res.json());
   }
-  
-  public listarEmpleadoCombo(){
-    return this.http.get(environment.urlService + "api/Usuario/listarEmpleadoCombo" ).map(res=>res.json());
+
+  public listarEmpleadoCombo() {
+    return this.http.get(environment.urlService + "api/Usuario/listarEmpleadoCombo").map(res => res.json());
   }
-  public listarEmpleadoComboAsistente(idEmpleado){
-    return this.http.get(environment.urlService + "api/Usuario/listarEmpleadoAsistente/"+idEmpleado ).map(res=>res.json());
+  public listarEmpleadoComboAsistente(idEmpleado) {
+    return this.http.get(environment.urlService + "api/Usuario/listarEmpleadoAsistente/" + idEmpleado).map(res => res.json());
   }
-  public validarEmpleadoComboAsistente(idEmpleado){
-    return this.http.get(environment.urlService + "api/Usuario/ValidarEmpleadoAsistente/"+idEmpleado ).map(res=>res.json());
+  public validarEmpleadoComboAsistente(idEmpleado) {
+    return this.http.get(environment.urlService + "api/Usuario/ValidarEmpleadoAsistente/" + idEmpleado).map(res => res.json());
   }
 
-  public listarTipoCombo(){
-    return this.http.get(environment.urlService + "api/Usuario/listarTipoCombo" ).map(res=>res.json());
+  public listarTipoCombo() {
+    return this.http.get(environment.urlService + "api/Usuario/listarTipoCombo").map(res => res.json());
   }
 
 
@@ -96,7 +96,7 @@ export class UsuarioService {
   }
 
   public RecuperarTipoUsuario(id) {
-    return this.http.get(environment.urlService  + "api/TipoUsuario/RecuperarTipoUsuario/" + id).map(res => res.json());
+    return this.http.get(environment.urlService + "api/TipoUsuario/RecuperarTipoUsuario/" + id).map(res => res.json());
   }
 
   public modificarTipoUsuario(tipousuario) {
@@ -105,13 +105,15 @@ export class UsuarioService {
 
 
   public buscarTipoUsuario(buscador) {
-    return this.http.get(environment.urlService  + "api/TipoUsuario/buscarTipoUsuario/" + buscador).map(res => res.json());
+    return this.http.get(environment.urlService + "api/TipoUsuario/buscarTipoUsuario/" + buscador).map(res => res.json());
   }
 
   public validarTipoUsuario(iidtipousuario, tipo) {
     return this.http.get(environment.urlService + "api/TipoUsuario/validarTipoUsuario/" + iidtipousuario + "/" + tipo)
       .map(res => res.json());
   }
- 
+  public BitacoraTransaccion(id, descripcion) {
+    return this.http.get(environment.urlService + "api/Bitacora/guardarTransaccion/" + id + "/" + descripcion).map(res => res.json());
+  }
 
 }

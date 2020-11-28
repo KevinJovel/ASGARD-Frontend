@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("empleado",res.iidEmpleado);
           sessionStorage.setItem("tipo",res.iidTipousuario);          
           this.error=false;
+          this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),"Inició sesión en el sistema").subscribe();
           window.location.href = "/";
           // this.router.navigate(["/"]);
 
