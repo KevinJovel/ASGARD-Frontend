@@ -327,6 +327,9 @@ public listarCargoCombosinJ(){
 public guardarEmpleado(idempleado) {
   return this.http.post(environment.urlService  + "api/Empleado/guardarEmpleado", idempleado).map(res => res.json());
 }
+public EsEmpleadoJefe(idempleado) {
+  return this.http.get(environment.urlService  + "api/Empleado/EsEmpleadojefe/"+ idempleado).map(res => res.json());
+}
 
 public getEmpleado() {
   return this.http.get(environment.urlService  + "api/Empleado/listarEmpleado").map(res => res.json());

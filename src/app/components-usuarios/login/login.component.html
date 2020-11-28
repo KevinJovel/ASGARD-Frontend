@@ -1,0 +1,61 @@
+<div class="container">
+
+    <form class="form-signin" action="index.html">
+      <h2 class="form-signin-heading">ASGARD</h2>
+      <div class="login-wrap">
+        <form role="form" [formGroup]="usuario" (ngSubmit)="IniciarSesion()">
+
+          <input type="text" class="form-control" placeholder="Usuario" formControlName="nombreusuario">
+          <input type="password" class="form-control" placeholder="Contraseña" formControlName="contra">
+          <!-- <label class="checkbox">
+              <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+              <!-- <input type="checkbox" value="remember-me"> Remember me
+              <span class="pull-right">
+              </span> -->
+          <!-- </label>  -->
+       
+          <button class="btn btn-lg btn-login btn-block" type="submit">Iniciar Sesión</button>
+          <div style="color:red" *ngIf="error==true">
+            Usuario o contrasena incorrecto.
+          </div>
+          <!-- <div class="alert alert-warning fade in" *ngIf="usuario.controls['nombreusuario'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ADVERTENCIA!</strong> El nombre de usuario es obligatorio.
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="usuario.controls['contra'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡ADVERTENCIA!</strong> la contraseña es obligatoria.
+          </div> -->
+        </form> 
+
+      </div>
+
+        <!-- Modal -->
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Forgot Password ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your e-mail address below to reset your password.</p>
+                        <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                        <button class="btn btn-success" type="button">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal -->
+
+    </form>
+
+  </div>

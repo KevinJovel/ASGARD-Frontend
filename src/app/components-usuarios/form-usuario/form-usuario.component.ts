@@ -17,11 +17,19 @@ export class FormUsuarioComponent implements OnInit {
    usuarios: any;
   titulo: string = "";
   display = 'none';
+  displayU = 'none';
+  display2='none';
+  display3='none';
   p: number = 1;
   tipoUsuarios: any;
   empleados: any;
-  //variable para el formulario dinamico
-  //ver: boolean = true;
+  editar:boolean;
+  //variables para modal de ver detalles de usuarios
+  nombreEmpleado:string;
+  nombreusuario:string;
+  tipoUsuario:string;
+  sucursal:string;
+  areanegocio:string;
 
   constructor(private activatedRoute: ActivatedRoute, private usuarioService: UsuarioService,
     private catalogoService: CatalogosService,
@@ -36,7 +44,7 @@ export class FormUsuarioComponent implements OnInit {
         'contra': new FormControl("", [Validators.required, Validators.maxLength(30)]),
         'contra2': new FormControl("", [Validators.required, Validators.maxLength(30), this.validarContraIguales.bind(this)]),
         'iidEmpleado': new FormControl("", [Validators.required]),
-        'iidTipousuario': new FormControl("")
+        'iidTipousuario': new FormControl("", [Validators.required])
       }
     );
   }
@@ -50,19 +58,22 @@ export class FormUsuarioComponent implements OnInit {
     //lo que esta en data lo guardamos en empleado
     this.usuarioService.listarEmpleadoCombo().subscribe(data => {
      this.empleados = data;
-
+    });
          //llenamos los combo
     //lo qu esta en data lo guardamos en usuario
     this.usuarioService.listarTipoCombo().subscribe(data => {
       this.tipoUsuarios = data;
     });
 
-    });
+
   }
 
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de Usuario";
+    this.usuarioService.listarEmpleadoCombo().subscribe(data => {
+      this.empleados = data;
+     });
+    this.titulo = "Formulario registro usuario";
     this.usuario.controls["iidusuario"].setValue("0");
     this.usuario.controls["bandera"].setValue("0");
     this.usuario.controls["nombreusuario"].setValue("");
@@ -76,67 +87,97 @@ export class FormUsuarioComponent implements OnInit {
 
   close() {
     this.display = 'none';
+    this.editar=false;
   }
+  close2() {
+    this.display2 = 'none';
+  
+  }
+  close3() {
+    this.display3 = 'none';
+  
+  } 
 
   guardarDatos() {
     if ((this.usuario.controls["bandera"].value) == "0") {
-      if (this.usuario.valid == true) {
-        this.usuarioService.agregarUsuario(this.usuario.value).subscribe(data => {
-          this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
-        });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Registro Guardado con exito',
-          showConfirmButton: false,
-          timer: 3000
-        })
-      }
-    }
-    else {
+      let tipo=this.usuario.controls["iidTipousuario"].value;
+      console.log(this.usuario.value)
+      this.catalogoService.EsEmpleadoJefe(this.usuario.controls["iidEmpleado"].value).subscribe(res=>{
+        if(tipo==2&&res!=1){
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'El empleado seleccionado no puede ser usuario jefe',
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }else{
+          console.log(this.usuario.value);
+            this.usuarioService.agregarUsuario(this.usuario.value).subscribe(data => {
+              if(data==1){
+                Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Usuario guardado con éxito',
+                  showConfirmButton: false,
+                  timer: 3000
+                })
+                this.limpiar();
+                this.display='none';
+                this.display2 = 'none';
+                this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
+              }else{
+                alert("ocurrio un error")
+              }       
+            });
+        }
+      });
+    }else {
       //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
-
       this.usuario.controls["bandera"].setValue("0");
       if (this.usuario.valid == true) {
        this.usuarioService.ActualizarUsuario(this.usuario.value).subscribe(data => {
+         if(data==1){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Registro modificado con éxito',
+            showConfirmButton: false,
+            timer: 3000
+          });
+          this.limpiar();
+          this.display='none';
           this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
+          this.editar=false;
+         }else{
+           alert(`ocurrio un error.`);
+         }
        });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Registro Modificado con exito',
-          showConfirmButton: false,
-          timer: 3000
-        })
       }
     }
-    
-    this.usuario.controls["iidusuario"].setValue("0");
-    this.usuario.controls["bandera"].setValue("0");
-    this.usuario.controls["nombreusuario"].setValue("");
-    this.usuario.controls["contra"].setValue("1");
-    this.usuario.controls["contra2"].setValue("1");
-    this.usuario.controls["iidEmpleado"].setValue("1");
-    this.usuario.controls["iidTipousuario"].setValue("");
-
-    this.display = 'none';
-    this.usuarioService.getUsuario().subscribe(res => { this.usuarios = res });
-
   }
-
-
+limpiar(){
+          this.usuario.controls["iidusuario"].setValue("0");
+          this.usuario.controls["bandera"].setValue("0");
+          this.usuario.controls["nombreusuario"].setValue("");
+          this.usuario.controls["contra"].setValue("1");
+          this.usuario.controls["contra2"].setValue("1");
+          this.usuario.controls["iidEmpleado"].setValue("1");
+          this.usuario.controls["iidTipousuario"].setValue("");
+}
   modificar(id) {
-
-    this.titulo = "Modificar Usuario";
+    if(sessionStorage.getItem("idUser")==id){
+      this.editar=true;
+    }else{
+      this.editar=false;
+    }
+    this.titulo = "Modificar usuario";
     this.display = 'block';
     this.usuarioService.recuperarUsuario(id).subscribe(data => {
       this.usuario.controls["iidusuario"].setValue(data.iidusuario);
       this.usuario.controls["nombreusuario"].setValue(data.nombreusuario);
       this.usuario.controls["iidTipousuario"].setValue(data.iidTipousuario);
       this.usuario.controls["bandera"].setValue("1");
-
-      //se pone valor por defecto xq no se pueden editar estos campos
-     //y para q permita habilitar el boton de guardar
     this.usuario.controls["contra"].setValue("1");
     this.usuario.controls["contra2"].setValue("1");
     this.usuario.controls["iidEmpleado"].setValue("1");
@@ -147,6 +188,16 @@ export class FormUsuarioComponent implements OnInit {
   }
   
   eliminar(idUsuario) {
+    if(sessionStorage.getItem("idUser")==idUsuario){
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'No puede eliminar al usuario con el que se ha logueado',
+        showConfirmButton: false,
+        timer: 3000
+      });
+     
+    }else{
     Swal.fire({
       title: '¿Esta seguro de eliminar este registro?',
       text: "No podra revertir esta accion!",
@@ -154,24 +205,61 @@ export class FormUsuarioComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.value) {
         this.usuarioService.eliminarUsuario(idUsuario).subscribe(data => {
-          Swal.fire(
-            'Dato eliminado!',
-            'El registro ha sido eliminado con exito.',
-            'success'
-          )
-          this.usuarioService.getUsuario().subscribe(
-            data => { this.usuarios = data }
-          );
+          if(data==1){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Usuario eliminado con éxito',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.getUsuario().subscribe( data => { this.usuarios = data });
+          }
         });
-
       }
-    })
+    });
   }
+  }
+ver(id){
+this.usuarioService.recuperarDetallesUsuario(id).subscribe(data=>{
+  this.nombreEmpleado=data.nombre;
+  this.nombreusuario=data.nombreusuario;
+  this.tipoUsuario=data.tipousuario; 
+  this.sucursal=data.sucursal; 
+  this.areanegocio=data.area;
+  this.display3='block';
+});
+}
+OpenAsignarAsistente(id){
+ this.usuarioService.validarEmpleadoComboAsistente(id).subscribe(res=>{
+  if(res==1){
+    this.usuarioService.listarEmpleadoComboAsistente(id).subscribe(data=>{
+      this.empleados = data;
+    });
+       this.titulo="Asignar empleado asistente";
+       this.usuario.controls["iidTipousuario"].setValue(3);
+      this.display2='block';
 
+  }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'No hay empleados disponibles para asistente',
+        showConfirmButton: false,
+        timer: 3000
+      });
+     }
+
+ });
+}
+AsignarAsistente(){
+
+}
 
   buscar(buscador) {
     this.p = 1;
@@ -192,7 +280,6 @@ export class FormUsuarioComponent implements OnInit {
             }
           });
       }
-
     });
     return promesa;
   }
