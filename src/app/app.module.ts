@@ -76,7 +76,6 @@ import { UsuarioService } from './services/usuario.service';
 import { MantenimientoService } from './services/mantenimiento.service';
 import { BajaService } from './services/baja.service';
 import { ConfiguracionService } from './services/configuracion.service';
-import { FormTipoTrasladoComponent } from './components-catalogos/form-tipo-traslado/form-tipo-traslado.component';
 import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-descargo/form-tipo-descargo.component';
 import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-activos-asignados/solicitud-activos-asignados.component';
 import { FormCoopeComponent } from './components-configuracion/form-coope/form-coope.component';
@@ -140,7 +139,6 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
     FormCategoriaComponent,
     CierreAnioComponent,
     FormDesasignarComponent,
-    FormTipoTrasladoComponent,
     FormTipoDescargoComponent,
     SolicitudActivosAsignadosComponent,
     FormCoopeComponent,
@@ -214,7 +212,6 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
       {path: 'cuadro-control', component: CuadroControlComponent},
       {path: 'tabla-revalorizar', component: TablaRevalorizarComponent},
       {path: 'cierre-anio', component: CierreAnioComponent},
-      {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent},
       {path: 'form-tipo-descargo', component: FormTipoDescargoComponent},
       {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
       {path: 'form-conficooperativa', component: FormCoopeComponent,canActivate: [SeguridadGuard]},

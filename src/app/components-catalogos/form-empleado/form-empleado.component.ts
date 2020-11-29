@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -22,7 +23,7 @@ export class FormEmpleadoComponent implements OnInit {
   edit: number = 0;
   guardar: number = 0;
   tipocombo: string;
-  constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
+  constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute, private usuarioService: UsuarioService) {
     this.empleado = new FormGroup({
       'idempleado': new FormControl("0"),
       'bandera': new FormControl("0"),
@@ -36,11 +37,7 @@ export class FormEmpleadoComponent implements OnInit {
       'idcargo': new FormControl("", [Validators.required]),
       'cargo': new FormControl(""),
       'idsucursal': new FormControl("")
-
     });
-
-
-
   }
 
   ngOnInit() {
@@ -83,37 +80,56 @@ export class FormEmpleadoComponent implements OnInit {
 
       if (this.empleado.valid == true) {
         this.catalogosServices.guardarEmpleado(this.empleado.value).subscribe(data => {
-          this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
+          if (data == 1) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro guardado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Guardó un empleado en el sistema.`).subscribe();
+            this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '¡Ocurrió un error al guardar el registro!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó guardar un empleado en el sistema.`).subscribe();
+          }
         });
-
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Registro guardado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
       }
-    }
-
-    else {
+    } else {
       //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
       this.empleado.controls["bandera"].setValue("0");
       if (this.empleado.valid == true) {
         this.catalogosServices.modificarEmpleado(this.empleado.value).subscribe(data => {
-          this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
+          if (data == 1) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro modificado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Modificó un empleado en el sistema.`).subscribe();
+            this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '¡Ocurrió un error al modificar el registro!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó modificar un empleado en el sistema.`).subscribe();
+          }
         });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Registro modificado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
       }
     }
-
-
     this.empleado.controls["idempleado"].setValue("0");
     this.empleado.controls["bandera"].setValue("0");
     this.empleado.controls["dui"].setValue("");
@@ -126,8 +142,6 @@ export class FormEmpleadoComponent implements OnInit {
     this.empleado.controls["idcargo"].setValue("");
     this.edit = 0;
     this.display = 'none';
-    this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
-
   }
 
   filtrarCargo() {
@@ -172,8 +186,8 @@ export class FormEmpleadoComponent implements OnInit {
           title: '¡ERROR!',
           text: 'No es posible eliminar este registro, ya existen activos denominados a este empleado',
           confirmButtonText: 'Aceptar'
-
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
       } else {
         Swal.fire({
           title: '¿Estas seguro de eliminar este registro?',
@@ -187,17 +201,25 @@ export class FormEmpleadoComponent implements OnInit {
         }).then((result) => {
           if (result.value) {
             this.catalogosServices.eliminarEmpleado(idempleado).subscribe(data => {
-              Swal.fire({
-                icon: 'success',
-                title: '¡ELIMINADO!',
-                text: '¡El registro ha sido eliminado con éxito!',
-                confirmButtonText: 'Aceptar'
-              })
-              this.catalogosServices.getEmpleado().subscribe(
-                data => { this.empleados = data }
-              );
+              if (data == 1) {
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡ELIMINADO!',
+                  text: '¡El registro ha sido eliminado con éxito!',
+                  confirmButtonText: 'Aceptar'
+                });
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó un empleado en el sistema.`).subscribe();
+                this.catalogosServices.getEmpleado().subscribe(data => { this.empleados = data });
+              } else {
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡Error!',
+                  text: '¡Ocurrió un error al eliminar el registro!',
+                  confirmButtonText: 'Aceptar'
+                });
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
+              }
             });
-
           }
         })
       }
@@ -209,13 +231,9 @@ export class FormEmpleadoComponent implements OnInit {
     this.catalogosServices.buscarEmpleado(buscador.value).subscribe(res => { this.empleados = res });
   }
 
-
   noRepetirDui(control: FormControl) {
-
     var promesa = new Promise((resolve, reject) => {
-
       if (control.value != "" && control.value != null) {
-
         this.catalogosServices.validardui(this.empleado.controls["idempleado"].value, control.value)
           .subscribe(data => {
             if (data == 1) {
@@ -225,13 +243,7 @@ export class FormEmpleadoComponent implements OnInit {
             }
           });
       }
-
-
     });
-
     return promesa;
   }
-
-
-
 }

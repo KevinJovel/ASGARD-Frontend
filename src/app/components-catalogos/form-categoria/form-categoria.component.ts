@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -17,7 +18,7 @@ export class FormCategoriaComponent implements OnInit {
   display3 = 'none';
   titulo: string;
   edit: number = 0;
-  constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute) {
+  constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute, private usuarioService: UsuarioService) {
     this.categoria = new FormGroup({
       'IdCategoria': new FormControl("0"),
       'bandera': new FormControl("0"),
@@ -53,31 +54,57 @@ export class FormCategoriaComponent implements OnInit {
     if ((this.categoria.controls["bandera"].value) == "0") {
       if (this.categoria.valid == true) {
         this.catalogosServices.guardarCategorias(this.categoria.value).subscribe(data => {
-          this.catalogosServices.getCategorias().subscribe(res => { this.categorias = res });
+          if (data == 1) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro guardado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Guardó una categoría en el sistema.`).subscribe();
+            this.catalogosServices.getCategorias().subscribe(res => { this.categorias = res });
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '¡Ocurrió un error al guardar el registro!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó guardar una categoría en el sistema.`).subscribe();
+          }
+
         });
 
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Registro guardado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
+
       }
     } else {
       //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
       this.categoria.controls["bandera"].setValue("0");
       if (this.categoria.valid == true) {
         this.catalogosServices.modificarCategorias(this.categoria.value).subscribe(data => {
-          this.catalogosServices.getCategorias().subscribe(res => { this.categorias = res });
+          if (data == 1) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro modificado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.catalogosServices.getCategorias().subscribe(res => { this.categorias = res });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Modificó una categoría en el sistema.`).subscribe();
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '¡Ocurrió un error al modificar el registro!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó modificar una categoría en el sistema.`).subscribe();
+          }
         });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Registro modificado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
       }
     }
     this.categoria.controls["IdCategoria"].setValue("0");
@@ -86,10 +113,7 @@ export class FormCategoriaComponent implements OnInit {
     this.categoria.controls["Categoria"].setValue("");
     this.categoria.controls["Descripcion"].setValue("");
     this.edit = 0;
-
     this.display = 'none';
-    this.catalogosServices.getCategorias().subscribe(res => { this.categorias = res });
-
   }
 
   modif(id) {
@@ -122,7 +146,8 @@ export class FormCategoriaComponent implements OnInit {
           text: 'No es posible eliminar este registro, esta categoía ya tiene activos asignados.',
           confirmButtonText: 'Aceptar'
 
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar una categoría en el sistema.`).subscribe();
       } else {
         Swal.fire({
           title: '¿Estas seguro de eliminar este registro?',
@@ -136,37 +161,38 @@ export class FormCategoriaComponent implements OnInit {
         }).then((result) => {
           if (result.value) {
             this.catalogosServices.eliminarCategorias(idcategoria).subscribe(data => {
-              Swal.fire({
-                icon: 'success',
-                title: '¡ELIMINADO!',
-                text: '¡El registro ha sido eliminado con éxito!',
-                confirmButtonText: 'Aceptar'
-              })
-              this.catalogosServices.getCategorias().subscribe(
-                data => { this.categorias = data }
-              );
+              if (data == 1) {
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡ELIMINADO!',
+                  text: '¡El registro ha sido eliminado con éxito!',
+                  confirmButtonText: 'Aceptar'
+                })
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó una categoría en el sistema.`).subscribe();
+                this.catalogosServices.getCategorias().subscribe(data => { this.categorias = data });
+              } else {
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡Error!',
+                  text: '¡Ocurrió un error al eliminar el registro!',
+                  confirmButtonText: 'Aceptar'
+                });
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar una categoría en el sistema.`).subscribe();
+              }
             });
-
           }
         })
       }
     })
-
   }
-
-
-
   buscar(buscador) {
     this.p = 1;
     this.catalogosServices.buscarCategorias(buscador.value).subscribe(res => { this.categorias = res });
   }
 
   noRepetirCategoria(control: FormControl) {
-
     var promesa = new Promise((resolve, reject) => {
-
       if (control.value != "" && control.value != null) {
-
         this.catalogosServices.validarCategoria(this.categoria.controls["IdCategoria"].value, control.value)
           .subscribe(data => {
             if (data == 1) {
@@ -174,14 +200,9 @@ export class FormCategoriaComponent implements OnInit {
             } else {
               resolve(null);
             }
-
           })
-
       }
-
-
     });
-
     return promesa;
   }
 }
