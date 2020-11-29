@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
-//import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from './../../services/usuario.service';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {environment} from '../../../environments/environment';
@@ -45,7 +45,7 @@ valorresidual:string;
 observaciones:string;
 
 ProvDon:string;
-  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService, private route: Router, private activateRoute: ActivatedRoute, private http:HttpClient) {
+  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService, private route: Router, private activateRoute: ActivatedRoute, private http:HttpClient,private usuarioService:UsuarioService) {
   
     this.activateRoute.params.subscribe(parametro => {
       this.parametro = parametro["id"];
@@ -53,6 +53,7 @@ ProvDon:string;
   });
   }
   ngOnInit(): void {
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó la tarjeta de depreciación de activos.`).subscribe();
       this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
      if(this.parametro2==1) {
        this.displayDatosEdificios='none';
@@ -118,13 +119,7 @@ ProvDon:string;
     FiltrarArea(sucursal){
       this.depreciacionService.ComboArea(sucursal.value).subscribe(data=>{this.areas=data});
     }
-    Filtrar(){
 
-    }
-    Reload(){
-
-    }
-  
     close() {
       this.display = 'none';
     }
@@ -135,7 +130,7 @@ ProvDon:string;
         const url= window.URL.createObjectURL(blod);
          window.open(url);
       });
-
+      this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de tarjeta de depreciación de activos.`).subscribe();
     }
 
   }

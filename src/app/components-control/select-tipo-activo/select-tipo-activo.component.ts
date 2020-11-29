@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,13 +14,13 @@ export class SelectTipoActivoComponent implements OnInit {
   tipoActivo: FormGroup;
 
   constructor(private router: Router) {
-    this.tipoActivo=new FormGroup({
+    this.tipoActivo = new FormGroup({
 
     })
-   }
+  }
 
-  ngOnInit(){
-    this.display='block';
+  ngOnInit() {
+    this.display = 'block';
   }
 
   close() {

@@ -25,7 +25,6 @@ import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
 PdfMakeWrapper.setFonts(pdfFonts);
 
 //componnete catalogos
-import { TablaActivosComponent } from './components-control/tabla-activos/tabla-activos.component';
 import { FormEmpleadoComponent } from './components-catalogos/form-empleado/form-empleado.component';
 import { FormMarcaComponent } from './components-catalogos/form-marca/form-marca.component';
 import { FormSucursalComponent } from './components-catalogos/form-sucursal/form-sucursal.component';
@@ -110,7 +109,6 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
     SharedComponent,
     FooterComponent,
     HeaderComponent,
-    TablaActivosComponent,
     FormEmpleadoComponent,
     FormMarcaComponent,
     FormSucursalComponent,
@@ -178,7 +176,6 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'shared', component: SharedComponent },
-      { path: 'tabla-activos', component: TablaActivosComponent },
       { path: 'form-empleado', component: FormEmpleadoComponent, canActivate: [SeguridadGuard] },
       { path: 'form-marca', component: FormMarcaComponent, canActivate: [SeguridadGuard]},
       { path: 'form-sucursal', component: FormSucursalComponent, canActivate: [SeguridadGuard] },

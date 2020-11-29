@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -26,7 +27,7 @@ export class TablaTarjetaComponent implements OnInit {
   banderaBuscador: any = 1;//bandera para cambiar el buscador
   disabledFiltro: boolean;//Esta bandera sirve para inhabilitar los filtros en edificios e intangibles
 
-  constructor(private catalogosServices: CatalogosService, private depreciacionService: DepreciacionService, private controlService: ControlService) {
+  constructor(private catalogosServices: CatalogosService, private depreciacionService: DepreciacionService, private controlService: ControlService, private usuarioService: UsuarioService) {
     this.combos = new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0"),
@@ -88,7 +89,7 @@ export class TablaTarjetaComponent implements OnInit {
         this.banderaBuscador = 3;
         break;
       default:
-        console.log("ocurrio un error en la consulta de datos");
+        console.log("Ocurrió un error en la consulta de datos");
     }
   }
 
@@ -127,7 +128,6 @@ export class TablaTarjetaComponent implements OnInit {
   mostrarFoto(id) {
 
     this.depreciacionService.recuperarFoto(id).subscribe(data => {
-
       if (data.foto == null) {
         Swal.fire({
           position: 'center',
@@ -135,13 +135,11 @@ export class TablaTarjetaComponent implements OnInit {
           title: 'No existe una foto registrada de este activo.',
           showConfirmButton: false,
           timer: 3000
-        })
+        });
       } else {
         this.display2 = 'block';
         this.foto = data.foto;
       }
-
-
     });
   }
   close2() {
