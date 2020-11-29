@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ControlService } from './../../services/control.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 //import { format } from 'path';
 
@@ -27,15 +28,13 @@ export class FormInformeMantenimientoComponent implements OnInit {
   //fecha = Date.now();
   c: number = 0;
   variableNumero: number = 0;
-  vidaUtilCorrecta:boolean=false;
-  vidaUtilCierta: boolean= false;
+  vidaUtilCorrecta: boolean = false;
+  vidaUtilCierta: boolean = false;
   fechaMaxima: any;
   fechaMinima: any;
 
-  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService,private router: Router) {
+  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService, private router: Router, private usuarioService: UsuarioService) {
 
-
-    //form para la revalorización 
     this.revalorizacion = new FormGroup({
       'idBien': new FormControl(""),
       'valorRevalorizacion': new FormControl("", [Validators.required, Validators.pattern("^[0-9.]+$")]),
@@ -46,12 +45,13 @@ export class FormInformeMantenimientoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mantenimientoService.validarListarInformeMantenimiento().subscribe(res =>{
-      if(res==1){
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó los informes de mantenimiento.`).subscribe();
+    this.mantenimientoService.validarListarInformeMantenimiento().subscribe(res => {
+      if (res == 1) {
         this.mantenimientoService.ListarInformeMantenimiento().subscribe(res => {
           this.informes = res;
         });
-      }else{
+      } else {
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -62,38 +62,34 @@ export class FormInformeMantenimientoComponent implements OnInit {
         this.router.navigate(["/"]);
       }
     })
-  
-
   }
-  validarVidaUtil(vida){
-    var id=this.revalorizacion.controls["idBien"].value;
-    this.controlService.getVidaUtil(id).subscribe(data=>{
-      if(vida.value>0 && vida.value<data.vidaUtil || vida.value<this.revalorizacion.controls["vidaUtil"].value){
-        this.vidaUtilCorrecta=true;
-      }else{
-        this.vidaUtilCorrecta=false;
+  validarVidaUtil(vida) {
+    var id = this.revalorizacion.controls["idBien"].value;
+    this.controlService.getVidaUtil(id).subscribe(data => {
+      if (vida.value > 0 && vida.value < data.vidaUtil || vida.value < this.revalorizacion.controls["vidaUtil"].value) {
+        this.vidaUtilCorrecta = true;
+      } else {
+        this.vidaUtilCorrecta = false;
       }
     });
   }
 
-
-
-  open(idBien, idinformematenimiento, vidtUtil,fecha) {
+  open(idBien, idinformematenimiento, vidtUtil, fecha) {
     // alert(id);
     this.revalorizacion.controls["fecha"].setValue(fecha);
-var fecharecup = this.revalorizacion.controls["fecha"].value.split("-");
-let dia=fecharecup[0];
-let mes=fecharecup[1];
-let anio=fecharecup[2];
-this.controlService.mostrarAnio().subscribe((res)=> {
-  if(res.anio>anio){
-    this.fechaMinima=`${res.anio}-01-01`;
-  }else{
-    this.fechaMinima=`${anio}-${mes}-${dia}`;
-  }
-  this.fechaMaxima=`${res.anio}-12-31`;
+    var fecharecup = this.revalorizacion.controls["fecha"].value.split("-");
+    let dia = fecharecup[0];
+    let mes = fecharecup[1];
+    let anio = fecharecup[2];
+    this.controlService.mostrarAnio().subscribe((res) => {
+      if (res.anio > anio) {
+        this.fechaMinima = `${res.anio}-01-01`;
+      } else {
+        this.fechaMinima = `${anio}-${mes}-${dia}`;
+      }
+      this.fechaMaxima = `${res.anio}-12-31`;
 
-});
+    });
 
     this.titulo = "Revalorización";
     this.revalorizacion.controls["idBien"].setValue(idBien);
@@ -120,15 +116,16 @@ this.controlService.mostrarAnio().subscribe((res)=> {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: 'Revalorización no realizada con éxito!',
+          title: '¡La revalorización no se realizó!',
           showConfirmButton: false,
           timer: 3000
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `No se realizó la revalorizacón en un informe.`).subscribe();
         this.mantenimientoService.ListarInformeMantenimiento().subscribe(data => { this.informes = data });
-       this.display = 'none';
+        this.display = 'none';
       }
     });
-  
+
   }
 
   guardarDatos() {
@@ -140,34 +137,27 @@ this.controlService.mostrarAnio().subscribe((res)=> {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: '¡Revalorización Guardada con exito!',
+          title: '¡Revalorización guardada con exito!',
           showConfirmButton: false,
           timer: 3000
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Realizó una revalorización en un informe de mantenimiento.`).subscribe();
         this.mantenimientoService.estadoInformeRevalorizado(this.revalorizacion.controls["idinformematenimiento"].value).subscribe(rest => {
           if (rest == 1) {
-
             this.mantenimientoService.ListarInformeMantenimiento().subscribe(data => { this.informes = data });
-
           }
         });
-
       }
-
     });
     this.revalorizacion.controls["idBien"].setValue("0");
     this.revalorizacion.controls["valorRevalorizacion"].setValue("");
     this.revalorizacion.controls["fecha"].setValue("");
     this.revalorizacion.controls["vidaUtil"].setValue("");
-
     this.display = 'none';
     this.mantenimientoService.ListarInformeMantenimiento().subscribe(res => {
       this.informes = res;
-
     });
-
   }
-
   close() {
     this.display = 'none';
   }

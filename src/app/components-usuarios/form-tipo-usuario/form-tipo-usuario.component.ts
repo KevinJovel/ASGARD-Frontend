@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 //importamos
 import { UsuarioService } from '../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -33,17 +33,17 @@ export class FormTipoUsuarioComponent implements OnInit {
     });
 
   }
-  ngOnInit() { 
+  ngOnInit() {
     this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
   }
 
   open() {
     //limpia cache
-    this.titulo = "Formulario registro Tipo Usuario";
+    this.titulo = "Formulario registro tipo usuario";
     this.tipoUsuario.controls["iidtipousuario"].setValue("0");
     this.tipoUsuario.controls["bandera"].setValue("0");
     this.tipoUsuario.controls["tipo"].setValue("");
-    this.tipoUsuario.controls["descripcion"].setValue(""); 
+    this.tipoUsuario.controls["descripcion"].setValue("");
     this.display = 'block';
 
   }
@@ -64,13 +64,10 @@ export class FormTipoUsuarioComponent implements OnInit {
           title: 'Registro Guardado con exito',
           showConfirmButton: false,
           timer: 3000
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Guardó un tipo de usuario.`).subscribe();
       }
-    }
-    else {
-
-      //Sino es porque la bandera trae otro valor y solo es posible cuando preciona el boton de recuperar
-
+    } else {
       this.tipoUsuario.controls["bandera"].setValue("0");
       if (this.tipoUsuario.valid == true) {
         this.usuarioService.modificarTipoUsuario(this.tipoUsuario.value).subscribe(data => {
@@ -82,17 +79,16 @@ export class FormTipoUsuarioComponent implements OnInit {
           title: 'Registro Modificado con exito',
           showConfirmButton: false,
           timer: 3000
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `modificó un tipo de usuario.`).subscribe();
       }
     }
-
     this.tipoUsuario.controls["iidtipousuario"].setValue("0");
     this.tipoUsuario.controls["bandera"].setValue("0");
     this.tipoUsuario.controls["tipo"].setValue("");
-    this.tipoUsuario.controls["descripcion"].setValue(""); 
+    this.tipoUsuario.controls["descripcion"].setValue("");
     this.display = 'none';
     this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
-
   }
 
   eliminar(iidtipousuario) {
@@ -108,15 +104,15 @@ export class FormTipoUsuarioComponent implements OnInit {
       if (result.value) {
         this.usuarioService.eliminarTipoUsuario(iidtipousuario).subscribe(data => {
           Swal.fire(
-            'Dato eliminado!',
+            '¡ELIMINADO!',
             'El registro ha sido eliminado con exito.',
             'success'
-          )
+          );
+          this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó un tipo de usuario.`).subscribe();
           this.usuarioService.listarTipoUsuarios().subscribe(
             data => { this.tipoUsuarios = data }
           );
         });
-
       }
     })
   }
@@ -127,17 +123,14 @@ export class FormTipoUsuarioComponent implements OnInit {
   }
 
   modificar(id) {
-
-    this.titulo = "Modificar Tipo Usuario";
+    this.titulo = "Modificar tipo usuario";
     this.display = 'block';
     this.usuarioService.RecuperarTipoUsuario(id).subscribe(data => {
-
-      this.tipoUsuario.controls["iidtipousuario"].setValue(data.iidtipousuario);
-      this.tipoUsuario.controls["tipo"].setValue(data.tipo);
-      this.tipoUsuario.controls["descripcion"].setValue(data.descripcion);
-      this.tipoUsuario.controls["bandera"].setValue("1");
-
-      this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
+    this.tipoUsuario.controls["iidtipousuario"].setValue(data.iidtipousuario);
+    this.tipoUsuario.controls["tipo"].setValue(data.tipo);
+    this.tipoUsuario.controls["descripcion"].setValue(data.descripcion);
+    this.tipoUsuario.controls["bandera"].setValue("1");
+    this.usuarioService.listarTipoUsuarios().subscribe(res => { this.tipoUsuarios = res });
     });
   }
 
@@ -158,5 +151,4 @@ export class FormTipoUsuarioComponent implements OnInit {
     });
     return promesa;
   }
-
 }

@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from './../../services/usuario.service';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
-
-
 import Swal from 'sweetalert2';
-
 //import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
-import { State, StateService } from './../../services/state.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-historial-mantenimiento',
@@ -19,42 +16,39 @@ import { State, StateService } from './../../services/state.service';
 export class HistorialMantenimientoComponent implements OnInit {
   bienes: any;
   sucursales: any;
-  areas:any;
+  areas: any;
   combos: FormGroup;
-  p: number=1;
-  p3: number=1;
-  titulo:string;
-  datos:FormGroup;
+  p: number = 1;
+  p3: number = 1;
+  titulo: string;
+  datos: FormGroup;
   display = 'none';
   display2 = 'none';
   //Datos del modal
-  coopertativa:string;
-  anio:string;
+  coopertativa: string;
+  anio: string;
   //para mostrar datos de historial
   idbien: any;
   descripcion: string;
   codigo: string;
-  encargado:string;
+  encargado: string;
   areadenegocio: any;
-
   // para listar el historial
   informes: any;
-   tecnicos:any;
-   informe: FormGroup;
-   revalorizacion: FormGroup;
-   display3 = 'none';
-   titulo3: string;
+  tecnicos: any;
+  informe: FormGroup;
+  revalorizacion: FormGroup;
+  display3 = 'none';
+  titulo3: string;
+  bienid: any;
+  idmante: any;
 
-   bienid: any;
-  
-   idmante: any;
- 
-  constructor(private catalogosServices: CatalogosService,private router: Router,private depreciacionService:DepreciacionService,private mantenimientoService: MantenimientoService) { 
-    this.combos=new FormGroup({
+  constructor(private catalogosServices: CatalogosService, private router: Router, private depreciacionService: DepreciacionService, private mantenimientoService: MantenimientoService,private usuarioService:UsuarioService) {
+    this.combos = new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0")
-     });
-     this.datos = new FormGroup({
+    });
+    this.datos = new FormGroup({
       'idBien': new FormControl("0"),
       // 'bandera': new FormControl("0"),
       'codigo': new FormControl(""),
@@ -62,16 +56,14 @@ export class HistorialMantenimientoComponent implements OnInit {
       'valorAdquicicion': new FormControl(""),
       'valorActual': new FormControl(""),
       'valorDepreciacion': new FormControl("")
-  });
-// para historial
-  
+    });
   }
 
   ngOnInit(): void {
-    this.mantenimientoService.validarHistorialMantenimiento().subscribe(res =>{
-      if(res==1){
-        this.mantenimientoService.listarActivosHistorial().subscribe(data=>{this.bienes=data});
-      }else{
+    this.mantenimientoService.validarHistorialMantenimiento().subscribe(res => {
+      if (res == 1) {
+        this.mantenimientoService.listarActivosHistorial().subscribe(data => { this.bienes = data });
+      } else {
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -82,71 +74,59 @@ export class HistorialMantenimientoComponent implements OnInit {
         this.router.navigate(["/"]);
       }
     })
-    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
-    
+    this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
 
-//para historial
-/*this.mantenimientoService.historialInformes().subscribe(res=>{
-      this.informes=res;  
-    });*/
   }
-  FiltrarArea(){
-    var id= this.combos.controls['idSucursal'].value;
-    this.depreciacionService.ComboArea(id).subscribe(data=>{this.areas=data});
+  FiltrarArea() {
+    var id = this.combos.controls['idSucursal'].value;
+    this.depreciacionService.ComboArea(id).subscribe(data => { this.areas = data });
   }
-  Filtrar(){
-    var id= this.combos.controls['idArea'].value;
-    this.depreciacionService.FiltroTablaDepreciacion(id).subscribe(data=>{this.bienes=data});
+  Filtrar() {
+    var id = this.combos.controls['idArea'].value;
+    this.depreciacionService.FiltroTablaDepreciacion(id).subscribe(data => { this.bienes = data });
   }
-  Reload(){
+  Reload() {
     this.combos.controls['idSucursal'].setValue(0);
     this.combos.controls['idArea'].setValue(0);
-    this.depreciacionService.TablaDepreciacion().subscribe(data=>{this.bienes=data});
-  }
-  AplicarDepreciacion(){
-
-
+    this.depreciacionService.TablaDepreciacion().subscribe(data => { this.bienes = data });
   }
 
   open(id) {
- 
-     this.mantenimientoService.historialInformes(id).subscribe(res => {
-    if(res == 0){
-      Swal.fire({
-        position: 'center',
-        icon: 'warning',
-        title: '¡El activo seleccionado no tiene ningún mantenimiento realizado!',
-        showConfirmButton: false,
-        timer: 3000
-      })
-  }else{
-    this.titulo = "Historial de mantenimientos";
-    this.display = 'block';
-    this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
-      this.codigo=data.codigo;
-      this.descripcion=data.descripcion;
-      this.encargado=data.encargado;
-      this.areadenegocio=data.areadenegocio;
-     
-    });
-    //para recuperar el id del bien 
-    this.mantenimientoService.historialInformes(id).subscribe(res=>{
-      this.informes=res;  
-    });
-  }
-    })//cierre de no ay historial
-    //this.idbien=id;
+    this.mantenimientoService.historialInformes(id).subscribe(res => {
+      if (res == 0) {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: '¡El activo seleccionado no tiene ningún mantenimiento realizado!',
+          showConfirmButton: false,
+          timer: 3000
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó el historial de mantenimiento de un activo.`).subscribe();
+      } else {
+        this.titulo = "Historial de mantenimientos";
+        this.display = 'block';
+        this.mantenimientoService.listardatosHistorial(id).subscribe(data => {
+          this.codigo = data.codigo;
+          this.descripcion = data.descripcion;
+          this.encargado = data.encargado;
+          this.areadenegocio = data.areadenegocio;
 
+        });
+        //para recuperar el id del bien 
+        this.mantenimientoService.historialInformes(id).subscribe(res => {
+          this.informes = res;
+        });
+      }
+    })
   }
-
-  close(){
-    this.display='none';
+  close() {
+    this.display = 'none';
   }
 
-  buscar(buscador){
+  buscar(buscador) {
     this.p = 1;
-    this.mantenimientoService.buscarActivoHistorial(buscador.value).subscribe(data => {this.bienes = data});
+    this.mantenimientoService.buscarActivoHistorial(buscador.value).subscribe(data => { this.bienes = data });
   }
 
- 
+
 }
