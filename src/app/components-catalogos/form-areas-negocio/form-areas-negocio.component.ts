@@ -76,31 +76,36 @@ export class FormAreasNegocioComponent implements OnInit {
     if ((this.area.controls["bandera"].value) == "0") {
       if (this.area.valid == true) {
         this.catalogosServices.setArea(this.area.value).subscribe(data => {
-          this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
-        });
+          if(data==1){
 
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Registro Guardado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro Guardado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            
+            this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
+          }
+        });
       }
     } else {
 
       this.area.controls["bandera"].setValue("0");
       if (this.area.valid == true) {
         this.catalogosServices.updateArea(this.area.value).subscribe(data => {
-          this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
+          if(data==1){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro modificado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
+          }
         });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Registro modificado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
       }
     }
     this.area.controls["idAreaNegocio"].setValue("0");
