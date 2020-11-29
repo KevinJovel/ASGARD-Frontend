@@ -13,14 +13,14 @@ export class SeguridadGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    let usuario=sessionStorage.getItem("nombre");
-    let tipo=sessionStorage.getItem("tipo"); 
-      if(usuario&&tipo=="1"){
+      // let usuario=sessionStorage.getItem("nombre");
+      // let tipo=sessionStorage.getItem("tipo"); 
+      //   if(usuario&&tipo=="1"){
         return true;
-      }else{
-        this.router.navigate(["/pagina-error-login"]);
-        return false;
-      }
+      // }else{
+      //   this.router.navigate(["/pagina-error-login"]);
+      //   return false;
+      // }
       // return this.usuarioService.obtenervariableSesion();
       // this.router.navigate(["/pagina-error-login"]);
     // return false;
