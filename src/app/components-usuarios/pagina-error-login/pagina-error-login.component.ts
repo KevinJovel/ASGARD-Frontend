@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {UsuarioService} from '../../services/usuario.service'
 @Component({
   selector: 'app-pagina-error-login',
   templateUrl: './pagina-error-login.component.html',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaginaErrorLoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private usuarioService:UsuarioService) { }
 
   ngOnInit(): void {
+  
+  
   }
 
 }

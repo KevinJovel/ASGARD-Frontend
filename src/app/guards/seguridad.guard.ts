@@ -18,6 +18,7 @@ export class SeguridadGuard implements CanActivate {
       if(usuario&&tipo=="1"){
         return true;
       }else{
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),"Intentó acceder mediante URL a un módulo restringido").subscribe();
         this.router.navigate(["/pagina-error-login"]);
         return false;
       }
