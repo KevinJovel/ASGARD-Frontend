@@ -2,12 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
 //PRUEBA CON OBJETO
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import Swal from 'sweetalert2';
-//importaciones para pdf make wrapper
-// import { PdfMakeWrapper, Txt, SVG, QR, Columns, Table, Toc, Cell, Stack } from 'pdfmake-wrapper';
+
 
 @Component({
   selector: 'app-form-asignancion',
@@ -24,35 +24,33 @@ export class FormAsignancionComponent implements OnInit {
   display2 = 'none';
   titulo: string;
   titulo2: string;
-  vidaUtilCorrecta:boolean=false;
+  vidaUtilCorrecta: boolean = false;
   fechaMaxima: any;
   fechaMinima: any;
   anio: string;
-  //datos de informe
-  //Datos de modal de codigo de barras
-  nombreActivo:any;
-  modelo:any;
+  nombreActivo: any;
+  modelo: any;
   marca: any;
   @Input() noSoli: string;
-  constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, private mantenimientoService: MantenimientoService,private router: Router) {
+  constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, private mantenimientoService: MantenimientoService, private router: Router, private usuarioService: UsuarioService) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
     this.activo = new FormGroup({
       'idBien': new FormControl("0"),
-      'noSerie': new FormControl("",[Validators.required, Validators.maxLength(50)]),
+      'noSerie': new FormControl("", [Validators.required, Validators.maxLength(50)]),
       'vidaUtil': new FormControl("", [Validators.required, Validators.maxLength(2), Validators.pattern("^[0-9]+$")]),
       'idEmpleado': new FormControl("0"),
       'Responsable': new FormControl(""),
       'codigo': new FormControl(""),
       'codigoBarras': new FormControl(""),
-      'fecha':new FormControl("")
+      'fecha': new FormControl("")
     });
   }
   ngOnInit(): void {
-    this.controlService.validarActivosAsignar().subscribe(res =>{
-      if(res==1){
+    this.controlService.validarActivosAsignar().subscribe(res => {
+      if (res == 1) {
         this.controlService.getActivosSinAsignar().subscribe(res => { this.activos = res });
         this.controlService.listarComboAsigar().subscribe(res => { this.empleados = res });
-      }else{
+      } else {
         Swal.fire({
           position: 'center',
           icon: 'error',
@@ -63,53 +61,45 @@ export class FormAsignancionComponent implements OnInit {
         this.router.navigate(["/"]);
       }
     })
-
-    
-
   }
   close() {
     this.display = 'none';
   }
-  asignar(id,fecha) {
+  asignar(id, fecha) {
     this.activo.controls["fecha"].setValue(fecha);
     var fecharecup = this.activo.controls["fecha"].value.split("-");
-    let dia=fecharecup[0];
-    let mes=fecharecup[1];
-    let anio=fecharecup[2];
-    this.controlService.mostrarAnio().subscribe((res)=> {
-      if(res.anio>anio){
-        this.fechaMinima=`${res.anio}-01-01`;
-      }else{
-        this.fechaMinima=`${anio}-${mes}-${dia}`;
+    let dia = fecharecup[0];
+    let mes = fecharecup[1];
+    let anio = fecharecup[2];
+    this.controlService.mostrarAnio().subscribe((res) => {
+      if (res.anio > anio) {
+        this.fechaMinima = `${res.anio}-01-01`;
+      } else {
+        this.fechaMinima = `${anio}-${mes}-${dia}`;
       }
-      this.fechaMaxima=`${res.anio}-12-31`;
-    
+      this.fechaMaxima = `${res.anio}-12-31`;
+
     });
-    
+
     this.titulo = "Asignar nuevo activo ";
     this.activo.controls["idBien"].setValue(id);
     this.activo.controls["codigo"].setValue("");
-    // this.activo.controls["fecha"].setValue("");
     this.activo.controls["idEmpleado"].setValue("0");
     this.activo.controls["noSerie"].setValue("");
-    // LLamar al metodo que me devuelva la vida util
-    // this.controlService.getVidaUtil(id).subscribe(data=>{
-    //   this.activo.controls["vidaUtil"].setValue(data.vidaUtil);
-    // });
     this.activo.controls["vidaUtil"].setValue("");
     this.display = 'block';
 
   }
-  validarVidaUtil(vida){
-    var id=this.activo.controls["idBien"].value;
-    this.controlService.getVidaUtil(id).subscribe(data=>{
-      if(vida.value>0 &&vida.value<data.vidaUtil){
-        this.vidaUtilCorrecta=true;
-      }else{
-        this.vidaUtilCorrecta=false;
+  validarVidaUtil(vida) {
+    var id = this.activo.controls["idBien"].value;
+    this.controlService.getVidaUtil(id).subscribe(data => {
+      if (vida.value > 0 && vida.value < data.vidaUtil) {
+        this.vidaUtilCorrecta = true;
+      } else {
+        this.vidaUtilCorrecta = false;
       }
     });
-   
+
   }
   Gcodigo() {
     if (this.activo.controls["idEmpleado"].value == 0) {
@@ -132,18 +122,18 @@ export class FormAsignancionComponent implements OnInit {
   }
   GcodigoBarra() {
 
-    if(this.activo.controls["codigo"].value==""){
+    if (this.activo.controls["codigo"].value == "") {
       Swal.fire({
         icon: 'error',
-          title: '¡ERROR!',
+        title: '¡ERROR!',
         text: 'Por favor, seleccione el empleado a asignar para poder generar el código'
-      })
-    }else{
+      });
+    } else {
       this.titulo = "Codigo de barras generado";
-      this.controlService.DatosCodigoBarras(this.activo.controls["idBien"].value).subscribe(res=>{
-        this.nombreActivo=res.nombre;
-        this.modelo=res.modelo;
-        this.marca=res.marca;
+      this.controlService.DatosCodigoBarras(this.activo.controls["idBien"].value).subscribe(res => {
+        this.nombreActivo = res.nombre;
+        this.modelo = res.modelo;
+        this.marca = res.marca;
       })
       this.display2 = 'block';
     }
@@ -165,20 +155,19 @@ export class FormAsignancionComponent implements OnInit {
           position: 'center',
           icon: 'warning',
           title: '¡Advertencia!',
-          text:'Selecciona el empleado a asignar',
+          text: 'Selecciona el empleado a asignar',
           showConfirmButton: false,
           timer: 3000
-        })
+        });
       } else {
-     
-          var fecha = this.activo.controls["fecha"].value.split("-");
-           var anio = fecha[0];
-            var mes = fecha[1];
-            var dia = fecha[2];
-            this.activo.controls["fecha"].setValue(mes + "/" + dia + "/" + anio);
-            console.log(this.activo.value);
+        var fecha = this.activo.controls["fecha"].value.split("-");
+        var anio = fecha[0];
+        var mes = fecha[1];
+        var dia = fecha[2];
+        this.activo.controls["fecha"].setValue(mes + "/" + dia + "/" + anio);
+        console.log(this.activo.value);
         this.controlService.AsignarBien(this.activo.value).subscribe(data => {
-          if(data==1){
+          if (data == 1) {
             Swal.fire({
               position: 'center',
               icon: 'success',
@@ -186,142 +175,41 @@ export class FormAsignancionComponent implements OnInit {
               showConfirmButton: false,
               timer: 3000
             });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Se asignó un activo en el sistema.`).subscribe();
             this.controlService.getActivosSinAsignar().subscribe(res => { this.activos = res });
-          }else{
+          } else {
             Swal.fire({
               position: 'center',
               icon: 'error',
-              title: '¡Error alasignar activo!',
+              title: '¡Ocurrió un error al asignar activo!',
               showConfirmButton: false,
               timer: 3000
             });
           }
           this.display = 'none';
-        
         });
-   
-
       }
     }
-
   }
   buscar(buscador) {
     this.p = 1;
-    this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => {this.activos = res});
-    }
+    this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => { this.activos = res });
+  }
 
   //PDF
   async recuperar() {
     this.mantenimientoService.listarDatosSolicitud(1).subscribe(data => {
-      //alert(data.areanegocio);
-      //this.noSoli=data.areanegocio;
-      // this.generatePDF(data);
     });
     this.mantenimientoService.listarBienesSolicitados(1).subscribe(res => {
       this.bienes = res;
-
     });
-
-
   }
-  // generatePDF(data) {
-  //   //  this.recuperar().finally;
-  //   //crea el objeto del tipo pdf marker
-  //   const pdf = new PdfMakeWrapper();
-  //   pdf.info({
-  //     title: 'CODIGO DE QR',
-  //     author: 'ASGARD',
-  //     subject: 'subject of document',
-  //   });
-  //   //*este se usa para darle formato por defecto a todo el reporte
-  //   //--------------------------
-  //   //  pdf.defaultStyle({
-  //   //   bold: true,
-  //   //   fontSize: 15
-  //   // });
-  //   //------------------------
-  //   //*son los margenes del reporte
-  //   pdf.pageMargins([30, 50, 30, 50]);
 
-  //   //pdf.pageMargins(40);
-  //   //para crear el header
-  //   //pdf.header('ASOCIACION COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, CREDITO Y CONSUMO DE SAN SEBASTIAN DE RESPONSABILIDAD LIMITADA');
-  //   pdf.add(new Txt('ASOCIACION COOPERTIVA DE APROVICIONAMIENTO AGROPECUARIO, AHORRO, ').fontSize(11).alignment("center").end);
-  //   pdf.add(new Txt('CREDITO Y CONSUMO DE SAN SEBASTIAN DE RESPONSABILIDAD LIMITADA').fontSize(11).alignment("center").end);
-
-  //   pdf.add(new Txt('ACASS DE R.L.').bold().fontSize(15).alignment("center").end);
-
-  //   pdf.add(new Txt('CONTROL DE EXISTENCUAS DE MOBILIARIO, EQUIPO E INTALACIONES').bold().fontSize(13).alignment("center").end);
-  //   //  pdf.add( new Txt(this.activo.controls["codigo"].value).bold().italics().decoration("underline").end);
-  //   //  pdf.add(
-  //   //   new QR(this.activo.controls["codigo"].value).end);
-
-
-  //   // var imagen=document.getElementById("barcode");
-  //   // pdf.add(
-  //   //   // If no width/height/fit is used, then dimensions from the svg element is used.
-  //   //   new SVG(imagen).end
-  //   // );
-
-
-  //   pdf.add(new Columns(['No Solicitud:' + data.noSolicitud, 'Area: ' + data.areanegocio, 'Jefe: ' + data.jefe]).end);
-
-
-
-
-  //   // pdf.add(new Table([
-  //   //   ['valor','Depreciacion','valor','gastos']
-
-  //   // ]).widths([130, 125,125,120]).fontSize(10).bold().end);
-  //   // new Cell([
-  //   //   ['valor','Depreciacion','valor','gastos'],
-  //   // ]);
-
-  //   // pdf.add(new Table([
-
-  //   //   ['valor','Depreciacion'],
-  //   //  // 
-  //   // ]).widths([275,245]).fontSize(10).bold().end);
-
-  //   //Aqui va la tabla
-
-    // for (let bien of this.activos) {
-    //   pdf.add(new Table(
-    //     [
-
-    //       [bien.noFormulario, bien.fechacadena, bien.desripcion, bien.marca],
-    //     ]
-
-    //   ).widths([130, 125, 125, 120]).dontBreakRows(true).fontSize(8).end);
-    // }
-  //   pdf.add(new Cell(new Txt('Column 2 with colspan').bold().end).border([true]).colSpan(2)
-
-  //     .end);
-
-
-  //   //pdf.add(new Stack([ 'Hello', 'world' ]).end); // { columns: [ 'Hello', 'world' ] }
-  //   let footer: any;
-  //   footer = (pagenumber: number, pagecount: number) => {
-  //     return {
-  //       margin: [50, 5],
-  //       text: 'pagina ' + pagenumber + ' de ' + pagecount,
-  //       fontSize: 9
-  //     };
-  //   };
-  //   pdf.footer(footer);
-  //   //pdf.footer(function(currentPage, pageCount) { return 'pagina'+ currentPage.toString() + ' de ' + pageCount.toString(); });
-  //   //informaicon del documento
-
-  //   pdf.create().open();
-  // }
   close2() {
     this.display2 = 'none';
   }
 
   ver() {
     var canvas = <HTMLInputElement>document.getElementById("barcode");
-
-
   }
-
 }

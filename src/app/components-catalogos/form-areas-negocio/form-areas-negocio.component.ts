@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -19,7 +20,7 @@ export class FormAreasNegocioComponent implements OnInit {
   titulo: string;
   yaExiste:boolean=false;
   modif: number=0;
-  constructor(private catalogosServices: CatalogosService) {
+  constructor(private catalogosServices: CatalogosService,private usuarioService: UsuarioService) {
     this.area = new FormGroup({
       'idAreaNegocio': new FormControl("0"),
       'bandera': new FormControl("0"),
@@ -76,31 +77,53 @@ export class FormAreasNegocioComponent implements OnInit {
     if ((this.area.controls["bandera"].value) == "0") {
       if (this.area.valid == true) {
         this.catalogosServices.setArea(this.area.value).subscribe(data => {
-          this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
+          if(data==1){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro guardado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Guardó una área de negocios en el sistema.`).subscribe();
+            this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
+          }else{
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: '¡Ocurrió un error al guardar el registro!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          }
         });
-
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Registro Guardado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
       }
     } else {
 
       this.area.controls["bandera"].setValue("0");
       if (this.area.valid == true) {
         this.catalogosServices.updateArea(this.area.value).subscribe(data => {
-          this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
+          if(data==1){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Registro modificado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Modificó una área de negocios en el sistema.`).subscribe();
+            this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
+          }else{
+            Swal.fire({
+              position: 'center',
+              icon: 'warning',
+              title: '¡Ocurrió un error al modificar el registro!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Intentó modificar una área de negocios en el sistema.`).subscribe();
+          }
         });
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Registro modificado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        })
       }
     }
     this.area.controls["idAreaNegocio"].setValue("0");
@@ -138,7 +161,8 @@ export class FormAreasNegocioComponent implements OnInit {
           title: 'ERROR',
           text: 'No es posible eliminar este registro, esta área de negocio ya tiene empleados asignados',
           confirmButtonText: 'Aceptar'
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Intentó eliminar una área de negocios en el sistema.`).subscribe();
       } else {
         Swal.fire({
           title: '¿Estás seguro de eliminar este registro?',
@@ -152,32 +176,38 @@ export class FormAreasNegocioComponent implements OnInit {
         }).then((result) => {
           if (result.value) {
             this.catalogosServices.DeleteArea(idArea).subscribe(data => {
-              Swal.fire({
-                icon: 'success',
-                title: '¡ELIMINADO!',
-                text: '¡El registro ha sido eliminado con éxito!',
-                confirmButtonText: 'Aceptar'
-
-            })
+              if(data==1){  
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡ELIMINADO!',
+                  text: '¡El registro ha sido eliminado con éxito!',
+                  confirmButtonText: 'Aceptar'
+              });
+              this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Eliminó una área de negocios en el sistema.`).subscribe();
               this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
+              }else{
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡Error!',
+                  text: '¡Ocurrió un error al eliminar el registro!',
+                  confirmButtonText: 'Aceptar'
+  
+              });
+              this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Intentó eliminar una área de negocios en el sistema.`).subscribe();
+              }
             });
-
           }
         })
       }
     })
-
   }
   buscar(buscador) {
     this.p = 1;
     this.catalogosServices.buscarArea(buscador.value).subscribe(res => this.areas = res);
   }
   noRepetirCorrelativo(control: FormControl) {
-
     var promesa = new Promise((resolve, reject) => {
-
       if (control.value != "" && control.value != null) {
-
         this.catalogosServices.validarCorrelativoArea(this.area.controls["idAreaNegocio"].value, control.value)
           .subscribe(data => {
             if (data == 1) {
@@ -185,16 +215,9 @@ export class FormAreasNegocioComponent implements OnInit {
             } else {
               resolve(null);
             }
-
           })
-
       }
-
-
     });
-
     return promesa;
   }
-  
-  
 }

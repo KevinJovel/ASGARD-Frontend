@@ -307,6 +307,7 @@ export class ConfiguracionInicioComponent implements OnInit {
   }
   guardarDatosUsuario() {
     if (this.usuario.valid == true) {
+      this.usuario.controls["iidTipousuario"].setValue(1);
       this.usuarioService.agregarUsuario(this.usuario.value).subscribe(data => {
         if (data == 1) {
           this.usuario.controls["iidusuario"].setValue("0");

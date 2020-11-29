@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DepreciacionService } from '../../services/depreciacion.service';
+import { UsuarioService } from '../../services/usuario.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +17,7 @@ export class CierreAnioComponent implements OnInit {
   cooperativa: string;
   periodo: FormGroup;
 
-  constructor(private router: Router, private depreciacionService: DepreciacionService) {
+  constructor(private router: Router, private depreciacionService: DepreciacionService,private usuarioService:UsuarioService) {
     this.periodo = new FormGroup({
       'idPeriodo': new FormControl("0"),
       'terminos': new FormControl()
@@ -40,7 +41,8 @@ export class CierreAnioComponent implements OnInit {
           icon: 'error',
           title: '¡El proceso de cierre de año no se puede realizar, porque hay activos pendientes de depreciación !',
           showConfirmButton: true,
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó realizar el cierre de año activo.`).subscribe();
       }else{
         this.depreciacionService.EjecutarCierre(this.periodo.value).subscribe(data => {
           if (data == 1) {
@@ -73,10 +75,11 @@ export class CierreAnioComponent implements OnInit {
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
-                  title: 'Se realizó el cierre correctamente',
+                  title: '¡Se realizó el cierre correctamente!',
                   showConfirmButton: false,
                   timer: 3000
-                })
+                });
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Realizó el cierre de año activo.`).subscribe();
               }
             })
            
@@ -86,10 +89,11 @@ export class CierreAnioComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'error',
-              title: 'No se jecutó',
+              title: 'Ocurrió un problema al realizar el cierre',
               showConfirmButton: false,
               timer: 3000
-            })
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó realizar el cierre de año activo.`).subscribe();
           }
         });
       }

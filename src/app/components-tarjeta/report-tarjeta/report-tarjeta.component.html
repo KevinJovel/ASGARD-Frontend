@@ -3,21 +3,23 @@
 <br />
 <br />
 <section class="pane__general">
-   
-  
+
+
     <!--Bienes muebles-->
     <div class="row">
         <div class="col-lg-14">
             <section class="panel panel-default">
                 <div style="text-align:right;">
-                    <button title="Regresar" style="margin-top: 10px; margin-right: 20px;" class="btn btn-warning" [routerLink]="['/tabla-tarjeta']"><i class="icon-mail-reply"></i></button>
-            
-                <button title="Imprimir tarjeta de depreciación" style="margin-top: 10px; margin-right: 20px;" class="btn btn-success"><i class="icon-print"></i></button>
-            </div>
+                    <button title="Regresar" style="margin-top: 10px; margin-right: 20px;" class="btn btn-warning"
+                        [routerLink]="['/tabla-tarjeta']"><i class="icon-mail-reply"></i></button>
+
+                    <button title="Imprimir tarjeta de depreciación" style="margin-top: 10px; margin-right: 20px;"
+                        class="btn btn-success"><i class="icon-print"></i></button>
+                </div>
                 <h3 style="text-align: center;">ACAASS de R.L.</h3>
-                           
+
                 <h4 style="text-align: center;">CONTROL DE EXISTENCIAS DE MOBILIARIO, EQUIPO E INSTALACIONES </h4>
-            
+
                 <!-- Inicia el primer objeto, donde estab los datos si el bien es mueble -->
                 <div class="form-row" [ngStyle]="{'display':displayDatosMuebles}">
 
@@ -54,7 +56,7 @@
                             <label>No de Serie:</label>
                             <p>{{noSerie}}</p>
                         </div>
-                        
+
                         <div class="form-group col-md-4">
                             <label>{{ProvDon}}:</label>
                             <p>{{proveedor}}</p>
@@ -93,7 +95,7 @@
                 </div>
                 <!-- Informacion de activos edificios. -->
                 <div class="form-row" [ngStyle]="{'display':displayDatosEdificios}">
-        
+
                     <div class="row">
                         <!-- Primera columna -->
                         <div class="form-group col-md-4">
@@ -167,14 +169,15 @@
                         <section class="panel panel-default">
 
                             <header class="panel-heading">
-                                <h5 style="text-align: center;">MOVIMIENTO DEL VALOR - DEPRECIACIONES - GASTOS DE CONSEVACION</h5>
+                                <h5 style="text-align: center;">MOVIMIENTO DEL VALOR - DEPRECIACIONES - GASTOS DE
+                                    CONSEVACION</h5>
                             </header>
                             <div class="panel-body">
                                 <div class="adv-table">
                                     <table class="display table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                              
+
                                                 <th>Fecha</th>
                                                 <th>Concepto</th>
                                                 <th>valor</th>
@@ -194,25 +197,26 @@
                                                 <td>$ {{bien.depreciacionAcumulada}}</td>
                                                 <td>$ {{bien.valorActual}}</td>
                                             </tr>
-                                        
+
                                         </tbody>
                                     </table>
-                                 
+
                                 </div>
-                                
+
                                 <tr style="text-align: center;">
                                     <div>
-                                        <button title="Imprimir tarjeta de depreciación" style="margin-top: 20px; margin-bottom: 50px; margin-left: 450px;" class="btn btn-success" (click)="reporteTarjetaPdf()"><i class="icon-print"></i> Imprimir</button>
-                               
+                                        <button title="Imprimir tarjeta de depreciación"
+                                            style="margin-top: 20px; margin-bottom: 50px; margin-left: 450px;"
+                                            class="btn btn-success" (click)="reporteTarjetaPdf()"><i
+                                                class="icon-print"></i> Imprimir</button>
+
                                     </div>
                                 </tr>
-                                
-                             </div>
+
+                            </div>
                         </section>
                     </div>
                 </div>
             </section>
-            </div>
-            </div>
-
-          
+        </div>
+    </div>

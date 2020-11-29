@@ -137,34 +137,29 @@ export class CuadroSolicitudComponent implements OnInit {
             //listar bienes 
             switch(this.solicitud.controls["idTipo2"].value){
               case '1':
-                ///////
-                if(this.BanderaAsignados==false) {
+                if(this.BanderaAsignados==true){
+                  this.BtnAsinacion="Ver asignados";
+                  this.tablaEdificios='none';
+                  this.tablaIntengibles='none';
+                  this.tablaMuebles='none';
+                  this.bajaService.listarBienesNoAsignados().subscribe(res=> { this.activo=res
+                    this.tablaMueblesNoAsig='block';
+                    this.banderaBuscador=4;
+                  });
+               this.disabledFiltroBotonAsignacion=true;
+                  this.BanderaAsignados=false;
+                }else {
                   this.BtnAsinacion="Ver no asignados";
                   this.tablaMueblesNoAsig='none';
                   this.tablaEdificios='none';
                   this.tablaIntengibles='none';
-                  this.bajaService.listarBienesAsignados().subscribe(res=> { 
-                    this.activo=res
+                  this.bajaService.listarBienesAsignados().subscribe(res=> { this.activo=res
                     this.tablaMuebles='block';
                     this.banderaBuscador=1;
                   });
                   this.disabledFiltroBotonAsignacion=false;
                   this.BanderaAsignados=true
                 }
-                else{
-                  this.BtnAsinacion="Ver asignados";
-                  this.tablaEdificios='none';
-                  this.tablaIntengibles='none';
-                  this.tablaMuebles='none';
-                  this.bajaService.listarBienesNoAsignados().subscribe(res=> { 
-                    this.activo=res
-                    this.tablaMueblesNoAsig='block';
-                    this.banderaBuscador=4;
-                  });
-               this.disabledFiltroBotonAsignacion=true;
-                  this.BanderaAsignados=false;
-                }
-                //////
               break;
               case '2':
                 this.tablaMuebles='none'
@@ -238,7 +233,7 @@ export class CuadroSolicitudComponent implements OnInit {
   buscar(buscador) {
     this.p = 1;
 if(this.banderaBuscador==1){
-  this.bajaService.buscarActivoAsig(buscador.value).subscribe(res => {this.activo = res});
+  this.bajaService.buscarBienAsig(buscador.value).subscribe(res => {this.activo = res});
 }else if(this.banderaBuscador==2){
   this.bajaService.buscarActivoEdificioAsig(buscador.value).subscribe(res => {this.activo = res});
 }else if(this.banderaBuscador==3){

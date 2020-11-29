@@ -25,7 +25,6 @@ import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
 PdfMakeWrapper.setFonts(pdfFonts);
 
 //componnete catalogos
-import { TablaActivosComponent } from './components-control/tabla-activos/tabla-activos.component';
 import { FormEmpleadoComponent } from './components-catalogos/form-empleado/form-empleado.component';
 import { FormMarcaComponent } from './components-catalogos/form-marca/form-marca.component';
 import { FormSucursalComponent } from './components-catalogos/form-sucursal/form-sucursal.component';
@@ -76,7 +75,6 @@ import { UsuarioService } from './services/usuario.service';
 import { MantenimientoService } from './services/mantenimiento.service';
 import { BajaService } from './services/baja.service';
 import { ConfiguracionService } from './services/configuracion.service';
-import { FormTipoTrasladoComponent } from './components-catalogos/form-tipo-traslado/form-tipo-traslado.component';
 import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-descargo/form-tipo-descargo.component';
 import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-activos-asignados/solicitud-activos-asignados.component';
 import { FormCoopeComponent } from './components-configuracion/form-coope/form-coope.component';
@@ -111,7 +109,6 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
     SharedComponent,
     FooterComponent,
     HeaderComponent,
-    TablaActivosComponent,
     FormEmpleadoComponent,
     FormMarcaComponent,
     FormSucursalComponent,
@@ -140,7 +137,6 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
     FormCategoriaComponent,
     CierreAnioComponent,
     FormDesasignarComponent,
-    FormTipoTrasladoComponent,
     FormTipoDescargoComponent,
     SolicitudActivosAsignadosComponent,
     FormCoopeComponent,
@@ -180,7 +176,6 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'shared', component: SharedComponent },
-      { path: 'tabla-activos', component: TablaActivosComponent },
       { path: 'form-empleado', component: FormEmpleadoComponent, canActivate: [SeguridadGuard] },
       { path: 'form-marca', component: FormMarcaComponent, canActivate: [SeguridadGuard]},
       { path: 'form-sucursal', component: FormSucursalComponent, canActivate: [SeguridadGuard] },
@@ -209,12 +204,11 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
       {path: 'solicitud', component: SolicitudComponent,canActivate: [SeguridadGuard]},
       {path: 'gestion-descargo', component: GestionDescargoComponent},
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
-      {path: 'tabla-depreciacion', component: TablaDepreciacionComponent},
+      {path: 'tabla-depreciacion', component: TablaDepreciacionComponent,canActivate: [SeguridadGuard]},
       {path: 'report-tarjeta/:id/:tipo', component: ReportTarjetaComponent},
       {path: 'cuadro-control', component: CuadroControlComponent},
-      {path: 'tabla-revalorizar', component: TablaRevalorizarComponent},
-      {path: 'cierre-anio', component: CierreAnioComponent},
-      {path: 'form-tipo-traslado', component: FormTipoTrasladoComponent},
+      {path: 'tabla-revalorizar', component: TablaRevalorizarComponent,canActivate: [SeguridadGuard]},
+      {path: 'cierre-anio', component: CierreAnioComponent,canActivate: [SeguridadGuard]},
       {path: 'form-tipo-descargo', component: FormTipoDescargoComponent},
       {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
       {path: 'form-conficooperativa', component: FormCoopeComponent,canActivate: [SeguridadGuard]},

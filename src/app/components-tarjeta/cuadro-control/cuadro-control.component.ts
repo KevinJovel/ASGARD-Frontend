@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DepreciacionService } from './../../services/depreciacion.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { ExcelService } from './../../excel.service';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 
@@ -29,7 +30,7 @@ export class CuadroControlComponent implements OnInit {
   parametro: string;
 
   constructor(private depreciacionService: DepreciacionService, private excelService: ExcelService, private activatedRoute: ActivatedRoute,
-    private controlService: ControlService) {
+    private controlService: ControlService,private usuarioService:UsuarioService) {
     this.combo = new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0"),
@@ -45,6 +46,7 @@ export class CuadroControlComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó el cuadro de control de activos.`).subscribe();
     this.controlService.validarActivosTransacciones().subscribe(res => {
       if (res == 1) {
         // this.depreciacionService.getCuadroControl().subscribe(data=> {this.cuadros=data});
@@ -59,7 +61,7 @@ export class CuadroControlComponent implements OnInit {
           title: '¡No hay activos registrados!',
           showConfirmButton: false,
           timer: 3000
-        })
+        });
       }
     });
   }

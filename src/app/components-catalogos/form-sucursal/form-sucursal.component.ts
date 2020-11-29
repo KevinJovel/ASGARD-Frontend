@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -18,7 +19,7 @@ export class FormSucursalComponent implements OnInit {
     titulo: string;
     modif: number = 0;
     yaExiste: boolean = false;
-    constructor(private catalogoService: CatalogosService) {
+    constructor(private catalogoService: CatalogosService, private usuarioService: UsuarioService) {
         this.sucursal = new FormGroup({
             'idSucursal': new FormControl("0"),
             'bandera': new FormControl("0"),
@@ -48,10 +49,10 @@ export class FormSucursalComponent implements OnInit {
     }
     open3() { //para modal de ayuda
         this.display3 = 'block';
-      }
-      close2() { //para modal de ayuda
+    }
+    close2() { //para modal de ayuda
         this.display3 = "none";
-      }
+    }
     //Este metodo es el que puse en lugar de la promesa, porque daba error porque dependia de dos campos
     validar() {
         if (this.sucursal.controls["nombre"].value != "" && this.sucursal.controls["ubicacion"].value != "") {
@@ -70,31 +71,53 @@ export class FormSucursalComponent implements OnInit {
         if ((this.sucursal.controls["bandera"].value) == "0") {
             if (this.sucursal.valid == true) {
                 this.catalogoService.setSucursal(this.sucursal.value).subscribe(data => {
-                    this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
-                    this.display = 'none';
+                    if(data==1){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: '¡Registro guardado con éxito!',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Guardó una sucursal en el sistema.`).subscribe();
+                        this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
+                    }else{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: '¡Ocurrió un error al guardar el registro!',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+                          this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó guardar una sucursal en el sistema.`).subscribe();
+                    }
                 });
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: '¡Registro guardado con éxito!',
-                    showConfirmButton: false,
-                    timer: 3000
-                })
             }
-            this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
         } else {
             this.sucursal.controls["bandera"].setValue("0");
             if (this.sucursal.valid == true) {
                 this.catalogoService.updateSucursal(this.sucursal.value).subscribe(data => {
-                    this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
+                    if(data==1){
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: '¡Registro modificado con éxito!',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Modificó una sucursal en el sistema.`).subscribe();
+                        this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
+                    }else{
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: '¡Ocurrió un error al modificar el registro!',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+                          this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó modificar una sucursal en el sistema.`).subscribe();
+                    }
                 });
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: '¡Registro modificado con éxito!',
-                    showConfirmButton: false,
-                    timer: 3000
-                })
             }
         }
         this.sucursal.controls["idSucursal"].setValue("0");
@@ -113,8 +136,8 @@ export class FormSucursalComponent implements OnInit {
                     title: '¡ERROR!',
                     text: 'No es posible eliminar este registro, esta sucursal ya tiene áreas de negocio asignadas',
                     confirmButtonText: 'Aceptar'
-
-                })
+                });
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar una sucursal en el sistema.`).subscribe();
             } else {
                 Swal.fire({
                     title: '¿Estás seguro de eliminar este registro?',
@@ -128,20 +151,29 @@ export class FormSucursalComponent implements OnInit {
                 }).then((result) => {
                     if (result.value) {
                         this.catalogoService.deleteSucursal(idSucursal).subscribe(data => {
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡ELIMINADO!',
-                                text: '¡El registro ha sido eliminado con éxito!',
-                                confirmButtonText: 'Aceptar'
-                            })
-                            this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
+                            if(data==1){
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡ELIMINADO!',
+                                    text: '¡El registro ha sido eliminado con éxito!',
+                                    confirmButtonText: 'Aceptar'
+                                });
+                                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó una sucursal en el sistema.`).subscribe();
+                                this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
+                            }else{
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡Error!',
+                                    text: '¡Ocurrió un error al eliminar el registro!',
+                                    confirmButtonText: 'Aceptar'
+                                  });
+                                  this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar una sucursal en el sistema.`).subscribe();
+                            }
                         });
-
                     }
                 })
             }
         })
-
     }
     modificar(id) {
         this.catalogoService.validarDepenActivo(id).subscribe(data => {
@@ -151,16 +183,14 @@ export class FormSucursalComponent implements OnInit {
             this.titulo = "Modificar sucursal";
             this.display = 'block';
             this.catalogoService.recuperarSucursal(id).subscribe(data => {
-                this.sucursal.controls["idSucursal"].setValue(data.idSucursal);
-                this.sucursal.controls["nombre"].setValue(data.nombre);
-                this.sucursal.controls["ubicacion"].setValue(data.ubicacion);
-                this.sucursal.controls["correlativo"].setValue(data.correlativo);
-                this.sucursal.controls["bandera"].setValue("1");
+            this.sucursal.controls["idSucursal"].setValue(data.idSucursal);
+            this.sucursal.controls["nombre"].setValue(data.nombre);
+            this.sucursal.controls["ubicacion"].setValue(data.ubicacion);
+            this.sucursal.controls["correlativo"].setValue(data.correlativo);
+            this.sucursal.controls["bandera"].setValue("1");
             });
-
-        });
+      });
     }
-
     buscar(buscador) {
         this.p = 1;
         this.catalogoService.buscarSucursal(buscador.value).subscribe(res => this.sucursales = res);
@@ -178,35 +208,9 @@ export class FormSucursalComponent implements OnInit {
                         } else {
                             resolve(null);
                         }
-
                     })
             }
         });
-
         return promesa;
     }
-    // noRepetirSucursalUbicacion(control: FormControl) {
-
-    //     var promesa = new Promise((resolve, reject) => {
-
-    //         if (control.value != "" && control.value != null) {
-
-    //             this.catalogoService.validarSucursalUbicacion(this.sucursal.controls["idSucursal"].value, this.sucursal.controls["nombre"].value, this.sucursal.controls["ubicacion"].value)
-    //                 .subscribe(data => {
-    //                     if (data == 1) {
-    //                         resolve({ yaExisteConvinacion: true });
-    //                     } else {
-    //                         resolve(null);
-    //                     }
-
-    //                 })
-
-    //         }
-
-
-    //     });
-
-    //     return promesa;
-    // }
-
 }
