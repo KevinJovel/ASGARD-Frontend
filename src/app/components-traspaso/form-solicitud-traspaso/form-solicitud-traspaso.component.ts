@@ -103,22 +103,8 @@ export class FormSolicitudTraspasoComponent implements OnInit {
      }
   // }
 }
-  close() {
-    this.solicitud.controls["idresponsable"].setValue("");
+  close() {  
     this.display = 'none';
-
-    this.solicitud.controls["idsolicitud"].setValue("0");
-    this.solicitud.controls["folio"].setValue("");
-   // this.solicitud.controls["fechasolicitud"].setValue("");
-    this.solicitud.controls["descripcion"].setValue("");
-    this.solicitud.controls["nuevoresponsable"].setValue("");
-    this.solicitud.controls["nuevaarea"].setValue("");
-    this.solicitud.controls["idbien"].setValue("");
- 
-    //para nuevo responsable y area 
-   
-    this.solicitud.controls["areaanterior"].setValue("");
-    this.solicitud.controls["responsableanterior"].setValue("");
   }
 
   onSubmit() {
