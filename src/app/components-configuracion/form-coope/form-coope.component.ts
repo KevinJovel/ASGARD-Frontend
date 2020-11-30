@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfiguracionService } from './../../services/configuracion.service';
 import { ControlService } from './../../services/control.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -21,7 +22,7 @@ export class FormCoopeComponent implements OnInit {
   titulo: string;
   aniomodif: boolean;
 
-  constructor(private configuracionService: ConfiguracionService, private controlService: ControlService) {
+  constructor(private configuracionService: ConfiguracionService, private controlService: ControlService,private usuarioService:UsuarioService) {
     this.cooperativa = new FormGroup({
 
       'idcooperativa': new FormControl("0"),
@@ -41,6 +42,7 @@ export class FormCoopeComponent implements OnInit {
   //Métodos
   open() {
     //Limpiar
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó la configuración del sistema.`).subscribe();
     this.cooperativa.controls["idcooperativa"].setValue("0");
     this.cooperativa.controls["bandera"].setValue("0");
     this.cooperativa.controls["nombre"].setValue("");
@@ -147,11 +149,12 @@ export class FormCoopeComponent implements OnInit {
         if (res == 1) {
           Swal.fire({
             icon: 'success',
-            title: '¡Registro modificado con exito!',
+            title: '¡Registro modificado con éxito!',
             // text: 'No es posible eliminar este registro, esta categoía ya tiene activos asignados.',
             confirmButtonText: 'Aceptar'
 
           });
+          this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Modificó la configuración del sistema.`).subscribe();
           this.display = 'none';
           this.configuracionService.getCooperativa().subscribe(data => { this.cooperativas = data });
         } else {

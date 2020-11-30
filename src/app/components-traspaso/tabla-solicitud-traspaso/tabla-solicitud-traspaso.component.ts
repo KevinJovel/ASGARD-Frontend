@@ -113,6 +113,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       confirmButtonText: '¡Si, aprobar!'
     }).then((result) => {
       if (result.value) {
+      console.log(this.solicitudes.value);
     this.TraspasoService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
           Swal.fire({
