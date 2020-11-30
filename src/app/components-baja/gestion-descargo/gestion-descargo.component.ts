@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 //para filtro de areas y sucursales
 import { CatalogosService } from './../../services/catalogos.service';
 import { ControlService } from './../../services/control.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gestion-descargo',
@@ -27,7 +28,8 @@ export class GestionDescargoComponent implements OnInit {
  responsable: string; codigo: string; descripcion: string;  folio: string; entidad: string;
   tipoadqui: string; color: string;  estado: string; valor: string; acuerdo: string; motivo: string;
 
-  constructor(private bajaService:BajaService,private catalogosServices: CatalogosService,private controlService: ControlService) 
+  constructor(private bajaService:BajaService,private catalogosServices: CatalogosService,
+    private controlService: ControlService, private router: Router, private activateRoute: ActivatedRoute,) 
   { 
     this.solicitud2 = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -41,7 +43,24 @@ export class GestionDescargoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bajaService.listarBajas().subscribe(res => { this.activo = res });
+    
+    //METODO PARA TABLA VACIA
+    this.bajaService.validarHistorialParaBaja().subscribe(res => {
+      if (res == 1) {
+        
+        this.bajaService.listarBajas().subscribe(res => { this.activo = res });
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'No se encontró ningún historial de baja.',
+          showConfirmButton: false,
+          timer: 4000
+        });
+        this.router.navigate(["/"]);
+      }
+    })
+    
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
   }
 
