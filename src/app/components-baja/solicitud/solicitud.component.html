@@ -114,6 +114,12 @@
               </button>
               <strong>¡Advertencia!</strong> ya existe el "Acuerdo" ingresado, por favor intente con un nuevo.
             </div>
+            <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.pattern">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> El campo acuerdo no acepta caracteres especiales.
+            </div>
 
             <div class="alert alert-warning fade in" *ngIf="!solicitudes.valid&&!solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
               <button data-dismiss="alert" class="close close-sm" type="button">
