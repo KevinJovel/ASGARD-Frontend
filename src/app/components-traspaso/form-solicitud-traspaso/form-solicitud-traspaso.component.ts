@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BajaService } from './../../services/baja.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -35,7 +36,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
  
 
   constructor(private router: Router, private activateRoute: ActivatedRoute,private controlService:ControlService, private bajaService:BajaService
-    ,private catalogosServices: CatalogosService, private TraspasoService: TraspasoService) 
+    ,private catalogosServices: CatalogosService, private TraspasoService: TraspasoService,private usuarioService:UsuarioService) 
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -47,12 +48,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
        'responsableanterior': new FormControl(""),
        'areaanterior': new FormControl(""),
        'idbien': new FormControl(""),
-       //'idarea': new FormControl(""),
-       
-       //'areadenegocio': new FormControl(""),
        'idresponsable': new FormControl("",[Validators.required]),
-       //'responsable': new FormControl("0"),
-       //para filtro
        'idArea': new FormControl("0"),
        'idSucursal': new FormControl("0")
     });
@@ -94,7 +90,8 @@ export class FormSolicitudTraspasoComponent implements OnInit {
          title: 'Solicitud Guardada con éxito',
          showConfirmButton: false,
          timer: 3000
-       })
+       });
+       this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Realizó una solicitud de traspaso de activo.`).subscribe();
       // this.solicitud.reset()
       
      }else{

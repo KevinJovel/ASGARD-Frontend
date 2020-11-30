@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogosService } from './../../services/catalogos.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
@@ -49,14 +50,13 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
    idmante: any;
  
   constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService,
-    private mantenimientoService: MantenimientoService,  private TraspasoService: TraspasoService) { 
+    private mantenimientoService: MantenimientoService,  private TraspasoService: TraspasoService,private usuarioService:UsuarioService) { 
     this.combos=new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0")
      });
      this.datos = new FormGroup({
       'idBien': new FormControl("0"),
-      // 'bandera': new FormControl("0"),
       'codigo': new FormControl(""),
       'descripcion': new FormControl(""),
       'valorAdquicicion': new FormControl(""),
@@ -68,16 +68,10 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+ 
     this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
     this.mantenimientoService.listarActivosHistorial().subscribe(data=>{this.bienes=data});
 
-
-    
-
-//para historial
-/*this.mantenimientoService.historialInformes().subscribe(res=>{
-      this.informes=res;  
-    });*/
   }
   FiltrarArea(){
     var id= this.combos.controls['idSucursal'].value;
@@ -107,8 +101,10 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
         title: '¡El activo seleccionado no tiene ningún traspaso realizado!',
         showConfirmButton: false,
         timer: 3000
-      })
+      });
+
   }else{
+ 
     this.titulo = "Historial de traspasos";
     this.display = 'block';
     this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
@@ -125,7 +121,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   }
     })//cierre de no ay historial
     //this.idbien=id;
-
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó el historial de traspasos de un activo.`).subscribe();
   }
 
   close(){

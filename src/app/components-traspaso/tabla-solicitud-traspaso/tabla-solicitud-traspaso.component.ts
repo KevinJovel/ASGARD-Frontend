@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { BajaService } from './../../services/baja.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TraspasoService } from 'src/app/services/traspaso.service';
@@ -30,7 +31,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   cargo:string; folio:string; solicitud: string; acuerdo: string; idresponsable: any;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
-    private bajaService:BajaService, private TraspasoService: TraspasoService, private controlService: ControlService)
+    private bajaService:BajaService, private TraspasoService: TraspasoService, private controlService: ControlService,private usuarioService:UsuarioService)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -41,6 +42,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó las solicitudes de traspaso de activo.`).subscribe();
     this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
    
   }
@@ -116,25 +118,17 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       console.log(this.solicitudes.value);
     this.TraspasoService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
-          Swal.fire({
-            icon: 'success',
-            title: '¡Aprobada!',
-            text: 'La solicitud ha sido aprobada con éxito.',
-            confirmButtonText: 'Aceptar'
-        })
-      // console.log(this.solicitudes.value);
         this.TraspasoService.cambiarEstadoAceptoTraspaso(this.solicitudes.value).subscribe(rest=>{ 
           if(rest==1){
             Swal.fire({
               icon: 'success',
               title: '¡Aprobada!',
-              text: 'Éxito.',
+              text: 'La solicitud ha sido aprobada con éxito.',
               confirmButtonText: 'Aceptar'
-          })
+          });
+          this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Aprobó una solicitud de traspaso.`).subscribe();
           this.display = 'none'; 
           this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
-         // this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
-          //AQUI VOY  AAGREGAR EL NUEVO RESPONSABLE PARA HACER EL CAMBIO
           }else{
             Swal.fire({
               icon: 'error',
@@ -178,7 +172,8 @@ denegarSolicitud() {
             title: '¡Denegada!',
             text: 'La solicitud ha sido denegada con éxito.',
             confirmButtonText: 'Aceptar'
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Denegó una solicitud de traspaso.`).subscribe();
           this.display = 'none'; 
          
           this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
