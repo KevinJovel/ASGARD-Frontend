@@ -47,8 +47,8 @@ export class GestionDescargoComponent implements OnInit {
     //METODO PARA TABLA VACIA
     this.bajaService.validarHistorialParaBaja().subscribe(res => {
       if (res == 1) {
-        
         this.bajaService.listarBajas().subscribe(res => { this.activo = res });
+        this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
       } else {
         Swal.fire({
           position: 'center',
@@ -61,7 +61,6 @@ export class GestionDescargoComponent implements OnInit {
       }
     })
     
-    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
   }
 
   close() {
