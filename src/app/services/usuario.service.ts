@@ -115,5 +115,8 @@ export class UsuarioService {
   public BitacoraTransaccion(id, descripcion) {
     return this.http.get(environment.urlService + "api/Bitacora/guardarTransaccion/" + id + "/" + descripcion).map(res => res.json());
   }
+  public ListarBitacora() {
+    return this.http.get(environment.urlService + "api/Seguridad/listarBitacora").map(res => res.json());
+  }
 
 }
