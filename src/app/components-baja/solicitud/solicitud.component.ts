@@ -33,8 +33,8 @@ export class SolicitudComponent implements OnInit {
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
-       'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(30)],this.noRepetirAcuerdo.bind(this)),
-       'fecha2': new FormControl("",[Validators.required])
+      'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(30), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #°.-]+$")],this.noRepetirAcuerdo.bind(this)),
+      'fecha2': new FormControl("",[Validators.required])
     });
   }
 
