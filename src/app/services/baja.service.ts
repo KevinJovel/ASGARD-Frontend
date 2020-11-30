@@ -67,6 +67,7 @@ public buscarActivoNoAsig(buscador) {
     public listarSolicitud() {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/listarSolicitudBaja").map(res => res.json());
     }
+  
     public aceptarSolicitud(idsolicitud) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/aceptarSolicitudBaja/"+idsolicitud).map(res => res.json());
     }
@@ -116,5 +117,20 @@ public buscarActivoNoAsig(buscador) {
     public buscarBajas(buscador) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarBaja/" + buscador).map(res => res.json());
     }
+    public listarBienesAsignadosBajas() {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/listarBienesAsignadosBajas").map(res => res.json());
+    }
+    public listarBienesNoAsignadosBajas() {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/listarBienesBajas").map(res => res.json());
+    }
+    public getBienesAsignadosEdificiosBajas() {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/listarActivosEdificiosBajas").map(res => res.json());
+    }
+    public getBienesAsignadosIntengiblesBajas() {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/listarActivosIntangiblesBajas").map(res => res.json());
+    }
+    public FiltroTablaActivosBajas(id) {
+      return this.http.get(environment.urlService + "api/SolicitudBaja/listarActivosFiltroBajas/"+id).map(res => res.json());
+      }
 
 }

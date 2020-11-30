@@ -148,6 +148,7 @@ export class CuadroSolicitudComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 3000
               });
+              //
               this.BtnAsinacion = "Ver asignados";
               this.tablaEdificios = 'none';
               this.tablaIntengibles = 'none';
@@ -160,6 +161,7 @@ export class CuadroSolicitudComponent implements OnInit {
               this.disabledFiltroBotonAsignacion = true;
               this.BanderaAsignados = false;
               this.display = 'none';
+              //
             }
           });
         }

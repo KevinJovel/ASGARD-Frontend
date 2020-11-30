@@ -204,7 +204,7 @@ import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.compo
       {path: 'tabla-solicitud', component: TablaSolicitudComponent,canActivate: [SeguridadGuard]},
       {path: 'cuadro-solicitud/:param', component: CuadroSolicitudComponent},
       {path: 'solicitud', component: SolicitudComponent,canActivate: [SeguridadGuard]},
-      {path: 'gestion-descargo', component: GestionDescargoComponent},
+      {path: 'gestion-descargo/:param', component: GestionDescargoComponent},
       {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
       {path: 'tabla-depreciacion', component: TablaDepreciacionComponent,canActivate: [SeguridadGuard]},
       {path: 'report-tarjeta/:id/:tipo', component: ReportTarjetaComponent},
