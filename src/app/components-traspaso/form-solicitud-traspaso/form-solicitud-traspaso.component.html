@@ -67,8 +67,8 @@
               </thead>
 
               <tbody>
-              <tr *ngFor="let activo of activos | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
-                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+              <tr *ngFor="let activo of activos | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+                  <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
                   <td>{{activo.codigo}}</td>
                   <td>{{activo.fechacadena}}</td>
                   <td>{{activo.desripcion}}</td>

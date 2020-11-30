@@ -123,13 +123,16 @@
                         <div class="dd" id="nestable_list_2">
                             <ol class="dd-list">
                                 <li class="dd-item" data-id="15">
-                                    <div class="dd-handle">Registro de activos en mantenimiento</div>
+                                    <div class="dd-handle" (click)="solicitudesmantenimientopdf()">Reporte de solicitudes de mantenimiento</div>
                                     <ol class="dd-list">
                                         <li class="dd-item" data-id="16">
-                                            <div style="cursor:pointer" class="dd-handle">Reporte de informes</div>
+                                            <div style="cursor:pointer" class="dd-handle" (click)="activosenmantenimientopdf()">Reporte de activos en mantenimiento</div>
                                         </li>
                                         <li class="dd-item" data-id="17">
-                                            <div style="cursor:pointer" class="dd-handle">Reporte de solicitudes</div>
+                                            <div style="cursor:pointer" class="dd-handle" (click)="informesmantenimientopdf()">Reporte de informes de mantenimiento</div>
+                                        </li>
+                                        <li class="dd-item" data-id="18">
+                                            <div style="cursor:pointer" class="dd-handle" (click)="historialmantenimientopdf()">Reporte de historial de mantenimiento</div>
                                         </li>
                                     </ol>
                                 </li>

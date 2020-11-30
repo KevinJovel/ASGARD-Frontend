@@ -84,11 +84,12 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       this.nuevaarea= data.areanegocioactual;
       this.nuevoresponsable= data.responsableactual;
       this.idactivado = data.idbien; //para obtener el id del bien
-      this.idresponsable= data.idresponsable;
+      //this.idresponsable= data.idresponsable;
+      this.solicitudes.controls["idEmpleado"].setValue(data.idresponsable);
     });
     this.solicitudes.controls["acuerdo"].setValue("");
     this.solicitudes.controls["idsolicitud"].setValue(id);
-    this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);
+  
     this.idsolicitud=id;
    
   }
@@ -120,9 +121,15 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
             text: 'La solicitud ha sido aprobada con éxito.',
             confirmButtonText: 'Aceptar'
         })
-       console.log(this.solicitudes.value);
+      // console.log(this.solicitudes.value);
         this.TraspasoService.cambiarEstadoAceptoTraspaso(this.solicitudes.value).subscribe(rest=>{ 
           if(rest==1){
+            Swal.fire({
+              icon: 'success',
+              title: '¡Aprobada!',
+              text: 'Éxito.',
+              confirmButtonText: 'Aceptar'
+          })
           this.display = 'none'; 
           this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
          // this.solicitudes.controls["idEmpleado"].setValue(this.idresponsable);

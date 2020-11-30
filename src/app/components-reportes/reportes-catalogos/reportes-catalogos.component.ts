@@ -154,4 +154,38 @@ export class ReportesCatalogosComponent implements OnInit {
     });
   }
 
+  //REPORTES DE MANTENIMIENTO
+  solicitudesmantenimientopdf() {
+    this.http.get(environment.urlService+"api/ReporteMantenimiento/solicitudesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
+  activosenmantenimientopdf() {
+    this.http.get(environment.urlService+"api/ReporteMantenimiento/activosenmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
+  informesmantenimientopdf() {
+    this.http.get(environment.urlService+"api/ReporteMantenimiento/informesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
+  historialmantenimientopdf() {
+    this.http.get(environment.urlService+"api/ReporteMantenimiento/historialmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+  }
+
+
+
+  
+
 }
