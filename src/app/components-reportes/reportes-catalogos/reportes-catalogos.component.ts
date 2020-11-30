@@ -75,7 +75,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de ácargos.`).subscribe();
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cargos.`).subscribe();
   }
 
   empleadosPDF() {
