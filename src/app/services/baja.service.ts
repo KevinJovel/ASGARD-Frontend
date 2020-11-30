@@ -114,9 +114,7 @@ public buscarActivoNoAsig(buscador) {
     public listarBajas() {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/listarBajas").map(res => res.json());
     }
-    public buscarBajas(buscador) {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarBaja/" + buscador).map(res => res.json());
-    }
+   
     public listarBienesAsignadosBajas() {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/listarBienesAsignadosBajas").map(res => res.json());
     }
@@ -132,5 +130,21 @@ public buscarActivoNoAsig(buscador) {
     public FiltroTablaActivosBajas(id) {
       return this.http.get(environment.urlService + "api/SolicitudBaja/listarActivosFiltroBajas/"+id).map(res => res.json());
       }
+
+          // Buscadores de activos asignados 
+  public buscarBienAsigBajas(buscador) {
+    return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarBienesBajaAsigBajas/" + buscador).map(res => res.json());
+  }
+ 
+public buscarActivoEdificioAsigBajas(buscador) {
+return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarActivoEdificioAsigBajas/" + buscador).map(res => res.json());
+}
+public buscarActivoIntengibleAsigBajas(buscador) {
+return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarActivoIntengibleAsigBajas/" + buscador).map(res => res.json());
+}
+//FIn de buscadores asignados
+public buscarActivoNoAsigBajas(buscador) {
+return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarActivoNoAsigBajas/" + buscador).map(res => res.json());
+}
 
 }

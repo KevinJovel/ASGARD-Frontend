@@ -186,13 +186,13 @@ parametro: string;
   buscar(buscador) {
     this.p = 1;
     if (this.banderaBuscador == 1) {
-      this.bajaService.buscarBienAsig(buscador.value).subscribe(res => { this.activo = res });
+      this.bajaService.buscarBienAsigBajas(buscador.value).subscribe(res => { this.activo = res });
     } else if (this.banderaBuscador == 2) {
-      this.bajaService.buscarActivoEdificioAsig(buscador.value).subscribe(res => { this.activo = res });
+      this.bajaService.buscarActivoEdificioAsigBajas(buscador.value).subscribe(res => { this.activo = res });
     } else if (this.banderaBuscador == 3) {
-      this.bajaService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => { this.activo = res });
+      this.bajaService.buscarActivoIntengibleAsigBajas(buscador.value).subscribe(res => { this.activo = res });
     } else if (this.banderaBuscador == 4) {
-      this.bajaService.buscarActivoNoAsig(buscador.value).subscribe(res => { this.activo = res });
+      this.bajaService.buscarActivoNoAsigBajas(buscador.value).subscribe(res => { this.activo = res });
     }
   }
 
