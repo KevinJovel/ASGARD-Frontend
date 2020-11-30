@@ -3,6 +3,7 @@ import { BajaService } from './../../services/baja.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ControlService } from './../../services/control.service';
 
 @Component({
   selector: 'app-solicitud',
@@ -18,13 +19,16 @@ export class SolicitudComponent implements OnInit {
   p: number = 1;
   solicitudes: FormGroup;
   bienesS: any;
+   //Para la fecha
+   fechaMaxima: any;
+   fechaMinima: any;
 
   fecha2:string; marca:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
-    private bajaService:BajaService)
+    private bajaService:BajaService, private controlService: ControlService,)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -55,7 +59,16 @@ export class SolicitudComponent implements OnInit {
 
   guardarDatos(){ }
 
-  verSolicitud(id) {
+  verSolicitud(id, fecha) {
+    this.solicitudes.controls["fecha2"].setValue(fecha);
+    var fecharecup = this.solicitudes.controls["fecha2"].value.split("-");
+    let dia=fecharecup[0];
+    let mes=fecharecup[1];
+    let anio=fecharecup[2];
+    this.controlService.mostrarAnio().subscribe((res)=> {
+      this.fechaMaxima=`${res.anio}-12-31`;
+      this.fechaMinima=`${anio}-${mes}-${dia}`;
+    });
     this.display = 'block';
     this.titulo = "Autorización de solicitud para dar de baja";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
