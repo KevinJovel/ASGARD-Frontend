@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PdfMakeWrapper, Txt, Img, Columns, Stack, Table, Cell, Canvas, Rect, SVG} from 'pdfmake-wrapper';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ConfiguracionService } from './../../services/configuracion.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsuarioService } from './../../services/usuario.service';
 import {HttpClient} from '@angular/common/http'
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
 import {environment} from '../../../environments/environment';
@@ -16,7 +16,7 @@ import {saveAs} from 'file-saver/dist/FileSaver';
 export class ReportesCatalogosComponent implements OnInit {
 
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
-    private confiService:ConfiguracionService, private http:HttpClient) {
+    private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
     
    }
@@ -39,6 +39,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de áreas de negocio.`).subscribe();
   }
 
   sucursalesPDF() {
@@ -47,6 +48,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de sucursales.`).subscribe();
   }
 
   categoriasPDF() {
@@ -55,6 +57,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de categorías de activos.`).subscribe();
   }
 
   clasificacionesPDF() {
@@ -63,6 +66,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de clasificaciones de activos.`).subscribe();
   }
 
   cargosPDF() {
@@ -71,6 +75,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de ácargos.`).subscribe();
   }
 
   empleadosPDF() {
@@ -79,6 +84,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de empleados.`).subscribe();
   }
 
   proveedoresPDF() {
@@ -87,6 +93,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de proveedores.`).subscribe();
   }
 
   donantesPDF() {
@@ -95,6 +102,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de donantes.`).subscribe();
   }
 
   marcasPDF() {
@@ -103,6 +111,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de marcas.`).subscribe();
   }
 
   tecnicosPDF() {
@@ -111,6 +120,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de técnicos.`).subscribe();
   }
 
   tipoDescargoPDF() {
@@ -119,6 +129,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de tipo de descargos.`).subscribe();
   }
 
   //MÉTODOS PARA REPORTES DE CONTROL DE ACTIVO 
@@ -128,6 +139,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos asignados.`).subscribe();
   }
 
   activosNoAsigandosPDF() {
@@ -136,6 +148,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos no asignados.`).subscribe();
   }
 
   edificiosInstalacionesPDF() {
@@ -144,6 +157,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos tipo edificios o instalaciones.`).subscribe();
   }
 
   activosIntangiblesPDF() {
@@ -152,6 +166,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos tipo intagibles.`).subscribe();
   }
 
   cuadroControlActivosPDF() {
@@ -160,6 +175,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos.`).subscribe();
   }
 
   cuadroControlEdificiosPDF() {
@@ -168,6 +184,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos edificios.`).subscribe();
   }
 
   cuadroControlIntangiblesPDF() {
@@ -176,6 +193,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos intangibles.`).subscribe();
   }
 
   //REPORTES DE MANTENIMIENTO
@@ -185,6 +203,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de mantenimiento.`).subscribe();
   }
   activosenmantenimientopdf() {
     this.http.get(environment.urlService+"api/ReporteMantenimiento/activosenmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
@@ -192,6 +211,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos en mantenimiento.`).subscribe();
   }
   informesmantenimientopdf() {
     this.http.get(environment.urlService+"api/ReporteMantenimiento/informesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
@@ -199,6 +219,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de informes de mantenimiento.`).subscribe();
   }
   historialmantenimientopdf() {
     this.http.get(environment.urlService+"api/ReporteMantenimiento/historialmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
@@ -206,6 +227,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de historial de mantenimientos.`).subscribe();
   }
 
 

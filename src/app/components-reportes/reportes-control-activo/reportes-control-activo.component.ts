@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http'
+import { UsuarioService } from './../../services/usuario.service';
 
 @Component({
   selector: 'app-reportes-control-activo',
@@ -9,7 +10,7 @@ import {HttpClient} from '@angular/common/http'
 })
 export class ReportesControlActivoComponent implements OnInit {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private usuarioService:UsuarioService) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +23,7 @@ export class ReportesControlActivoComponent implements OnInit {
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos asignados.`).subscribe();
   }
 
 }
