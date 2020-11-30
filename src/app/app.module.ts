@@ -99,6 +99,7 @@ import {SeguridadGuard} from './guards/seguridad.guard';
 import {JefeGuard} from './guards/jefe.guard';
 import { PaginaErrorLoginComponent } from './components-usuarios/pagina-error-login/pagina-error-login.component';
 import { ConfiguracionInicioComponent } from './components-usuarios/configuracion-inicio/configuracion-inicio.component';
+import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.component';
 
 
 @NgModule({
@@ -159,6 +160,7 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
     LoginComponent,
     PaginaErrorLoginComponent,
     ConfiguracionInicioComponent,
+    BitacoraComponent,
 
 
    
@@ -219,6 +221,7 @@ import { ConfiguracionInicioComponent } from './components-usuarios/configuracio
       {path: 'form-modificar-asignados/:id', component: FormModificarAsignadosComponent,canActivate: [SeguridadGuard]},
        {path: 'menu-reportes', component: MenuReportesComponent,canActivate: [SeguridadGuard]},
        {path: 'login', component: LoginComponent},
+       {path: 'app-bitacora', component: BitacoraComponent},
        {path: 'pagina-error-login', component: PaginaErrorLoginComponent},
       { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
       
