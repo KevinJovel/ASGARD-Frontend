@@ -98,13 +98,27 @@ export class FormSolicitudTraspasoComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'ERROR',
-        text: 'Seleccione un empleado para generar el codigos',
+        text: 'Ocurrió un error',
       })
      }
   // }
 }
   close() {
+    this.solicitud.controls["idresponsable"].setValue("");
     this.display = 'none';
+
+    this.solicitud.controls["idsolicitud"].setValue("0");
+    this.solicitud.controls["folio"].setValue("");
+   // this.solicitud.controls["fechasolicitud"].setValue("");
+    this.solicitud.controls["descripcion"].setValue("");
+    this.solicitud.controls["nuevoresponsable"].setValue("");
+    this.solicitud.controls["nuevaarea"].setValue("");
+    this.solicitud.controls["idbien"].setValue("");
+ 
+    //para nuevo responsable y area 
+   
+    this.solicitud.controls["areaanterior"].setValue("");
+    this.solicitud.controls["responsableanterior"].setValue("");
   }
 
   onSubmit() {
@@ -193,7 +207,8 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   //A FILTRAR EL EMPLEADO SEGUN AREA DE NEGOCIO
   FiltrarEmpleado(){
     var id= this.solicitud.controls['nuevaarea'].value;
-    this.TraspasoService.comboEmpleados(id).subscribe(data=>{this.empleados=data});
+    var idresponsable= this.solicitud.controls['idresponsable'].value
+    this.TraspasoService.comboEmpleados(id,idresponsable).subscribe(data=>{this.empleados=data});
   }
 
  //creo que lo ocuparé despues.

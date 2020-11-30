@@ -133,7 +133,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'Error!',
-              text: 'Cambio codigo.',
+              text: 'Ocurrió un error.',
               confirmButtonText: 'Aceptar'
           })
           }

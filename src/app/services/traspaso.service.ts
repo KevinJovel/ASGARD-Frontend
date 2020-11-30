@@ -47,8 +47,8 @@ export class TraspasoService {
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/listarEmpleadosFiltro/" + id).map(res=>res.json());
   }
 
-  public comboEmpleados(id){
-    return this.http.get(environment.urlService + "api/SolicitudTraspaso/comboEmpleados/" + id).map(res=>res.json());
+  public comboEmpleados(id,idresponsable){
+    return this.http.get(environment.urlService + "api/SolicitudTraspaso/comboEmpleados/" + id + "/" + idresponsable).map(res=>res.json());
   }
   public listarActivosFiltroT(id){
     return this.http.get(environment.urlService + "api/SolicitudTraspaso/listarActivosFiltroT/" + id).map(res=>res.json());
