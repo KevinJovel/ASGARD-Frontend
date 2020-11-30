@@ -34,7 +34,22 @@ export class SolicitudComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+       //METODO PARA TABLA VACIA
+       this.bajaService.validarSolicitudesParaBaja().subscribe(res => {
+        if (res == 1) {
+          
+          this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No se encontraron solicitudes de baja.',
+            showConfirmButton: false,
+            timer: 4000
+          });
+          this.router.navigate(["/"]);
+        }
+      })
    
   }
 
@@ -105,7 +120,7 @@ export class SolicitudComponent implements OnInit {
    });   
    this.bienesS=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
        this.bajaService.cambiarEstadoAceptado(this.bienesS, this.acuerdo, this.fecha2).subscribe(rest=>{ });
-       console.log("fecha: "+ this.fecha2);
+      // console.log("fecha: "+ this.fecha2);
   }// del result
   })//de la alerta
 
@@ -141,8 +156,8 @@ negarSolicitud() {
          }      
    });   
    this.bienesS=id; //almacenamos el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoDenegado(this.bienesS).subscribe(rest=>{ });
-  
+   this.bajaService.cambiarEstadoDenegado(this.bienesS, this.acuerdo, this.fecha2).subscribe(rest=>{ });
+      
   }// del result
   })//de la alerta
 }//fin negar solicitud

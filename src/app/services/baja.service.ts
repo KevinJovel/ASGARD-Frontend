@@ -80,7 +80,7 @@ public buscarActivoNoAsig(buscador) {
     public denegarSolicitud(idsolicitud) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/denegarSolicitudBaja/"+idsolicitud).map(res => res.json());
     }
-    public cambiarEstadoDenegado(idbien) {
+    public cambiarEstadoDenegado(idbien, acuerdo, fecha2) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoDenegado/"+idbien).map(res => res.json());
     }
     public verSolicitud(idSolicitud){
@@ -102,6 +102,12 @@ public buscarActivoNoAsig(buscador) {
       return this.http.get(environment.urlService + "api/SolicitudBaja/listaBienesSolicitados/"+id ).map(res=>res.json());
      }
     
+     public validarSolicitudesParaBaja(){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/validarSolicitudesParaBaja"  ).map(res=>res.json());
+     }
+     public validarHistorialParaBaja(){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/validarHistorialParaBaja"  ).map(res=>res.json());
+     }
      
     ///// DESGARGO DE BIEN
     public listarBajas() {
