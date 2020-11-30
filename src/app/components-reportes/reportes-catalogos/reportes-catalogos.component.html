@@ -94,8 +94,19 @@
                                 <li class="dd-item" data-id="1">
                                     <div style="cursor:pointer" [routerLink]="['/tabla-tarjeta']" class="dd-handle">Reporte tarjeta depreciación</div>                                   
                                 </li>
-                                <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle">Reporte cuadro de control</div>                                   
+                                <li class="dd-item" data-id="15">
+                                    <div class="dd-handle">Cuadro de control</div>
+                                    <ol class="dd-list">
+                                        <li class="dd-item" data-id="16">
+                                            <div style="cursor:pointer" class="dd-handle" (click)="cuadroControlActivosPDF()">Reporte cuadro de control de activos</div>
+                                        </li>
+                                        <li class="dd-item" data-id="17">
+                                            <div style="cursor:pointer" class="dd-handle" (click)="cuadroControlEdificiosPDF()">Reporte cuadro de control de edificios e instalaciones</div>
+                                        </li>
+                                        <li class="dd-item" data-id="18">
+                                            <div style="cursor:pointer" class="dd-handle" (click)="cuadroControlIntangiblesPDF()">Reporte cuadro de control de activos intangibles</div>
+                                        </li>
+                                    </ol>
                                 </li>
                                 
                             </ol>
