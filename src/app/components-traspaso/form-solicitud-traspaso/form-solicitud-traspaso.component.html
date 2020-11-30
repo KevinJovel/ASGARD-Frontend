@@ -75,7 +75,7 @@
                   <td>{{activo.areaDeNegocio}}</td>
                   <td>{{activo.resposnsable}}</td>
                   <td class="center hidden-phone">
-                    <button title="Realizar solicitud" class="btn btn-primary btn-xs" (click)="open(activo.idBien,activo.idresponsable,activo.areaDeNegocio,activo.resposnsable)">
+                    <button title="Realizar solicitud" class="btn btn-primary btn-xs" (click)="open(activo.idBien,activo.idresponsable,activo.areaDeNegocio,activo.resposnsable,activo.fechacadena)">
                       <i class="glyphicon glyphicon-share-alt"></i></button>
                 </tr>
               </tbody>
@@ -102,7 +102,7 @@
         <form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="idsolicitud" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="idbien" autocomplete="off">
-          <input type="hidden" class="form-control" formControlName="idresponsable" autocomplete="off">
+          <input type="text" class="form-control" formControlName="idresponsable" autocomplete="off">
           
      
          

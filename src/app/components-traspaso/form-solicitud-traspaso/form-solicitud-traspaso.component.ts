@@ -117,12 +117,25 @@ export class FormSolicitudTraspasoComponent implements OnInit {
     }
   }
 
-  open(id,idempleado,areadenegocio,responsable) {
+  open(id,idempleado,areadenegocio,responsable,fecha) {
+    this.solicitud.controls["fechasolicitud"].setValue(fecha);
+    var fecharecup = this.solicitud.controls["fechasolicitud"].value.split("-");
+    let dia = fecharecup[0];
+    let mes = fecharecup[1];
+    let anio = fecharecup[2];
+    this.controlService.mostrarAnio().subscribe((res) => {
+      if (res.anio > anio) {
+        this.fechaMinima = `${res.anio}-01-01`;
+      } else {
+        this.fechaMinima = `${anio}-${mes}-${dia}`;
+      }
+      this.fechaMaxima = `${res.anio}-12-31`;
+    });
    //limpia cache
    this.titulo = "Solicitud de traspaso";
    this.solicitud.controls["idsolicitud"].setValue("0");
    this.solicitud.controls["folio"].setValue("");
-   this.solicitud.controls["fechasolicitud"].setValue("");
+  // this.solicitud.controls["fechasolicitud"].setValue("");
    this.solicitud.controls["descripcion"].setValue("");
    this.solicitud.controls["nuevoresponsable"].setValue("");
    this.solicitud.controls["nuevaarea"].setValue("");
