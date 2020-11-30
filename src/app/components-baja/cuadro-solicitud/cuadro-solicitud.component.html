@@ -133,7 +133,7 @@
                               <td>{{solicitud.descripcion}}</td>
                               <td>{{solicitud.clasificacion}}</td>         
                               <td class="center hidden-phone">
-                                <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien)">
+                                <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien,solicitud.fechacadena)">
                                   <i class="glyphicon glyphicon-share-alt"></i></button>
                             </tr>
                               
@@ -178,7 +178,7 @@
                               <td>{{solicitud.clasificacion}}</td>
                           
                               <td class="center hidden-phone">
-                                <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien)">
+                                <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien,solicitud.fechacadena)">
                                   <i class="glyphicon glyphicon-share-alt"></i></button>
                             </tr>
                               
@@ -223,7 +223,7 @@
                 <td>{{solicitud.desripcion}}</td>
                 <td>{{solicitud.clasificacion}}</td>        
                 <td class="center hidden-phone">
-                  <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien)">
+                  <button title="Enviar" class="btn btn-primary btn-xs" (click)="open(solicitud.idBien,solicitud.fechacadena)">
                     <i class="glyphicon glyphicon-share-alt"></i></button>
               </tr>
             </tbody>
