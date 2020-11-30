@@ -76,7 +76,6 @@ import { MantenimientoService } from './services/mantenimiento.service';
 import { BajaService } from './services/baja.service';
 import { ConfiguracionService } from './services/configuracion.service';
 import { FormTipoDescargoComponent } from './components-catalogos/form-tipo-descargo/form-tipo-descargo.component';
-import { SolicitudActivosAsignadosComponent } from './components-baja/solicitud-activos-asignados/solicitud-activos-asignados.component';
 import { FormCoopeComponent } from './components-configuracion/form-coope/form-coope.component';
 import { SelectTipoActivoComponent } from './components-control/select-tipo-activo/select-tipo-activo.component';
 import { FormEdificiosInstalacionesComponent } from './components-control/form-edificios-instalaciones/form-edificios-instalaciones.component';
@@ -139,7 +138,6 @@ import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.compo
     CierreAnioComponent,
     FormDesasignarComponent,
     FormTipoDescargoComponent,
-    SolicitudActivosAsignadosComponent,
     FormCoopeComponent,
     SelectTipoActivoComponent,
     FormEdificiosInstalacionesComponent,
@@ -212,7 +210,6 @@ import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.compo
       {path: 'tabla-revalorizar', component: TablaRevalorizarComponent,canActivate: [SeguridadGuard]},
       {path: 'cierre-anio', component: CierreAnioComponent,canActivate: [SeguridadGuard]},
       {path: 'form-tipo-descargo', component: FormTipoDescargoComponent},
-      {path: 'solicitud-activos-asignados', component: SolicitudActivosAsignadosComponent},
       {path: 'form-conficooperativa', component: FormCoopeComponent,canActivate: [SeguridadGuard]},
       {path: 'select-tipo-activo', component: SelectTipoActivoComponent,canActivate: [SeguridadGuard]},
       {path: 'form-edificios-instalaciones/:id', component: FormEdificiosInstalacionesComponent,canActivate: [SeguridadGuard]},

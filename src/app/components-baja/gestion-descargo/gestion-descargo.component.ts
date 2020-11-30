@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BajaService } from './../../services/baja.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 //para filtro de areas y sucursales
 import { CatalogosService } from './../../services/catalogos.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 
@@ -23,7 +24,7 @@ export class GestionDescargoComponent implements OnInit {
   BanderaAsignados: boolean = true;
   BtnAsinacion: string;
 
-  datosbien:FormGroup;
+  datosbien: FormGroup;
   activo: any;
   display = 'none';
   p: number = 1;
@@ -31,25 +32,24 @@ export class GestionDescargoComponent implements OnInit {
   areas: any;
   sucursal: any;
   solicitud2: FormGroup;
-//Variable para redireccionar
-parametro: string;
+  //Variable para redireccionar
+  parametro: string;
 
   //para ver los datos
   fecha: string; fecha2: string; marca: string; area: string; proveedor: string; donante: string; clasificacion: string;
- responsable: string; codigo: string; descripcion: string;  folio: string; entidad: string;
-  tipoadqui: string; color: string;  estado: string; valor: string; acuerdo: string; motivo: string;
+  responsable: string; codigo: string; descripcion: string; folio: string; entidad: string;
+  tipoadqui: string; color: string; estado: string; valor: string; acuerdo: string; motivo: string;
 
-  constructor(private bajaService:BajaService,private catalogosServices: CatalogosService,
-    private controlService: ControlService, private router: Router, private activateRoute: ActivatedRoute,) 
-  { 
+  constructor(private bajaService: BajaService, private catalogosServices: CatalogosService, private usuarioService: UsuarioService,
+    private controlService: ControlService, private router: Router, private activateRoute: ActivatedRoute,) {
     this.solicitud2 = new FormGroup({
       'idsolicitud': new FormControl("0"),
-       //para filtro
-       'idArea': new FormControl("0"),
-       'idSucursal': new FormControl("0"),
+      //para filtro
+      'idArea': new FormControl("0"),
+      'idSucursal': new FormControl("0"),
       /////////////////////////////////////////////////
       'IdBien': new FormControl("0"),
-      'tipoadquicicion': new FormControl("0") 
+      'tipoadquicicion': new FormControl("0")
     });
 
     this.activateRoute.params.subscribe(parametro => {
@@ -58,12 +58,12 @@ parametro: string;
   }
 
   ngOnInit(): void {
-    
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó el historial de baja de activos.`).subscribe()
     //METODO PARA TABLA VACIA
     this.bajaService.validarHistorialParaBaja().subscribe(res => {
       if (res == 1) {
         this.bajaService.listarBienesAsignadosBajas().subscribe(res => { this.activo = res });
-        this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
+        this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursal = data });//filtro
       } else {
         Swal.fire({
           position: 'center',
@@ -75,7 +75,6 @@ parametro: string;
         this.router.navigate(["/"]);
       }
     })
-    ////////////
     if (this.parametro == "ver") {
       this.tablaMuebles = 'none';
       this.tablaIntengibles = 'none';
@@ -122,17 +121,15 @@ parametro: string;
       this.disabledFiltro = true;
       this.banderaBuscador = 3;
     }
-    
   }
-
   close() {
     this.display = 'none';
   }
-  
+
   ver(id: any) {
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó el informe de baja de un activo.`).subscribe()
     this.display = 'block';
     this.bajaService.verDescargos(id).subscribe((data) => {
-        
       this.codigo = data.codigo;
       this.folio = data.folio;
       this.fecha = data.fechacadena;
@@ -154,17 +151,17 @@ parametro: string;
     });
   }
 
-  
-    FiltrarArea(){
-    var id= this.solicitud2.controls['idSucursal'].value;
-    this.bajaService.ComboArea(id).subscribe(data=>{this.areas=data});
+
+  FiltrarArea() {
+    var id = this.solicitud2.controls['idSucursal'].value;
+    this.bajaService.ComboArea(id).subscribe(data => { this.areas = data });
   }
 
-  Filtrar(){
-    var id= this.solicitud2.controls['idArea'].value;
-    this.bajaService.FiltroTablaActivosBajas(id).subscribe(data=>{this.activo=data});
+  Filtrar() {
+    var id = this.solicitud2.controls['idArea'].value;
+    this.bajaService.FiltroTablaActivosBajas(id).subscribe(data => { this.activo = data });
   }
-  
+
   Reload() {
     this.solicitud2.controls['idSucursal'].setValue(0);
     this.solicitud2.controls['idArea'].setValue(0);
@@ -259,7 +256,6 @@ parametro: string;
       this.disabledFiltroBotonAsignacion = false;
       this.BanderaAsignados = true
     }
-
   }
-  
+
 }

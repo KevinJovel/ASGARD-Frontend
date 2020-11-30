@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { BajaService } from './../../services/baja.service';
+import { UsuarioService } from './../../services/usuario.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -28,7 +29,7 @@ export class SolicitudComponent implements OnInit {
   cargo:string; folio:string; solicitud: string; acuerdo: string;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
-    private bajaService:BajaService, private controlService: ControlService,)
+    private bajaService:BajaService, private controlService: ControlService, private usuarioService:UsuarioService)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -57,8 +58,6 @@ export class SolicitudComponent implements OnInit {
    
   }
 
-  guardarDatos(){ }
-
   verSolicitud(id, fecha) {
     this.solicitudes.controls["fecha2"].setValue(fecha);
     var fecharecup = this.solicitudes.controls["fecha2"].value.split("-");
@@ -82,8 +81,7 @@ export class SolicitudComponent implements OnInit {
       this.observaciones = data.observaciones;
       this.folio = data.folio;
       this.solicitud = data.noSolicitud;  
-     this.bienesS = data.idbien; //para obtener el id del bien
-    // console.log("Idbien: "+this.bienesS); 
+     this.bienesS = data.idbien;
     });
    
 //para la aprobacion
@@ -125,7 +123,8 @@ export class SolicitudComponent implements OnInit {
             title: '¡Aprobada!',
             text: 'La solicitud ha sido aprobada con éxito.',
             confirmButtonText: 'Aceptar'
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Aprobó una solicitud de baja de activos.`).subscribe();
           this.display = 'none'; 
           this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
         //  console.log("IdSoliiii: "+id);
@@ -163,7 +162,8 @@ negarSolicitud() {
             title: '¡Denegada!',
             text: 'La solicitud ha sido denegada con éxito.',
             confirmButtonText: 'Aceptar'
-        })
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Denegó una solicitud de baja de activos.`).subscribe()
           this.display = 'none'; 
           this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
          }      

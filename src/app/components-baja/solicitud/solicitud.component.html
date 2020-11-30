@@ -63,7 +63,7 @@
       </div>
       <div class="modal-body">
 
-        <form role="form" [formGroup]="solicitudes" (ngSubmit)="guardarDatos()">
+        <form role="form" [formGroup]="solicitudes">
           <input type="hidden" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
             <div class="form-group col-md-6">
               <label><strong>Fecha solicitud:</strong></label> {{ fecha2 }}

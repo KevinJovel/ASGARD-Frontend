@@ -148,6 +148,7 @@ export class CuadroSolicitudComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 3000
               });
+              this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Realizó una solicitud de baja de activos.`).subscribe();
               //
               this.BtnAsinacion = "Ver asignados";
               this.tablaEdificios = 'none';
