@@ -230,6 +230,15 @@ export class ReportesCatalogosComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de historial de mantenimientos.`).subscribe();
   }
 
+  //Reporte de traspasos
+  solicitudestraspasopdf() {
+    this.http.get(environment.urlService+"api/ReportesTraspaso/solicitudestraspasopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de traspasos.`).subscribe();
+  }
 
 
   
