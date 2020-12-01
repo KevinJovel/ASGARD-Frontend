@@ -121,7 +121,7 @@
           <div class="form-group col-md-6">
             <label>* Nueva área de negocio:</label>
             <select class="form-control" (change)="FiltrarEmpleado()"  formControlName="nuevaarea" >
-              <option value="">---Seleccione---</option>
+              <option value="0">---Seleccione---</option>
               <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
                 {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
             </select>
@@ -129,7 +129,7 @@
             <div class="form-group col-md-6">
               <label>* Nuevo responsable:</label>
               <select class="form-control"  formControlName="idresponsable">
-                <option value="">---Seleccione---</option>
+                <option value="0">---Seleccione---</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
               </select>
               </div>

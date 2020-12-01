@@ -43,12 +43,12 @@ export class FormSolicitudTraspasoComponent implements OnInit {
        'folio': new FormControl("",[Validators.required,Validators.maxLength(10),Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ -]+$")],this.noRepetirFolio1.bind(this)),
        'fechasolicitud': new FormControl("",[Validators.required]),
        'descripcion': new FormControl("",[Validators.required,Validators.maxLength(250), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ ,.]+$")]),
+       'idresponsable': new FormControl("0",[Validators.required]),
        'nuevoresponsable': new FormControl(""),
-       'nuevaarea': new FormControl("",[Validators.required]),
+       'nuevaarea': new FormControl("0",[Validators.required]),
        'responsableanterior': new FormControl(""),
        'areaanterior': new FormControl(""),
        'idbien': new FormControl(""),
-       'idresponsable': new FormControl("",[Validators.required]),
        'idArea': new FormControl("0"),
        'idSucursal': new FormControl("0")
     });
@@ -75,14 +75,16 @@ export class FormSolicitudTraspasoComponent implements OnInit {
        
        this.TraspasoService.guardarSolicitudTraspaso(this.solicitud.value).subscribe(data => { 
          //console.log("solicitud : "+this.solicitud);
+         if(data==1){
          this.TraspasoService.cambiarEstadoSolicitud(this.solicitud.value).subscribe(data => {
             //listar bienes 
            this.TraspasoService.listarActivosAsignados().subscribe(res=>{ this.activos=res });
          });
          this.display = 'none';
-         
+        }//cierre del iff
        });
    //  });
+     
    
        Swal.fire({
          position: 'center',
@@ -104,7 +106,10 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   // }
 }
   close() {  
+    
+    this.solicitud.controls["idresponsable"].setValue("0");
     this.display = 'none';
+    
   }
 
   onSubmit() {
