@@ -198,7 +198,7 @@ export class ReportesCatalogosComponent implements OnInit {
 
   //REPORTES DE MANTENIMIENTO
   solicitudesmantenimientopdf() {
-    this.http.get(environment.urlService+"api/ReporteMantenimiento/solicitudesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+    this.http.get(environment.urlService+"api/ReportesMantenimiento/solicitudesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
@@ -206,7 +206,7 @@ export class ReportesCatalogosComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de mantenimiento.`).subscribe();
   }
   activosenmantenimientopdf() {
-    this.http.get(environment.urlService+"api/ReporteMantenimiento/activosenmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+    this.http.get(environment.urlService+"api/ReportesMantenimiento/activosenmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
@@ -214,20 +214,12 @@ export class ReportesCatalogosComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos en mantenimiento.`).subscribe();
   }
   informesmantenimientopdf() {
-    this.http.get(environment.urlService+"api/ReporteMantenimiento/informesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+    this.http.get(environment.urlService+"api/ReportesMantenimiento/informesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de informes de mantenimiento.`).subscribe();
-  }
-  historialmantenimientopdf() {
-    this.http.get(environment.urlService+"api/ReporteMantenimiento/historialmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
-    });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de historial de mantenimientos.`).subscribe();
   }
 
   //Reporte de traspasos

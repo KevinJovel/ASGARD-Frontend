@@ -4,9 +4,10 @@ import { UsuarioService } from './../../services/usuario.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import {environment} from '../../../environments/environment';
+import {HttpClient} from '@angular/common/http'
 import Swal from 'sweetalert2';
-//import {HttpClient} from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-historial-mantenimiento',
@@ -43,7 +44,7 @@ export class HistorialMantenimientoComponent implements OnInit {
   bienid: any;
   idmante: any;
 
-  constructor(private catalogosServices: CatalogosService, private router: Router, private depreciacionService: DepreciacionService, private mantenimientoService: MantenimientoService,private usuarioService:UsuarioService) {
+  constructor(private catalogosServices: CatalogosService, private router: Router,private http:HttpClient, private depreciacionService: DepreciacionService, private mantenimientoService: MantenimientoService,private usuarioService:UsuarioService) {
     this.combos = new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0")
@@ -110,6 +111,7 @@ export class HistorialMantenimientoComponent implements OnInit {
           this.descripcion = data.descripcion;
           this.encargado = data.encargado;
           this.areadenegocio = data.areadenegocio;
+          this.idbien=data.idBien
 
         });
         //para recuperar el id del bien 
@@ -127,6 +129,20 @@ export class HistorialMantenimientoComponent implements OnInit {
     this.p = 1;
     this.mantenimientoService.buscarActivoHistorial(buscador.value).subscribe(data => { this.bienes = data });
   }
+  reportesMantenimientoPdf(id) {
+
+    this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
+      this.idbien=data.idBien
+     
+    });
+    this.http.get(environment.urlService+"api/ReportesMantenimiento/historialmantenimientopdf/" + parseInt(this.idbien),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de historial de mantenimientos.`).subscribe();
+  }
+
 
 
 }

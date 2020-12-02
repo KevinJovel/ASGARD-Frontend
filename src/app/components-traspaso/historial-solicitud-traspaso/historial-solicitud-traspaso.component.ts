@@ -66,10 +66,8 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
       'valorActual': new FormControl(""),
       'valorDepreciacion': new FormControl("")
   });
-// para historial
-this.activateRoute.params.subscribe(parametro => {
-  this.parametro = parametro["idBien"];
-});
+
+
   }
 
   ngOnInit(): void {
@@ -141,10 +139,6 @@ this.activateRoute.params.subscribe(parametro => {
   reportesTraspasoPdf(id) {
 
     this.mantenimientoService.listardatosHistorial(id).subscribe(data=>{
-      this.codigo=data.codigo;
-      this.descripcion=data.descripcion;
-      this.encargado=data.encargado;
-      this.areadenegocio=data.areadenegocio;
       this.idbien=data.idBien
      
     });

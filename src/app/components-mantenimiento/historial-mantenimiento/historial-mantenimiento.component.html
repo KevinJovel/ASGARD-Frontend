@@ -92,7 +92,7 @@
 <!--INICIO DE MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENTO-->
 
 <div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
-  <div class="modal-dialog modal-lg" style="width:1000px;">
+  <div class="modal-dialog modal-lg" style="width:1100px;">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
@@ -109,7 +109,7 @@
                  <label><strong>Correlativo :</strong></label> {{ codigo }}<br/>
                  </div>
                  <div class="form-group col-md-4">
-                   <label><strong>Descripcion:</strong></label> {{ descripcion }}<br/>
+                   <label><strong>Descripción:</strong></label> {{ descripcion }}<br/>
                   </div>
               
               </div>
@@ -175,6 +175,7 @@
           <div>
           <!--<button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>-->
           <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
+          <button title="Imprimir reporte de historial de mantenimiento" class="btn btn-success" (click)="reportesMantenimientoPdf(idbien)"><i class="icon-print"></i> Imprimir</button>
           </div>
        
       </div>

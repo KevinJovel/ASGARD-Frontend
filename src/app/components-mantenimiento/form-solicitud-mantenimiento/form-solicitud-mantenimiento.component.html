@@ -200,7 +200,7 @@
   <!--INICIO DEL SEGUNDO MODAL-->
   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal1" class="modal"
     [ngStyle]="{'display':display}">
-    <div class="modal-dialog" style="width:450px;">
+    <div class="modal-dialog" style="width:650px;">
       <div class="modal-content">
         <div class="modal-header">
           <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
@@ -212,13 +212,13 @@
             <input type="hidden" class="form-control" formControlName="codigobien" autocomplete="off">
             <input type="hidden" class="form-control" formControlName="descripcionbien" autocomplete="off">
             <br>
-            <div class="form-group">
+            <div class="col-md-12">
               <label for="exampleInputEmail1">* Razones del mantenimiento:</label>
-              <input type="text" class="form-control" formControlName="razonesMantenimiento"
-                placeholder="Ingrese razones del mantenimiento" autocomplete="off" maxlength="101">
+              <textarea type="text" class="form-control" formControlName="razonesMantenimiento"
+                placeholder="Ingrese razones del mantenimiento" rows="2" autocomplete="off" maxlength="101"></textarea>
             </div>
             <br>
-            <div class="form-group">
+            <div class="col-md-12">
               <label for="exampleInputEmail1">* Periodo de mantenimiento estimado:</label>
               <input type="text" class="form-control" formControlName="periodoMantenimiento"
                 placeholder="Ingrese período de mantenimiento estimado" autocomplete="off" maxlength="26">
