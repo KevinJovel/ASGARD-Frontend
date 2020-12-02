@@ -51,6 +51,10 @@ export class DepreciacionService {
     return this.http.get(environment.urlService + "api/Depreciacion/TarjetaListaTrasacciones/" + id).map(res => res.json());
   }
 
+  public TarjetaExcelTrasacciones(id) {
+    return this.http.get(environment.urlService + "api/Depreciacion/TarjetaTrasaccionesExcel/" + id).map(res => res.json());
+  }
+
   public transaccionDepreciacion(transac) {
     return this.http.post(environment.urlService + "api/Depreciacion/transaccionDepreciacion", transac).map(res=>res.json());
     }

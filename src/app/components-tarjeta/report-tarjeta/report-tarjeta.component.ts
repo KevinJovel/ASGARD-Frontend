@@ -3,6 +3,7 @@ import { CatalogosService } from './../../services/catalogos.service';
 import { UsuarioService } from './../../services/usuario.service';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ExcelService } from './../../excel.service';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http'
 
@@ -16,6 +17,7 @@ export class ReportTarjetaComponent implements OnInit {
   displayDatosMuebles='none';
   displayDatosEdificios='none';
   bienes: any;
+  datosExcel:any;
   sucursales: any;
   areas:any;
   Datos:any;
@@ -44,15 +46,32 @@ tasa:string;
 valorresidual:string;
 observaciones:string;
 
+datoss: any;
+
 ProvDon:string;
-  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService, private route: Router, private activateRoute: ActivatedRoute, private http:HttpClient,private usuarioService:UsuarioService) {
+  constructor(private catalogosServices: CatalogosService,private depreciacionService:DepreciacionService, private route: Router, private activateRoute: ActivatedRoute, private http:HttpClient,
+    private usuarioService:UsuarioService, private excelService: ExcelService) {
   
     this.activateRoute.params.subscribe(parametro => {
       this.parametro = parametro["id"];
       this.parametro2 = parametro["tipo"];
   });
   }
+
+  //Para archivo Excel
+datos: any;
+
   ngOnInit(): void {
+
+
+    this.datos=[
+      
+      this.depreciacionService.DatosTarjeta(this.parametro).subscribe(data=>{
+        data.fechaAdquicicion
+      })
+    ]
+
+
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó la tarjeta de depreciación de activos.`).subscribe();
       this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursales=data});
      if(this.parametro2==1) {
@@ -114,8 +133,15 @@ ProvDon:string;
      this.depreciacionService.TarjetaListaTrasacciones(this.parametro).subscribe(data=>{
       this.bienes=data
     });
+
+    //Método para enviar datos al documento excel
+    this.depreciacionService.TarjetaExcelTrasacciones(this.parametro).subscribe(data=>{
+      this.datosExcel=data
+    });
+
     }
     
+
     FiltrarArea(sucursal){
       this.depreciacionService.ComboArea(sucursal.value).subscribe(data=>{this.areas=data});
     }
@@ -132,5 +158,10 @@ ProvDon:string;
       });
       this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de tarjeta de depreciación de activos.`).subscribe();
     }
+
+      //Método para generar archivo
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.datosExcel,  'Tarjeta de depreciación');
+  }
 
   }
