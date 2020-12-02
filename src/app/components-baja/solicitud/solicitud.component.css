@@ -74,7 +74,9 @@ table {
     color: #FFFFFF;
     margin-inline: 4px;
   }
-  
+  button{
+    margin: 0px 5px;
+    }
   .btn-danger {
     margin-inline: 4px;
     background-color: #ff6c60;

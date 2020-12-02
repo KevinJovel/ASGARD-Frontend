@@ -81,8 +81,8 @@ public buscarActivoNoAsig(buscador) {
     public denegarSolicitud(idsolicitud) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/denegarSolicitudBaja/"+idsolicitud).map(res => res.json());
     }
-    public cambiarEstadoDenegado(idbien, acuerdo, fecha2) {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoDenegado/"+idbien + "/" + acuerdo + "/" + fecha2).map(res => res.json());
+    public cambiarEstadoDenegado(idbien) {
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoDenegado/"+idbien).map(res => res.json());
     }
     public verSolicitud(idSolicitud){
       return this.http.get(environment.urlService + "api/SolicitudBaja/verSolicitudBaja/"+idSolicitud).map(res=>res.json());
