@@ -38,7 +38,8 @@ export class GestionDescargoComponent implements OnInit {
   //para ver los datos
   fecha: string; fecha2: string; marca: string; area: string; proveedor: string; donante: string; clasificacion: string;
   responsable: string; codigo: string; descripcion: string; folio: string; entidad: string;
-  tipoadqui: string; color: string; estado: string; valor: string; acuerdo: string; motivo: string;
+  tipoadqui: string; color: string; estado: string; valor: string; valoractual: string; acuerdo: string; 
+  motivo: string; depreciacion: string;
 
   constructor(private bajaService: BajaService, private catalogosServices: CatalogosService, private usuarioService: UsuarioService,
     private controlService: ControlService, private router: Router, private activateRoute: ActivatedRoute,) {
@@ -145,6 +146,8 @@ export class GestionDescargoComponent implements OnInit {
       this.estado = data.estadoingreso;
       this.tipoadqui = data.tipoadquicicion;
       this.valor = data.valor;
+     // this.valoractual = data.valoractual;
+      //this.depreciacion = data.depreciacion;
       this.motivo = data.nombredescargo;
       this.responsable = data.responsable;
       //console.log(id);
