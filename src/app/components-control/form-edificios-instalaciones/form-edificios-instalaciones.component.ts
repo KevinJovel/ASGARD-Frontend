@@ -25,6 +25,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
   sucursal: FormGroup;
   clasificacion: FormGroup;
   display = 'none';
+  display3 = 'none'; //para ayuda
   displayProveedor = 'none';
   displayClasificacion = 'none';
   displaySucursal = 'none';
@@ -791,6 +792,12 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
     this.controlService.comboSucursal().subscribe((data) => {
       this.sucursales = data;
     });
+  }
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
   }
 
 }
