@@ -16,6 +16,9 @@ export class CuadroControlComponent implements OnInit {
 
   //Variables  
   cuadros: any;
+  cuadroA:any;
+  cuadroE:any;
+  cuadroI:any;
   p: number = 1;
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
@@ -54,6 +57,10 @@ export class CuadroControlComponent implements OnInit {
           this.cuadros = data
           this.tablaMuebles = 'block';
         });
+        this.depreciacionService.CuadroControlExcel().subscribe(data=>{
+        this.cuadroA=data;
+        this.tablaMuebles = 'block';
+        });
       } else {
         Swal.fire({
           position: 'center',
@@ -85,6 +92,10 @@ export class CuadroControlComponent implements OnInit {
           this.cuadros = res
           this.tablaEdificios = 'block'
         });
+        this.depreciacionService.CuadroEdificiosExcel().subscribe(res => {
+          this.cuadroE = res
+          this.tablaEdificios = 'block'
+        });
         this.disabledFiltro = true;
         this.banderaBuscador = 2;
         break;
@@ -95,7 +106,10 @@ export class CuadroControlComponent implements OnInit {
           this.cuadros = res
           this.tablaIntengibles = 'block'
         });
-
+        this.depreciacionService.CuadroIntangiblesExcel().subscribe(res => {
+          this.cuadroI = res
+          this.tablaIntengibles = 'block'
+        });
         this.disabledFiltro = true;
         this.banderaBuscador = 3;
         break;
@@ -106,7 +120,15 @@ export class CuadroControlComponent implements OnInit {
 
   //Método para generar archivo
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.cuadros, 'Cuadro de Control');
+    this.excelService.exportAsExcelFile(this.cuadroA, 'Cuadro de Control-Bienes muebles');
+  }
+
+  exportarExcelEdi():void {
+    this.excelService.exportAsExcelFile(this.cuadroE, 'Cuadro de Control-Edificios e instalaciones');
+  }
+
+  exportarExcelIntan():void {
+    this.excelService.exportAsExcelFile(this.cuadroI, 'Cuadro de Control-Intangibles');
   }
 
   //Método para buscar

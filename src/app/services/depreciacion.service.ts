@@ -83,6 +83,19 @@ export class DepreciacionService {
     return this.http.get(environment.urlService  + "api/CuadroControl/listarCuadroIntangibles").map(res => res.json());
   }
 
+  //Servicio para los datos del archivo excel
+  public CuadroControlExcel() {
+    return this.http.get(environment.urlService  + "api/CuadroControl/DatosCuadroExcel").map(res => res.json());
+  }
+
+  public CuadroEdificiosExcel() {
+    return this.http.get(environment.urlService  + "api/CuadroControl/CuadroEdificiosExcel").map(res => res.json());
+  }
+
+  public CuadroIntangiblesExcel() {
+    return this.http.get(environment.urlService  + "api/CuadroControl/CuadroIntangiblesExcel").map(res => res.json());
+  }
+
   //Servicio para buscar en cuadro de control
   public buscarCuadro(buscador) {
     return this.http.get(environment.urlService  + "api/CuadroControl/buscarCuadro/" + buscador).map(res => res.json());
