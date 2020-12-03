@@ -18,6 +18,8 @@ export class ReportesCatalogosComponent implements OnInit {
   clasificaciones: any;
   idcla:any;
   combos: FormGroup;
+  display = 'none';
+  titulo: string;
 
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
     private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService) {
@@ -27,12 +29,20 @@ export class ReportesCatalogosComponent implements OnInit {
       'idclasificacion': new FormControl("0"),
       
     });
-
+  //  this.idcla = this.combos.controls['idclasificacion'].value;
     
    }
 
   ngOnInit(): void {
     this.catalogoService.comboClasificaciones().subscribe(data => { this.clasificaciones = data });
+    
+  }
+  close() {
+    this.display = 'none';
+  }
+  open(){
+    this.titulo = "Imprimir activos por clasificación";
+    this.display = 'block';
   }
 
   dowloadPDF() {
@@ -244,12 +254,12 @@ export class ReportesCatalogosComponent implements OnInit {
   }
 
   //reporte de activos según clasificación
-  reportesMantenimientoPdf(id) {
 
-    this.catalogoService.comboClasificaciones().subscribe(data => { this.clasificaciones = data });
-
-    this.idcla = this.combos.controls['idclasificacion'].value;
-
+  reportesClasificacionPdf(id) {
+    this.titulo = "Imprimir activos según clasificación";
+   this.idcla= this.combos.controls['idclasificacion'].value;
+  // this.idcla= id;
+  // console.log(this.idcla.value);
     this.http.get(environment.urlService+"api/ReportesSeguridad/activosclasificacionpdf/" + parseInt(this.idcla),{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
