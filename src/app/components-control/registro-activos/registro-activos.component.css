@@ -40,7 +40,20 @@ table {
     padding-bottom: 30px;
 
 }
-  
+.modal-lg {
+  width: 750px;
+  height:415px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+button{
+  margin: 0px 5px
+}
+
+.margin-left{
+  margin-left: 400px !important;
+}
   @keyframes modal {
     from {
       top: -330px;

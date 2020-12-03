@@ -34,6 +34,7 @@ export class RegistroActivosComponent implements OnInit {
   display2 = 'none';
   display3 = 'none';
   display4 = 'none';
+  display5 = 'none'; //para ayuda
   displayfoto = 'none';
   displayMensaje = 'none';
   //filtro combo
@@ -458,7 +459,12 @@ export class RegistroActivosComponent implements OnInit {
     this.nuevobien.controls["foto"].setValue("");
     this.display = 'block';
   }
-
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 
 }
 
