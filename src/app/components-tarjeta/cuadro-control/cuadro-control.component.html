@@ -20,8 +20,8 @@
         
                     <div class="row">
                       <div class="col-md-6">
-                        <label>Tipo activo</label>
-                        <select [attr.disabled]="disabledFiltroBotonAsignacion ? '' : null" class="form-control" (change)="CambiarTipo()" formControlName="idTipo">
+                        <label *ngIf="isAdmin">Tipo activo</label>
+                        <select *ngIf="isAdmin" [attr.disabled]="disabledFiltroBotonAsignacion ? '' : null" class="form-control" (change)="CambiarTipo()" formControlName="idTipo">
                           <option value="0">Seleccione</option>
                           <option [value]="1" >Bienes Muebles</option> 
                           <option [value]="2" >Edificios</option>

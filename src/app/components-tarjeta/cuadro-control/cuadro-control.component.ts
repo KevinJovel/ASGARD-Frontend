@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { UsuarioService } from './../../services/usuario.service';
+import { SeguridadService } from './../../services/seguridad.service';
 import { ExcelService } from './../../excel.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -16,9 +17,9 @@ export class CuadroControlComponent implements OnInit {
 
   //Variables  
   cuadros: any;
-  cuadroA:any;
-  cuadroE:any;
-  cuadroI:any;
+  cuadroA: any;
+  cuadroE: any;
+  cuadroI: any;
   p: number = 1;
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
@@ -31,9 +32,13 @@ export class CuadroControlComponent implements OnInit {
 
   //Variable para redireccionar
   parametro: string;
+  //variables para division
+  isAdmin: boolean = false;
+  tipoUsuario = sessionStorage.getItem("tipo");
+  idEmpleado = sessionStorage.getItem("empleado");
 
   constructor(private depreciacionService: DepreciacionService, private excelService: ExcelService, private activatedRoute: ActivatedRoute,
-    private controlService: ControlService,private usuarioService:UsuarioService) {
+    private controlService: ControlService, private usuarioService: UsuarioService, private seguridadService: SeguridadService) {
     this.combo = new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0"),
@@ -52,14 +57,23 @@ export class CuadroControlComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó el cuadro de control de activos.`).subscribe();
     this.controlService.validarActivosTransacciones().subscribe(res => {
       if (res == 1) {
+        if (this.tipoUsuario == "1") {
+          this.depreciacionService.getCuadroControl().subscribe(data => {
+            this.cuadros = data
+            this.tablaMuebles = 'block';
+          });
+        } else {
+          this.seguridadService.getCuadroJefe(this.idEmpleado).subscribe(data => {
+            this.cuadros = data
+            this.tablaMuebles = 'block';
+          });
+          this.banderaBuscador = 2;
+        }
         // this.depreciacionService.getCuadroControl().subscribe(data=> {this.cuadros=data});
-        this.depreciacionService.getCuadroControl().subscribe(data => {
-          this.cuadros = data
+
+        this.depreciacionService.CuadroControlExcel().subscribe(data => {
+          this.cuadroA = data;
           this.tablaMuebles = 'block';
-        });
-        this.depreciacionService.CuadroControlExcel().subscribe(data=>{
-        this.cuadroA=data;
-        this.tablaMuebles = 'block';
         });
       } else {
         Swal.fire({
@@ -123,22 +137,23 @@ export class CuadroControlComponent implements OnInit {
     this.excelService.exportAsExcelFile(this.cuadroA, 'Cuadro de Control-Bienes muebles');
   }
 
-  exportarExcelEdi():void {
+  exportarExcelEdi(): void {
     this.excelService.exportAsExcelFile(this.cuadroE, 'Cuadro de Control-Edificios e instalaciones');
   }
 
-  exportarExcelIntan():void {
+  exportarExcelIntan(): void {
     this.excelService.exportAsExcelFile(this.cuadroI, 'Cuadro de Control-Intangibles');
   }
 
   //Método para buscar
   buscar(buscador) {
     this.p = 1;
-    this.depreciacionService.buscarCuadro(buscador.value).subscribe(res => this.cuadros = res);
+    if (this.banderaBuscador == 1) {
+      this.depreciacionService.buscarCuadro(buscador.value).subscribe(res => this.cuadros = res);
+    } else {
+      this.seguridadService.BuscarCuadroJefe(this.idEmpleado, buscador.value).subscribe(res => this.cuadros = res);
+    }
   }
-
-
-
 }
 
 

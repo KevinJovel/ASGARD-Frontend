@@ -25,5 +25,10 @@ export class SeguridadService {
   public BuscarTablaTarjetaJefe(idJefe,buscador) {
     return this.http.get(environment.urlService + "api/Division/buscarActivosJefe/"+idJefe+"/" + buscador).map(res => res.json());
   }
-
+  public getCuadroJefe(idJefe) {
+    return this.http.get(environment.urlService + "api/CuadroControl/listarCuadroControlJefe/"+idJefe).map(res => res.json());
+  }
+  public BuscarCuadroJefe(idJefe,buscador) {
+    return this.http.get(environment.urlService + "api/CuadroControl/buscarCuadroJefe/"+idJefe+"/" + buscador).map(res => res.json());
+  }
 }
