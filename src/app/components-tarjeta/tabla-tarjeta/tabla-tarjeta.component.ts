@@ -3,6 +3,7 @@ import { CatalogosService } from './../../services/catalogos.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { UsuarioService } from './../../services/usuario.service';
+import { SeguridadService } from './../../services/seguridad.service';
 import { ControlService } from './../../services/control.service';
 import Swal from 'sweetalert2';
 @Component({
@@ -26,8 +27,10 @@ export class TablaTarjetaComponent implements OnInit {
   disabledFiltroBotonAsignacion: boolean;
   banderaBuscador: any = 1;//bandera para cambiar el buscador
   disabledFiltro: boolean;//Esta bandera sirve para inhabilitar los filtros en edificios e intangibles
-
-  constructor(private catalogosServices: CatalogosService, private depreciacionService: DepreciacionService, private controlService: ControlService, private usuarioService: UsuarioService) {
+  isAdmin: boolean = false;
+  tipoUsuario = sessionStorage.getItem("tipo");
+  idEmpleado = sessionStorage.getItem("empleado");
+  constructor(private catalogosServices: CatalogosService, private depreciacionService: DepreciacionService, private controlService: ControlService, private usuarioService: UsuarioService,private seguridadService:SeguridadService) {
     this.combos = new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0"),
@@ -38,11 +41,22 @@ export class TablaTarjetaComponent implements OnInit {
   ngOnInit(): void {
     this.controlService.validarActivosTransacciones().subscribe(res => {
       if (res == 1) {
-        this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
-        this.depreciacionService.TablaTarjeta().subscribe(data => {
+        if(this.tipoUsuario=="1"){
+          this.isAdmin=true;
+          this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
+          this.depreciacionService.TablaTarjeta().subscribe(data => {
+            this.bienes = data
+            this.tablaMuebles = 'block';
+          });
+        }else{
+        this.isAdmin=false;
+        this.seguridadService.getTarjetaJefe(this.idEmpleado).subscribe(data => {
           this.bienes = data
           this.tablaMuebles = 'block';
         });
+        this.banderaBuscador=4;
+        }
+       
       } else {
         Swal.fire({
           position: 'center',
@@ -107,7 +121,7 @@ export class TablaTarjetaComponent implements OnInit {
     this.combos.controls['idTipo'].setValue(0);
     this.tablaEdificios = 'none';
     this.tablaIntengibles = 'none';
-    this.depreciacionService.TablaDepreciacion().subscribe(data => {
+    this.depreciacionService.TablaTarjeta().subscribe(data => {
       this.bienes = data
       this.tablaMuebles = 'block';
       this.banderaBuscador = 1;
@@ -118,11 +132,13 @@ export class TablaTarjetaComponent implements OnInit {
   buscar(buscador) {
     this.p = 1;
     if (this.banderaBuscador == 1) {
-      this.depreciacionService.BuscarTablaDepreciacion(buscador.value).subscribe(res => { this.bienes = res });
+      this.depreciacionService.BuscarTablaTarjeta(buscador.value).subscribe(res => { this.bienes = res });
     } else if (this.banderaBuscador == 2) {
       this.controlService.buscarActivoEdificioAsig(buscador.value).subscribe(res => { this.bienes = res });
     } else if (this.banderaBuscador == 3) {
       this.controlService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => { this.bienes = res });
+    } else if (this.banderaBuscador == 4) {
+      this.seguridadService.BuscarTablaTarjetaJefe(this.idEmpleado,buscador.value).subscribe(res => { this.bienes = res });
     }
   }
   mostrarFoto(id) {

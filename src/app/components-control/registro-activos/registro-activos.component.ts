@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import { UsuarioService } from './../../services/usuario.service';
+import { SeguridadService } from './../../services/seguridad.service';
 import { CatalogosService } from './../../services/catalogos.service';//filtro
 import { Router, ActivatedRoute } from '@angular/router';
 import { State, StateService } from './../../services/state.service';//para compartir entre componentes
@@ -57,9 +58,12 @@ export class RegistroActivosComponent implements OnInit {
   ubicacion: string;
   provDon: string;
   Observaciones: string;
-
+  //variables para division de roles
+  isAdmin: boolean = false;
+  tipoUsuario = sessionStorage.getItem("tipo");
+  idEmpleado = sessionStorage.getItem("empleado");
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private stateService: StateService, private controlService: ControlService,
-    private catalogosServices: CatalogosService,private usuarioService:UsuarioService) {
+    private catalogosServices: CatalogosService, private usuarioService: UsuarioService, private seguridadService: SeguridadService) {
 
     this.combo = new FormGroup({
       'idArea': new FormControl("0"),
@@ -77,51 +81,66 @@ export class RegistroActivosComponent implements OnInit {
 
   ngOnInit() {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó el registro de activos.`).subscribe();
-    if (this.parametro == "ver") {
+
+    if (this.tipoUsuario == "1") {
+      this.isAdmin = true;
+      if (this.parametro == "ver") {
+        this.tablaMuebles = 'none';
+        this.tablaIntengibles = 'none';
+        this.tablaMueblesNoAsig = 'none';
+        this.tablaEdificios = 'none'
+        this.controlService.getBienesAsignados().subscribe(res => {
+          this.activos = res
+          this.tablaMuebles = 'block';
+        });
+        this.BtnAsinacion = "Ver no asignados"
+        this.banderaBuscador = 1;
+      } else if (this.parametro == "edificios") {
+        this.BtnAsinacion = "Ver asignados";
+        this.tablaMuebles = 'none';
+        this.tablaIntengibles = 'none';
+        this.tablaMueblesNoAsig = 'none';
+        this.controlService.getBienesAsignadosEdificios().subscribe(res => {
+          this.activos = res
+          this.tablaEdificios = 'block'
+        });
+        this.disabledFiltro = true;
+        this.banderaBuscador = 2;
+      } else if (this.parametro == "tangibles") {
+        this.BtnAsinacion = "Ver asignados";
+        this.tablaEdificios = 'none';
+        this.tablaIntengibles = 'none';
+        this.tablaMuebles = 'none';
+        this.controlService.getActivosSinAsignar().subscribe(res => {
+          this.activos = res
+          this.tablaMueblesNoAsig = 'block';
+          this.banderaBuscador = 4;
+        });
+        this.disabledFiltroBotonAsignacion = true;
+        this.BanderaAsignados = false;
+      } else if (this.parametro == "intangible") {
+        this.BtnAsinacion = "Ver asignados";
+        this.tablaEdificios = 'none'
+        this.tablaMuebles = 'none'
+        this.tablaMueblesNoAsig = 'none';
+        this.controlService.getBienesAsignadosIntengibles().subscribe(res => {
+          this.activos = res
+          this.tablaIntengibles = 'block'
+        });
+        this.disabledFiltro = true;
+        this.banderaBuscador = 3;
+      }
+    } else {
+      this.isAdmin = false;
       this.tablaMuebles = 'none';
       this.tablaIntengibles = 'none';
       this.tablaMueblesNoAsig = 'none';
       this.tablaEdificios = 'none'
-      this.controlService.getBienesAsignados().subscribe(res => {
+      this.seguridadService.getActivosJefe(this.idEmpleado).subscribe(res => {
         this.activos = res
         this.tablaMuebles = 'block';
       });
-      this.BtnAsinacion = "Ver no asignados"
-      this.banderaBuscador = 1;
-    } else if (this.parametro == "edificios") {
-      this.BtnAsinacion = "Ver asignados";
-      this.tablaMuebles = 'none';
-      this.tablaIntengibles = 'none';
-      this.tablaMueblesNoAsig = 'none';
-      this.controlService.getBienesAsignadosEdificios().subscribe(res => {
-        this.activos = res
-        this.tablaEdificios = 'block'
-      });
-      this.disabledFiltro = true;
-      this.banderaBuscador = 2;
-    } else if (this.parametro == "tangibles") {
-      this.BtnAsinacion = "Ver asignados";
-      this.tablaEdificios = 'none';
-      this.tablaIntengibles = 'none';
-      this.tablaMuebles = 'none';
-      this.controlService.getActivosSinAsignar().subscribe(res => {
-        this.activos = res
-        this.tablaMueblesNoAsig = 'block';
-        this.banderaBuscador = 4;
-      });
-      this.disabledFiltroBotonAsignacion = true;
-      this.BanderaAsignados = false;
-    } else if (this.parametro == "intangible") {
-      this.BtnAsinacion = "Ver asignados";
-      this.tablaEdificios = 'none'
-      this.tablaMuebles = 'none'
-      this.tablaMueblesNoAsig = 'none';
-      this.controlService.getBienesAsignadosIntengibles().subscribe(res => {
-        this.activos = res
-        this.tablaIntengibles = 'block'
-      });
-      this.disabledFiltro = true;
-      this.banderaBuscador = 3;
+      this.banderaBuscador = 5;
     }
     this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursal = data });//filtro  
   }
@@ -150,13 +169,24 @@ export class RegistroActivosComponent implements OnInit {
       case '3':
         this.tablaEdificios = 'none'
         this.tablaMuebles = 'none'
-        this.controlService.getBienesAsignadosIntengibles().subscribe(res => {
-          this.activos = res
-          this.tablaIntengibles = 'block'
-        });
+        if(this.tipoUsuario=="1"){
+          this.controlService.getBienesAsignadosIntengibles().subscribe(res => {
+            this.activos = res
+            this.tablaIntengibles = 'block'
+          });
+          this.disabledFiltro = true;
+          this.banderaBuscador = 3;
+        }else{
+          this.controlService.getBienesAsignadosIntengibles().subscribe(res => {
+            this.activos = res
+            this.tablaIntengibles = 'block'
+          });
+          this.disabledFiltro = true;
+          this.banderaBuscador = 3;
+        }
+      
 
-        this.disabledFiltro = true;
-        this.banderaBuscador = 3;
+       
         break;
       default:
         console.log("ocurrio un error en la consulta de datos");
@@ -208,11 +238,20 @@ export class RegistroActivosComponent implements OnInit {
     this.tablaMueblesNoAsig = 'none';
     this.tablaEdificios = 'none';
     this.tablaIntengibles = 'none';
-    this.controlService.getBienesAsignados().subscribe(res => {
-      this.activos = res
-      this.tablaMuebles = 'block';
-      this.banderaBuscador = 1;
-    });
+    if (this.tipoUsuario == "1") {
+      this.controlService.getBienesAsignados().subscribe(res => {
+        this.activos = res
+        this.tablaMuebles = 'block';
+        this.banderaBuscador = 1;
+      });
+    } else {
+      this.seguridadService.getActivosJefe(this.idEmpleado).subscribe(res => {
+        this.activos = res
+        this.tablaMuebles = 'block';
+        this.banderaBuscador = 1;
+      });
+    }
+
     this.disabledFiltroBotonAsignacion = false;
     this.BanderaAsignados = true
     this.disabledFiltro = false;
@@ -428,6 +467,10 @@ export class RegistroActivosComponent implements OnInit {
       this.controlService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => { this.activos = res });
     } else if (this.banderaBuscador == 4) {
       this.controlService.buscarActivoNoAsig(buscador.value).subscribe(res => { this.activos = res });
+    }
+    //buscadores en division de roles
+    else if (this.banderaBuscador == 5) {
+      this.seguridadService.buscarActivoAsigJefe(this.idEmpleado,buscador.value).subscribe(res => { this.activos = res });
     }
   }
 
