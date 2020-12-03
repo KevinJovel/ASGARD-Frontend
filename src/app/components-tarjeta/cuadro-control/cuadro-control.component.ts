@@ -58,11 +58,13 @@ export class CuadroControlComponent implements OnInit {
     this.controlService.validarActivosTransacciones().subscribe(res => {
       if (res == 1) {
         if (this.tipoUsuario == "1") {
+          this.isAdmin=true;
           this.depreciacionService.getCuadroControl().subscribe(data => {
             this.cuadros = data
             this.tablaMuebles = 'block';
           });
         } else {
+          this.isAdmin=false;
           this.seguridadService.getCuadroJefe(this.idEmpleado).subscribe(data => {
             this.cuadros = data
             this.tablaMuebles = 'block';
