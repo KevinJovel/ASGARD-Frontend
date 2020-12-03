@@ -34,6 +34,7 @@ export class FormNuevoBienComponent implements OnInit {
   sucursal: FormGroup;
   p: number = 1;
   display = 'none';
+  display3 = 'none'; //para ayuda
   displayProveedor = 'none';
   displayClasificacion = 'none';
   displayMarca = 'none';
@@ -803,6 +804,13 @@ export class FormNuevoBienComponent implements OnInit {
     });
 
     return promesa;
+  }
+  
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
   }
 
 
