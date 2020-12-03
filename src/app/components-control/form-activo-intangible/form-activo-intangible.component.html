@@ -24,9 +24,12 @@
      
           </div>
 
-          <div class="col-lg-3">
+          <div class="col-lg-3" >
             <button type="button" class="btn btn-success" (click)="cancelar()" >
                <i ></i> Cancelar </button> 
+
+               <button type="button" class="btn btn-warning margin-left" (click)="open3()" data-toggle="modal" data-target="#myModal2"><i
+                class="glyphicon glyphicon-question-sign"  ></i></button>
              
          </div>
              
@@ -819,6 +822,25 @@
             Cancelar</button>
         </form>
       </div>
+    </div>
+  </div>
+</div>
+
+<!--modal para ayuda con pdf-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"
+  [ngStyle]="{'display':display3}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">Ayuda</h4>
+      </div>
+      <div class="modal-body">
+        <div style="text-align: center;">
+<iframe src="assets/img/Imagenes/area.pdf" style="width:700px; height:415px;" frameborder="0"></iframe>
+</div>
+      </div>
+    
     </div>
   </div>
 </div>

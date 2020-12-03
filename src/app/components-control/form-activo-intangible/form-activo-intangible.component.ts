@@ -27,6 +27,7 @@ export class FormActivoIntangibleComponent implements OnInit {
   area: FormGroup;
   categorias: any;
   display = 'none';
+  display3 = 'none'; //para ayuda
   displayProveedor = 'none';
   displayClasificacion = 'none';
   displayArea = 'none';
@@ -784,6 +785,12 @@ export class FormActivoIntangibleComponent implements OnInit {
         });
     }
 
+  }
+  open3() { //para modal de ayuda
+    this.display3 = 'block';
+  }
+  close2() { //para modal de ayuda
+    this.display3 = "none";
   }
 
 }
