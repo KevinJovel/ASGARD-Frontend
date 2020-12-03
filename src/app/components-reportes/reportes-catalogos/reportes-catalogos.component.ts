@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http'
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
 import {environment} from '../../../environments/environment';
 import {saveAs} from 'file-saver/dist/FileSaver';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-reportes-catalogos',
@@ -14,14 +15,24 @@ import {saveAs} from 'file-saver/dist/FileSaver';
   styleUrls: ['./reportes-catalogos.component.css']
 })
 export class ReportesCatalogosComponent implements OnInit {
+  clasificaciones: any;
+  idcla:any;
+  combos: FormGroup;
 
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
     private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
+
+    this.combos = new FormGroup({
+      'idclasificacion': new FormControl("0"),
+      
+    });
+
     
    }
 
   ngOnInit(): void {
+    this.catalogoService.comboClasificaciones().subscribe(data => { this.clasificaciones = data });
   }
 
   dowloadPDF() {
@@ -232,6 +243,20 @@ export class ReportesCatalogosComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de traspasos.`).subscribe();
   }
 
+  //reporte de activos según clasificación
+  reportesMantenimientoPdf(id) {
+
+    this.catalogoService.comboClasificaciones().subscribe(data => { this.clasificaciones = data });
+
+    this.idcla = this.combos.controls['idclasificacion'].value;
+
+    this.http.get(environment.urlService+"api/ReportesSeguridad/activosclasificacionpdf/" + parseInt(this.idcla),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte activos según clasificiación.`).subscribe();
+  }
 
   
 

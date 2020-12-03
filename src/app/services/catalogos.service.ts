@@ -421,6 +421,11 @@ public validarTipoDescargo(idtipo, nombre){
 return this.http.get(environment.urlService  + "api/TipoDescargo/validarTipoDescargo/" + idtipo +"/"+ nombre).map(res => res.json());
 }
 
+//para listar el combo de clasificaciones en reportes
+public comboClasificaciones() {
+  return this.http.get(environment.urlService  + "api/ReportesSeguridad/comboClasificaciones").map(res => res.json());
+}
+
 }
 
 
