@@ -106,12 +106,12 @@ export class TablaInformeComponent implements OnInit {
 
   buscar(buscador) {
     this.p = 1;
-    if(this.baneraBuscador==1){
+    if (this.baneraBuscador == 1) {
       this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => { this.bienes = res });
-    }else{
-      this.seguridadService.BuscarBienEnMttoJefe(this.idEmpleado,buscador.value).subscribe(res => { this.bienes = res });
+    } else {
+      this.seguridadService.BuscarBienEnMttoJefe(this.idEmpleado, buscador.value).subscribe(res => { this.bienes = res });
     }
-  
+
   }
   public sinSignos(event: any) {
     const pattern = /^[a-zA-Z0-9]*$/;
@@ -130,18 +130,25 @@ export class TablaInformeComponent implements OnInit {
   guardarDatos() {
     this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res => {
       if (res == 1) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: '¡Informe guardado con éxito!',
-          showConfirmButton: false,
-          timer: 3000
-        });
-        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Realizó un informe de mantenimiento.`).subscribe();
-        this.display = 'none';
         this.mantenimientoService.cambiarEstadoActivoMantenimiento(this.informe.controls["idBien"].value).subscribe(rest => {
           if (rest == 1) {
-            this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(data => { this.bienes = data });
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '¡Informe guardado con éxito!',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Realizó un informe de mantenimiento.`).subscribe();
+            this.display = 'none';
+            if (this.tipoUsuario == "1") {
+              this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res => {
+                this.bienes = res;
+              });
+            } else {
+              this.baneraBuscador = 2;
+              this.seguridadService.getActivosEnMttoJefe(this.idEmpleado).subscribe(data => { this.bienes = data });
+            }
           }
         });
         var fecha = this.bienes.controls["fechainforme"].value.split("-");
@@ -159,8 +166,6 @@ export class TablaInformeComponent implements OnInit {
           timer: 3000
         })
       }
-
-
     });
     this.informe.controls["idinformematenimiento"].setValue("0");
     this.informe.controls["idmantenimiento"].setValue("");

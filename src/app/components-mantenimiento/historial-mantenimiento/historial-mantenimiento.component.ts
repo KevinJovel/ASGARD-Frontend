@@ -43,7 +43,10 @@ export class HistorialMantenimientoComponent implements OnInit {
   titulo3: string;
   bienid: any;
   idmante: any;
-
+  //variables de division de roles
+  isAdmin: boolean = false;
+  tipoUsuario = sessionStorage.getItem("tipo");
+  idEmpleado = sessionStorage.getItem("empleado");
   constructor(private catalogosServices: CatalogosService, private router: Router,private http:HttpClient, private depreciacionService: DepreciacionService, private mantenimientoService: MantenimientoService,private usuarioService:UsuarioService) {
     this.combos = new FormGroup({
       'idArea': new FormControl("0"),

@@ -196,7 +196,7 @@ import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.compo
       {path: 'form-solicitud-traspaso', component: FormSolicitudTraspasoComponent},
       {path: 'historial-solicitud-traspaso', component: HistorialSolicitudTraspasoComponent},
       {path: 'tabla-solicitud-traspaso', component: TablaSolicitudTraspasoComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent},
+      {path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent,canActivate: [SeguridadGuard]},
       {path: 'historial-mantenimiento', component: HistorialMantenimientoComponent},
       {path: 'tabla-informe', component: TablaInformeComponent},
       {path: 'tabla-solicitud', component: TablaSolicitudComponent,canActivate: [SeguridadGuard]},
