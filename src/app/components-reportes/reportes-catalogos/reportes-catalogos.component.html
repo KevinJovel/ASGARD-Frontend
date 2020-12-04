@@ -94,8 +94,11 @@
                                         <li class="dd-item" data-id="18">
                                             <div style="cursor:pointer" class="dd-handle" (click)="activosIntangiblesPDF()">Reporte de activos intangibles</div>
                                         </li>
-                                        <li class="dd-item" data-id="16">
+                                        <li class="dd-item" data-id="19">
                                             <div style="cursor:pointer" class="dd-handle" (click)="open()" >Reporte de activos por clasificación</div>
+                                        </li>
+                                        <li class="dd-item" data-id="20">
+                                            <div style="cursor:pointer" class="dd-handle" (click)="open3()" >Reporte de activos por marca</div>
                                         </li>
      
                             
@@ -185,11 +188,7 @@
                                     </ol>
                                    
                                 </li>
-                               
-                               <!-- <header class="panel-heading form-in-line">
-                                    <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
-                                        class="icon-plus-sign-alt"></i> Agregar nueva clasificación</button>
-                                  </header>-->
+                            
                             </ol>
                         </div>
                     </div>
@@ -202,6 +201,7 @@
         <!-- page end-->
     </section>
 
+     <!--INICIO DE MODAR DE REPORTE DE ACTIVOS SEGÚN CLASIFICACIONES-->
     <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
   class="modal" [ngStyle]="{'display':display}">
   <div class="modal-dialog" style="width:600px;">
@@ -234,6 +234,7 @@
     </div>
   </div>
 </div>
+<!--FIN DE MODAR DE REPORTE DE ACTIVOS SEGÚN MARCAS-->
 
 <!--Modal para empleados por área de negocio-->
 <div #basicModall aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
@@ -270,3 +271,38 @@ class="modall" [ngStyle]="{'display':display2}">
 </div>
 </div>
 <!--Fin modal para empleados por área de negocio-->
+
+ <!--INICIO DE MODAR DE REPORTE DE ACTIVOS SEGÚN MARCAS-->
+ <div #basicModal1 aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+ class="modal" [ngStyle]="{'display':display3}">
+ <div class="modal-dialog" style="width:600px;">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+       <h4 class="modal-title">{{titulo3}}</h4>
+     </div>
+     <div class="modal-body">
+       <form role="form" [formGroup]="combomarca">
+           <div class="form-group">
+               <input type="hidden" class="form-control" value="{{idmarca}}">
+           </div>
+           <div class="form-group col-md-6">
+               <select  class="form-control" formControlName="IdMarca" >
+                 <option value="0">--Seleccione--</option>
+                 <option [value]="marca.idMarca" *ngFor="let marca of marcas"> {{marca.marca}} </option>
+                
+               </select>
+           </div>
+           <div class="form-group col-md-3">
+               <button title="Imprimir reporte de activos de areá selecionada"  
+               class="btn btn-success" (click)="reportesMarcaPdf(idmarca)"><i class="icon-print"></i> Imprimir</button>
+           </div>
+       </form>
+       <br><br><br> <br><br><br>
+         <button type="button" (click)="close3()" class="btn btn-default"><i class="icon-remove-sign"></i>
+           Cerrar</button>
+     </div>
+   </div>
+ </div>
+</div>
+<!--FIN DE MODAR DE REPORTE DE ACTIVOS SEGÚN MARCAS-->
