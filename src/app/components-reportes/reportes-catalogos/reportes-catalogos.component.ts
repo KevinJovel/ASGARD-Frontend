@@ -16,10 +16,15 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ReportesCatalogosComponent implements OnInit {
   clasificaciones: any;
+  areas: any;
   idcla:any;
+  idArea:any;
   combos: FormGroup;
+  comboArea: FormGroup;
   display = 'none';
+  display2 = 'none';
   titulo: string;
+  titulo2: string;
 
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
     private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService) {
@@ -27,22 +32,34 @@ export class ReportesCatalogosComponent implements OnInit {
 
     this.combos = new FormGroup({
       'idclasificacion': new FormControl("0"),
-      
     });
   //  this.idcla = this.combos.controls['idclasificacion'].value;
+
+    this.comboArea = new FormGroup({
+      'idAreaNegocio': new FormControl("0"),
+    });
     
    }
 
   ngOnInit(): void {
     this.catalogoService.comboClasificaciones().subscribe(data => { this.clasificaciones = data });
+    this.catalogoService.listarAreaCombo().subscribe(data => {this.areas = data;});
     
   }
   close() {
     this.display = 'none';
   }
+  close2() {
+    this.display2 = 'none';
+    this.comboArea.controls['idAreaNegocio'].setValue("0");
+  }
   open(){
     this.titulo = "Imprimir activos por clasificación";
     this.display = 'block';
+  }
+  open2(){
+    this.titulo2 = "Imprimir empleados por área de negocio";
+    this.display2 = 'block';
   }
 
   dowloadPDF() {
@@ -106,6 +123,18 @@ export class ReportesCatalogosComponent implements OnInit {
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de empleados.`).subscribe();
+  }
+
+  empleadosPorClasificacionPdf(id) {
+   this.idArea= this.comboArea.controls['idAreaNegocio'].value;
+    this.http.get(environment.urlService+"api/Reporte/empleadosPorAreapdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+       //Para cerrar el modal y limpiar cuando genera el reporte
+       this.close2();
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
   }
 
   proveedoresPDF() {

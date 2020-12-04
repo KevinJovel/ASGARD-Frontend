@@ -37,7 +37,12 @@
                                     <div style="cursor:pointer" class="dd-handle"  (click)="cargosPDF()">Reporte de registro de cargos</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="empleadosPDF()">Reporte de registro de empleados</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle" (click)="empleadosPDF()">Reporte de registro de empleados</div>   
+                                    <ol class="dd-list">
+                                        <li class="dd-item" data-id="16">
+                                            <div style="cursor:pointer" class="dd-handle" (click)="open2()" data-toggle="modall" data-target="#myModal">Reporte de empleados por área de negocio</div>
+                                        </li>
+                                    </ol>                                
                                 </li> 
                                 <li class="dd-item" data-id="1">
                                     <div style="cursor:pointer" class="dd-handle" (click)="proveedoresPDF()">Reporte de registro de proveedores</div>                                   
@@ -229,3 +234,39 @@
     </div>
   </div>
 </div>
+
+<!--Modal para empleados por área de negocio-->
+<div #basicModall aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+class="modall" [ngStyle]="{'display':display2}">
+<div class="modal-dialog" style="width:425px;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+      <h4 class="modal-title">{{titulo2}}</h4>
+    </div>
+    <div class="modal-body">
+      <form role="form" [formGroup]="comboArea">
+          <div class="form-group">
+            <input type="hidden" class="form-control" value="{{idArea}}">
+          </div>
+          <div class="form-group col-md-8" style="margin-left: 70px;">
+              <select  class="form-control" formControlName="idAreaNegocio">
+                <option value="0">--Seleccione--</option>
+                <option [value]="area.idAreaNegocio" *ngFor="let area of areas"> {{area.nombre}}
+                </option>
+               
+              </select>
+          </div>
+          <div class="form-group col-md-4">
+            <button title="Imprimir reporte de empleados por área de negocio" style="margin-top: 41px; margin-left: 75px;"  
+            class="btn btn-success" (click)="empleadosPorClasificacionPdf(idArea)"><i class="icon-print"></i> Imprimir</button>
+        </div>
+      </form>
+      <br><br><br><br><br>
+        <button type="button" (click)="close2()" style="margin-left: 75px;" class="btn btn-default"><i class="icon-remove-sign"></i>
+          Cancelar</button>
+    </div>
+  </div>
+</div>
+</div>
+<!--Fin modal para empleados por área de negocio-->
