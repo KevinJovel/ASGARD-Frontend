@@ -16,8 +16,20 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ReportesCatalogosComponent implements OnInit {
   clasificaciones: any;
+  marcas: any;
+  areas: any;
   idcla:any;
+  idmarca:any;
+  idArea:any;
   combos: FormGroup;
+  combomarca: FormGroup;
+  comboArea: FormGroup;
+  display = 'none';
+  display2 = 'none';
+  display3= 'none';
+  titulo: string;
+  titulo2: string;
+  titulo3: string;
 
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
     private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService) {
@@ -25,14 +37,45 @@ export class ReportesCatalogosComponent implements OnInit {
 
     this.combos = new FormGroup({
       'idclasificacion': new FormControl("0"),
-      
     });
-
+    this.comboArea = new FormGroup({
+      'idAreaNegocio': new FormControl("0"),
+    });
+    this.combomarca = new FormGroup({
+      'IdMarca': new FormControl("0"),
+    });
     
    }
 
   ngOnInit(): void {
     this.catalogoService.comboClasificaciones().subscribe(data => { this.clasificaciones = data });
+    this.catalogoService.listarAreaCombo().subscribe(data => {this.areas = data;});
+    this.catalogoService.comboMarcas().subscribe(data => { this.marcas = data });
+    
+  }
+  close() {
+    this.display = 'none';
+    this.combos.controls['idclasificacion'].setValue("0");
+  }
+  close2() {
+    this.display2 = 'none';
+    this.comboArea.controls['idAreaNegocio'].setValue("0");
+  }
+  close3() {
+    this.display3 = 'none';
+    this.combomarca.controls['IdMarca'].setValue("0");
+  }
+  open(){
+    this.titulo = "Imprimir activos por clasificación";
+    this.display = 'block';
+  }
+  open2(){
+    this.titulo2 = "Imprimir empleados por área de negocio";
+    this.display2 = 'block';
+  }
+  open3(){
+    this.titulo3 = "Imprimir activos por marca";
+    this.display3 = 'block';
   }
 
   dowloadPDF() {
@@ -96,6 +139,18 @@ export class ReportesCatalogosComponent implements OnInit {
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de empleados.`).subscribe();
+  }
+
+  empleadosPorClasificacionPdf(id) {
+   this.idArea= this.comboArea.controls['idAreaNegocio'].value;
+    this.http.get(environment.urlService+"api/Reporte/empleadosPorAreapdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+       //Para cerrar el modal y limpiar cuando genera el reporte
+       this.close2();
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
   }
 
   proveedoresPDF() {
@@ -244,18 +299,24 @@ export class ReportesCatalogosComponent implements OnInit {
   }
 
   //reporte de activos según clasificación
-  reportesMantenimientoPdf(id) {
 
-    this.catalogoService.comboClasificaciones().subscribe(data => { this.clasificaciones = data });
-
-    this.idcla = this.combos.controls['idclasificacion'].value;
-
+  reportesClasificacionPdf(id) {
+   this.idcla= this.combos.controls['idclasificacion'].value;
     this.http.get(environment.urlService+"api/ReportesSeguridad/activosclasificacionpdf/" + parseInt(this.idcla),{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte activos según clasificiación.`).subscribe();
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de activos por clasificiación.`).subscribe();
+  }
+  reportesMarcaPdf(id) {
+   this.idmarca= this.combomarca.controls['IdMarca'].value;
+    this.http.get(environment.urlService+"api/ReportesSeguridad/activospormarcapdf/" + parseInt(this.idmarca),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de activos por marca.`).subscribe();
   }
 
   

@@ -426,6 +426,12 @@ public comboClasificaciones() {
   return this.http.get(environment.urlService  + "api/ReportesSeguridad/comboClasificaciones").map(res => res.json());
 }
 
+//para lista el combo de marcas en reportes
+public comboMarcas() {
+  return this.http.get(environment.urlService  + "api/ReportesSeguridad/comboMarcas").map(res => res.json());
+}
+
+
 }
 
 

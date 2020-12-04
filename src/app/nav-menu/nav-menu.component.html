@@ -31,7 +31,7 @@
         </a>
         <ul class="sub">
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-sucursal"]' (click)='collapse()'>Sucursales</a></li>
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-area-negocio"]' (click)='collapse()'>Áreas de Negocio</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-area-negocio"]' (click)='collapse()'>Áreas de negocio</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-categoria"]' (click)='collapse()'>Categorías</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-clasificacion"]' (click)='collapse()'>Clasificaciones</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-cargo"]' (click)='collapse()'>Cargos</a></li>
@@ -53,7 +53,7 @@
         <ul class="sub">
           <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/select-tipo-activo"]' (click)='collapse()'>Ingreso de nuevo activo</a></li>
           <li  [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/registro-activos/ver"]' (click)='collapse()'>Registros de activos</a></li>
-          <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-asignacion"]' (click)='collapse()'>Asignanción de activos</a></li>
+          <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-asignacion"]' (click)='collapse()'>Asignación de activos</a></li>
           <!-- <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-desasignacion"]' (click)='collapse()'>Desasignación de activos</a></li> -->
           <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" (click)='ValidarActivos()'>Depreciación</a></li>
           <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;"  [routerLink]='["/tabla-revalorizar"]' (click)='collapse()' >Revalorización</a></li>
