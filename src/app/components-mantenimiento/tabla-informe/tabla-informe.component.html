@@ -3,11 +3,12 @@
   <h1>Activos en mantenimiento</h1>
 
   <div class="row">
- 
+
     <div class="col-lg-9">
     </div>
     <div class="col-md-3">
-      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre (keyup)="buscar(nombre)"  placeholder="Buscar">
+      <input type="search" style="margin-top: 15px; padding-left: 30px;" class="form-control" #nombre
+        (keyup)="buscar(nombre)" placeholder="Buscar">
     </div>
   </div>
 
@@ -15,20 +16,20 @@
     <div class="col-lg-12">
       <section class="panel panel-default">
 
-     
+
         <div class="panel-body">
           <div class="adv-table">
             <div class="adv-table">
               <table class="display table table-bordered table-striped">
                 <thead>
                   <tr>
-				   
-      <th scope="row">N°</th>  
-		  <th scope="row">Código</th>
-		  <th scope="row">Descripción</th>
-		  <th scope="row">Razones de mantenimiento</th>
-		  <th scope="row">Periodo de mantenimiento</th>
-      <th class="hidden-phone">Realizar informe</th>
+
+                    <th scope="row">N°</th>
+                    <th scope="row">Código</th>
+                    <th scope="row">Descripción</th>
+                    <th scope="row">Razones de mantenimiento</th>
+                    <th scope="row">Periodo de mantenimiento</th>
+                    <th class="hidden-phone">Realizar informe</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -38,16 +39,16 @@
                     <td>{{bien.descripcion}}</td>
                     <td>{{bien.razon}}</td>
                     <td>{{bien.periodo}}</td>
-              
-			
-                   
                     <td class="center hidden-phone">
-                      <button class="btn btn-primary btn-xs" id="clear"  (click)="open(bien.idmantenimiento,bien.idBien,bien.fechacadena)" ><i class="icon-file-text"></i></button>
-                     </td>
+                      <button class="btn btn-primary btn-xs" id="clear"
+                        (click)="open(bien.idmantenimiento,bien.idBien,bien.fechacadena)"><i
+                          class="icon-file-text"></i></button>
+                    </td>
                   </tr>
                 </tbody>
               </table>
-              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente" class="my-cuadro"></pagination-controls>
+              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"
+                class="my-cuadro"></pagination-controls>
             </div>
           </div>
         </div>
@@ -55,8 +56,9 @@
     </div>
   </div>
 </section>
-    
-<div  aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display}">
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
+  [ngStyle]="{'display':display}">
   <div class="modal-dialog modal-lg" style="width:1000px;">
     <div class="modal-content">
       <div class="modal-header">
@@ -64,100 +66,109 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
-        <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="guardarDatos()">   
-          
-          <input type="hidden" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3" autocomplete="off">  
-         
+        <form class="form-inline" id="default" [formGroup]="informe" (ngSubmit)="guardarDatos()">
 
-         <input type="hidden" class="form-control" formControlName="idmantenimiento"> 
-         <input type="hidden" class="form-control" formControlName="idBien">
-       
-         
-         <div class="form-group col-md-6">
-          <label for="inputPassword4">* Fecha:</label>
-          <input type="date" formControlName="fechainforme" class="form-control" min="{{fechaMinima}}" max="{{fechaMaxima}}">
-        </div>
-          
-          
+          <input type="hidden" class="form-control" formControlName="idinformematenimiento" id="exampleInputEmail3"
+            autocomplete="off">
+
+
+          <input type="hidden" class="form-control" formControlName="idmantenimiento">
+          <input type="hidden" class="form-control" formControlName="idBien">
+
+
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">* Fecha:</label>
+            <input type="date" formControlName="fechainforme" class="form-control" min="{{fechaMinima}}"
+              max="{{fechaMaxima}}">
+          </div>
+
+
           <div class="form-group col-md-6">
             <label for="formGroupExampleInput2">* Costo de mano de obra ($):</label>
-            <input maxlength="7"  type="text" class="form-control" formControlName="costomo" id="inputEmail4"  ng-model="Property.Field1" placeholder="Ingrese costo de mano de obra" autocomplete="off">
+            <input maxlength="7" type="text" class="form-control" formControlName="costomo" id="inputEmail4"
+              ng-model="Property.Field1" placeholder="Ingrese costo de mano de obra" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleFormControlTextarea1" >* Técnico:</label>
-            <select class="form-control" formControlName="idtecnico"   id="exampleFormControlTextarea1"  maxlength="51">
-              <option value="">---Seleccione---</option>	
-              <option [value]="te.idtecnico" *ngFor="let te of tecnicos">{{te.nombre}}</option>	 
+            <label for="exampleFormControlTextarea1">* Técnico:</label>
+            <select class="form-control" formControlName="idtecnico" id="exampleFormControlTextarea1" maxlength="51">
+              <option value="">---Seleccione---</option>
+              <option [value]="te.idtecnico" *ngFor="let te of tecnicos">{{te.nombre}}</option>
             </select>
-            </div>
-           
-            <div class="form-group col-md-6">         
-              <label  for="exampleInputEmail1">* Costo de materiales ($):</label>
-              <input maxlength="7" type="text" class="form-control" formControlName="costomateriales" id="exampleInputEmail3" ng-model="Property.Field2"  placeholder="Ingrese costo de materiales" autocomplete="off">
-            </div>
-           
-            <div class="form-group col-md-6">
-              <label for="exampleFormControlTextarea2">* Descripción:</label>
-              <textarea  class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2" rows="1" placeholder="Ingrese descripción" autocomplete="off"  maxlength="101"></textarea>
-            </div>
-           
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="exampleInputEmail1">* Costo de materiales ($):</label>
+            <input maxlength="7" type="text" class="form-control" formControlName="costomateriales"
+              id="exampleInputEmail3" ng-model="Property.Field2" placeholder="Ingrese costo de materiales"
+              autocomplete="off">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="exampleFormControlTextarea2">* Descripción:</label>
+            <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2"
+              rows="1" placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
+          </div>
 
 
-        <div>
-          <br><br> <br><br> <br> 
-        </div>
-        <div>
-          <br><br> <br><br> <br> 
-        </div>
-        <div>
-          <br><br> <br><br><br> 
-        </div>
-         <!-- Validacion de pattern no acepta caracteres especiales -->
-  <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['descripcion'].errors?.pattern">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
-  </div>
-  <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['costomateriales'].errors?.pattern">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Error!</strong> El campo costo de manteriales solo acepta números.
-  </div>
-  <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['costomo'].errors?.pattern">
-    <button data-dismiss="alert" class="close close-sm" type="button">
-      <i class="icon-remove"></i>
-    </button>
-    <strong>¡Error!</strong> El campo costo de mano de obra solo acepta números.
-  </div>
-        <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['descripcion'].errors?.maxlength">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
-        </div>
-       
-  
-        <div class="alert alert-warning fade in" *ngIf="!informe.valid&&!informe.controls['descripcion'].errors?.maxlength">
-          <button data-dismiss="alert" class="close close-sm" type="button">
-            <i class="icon-remove"></i>
-          </button>
-          <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
-        </div>
-    
-    <div class="alert alert-success fade in" *ngIf="informe.valid">
-      <button data-dismiss="alert" class="close close-sm" type="button">
-        <i class="icon-remove"></i>
-      </button>
-      <strong>¡Exelente!</strong> Datos ingresados correctamente.
-    </div>
+
           <div>
-          <button type="submit" [disabled]="!informe.valid" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>
-          <button type="button"  (click)="close()" class="btn btn-default"><i class="icon-remove"></i> Cerrar</button>
+            <br><br> <br><br> <br>
+          </div>
+          <div>
+            <br><br> <br><br> <br>
+          </div>
+          <div>
+            <br><br> <br><br><br>
+          </div>
+          <!-- Validacion de pattern no acepta caracteres especiales -->
+          <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['descripcion'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="informe.controls['costomateriales'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo costo de manteriales solo acepta números.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['costomo'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo costo de mano de obra solo acepta números.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="informe.controls['descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
+          </div>
+
+
+          <div class="alert alert-warning fade in"
+            *ngIf="!informe.valid&&!informe.controls['descripcion'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
+          </div>
+
+          <div class="alert alert-success fade in" *ngIf="informe.valid">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+          </div>
+          <div>
+            <button type="submit" [disabled]="!informe.valid" class="btn btn-primary"><i class="icon-save"></i>
+              Guardar</button>
+            <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove"></i> Cerrar</button>
           </div>
         </form>
       </div>
     </div>
-   </div>
- </div>
+  </div>
+</div>

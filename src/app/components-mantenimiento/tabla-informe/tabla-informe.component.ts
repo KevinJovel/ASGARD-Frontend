@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import { UsuarioService } from './../../services/usuario.service';
+import { SeguridadService } from './../../services/seguridad.service';
 import { ControlService } from './../../services/control.service';
 
 @Component({
@@ -29,9 +30,13 @@ export class TablaInformeComponent implements OnInit {
   costototal: any;
   fechaMaxima: any;
   fechaMinima: any;
+  baneraBuscador: number = 1;
   // fecha = Date.now();
-
-  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService, private router: Router, private usuarioService: UsuarioService) {
+  //variables para division
+  isAdmin: boolean = false;
+  tipoUsuario = sessionStorage.getItem("tipo");
+  idEmpleado = sessionStorage.getItem("empleado");
+  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService, private router: Router, private usuarioService: UsuarioService, private seguridadService: SeguridadService) {
     this.informe = new FormGroup({
       'idinformematenimiento': new FormControl("0"),
       'idmantenimiento': new FormControl("0"),
@@ -49,9 +54,14 @@ export class TablaInformeComponent implements OnInit {
     this.mantenimientoService.validarActivosEnMantenimiento().subscribe(res => {
       if (res == 1) {
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó los activos en mantenimiento.`).subscribe();
-        this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res => {
-          this.bienes = res;
-        });
+        if (this.tipoUsuario == "1") {
+          this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res => {
+            this.bienes = res;
+          });
+        } else {
+          this.baneraBuscador = 2;
+          this.seguridadService.getActivosEnMttoJefe(this.idEmpleado).subscribe(data => { this.bienes = data });
+        }
         this.mantenimientoService.listarTecnicoCombo().subscribe(data => {
           this.tecnicos = data;
         });
@@ -68,7 +78,9 @@ export class TablaInformeComponent implements OnInit {
     })
   }
   open(id, idbien, fecha) {
-    // alert(id);
+    alert(id);
+    alert(idbien);
+    alert(fecha);
     this.informe.controls["fechainforme"].setValue(fecha);
     var fecharecup = this.informe.controls["fechainforme"].value.split("-");
     let dia = fecharecup[0];
@@ -87,14 +99,19 @@ export class TablaInformeComponent implements OnInit {
     this.informe.controls["descripcion"].setValue("");
     this.informe.controls["costomateriales"].setValue("");
     this.informe.controls["costomo"].setValue("");
-    this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res => {
-      this.bienes = res;
-    });
+    // this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res => {
+    //   this.bienes = res;
+    // });
   }
 
   buscar(buscador) {
     this.p = 1;
-    this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => { this.bienes = res });
+    if(this.baneraBuscador==1){
+      this.mantenimientoService.buscarBienesMante(buscador.value).subscribe(res => { this.bienes = res });
+    }else{
+      this.seguridadService.BuscarBienEnMttoJefe(this.idEmpleado,buscador.value).subscribe(res => { this.bienes = res });
+    }
+  
   }
   public sinSignos(event: any) {
     const pattern = /^[a-zA-Z0-9]*$/;
@@ -154,7 +171,7 @@ export class TablaInformeComponent implements OnInit {
     this.informe.controls["costomo"].setValue("");
     this.display = 'none';
     this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res => {
-    this.bienes = res;
+      this.bienes = res;
     });
 
   }
