@@ -3,6 +3,7 @@ import { MantenimientoService } from './../../services/mantenimiento.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import { UsuarioService } from './../../services/usuario.service';
+import { SeguridadService } from './../../services/seguridad.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
@@ -31,8 +32,13 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   // fecha = Date.now();
   anio: string;
   yaHayDatos: boolean = false;
+  baneraBuscador: number = 1;
+  //variables para division
+  isAdmin: boolean = false;
+  tipoUsuario = sessionStorage.getItem("tipo");
+  idEmpleado = sessionStorage.getItem("empleado");
 
-  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService, private router: Router, private usuarioService: UsuarioService) {
+  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService, private router: Router, private usuarioService: UsuarioService,private seguridadService:SeguridadService) {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
       'folio': new FormControl("", [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")], this.noRepetirFolio.bind(this)),
@@ -53,10 +59,14 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
     //METODO PARA TABLA VACIA
     this.mantenimientoService.validarActivosParaMantenimiento().subscribe(res => {
       if (res == 1) {
-        this.mantenimientoService.getBienes().subscribe(data => { this.bienes = data });
-        this.mantenimientoService.listarCodigoCombo().subscribe(data => {
-          this.codigos = data;
-        });
+        if(this.tipoUsuario=="1"){
+          this.mantenimientoService.getBienes().subscribe(data => { this.bienes = data });
+          this.mantenimientoService.listarCodigoCombo().subscribe(data => {
+            this.codigos = data;
+          });
+        }else{
+          this.seguridadService.getActivosSoliMttoJefe(this.idEmpleado).subscribe(data => { this.bienes = data });
+        }
       } else {
         Swal.fire({
           position: 'center',
@@ -100,9 +110,13 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
 
   //Metodo auxiliar para aegurarse que cargue los datos nuevos
   validarDatosEnArray() {
-    this.mantenimientoService.getBienes().subscribe(data => {
-      this.bienes = data;
-    });
+    if(this.tipoUsuario=="1"){
+      this.baneraBuscador=1;
+      this.mantenimientoService.getBienes().subscribe(data => { this.bienes = data });
+    }else{
+      this.baneraBuscador=2;
+      this.seguridadService.getActivosSoliMttoJefe(this.idEmpleado).subscribe(data => { this.bienes = data });
+    }
   }
   //abre el modal con los datos
   open2() {
@@ -171,7 +185,12 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
 
   buscar(buscador) {
     this.p = 1;
-    this.mantenimientoService.buscarBienescodigo(buscador.value).subscribe(res => { this.bienes = res });
+    if(this.baneraBuscador==1){
+      this.mantenimientoService.buscarBienescodigo(buscador.value).subscribe(res => { this.bienes = res });
+    }else{
+      this.seguridadService.BuscarBienMttoJefe(this.idEmpleado,buscador.value).subscribe(res => { this.bienes = res });
+    }
+
   }
 
   guardarDatos() {
