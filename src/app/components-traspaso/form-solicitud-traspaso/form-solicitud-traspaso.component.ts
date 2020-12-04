@@ -8,7 +8,9 @@ import Swal from 'sweetalert2';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ControlService } from './../../services/control.service';
 import { TraspasoService } from 'src/app/services/traspaso.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { SeguridadService } from 'src/app/services/seguridad.service';
+import { SafeSubscriber } from 'rxjs/internal/Subscriber';
+
 
 
 //para la fecha actual
@@ -33,10 +35,13 @@ export class FormSolicitudTraspasoComponent implements OnInit {
  fechaMaxima: any;
  fechaMinima: any;
  empleados: any;
- 
-
+ //variables para division
+ isAdmin: boolean = false;
+ tipoUsuario = sessionStorage.getItem("tipo");
+ idEmpleado = sessionStorage.getItem("empleado");
+banderaBuscador:number=1;
   constructor(private router: Router, private activateRoute: ActivatedRoute,private controlService:ControlService, private bajaService:BajaService
-    ,private catalogosServices: CatalogosService, private TraspasoService: TraspasoService,private usuarioService:UsuarioService) 
+    ,private catalogosServices: CatalogosService, private TraspasoService: TraspasoService,private usuarioService:UsuarioService,private seguridadService:SeguridadService) 
   {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -55,37 +60,34 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   }
 
    ngOnInit() {
-    this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
-    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
-   // this.catalogosServices.getTipoDescargo().subscribe(data=>{this.descargo=data});//combo
-    //listar en solicitud (empleados y area de negocio)
- //   this.TraspasoService.listarEmpleadosCombo().subscribe(res => { this.empleados = res });
-    this.TraspasoService.listarAreaCombo().subscribe(res =>{this.areas=res});
-
-     //Método para recuperar año
-   this.controlService.mostrarAnio().subscribe((res)=> {
-    this.fechaMaxima=`${res.anio}-12-31`;
-    this.fechaMinima=`${(res.anio).toString()}-01-01`;
-  });
+     if(this.tipoUsuario=="1"){
+      this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
+      this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
+      this.TraspasoService.listarAreaCombo().subscribe(res =>{this.areas=res});
+      this.isAdmin=true;
+      this.banderaBuscador==1;
+     }else{
+      this.seguridadService.getActivosTraspasoJefe(this.idEmpleado).subscribe(res => { this.activos = res });
+      this.isAdmin=false;
+      this.banderaBuscador=2;
+    }
+     this.controlService.mostrarAnio().subscribe((res)=> {
+      this.fechaMaxima=`${res.anio}-12-31`;
+      this.fechaMinima=`${(res.anio).toString()}-01-01`;
+    });
   }
 
   guardarDatos(){
-    // console.log("solicitud : "+this.solicitud.value.idTipo);
-     if (this.solicitud.valid == true) {
-       
+     if (this.solicitud.valid == true) {    
        this.TraspasoService.guardarSolicitudTraspaso(this.solicitud.value).subscribe(data => { 
-         //console.log("solicitud : "+this.solicitud);
          if(data==1){
          this.TraspasoService.cambiarEstadoSolicitud(this.solicitud.value).subscribe(data => {
-            //listar bienes 
            this.TraspasoService.listarActivosAsignados().subscribe(res=>{ this.activos=res });
          });
          this.display = 'none';
-        }//cierre del iff
+        }
        });
-   //  });
-     
-   
+ 
        Swal.fire({
          position: 'center',
          icon: 'success',
@@ -94,8 +96,6 @@ export class FormSolicitudTraspasoComponent implements OnInit {
          timer: 3000
        });
        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Realizó una solicitud de traspaso de activo.`).subscribe();
-      // this.solicitud.reset()
-      
      }else{
       Swal.fire({
         icon: 'error',
@@ -142,21 +142,20 @@ export class FormSolicitudTraspasoComponent implements OnInit {
    this.solicitud.controls["nuevoresponsable"].setValue("");
    this.solicitud.controls["nuevaarea"].setValue("");
    this.solicitud.controls["idbien"].setValue(id);
-
-   //para nuevo responsable y area 
    this.solicitud.controls["idresponsable"].setValue(idempleado);
    this.solicitud.controls["areaanterior"].setValue(areadenegocio);
    this.solicitud.controls["responsableanterior"].setValue(responsable);
-   
-   //this.solicitud.controls["areadenegocio"].setValue(areadenegocio);
-   //para listar el area
-   //this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
    this.display = 'block';
   }
   
   buscar(buscador) {
     this.p = 1;
-   this.bajaService.buscarBienAsig(buscador.value).subscribe(res => { this.activos = res });
+    if(this.banderaBuscador==1){
+      this.bajaService.buscarBienAsig(buscador.value).subscribe(res => { this.activos = res });
+    }else{
+      this.seguridadService.BuscarBienTraspasoJefe(this.idEmpleado,buscador.value).subscribe(res => { this.activos = res });
+    }
+
    }
  
   FiltrarArea(){

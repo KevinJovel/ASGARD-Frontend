@@ -72,10 +72,12 @@ export class HistorialMantenimientoComponent implements OnInit {
           this.mantenimientoService.listarActivosHistorial().subscribe(data => { this.bienes = data });
           this.banderaBuscador = 1;
           this.isAdmin=true;
+          this.banderaBuscador=1;
         } else {
           this.seguridadService.getHisorialMttoJefe(this.idEmpleado).subscribe(data => { this.bienes = data });
           this.banderaBuscador = 2;
           this.isAdmin=false;
+          this.banderaBuscador=2;
         }
       } else {
         Swal.fire({

@@ -1,10 +1,8 @@
 <br><br><br><br>
 <section class="panel">
-  <h1>Registro de activos</h1>
+  <h1>Nueva solicitud</h1>
     <div class="row">
       <div class="col-lg-16">
-      
-        
         <section class="panel panel-default">
           <div class="form-row">
             <form class="form-inline" id="default" [formGroup]="solicitud">
@@ -12,8 +10,8 @@
   
                 <div class="form-group col-md-3">
                   <br>
-                  <label for="inputPassword4">Sucursal</label>
-                  <select class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
+                  <label *ngIf="isAdmin">Sucursal</label>
+                  <select *ngIf="isAdmin" class="form-control" (change)="FiltrarArea()" formControlName="idSucursal">
                     <option value="0">Seleccione</option>
                     <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursal">{{sucursal.nombre+" , "+sucursal.ubicacion}}</option>	
                   </select>
@@ -21,15 +19,15 @@
   
                 <div class="form-group col-md-3">
                   <br>
-                  <label for="inputPassword4">Área de negocio</label>
-                  <select id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
+                  <label *ngIf="isAdmin">Área de negocio</label>
+                  <select *ngIf="isAdmin" id="inputState" class="form-control" formControlName="idArea" (change)="Filtrar()">
                     <option value="0" selected>Seleccione</option>
                     <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
                   </select> 
                 </div>
                 <div class="form-group col-md-1">
                   <br>
-                <button title="Recargar datos" style="margin-top: 24px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>                 
+                <button *ngIf="isAdmin" title="Recargar datos" style="margin-top: 24px;" class="btn btn-success" (click)="Reload()"><i class="glyphicon glyphicon-refresh"></i></button>                 
                 </div>
 
                 <div class="form-group col-md-2">
