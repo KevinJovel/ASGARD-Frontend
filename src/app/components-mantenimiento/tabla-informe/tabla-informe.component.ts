@@ -78,9 +78,9 @@ export class TablaInformeComponent implements OnInit {
     })
   }
   open(id, idbien, fecha) {
-    alert(id);
-    alert(idbien);
-    alert(fecha);
+    // alert(id);
+    // alert(idbien);
+    // alert(fecha);
     this.informe.controls["fechainforme"].setValue(fecha);
     var fecharecup = this.informe.controls["fechainforme"].value.split("-");
     let dia = fecharecup[0];

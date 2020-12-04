@@ -43,4 +43,10 @@ export class SeguridadService {
   public BuscarBienEnMttoJefe(idJefe,buscador) {
     return this.http.get(environment.urlService + "api/Division/buscarBienesEnManteJefe/"+idJefe+"/" + buscador).map(res => res.json());
   }
+  public getHisorialMttoJefe(idJefe) {
+    return this.http.get(environment.urlService + "api/Division/listarActivosHistorialJefe/"+idJefe).map(res => res.json());
+  }
+  public BuscarBienEnHotorialMttoJefe(idJefe,buscador) {
+    return this.http.get(environment.urlService + "api/Division/buscarActivoHistorialJefe/"+idJefe+"/" + buscador).map(res => res.json());
+  }
 }
