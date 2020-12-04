@@ -14,6 +14,7 @@ import { ControlService } from './../../services/control.service';
 })
 export class TablaInformeComponent implements OnInit {
   solicitudes: any;
+ 
   bienes: any;
   Phone: any;
   tecnicos: any;
@@ -31,6 +32,7 @@ export class TablaInformeComponent implements OnInit {
   fechaMaxima: any;
   fechaMinima: any;
   baneraBuscador: number = 1;
+  
   // fecha = Date.now();
   //variables para division
   isAdmin: boolean = false;
@@ -127,6 +129,8 @@ export class TablaInformeComponent implements OnInit {
 
     }
   }
+
+
   guardarDatos() {
     this.mantenimientoService.guardarInformeMantenimiento(this.informe.value).subscribe(res => {
       if (res == 1) {

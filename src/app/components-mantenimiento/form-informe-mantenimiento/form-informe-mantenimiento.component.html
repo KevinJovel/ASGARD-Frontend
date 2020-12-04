@@ -47,10 +47,6 @@
                     <td>$ {{informe.costototal}}</td>
                     <td>{{informe.descripcion}}</td>
 
-
-
-
-
                     <td class="center hidden-phone">
                       <button class="btn btn-primary btn-xs" id="clear" title="Revalorizar"
                         (click)="open(informe.idBien,informe.idinformematenimiento,informe.vidautil,informe.fechacadena)"><i
@@ -94,8 +90,9 @@ class="modal" [ngStyle]="{'display':display}">
             <!--Aqui va la recuperación de vida util-->
             <div class="form-group col-md-6">
               <label for="formGroupExampleInput2"> Vida útil:</label>
-              <input #vida type="text" class="form-control" (keyup)="validarVidaUtil(vida)" formControlName="vidaUtil" maxlength="2"  id="inputEmail4" autocomplete="off">
+              <input #vida type="text" class="form-control" (keyup)="validarVidaUtil(vida)"  formControlName="vidaUtil" maxlength="2"  id="inputEmail4" autocomplete="off">
             </div>
+
           
             <br><br> <br><br> <br>
           

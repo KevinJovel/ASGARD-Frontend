@@ -25,6 +25,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
   display = 'none';
   titulo: string;
   idmante: any;
+  sumador: any=0;
   //fecha = Date.now();
   c: number = 0;
   variableNumero: number = 0;
@@ -32,6 +33,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
   vidaUtilCierta: boolean = false;
   fechaMaxima: any;
   fechaMinima: any;
+  vidautil: any;
 
   constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService, private router: Router, private usuarioService: UsuarioService) {
 
@@ -63,16 +65,18 @@ export class FormInformeMantenimientoComponent implements OnInit {
       }
     })
   }
-  validarVidaUtil(vida) {
+ validarVidaUtil(vida) {
+   console.log(this.revalorizacion.controls["vidaUtil"].value);
     var id = this.revalorizacion.controls["idBien"].value;
     this.controlService.getVidaUtil(id).subscribe(data => {
-      if (vida.value > 0 && vida.value < data.vidaUtil || vida.value < this.revalorizacion.controls["vidaUtil"].value) {
+      if (vida.value > 0 && vida.value < data.vidaUtil || vida.value > 0 && vida.value < data.realvidautil) {
         this.vidaUtilCorrecta = true;
       } else {
         this.vidaUtilCorrecta = false;
       }
     });
   }
+
 
   open(idBien, idinformematenimiento, vidtUtil, fecha) {
     // alert(id);
@@ -103,7 +107,13 @@ export class FormInformeMantenimientoComponent implements OnInit {
       this.display = 'block';
     });
   }
+ 
+ contador() {
 
+  this.sumador  = this.sumador + 1;
+  this.revalorizacion.controls["vidaUtil"].get =  this.sumador;
+}
+  
 
   buscar(buscador) {
     this.p = 1;

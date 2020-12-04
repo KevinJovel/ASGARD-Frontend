@@ -215,7 +215,7 @@ export class TablaRevalorizarComponent implements OnInit {
   validarVidaUtil(vida) {
     var id = this.revalorizacion.controls["idBien"].value;
     this.controlService.getVidaUtil(id).subscribe(data => {
-      if (vida.value > 0 && vida.value < data.vidaUtil) {
+      if (vida.value > 0 && vida.value < data.vidaUtil || vida.value > 0 && vida.value < data.realvidautil) {
         this.vidaUtilCorrecta = true;
       } else {
         this.vidaUtilCorrecta = false;
