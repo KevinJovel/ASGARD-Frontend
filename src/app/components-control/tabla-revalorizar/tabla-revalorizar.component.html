@@ -6,8 +6,16 @@
   <div class="row">
     <div class="col-lg-14">
       <section class="panel panel-default">
-        <div class="form-row">
-          <h1>Revalorizaración</h1>
+        <div class="row">
+          <div class="col-lg-6">
+            <h1>Revalorización</h1>
+          </div>
+           <br>
+            <div class="col-lg-6">
+              <button type="button" class="btn btn-warning margin-left" (click)="open5()" data-toggle="modal" data-target="#myModal2"><i
+                class="glyphicon glyphicon-question-sign"></i></button>
+            </div>    
+       </div>
           <form class="form-inline" id="default" [formGroup]="combos">
             <div class="row">
              <div class="form-group col-md-3">
@@ -450,3 +458,22 @@ class="modal" [ngStyle]="{'display':display}">
             </div>
           </div>
         </div>
+
+        <!--modal para ayuda con pdf-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"
+[ngStyle]="{'display':display5}">
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close5()">×</button>
+      <h4 class="modal-title">Ayuda</h4>
+    </div>
+    <div class="modal-body">
+      <div style="text-align: center;">
+<iframe src="assets/img/Imagenes/Revalorización.pdf" style="width:700px; height:415px;" frameborder="0"></iframe>
+</div>
+    </div>
+  
+  </div>
+</div>
+</div>
