@@ -6,7 +6,7 @@ import { DepreciacionService } from './../../services/depreciacion.service';
 import { SeguridadService } from './../../services/seguridad.service';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import { TraspasoService } from 'src/app/services/traspaso.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
@@ -50,7 +50,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   tipoUsuario = sessionStorage.getItem("tipo");
   idEmpleado = sessionStorage.getItem("empleado");
   banderaBuscador: number = 1;
-  constructor(private catalogosServices: CatalogosService, private depreciacionService: DepreciacionService, private activateRoute: ActivatedRoute,
+  constructor(private router: Router,private catalogosServices: CatalogosService, private depreciacionService: DepreciacionService, private activateRoute: ActivatedRoute,
     private mantenimientoService: MantenimientoService, private http: HttpClient, private TraspasoService: TraspasoService, private usuarioService: UsuarioService,private seguridadService:SeguridadService) {
     this.combos = new FormGroup({
       'idArea': new FormControl("0"),
@@ -67,16 +67,32 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.tipoUsuario=="1"){
-      this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
-      this.mantenimientoService.listarActivosHistorial().subscribe(data => { this.bienes = data });
-      this.isAdmin=true;
-      this.banderaBuscador=1;
-   }else{
-     this.seguridadService.getHisorialMttoJefe(this.idEmpleado).subscribe(data => { this.bienes = data });
-     this.isAdmin=false;
-     this.banderaBuscador=2;
+  
+     //METODO PARA TABLA VACIA
+  this.TraspasoService.validarSolicitudTraspaso().subscribe(res => {
+    if (res == 1) {
+     // this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó las solicitudes de traspaso de activo.`).subscribe();
+      if(this.tipoUsuario=="1"){
+        this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
+        this.mantenimientoService.listarActivosHistorial().subscribe(data => { this.bienes = data });
+        this.isAdmin=true;
+        this.banderaBuscador=1;
+     }else{
+       this.seguridadService.getHisorialMttoJefe(this.idEmpleado).subscribe(data => { this.bienes = data });
+       this.isAdmin=false;
+       this.banderaBuscador=2;
+      }
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'No se encontraron activos en mantenimiento.',
+        showConfirmButton: false,
+        timer: 4000
+      });
+      this.router.navigate(["/"]);
     }
+  })
   
 
   }

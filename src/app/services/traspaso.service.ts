@@ -65,5 +65,14 @@ export class TraspasoService {
 public  historialSolicitudesTraspasos (idactivo){
   return this.http.get(environment.urlService + "api/SolicitudTraspaso/historialSolicitudesTraspasos/" + idactivo ).map(res=>res.json());
  }
-
+ public validarActivosAsignados(){
+  return this.http.get(environment.urlService + "api/SolicitudTraspaso/validarActivosAsignados"  ).map(res=>res.json());
+ } 
+ public validarSolicitudTraspaso(){
+  return this.http.get(environment.urlService + "api/SolicitudTraspaso/validarSolicitudTraspaso"  ).map(res=>res.json());
+ } 
+ public validarHistorialSolicitudesTraspasos(){
+  return this.http.get(environment.urlService + "api/SolicitudTraspaso/validarHistorialSolicitudesTraspasos"  ).map(res=>res.json());
+ } 
+ 
 }

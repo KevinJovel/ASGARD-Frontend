@@ -42,8 +42,23 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó las solicitudes de traspaso de activo.`).subscribe();
-    this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
+    //METODO PARA TABLA VACIA
+  this.TraspasoService.validarSolicitudTraspaso().subscribe(res => {
+    if (res == 1) {
+      this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó las solicitudes de traspaso de activo.`).subscribe();
+      this.TraspasoService.listarSolicitudTraspaso().subscribe(res=>{ this.solicitudesTraspasos=res });
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'No se encontraron activos en mantenimiento.',
+        showConfirmButton: false,
+        timer: 4000
+      });
+      this.router.navigate(["/"]);
+    }
+  })
+    
    
   }
 
