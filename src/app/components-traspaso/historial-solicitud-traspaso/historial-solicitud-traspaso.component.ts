@@ -69,7 +69,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   ngOnInit(): void {
   
      //METODO PARA TABLA VACIA
-  this.TraspasoService.validarSolicitudTraspaso().subscribe(res => {
+  this.TraspasoService.validarHistorialSolicitudesTraspasos().subscribe(res => {
     if (res == 1) {
      // this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó las solicitudes de traspaso de activo.`).subscribe();
       if(this.tipoUsuario=="1"){
