@@ -66,8 +66,6 @@ banderaBuscador:number=1;
      // this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó los activos en mantenimiento.`).subscribe();
      if(this.tipoUsuario=="1"){
       this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
-      this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
-      this.TraspasoService.listarAreaCombo().subscribe(res =>{this.areas=res});
       this.isAdmin=true;
       this.banderaBuscador==1;
      }else{
@@ -75,6 +73,8 @@ banderaBuscador:number=1;
       this.isAdmin=false;
       this.banderaBuscador=2;
     }
+    this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
+    this.TraspasoService.listarAreaCombo().subscribe(res =>{this.areas=res});
     } else {
       Swal.fire({
         position: 'center',
@@ -100,20 +100,29 @@ banderaBuscador:number=1;
        this.TraspasoService.guardarSolicitudTraspaso(this.solicitud.value).subscribe(data => { 
          if(data==1){
          this.TraspasoService.cambiarEstadoSolicitud(this.solicitud.value).subscribe(data => {
-           this.TraspasoService.listarActivosAsignados().subscribe(res=>{ this.activos=res });
+           if(data==1){
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Solicitud Guardada con éxito',
+              showConfirmButton: false,
+              timer: 3000
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Realizó una solicitud de traspaso de activo.`).subscribe();
+            if(this.tipoUsuario=="1"){
+              this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
+              this.isAdmin=true;
+              this.banderaBuscador==1;
+             }else{
+              this.seguridadService.getActivosTraspasoJefe(this.idEmpleado).subscribe(res => { this.activos = res });
+              this.isAdmin=false;
+              this.banderaBuscador=2;
+            }
+           }
          });
          this.display = 'none';
         }
        });
- 
-       Swal.fire({
-         position: 'center',
-         icon: 'success',
-         title: 'Solicitud Guardada con éxito',
-         showConfirmButton: false,
-         timer: 3000
-       });
-       this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Realizó una solicitud de traspaso de activo.`).subscribe();
      }else{
       Swal.fire({
         icon: 'error',

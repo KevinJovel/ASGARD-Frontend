@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 //para filtro de areas y sucursales
 import { CatalogosService } from './../../services/catalogos.service';
 import { UsuarioService } from './../../services/usuario.service';
-import { ControlService } from './../../services/control.service';
+import { SeguridadService } from './../../services/seguridad.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -40,9 +40,12 @@ export class GestionDescargoComponent implements OnInit {
   responsable: string; codigo: string; descripcion: string; folio: string; entidad: string;
   tipoadqui: string; color: string; estado: string; valor: string; valoractual: string; acuerdo: string; 
   motivo: string; depreciacion: string;
-
+ //variables para division
+ isAdmin: boolean = false;
+ tipoUsuario = sessionStorage.getItem("tipo");
+ idEmpleado = sessionStorage.getItem("empleado");
   constructor(private bajaService: BajaService, private catalogosServices: CatalogosService, private usuarioService: UsuarioService,
-    private controlService: ControlService, private router: Router, private activateRoute: ActivatedRoute,) {
+  private router: Router, private activateRoute: ActivatedRoute,private seguridadService:SeguridadService) {
     this.solicitud2 = new FormGroup({
       'idsolicitud': new FormControl("0"),
       //para filtro
@@ -61,10 +64,12 @@ export class GestionDescargoComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó el historial de baja de activos.`).subscribe()
     //METODO PARA TABLA VACIA
+    if(this.tipoUsuario=="1"){
+      this.isAdmin=true;
     this.bajaService.validarHistorialParaBaja().subscribe(res => {
       if (res == 1) {
-        this.bajaService.listarBienesAsignadosBajas().subscribe(res => { this.activo = res });
-        this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursal = data });//filtro
+          this.bajaService.listarBienesAsignadosBajas().subscribe(res => { this.activo = res });
+          this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursal = data });//filtro
       } else {
         Swal.fire({
           position: 'center',
@@ -75,7 +80,7 @@ export class GestionDescargoComponent implements OnInit {
         });
         this.router.navigate(["/"]);
       }
-    })
+    });
     if (this.parametro == "ver") {
       this.tablaMuebles = 'none';
       this.tablaIntengibles = 'none';
@@ -122,7 +127,18 @@ export class GestionDescargoComponent implements OnInit {
       this.disabledFiltro = true;
       this.banderaBuscador = 3;
     }
+  }else{
+    this.tablaMuebles = 'none';
+    this.tablaIntengibles = 'none';
+    this.tablaMueblesNoAsig = 'none';
+    this.tablaEdificios = 'none'
+    this.seguridadService.getHistorialBajaJefe(this.idEmpleado).subscribe(res => { this.activo = res 
+      this.tablaMuebles = 'block';
+    });
+    this.isAdmin=false;
+    this.banderaBuscador=5;
   }
+}
   close() {
     this.display = 'none';
   }
@@ -193,6 +209,8 @@ export class GestionDescargoComponent implements OnInit {
       this.bajaService.buscarActivoIntengibleAsigBajas(buscador.value).subscribe(res => { this.activo = res });
     } else if (this.banderaBuscador == 4) {
       this.bajaService.buscarActivoNoAsigBajas(buscador.value).subscribe(res => { this.activo = res });
+    }else if (this.banderaBuscador == 5) {
+      this.seguridadService.BuscarHistorialBajaJefe(this.idEmpleado,buscador.value).subscribe(res => { this.activo = res });
     }
   }
 

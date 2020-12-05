@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BajaService } from './../../services/baja.service';
 import { UsuarioService } from './../../services/usuario.service';
+import { SeguridadService } from './../../services/seguridad.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -46,8 +47,11 @@ export class CuadroSolicitudComponent implements OnInit {
   fechaMinima: any;
   //Variable para redireccionar
   parametro: string;
-
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService: BajaService
+ //variables para division de roles
+ isAdmin: boolean = false;
+ tipoUsuario = sessionStorage.getItem("tipo");
+ idEmpleado = sessionStorage.getItem("empleado");
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private bajaService: BajaService,private seguridadService:SeguridadService
     , private catalogosServices: CatalogosService, private miDatePipe: DatePipe, private controlService: ControlService, private usuarioService: UsuarioService) {
     this.solicitud = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -82,6 +86,8 @@ export class CuadroSolicitudComponent implements OnInit {
       this.fechaMaxima = `${res.anio}-12-31`;
       this.fechaMinima = `${(res.anio).toString()}-01-01`;
     });
+    if (this.tipoUsuario == "1") {
+      this.isAdmin = true;
     if (this.parametro == "ver") {
       this.tablaMuebles = 'none';
       this.tablaIntengibles = 'none';
@@ -127,8 +133,19 @@ export class CuadroSolicitudComponent implements OnInit {
       });
       this.disabledFiltro = true;
       this.banderaBuscador = 3;
-    }
+    } 
+  }else {
+    this.tablaMuebles = 'none';
+    this.tablaIntengibles = 'none';
+    this.tablaMueblesNoAsig = 'none';
+    this.tablaEdificios = 'none'
+    this.seguridadService.getActivosBajaJefe(this.idEmpleado).subscribe(res => {
+      this.activo = res
+      this.tablaMuebles = 'block';
+    });
+    this.banderaBuscador = 5;
   }
+}
 
   guardarDatos() {
     // console.log("solicitud : "+this.solicitud.value.idTipo);
@@ -150,18 +167,33 @@ export class CuadroSolicitudComponent implements OnInit {
               });
               this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Realizó una solicitud de baja de activos.`).subscribe();
               //
-              this.BtnAsinacion = "Ver asignados";
-              this.tablaEdificios = 'none';
-              this.tablaIntengibles = 'none';
-              this.tablaMuebles = 'none';
-              this.bajaService.listarBienesNoAsignados().subscribe(res => {
-                this.activo = res
-                this.tablaMueblesNoAsig = 'block';
-                this.banderaBuscador = 4;
-              });
-              this.disabledFiltroBotonAsignacion = true;
-              this.BanderaAsignados = false;
-              this.display = 'none';
+              if(this.tipoUsuario=="1"){
+                this.tablaMuebles = 'none';
+                this.tablaIntengibles = 'none';
+                this.tablaMueblesNoAsig = 'none';
+                this.tablaEdificios = 'none'
+                this.bajaService.listarBienesAsignados().subscribe(res => {
+                  this.activo = res
+                  this.tablaMuebles = 'block';
+                });
+                this.BtnAsinacion = "Ver no asignados"
+                this.banderaBuscador = 1;
+                this.disabledFiltroBotonAsignacion = true;
+                this.BanderaAsignados = false;
+                this.display = 'none';
+              }else{
+                this.tablaMuebles = 'none';
+                this.tablaIntengibles = 'none';
+                this.tablaMueblesNoAsig = 'none';
+                this.tablaEdificios = 'none'
+                this.seguridadService.getActivosBajaJefe(this.idEmpleado).subscribe(res => {
+                  this.activo = res
+                  this.tablaMuebles = 'block';
+                });
+                this.banderaBuscador = 5;
+                this.display = 'none';
+              }
+             
               //
             }
           });
@@ -221,6 +253,8 @@ export class CuadroSolicitudComponent implements OnInit {
       this.bajaService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => { this.activo = res });
     } else if (this.banderaBuscador == 4) {
       this.bajaService.buscarActivoNoAsig(buscador.value).subscribe(res => { this.activo = res });
+    }else if(this.banderaBuscador == 5){
+      this.seguridadService.BuscarBienBajaJefe(this.idEmpleado,buscador.value).subscribe(res => { this.activo = res });
     }
   }
 

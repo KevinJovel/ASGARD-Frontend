@@ -55,4 +55,17 @@ export class SeguridadService {
   public BuscarBienTraspasoJefe(idJefe,buscador) {
     return this.http.get(environment.urlService + "api/Division/buscarBienesTraspasojefe/"+idJefe+"/" + buscador).map(res => res.json());
   }
+  public getActivosBajaJefe(idJefe) {
+    return this.http.get(environment.urlService + "api/Division/listarBienesBajaJefe/"+idJefe).map(res => res.json());
+  }
+  public BuscarBienBajaJefe(idJefe,buscador) {
+    return this.http.get(environment.urlService + "api/Division/buscarActivosBajaJefe/"+idJefe+"/" + buscador).map(res => res.json());
+  }
+  public getHistorialBajaJefe(idJefe) {
+    return this.http.get(environment.urlService + "api/Division/listarhistorialBajas/"+idJefe).map(res => res.json());
+  }
+  public BuscarHistorialBajaJefe(idJefe,buscador) {
+    return this.http.get(environment.urlService + "api/Division/buscarHistorialBajasJefe/"+idJefe+"/" + buscador).map(res => res.json());
+  }
+  
 }
