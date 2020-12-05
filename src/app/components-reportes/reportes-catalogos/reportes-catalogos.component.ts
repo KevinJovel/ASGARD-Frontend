@@ -33,6 +33,10 @@ export class ReportesCatalogosComponent implements OnInit {
   titulo3: string;
   titulo4: string;
 
+  //Para fecha
+  fect:Date;
+
+
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
     private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
@@ -342,6 +346,15 @@ export class ReportesCatalogosComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de activos por marca.`).subscribe();
   }
 
+  //MÉTODOS PARA REPORTES DE SEGURIDAD
+  bitacoraPdf() {
+    this.http.get(environment.urlService+"api/Reporte/bitacoraPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de bitácora.`).subscribe();
+   }
   
 
 }

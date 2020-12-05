@@ -199,6 +199,30 @@
             <br><br>
 
         </div>
+        <div class="row">
+            <!--Módulo de seguridad-->
+            <div class="col-lg-6">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Módulo de seguridad
+                        <span class="tools pull-right">
+                          <a href="javascript:;" class="icon-chevron-down"></a>
+                          <a href="javascript:;" class="icon-remove"></a>
+                      </span>
+                    </header>
+                    <div class="panel-body">
+                        <div class="dd" id="nestable_list_2">
+                            <ol class="dd-list">
+                                <li class="dd-item" data-id="15">
+                                    <div class="dd-handle" style="cursor:pointer" (click)="bitacoraPdf()">Reporte de bitácora</div>
+                                </li>
+                            
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
         <br><br>
         <!-- page end-->
     </section>
@@ -323,8 +347,9 @@ class="modalll" [ngStyle]="{'display':display4}">
           <div class="form-group">
             <input type="hidden" class="form-control" value="{{idArea}}">
           </div>
-          <div class="form-group col-md-6" style="margin-left: 70px;">
-            <input type="number" placeholder="YYYY" min="2007" max="2015">
+          <div class="form-group col-md-6">
+            <input type="number" class="form-control" formControlName="descripcion"
+              placeholder="YYYY" autocomplete="off" maxlength="51">
           </div>
           <div class="form-group col-md-4">
             <button title="Imprimir reporte de empleados por área de negocio" style="margin-top: 41px; margin-left: 75px;"  
