@@ -100,7 +100,9 @@
                                         <li class="dd-item" data-id="20">
                                             <div style="cursor:pointer" class="dd-handle" (click)="open3()" >Reporte de activos por marca</div>
                                         </li>
-     
+                                        <li class="dd-item" data-id="20">
+                                            <div style="cursor:pointer" class="dd-handle" (click)="open4()" >Reporte de activos adquiridos por año</div>
+                                        </li>
                             
                                     </ol>
                                 </li>
@@ -306,3 +308,34 @@ class="modall" [ngStyle]="{'display':display2}">
  </div>
 </div>
 <!--FIN DE MODAR DE REPORTE DE ACTIVOS SEGÚN MARCAS-->
+
+<!--Modal de reporte de activos dquiridos por año-->
+<div #basicModalll aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+class="modalll" [ngStyle]="{'display':display4}">
+<div class="modal-dialog" style="width:425px;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close4()">×</button>
+      <h4 class="modal-title">{{titulo4}}</h4>
+    </div>
+    <div class="modal-body">
+      <form role="form" [formGroup]="comboArea">
+          <div class="form-group">
+            <input type="hidden" class="form-control" value="{{idArea}}">
+          </div>
+          <div class="form-group col-md-6" style="margin-left: 70px;">
+            <input type="number" placeholder="YYYY" min="2007" max="2015">
+          </div>
+          <div class="form-group col-md-4">
+            <button title="Imprimir reporte de empleados por área de negocio" style="margin-top: 41px; margin-left: 75px;"  
+            class="btn btn-success" (click)="activosAdquiridosAniosPdf(idArea)"><i class="icon-print"></i> Imprimir</button>
+        </div>
+      </form>
+      <br><br><br><br><br>
+        <button type="button" (click)="close4()" style="margin-left: 75px;" class="btn btn-default"><i class="icon-remove-sign"></i>
+          Cancelar</button>
+    </div>
+  </div>
+</div>
+</div>
+<!--Fin modal de reporte de activod adquiridos por año-->

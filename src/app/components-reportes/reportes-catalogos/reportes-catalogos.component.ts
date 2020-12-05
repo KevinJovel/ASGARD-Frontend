@@ -27,9 +27,11 @@ export class ReportesCatalogosComponent implements OnInit {
   display = 'none';
   display2 = 'none';
   display3= 'none';
+  display4= 'none';
   titulo: string;
   titulo2: string;
   titulo3: string;
+  titulo4: string;
 
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
     private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService) {
@@ -65,6 +67,10 @@ export class ReportesCatalogosComponent implements OnInit {
     this.display3 = 'none';
     this.combomarca.controls['IdMarca'].setValue("0");
   }
+  close4() {
+    this.display4 = 'none';
+   // this.comboArea.controls['idAreaNegocio'].setValue("0");
+  }
   open(){
     this.titulo = "Imprimir activos por clasificación";
     this.display = 'block';
@@ -77,7 +83,12 @@ export class ReportesCatalogosComponent implements OnInit {
     this.titulo3 = "Imprimir activos por marca";
     this.display3 = 'block';
   }
+  open4(){
+    this.titulo4 = "Imprimir activos por año";
+    this.display4 = 'block';
+  }
 
+  
   dowloadPDF() {
     this.http.get(environment.urlService+"api/Reporte/reporte",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
@@ -261,6 +272,18 @@ export class ReportesCatalogosComponent implements OnInit {
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos intangibles.`).subscribe();
   }
+
+  activosAdquiridosAniosPdf(id) {
+    this.idArea= this.comboArea.controls['idAreaNegocio'].value;
+     this.http.get(environment.urlService+"api/Reporte/empleadosPorAreapdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+       const blod=new Blob([pdf],{type:"application/pdf"});
+       const url= window.URL.createObjectURL(blod);
+        window.open(url);
+        //Para cerrar el modal y limpiar cuando genera el reporte
+        this.close2();
+     });
+     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
+   }
 
   //REPORTES DE MANTENIMIENTO
   solicitudesmantenimientopdf() {
