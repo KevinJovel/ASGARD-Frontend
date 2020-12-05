@@ -22,6 +22,7 @@ export class FormAsignancionComponent implements OnInit {
   activo: FormGroup;
   display = 'none';
   display2 = 'none';
+  display5 = 'none';// para ayuda
   titulo: string;
   titulo2: string;
   vidaUtilCorrecta: boolean = false;
@@ -211,5 +212,11 @@ export class FormAsignancionComponent implements OnInit {
 
   ver() {
     var canvas = <HTMLInputElement>document.getElementById("barcode");
+  }
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
   }
 }

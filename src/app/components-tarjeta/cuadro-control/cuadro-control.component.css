@@ -141,6 +141,16 @@ table {
   button{
     margin: 0px 5px;
   }
+  .modal-lg {
+    width: 750px;
+    height:415px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+ 
+  .margin-left{
+    margin-left: 900px !important;
+  }
    label{
     display: inline-block;
     margin-right: 15px;
