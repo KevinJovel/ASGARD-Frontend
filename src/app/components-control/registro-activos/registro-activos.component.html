@@ -54,6 +54,7 @@
 
               <div class="form-group col-md-3" *ngIf="isAdmin">
                 <br>
+            
                 <label for="inputPassword4">Área de negocio</label>
                 <select [attr.disabled]="disabledFiltro||disabledFiltroBotonAsignacion ? '' : null" id="inputState"
                   class="form-control" formControlName="idArea" (change)="Filtrar()">
@@ -126,6 +127,14 @@
                   </div>
                 </section>
               </div>
+
+              <div *ngIf="!isAdmin"  style="text-align: center;">
+                <button  title="Imprimir tarjeta de depreciación"
+               
+                class="btn btn-success" ><i
+                    class="icon-print"></i> Imprimir</button>
+              </div>
+             
             </div>
             <!-- Inicia tabla de bienes edificios  -->
             <div class="row" [ngStyle]="{'display':tablaEdificios}">
