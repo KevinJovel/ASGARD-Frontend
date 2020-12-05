@@ -19,6 +19,7 @@ export class TablaTarjetaComponent implements OnInit {
   combos: FormGroup;
   p: number = 1;
   display2 = 'none';
+  display5 = 'none';
   foto: any;
   // Variables para tipos de activos
   tablaEdificios = 'none';
@@ -162,6 +163,12 @@ export class TablaTarjetaComponent implements OnInit {
     this.display2 = 'none';
   }
 
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 }
 
 
