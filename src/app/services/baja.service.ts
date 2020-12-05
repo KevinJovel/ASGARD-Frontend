@@ -99,10 +99,7 @@ public buscarActivoNoAsig(buscador) {
     public buscarSolicitud(buscador) {
         return this.http.get(environment.urlService  + "api/SolicitudBaja/buscarSolicitud/" + buscador).map(res => res.json());
     }
-    public listarBienesSolicitados(id){
-      return this.http.get(environment.urlService + "api/SolicitudBaja/listaBienesSolicitados/"+id ).map(res=>res.json());
-     }
-    
+   
      public validarSolicitudesParaBaja(){
       return this.http.get(environment.urlService + "api/SolicitudBaja/validarSolicitudesParaBaja"  ).map(res=>res.json());
      }
@@ -111,10 +108,6 @@ public buscarActivoNoAsig(buscador) {
      }
      
     ///// DESGARGO DE BIEN
-    public listarBajas() {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/listarBajas").map(res => res.json());
-    }
-   
     public listarBienesAsignadosBajas() {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/listarBienesAsignadosBajas").map(res => res.json());
     }

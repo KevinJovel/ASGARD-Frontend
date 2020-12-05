@@ -32,6 +32,7 @@ export class TablaDepreciacionComponent implements OnInit {
   display = 'none';
   display2 = 'none';
   display3 = 'none';
+  display5 = 'none';
   displayfoto = 'none';
   displayMensaje = 'none';
   //Datos del modal
@@ -499,6 +500,14 @@ export class TablaDepreciacionComponent implements OnInit {
       this.controlService.buscarActivoIntengibleAsig(buscador.value).subscribe(res => { this.bienes = res });
     }
   }
+
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
+
   // if (this.persona.valid == true) {
   //   var fechaNac = this.persona.controls["fechaNacimiento"].value.split("-");
   //   var anio = fechaNac[0];

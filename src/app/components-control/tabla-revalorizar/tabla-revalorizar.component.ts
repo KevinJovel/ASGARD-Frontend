@@ -33,6 +33,7 @@ export class TablaRevalorizarComponent implements OnInit {
   display = 'none';
   display2 = 'none';
   display3 = 'none';
+  display5 = 'none';
   displayfoto = 'none';
   displayMensaje = 'none';
   //Modal de detalles
@@ -215,7 +216,7 @@ export class TablaRevalorizarComponent implements OnInit {
   validarVidaUtil(vida) {
     var id = this.revalorizacion.controls["idBien"].value;
     this.controlService.getVidaUtil(id).subscribe(data => {
-      if (vida.value > 0 && vida.value < data.vidaUtil) {
+      if (vida.value > 0 && vida.value < data.vidaUtil || vida.value > 0 && vida.value < data.realvidautil) {
         this.vidaUtilCorrecta = true;
       } else {
         this.vidaUtilCorrecta = false;
@@ -310,4 +311,11 @@ export class TablaRevalorizarComponent implements OnInit {
       this.controlService.buscarActivoIntangibleRevalorizar(buscador.value).subscribe(res => { this.bienes = res });
     }
   }
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
+
 }

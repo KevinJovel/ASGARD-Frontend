@@ -60,6 +60,10 @@ banderaBuscador:number=1;
   }
 
    ngOnInit() {
+  //METODO PARA TABLA VACIA
+  this.TraspasoService.validarActivosAsignados().subscribe(res => {
+    if (res == 1) {
+     // this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó los activos en mantenimiento.`).subscribe();
      if(this.tipoUsuario=="1"){
       this.TraspasoService.listarActivosAsignados().subscribe(res => { this.activos = res });
       this.catalogosServices.getComboSucursal().subscribe(data=>{this.sucursal=data});//filtro
@@ -71,6 +75,20 @@ banderaBuscador:number=1;
       this.isAdmin=false;
       this.banderaBuscador=2;
     }
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'No se encontraron activos en mantenimiento.',
+        showConfirmButton: false,
+        timer: 4000
+      });
+      this.router.navigate(["/"]);
+    }
+  })
+
+
+
      this.controlService.mostrarAnio().subscribe((res)=> {
       this.fechaMaxima=`${res.anio}-12-31`;
       this.fechaMinima=`${(res.anio).toString()}-01-01`;
@@ -151,7 +169,7 @@ banderaBuscador:number=1;
   buscar(buscador) {
     this.p = 1;
     if(this.banderaBuscador==1){
-      this.bajaService.buscarBienAsig(buscador.value).subscribe(res => { this.activos = res });
+      this.TraspasoService.buscarActivosTraspaso(buscador.value).subscribe(res => { this.activos = res });
     }else{
       this.seguridadService.BuscarBienTraspasoJefe(this.idEmpleado,buscador.value).subscribe(res => { this.activos = res });
     }

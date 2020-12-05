@@ -24,6 +24,7 @@ export class CuadroControlComponent implements OnInit {
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
   tablaEdificios = 'none';
+  display5 = 'none'; // para ayuda
   combo: FormGroup;
   activos: any;
   disabledFiltro: boolean;
@@ -155,6 +156,13 @@ export class CuadroControlComponent implements OnInit {
     } else {
       this.seguridadService.BuscarCuadroJefe(this.idEmpleado, buscador.value).subscribe(res => this.cuadros = res);
     }
+  }
+
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
   }
 }
 

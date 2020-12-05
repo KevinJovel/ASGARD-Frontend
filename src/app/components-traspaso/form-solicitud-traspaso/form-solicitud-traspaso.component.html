@@ -121,7 +121,7 @@
             <select class="form-control" (change)="FiltrarEmpleado()"  formControlName="nuevaarea" >
               <option value="0">---Seleccione---</option>
               <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
-                {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
+                {{area.nombre}} </option>
             </select>
           </div>
             <div class="form-group col-md-6">

@@ -152,6 +152,16 @@ table {
   button{
     margin: 0px 5px;
   }
+  .modal-lg {
+    width: 750px;
+    height:415px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+ 
+  .margin-left{
+    margin-left: 400px !important;
+  }
   input[type=search] {
     border: 1px solid #e2e2e4;
     box-shadow: none;
