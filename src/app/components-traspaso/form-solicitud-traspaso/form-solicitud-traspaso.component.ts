@@ -169,7 +169,7 @@ banderaBuscador:number=1;
   buscar(buscador) {
     this.p = 1;
     if(this.banderaBuscador==1){
-      this.bajaService.buscarBienAsig(buscador.value).subscribe(res => { this.activos = res });
+      this.TraspasoService.buscarActivosTraspaso(buscador.value).subscribe(res => { this.activos = res });
     }else{
       this.seguridadService.BuscarBienTraspasoJefe(this.idEmpleado,buscador.value).subscribe(res => { this.activos = res });
     }

@@ -126,9 +126,9 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
   //Metodo para los datos del modalito
   open(id, codigo, descripcion) {
+    this.titulo = "Datos de mantenimiento";
     this.display2 = 'none';
     this.display = 'block';
-    this.titulo = "Datos de mantenimiento";
     this.datosArray.controls["idBien"].setValue(id);
     this.datosArray.controls["codigobien"].setValue(codigo);
     this.datosArray.controls["descripcionbien"].setValue(descripcion);
@@ -137,7 +137,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   }
   close() {
     this.display = 'none';
-    this.titulo = "Activos a enviar a mantenimiento";
+   // this.titulo = "Activos a enviar a mantenimiento";
     this.display2 = 'block';
   }
   close2() {

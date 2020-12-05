@@ -74,5 +74,10 @@ public  historialSolicitudesTraspasos (idactivo){
  public validarHistorialSolicitudesTraspasos(){
   return this.http.get(environment.urlService + "api/SolicitudTraspaso/validarHistorialSolicitudesTraspasos"  ).map(res=>res.json());
  } 
+ public buscarActivosTraspaso(buscador) {
+  return this.http.get(environment.urlService  + "api/SolicitudTraspaso/buscarActivosTraspaso/" + buscador).map(res => res.json());
+}
+
+ 
  
 }
