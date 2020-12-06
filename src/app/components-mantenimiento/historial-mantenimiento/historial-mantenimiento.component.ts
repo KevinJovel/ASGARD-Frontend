@@ -26,6 +26,7 @@ export class HistorialMantenimientoComponent implements OnInit {
   datos: FormGroup;
   display = 'none';
   display2 = 'none';
+  display5 = 'none'; // para ayuda
   //Datos del modal
   coopertativa: string;
   anio: string;
@@ -163,6 +164,11 @@ export class HistorialMantenimientoComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de historial de mantenimientos.`).subscribe();
   }
 
-
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 
 }

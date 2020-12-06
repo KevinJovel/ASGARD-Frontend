@@ -139,6 +139,15 @@ input, select, textarea  {
 button{
   margin: 0px 3px;
 }
+.margin-left{
+  margin-left: 160px !important;
+}
+.modal-lg {
+  width: 750px;
+  height:415px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
 input[type=search] {
   border: 1px solid #e2e2e4;
   box-shadow: none;

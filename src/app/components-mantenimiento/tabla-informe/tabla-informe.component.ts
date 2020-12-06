@@ -21,6 +21,7 @@ export class TablaInformeComponent implements OnInit {
   p: number = 1;
   informe: FormGroup;
   display = 'none';
+  display5 = 'none'; // para ayuda
   titulo: string;
   noSolicitud: string;
   jefe: string;
@@ -186,6 +187,13 @@ export class TablaInformeComponent implements OnInit {
   }
   close() {
     this.display = 'none';
+  }
+
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
   }
 }
 

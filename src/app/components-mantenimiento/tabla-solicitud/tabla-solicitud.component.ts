@@ -18,6 +18,7 @@ export class TablaSolicitudComponent implements OnInit {
   solicitud: FormGroup;
   bien: FormGroup;
   display = 'none';
+  display5 = 'none'; // para ayuda
   titulo: string;
   estadoActual: any;
   noSolicitud: string;
@@ -160,5 +161,12 @@ export class TablaSolicitudComponent implements OnInit {
   }
   close() {
     this.display = 'none';
+  }
+
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
   }
 }

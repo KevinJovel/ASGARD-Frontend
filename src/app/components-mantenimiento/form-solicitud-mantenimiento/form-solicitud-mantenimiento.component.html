@@ -6,6 +6,9 @@
         <div class="col-lg-3">
           <h2>Nueva solicitud</h2>
         </div>
+        <br>
+        <button type="button" class="btn btn-warning margin-left" (click)="open5()" data-toggle="modal" data-target="#myModal2"><i
+          class="glyphicon glyphicon-question-sign"  ></i></button>
         <div class="col-lg-6">
           <!-- Alertas de validaciones -->
           <div class="alert alert-warning fade in" *ngIf="!solicitud.valid">
@@ -14,6 +17,7 @@
             </button>
             <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
           </div>
+          
           <!-- Validacion de pattern no acepta caracteres especiales -->
           <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
@@ -281,3 +285,22 @@
     </div>
   </div>
 </section>
+
+<!--modal para ayuda con pdf-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"
+  [ngStyle]="{'display':display5}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close5()">×</button>
+        <h4 class="modal-title">Ayuda</h4>
+      </div>
+      <div class="modal-body">
+        <div style="text-align: center;">
+<iframe src="assets/img/Imagenes/Nueva solicitud mtto.pdf" style="width:700px; height:415px;" frameborder="0"></iframe>
+</div>
+      </div>
+    
+    </div>
+  </div>
+</div>

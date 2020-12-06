@@ -23,6 +23,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
   informe: FormGroup;
   revalorizacion: FormGroup;
   display = 'none';
+  display5 = 'none'; // para ayuda
   titulo: string;
   idmante: any;
   sumador: any=0;
@@ -172,5 +173,11 @@ export class FormInformeMantenimientoComponent implements OnInit {
     this.display = 'none';
   }
 
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 }
 
