@@ -78,7 +78,15 @@ table {
   button{
     margin: 0px 5px;
     }
-  
+    .margin-left{
+      margin-left: 370px !important;
+    }
+    .modal-lg {
+      width: 750px;
+      height:415px;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
   .btn-danger {
     margin-inline: 4px;
     background-color: #ff6c60;

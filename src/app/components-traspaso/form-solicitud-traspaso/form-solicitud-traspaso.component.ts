@@ -26,6 +26,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
   activos: any;
   descargo: any;
   display = 'none';
+  display5 = 'none'; // para ayuda
   titulo: string;
   p: number = 1;
 //para filtro
@@ -247,5 +248,12 @@ banderaBuscador:number=1;
         this.activos.controls["codigo"].setValue(correlativoSucursal + "-" + correlativoArea + "-" + correlativoClasificacion + "-" + correlativo);
       });
     }
+  }
+
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
   }
 }

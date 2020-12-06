@@ -40,7 +40,15 @@ table {
 	margin-left: 270px;
 
 }
-  
+.margin-left{
+  margin-left: 370px !important;
+}
+.modal-lg {
+  width: 750px;
+  height:415px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
   @keyframes modal {
     from {
       top: -330px;

@@ -24,6 +24,7 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
   titulo: String;
   display = 'none';
   display2 = 'none';
+  display5 = 'none'; // para ayuda
   p: number = 1;
   fechaMaxima: any;
   fechaMinima: any;
@@ -230,5 +231,11 @@ export class FormSolicitudMantenimientoComponent implements OnInit {
       }
 
     });
+  }
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
   }
 }

@@ -26,6 +26,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   datos: FormGroup;
   display = 'none';
   display2 = 'none';
+  display5 = 'none'; // para ayuda
   //Datos del modal
   coopertativa: string;
   anio: string;
@@ -176,5 +177,11 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de historial de traspasos de activos.`).subscribe();
   }
 
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 
 }
