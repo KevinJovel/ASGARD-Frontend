@@ -102,12 +102,7 @@ class="modal" [ngStyle]="{'display':display}">
               <label for="formGroupExampleInput2"> Vida útil:</label>
               <input #vida type="text" class="form-control" (keyup)="validarVidaUtil(vida)"  formControlName="vidaUtil" maxlength="2"  id="inputEmail4" autocomplete="off">
             </div>
-
-          
-            <br><br> <br><br> <br>
-          
-       
-         
+         <br><br> <br><br> <br>
         <div>
           <br><br> <br><br> 
         </div>
@@ -127,7 +122,7 @@ class="modal" [ngStyle]="{'display':display}">
                       <button data-dismiss="alert" class="close close-sm" type="button">
                         <i class="icon-remove"></i>
                       </button>
-                      <strong>¡Error!</strong> La vida útil ingresada no es correcta.
+                      <strong>¡Error!</strong> La vida útil ingresada debe ser igual o mayor  a la actual.
                     </div>
                    
        <!-- Validacion de pattern no acepta caracteres especiales -->

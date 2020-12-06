@@ -247,7 +247,7 @@ class="modal" [ngStyle]="{'display':display}">
                       <button data-dismiss="alert" class="close close-sm" type="button">
                         <i class="icon-remove"></i>
                       </button>
-                      <strong>¡Error!</strong> La vida útil ingresada no es correcta.
+                      <strong>¡Error!</strong> La vida útil ingresada debe ser igual o mayor  a la actual.
                     </div>
        <!-- Validacion de pattern no acepta caracteres especiales -->
        <div class="alert alert-block alert-danger fade in" *ngIf="revalorizacion.controls['valorRevalorizacion'].errors?.pattern">

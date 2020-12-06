@@ -205,6 +205,16 @@ public VerDatosActivosAsig(id){
  public listarActivosIntangiblesRevalorizar(){
   return this.http.get(environment.urlService + "api/Revalorizar/listarActivosIntangiblesRevalorizar").map(res => res.json());
 }
+public VidaUtilRevalorizar(id){
+  return this.http.get(environment.urlService + "api/Revalorizar/VidaUtilRevalorizar/"+id).map(res=>res.json());
+ }
+
+ 
+public listarActivosFiltroRev(id) {
+  return this.http.get(environment.urlService + "api/Revalorizar/listarActivosFiltroRev/"+id).map(res => res.json());
+  }
+
+
 
 //buscadores de revalorización
 public buscarActivoRevalorizar(buscador) {

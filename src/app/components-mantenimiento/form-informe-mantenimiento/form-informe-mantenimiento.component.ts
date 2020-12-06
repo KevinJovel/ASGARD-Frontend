@@ -67,9 +67,8 @@ export class FormInformeMantenimientoComponent implements OnInit {
     })
   }
  validarVidaUtil(vida) {
-   console.log(this.revalorizacion.controls["vidaUtil"].value);
     var id = this.revalorizacion.controls["idBien"].value;
-    this.controlService.getVidaUtil(id).subscribe(data => {
+    this.controlService.VidaUtilRevalorizar(id).subscribe(data => {
       if (vida.value > 0 && vida.value < data.vidaUtil || vida.value > 0 && vida.value < data.realvidautil) {
         this.vidaUtilCorrecta = true;
       } else {
@@ -141,7 +140,7 @@ export class FormInformeMantenimientoComponent implements OnInit {
 
   guardarDatos() {
 
-    console.log(this.revalorizacion.value);
+   // console.log(this.revalorizacion.value);
     // console.log(this.idmante);
     this.mantenimientoService.insertarRevalorizacion(this.revalorizacion.value).subscribe(res => {
       if (res == 1) {

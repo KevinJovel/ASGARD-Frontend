@@ -149,7 +149,7 @@ export class TablaRevalorizarComponent implements OnInit {
   }
   Filtrar() {
     var id = this.combos.controls['idArea'].value;
-    this.controlService.FiltroTablaActivos(id).subscribe(data => { this.bienes = data });
+    this.controlService.listarActivosFiltroRev(id).subscribe(data => { this.bienes = data });
   }
   Reload() {
     this.combos.controls['idSucursal'].setValue(0);
@@ -215,7 +215,7 @@ export class TablaRevalorizarComponent implements OnInit {
 
   validarVidaUtil(vida) {
     var id = this.revalorizacion.controls["idBien"].value;
-    this.controlService.getVidaUtil(id).subscribe(data => {
+    this.controlService.VidaUtilRevalorizar(id).subscribe(data => {
       if (vida.value > 0 && vida.value < data.vidaUtil || vida.value > 0 && vida.value < data.realvidautil) {
         this.vidaUtilCorrecta = true;
       } else {
@@ -284,7 +284,7 @@ export class TablaRevalorizarComponent implements OnInit {
   close3() {
     this.display3 = 'none';
   }
-  ValidarActivosRevalorizacion() {
+ /* ValidarActivosRevalorizacion() {
     this.controlService.ValidarActivosARevalorizar().subscribe(data => {
       if (data == 1) {
 
@@ -300,7 +300,7 @@ export class TablaRevalorizarComponent implements OnInit {
         this.close();
       }
     });
-  }
+  }*/
   buscar(buscador) {
     this.p = 1;
     if (this.banderaBuscador == 1) {
