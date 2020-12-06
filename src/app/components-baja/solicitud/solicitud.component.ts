@@ -16,6 +16,7 @@ export class SolicitudComponent implements OnInit {
   activo2: any;
   idsolicitud: any;
   display = 'none';
+  display5 = 'none'; // para ayuda
   titulo: string;
   p: number = 1;
   solicitudes: FormGroup;
@@ -194,5 +195,11 @@ noRepetirAcuerdo(control: FormControl) {
   return promesa;
 }
 
+open5() { //para modal de ayuda
+  this.display5 = 'block';
+}
+close5() { //para modal de ayuda
+  this.display5 = "none";
+}
 
 }

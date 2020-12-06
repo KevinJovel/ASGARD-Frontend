@@ -37,6 +37,7 @@ export class CuadroSolicitudComponent implements OnInit {
   display2 = 'none';
   display3 = 'none';
   display4 = 'none';
+  display5 = 'none'; // para ayuda
   titulo: string;
   p: number = 1;
   //para filtro
@@ -369,4 +370,10 @@ export class CuadroSolicitudComponent implements OnInit {
     return promesa;
   }
 
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 }

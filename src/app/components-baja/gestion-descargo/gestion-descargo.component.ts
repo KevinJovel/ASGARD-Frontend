@@ -27,6 +27,7 @@ export class GestionDescargoComponent implements OnInit {
   datosbien: FormGroup;
   activo: any;
   display = 'none';
+  display5 = 'none'; // para ayuda
   p: number = 1;
   //para filtro
   areas: any;
@@ -279,4 +280,10 @@ export class GestionDescargoComponent implements OnInit {
     }
   }
 
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 }
