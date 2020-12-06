@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { PdfMakeWrapper, Txt, Img, Columns, Stack, Table, Cell, Canvas, Rect, SVG} from 'pdfmake-wrapper';
 import { CatalogosService } from './../../services/catalogos.service';
 import { ConfiguracionService } from './../../services/configuracion.service';
+import { ControlService } from './../../services/control.service';
 import { UsuarioService } from './../../services/usuario.service';
 import {HttpClient} from '@angular/common/http'
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
 import {environment} from '../../../environments/environment';
 import {saveAs} from 'file-saver/dist/FileSaver';
 import { FormControl, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reportes-catalogos',
@@ -21,6 +23,7 @@ export class ReportesCatalogosComponent implements OnInit {
   idcla:any;
   idmarca:any;
   idArea:any;
+  anio:any;
   combos: FormGroup;
   combomarca: FormGroup;
   comboArea: FormGroup;
@@ -34,11 +37,11 @@ export class ReportesCatalogosComponent implements OnInit {
   titulo4: string;
 
   //Para fecha
-  fect:Date;
-
+  fechaMaxima:any;
+  fechaMinima:any;
 
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
-    private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService) {
+    private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService, private controlService: ControlService) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
 
     this.combos = new FormGroup({
@@ -46,6 +49,8 @@ export class ReportesCatalogosComponent implements OnInit {
     });
     this.comboArea = new FormGroup({
       'idAreaNegocio': new FormControl("0"),
+      'anio':new FormControl(),
+  
     });
     this.combomarca = new FormGroup({
       'IdMarca': new FormControl("0"),
@@ -58,6 +63,11 @@ export class ReportesCatalogosComponent implements OnInit {
     this.catalogoService.listarAreaCombo().subscribe(data => {this.areas = data;});
     this.catalogoService.comboMarcas().subscribe(data => { this.marcas = data });
     
+    //Método para recuperar año
+    this.controlService.mostrarAnio().subscribe((res) => {
+      this.fechaMaxima = `${(res.anio).toString()}`;
+     // this.fechaMinima = `${(res.anio-1).toString()}`;
+    });
   }
   close() {
     this.display = 'none';
@@ -278,8 +288,8 @@ export class ReportesCatalogosComponent implements OnInit {
   }
 
   activosAdquiridosAniosPdf(id) {
-    this.idArea= this.comboArea.controls['idAreaNegocio'].value;
-     this.http.get(environment.urlService+"api/Reporte/empleadosPorAreapdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+    this.idArea= this.comboArea.controls['anio'].value;
+     this.http.get(environment.urlService+"api/Reporte/activosPorAnioPdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
        const blod=new Blob([pdf],{type:"application/pdf"});
        const url= window.URL.createObjectURL(blod);
         window.open(url);
@@ -287,6 +297,31 @@ export class ReportesCatalogosComponent implements OnInit {
         this.close2();
      });
      this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
+   }
+
+   activosXAnio(anio) {
+    this.controlService.validarActivosTransacciones().subscribe(res => {
+      if (res == 1) {
+        this.idArea= this.comboArea.controls['anio'].value;
+        this.http.get(environment.urlService+"api/Reporte/activosPorAnioPdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+           //Para cerrar el modal y limpiar cuando genera el reporte
+           this.close4();
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
+       
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos registrados en ese año!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
    }
 
   //REPORTES DE MANTENIMIENTO

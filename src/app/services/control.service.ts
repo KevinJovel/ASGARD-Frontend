@@ -86,6 +86,11 @@ public AsignarBien(bien) {
 public validarActivosTransacciones() {
   return this.http.get(environment.urlService + "api/ActivoFijo/validarTransacciones").map(res => res.json());
 }
+
+public validarActivoxAnio(anio) {
+  return this.http.get(environment.urlService + "api/ActivoFijo/validarActivo/" + anio).map(res => res.json());
+}
+
 //Control de bienes
 public getBienesAsignados() {
   return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivosAsignados").map(res => res.json());
