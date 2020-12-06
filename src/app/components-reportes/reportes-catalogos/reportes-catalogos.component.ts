@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http'
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
 import {environment} from '../../../environments/environment';
 import {saveAs} from 'file-saver/dist/FileSaver';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -49,7 +49,8 @@ export class ReportesCatalogosComponent implements OnInit {
     });
     this.comboArea = new FormGroup({
       'idAreaNegocio': new FormControl("0"),
-      'anio':new FormControl(),
+      'bandera': new FormControl("0"),
+      'anio':new FormControl("",[Validators.required])
   
     });
     this.combomarca = new FormGroup({
@@ -66,7 +67,7 @@ export class ReportesCatalogosComponent implements OnInit {
     //Método para recuperar año
     this.controlService.mostrarAnio().subscribe((res) => {
       this.fechaMaxima = `${(res.anio).toString()}`;
-     // this.fechaMinima = `${(res.anio-1).toString()}`;
+      this.fechaMinima = `${(res.anio-10).toString()}`;
     });
   }
   close() {
@@ -83,7 +84,7 @@ export class ReportesCatalogosComponent implements OnInit {
   }
   close4() {
     this.display4 = 'none';
-   // this.comboArea.controls['idAreaNegocio'].setValue("0");
+    this.comboArea.controls['anio'].setValue("");
   }
   open(){
     this.titulo = "Imprimir activos por clasificación";
@@ -287,20 +288,8 @@ export class ReportesCatalogosComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos intangibles.`).subscribe();
   }
 
-  activosAdquiridosAniosPdf(id) {
-    this.idArea= this.comboArea.controls['anio'].value;
-     this.http.get(environment.urlService+"api/Reporte/activosPorAnioPdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
-       const blod=new Blob([pdf],{type:"application/pdf"});
-       const url= window.URL.createObjectURL(blod);
-        window.open(url);
-        //Para cerrar el modal y limpiar cuando genera el reporte
-        this.close2();
-     });
-     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de activos por año.`).subscribe();
-   }
-
    activosXAnio() {
-     let anio=this.comboArea.controls['anio'].value;
+    let anio=this.comboArea.controls['anio'].value;
     this.controlService.validarActivoxAnio(anio).subscribe(res => {
       if (res == 1) {
         this.idArea= this.comboArea.controls['anio'].value;

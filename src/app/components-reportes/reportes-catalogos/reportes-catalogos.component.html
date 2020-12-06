@@ -335,32 +335,64 @@ class="modall" [ngStyle]="{'display':display2}">
 
 <!--Modal de reporte de activos dquiridos por año-->
 <div #basicModalll aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
-class="modalll" [ngStyle]="{'display':display4}">
-<div class="modal-dialog" style="width:425px;">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close4()">×</button>
-      <h4 class="modal-title">{{titulo4}}</h4>
-    </div>
-    <div class="modal-body">
-      <form role="form" [formGroup]="comboArea">
-          <div class="form-group">
-            <input type="hidden" class="form-control" value="{{idArea}}">
-          </div>
-          <div class="form-group col-md-6">
-            <input type="number" style=" margin-left: 80px;" class="form-control" formControlName="anio"
-              placeholder="YYYY" autocomplete="off" min="2000" max="{{fechaMaxima}}">
-          </div>
-          <div class="form-group col-md-4">
-            <button title="Imprimir reporte activos por año" style="margin-top: 41px;"
-            class="btn btn-success" (click)="activosXAnio()"><i class="icon-print"></i> Imprimir</button>
+  class="modalll" [ngStyle]="{'display':display4}">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close4()">×</button>
+        <h4 class="modal-title">{{titulo4}}</h4>
+      </div>
+      <div class="modal-body">
 
-        </div>
-      </form>
-        <button type="button" (click)="close4()" style="margin-left: 85px;" class="btn btn-default"><i class="icon-remove-sign"></i>
-          Cancelar</button>
+        <form role="form" [formGroup]="comboArea" (ngSubmit)="activosXAnio()">
+            <input type="hidden" class="form-control" value="{{idArea}}">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+
+          <div class="form-group">
+            <label>* Ingrese año:</label>
+            <input type="number" mask="0000" class="form-control" formControlName="anio" placeholder="YYYY"
+              autocomplete="off" min="{{fechaMinima}}" max="{{fechaMaxima}}">
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="comboArea.controls['anio'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo año.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="comboArea.controls['anio'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
+
+
+          <!--  WARNING-->
+          <div class="alert alert-warning fade in" *ngIf="!comboArea.valid">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> El campo año es obligatorio.
+          </div>
+
+          <!--  END-WARNING-->
+          <div class="alert alert-success fade in" *ngIf="comboArea.valid&&comboArea.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Excelente!</strong> Dato ingresado correctamente.
+          </div>
+
+          <button [disabled]="!comboArea.valid" type="submit" class="btn btn-success"><i class="icon-print"></i>
+            Imprimir</button>
+          <button type="button" (click)="close4()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cancelar</button>
+
+        </form>
+      </div>
     </div>
   </div>
-</div>
 </div>
 <!--Fin modal de reporte de activod adquiridos por año-->
