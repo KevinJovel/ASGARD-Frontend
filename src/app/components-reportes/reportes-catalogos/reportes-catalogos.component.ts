@@ -296,21 +296,22 @@ export class ReportesCatalogosComponent implements OnInit {
         //Para cerrar el modal y limpiar cuando genera el reporte
         this.close2();
      });
-     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
+     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de activos por año.`).subscribe();
    }
 
-   activosXAnio(anio) {
-    this.controlService.validarActivosTransacciones().subscribe(res => {
+   activosXAnio() {
+     let anio=this.comboArea.controls['anio'].value;
+    this.controlService.validarActivoxAnio(anio).subscribe(res => {
       if (res == 1) {
         this.idArea= this.comboArea.controls['anio'].value;
-        this.http.get(environment.urlService+"api/Reporte/activosPorAnioPdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+        this.http.get(environment.urlService+"api/Reporte/activosPorAnioPdf/" + parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
           const blod=new Blob([pdf],{type:"application/pdf"});
           const url= window.URL.createObjectURL(blod);
            window.open(url);
            //Para cerrar el modal y limpiar cuando genera el reporte
            this.close4();
         });
-        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de activos por año.`).subscribe();
        
       } else {
         Swal.fire({
