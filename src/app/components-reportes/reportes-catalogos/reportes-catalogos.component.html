@@ -200,6 +200,35 @@
 
         </div>
         <div class="row">
+             <!--Modulo de descargos-->
+             <div class="col-lg-6">
+                <section class="panel">
+                    <header class="panel-heading">
+                        Módulo de descargos
+                        <span class="tools pull-right">
+                          <a href="javascript:;" class="icon-chevron-down"></a>
+                          <a href="javascript:;" class="icon-remove"></a>
+                      </span>
+                    </header>
+                    <div class="panel-body">
+                        <div class="dd" id="nestable_list_2">
+                            <ol class="dd-list">
+                                <li class="dd-item" data-id="15">
+                                    <div class="dd-handle" (click)="solicitudbajapdf()">Reporte de solicitudes de descargos</div>                        
+                                </li>
+                                <li class="dd-item" data-id="15">
+                                    <div class="dd-handle" (click)="asignadosdebajapdf()">Reporte de  historial de descargos de activos asignados</div>                        
+                                </li>
+                                <li class="dd-item" data-id="15">
+                                    <div class="dd-handle" (click)="noasignadosdebajapdf()">Reporte de  historial de descargos de activos no asignados</div>                        
+                                </li>
+                            
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+            </div>
+       
             <!--Módulo de seguridad-->
             <div class="col-lg-6">
                 <section class="panel">

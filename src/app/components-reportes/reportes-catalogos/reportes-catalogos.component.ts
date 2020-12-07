@@ -350,6 +350,33 @@ export class ReportesCatalogosComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de traspasos.`).subscribe();
   }
 
+  //reporte de descargos
+  solicitudbajapdf() {
+    this.http.get(environment.urlService+"api/ReportesBaja/solicitudbajapdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de baja.`).subscribe();
+  }
+  asignadosdebajapdf() {
+    this.http.get(environment.urlService+"api/ReportesBaja/asignadosdebajapdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de historial de descargos de activos asignados.`).subscribe();
+  }
+  noasignadosdebajapdf() {
+    this.http.get(environment.urlService+"api/ReportesBaja/noasignadosdebajapdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de historial de descargos de activos no asignados.`).subscribe();
+  }
+  
+
   //reporte de activos según clasificación
 
   reportesClasificacionPdf(id) {
