@@ -32,6 +32,7 @@ export class ReportesCatalogosComponent implements OnInit {
   display3= 'none';
   display4= 'none';
   display5= 'none';
+  display6= 'none';
   titulo: string;
   titulo2: string;
   titulo3: string;
@@ -91,6 +92,10 @@ export class ReportesCatalogosComponent implements OnInit {
     this.display5 = 'none';
     this.comboArea.controls['anio'].setValue("");
   }
+  close6() {
+    this.display6 = 'none';
+    this.comboArea.controls['anio'].setValue("");
+  }
   open(){
     this.titulo = "Imprimir activos por clasificación";
     this.display = 'block';
@@ -110,6 +115,10 @@ export class ReportesCatalogosComponent implements OnInit {
   open5(){
     this.titulo4 = "Imprimir activos por año";
     this.display5= 'block';
+  }
+  open6(){
+    this.titulo4 = "Imprimir activos por año";
+    this.display6= 'block';
   }
 
   
@@ -341,7 +350,33 @@ export class ReportesCatalogosComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'error',
-          title: '¡No hay activos registrados en ese año!',
+          title: '¡No hay activos revalorizados en ese año!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
+   }
+
+   activosDepreciadosXAnioPdf() {
+    let anio=this.comboArea.controls['anio'].value;
+    this.controlService.validarActivoxAnio(anio).subscribe(res => {
+      if (res == 1) {
+        this.idArea= this.comboArea.controls['anio'].value;
+        this.http.get(environment.urlService+"api/Reporte/depreciacionAnualPdf/" + parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+           //Para cerrar el modal y limpiar cuando genera el reporte
+           this.close6();
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de depreciación anual.`).subscribe();
+       
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos depreciados en ese año!',
           showConfirmButton: false,
           timer: 3000
         })
