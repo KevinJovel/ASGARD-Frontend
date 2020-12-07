@@ -31,6 +31,7 @@ export class ReportesCatalogosComponent implements OnInit {
   display2 = 'none';
   display3= 'none';
   display4= 'none';
+  display5= 'none';
   titulo: string;
   titulo2: string;
   titulo3: string;
@@ -86,6 +87,10 @@ export class ReportesCatalogosComponent implements OnInit {
     this.display4 = 'none';
     this.comboArea.controls['anio'].setValue("");
   }
+  close5() {
+    this.display5 = 'none';
+    this.comboArea.controls['anio'].setValue("");
+  }
   open(){
     this.titulo = "Imprimir activos por clasificación";
     this.display = 'block';
@@ -101,6 +106,10 @@ export class ReportesCatalogosComponent implements OnInit {
   open4(){
     this.titulo4 = "Imprimir activos por año";
     this.display4 = 'block';
+  }
+  open5(){
+    this.titulo4 = "Imprimir activos por año";
+    this.display5= 'block';
   }
 
   
@@ -300,7 +309,33 @@ export class ReportesCatalogosComponent implements OnInit {
            //Para cerrar el modal y limpiar cuando genera el reporte
            this.close4();
         });
-        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de activos por año.`).subscribe();
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de activos adquiridos por año.`).subscribe();
+       
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos registrados en ese año!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
+   }
+
+   activosRevalorizadosXAnioPdf() {
+    let anio=this.comboArea.controls['anio'].value;
+    this.controlService.validarActivoxAnio(anio).subscribe(res => {
+      if (res == 1) {
+        this.idArea= this.comboArea.controls['anio'].value;
+        this.http.get(environment.urlService+"api/Reporte/activosRevalorizadosAnioPdf/" + parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+           //Para cerrar el modal y limpiar cuando genera el reporte
+           this.close5();
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de activos revalorizados por año.`).subscribe();
        
       } else {
         Swal.fire({
