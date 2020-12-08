@@ -5,6 +5,8 @@ import { UsuarioService } from './../../services/usuario.service';
 import { SeguridadService } from './../../services/seguridad.service';
 import { CatalogosService } from './../../services/catalogos.service';//filtro
 import { Router, ActivatedRoute } from '@angular/router';
+import {HttpClient} from '@angular/common/http'
+import {environment} from '../../../environments/environment';
 import { State, StateService } from './../../services/state.service';//para compartir entre componentes
 @Component({
   selector: 'app-registro-activos',
@@ -64,7 +66,7 @@ export class RegistroActivosComponent implements OnInit {
   tipoUsuario = sessionStorage.getItem("tipo");
   idEmpleado = sessionStorage.getItem("empleado");
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private stateService: StateService, private controlService: ControlService,
-    private catalogosServices: CatalogosService, private usuarioService: UsuarioService, private seguridadService: SeguridadService) {
+    private catalogosServices: CatalogosService, private usuarioService: UsuarioService, private seguridadService: SeguridadService, private http:HttpClient) {
 
     this.combo = new FormGroup({
       'idArea': new FormControl("0"),
@@ -259,6 +261,14 @@ export class RegistroActivosComponent implements OnInit {
 
   }
 
+  activosAsignadosJefePDF() {
+    this.http.get(environment.urlService+"api/Reporte/activosJefePdf/" + parseInt(this.idEmpleado),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió reporte de activos.`).subscribe();
+  }
 
   close() {
     this.display = 'none';
