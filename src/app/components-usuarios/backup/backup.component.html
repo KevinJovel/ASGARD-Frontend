@@ -1,0 +1,20 @@
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':displaybackup}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{cooperativa}} - Generacion de backup </h4>
+      </div>
+      <div class="modal-body">
+          <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" (click)="GenerarBackup()"><i class="icon-cloud-download"></i>
+              Generar Backup </button>
+          <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
+            Cancelar</button>
+
+        <!-- </form> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -67,5 +67,8 @@ export class SeguridadService {
   public BuscarHistorialBajaJefe(idJefe,buscador) {
     return this.http.get(environment.urlService + "api/Division/buscarHistorialBajasJefe/"+idJefe+"/" + buscador).map(res => res.json());
   }
+  public generarbackup() {
+    return this.http.get(environment.urlService + "api/Usuario/CreateBackup").map(res => res.json());
+  }
   
 }

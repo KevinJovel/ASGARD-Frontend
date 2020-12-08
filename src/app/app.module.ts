@@ -99,6 +99,7 @@ import {JefeGuard} from './guards/jefe.guard';
 import { PaginaErrorLoginComponent } from './components-usuarios/pagina-error-login/pagina-error-login.component';
 import { ConfiguracionInicioComponent } from './components-usuarios/configuracion-inicio/configuracion-inicio.component';
 import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.component';
+import { BackupComponent } from './components-usuarios/backup/backup.component';
 
 
 @NgModule({
@@ -159,6 +160,7 @@ import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.compo
     PaginaErrorLoginComponent,
     ConfiguracionInicioComponent,
     BitacoraComponent,
+    BackupComponent,
 
 
    
@@ -219,6 +221,7 @@ import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.compo
        {path: 'menu-reportes', component: MenuReportesComponent,canActivate: [SeguridadGuard]},
        {path: 'login', component: LoginComponent},
        {path: 'app-bitacora', component: BitacoraComponent},
+       {path: 'app-backup', component: BackupComponent,canActivate: [SeguridadGuard]},
        {path: 'pagina-error-login', component: PaginaErrorLoginComponent},
       { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
       
