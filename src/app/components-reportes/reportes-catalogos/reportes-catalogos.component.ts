@@ -33,11 +33,12 @@ export class ReportesCatalogosComponent implements OnInit {
   display4= 'none';
   display5= 'none';
   display6= 'none';
+  display7= 'none';
   titulo: string;
   titulo2: string;
   titulo3: string;
   titulo4: string;
-
+  titulo7: string;
   //Para fecha
   fechaMaxima:any;
   fechaMinima:any;
@@ -96,6 +97,10 @@ export class ReportesCatalogosComponent implements OnInit {
     this.display6 = 'none';
     this.comboArea.controls['anio'].setValue("");
   }
+  close7() {
+    this.display7 = 'none';
+    this.comboArea.controls['anio'].setValue("");
+  }
   open(){
     this.titulo = "Imprimir activos por clasificación";
     this.display = 'block';
@@ -119,6 +124,10 @@ export class ReportesCatalogosComponent implements OnInit {
   open6(){
     this.titulo4 = "Imprimir activos por año";
     this.display6= 'block';
+  }
+  open7(){
+    this.titulo7 = "Imprimir provisión anual";
+    this.display7= 'block';
   }
 
   
@@ -371,6 +380,33 @@ export class ReportesCatalogosComponent implements OnInit {
            this.close6();
         });
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de depreciación anual.`).subscribe();
+       
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos depreciados en ese año!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
+   }
+
+   //REPORTE DE PROVISIÓN
+   provisionAnualPdf() {
+    let anio=this.comboArea.controls['anio'].value;
+    this.controlService.validarActivoxAnio(anio).subscribe(res => {
+      if (res == 1) {
+        this.idArea= this.comboArea.controls['anio'].value;
+        this.http.get(environment.urlService+"api/ReportesSeguridad/provisionAnualPdf/" + parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+           //Para cerrar el modal y limpiar cuando genera el reporte
+           this.close6();
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de provisión anual.`).subscribe();
        
       } else {
         Swal.fire({
