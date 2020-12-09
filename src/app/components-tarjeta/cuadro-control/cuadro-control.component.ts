@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { DepreciacionService } from './../../services/depreciacion.service';
 import { UsuarioService } from './../../services/usuario.service';
 import { SeguridadService } from './../../services/seguridad.service';
+import { ConfiguracionService } from './../../services/configuracion.service';
 import { ExcelService } from './../../excel.service';
+import {HttpClient} from '@angular/common/http'
+import {environment} from '../../../environments/environment';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ControlService } from './../../services/control.service';
@@ -18,8 +21,11 @@ export class CuadroControlComponent implements OnInit {
   //Variables  
   cuadros: any;
   cuadroA: any;
+  cuadroAJ: any;
   cuadroE: any;
   cuadroI: any;
+  nombreC: any;
+  descripcionC:any;
   p: number = 1;
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
@@ -39,7 +45,7 @@ export class CuadroControlComponent implements OnInit {
   idEmpleado = sessionStorage.getItem("empleado");
 
   constructor(private depreciacionService: DepreciacionService, private excelService: ExcelService, private activatedRoute: ActivatedRoute,
-    private controlService: ControlService, private usuarioService: UsuarioService, private seguridadService: SeguridadService) {
+    private controlService: ControlService, private usuarioService: UsuarioService, private seguridadService: SeguridadService, private http:HttpClient, private confService: ConfiguracionService) {
     this.combo = new FormGroup({
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0"),
@@ -55,6 +61,10 @@ export class CuadroControlComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.confService.recuperarCoop().subscribe(param=> {
+      this.nombreC=param.nombre;
+      this.descripcionC=param.descripcion;
+    });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó el cuadro de control de activos.`).subscribe();
     this.controlService.validarActivosTransacciones().subscribe(res => {
       if (res == 1) {
@@ -76,6 +86,11 @@ export class CuadroControlComponent implements OnInit {
 
         this.depreciacionService.CuadroControlExcel().subscribe(data => {
           this.cuadroA = data;
+          this.tablaMuebles = 'block';
+        });
+
+        this.depreciacionService.CuadroControlJefeExcel(this.idEmpleado).subscribe(data=> {
+          this.cuadroAJ = data;
           this.tablaMuebles = 'block';
         });
       } else {
@@ -135,17 +150,35 @@ export class CuadroControlComponent implements OnInit {
     }
   }
 
+  //Método para generar reporte de cuadro de control para jefe de área
+  cuadroControlJefePDF() {
+    this.http.get(environment.urlService+"api/Reporte/cuadroControlJefePdf/" + parseInt(this.idEmpleado),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió reporte de cuadro de control.`).subscribe();
+  }
+
   //Método para generar archivo
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.cuadroA, 'Cuadro de Control-Bienes muebles');
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Generó excel de cuadro de control.`).subscribe();
+  }
+
+  exportExcelJefe(): void {
+    this.excelService.exportAsExcelFile(this.cuadroAJ, 'Cuadro de Control-Bienes muebles');
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Generó excel de cuadro de control.`).subscribe();
   }
 
   exportarExcelEdi(): void {
     this.excelService.exportAsExcelFile(this.cuadroE, 'Cuadro de Control-Edificios e instalaciones');
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Generó excel de cuadro de control de edificios e instalaciones.`).subscribe();
   }
 
   exportarExcelIntan(): void {
     this.excelService.exportAsExcelFile(this.cuadroI, 'Cuadro de Control-Intangibles');
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Generó excel de cuadro de control de activos intangibles.`).subscribe();
   }
 
   //Método para buscar

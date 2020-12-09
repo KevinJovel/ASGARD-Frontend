@@ -7,8 +7,8 @@
     <div style="text-align:right;">
 </div> 
 <br />
-<h4 style="text-align: center;">ASOCIACIÓN COOPERATIVA DE APROVISONAMIENTO AGROPECUARIO DE SAN SEBASTIÁN </h4>
-  <h3 style="text-align: center;">(ACAASS de R.L)</h3>
+<h4 style="text-align: center;">{{descripcionC}} </h4>
+  <h3 style="text-align: center;">{{nombreC}}</h3>
 
 <div class="row">
     <div class="col-lg-9">
@@ -97,7 +97,22 @@
                                     </table>
                                     <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                                 </div>
-                                <button (click)="exportAsXLSX()" style="margin-top: 20px; margin-bottom: 50px; margin-left: 420px;" class="btn btn-success"><span class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+
+                                <button title="Imprimir tarjeta de depreciación" *ngIf="!isAdmin" (click)="cuadroControlJefePDF()"
+                                            style="margin-top: 20px; margin-bottom: 50px; margin-left: 370px;"
+                                            class="btn btn-success"><i
+                                            class="icon-print"></i> Imprimir</button>
+
+                                <button (click)="exportAsXLSX()" *ngIf="isAdmin"  style="margin-top: 20px; margin-bottom: 50px; margin-left: 420px;" 
+                                class="btn btn-success"><span 
+                                class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+
+
+                                <button (click)="exportExcelJefe()" *ngIf="!isAdmin" style="margin-top: 20px; margin-bottom: 50px; margin-left: 10px;" 
+                                class="btn btn-success"><span 
+                                class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+                             
+                                
                             </div>
 
 

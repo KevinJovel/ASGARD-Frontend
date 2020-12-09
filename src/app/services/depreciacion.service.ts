@@ -88,6 +88,10 @@ export class DepreciacionService {
     return this.http.get(environment.urlService  + "api/CuadroControl/DatosCuadroExcel").map(res => res.json());
   }
 
+  public CuadroControlJefeExcel(idJefe) {
+    return this.http.get(environment.urlService  + "api/CuadroControl/listarCuadroControlJefeExcel/"+idJefe).map(res => res.json());
+  }
+
   public CuadroEdificiosExcel() {
     return this.http.get(environment.urlService  + "api/CuadroControl/CuadroEdificiosExcel").map(res => res.json());
   }
