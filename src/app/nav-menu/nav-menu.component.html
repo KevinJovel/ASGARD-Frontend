@@ -116,7 +116,7 @@
         </a>
         <ul class="sub">
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/menu-reportes"]' (click)='collapse()'>Reportes</a></li>
-          <li><a href="calendar.html">Consultas gráficas</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/app-graficas"]' (click)='collapse()'>Grafícas</a></li>
         </ul>
       </li>
       <li class="sub-menu" [routerLinkActive]='["link-active"]' *ngIf="admin==true">
