@@ -60,11 +60,20 @@
                 class="my-cuadro"></pagination-controls>
             </div>
           </div>
+        
+        <div *ngIf="!isAdmin"  style="text-align: center;">
+          <button  title="Imprimir activos" (click)="activosEnMantenimientoJefePDF()"
+          class="btn btn-success" ><i
+              class="icon-print"></i> Imprimir</button>
         </div>
+        <br>
+      </div>
       </section>
     </div>
+   
   </div>
 </section>
+
 
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
   [ngStyle]="{'display':display}">

@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CatalogosService } from './../../services/catalogos.service';
 import { UsuarioService } from './../../services/usuario.service';
 import { SeguridadService } from './../../services/seguridad.service';
+import {HttpClient} from '@angular/common/http'
+import {environment} from '../../../environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -45,7 +47,7 @@ export class GestionDescargoComponent implements OnInit {
  isAdmin: boolean = false;
  tipoUsuario = sessionStorage.getItem("tipo");
  idEmpleado = sessionStorage.getItem("empleado");
-  constructor(private bajaService: BajaService, private catalogosServices: CatalogosService, private usuarioService: UsuarioService,
+  constructor(private bajaService: BajaService,private http:HttpClient, private catalogosServices: CatalogosService, private usuarioService: UsuarioService,
   private router: Router, private activateRoute: ActivatedRoute,private seguridadService:SeguridadService) {
     this.solicitud2 = new FormGroup({
       'idsolicitud': new FormControl("0"),
@@ -285,5 +287,14 @@ export class GestionDescargoComponent implements OnInit {
   }
   close5() { //para modal de ayuda
     this.display5 = "none";
+  }
+
+  historialActivosJefePDF() {
+    this.http.get(environment.urlService+"api/ReportesBaja/activosDescargadosJefePdf/" + parseInt(this.idEmpleado),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió reporte de historial de descargos.`).subscribe();
   }
 }

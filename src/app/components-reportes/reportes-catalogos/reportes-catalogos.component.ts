@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class ReportesCatalogosComponent implements OnInit {
   clasificaciones: any;
+  mes: any;
   marcas: any;
   areas: any;
   idcla:any;
@@ -34,11 +35,13 @@ export class ReportesCatalogosComponent implements OnInit {
   display5= 'none';
   display6= 'none';
   display7= 'none';
+  display8= 'none';
   titulo: string;
   titulo2: string;
   titulo3: string;
   titulo4: string;
   titulo7: string;
+  titulo8: string;
   //Para fecha
   fechaMaxima:any;
   fechaMinima:any;
@@ -101,6 +104,10 @@ export class ReportesCatalogosComponent implements OnInit {
     this.display7 = 'none';
     this.comboArea.controls['anio'].setValue("");
   }
+  close8() {
+    this.display8 = 'none';
+    this.comboArea.controls['anio'].setValue("");
+  }
   open(){
     this.titulo = "Imprimir activos por clasificación";
     this.display = 'block';
@@ -128,6 +135,10 @@ export class ReportesCatalogosComponent implements OnInit {
   open7(){
     this.titulo7 = "Imprimir provisión anual";
     this.display7= 'block';
+  }
+  open8(){
+    this.titulo8 = "Imprimir provisión mensual";
+    this.display8= 'block';
   }
 
   
@@ -393,7 +404,7 @@ export class ReportesCatalogosComponent implements OnInit {
     });
    }
 
-   //REPORTE DE PROVISIÓN
+   //REPORTE DE PROVISIÓN ANUAL
    provisionAnualPdf() {
     let anio=this.comboArea.controls['anio'].value;
     this.controlService.validarActivoxAnio(anio).subscribe(res => {
@@ -404,7 +415,7 @@ export class ReportesCatalogosComponent implements OnInit {
           const url= window.URL.createObjectURL(blod);
            window.open(url);
            //Para cerrar el modal y limpiar cuando genera el reporte
-           this.close6();
+           this.close7();
         });
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de provisión anual.`).subscribe();
        
@@ -419,6 +430,34 @@ export class ReportesCatalogosComponent implements OnInit {
       }
     });
    }
+   
+    //REPORTE DE PROVISIÓN MENSUAL
+    provisionMensualPdf() {
+      let anio=this.comboArea.controls['anio'].value;
+      this.controlService.validarActivoxAnio(anio).subscribe(res => {
+        if (res == 1) {
+          this.idArea= this.comboArea.controls['anio'].value;
+          this.http.get(environment.urlService+"api/ReportesSeguridad/provisionMensualPdf/" + parseInt(this.mes)+"/"+ parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+            const blod=new Blob([pdf],{type:"application/pdf"});
+            const url= window.URL.createObjectURL(blod);
+             window.open(url);
+             //Para cerrar el modal y limpiar cuando genera el reporte
+             this.close6();
+          });
+          this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de provisión mensual.`).subscribe();
+         
+        } else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: '¡No hay activos depreciados en ese año!',
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }
+      });
+     }
+
 
   //REPORTES DE MANTENIMIENTO
   solicitudesmantenimientopdf() {

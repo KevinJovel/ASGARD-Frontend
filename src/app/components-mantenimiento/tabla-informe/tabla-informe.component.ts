@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {HttpClient} from '@angular/common/http'
+import {environment} from '../../../environments/environment';
 import Swal from 'sweetalert2';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import { UsuarioService } from './../../services/usuario.service';
@@ -39,7 +41,7 @@ export class TablaInformeComponent implements OnInit {
   isAdmin: boolean = false;
   tipoUsuario = sessionStorage.getItem("tipo");
   idEmpleado = sessionStorage.getItem("empleado");
-  constructor(private mantenimientoService: MantenimientoService, private controlService: ControlService, private router: Router, private usuarioService: UsuarioService, private seguridadService: SeguridadService) {
+  constructor(private mantenimientoService: MantenimientoService,private http:HttpClient, private controlService: ControlService, private router: Router, private usuarioService: UsuarioService, private seguridadService: SeguridadService) {
     this.informe = new FormGroup({
       'idinformematenimiento': new FormControl("0"),
       'idmantenimiento': new FormControl("0"),
@@ -58,6 +60,7 @@ export class TablaInformeComponent implements OnInit {
       if (res == 1) {
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó los activos en mantenimiento.`).subscribe();
         if (this.tipoUsuario == "1") {
+          this.isAdmin=true;
           this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res => {
             this.bienes = res;
           });
@@ -105,6 +108,14 @@ export class TablaInformeComponent implements OnInit {
     // this.mantenimientoService.listarBienesMantenimientoInforme().subscribe(res => {
     //   this.bienes = res;
     // });
+  }
+  activosEnMantenimientoJefePDF() {
+    this.http.get(environment.urlService+"api/ReportesMantenimiento/activosEnManteJefePdf/" + parseInt(this.idEmpleado),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió reporte de activos en mantenimiento.`).subscribe();
   }
 
   buscar(buscador) {
