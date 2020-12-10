@@ -10,8 +10,8 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 //Importaciones personales
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NgxMaskModule } from 'ngx-mask'; 
-import {NgxSpinnerModule} from 'ngx-spinner'
+import { NgxMaskModule } from 'ngx-mask';
+import { NgxSpinnerModule } from 'ngx-spinner'
 //Registrar o declarar el componente creado
 import { SharedComponent } from './components/shared/shared.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
@@ -20,7 +20,7 @@ import { HeaderComponent } from './components/shared/header/header.component';
 //Importaciones para reportes
 import { PdfMakeWrapper } from 'pdfmake-wrapper';
 import pdfFonts from "pdfmake/build/vfs_fonts"; // fonts provided for pdfmake
- 
+
 // Set the fonts to use
 PdfMakeWrapper.setFonts(pdfFonts);
 
@@ -94,13 +94,15 @@ import { ReportesDescargoComponent } from './components-reportes/reportes-descar
 import { LoginComponent } from './components-usuarios/login/login.component';
 
 // Guardas
-import {SeguridadGuard} from './guards/seguridad.guard';
-import {JefeGuard} from './guards/jefe.guard';
+import { SeguridadGuard } from './guards/seguridad.guard';
+import { JefeGuard } from './guards/jefe.guard';
 import { PaginaErrorLoginComponent } from './components-usuarios/pagina-error-login/pagina-error-login.component';
 import { ConfiguracionInicioComponent } from './components-usuarios/configuracion-inicio/configuracion-inicio.component';
 import { BitacoraComponent } from './components-usuarios/bitacora/bitacora.component';
 import { BackupComponent } from './components-usuarios/backup/backup.component';
-
+import { ChartsModule } from 'ng2-charts';
+import { ActivosPorAnioComponent } from './Components-graficas/activos-por-anio/activos-por-anio.component';
+import { MenuGraficasComponent } from './Components-graficas/menu-graficas/menu-graficas.component';
 
 @NgModule({
   declarations: [
@@ -161,75 +163,79 @@ import { BackupComponent } from './components-usuarios/backup/backup.component';
     ConfiguracionInicioComponent,
     BitacoraComponent,
     BackupComponent,
+    ActivosPorAnioComponent,
 
 
-   
+
     //Aqui vamos a agregar los compoenentes del proyecto
 
   ],
-    imports: [
+  imports: [
     HttpModule,
-        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-        HttpClientModule,
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    HttpClientModule,
     FormsModule,
-        ReactiveFormsModule,
-      NgxPaginationModule,NgxSpinnerModule,
-      NgxMaskModule.forRoot(),
+    ChartsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule, NgxSpinnerModule,
+    NgxMaskModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'shared', component: SharedComponent },
       { path: 'form-empleado', component: FormEmpleadoComponent, canActivate: [SeguridadGuard] },
-      { path: 'form-marca', component: FormMarcaComponent, canActivate: [SeguridadGuard]},
+      { path: 'form-marca', component: FormMarcaComponent, canActivate: [SeguridadGuard] },
       { path: 'form-sucursal', component: FormSucursalComponent, canActivate: [SeguridadGuard] },
       { path: 'form-donantes', component: FormDonantesComponent, canActivate: [SeguridadGuard] },
       { path: 'form-proveedor', component: FormProveedorComponent, canActivate: [SeguridadGuard] },
       { path: 'form-clasificacion', component: FormClasificacionComponent, canActivate: [SeguridadGuard] },
       { path: 'form-categoria', component: FormCategoriaComponent, canActivate: [SeguridadGuard] },
-      { path: 'form-cargo', component: FormCargoComponent , canActivate: [SeguridadGuard]},
-      {path: 'form-area-negocio', component: FormAreasNegocioComponent, canActivate: [SeguridadGuard]},
-      {path: 'form-tecnico', component: FormTecnicoComponent, canActivate: [SeguridadGuard]},
-      {path: 'form-tipo-usuario', component: FormTipoUsuarioComponent, canActivate: [SeguridadGuard]},
-      {path: 'form-usuario', component: FormUsuarioComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-nuevoBien/:id', component: FormNuevoBienComponent,canActivate: [SeguridadGuard]},
-      {path: 'registro-activos/:param', component: RegistroActivosComponent},
-      {path: 'form-asignacion', component: FormAsignancionComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-desasignacion', component: FormDesasignarComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent},
-      {path: 'form-solicitud-traspaso', component: FormSolicitudTraspasoComponent},
-      {path: 'historial-solicitud-traspaso', component: HistorialSolicitudTraspasoComponent},
-      {path: 'tabla-solicitud-traspaso', component: TablaSolicitudTraspasoComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent,canActivate: [SeguridadGuard]},
-      {path: 'historial-mantenimiento', component: HistorialMantenimientoComponent},
-      {path: 'tabla-informe', component: TablaInformeComponent},
-      {path: 'tabla-solicitud', component: TablaSolicitudComponent,canActivate: [SeguridadGuard]},
-      {path: 'cuadro-solicitud/:param', component: CuadroSolicitudComponent},
-      {path: 'solicitud', component: SolicitudComponent,canActivate: [SeguridadGuard]},
-      {path: 'gestion-descargo/:param', component: GestionDescargoComponent},
-      {path: 'tabla-tarjeta', component: TablaTarjetaComponent},
-      {path: 'tabla-depreciacion', component: TablaDepreciacionComponent,canActivate: [SeguridadGuard]},
-      {path: 'report-tarjeta/:id/:tipo', component: ReportTarjetaComponent},
-      {path: 'cuadro-control', component: CuadroControlComponent},
-      {path: 'tabla-revalorizar', component: TablaRevalorizarComponent,canActivate: [SeguridadGuard]},
-      {path: 'cierre-anio', component: CierreAnioComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-tipo-descargo', component: FormTipoDescargoComponent},
-      {path: 'form-conficooperativa', component: FormCoopeComponent,canActivate: [SeguridadGuard]},
-      {path: 'select-tipo-activo', component: SelectTipoActivoComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-edificios-instalaciones/:id', component: FormEdificiosInstalacionesComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-activo-intangible/:id', component: FormActivoIntangibleComponent,canActivate: [SeguridadGuard]},
-      {path: 'tipo-depreciacion', component: TipoDepreciacionComponent,canActivate: [SeguridadGuard]},
-      {path: 'form-modificar-asignados/:id', component: FormModificarAsignadosComponent,canActivate: [SeguridadGuard]},
-       {path: 'menu-reportes', component: MenuReportesComponent,canActivate: [SeguridadGuard]},
-       {path: 'login', component: LoginComponent},
-       {path: 'app-bitacora', component: BitacoraComponent},
-       {path: 'app-backup', component: BackupComponent,canActivate: [SeguridadGuard]},
-       {path: 'pagina-error-login', component: PaginaErrorLoginComponent},
-      { path: '',   redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
-      
+      { path: 'form-cargo', component: FormCargoComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-area-negocio', component: FormAreasNegocioComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-tecnico', component: FormTecnicoComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-tipo-usuario', component: FormTipoUsuarioComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-usuario', component: FormUsuarioComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-nuevoBien/:id', component: FormNuevoBienComponent, canActivate: [SeguridadGuard] },
+      { path: 'registro-activos/:param', component: RegistroActivosComponent },
+      { path: 'form-asignacion', component: FormAsignancionComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-desasignacion', component: FormDesasignarComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-solicitud-mantenimiento', component: FormSolicitudMantenimientoComponent },
+      { path: 'form-solicitud-traspaso', component: FormSolicitudTraspasoComponent },
+      { path: 'historial-solicitud-traspaso', component: HistorialSolicitudTraspasoComponent },
+      { path: 'tabla-solicitud-traspaso', component: TablaSolicitudTraspasoComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-informe-mantenimiento', component: FormInformeMantenimientoComponent, canActivate: [SeguridadGuard] },
+      { path: 'historial-mantenimiento', component: HistorialMantenimientoComponent },
+      { path: 'tabla-informe', component: TablaInformeComponent },
+      { path: 'tabla-solicitud', component: TablaSolicitudComponent, canActivate: [SeguridadGuard] },
+      { path: 'cuadro-solicitud/:param', component: CuadroSolicitudComponent },
+      { path: 'solicitud', component: SolicitudComponent, canActivate: [SeguridadGuard] },
+      { path: 'gestion-descargo/:param', component: GestionDescargoComponent },
+      { path: 'tabla-tarjeta', component: TablaTarjetaComponent },
+      { path: 'tabla-depreciacion', component: TablaDepreciacionComponent, canActivate: [SeguridadGuard] },
+      { path: 'report-tarjeta/:id/:tipo', component: ReportTarjetaComponent },
+      { path: 'cuadro-control', component: CuadroControlComponent },
+      { path: 'tabla-revalorizar', component: TablaRevalorizarComponent, canActivate: [SeguridadGuard] },
+      { path: 'cierre-anio', component: CierreAnioComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-tipo-descargo', component: FormTipoDescargoComponent },
+      { path: 'form-conficooperativa', component: FormCoopeComponent, canActivate: [SeguridadGuard] },
+      { path: 'select-tipo-activo', component: SelectTipoActivoComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-edificios-instalaciones/:id', component: FormEdificiosInstalacionesComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-activo-intangible/:id', component: FormActivoIntangibleComponent, canActivate: [SeguridadGuard] },
+      { path: 'tipo-depreciacion', component: TipoDepreciacionComponent, canActivate: [SeguridadGuard] },
+      { path: 'form-modificar-asignados/:id', component: FormModificarAsignadosComponent, canActivate: [SeguridadGuard] },
+      { path: 'menu-reportes', component: MenuReportesComponent, canActivate: [SeguridadGuard] },
+      { path: 'login', component: LoginComponent },
+      { path: 'app-bitacora', component: BitacoraComponent },
+      { path: 'app-backup', component: BackupComponent, canActivate: [SeguridadGuard] },
+      { path: 'app-menu-graficas', component: MenuGraficasComponent, canActivate: [SeguridadGuard] },
+      { path: 'app-activos-anio', component: ActivosPorAnioComponent, canActivate: [SeguridadGuard] },
+      { path: 'pagina-error-login', component: PaginaErrorLoginComponent },
+      { path: '', redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
+
     ]),
     NoopAnimationsModule
-    ],
-    providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService,TraspasoService,SeguridadGuard,JefeGuard],
+  ],
+  providers: [CargarScriptsService, CatalogosService, UsuarioService, MantenimientoService, BajaService, ConfiguracionService, TraspasoService, SeguridadGuard, JefeGuard],
 
-    bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
+  bootstrap: [AppComponent, NavMenuComponent, HeaderComponent]
 })
 export class AppModule { }
