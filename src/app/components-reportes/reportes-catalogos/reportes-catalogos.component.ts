@@ -39,6 +39,7 @@ export class ReportesCatalogosComponent implements OnInit {
   display6= 'none';
   display7= 'none';
   display8= 'none';
+  display15= 'none';//para ayuda
   titulo: string;
   titulo2: string;
   titulo3: string;
@@ -786,6 +787,11 @@ export class ReportesCatalogosComponent implements OnInit {
    }
 
    
-  
+   open15() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close15() { //para modal de ayuda
+    this.display5 = "none";
+  }
 
 }
