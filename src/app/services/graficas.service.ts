@@ -16,4 +16,7 @@ export class GraficasService {
   public getDatosGraficaActivosPorAnio(anio) {
     return this.http.get(environment.urlService + "api/Graficas/ActivosRegistradosXAnio/"+anio).map(res => res.json());
   }
+  public getDatosGraficaMontoActivosPorAnio(anio) {
+    return this.http.get(environment.urlService + "api/Graficas/montoPorAnio/"+anio).map(res => res.json());
+  }
 }

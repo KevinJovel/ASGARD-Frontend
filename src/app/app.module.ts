@@ -103,6 +103,8 @@ import { BackupComponent } from './components-usuarios/backup/backup.component';
 import { ChartsModule } from 'ng2-charts';
 import { ActivosPorAnioComponent } from './Components-graficas/activos-por-anio/activos-por-anio.component';
 import { MenuGraficasComponent } from './Components-graficas/menu-graficas/menu-graficas.component';
+import { MontoPorAnioComponent } from './Components-graficas/monto-por-anio/monto-por-anio.component';
+
 
 @NgModule({
   declarations: [
@@ -164,6 +166,8 @@ import { MenuGraficasComponent } from './Components-graficas/menu-graficas/menu-
     BitacoraComponent,
     BackupComponent,
     ActivosPorAnioComponent,
+    MenuGraficasComponent,
+    MontoPorAnioComponent,
 
 
 
@@ -224,10 +228,11 @@ import { MenuGraficasComponent } from './Components-graficas/menu-graficas/menu-
       { path: 'form-modificar-asignados/:id', component: FormModificarAsignadosComponent, canActivate: [SeguridadGuard] },
       { path: 'menu-reportes', component: MenuReportesComponent, canActivate: [SeguridadGuard] },
       { path: 'login', component: LoginComponent },
-      { path: 'app-bitacora', component: BitacoraComponent },
+      { path: 'app-bitacora', component: BitacoraComponent, canActivate: [SeguridadGuard]  },
       { path: 'app-backup', component: BackupComponent, canActivate: [SeguridadGuard] },
       { path: 'app-menu-graficas', component: MenuGraficasComponent, canActivate: [SeguridadGuard] },
-      { path: 'app-activos-anio', component: ActivosPorAnioComponent, canActivate: [SeguridadGuard] },
+      { path: 'graph-activos-anio', component: ActivosPorAnioComponent, canActivate: [SeguridadGuard] },
+      { path: 'graph-monto-anio', component: MontoPorAnioComponent, canActivate: [SeguridadGuard] },
       { path: 'pagina-error-login', component: PaginaErrorLoginComponent },
       { path: '', redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
 

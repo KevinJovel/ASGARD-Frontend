@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { DepreciacionService } from '../../services/depreciacion.service';
 import { SeguridadService } from '../../services/seguridad.service';
 import { Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-backup',
