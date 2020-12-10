@@ -10,6 +10,9 @@ import {environment} from '../../../environments/environment';
 import {saveAs} from 'file-saver/dist/FileSaver';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { MantenimientoService } from './../../services/mantenimiento.service';
+import { TraspasoService } from 'src/app/services/traspaso.service';
+import { BajaService } from './../../services/baja.service';
 
 @Component({
   selector: 'app-reportes-catalogos',
@@ -47,7 +50,9 @@ export class ReportesCatalogosComponent implements OnInit {
   fechaMinima:any;
 
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
-    private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService, private controlService: ControlService) {
+    private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService,
+    private controlService: ControlService,private mantenimientoService: MantenimientoService,
+    private TraspasoService: TraspasoService, private bajaService:BajaService) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
 
     this.combos = new FormGroup({
@@ -158,59 +163,127 @@ export class ReportesCatalogosComponent implements OnInit {
 
   //MÉTODOS PARA LOS REPORTES DE CATÁLOGOS
   areasDeNegocioPDF() {
+    this.catalogoService.validarlistarAreas().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/areasDeNegociopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de áreas de negocio.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay áreas de negocios!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  } 
   sucursalesPDF() {
+    this.catalogoService.validarlistarSucursales().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/sucursalespdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de sucursales.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay sucursales!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  }  
   categoriasPDF() {
+    this.catalogoService.validarlistarCategoria().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/categoriaspdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de categorías de activos.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay categorías!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  } 
   clasificacionesPDF() {
+    this.catalogoService.validarlistarClasificacion().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/clasificacionespdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de clasificaciones de activos.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay clasificaciones!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  }  
   cargosPDF() {
+    this.catalogoService.validarlistarCargo().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/cargospdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cargos.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay cargos!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  }
+  
   empleadosPDF() {
+    this.catalogoService.validarlistarEmpleado().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/empleadospdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de empleados.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay empleados!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  }
+  //faltaria este
   empleadosPorClasificacionPdf(id) {
    this.idArea= this.comboArea.controls['idAreaNegocio'].value;
     this.http.get(environment.urlService+"api/Reporte/empleadosPorAreapdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
@@ -222,50 +295,110 @@ export class ReportesCatalogosComponent implements OnInit {
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
   }
-
+  
   proveedoresPDF() {
+    this.catalogoService.validarlistarProveedores().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/proveedoresPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de proveedores.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay proveedores!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  }
+  
   donantesPDF() {
+    this.catalogoService.validarlistarDonantes().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/donantesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de donantes.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay donantes!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  }
+  
   marcasPDF() {
+    this.catalogoService.validarlistarMarcas().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/marcasPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de marcas.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay marcas!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  }
+  
   tecnicosPDF() {
+    this.catalogoService.validarlistarTenico().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/tecnicosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de técnicos.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay técnicos!',
+      showConfirmButton: false,
+      timer: 3000
+    })
   }
-
+});
+  }
+  
   tipoDescargoPDF() {
+    this.catalogoService.validarlistarTipoDescargo().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/tipoDescargoPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de tipo de descargos.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay tipos de descargo!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
 
   //MÉTODOS PARA REPORTES DE CONTROL DE ACTIVO 
@@ -465,68 +598,150 @@ export class ReportesCatalogosComponent implements OnInit {
         }
       });
      }
-
-
   //REPORTES DE MANTENIMIENTO
   solicitudesmantenimientopdf() {
+    this.mantenimientoService.validarSolicitudesParaMantenimiento().subscribe(res => {
+    if(res==1){
     this.http.get(environment.urlService+"api/ReportesMantenimiento/solicitudesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de mantenimiento.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay solicitudes de mantenimiento!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
   activosenmantenimientopdf() {
+    this.mantenimientoService.validarActivosEnMantenimiento().subscribe(res => {
+      if(res==1){
     this.http.get(environment.urlService+"api/ReportesMantenimiento/activosenmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos en mantenimiento.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay activos en mantenimiento!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
   informesmantenimientopdf() {
+    this.mantenimientoService.validarListarInformeMantenimiento().subscribe(res => {
+      if(res==1){
     this.http.get(environment.urlService+"api/ReportesMantenimiento/informesmantenimientopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de informes de mantenimiento.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay informes de mantenimiento!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
 
   //Reporte de traspasos
   solicitudestraspasopdf() {
+    this.TraspasoService.validarSolicitudTraspaso().subscribe(res => {
+      if(res==1){
     this.http.get(environment.urlService+"api/ReportesTraspaso/solicitudestraspasopdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de traspasos.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay solicitudes de traspaso!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
 
   //reporte de descargos
   solicitudbajapdf() {
+    this.bajaService.validarSolicitudesParaBaja().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/ReportesBaja/solicitudbajapdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de solicitudes de baja.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay solicitudes de descargos!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
   asignadosdebajapdf() {
+    this.bajaService.validarHistorialParaBaja().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/ReportesBaja/asignadosdebajapdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de historial de descargos de activos asignados.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay historial de descargos!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
   noasignadosdebajapdf() {
+    this.bajaService.validarHistorialParaBaja().subscribe(res => {
+      if (res == 1) {
     this.http.get(environment.urlService+"api/ReportesBaja/noasignadosdebajapdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de historial de descargos de activos no asignados.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay historial de descargos!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
   
 
@@ -560,6 +775,17 @@ export class ReportesCatalogosComponent implements OnInit {
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de bitácora.`).subscribe();
    }
+
+   usuariospdf() {
+    this.http.get(environment.urlService+"api/ReportesSeguridad/usuariospdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de usuarios.`).subscribe();
+   }
+
+   
   
 
 }
