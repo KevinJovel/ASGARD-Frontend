@@ -38,7 +38,16 @@ table {
     animation-duration: 1s;
     box-shadow: 0 5px 15px rgba(0,0,0,.5);
   }
+  .modal-lg {
+    width: 750px;
+    height:415px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
   
+  .margin-left{
+    margin-left: 70px !important;
+  }
   
   @keyframes modal {
     from {

@@ -16,7 +16,7 @@ export class FormCoopeComponent implements OnInit {
   cooperativas: any;
   display = 'none';
   display2 = 'none';
-  display3 = 'none';
+  display3 = 'none';// para ayuda
   p: number = 1;
   logo: any;
   titulo: string;

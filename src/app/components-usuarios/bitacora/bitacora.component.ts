@@ -8,6 +8,7 @@ import {UsuarioService} from '../../services/usuario.service'
 export class BitacoraComponent implements OnInit {
 transacciones:any;
 p:number=1;
+display5 = 'none';// para ayuda
   constructor(private usuarioService:UsuarioService) {  }
 
   ngOnInit(): void {
@@ -16,4 +17,10 @@ p:number=1;
     });
   }
 
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 }
