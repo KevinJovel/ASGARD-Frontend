@@ -52,15 +52,20 @@ export class ReportesCatalogosComponent implements OnInit {
 
     this.combos = new FormGroup({
       'idclasificacion': new FormControl("0"),
+     
     });
     this.comboArea = new FormGroup({
       'idAreaNegocio': new FormControl("0"),
       'bandera': new FormControl("0"),
-      'anio':new FormControl("",[Validators.required])
+      'anio':new FormControl("",[Validators.required]),
+      
   
     });
     this.combomarca = new FormGroup({
       'IdMarca': new FormControl("0"),
+      'bandera': new FormControl("0"),
+      'mes':new FormControl("",[Validators.required,Validators.pattern("^[0-9]+$")]),
+      'anio':new FormControl("",[Validators.required,Validators.pattern("^[0-9]+$")]),
     });
     
    }
@@ -106,7 +111,8 @@ export class ReportesCatalogosComponent implements OnInit {
   }
   close8() {
     this.display8 = 'none';
-    this.comboArea.controls['anio'].setValue("");
+    this.combomarca.controls['anio'].setValue("");
+    this.combomarca.controls['mes'].setValue("");
   }
   open(){
     this.titulo = "Imprimir activos por clasificación";
@@ -433,16 +439,18 @@ export class ReportesCatalogosComponent implements OnInit {
    
     //REPORTE DE PROVISIÓN MENSUAL
     provisionMensualPdf() {
-      let anio=this.comboArea.controls['anio'].value;
-      this.controlService.validarActivoxAnio(anio).subscribe(res => {
+      let anio=this.combomarca.controls['anio'].value;
+      let mes= this.combomarca.controls['mes'].value;
+      this.controlService.validarActivoMes(mes,anio).subscribe(res => {
         if (res == 1) {
-          this.idArea= this.comboArea.controls['anio'].value;
-          this.http.get(environment.urlService+"api/ReportesSeguridad/provisionMensualPdf/" + parseInt(this.mes)+"/"+ parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          this.idmarca= this.combomarca.controls['anio'].value;
+          this.idmarca= this.combomarca.controls['mes'].value;
+          this.http.get(environment.urlService+"api/ReportesSeguridad/provisionMensualPdf/" + parseInt(mes)+"/"+ parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
             const blod=new Blob([pdf],{type:"application/pdf"});
             const url= window.URL.createObjectURL(blod);
              window.open(url);
              //Para cerrar el modal y limpiar cuando genera el reporte
-             this.close6();
+             this.close8();
           });
           this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de provisión mensual.`).subscribe();
          

@@ -643,48 +643,69 @@ class="modall" [ngStyle]="{'display':display2}">
       </div>
       <div class="modal-body">
 
-        <form role="form" [formGroup]="comboArea" (ngSubmit)="provisionMensualPdf()">
-            <input type="hidden" class="form-control" value="{{idArea}}">
+        <form role="form" [formGroup]="combomarca" (ngSubmit)="provisionMensualPdf()">
+            <input type="hidden" class="form-control" value="{{idmarca}}">
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+          
+          <div class="form-group">
+            <label>* Ingrese mes:</label>
+            <input type="text" class="form-control" formControlName="mes" maxlength="2" placeholder="MM"
+              autocomplete="off" min="1" max="12">
+          </div>
 
           <div class="form-group">
-            <label>* Ingrese mes y año:</label>
+            <label>* Ingrese año:</label>
             <input type="text" mask="0000" class="form-control" formControlName="anio" placeholder="YYYY"
               autocomplete="off" min="{{fechaMinima}}" max="{{fechaMaxima}}">
           </div>
 
-          <div class="alert alert-block alert-danger fade in" *ngIf="comboArea.controls['anio'].errors?.maxlength">
+          <div class="alert alert-block alert-danger fade in" *ngIf="combomarca.controls['anio'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo año.
           </div>
 
-          <div class="alert alert-block alert-danger fade in" *ngIf="comboArea.controls['anio'].errors?.pattern">
+          <div class="alert alert-block alert-danger fade in" *ngIf="combomarca.controls['anio'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo año no acepta caracteres especiales.
           </div>
+          
+          <div class="alert alert-block alert-danger fade in" *ngIf="combomarca.controls['mes'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo mes.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="combomarca.controls['mes'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo mes no acepta caracteres especiales.
+          </div>
+
 
 
           <!--  WARNING-->
-          <div class="alert alert-warning fade in" *ngIf="!comboArea.valid">
+          <div class="alert alert-warning fade in" *ngIf="!combomarca.valid">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> El campo año es obligatorio.
+            <strong>Advertencia!</strong> Los campos con * son obligatorios.
           </div>
 
           <!--  END-WARNING-->
-          <div class="alert alert-success fade in" *ngIf="comboArea.valid&&comboArea.controls['bandera'].value==0">
+          <div class="alert alert-success fade in" *ngIf="combomarca.valid&&combomarca.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Excelente!</strong> Dato ingresado correctamente.
+            <strong>Excelente!</strong> Datos ingresados correctamente.
           </div>
 
-          <button [disabled]="!comboArea.valid" type="submit" class="btn btn-success"><i class="icon-print"></i>
+          <button [disabled]="!combomarca.valid" type="submit" class="btn btn-success"><i class="icon-print"></i>
             Imprimir</button>
           <button type="button" (click)="close8()" class="btn btn-default"><i class="icon-remove-sign"></i>
              Cancelar</button>
