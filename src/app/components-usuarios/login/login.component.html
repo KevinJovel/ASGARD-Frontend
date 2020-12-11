@@ -8,7 +8,8 @@
           <input type="text" class="form-control" placeholder="Usuario" formControlName="nombreusuario">
           <input type="password" class="form-control" placeholder="Contraseña" formControlName="contra">
           <br>
-          <a class="forgotlink" (click)="recuperacion()"> Forgot Password?</a>
+          <a class="forgotlink" (click)="gestionRecuperacion()"> ¿Olvidaste tu contraseña?</a>
+          <br>
           <br>
           <button class="btn btn-lg btn-login btn-block" type="submit">Iniciar Sesión</button>
           <div style="color:red" *ngIf="error==true">
@@ -23,18 +24,18 @@
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
-            <h4 class="modal-title">Recuperacion de contrasenia </h4>
+            <h4 class="modal-title">Recuperación de contraseña </h4>
           </div>
           <div class="modal-body">
             <form role="form" [formGroup]="recup">
             <div class="form-group">
-              <label>Ingrese su correo elctronico para realizar la recuperacion:</label>
+              <label>Ingrese su correo electrónico para realizar la recuperación:</label>
            
               <input type="text" class="form-control" formControlName="email"
                 placeholder="ejemplo@gmail.com" autocomplete="off" maxlength="51">
             </div>
             <div style="text-align: center;">
-              <button type="button" class="btn btn-primary" (click)="ValidarCorreo()"><i class="icon-remove-sign"></i>
+              <button type="button" class="btn btn-primary" (click)="ValidarCorreo()"><i class="icon-share-alt"></i>
                 Enviar</button>
               <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
                 Cancelar</button>
@@ -51,14 +52,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
-            <h4 class="modal-title">Recuperacion de contrasenia </h4>
+            <h4 class="modal-title">Recuperación de contraseña </h4>
           </div>
           <div class="modal-body">
             <div class="alert alert-warning fade in">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Se ha detectado que esta direccion de correo pertence a mas de una cuenta!</strong> Seleccione la cuenta que desea recuperar
+            <strong>¡ADVERTENCA!</strong> Se ha detectado que esta dirección de correo electrónico pertenece a más de una cuenta
           </div>
              <div class="adv-table">
               <table class="display table table-bordered table-striped">
@@ -79,7 +80,7 @@
   
                     <td class="center hidden-phone">
                    
-                      <button title="Eliminar usuario" class="btn btn-primary btn-xs"
+                      <button title="Recuperar contraseña" class="btn btn-primary btn-xs"
                         (click)="recuperar(usuario.iidusuario)"><i class="icon-reply"></i></button>
                     </td>
                   </tr>
@@ -97,3 +98,99 @@
         </div>
       </div>
     </div>
+
+    <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+    class="modal" [ngStyle]="{'display':displayGestion}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close3()">×</button>
+          <h4 class="modal-title">Recuperación de contraseña </h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" [formGroup]="recup">
+          <!-- <div class="form-group"> -->
+            <!-- <label>Ingrese su correo elctronico para realizar la recuperacion:</label> -->
+         
+            <!-- <input type="text" class="form-control" formControlName="email"
+              placeholder="ejemplo@gmail.com" autocomplete="off" maxlength="51">
+          </div> -->
+          <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" (click)="ingresoCodigo()"><i class="icon-key"></i>
+              Tengo un código de verificación</button>
+            <button type="button" class="btn btn-primary" (click)="recuperacion()"><i class="icon-share-alt"></i>
+              Envíame un código</button>
+          </div>
+          <div style="text-align: center; margin: 15px;">
+           
+            <button type="button" class="btn btn-default" (click)="close3()"><i class="icon-remove-sign"></i>
+              Cancelar</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':displayCodigo}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close4()">×</button>
+        <h4 class="modal-title">Recuperación de contraseña </h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" [formGroup]="validarCodigo">
+        <div class="form-group">
+          <label>Ingrese su código de verificación:</label>
+       
+          <input type="text" class="form-control" formControlName="codigo"
+            placeholder="codigo" autocomplete="off" maxlength="51">
+        </div>
+        <div style="text-align: center;">
+          <button type="button" class="btn btn-primary" (click)="validarCodigoRe()"><i class="icon-unlock"></i>
+            Validar</button>
+          <button type="button" class="btn btn-default" (click)="close4()"><i class="icon-remove-sign"></i>
+            Cancelar</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+class="modal" [ngStyle]="{'display':displayChange}">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close5()">×</button>
+      <h4 class="modal-title">Recuperación de contraseña </h4>
+    </div>
+    <div class="modal-body">
+      <form role="form" [formGroup]="NewPassword">
+      <div class="form-group">
+        <input type="hidden" class="form-control" formControlName="id"
+          placeholder="Nueva contraseña" autocomplete="off" maxlength="51">
+        <label>Ingrese contraseña nueva:</label>
+     
+        <input type="password" class="form-control" formControlName="pass"
+          placeholder="Nueva contraseña" autocomplete="off" maxlength="51">
+      </div>
+      <div class="form-group">
+        <label>Repita contraseña:</label>
+     
+        <input type="password" class="form-control"
+        placeholder="Repita contraseña" autocomplete="off" maxlength="51">
+      </div>
+      <div style="text-align: center;">
+        <button type="button" class="btn btn-primary" (click)="recuperarContrasena()"><i class="icon-retweet"></i>
+          Restaurar</button>
+        <button type="button" class="btn btn-default" (click)="close5()"><i class="icon-remove-sign"></i>
+          Cancelar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+</div>

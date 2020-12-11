@@ -12,10 +12,15 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
   usuario: FormGroup;
+  validarCodigo: FormGroup;
+  NewPassword: FormGroup;
   recup: FormGroup;
   error: boolean = false;
   displayRecuperacion='none';
   displayusuarios='none';
+  displayGestion='none';
+  displayCodigo='none';
+  displayChange='none'
   usuarios: any;
   constructor(private usuarioService:UsuarioService,private router:Router,private seguridadService:SeguridadService) { 
     this.usuario=new FormGroup(
@@ -26,6 +31,15 @@ export class LoginComponent implements OnInit {
   this.recup=new FormGroup(
     {
       'email': new FormControl("",[Validators.required])
+  });
+  this.validarCodigo=new FormGroup(
+    {
+      'codigo': new FormControl("",[Validators.required])
+  });
+  this.NewPassword=new FormGroup(
+    {
+      'id': new FormControl("",[Validators.required]),
+      'pass': new FormControl("",[Validators.required])
   });
  }
 
@@ -71,6 +85,9 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+  gestionRecuperacion(){
+    this.displayGestion='block';
+  }
   ValidarCorreo(){
     let email=this.recup.controls["email"].value;
     // alert(email);
@@ -82,13 +99,36 @@ export class LoginComponent implements OnInit {
           this.displayusuarios='block';
         });
       }else if(res==2){
-        alert("se ejecuta el envio")
+        this.seguridadService.recupUsuario(email).subscribe(res=>{
+          this.seguridadService.sendEmail(res.iidusuario,email).subscribe(data=>{
+            if(data==1){
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '¡Listo!',
+                text:'Correo de recuperación enviado con éxito, revise su correo electrónico para seguir con el proceso.',
+                showConfirmButton: false,
+                timer: 5000
+            });
+            this.displayRecuperacion='none';
+            this.displayCodigo='block';
+            }else{
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: '¡Ocurrió un error!',
+                showConfirmButton: false,
+                timer: 3000
+            })
+            }
+          });
+        });
       }else{
         Swal.fire({
           position: 'center',
           icon: 'error',
           title: '¡Error!',
-          text:'la direccion de correo ingresada no pertenece a ningun usuario registrado',
+          text:'La dirección de correo electrónico ingresada no pertenece a ningún usuario registrado ',
           showConfirmButton: false,
           timer: 3000
       })
@@ -96,13 +136,24 @@ export class LoginComponent implements OnInit {
      });
   }
   recuperacion(){
+    this.displayGestion='none';
     this.displayRecuperacion='block';
-  
+
   }
   recuperar(id){
-    this.seguridadService.sendEmail(id,"kevinjovel9@gmail.com").subscribe(res=>{
+    let email=this.recup.controls["email"].value;
+    this.seguridadService.sendEmail(id,email).subscribe(res=>{
       if(res==1){
-        alert("revise su correo")
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: '¡Listo!',
+          text:'Correo de recuperación enviado con éxito, revise su correo electrónico para seguir con el proceso.',
+          showConfirmButton: false,
+          timer: 5000
+      });
+      this.displayusuarios='none';
+      this.displayCodigo='block';
       }else{
         alert("ocurrio un error")
       }
@@ -114,6 +165,64 @@ export class LoginComponent implements OnInit {
   close2(){
     this.displayusuarios='none';
   }
+  close3(){
+    this.displayGestion='none';
+  }
+  close4(){
+    this.displayCodigo='none';
+  }
+  close5(){
+    this.displayChange='none';
+  }
+  ingresoCodigo(){
+this.displayGestion='none';
+this.displayCodigo='block';
+  }
+validarCodigoRe(){
+let codigo=this.validarCodigo.controls["codigo"].value;
+this.seguridadService.verificarCodigo(codigo).subscribe(data=>{
+  if(data==0){
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡Error!',
+      text:'El código ingresado no existe o esta caducado.',
+      showConfirmButton: false,
+      timer: 3000
+  })
+  }else{
+   this.displayCodigo='none';
+   this.displayChange='block';
+   this.NewPassword.controls["id"].setValue(data);
+  }
+});
+}
+recuperarContrasena(){
+  let id=this.NewPassword.controls["id"].value;
+  let pass=this.NewPassword.controls["pass"].value;
+  this.seguridadService.changePassword(id,pass).subscribe(res=>{
+    if(res==1){
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: '¡Exelenete!',
+        text:'Contraseña modificada con éxito',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    this.displayChange='none';
+    }else{
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: '¡Oups!',
+        text:'Ocurrió un error',
+        showConfirmButton: false,
+        timer: 3000
+    });
+    }
+  })
+}
 }
  // console.log(res);
         // if (res.iidusuario == 0) {

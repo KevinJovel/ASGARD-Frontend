@@ -79,5 +79,16 @@ export class SeguridadService {
   public sendEmail(id,email) {
     return this.http.get(environment.urlService + "api/Seguridad/SendEmail/"+id+"/"+email).map(res => res.json());
   }
+  public recupUsuario(email) {
+    return this.http.get(environment.urlService + "api/Seguridad/recuperarUsuario/"+email).map(res => res.json());
+  }
+  public verificarCodigo(codigo) {
+    return this.http.get(environment.urlService + "api/Seguridad/validarToken/"+codigo).map(res => res.json());
+  }
+  public changePassword(id,pass) {
+    return this.http.get(environment.urlService + "api/Seguridad/recoveryPassword/"+id+"/"+pass).map(res => res.json());
+  }
   
+
+
 }
