@@ -277,7 +277,7 @@ export class ReportesCatalogosComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: '¡No hay empleados!',
+      title: '¡No hay empleados en esta área!',
       showConfirmButton: false,
       timer: 3000
     })
@@ -285,8 +285,11 @@ export class ReportesCatalogosComponent implements OnInit {
 });
   }
   //faltaria este
+  
   empleadosPorClasificacionPdf(id) {
    this.idArea= this.comboArea.controls['idAreaNegocio'].value;
+   this.catalogoService.validarempleadosPorAreapdf(this.idArea).subscribe(res => {
+    if (res == 1) {
     this.http.get(environment.urlService+"api/Reporte/empleadosPorAreapdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
@@ -295,6 +298,16 @@ export class ReportesCatalogosComponent implements OnInit {
        this.close2();
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de empleados por área de negocio.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay empleados!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
   
   proveedoresPDF() {

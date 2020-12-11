@@ -465,6 +465,10 @@ public validarlistarSucursales(){
  public validarlistarTipoDescargo(){
   return this.http.get(environment.urlService + "api/TipoDescargo/validarlistarTipoDescargo"  ).map(res=>res.json());
  } 
+ public validarempleadosPorAreapdf(idempleado){
+  return this.http.get(environment.urlService + "api/Reporte/validarempleadosPorAreapdf/" + idempleado  ).map(res=>res.json());
+ } 
+
 
  
  
