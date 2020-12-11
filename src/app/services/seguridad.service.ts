@@ -70,5 +70,14 @@ export class SeguridadService {
   public generarbackup() {
     return this.http.get(environment.urlService + "api/Usuario/CreateBackup").map(res => res.json());
   }
+  public validarCorreo(email) {
+    return this.http.get(environment.urlService + "api/Seguridad/ValidaNumeroUsuarios/"+email).map(res => res.json());
+  }
+  public recuperarUsuarios(email) {
+    return this.http.get(environment.urlService + "api/Seguridad/ListarUsuarios/"+email).map(res => res.json());
+  }
+  public sendEmail(id,email) {
+    return this.http.get(environment.urlService + "api/Seguridad/SendEmail/"+id+"/"+email).map(res => res.json());
+  }
   
 }

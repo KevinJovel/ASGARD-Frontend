@@ -1,0 +1,328 @@
+<br>
+<br>
+<br>
+<br>
+<section class="panel">
+  <h1>Usuarios</h1>
+  <div class="row">
+    <div class="col-lg-6">
+      <header class="panel-heading form-in-line">
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i
+            class="icon-plus-sign-alt"></i> Agregar nuevo usuario</button>
+      </header>
+    </div>
+    <div class="col-lg-3">
+    </div>
+    <div class="col-md-3">
+      <input type="search" class="form-control" #nombre (keyup)="buscar(nombre)" placeholder="Buscar">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <section class="panel panel-default">
+
+        <header class="panel-heading">
+          <h5>Registro de usuarios</h5>
+        </header>
+        <div class="panel-body">
+          <div class="adv-table">
+            <table class="display table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>N°</th>
+                  <th>Nombre del empleado</th>
+                  <th>Usuario</th>
+                  <th>Tipo de usuario</th>
+                  <th class="hidden-phone">Opciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                  <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                  <td>{{usuario.nombreEmpleado}}</td>
+                  <td>{{usuario.nombreusuario}}</td>
+                  <td>{{usuario.nombreTipoUsuario}}</td>
+                  <!--son los atributos de la clase-->
+
+                  <td class="center hidden-phone">
+                    <button title="Ver detalles" class="btn btn-primary btn-xs" (click)="ver(usuario.iidusuario)"><i
+                        class="icon-eye-open"></i></button>
+                    <button title="Agregar usuario asistente" class="btn btn-warning btn-xs"
+                      (click)="OpenAsignarAsistente(usuario.iidusuario)"><i class=" icon-user"></i></button>
+                    <button title="Modificar usuario" class="btn btn-primary btn-xs"
+                      (click)="modificar(usuario.iidusuario)"><i class="icon-pencil"></i></button>
+                    <button title="Eliminar usuario" class="btn btn-danger btn-xs"
+                      (click)="eliminar(usuario.iidusuario)"><i class="icon-trash "></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+              nextLabel="Siguiente"></pagination-controls>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+
+<!--modal para ingresar y editar-->
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="usuario" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="iidusuario" id="exampleInputEmail3"
+            autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" id="exampleInputEmail3"
+            autocomplete="off">
+
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+            <label for="exampleFormControlTextarea2">* Empleado:</label>
+            <select class="form-control" formControlName="iidEmpleado" maxlength="51">
+              <option value="">--Seleccione--</option>
+              <option [value]="empleado.id" *ngFor="let empleado of empleados">{{empleado.nombre}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea2">* Tipo usuario:</label>
+            <select class="form-control" formControlName="iidTipousuario" maxlength="51"
+              [attr.disabled]="editar ? '' : null">
+              <option value="">--Seleccione--</option>
+              <option [value]="1">Administrador</option>
+              <option [value]="2">Jefe de área</option>
+              <!-- <option [value]="3">Asistente temporal</option> -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">* Nombre de usuario:</label>
+            <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario"
+              placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="usuario.controls['nombreusuario'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="usuario.controls['nombreusuario'].errors?.yaExiste">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Ya existe el nombre de Usuario, por favor intente con uno nuevo.
+          </div>
+
+
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+            <label for="exampleInputEmail1">* Ingrese Contraseña:</label>
+            <input size=35 type="password" class="form-control" formControlName="contra" id="contra"
+              placeholder="Ingrese Contraseña" maxlength="31" autocomplete="off">
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+          </div>
+
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+            <label for="exampleInputEmail1">* Repita contraseña:</label>
+            <input size=35 type="password" class="form-control" formControlName="contra2" id="contra2"
+              placeholder="Repita Contraseña" maxlength="31" autocomplete="off">
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.noIguales">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> La contraseña no es igual.
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="usuario.controls['iidTipousuario'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> Todos los campos son obligatorios
+          </div>
+
+          <div class="alert alert-success fade in" *ngIf="usuario.valid&&usuario.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Exelente!</strong> Datos ingresados correctamente
+          </div>
+
+          <button type="submit" [disabled]="!usuario.valid" class="btn btn-primary"><i class="icon-save"></i>
+            Guardar</button>
+          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--modal para ingresar y editar-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
+  [ngStyle]="{'display':display2}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">{{titulo}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="usuario" (ngSubmit)="guardarDatos()">
+          <input type="hidden" class="form-control" formControlName="iidusuario" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+          <!-- <input type="hidden" class="form-control"  formControlName="iidTipousuario" value="3" autocomplete="off">
+            -->
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+            <label for="exampleFormControlTextarea2">* Empleado:</label>
+            <select class="form-control" formControlName="iidEmpleado" maxlength="51">
+              <option value="">--Seleccione--</option>
+              <option [value]="empleado.id" *ngFor="let empleado of empleados">{{empleado.nombre}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">* Nombre de usuario:</label>
+            <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario"
+              placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="usuario.controls['nombreusuario'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <div class="alert alert-block alert-danger fade in"
+            *ngIf="usuario.controls['nombreusuario'].errors?.yaExiste">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Ya existe el nombre de Usuario, por favor intente con uno nuevo.
+          </div>
+
+
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+            <label for="exampleInputEmail1">* Ingrese Contraseña:</label>
+            <input size=35 type="password" class="form-control" formControlName="contra" id="contra"
+              placeholder="Ingrese Contraseña" maxlength="31" autocomplete="off">
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+          </div>
+
+          <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
+            <label for="exampleInputEmail1">* Repita contraseña:</label>
+            <input size=35 type="password" class="form-control" formControlName="contra2" id="contra2"
+              placeholder="Repita Contraseña" maxlength="31" autocomplete="off">
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> Tamaño máximo permitido en este campo.
+          </div>
+          <div class="alert alert-block alert-danger fade in" *ngIf="usuario.controls['contra2'].errors?.noIguales">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Error!</strong> La contraseña no es igual.
+          </div>
+          <div class="alert alert-warning fade in" *ngIf="usuario.controls['iidTipousuario'].errors?.required">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> Todos los campos son obligatorios
+          </div>
+
+          <div class="alert alert-success fade in" *ngIf="usuario.valid&&usuario.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Exelente!</strong> Datos ingresados correctamente
+          </div>
+
+          <button type="submit" [disabled]="!usuario.valid" class="btn btn-primary"><i class="icon-save"></i>
+            Guardar</button>
+          <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cerrar</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal para activos no asignados-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':display3}">
+  <div class="modal-dialog .modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close3()">×</button>
+        <h4 class="modal-title">Datos del usuario</h4>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <br>
+        <div class="row">
+          <div class="col-xs-12">
+            <p><strong>Nombre del empleado:</strong> {{nombreEmpleado}}</p>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Nombre de usuario:</strong> {{nombreusuario}}</p>
+
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Tipo de usuario:</strong> {{tipoUsuario}}</p>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <p><strong>Sucursal:</strong> {{sucursal}}</p>
+
+          </div>
+          <div class="col-xs-6">
+            <p><strong>Área de negocios:</strong> {{areanegocio}}</p>
+          </div>
+        </div>
+
+        <button type="button" (click)="close3()" class="btn btn-default"><i class="icon-remove-sign"></i>
+          Cerrar</button>
+
+      </div>
+    </div>
+  </div>
+</div>

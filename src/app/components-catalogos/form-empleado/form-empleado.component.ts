@@ -31,6 +31,7 @@ export class FormEmpleadoComponent implements OnInit {
       'nombres': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       'apellidos': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.´´,#° ]+$")]),
+      'email': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.´´,#°@ ]+$")]),
       'telefono': new FormControl("", [Validators.required]),
       'telefonopersonal': new FormControl("", [Validators.required]),
       'idareadenegocio': new FormControl("", [Validators.required]),
@@ -79,6 +80,7 @@ export class FormEmpleadoComponent implements OnInit {
     if ((this.empleado.controls["bandera"].value) == "0") {
 
       if (this.empleado.valid == true) {
+        console.log(this.empleado.value);
         this.catalogosServices.guardarEmpleado(this.empleado.value).subscribe(data => {
           if (data == 1) {
             Swal.fire({

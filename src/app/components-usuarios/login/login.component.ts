@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {UsuarioService} from '../../services/usuario.service';
+import {SeguridadService} from '../../services/seguridad.service';
 import { Router} from '@angular/router';
 import Swal from 'sweetalert2';
 // import {environment} from "../../../environments/environment"
@@ -11,12 +12,20 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
   usuario: FormGroup;
+  recup: FormGroup;
   error: boolean = false;
-  constructor(private usuarioService:UsuarioService,private router:Router) { 
+  displayRecuperacion='none';
+  displayusuarios='none';
+  usuarios: any;
+  constructor(private usuarioService:UsuarioService,private router:Router,private seguridadService:SeguridadService) { 
     this.usuario=new FormGroup(
     {
       'nombreusuario': new FormControl("",[Validators.required]),
       'contra': new FormControl("",[Validators.required])   
+  });
+  this.recup=new FormGroup(
+    {
+      'email': new FormControl("",[Validators.required])
   });
  }
 
@@ -61,6 +70,49 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+  ValidarCorreo(){
+    let email=this.recup.controls["email"].value;
+    // alert(email);
+     this.seguridadService.validarCorreo(email).subscribe(res=>{
+      if(res==1){
+        this.displayRecuperacion='none';
+        this.seguridadService.recuperarUsuarios(email).subscribe(data=>{
+          this.usuarios=data;
+          this.displayusuarios='block';
+        });
+      }else if(res==2){
+        alert("se ejecuta el envio")
+      }else{
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡Error!',
+          text:'la direccion de correo ingresada no pertenece a ningun usuario registrado',
+          showConfirmButton: false,
+          timer: 3000
+      })
+      }
+     });
+  }
+  recuperacion(){
+    this.displayRecuperacion='block';
+  
+  }
+  recuperar(id){
+    this.seguridadService.sendEmail(id,"kevinjovel9@gmail.com").subscribe(res=>{
+      if(res==1){
+        alert("revise su correo")
+      }else{
+        alert("ocurrio un error")
+      }
+    });
+  }
+  close(){
+    this.displayRecuperacion='none';
+  }
+  close2(){
+    this.displayusuarios='none';
   }
 }
  // console.log(res);

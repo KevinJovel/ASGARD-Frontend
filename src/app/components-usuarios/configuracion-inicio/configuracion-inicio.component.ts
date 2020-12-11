@@ -61,6 +61,7 @@ export class ConfiguracionInicioComponent implements OnInit {
       'nombres': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       'apellidos': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.´´,#° ]+$")]),
+      'email': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.´´,#°@ ]+$")]),
       'telefono': new FormControl("", [Validators.required]),
       'telefonopersonal': new FormControl("", [Validators.required]),
       'idareadenegocio': new FormControl("", [Validators.required]),

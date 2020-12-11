@@ -22,7 +22,7 @@ export class ActivosPorAnioComponent implements OnInit {
     }
   };
   public barChartLabels: Label[] = [];
-  public barChartType: ChartType = 'bar';
+  public barChartType: ChartType = 'pie';
   public barChartLegend = true;
   public barChartPlugins = [];
 
