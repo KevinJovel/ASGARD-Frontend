@@ -27,7 +27,7 @@ export class RegistroActivosComponent implements OnInit {
 
   dataState: State;//hace referencia a la variable donde estan almacenados los datos
   activos: any;
-  //bienes: any;
+  idactivo: any;
   id: any;
   tipocombo: string;
   combo: FormGroup;
@@ -270,6 +270,19 @@ export class RegistroActivosComponent implements OnInit {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió reporte de activos.`).subscribe();
   }
 
+  codigoDeBarrasPdf(id) {
+
+    this.controlService.VerDatosActivosAsig(id).subscribe(data => {
+      this.idactivo = data.idBien
+    });
+    this.http.get(environment.urlService + "api/ReportesSeguridad/codigoBarraActivoPdf/" + parseInt(this.idactivo), { responseType: 'arraybuffer' }).subscribe(pdf => {
+      const blod = new Blob([pdf], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blod);
+      window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un código de barras .`).subscribe();
+  }
+
   close() {
     this.display = 'none';
   }
@@ -306,6 +319,7 @@ export class RegistroActivosComponent implements OnInit {
         this.displayMensaje = 'block';
         this.displayfoto = 'none';
       }
+      this.idactivo = data.idBien
       this.fecha = data.fecha;
       this.codigo = data.codigo;
       this.descripcion = data.descripcion;

@@ -160,13 +160,14 @@
         <h4 class="modal-title">{{titulo}}</h4>
       </div>
       <div class="modal-body">
+        <input type="hidden" class="form-control" value="{{idactivo}}">
         <p style="text-align: center;">{{nombreActivo}} {{marca}} {{modelo}}</p>
             <div class="modal-body" style="text-align: center;">
               <svg id="barcode" width="400px" height="150px"></svg>
               <br>
                     <p style="text-align: center;"> Registro de activos fijos ACAASS de R.L</p>
             </div>
-            <button type="button" (click)="recuperar()" class="btn btn-primary"><i class="icon-save"></i>
+            <button title="Imprimir código de barras" type="button" (click)="codigoDeBarrasPdf(idactivo)" class="btn btn-primary"><i class="icon-save"></i>
               Imprimir</button>
             <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
               Cancelar</button>
