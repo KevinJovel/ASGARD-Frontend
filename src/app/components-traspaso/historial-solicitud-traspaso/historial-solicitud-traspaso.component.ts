@@ -87,7 +87,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'No se encontraron activos en mantenimiento.',
+        title: 'No se encontraron activos.',
         showConfirmButton: false,
         timer: 4000
       });

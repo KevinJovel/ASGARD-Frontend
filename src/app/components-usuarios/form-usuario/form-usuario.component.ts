@@ -20,6 +20,7 @@ export class FormUsuarioComponent implements OnInit {
   displayU = 'none';
   display2 = 'none';
   display3 = 'none';
+  display5 = 'none';// para ayuda
   p: number = 1;
   tipoUsuarios: any;
   empleados: any;
@@ -283,4 +284,10 @@ export class FormUsuarioComponent implements OnInit {
     }
   }
 
+  open5() { //para modal de ayuda
+    this.display5 = 'block';
+  }
+  close5() { //para modal de ayuda
+    this.display5 = "none";
+  }
 }

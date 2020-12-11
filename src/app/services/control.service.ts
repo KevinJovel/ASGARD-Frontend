@@ -91,6 +91,12 @@ public validarActivoxAnio(anio) {
   return this.http.get(environment.urlService + "api/ActivoFijo/validarActivo/" + anio).map(res => res.json());
 }
 
+public validarActivoMes(mes,anio) {
+  return this.http.get(environment.urlService + "api/ActivoFijo/validarActivoMes/" + mes +"/"+ anio).map(res => res.json());
+}
+
+
+
 //Control de bienes
 public getBienesAsignados() {
   return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivosAsignados").map(res => res.json());

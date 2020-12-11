@@ -431,6 +431,45 @@ public comboMarcas() {
   return this.http.get(environment.urlService  + "api/ReportesSeguridad/comboMarcas").map(res => res.json());
 }
 
+//VALIDAR LISTAS VACIAS 
+public validarlistarSucursales(){
+  return this.http.get(environment.urlService + "api/Sucursal/validarlistarSucursales"  ).map(res=>res.json());
+ } 
+ public validarlistarAreas(){
+  return this.http.get(environment.urlService + "api/AreasNegocios/validarlistarAreas"  ).map(res=>res.json());
+ } 
+ public validarlistarCategoria(){
+  return this.http.get(environment.urlService + "api/Categorias/validarlistarCategoria"  ).map(res=>res.json());
+ } 
+ public validarlistarClasificacion(){
+  return this.http.get(environment.urlService + "api/Clasificacion/validarlistarClasificacion"  ).map(res=>res.json());
+ } 
+ public validarlistarCargo(){
+  return this.http.get(environment.urlService + "api/Cargo/validarlistarCargo"  ).map(res=>res.json());
+ } 
+ public validarlistarEmpleado(){
+  return this.http.get(environment.urlService + "api/Empleado/validarlistarEmpleado"  ).map(res=>res.json());
+ } 
+ public validarlistarProveedores(){
+  return this.http.get(environment.urlService + "api/Proveedor/validarlistarProveedores"  ).map(res=>res.json());
+ } 
+ public validarlistarDonantes(){
+  return this.http.get(environment.urlService + "api/Donantes/validarlistarDonantes"  ).map(res=>res.json());
+ } 
+ public validarlistarMarcas(){
+  return this.http.get(environment.urlService + "api/Marcas/validarlistarMarcas"  ).map(res=>res.json());
+ } 
+ public validarlistarTenico(){
+  return this.http.get(environment.urlService + "api/Tecnico/validarlistarTenico"  ).map(res=>res.json());
+ } 
+ public validarlistarTipoDescargo(){
+  return this.http.get(environment.urlService + "api/TipoDescargo/validarlistarTipoDescargo"  ).map(res=>res.json());
+ } 
+
+ 
+ 
+
+
 
 }
 

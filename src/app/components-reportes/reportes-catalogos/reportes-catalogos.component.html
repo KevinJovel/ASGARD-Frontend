@@ -5,6 +5,10 @@
                     <h2><strong>Reportes</strong></h2>
                 </div> 
             </div>
+            <div class="col-lg-6">
+              <button type="button" class="btn btn-warning margin-left" (click)="open15()" data-toggle="modal" data-target="#myModal15"><i
+                class="glyphicon glyphicon-question-sign"></i></button>
+            </div> 
         </div>
         <br>
         <div class="row">
@@ -28,36 +32,33 @@
                                     <div style="cursor:pointer" class="dd-handle" (click)="areasDeNegocioPDF()">Reporte de áreas de negocio</div>
                                 </li>
                                 <li class="dd-item" data-id="3">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="categoriasPDF()">Reporte de registro de categorias</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle" (click)="categoriasPDF()">Reporte  de categorías de activos</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="clasificacionesPDF()">Reporte de registro de clasificaciones</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle" (click)="clasificacionesPDF()">Reporte de clasificaciones de activos</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle"  (click)="cargosPDF()">Reporte de registro de cargos</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle"  (click)="cargosPDF()">Reporte de cargos de empleados</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="empleadosPDF()">Reporte de registro de empleados</div>   
-                                    <ol class="dd-list">
+                                    <div style="cursor:pointer" class="dd-handle" (click)="empleadosPDF()">Reporte de empleados</div>                                       
                                         <li class="dd-item" data-id="16">
-                                            <div style="cursor:pointer" class="dd-handle" (click)="open2()" data-toggle="modall" data-target="#myModal">Reporte de empleados por área de negocio</div>
-                                        </li>
-                                    </ol>                                
+                                            <div style="cursor:pointer" class="dd-handle" (click)="open2()" data-toggle="modall" data-target="#myModal">Reporte de empleados por área de negocios</div>                                                                  
                                 </li> 
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="proveedoresPDF()">Reporte de registro de proveedores</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle" (click)="proveedoresPDF()">Reporte de proveedores de activos</div>                                   
                                 </li> 
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="donantesPDF()">Reporte de registro de donantes</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle" (click)="donantesPDF()">Reporte de donantes de activos</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="marcasPDF()">Reporte de registro de marcas</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle" (click)="marcasPDF()">Reporte de marcas de activos</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="tecnicosPDF()">Reporte de registro de técnicos</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle" (click)="tecnicosPDF()">Reporte de técnicos</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" class="dd-handle" (click)="tipoDescargoPDF()">Reporte de tipo de descargos</div>                                   
+                                    <div style="cursor:pointer" class="dd-handle" (click)="tipoDescargoPDF()">Reporte de tipos de descargos</div>                                   
                                 </li>
                             </ol>
                         </div>
@@ -79,9 +80,9 @@
                     <div class="panel-body">
                         <div class="dd" id="nestable_list_2">
                             <ol class="dd-list">
-                                <li class="dd-item" data-id="15">
-                                    <div class="dd-handle">Registro de activos</div>
-                                    <ol class="dd-list">
+                                <li class="dd-item" data-id="15">  
+                                  <div class="dd-handle">Activos:</div>                              
+                                  <ol class="dd-list">
                                         <li class="dd-item" data-id="16">
                                             <div style="cursor:pointer" class="dd-handle" (click)="activosAsigandosPDF()">Reporte de activos asignados</div>
                                         </li>
@@ -103,7 +104,13 @@
                                         <li class="dd-item" data-id="20">
                                             <div style="cursor:pointer" class="dd-handle" (click)="open4()" >Reporte de activos adquiridos por año</div>
                                         </li>
-
+                                        <li class="dd-item" data-id="20">
+                                          <div style="cursor:pointer" class="dd-handle" (click)="open5()" >Reporte de activos revalorizados por año</div>
+                                      </li>
+                                      <li class="dd-item" data-id="20">
+                                        <div style="cursor:pointer" class="dd-handle" (click)="codigoBarraActivosPDF()" >Reporte de código de barra de activos</div>
+                                    </li>
+                                      </ol>
                                         <li class="dd-item" data-id="20">
                                             <div style="cursor:pointer" class="dd-handle" (click)="open6()" >Reporte de depreciación anual</div>
                                         </li>
@@ -114,17 +121,13 @@
                                           <div style="cursor:pointer" class="dd-handle" (click)="open8()" >Reporte de provisión mensual</div>
                                       </li>
 
-                                        <li class="dd-item" data-id="20">
-                                            <div style="cursor:pointer" class="dd-handle" (click)="open5()" >Reporte de activos revalorizados por año</div>
-                                        </li>
+                                        
                             
-                                    </ol>
-                                </li>
                                 <li class="dd-item" data-id="1">
-                                    <div style="cursor:pointer" [routerLink]="['/tabla-tarjeta']" class="dd-handle">Reporte tarjeta depreciación</div>                                   
+                                    <div style="cursor:pointer" [routerLink]="['/tabla-tarjeta']" class="dd-handle">Reporte de tarjeta de depreciación</div>                                   
                                 </li>
                                 <li class="dd-item" data-id="15">
-                                    <div class="dd-handle">Cuadro de control</div>
+                                    <div class="dd-handle">Cuadro de control:</div>
                                     <ol class="dd-list">
                                         <li class="dd-item" data-id="16">
                                             <div style="cursor:pointer" class="dd-handle" (click)="cuadroControlActivosPDF()">Reporte cuadro de control de activos</div>
@@ -135,9 +138,7 @@
                                         <li class="dd-item" data-id="18">
                                             <div style="cursor:pointer" class="dd-handle" (click)="cuadroControlIntangiblesPDF()">Reporte cuadro de control de activos intangibles</div>
                                         </li>
-                                    </ol>
-                                </li>
-                                
+                                      </ol>
                             </ol>
                         </div>
                     </div>
@@ -164,7 +165,7 @@
                             <ol class="dd-list">
                                 <li class="dd-item" data-id="15">
                                     <div class="dd-handle" (click)="solicitudesmantenimientopdf()">Reporte de solicitudes de mantenimiento</div>
-                                    <ol class="dd-list">
+                                    
                                         <li class="dd-item" data-id="16">
                                             <div style="cursor:pointer" class="dd-handle" (click)="activosenmantenimientopdf()">Reporte de activos en mantenimiento</div>
                                         </li>
@@ -174,8 +175,7 @@
                                         <li class="dd-item" data-id="18">
                                             <div style="cursor:pointer" class="dd-handle" [routerLink]="['/historial-mantenimiento']">Reporte de historial de mantenimiento</div>
                                         </li>
-                                    </ol>
-                                </li>
+                               
                             </ol>
                         </div>
                     </div>
@@ -197,14 +197,10 @@
                             <ol class="dd-list">
                                 <li class="dd-item" data-id="15">
                                     <div class="dd-handle" (click)="solicitudestraspasopdf()">Reporte de solicitudes de traspasos</div>
-                                    <ol class="dd-list">                           
+                                                              
                                         <li class="dd-item" data-id="16">
                                             <div style="cursor:pointer" class="dd-handle"  [routerLink]="['/historial-solicitud-traspaso']">Reporte historial de traspasos</div>
                                         </li>
-                                    </ol>
-                                   
-                                </li>
-                            
                             </ol>
                         </div>
                     </div>
@@ -256,10 +252,14 @@
                     <div class="panel-body">
                         <div class="dd" id="nestable_list_2">
                             <ol class="dd-list">
+                              <li class="dd-item" data-id="15">
+                                <div class="dd-handle" style="cursor:pointer" (click)="usuariospdf()">Reporte de usuarios</div>
+                            </li>
                                 <li class="dd-item" data-id="15">
                                     <div class="dd-handle" style="cursor:pointer" (click)="bitacoraPdf()">Reporte de bitácora</div>
                                 </li>
-                            
+                                
+                                
                             </ol>
                         </div>
                     </div>
@@ -643,48 +643,69 @@ class="modall" [ngStyle]="{'display':display2}">
       </div>
       <div class="modal-body">
 
-        <form role="form" [formGroup]="comboArea" (ngSubmit)="provisionMensualPdf()">
-            <input type="hidden" class="form-control" value="{{idArea}}">
+        <form role="form" [formGroup]="combomarca" (ngSubmit)="provisionMensualPdf()">
+            <input type="hidden" class="form-control" value="{{idmarca}}">
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+          
+          <div class="form-group">
+            <label>* Ingrese mes:</label>
+            <input type="number" mask="00" class="form-control" formControlName="mes" maxlength="2" placeholder="MM"
+              autocomplete="off" min="1" max="12">
+          </div>
 
           <div class="form-group">
-            <label>* Ingrese mes y año:</label>
-            <input type="text" mask="0000" class="form-control" formControlName="anio" placeholder="YYYY"
+            <label>* Ingrese año:</label>
+            <input type="number" mask="0000" class="form-control" formControlName="anio" placeholder="YYYY"
               autocomplete="off" min="{{fechaMinima}}" max="{{fechaMaxima}}">
           </div>
 
-          <div class="alert alert-block alert-danger fade in" *ngIf="comboArea.controls['anio'].errors?.maxlength">
+          <div class="alert alert-block alert-danger fade in" *ngIf="combomarca.controls['anio'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo año.
           </div>
 
-          <div class="alert alert-block alert-danger fade in" *ngIf="comboArea.controls['anio'].errors?.pattern">
+          <div class="alert alert-block alert-danger fade in" *ngIf="combomarca.controls['anio'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo año no acepta caracteres especiales.
           </div>
+          
+          <div class="alert alert-block alert-danger fade in" *ngIf="combomarca.controls['mes'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo mes.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="combomarca.controls['mes'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> El campo mes no acepta caracteres especiales.
+          </div>
+
 
 
           <!--  WARNING-->
-          <div class="alert alert-warning fade in" *ngIf="!comboArea.valid">
+          <div class="alert alert-warning fade in" *ngIf="!combomarca.valid">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> El campo año es obligatorio.
+            <strong>Advertencia!</strong> Los campos con * son obligatorios.
           </div>
 
           <!--  END-WARNING-->
-          <div class="alert alert-success fade in" *ngIf="comboArea.valid&&comboArea.controls['bandera'].value==0">
+          <div class="alert alert-success fade in" *ngIf="combomarca.valid&&combomarca.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Excelente!</strong> Dato ingresado correctamente.
+            <strong>Excelente!</strong> Datos ingresados correctamente.
           </div>
 
-          <button [disabled]="!comboArea.valid" type="submit" class="btn btn-success"><i class="icon-print"></i>
+          <button [disabled]="!combomarca.valid" type="submit" class="btn btn-success"><i class="icon-print"></i>
             Imprimir</button>
           <button type="button" (click)="close8()" class="btn btn-default"><i class="icon-remove-sign"></i>
              Cancelar</button>
@@ -695,3 +716,22 @@ class="modall" [ngStyle]="{'display':display2}">
   </div>
 </div>
 <!--Fin modal de reporte de provisión mensual-->
+
+<!--modal para ayuda con pdf-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal15" class="modal"
+  [ngStyle]="{'display':display15}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close15()">×</button>
+        <h4 class="modal-title">Ayuda</h4>
+      </div>
+      <div class="modal-body">
+        <div style="text-align: center;">
+<iframe src="assets/img/Imagenes/Reportes.pdf" style="width:700px; height:415px;" frameborder="0"></iframe>
+</div>
+      </div>
+    
+    </div>
+  </div>
+</div>

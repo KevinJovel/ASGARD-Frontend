@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ControlService } from './../../services/control.service';
 import { UsuarioService } from './../../services/usuario.service';
 import { CargarScriptsService } from './../../services/cargar-scripts.service';
+import {HttpClient} from '@angular/common/http'
+import {environment} from '../../../environments/environment';
 //PRUEBA CON OBJETO
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import Swal from 'sweetalert2';
@@ -32,8 +34,11 @@ export class FormAsignancionComponent implements OnInit {
   nombreActivo: any;
   modelo: any;
   marca: any;
+  idactivo: any;
   @Input() noSoli: string;
-  constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, private mantenimientoService: MantenimientoService, private router: Router, private usuarioService: UsuarioService) {
+  constructor(private controlService: ControlService, private _cargarScript: CargarScriptsService, 
+    private mantenimientoService: MantenimientoService, private router: Router, 
+    private usuarioService: UsuarioService,private http:HttpClient) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
     this.activo = new FormGroup({
       'idBien': new FormControl("0"),
@@ -132,12 +137,25 @@ export class FormAsignancionComponent implements OnInit {
     } else {
       this.titulo = "Codigo de barras generado";
       this.controlService.DatosCodigoBarras(this.activo.controls["idBien"].value).subscribe(res => {
+        this.idactivo= res.idactivo;
         this.nombreActivo = res.nombre;
         this.modelo = res.modelo;
         this.marca = res.marca;
       })
       this.display2 = 'block';
     }
+  }
+  codigoDeBarrasPdf(id) {
+
+    this.controlService.DatosCodigoBarras(id).subscribe(data => {
+      this.idactivo = data.idactivo
+    });
+    this.http.get(environment.urlService + "api/ReportesSeguridad/codigoBarraActivoPdf/" + parseInt(this.idactivo), { responseType: 'arraybuffer' }).subscribe(pdf => {
+      const blod = new Blob([pdf], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blod);
+      window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un código de barras .`).subscribe();
   }
 
   validar() {

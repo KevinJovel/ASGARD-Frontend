@@ -48,6 +48,17 @@
     height: 100%;
     background: rgba(0,0,0,0.452);
   }
+  .modal1 {
+    position: fixed;
+    z-index: 1;
+    overflow: auto;
+    left: 0;
+    top: 50px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.452);
+  }
+
   .modal-dialog {
     width: 600px;
     padding-top: 30px;
@@ -64,7 +75,14 @@
     animation-duration: 1s;
     box-shadow: 0 5px 15px rgba(0,0,0,.5);
   }
+ 
+  button{
+    margin: 0px 5px
+  }
   
+  .margin-left{
+    margin-left: 400px !important;
+  }
   
   @keyframes modal {
     from {
