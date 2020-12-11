@@ -249,7 +249,18 @@ public ValidarActivosARevalorizar(){
  public noEditarfecha(idbien){
   return this.http.get(environment.urlService + "api/ActivoFijo/noEditarfecha/"+ idbien).map(res=>res.json());
  }
-
+ public validarcomboMarcas(idmarca){
+  return this.http.get(environment.urlService + "api/ReportesSeguridad/validarcomboMarcas/"+ idmarca).map(res=>res.json());
+ }
+ public validarcomboClasificaciones(idclasificacion){
+  return this.http.get(environment.urlService + "api/ReportesSeguridad/validarcomboClasificaciones/"+ idclasificacion).map(res=>res.json());
+ }
+ public validarlistarUsuarios(){
+  return this.http.get(environment.urlService + "api/ReportesSeguridad/validarlistarUsuarios").map(res=>res.json());
+ }
+ 
+ 
+ 
 }
 
 

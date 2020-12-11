@@ -758,22 +758,48 @@ export class ReportesCatalogosComponent implements OnInit {
   //reporte de activos según clasificación
 
   reportesClasificacionPdf(id) {
+    
    this.idcla= this.combos.controls['idclasificacion'].value;
+   this.controlService.validarcomboClasificaciones(this.idcla).subscribe(res => {
+    if (res == 1) {  
     this.http.get(environment.urlService+"api/ReportesSeguridad/activosclasificacionpdf/" + parseInt(this.idcla),{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de activos por clasificiación.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay activos con la clasificación seleccionada!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
   reportesMarcaPdf(id) {
-   this.idmarca= this.combomarca.controls['IdMarca'].value;
+    this.idmarca= this.combomarca.controls['IdMarca'].value;
+    this.controlService.validarcomboMarcas(this.idmarca).subscribe(res => {
+      if (res == 1) {  
+          
     this.http.get(environment.urlService+"api/ReportesSeguridad/activospormarcapdf/" + parseInt(this.idmarca),{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de activos por marca.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay activos con la marca seleccionada!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
   }
 
   //MÉTODOS PARA REPORTES DE SEGURIDAD
@@ -785,14 +811,26 @@ export class ReportesCatalogosComponent implements OnInit {
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de bitácora.`).subscribe();
    }
-
+   
    usuariospdf() {
+    this.controlService.validarlistarUsuarios().subscribe(res => {
+      if (res == 1) {  
     this.http.get(environment.urlService+"api/ReportesSeguridad/usuariospdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de usuarios.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay usuarios!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
    }
 
    
