@@ -108,6 +108,14 @@ public getBienesAsignadosIntengibles() {
   return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivosIntangibles").map(res => res.json());
 }
 
+public validarEdificiosInstalaciones() {
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/validarActivosEdificios").map(res => res.json());
+}
+
+public validarActivosIntengibles() {
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/validarActivosIntangibles").map(res => res.json());
+}
+
 public listarComboArea() {
   return this.http.get(environment.urlService + "api/ActivoFIjo/listarAreaCombo").map(res => res.json());
 }

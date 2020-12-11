@@ -435,21 +435,50 @@ export class ReportesCatalogosComponent implements OnInit {
   }
 
   edificiosInstalacionesPDF() {
-    this.http.get(environment.urlService+"api/Reporte/edificiosInstalacionesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+
+    this.controlService.validarEdificiosInstalaciones().subscribe(res=> {
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/edificiosInstalacionesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos tipo edificios o instalaciones.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay edificos registrados!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos tipo edificios o instalaciones.`).subscribe();
+
+    
   }
 
   activosIntangiblesPDF() {
-    this.http.get(environment.urlService+"api/Reporte/activosIntangiblesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+
+    this.controlService.validarActivosIntengibles().subscribe(res=>{
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/activosIntangiblesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos tipo intagibles.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos intangibles registrados!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos tipo intagibles.`).subscribe();
+
   }
 
   cuadroControlActivosPDF() {
