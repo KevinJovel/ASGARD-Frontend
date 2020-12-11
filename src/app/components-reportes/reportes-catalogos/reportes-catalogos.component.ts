@@ -492,6 +492,15 @@ export class ReportesCatalogosComponent implements OnInit {
     });
    }
 
+   codigoBarraActivosPDF() {
+    this.http.get(environment.urlService+"api/Reporte/codigoBarraGeneralPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de código de barra de activos.`).subscribe();
+  }
+
    activosRevalorizadosXAnioPdf() {
     let anio=this.comboArea.controls['anio'].value;
     this.controlService.validarActivoxAnio(anio).subscribe(res => {
