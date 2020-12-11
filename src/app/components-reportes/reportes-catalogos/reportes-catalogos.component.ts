@@ -797,10 +797,10 @@ export class ReportesCatalogosComponent implements OnInit {
 
    
    open15() { //para modal de ayuda
-    this.display5 = 'block';
+    this.display15 = 'block';
   }
   close15() { //para modal de ayuda
-    this.display5 = "none";
+    this.display15 = "none";
   }
 
 }
