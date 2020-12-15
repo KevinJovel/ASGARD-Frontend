@@ -95,6 +95,10 @@ public validarActivoMes(mes,anio) {
   return this.http.get(environment.urlService + "api/ActivoFijo/validarActivoMes/" + mes +"/"+ anio).map(res => res.json());
 }
 
+public validarBitacoraxAnio(anio) {
+  return this.http.get(environment.urlService + "api/ActivoFijo/validarBitacoraAnio/" + anio).map(res => res.json());
+}
+
 
 
 //Control de bienes

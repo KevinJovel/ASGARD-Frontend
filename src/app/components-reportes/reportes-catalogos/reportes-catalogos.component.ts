@@ -39,6 +39,7 @@ export class ReportesCatalogosComponent implements OnInit {
   display6= 'none';
   display7= 'none';
   display8= 'none';
+  display9= 'none';
   display15= 'none';//para ayuda
   titulo: string;
   titulo2: string;
@@ -46,6 +47,7 @@ export class ReportesCatalogosComponent implements OnInit {
   titulo4: string;
   titulo7: string;
   titulo8: string;
+  titulo9: string;
   //Para fecha
   fechaMaxima:any;
   fechaMinima:any;
@@ -120,6 +122,11 @@ export class ReportesCatalogosComponent implements OnInit {
     this.combomarca.controls['anio'].setValue("");
     this.combomarca.controls['mes'].setValue("");
   }
+  close9() {
+    this.display9 = 'none';
+    this.combomarca.controls['anio'].setValue("");
+    this.combomarca.controls['mes'].setValue("");
+  }
   open(){
     this.titulo = "Imprimir activos por clasificación";
     this.display = 'block';
@@ -152,7 +159,10 @@ export class ReportesCatalogosComponent implements OnInit {
     this.titulo8 = "Imprimir provisión mensual";
     this.display8= 'block';
   }
-
+  open9(){
+    this.titulo9 = "Imprimir bitácora por año";
+    this.display9= 'block';
+  }
   
   dowloadPDF() {
     this.http.get(environment.urlService+"api/Reporte/reporte",{responseType: 'arraybuffer'}).subscribe(pdf=>{
@@ -852,6 +862,32 @@ export class ReportesCatalogosComponent implements OnInit {
        window.open(url);
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de bitácora.`).subscribe();
+   }
+
+   bitacoraAnioPdf() {
+    let anio=this.comboArea.controls['anio'].value;
+    this.controlService.validarBitacoraxAnio(anio).subscribe(res => {
+      if (res == 1) {
+        this.idArea= this.comboArea.controls['anio'].value;
+        this.http.get(environment.urlService+"api/Reporte/bitacoraAnioPdf/" + parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+           //Para cerrar el modal y limpiar cuando genera el reporte
+           this.close9();
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de activos adquiridos por año.`).subscribe();
+       
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay datos registrados en ese año!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
+    });
    }
    
    usuariospdf() {

@@ -258,7 +258,9 @@
                                 <li class="dd-item" data-id="15">
                                     <div class="dd-handle" style="cursor:pointer" (click)="bitacoraPdf()">Reporte de bitácora</div>
                                 </li>
-                                
+                                <li class="dd-item" data-id="15">
+                                  <div class="dd-handle" style="cursor:pointer" (click)="open9()">Reporte de bitácora por año</div>
+                              </li>
                                 
                             </ol>
                         </div>
@@ -716,6 +718,70 @@ class="modall" [ngStyle]="{'display':display2}">
   </div>
 </div>
 <!--Fin modal de reporte de provisión mensual-->
+
+<!--Reporte bitácora por año-->
+<div #basicModa2 aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal2" [ngStyle]="{'display':display9}">
+  <div class="modal-dialog" style="width:400px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close9()">×</button>
+        <h4 class="modal-title">{{titulo4}}</h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="comboArea" (ngSubmit)="bitacoraAnioPdf()">
+            <input type="hidden" class="form-control" value="{{idArea}}">
+          <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
+
+          <div class="form-group">
+            <label>* Ingrese año:</label>
+            <input type="number" mask="0000" class="form-control" formControlName="anio" placeholder="YYYY"
+              autocomplete="off">
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="comboArea.controls['anio'].errors?.maxlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo año.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="comboArea.controls['anio'].errors?.pattern">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
+          </div>
+
+
+          <!--  WARNING-->
+          <div class="alert alert-warning fade in" *ngIf="!comboArea.valid">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Advertencia!</strong> El campo año es obligatorio.
+          </div>
+
+          <!--  END-WARNING-->
+          <div class="alert alert-success fade in" *ngIf="comboArea.valid&&comboArea.controls['bandera'].value==0">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+              <i class="icon-remove"></i>
+            </button>
+            <strong>Excelente!</strong> Dato ingresado correctamente.
+          </div>
+
+          <button [disabled]="!comboArea.valid" type="submit" class="btn btn-success"><i class="icon-print"></i>
+            Imprimir</button>
+          <button type="button" (click)="close9()" class="btn btn-default"><i class="icon-remove-sign"></i>
+            Cancelar</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Fin reporte bitácora por año-->
 
 <!--modal para ayuda con pdf-->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal15" class="modal"
