@@ -152,6 +152,11 @@ public ListarInformeMantenimiento(){
    public validarHistorialMantenimiento(){
     return this.http.get(environment.urlService + "api/InformeMantenimiento/validarHistorialMantenimiento"  ).map(res=>res.json());
    } 
+   public listarRevalorizacion(){
+    return this.http.get(environment.urlService + "api/InformeMantenimiento/listarRevalorizacion"  ).map(res=>res.json());
+   } 
+   
+
    
    
    

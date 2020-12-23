@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 export class TablaRevalorizarComponent implements OnInit {
 
   bienes: any;
+  revalorizaciones: any;
   sucursales: any;
   areas: any;
   combos: FormGroup;
@@ -29,11 +30,14 @@ export class TablaRevalorizarComponent implements OnInit {
   disabledFiltro: boolean;//Esta bandera sirve para inhabilitar los filtros en edificios e intangibles
   p: number = 1;
   titulo: string;
+  titulo6: string;
   datos: FormGroup;
   display = 'none';
   display2 = 'none';
   display3 = 'none';
+  display4= 'none';
   display5 = 'none';
+  display6 = 'none';
   displayfoto = 'none';
   displayMensaje = 'none';
   //Modal de detalles
@@ -94,6 +98,7 @@ export class TablaRevalorizarComponent implements OnInit {
           this.tablaMuebles = 'block';
         });
         this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
+        this.mantenimientoService.listarRevalorizacion().subscribe(data => { this.revalorizaciones = data });
       } else {
         Swal.fire({
           position: 'center',
@@ -163,6 +168,60 @@ export class TablaRevalorizarComponent implements OnInit {
       this.banderaBuscador = 1;
     });
   }
+
+  open6() {
+    this.titulo6 = "Eliminar revalorizaciones";
+    this.display6 = 'block';
+  }
+
+  eliminar(){}
+ /* eliminar(idempleado) {
+    this.catalogosServices.noEliminarEmpleado(idempleado).subscribe(data => {
+      if (data == 1) {
+        Swal.fire({
+          icon: 'error',
+          title: '¡ERROR!',
+          text: 'No es posible eliminar este registro, ya existen activos denominados a este empleado',
+          confirmButtonText: 'Aceptar'
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
+      } else {
+        Swal.fire({
+          title: '¿Estas seguro de eliminar este registro?',
+          text: "¡No podrás revertir esta acción!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '¡Si, eliminar!',
+          cancelButtonText: "Cancelar"
+        }).then((result) => {
+          if (result.value) {
+            this.catalogosServices.eliminarEmpleado(idempleado).subscribe(data => {
+              if (data == 1) {
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡ELIMINADO!',
+                  text: '¡El registro ha sido eliminado con éxito!',
+                  confirmButtonText: 'Aceptar'
+                });
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó un empleado en el sistema.`).subscribe();
+                this.catalogosServices.getEmpleado().subscribe(data => { this.empleados = data });
+              } else {
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡Error!',
+                  text: '¡Ocurrió un error al eliminar el registro!',
+                  confirmButtonText: 'Aceptar'
+                });
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
+              }
+            });
+          }
+        })
+      }
+    })
+  }*/
   guardarDatos() {
     this.mantenimientoService.insertarRevalorizacion(this.revalorizacion.value).subscribe(res => {
       if (res == 1) {
@@ -283,6 +342,9 @@ export class TablaRevalorizarComponent implements OnInit {
   }
   close3() {
     this.display3 = 'none';
+  }
+  close6() {
+    this.display6 = 'none';
   }
  /* ValidarActivosRevalorizacion() {
     this.controlService.ValidarActivosARevalorizar().subscribe(data => {

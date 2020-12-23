@@ -90,6 +90,8 @@
                                 (click)="detalles(bien.idBien,1)"></i></button>
                             <button title="Revalorizar" class="btn btn-warning btn-xs"
                             (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
+                            <button title="Ver revalorización" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
+                              (click)="open6()"></i></button>  
                           </td>
                         </tr>
                       </tbody>
@@ -137,6 +139,8 @@
                                   (click)="detalles(bien.idBien,2)"></i></button>
                               <button title="Revalorizar" class="btn btn-warning btn-xs"
                               (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
+                              <button title="Ver revalorización" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
+                                (click)="open6()"></i></button>  
                             </td>
                             
                         </tbody>
@@ -185,6 +189,9 @@
                                   (click)="detalles(bien.idBien,2)"></i></button>
                               <button title="Revalorizar" class="btn btn-warning btn-xs"
                               (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
+                              <button title="Ver revalorización" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
+                                (click)="open6()"></i></button>                          
+                            
                             </td>
                             
                         </tbody>
@@ -458,6 +465,70 @@ class="modal" [ngStyle]="{'display':display}">
             </div>
           </div>
         </div>
+
+<!--Modal para eliminar la revalorización-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
+[ngStyle]="{'display':display6}">
+<div class="modal-dialog modal-lg" style="width:1000px;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close6()">×</button>
+      <h4 class="modal-title">{{titulo6}}</h4>
+    </div>
+    <div class="modal-body">
+      <!--INICIO DE TABLA-->
+      <div class="row">
+        <div class="col-lg-12">
+          <section class="panel panel-default">
+            <div class="col-lg-9">
+            </div>
+            
+            <br><br> <br>
+            <header class="panel-heading">
+              <h5>Revalorizaciones</h5>
+            </header>
+            <div class="panel-body">
+              <div class="adv-table">
+                <table class="display table table-bordered table-striped">
+                  <!---->
+                  <thead>
+                    <tr>
+                      <th scope="row">N°</th>
+                      <th scope="row">Fecha</th>
+                      <th scope="row">Concepto</th>
+                      <th scope="row">Valor de revalorización</th>
+                      <th scope="row" class="hidden-phone">Eliminar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let revalorizar of revalorizaciones; let i = index">
+                      <th scope="col">{{ i+1 }}</th>
+                      <td>{{revalorizar.fechacadena}}</td>
+                      <td>{{revalorizar.concepto}}</td>
+                      <td>${{revalorizar.valorRevalorizacion}}</td>
+                      <td class="center hidden-phone">
+                        <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar()"><i
+                          class="icon-trash "></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div>         
+        <button type="button" (click)="close6()" class="btn btn-default"><i class="icon-remove-sign"></i>
+          Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+
 
         <!--modal para ayuda con pdf-->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"
