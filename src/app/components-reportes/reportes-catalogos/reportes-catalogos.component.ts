@@ -818,6 +818,7 @@ export class ReportesCatalogosComponent implements OnInit {
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
+       this.close();
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de activos por clasificiación.`).subscribe();
   } else {
@@ -834,12 +835,13 @@ export class ReportesCatalogosComponent implements OnInit {
   reportesMarcaPdf(id) {
     this.idmarca= this.combomarca.controls['IdMarca'].value;
     this.controlService.validarcomboMarcas(this.idmarca).subscribe(res => {
-      if (res == 1) {  
-          
+      if (res == 1) {            
     this.http.get(environment.urlService+"api/ReportesSeguridad/activospormarcapdf/" + parseInt(this.idmarca),{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
+
+       this.close3();
     });
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió un reporte de activos por marca.`).subscribe();
   } else {
