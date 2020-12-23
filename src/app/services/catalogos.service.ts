@@ -439,7 +439,7 @@ public validarlistarSucursales(){
   return this.http.get(environment.urlService + "api/AreasNegocios/validarlistarAreas"  ).map(res=>res.json());
  } 
  public validarlistarCategoria(){
-  return this.http.get(environment.urlService + "api/Categorias/validarlistarCategoria"  ).map(res=>res.json());
+  return this.http.get(environment.urlService + "api/Categorias/validarlistarCategorias"  ).map(res=>res.json());
  } 
  public validarlistarClasificacion(){
   return this.http.get(environment.urlService + "api/Clasificacion/validarlistarClasificacion"  ).map(res=>res.json());

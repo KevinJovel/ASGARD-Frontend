@@ -96,10 +96,11 @@
                                             <div style="cursor:pointer" class="dd-handle" (click)="activosIntangiblesPDF()">Reporte de activos intangibles</div>
                                         </li>
                                         <li class="dd-item" data-id="19">
-                                            <div style="cursor:pointer" class="dd-handle" (click)="open()" >Reporte de activos por clasificación</div>
+                                            <div style="cursor:pointer" class="dd-handle" (click)="open()" data-toggle="modal" data-target="#myModal" >Reporte de activos por clasificación</div>
                                         </li>
                                         <li class="dd-item" data-id="20">
-                                            <div style="cursor:pointer" class="dd-handle" (click)="open3()" >Reporte de activos por marca</div>
+                                            <div style="cursor:pointer" class="dd-handle" (click)="open3()" data-toggle="modal1" data-target="#myModal1" >Reporte de activos por marca</div>
+                                          
                                         </li>
                                         <li class="dd-item" data-id="20">
                                             <div style="cursor:pointer" class="dd-handle" (click)="open4()" >Reporte de activos adquiridos por año</div>
@@ -164,7 +165,7 @@
                         <div class="dd" id="nestable_list_2">
                             <ol class="dd-list">
                                 <li class="dd-item" data-id="15">
-                                    <div class="dd-handle" (click)="solicitudesmantenimientopdf()">Reporte de solicitudes de mantenimiento</div>
+                                    <div class="dd-handle" style="cursor:pointer" (click)="solicitudesmantenimientopdf()">Reporte de solicitudes de mantenimiento</div>
                                     
                                         <li class="dd-item" data-id="16">
                                             <div style="cursor:pointer" class="dd-handle" (click)="activosenmantenimientopdf()">Reporte de activos en mantenimiento</div>
@@ -196,7 +197,7 @@
                         <div class="dd" id="nestable_list_2">
                             <ol class="dd-list">
                                 <li class="dd-item" data-id="15">
-                                    <div class="dd-handle" (click)="solicitudestraspasopdf()">Reporte de solicitudes de traspasos</div>
+                                    <div class="dd-handle" style="cursor:pointer" (click)="solicitudestraspasopdf()">Reporte de solicitudes de traspasos</div>
                                                               
                                         <li class="dd-item" data-id="16">
                                             <div style="cursor:pointer" class="dd-handle"  [routerLink]="['/historial-solicitud-traspaso']">Reporte historial de traspasos</div>
@@ -224,12 +225,12 @@
                         <div class="dd" id="nestable_list_2">
                             <ol class="dd-list">
                                 <li class="dd-item" data-id="15">
-                                    <div class="dd-handle" (click)="solicitudbajapdf()">Reporte de solicitudes de descargos</div>                        
+                                    <div class="dd-handle" style="cursor:pointer" (click)="solicitudbajapdf()">Reporte de solicitudes de descargos</div>                        
                                 </li>
-                                <li class="dd-item" data-id="15">
+                                <li class="dd-item" style="cursor:pointer" data-id="15">
                                     <div class="dd-handle" (click)="asignadosdebajapdf()">Reporte de  historial de descargos de activos asignados</div>                        
                                 </li>
-                                <li class="dd-item" data-id="15">
+                                <li class="dd-item" style="cursor:pointer" data-id="15">
                                     <div class="dd-handle" (click)="noasignadosdebajapdf()">Reporte de  historial de descargos de activos no asignados</div>                        
                                 </li>
                             
@@ -288,7 +289,7 @@
             </div>
             <div class="form-group">
                 <select  class="form-control" formControlName="idclasificacion" >
-                  <option value="0">--Seleccione--</option>
+                  <option value="0">---Seleccione---</option>
                   <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones"> {{clasificacion.clasificacion}} </option>
                  
                 </select>
@@ -346,11 +347,11 @@ class="modall" [ngStyle]="{'display':display2}">
 
  <!--INICIO DE MODAR DE REPORTE DE ACTIVOS SEGÚN MARCAS-->
  <div #basicModal1 aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
- class="modal" [ngStyle]="{'display':display3}">
+ class="modal1" [ngStyle]="{'display':display3}">
  <div class="modal-dialog" style="width:400px;">
    <div class="modal-content">
      <div class="modal-header">
-       <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+       <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close3()">×</button>
        <h4 class="modal-title">{{titulo3}}</h4>
      </div>
      <div class="modal-body">
@@ -360,7 +361,7 @@ class="modall" [ngStyle]="{'display':display2}">
            </div>
            <div class="form-group">
                <select  class="form-control" formControlName="IdMarca" >
-                 <option value="0">--Seleccione--</option>
+                 <option value="0">---Seleccione---</option>
                  <option [value]="marca.idMarca" *ngFor="let marca of marcas"> {{marca.marca}} </option>
                 
                </select>
