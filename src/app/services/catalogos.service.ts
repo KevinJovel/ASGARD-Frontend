@@ -342,6 +342,10 @@ public RecuperarEmpleado(idempleado) {
   return this.http.get(environment.urlService  + "api/Empleado/RecuperarEmpleado/" + idempleado).map(res => res.json());
 }
 
+public VerDatosEmpleado(id){
+  return this.http.get(environment.urlService + "api/Empleado/DatosGeneralesEmpleado/"+id).map(res=>res.json());
+ }
+
 public buscarEmpleado(buscador) {
   return this.http.get(environment.urlService  + "api/Empleado/buscarEmpleado/" + buscador).map(res => res.json());
 }

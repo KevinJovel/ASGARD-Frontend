@@ -42,14 +42,7 @@
                 <tr>
                   <th scope="row">N°</th>
                   <th>DUI</th>
-                  <th>Nombres</th>
-                  <th>Apellidos</th>
-                  <th>Dirección</th>
-                  <th>Teléfono</th>
-                  <th>Teléfono personal</th>
-                  <th>Área de negocio</th>
-                  <th>Cargo</th>
-
+                  <th>Nombre completo</th>
                   <th class="hidden-phone">Opciones</th>
                 </tr>
               </thead>
@@ -58,18 +51,12 @@
                 <tr *ngFor="let empleado of empleados | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                   <td>{{empleado.dui}}</td>
-                  <td>{{empleado.nombres}}</td>
-                  <td>{{empleado.apellidos}}</td>
-                  <td>{{empleado.direccion}}</td>
-                  <td>{{empleado.telefono}}</td>
-                  <td>{{empleado.telefonopersonal}}</td>
-                  <td>{{empleado.nombrearea +" - "+ empleado.nombresucursal+" - "+ empleado.ubicacion}}</td>
-                  <td>{{empleado.cargo}}</td>
-
-
+                  <td>{{empleado.nombres + " " + empleado.apellidos}}</td>
                   <td class="center hidden-phone">
                     <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(empleado.idempleado)"><i
                         class="icon-pencil"></i></button>
+                        <button title="Ver detalles" class="btn btn-success btn-xs" (click)="verDetalle(empleado.idempleado)"><i
+                          class="glyphicon glyphicon-eye-open"></i></button>
                     <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(empleado.idempleado)"><i
                         class="icon-trash "></i></button>
                   </td>
@@ -166,6 +153,15 @@
             <strong>¡Error!</strong> El campo apellidos no acepta caracteres especiales.
           </div>
           <!-- Validacion de pattern no acepta caracteres especiales -->
+
+            <!--Validación correo-->
+            <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['email'].errors?.pattern">
+              <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="icon-remove"></i>
+              </button>
+              <strong>¡Error!</strong> Ingresar correo electrónico válido.
+            </div>
+
           <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
@@ -226,6 +222,81 @@
     </div>
   </div>
 </div>
+
+<!--Modal para detalles-->
+<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+              class="modall" [ngStyle]="{'display':displayD}">
+              <div class="modal-dialog .modal-dialog ">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button"
+                      (click)="closeD()">×</button>
+                    <h4 class="modal-title">Datos del empleado</h4>
+                    <h4 class="modal-title"></h4>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>DUI:</strong> {{duiE}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Nombre:</strong> {{nombresE}} {{apellidosE}}</p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Dirección:</strong> {{direccionE}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Teléfono:</strong> {{telefonoE}}</p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Teléfono personal:</strong> {{telefonoP}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Email:</strong> {{emailE}}</p>
+                      </div>
+                    </div>
+
+
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Cargo:</strong> {{cargoE}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Área de negocio:</strong> {{AreaNegocioE}}</p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-6">
+                        <p><strong>Sucursal:</strong> {{sucursalE}}</p>
+                      </div>
+                      <div class="col-xs-6">
+                        <p><strong>Ubicación:</strong> {{ubicacionE}}</p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-3">
+
+                      </div>
+                    </div>
+                    <!-- aca -->
+                    <br>
+                    <button type="button" (click)="closeD()" class="btn btn-default"><i class="icon-remove-sign"></i>
+                      Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+<!--Fin modal para detalles-->
 
 <!--modal para ayuda con pdf-->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"

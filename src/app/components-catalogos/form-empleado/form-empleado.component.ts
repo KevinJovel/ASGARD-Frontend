@@ -18,11 +18,18 @@ export class FormEmpleadoComponent implements OnInit {
   p: number = 1;
   empleado: FormGroup;
   display = 'none';
+  displayD = 'none';
   display3 = 'none';
   titulo: string;
   edit: number = 0;
   guardar: number = 0;
   tipocombo: string;
+
+  //Datos
+  duiE:string; nombresE:string; apellidosE:string; telefonoE:string;
+  telefonoP:string; direccionE:string; AreaNegocioE:string; emailE:string; cargoE:string;
+  sucursalE:string; ubicacionE:string;
+
   constructor(private catalogosServices: CatalogosService, private router: Router, private activateRoute: ActivatedRoute, private usuarioService: UsuarioService) {
     this.empleado = new FormGroup({
       'idempleado': new FormControl("0"),
@@ -31,7 +38,7 @@ export class FormEmpleadoComponent implements OnInit {
       'nombres': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       'apellidos': new FormControl("", [Validators.required, Validators.maxLength(50), Validators.pattern("^[-a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       'direccion': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.´´,#° ]+$")]),
-      'email': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ.´´,#°@ ]+$")]),
+      'email': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       'telefono': new FormControl("", [Validators.required]),
       'telefonopersonal': new FormControl("", [Validators.required]),
       'idareadenegocio': new FormControl("", [Validators.required]),
@@ -74,6 +81,13 @@ export class FormEmpleadoComponent implements OnInit {
   }
   close2() { //para modal de ayuda
     this.display3 = "none";
+  }
+
+  openD() {
+    this.displayD='block';
+  }
+  closeD() { //para modal de ayuda
+    this.displayD = "none";
   }
 
   guardarDatos() {
@@ -144,6 +158,26 @@ export class FormEmpleadoComponent implements OnInit {
     this.empleado.controls["idcargo"].setValue("");
     this.edit = 0;
     this.display = 'none';
+  }
+
+  verDetalle(id: any) {
+    this.displayD = 'block';
+    this.catalogosServices.VerDatosEmpleado(id).subscribe((data) => {
+     
+      //Datos
+      this.duiE=data.dui;
+      this.nombresE=data.nombres;
+      this.apellidosE=data.apellidos;
+      this.direccionE=data.direccion;
+      this.telefonoE=data.telefono;
+      this.telefonoP=data.telefonopersonal;
+      this.cargoE=data.cargo;
+      this.emailE=data.email;
+      this.AreaNegocioE=data.nombrearea;
+      this.sucursalE=data.nombresucursal;
+      this.ubicacionE=data.ubicacion;
+
+    });
   }
 
   filtrarCargo() {
