@@ -35,7 +35,7 @@
                 placeholder="ejemplo@gmail.com" autocomplete="off" maxlength="51">
             </div>
             <div style="text-align: center;">
-              <button type="button" class="btn btn-primary" (click)="ValidarCorreo()"><i class="icon-share-alt"></i>
+              <button type="button" [disabled]="!recup.valid" class="btn btn-primary" (click)="ValidarCorreo()"><i class="icon-share-alt"></i>
                 Enviar</button>
               <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
                 Cancelar</button>
@@ -148,7 +148,7 @@
             placeholder="codigo" autocomplete="off" maxlength="51">
         </div>
         <div style="text-align: center;">
-          <button type="button" class="btn btn-primary" (click)="validarCodigoRe()"><i class="icon-unlock"></i>
+          <button type="button" [disabled]="!validarCodigo.valid"  class="btn btn-primary" (click)="validarCodigoRe()"><i class="icon-unlock"></i>
             Validar</button>
           <button type="button" class="btn btn-default" (click)="close4()"><i class="icon-remove-sign"></i>
             Cancelar</button>
@@ -180,8 +180,20 @@ class="modal" [ngStyle]="{'display':displayChange}">
       <div class="form-group">
         <label>Repita contraseña:</label>
      
-        <input type="password" class="form-control"
+        <input type="password" class="form-control"formControlName="pass2"
         placeholder="Repita contraseña" autocomplete="off" maxlength="51">
+      </div>
+      <div class="alert alert-block alert-danger fade in" *ngIf="NewPassword.controls['pass2'].errors?.noIguales">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <i class="icon-remove"></i>
+        </button>
+        <strong>Error!</strong> La contraseña no es igual.
+      </div>
+      <div class="alert alert-success fade in" *ngIf="NewPassword.valid">
+        <button data-dismiss="alert" class="close close-sm" type="button">
+          <i class="icon-remove"></i>
+        </button>
+        <strong>Exelente!</strong> Datos ingresados correctamente
       </div>
       <div style="text-align: center;">
         <button type="button" class="btn btn-primary" (click)="recuperarContrasena()"><i class="icon-retweet"></i>

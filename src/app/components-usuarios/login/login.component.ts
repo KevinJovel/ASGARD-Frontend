@@ -30,16 +30,17 @@ export class LoginComponent implements OnInit {
   });
   this.recup=new FormGroup(
     {
-      'email': new FormControl("",[Validators.required])
+      'email': new FormControl("",[Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
   });
   this.validarCodigo=new FormGroup(
     {
-      'codigo': new FormControl("",[Validators.required])
+      'codigo': new FormControl("",[Validators.required,, Validators.pattern("^[0-9]{5}$")])
   });
   this.NewPassword=new FormGroup(
     {
       'id': new FormControl("",[Validators.required]),
-      'pass': new FormControl("",[Validators.required])
+      'pass': new FormControl("",[Validators.required]),
+      'pass2': new FormControl("",[Validators.required, this.validarContraIguales.bind(this)])
   });
  }
 
@@ -196,6 +197,7 @@ this.seguridadService.verificarCodigo(codigo).subscribe(data=>{
    this.NewPassword.controls["id"].setValue(data);
   }
 });
+this.validarCodigo.controls["codigo"].setValue("");
 }
 recuperarContrasena(){
   let id=this.NewPassword.controls["id"].value;
@@ -222,6 +224,18 @@ recuperarContrasena(){
     });
     }
   })
+}
+validarContraIguales(control: FormControl) {
+  //con value sacamos el valor del control
+  if (control.value != "" && control.value != null) {
+    if (this.NewPassword.controls["pass"].value != control.value) {
+      //si es diferente mandamos error devolviendo un objeto
+      return { noIguales: true };
+    } else {
+      //todo esta bien
+      return null;
+    }
+  }
 }
 }
  // console.log(res);
