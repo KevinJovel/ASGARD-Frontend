@@ -112,12 +112,24 @@ public getBienesAsignadosIntengibles() {
   return this.http.get(environment.urlService  + "api/ActivoFIjo/listarActivosIntangibles").map(res => res.json());
 }
 
+public validarActivosAsignados() {
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/validarActivosAsignados").map(res => res.json());
+}
+
+public validarActivosNoAsignados() {
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/validarActivosNoAsignados").map(res => res.json());
+}
+
 public validarEdificiosInstalaciones() {
   return this.http.get(environment.urlService  + "api/ActivoFIjo/validarActivosEdificios").map(res => res.json());
 }
 
 public validarActivosIntengibles() {
   return this.http.get(environment.urlService  + "api/ActivoFIjo/validarActivosIntangibles").map(res => res.json());
+}
+
+public validarCodigoBarra() {
+  return this.http.get(environment.urlService  + "api/ActivoFIjo/validarCodigoBarra").map(res => res.json());
 }
 
 public listarComboArea() {

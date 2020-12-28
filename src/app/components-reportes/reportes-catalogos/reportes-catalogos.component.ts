@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { MantenimientoService } from './../../services/mantenimiento.service';
 import { TraspasoService } from 'src/app/services/traspaso.service';
+import { DepreciacionService } from './../../services/depreciacion.service';
 import { BajaService } from './../../services/baja.service';
 
 @Component({
@@ -55,7 +56,7 @@ export class ReportesCatalogosComponent implements OnInit {
   constructor(private catalogoService: CatalogosService, private _cargarScript: CargarScriptsService,
     private confiService:ConfiguracionService, private http:HttpClient,private usuarioService:UsuarioService,
     private controlService: ControlService,private mantenimientoService: MantenimientoService,
-    private TraspasoService: TraspasoService, private bajaService:BajaService) {
+    private TraspasoService: TraspasoService, private bajaService:BajaService, private depreciacionService: DepreciacionService) {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
 
     this.combos = new FormGroup({
@@ -287,7 +288,7 @@ export class ReportesCatalogosComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: '¡No hay empleados en esta área!',
+      title: '¡No hay empleados!',
       showConfirmButton: false,
       timer: 3000
     })
@@ -427,21 +428,45 @@ export class ReportesCatalogosComponent implements OnInit {
 
   //MÉTODOS PARA REPORTES DE CONTROL DE ACTIVO 
   activosAsigandosPDF() {
-    this.http.get(environment.urlService+"api/Reporte/activosAsignadosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+    this.controlService.validarActivosAsignar().subscribe(res=> {
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/activosAsignadosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos asignados.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos asignados!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos asignados.`).subscribe();
   }
 
   activosNoAsigandosPDF() {
-    this.http.get(environment.urlService+"api/Reporte/activosNoAsignadosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+    this.controlService.validarActivosNoAsignados().subscribe(res=> {
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/activosNoAsignadosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos no asignados.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No se encuentran activos!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de activos no asignados.`).subscribe();
   }
 
   edificiosInstalacionesPDF() {
@@ -492,30 +517,66 @@ export class ReportesCatalogosComponent implements OnInit {
   }
 
   cuadroControlActivosPDF() {
-    this.http.get(environment.urlService+"api/Reporte/cuadroControlActivosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+    this.depreciacionService.validarCuadroControl().subscribe(res=> {
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/cuadroControlActivosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos registrados!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos.`).subscribe();
   }
 
   cuadroControlEdificiosPDF() {
-    this.http.get(environment.urlService+"api/Reporte/cuadroControlEdificiosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+    this.depreciacionService.validarCuadroEdificios().subscribe(res=> {
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/cuadroControlEdificiosPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos edificios.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos registrados!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos edificios.`).subscribe();
   }
 
   cuadroControlIntangiblesPDF() {
-    this.http.get(environment.urlService+"api/Reporte/cuadroControlIntangiblesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+    this.depreciacionService.validarCuadroIntangibles().subscribe(res=> {
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/cuadroControlIntangiblesPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos intangibles.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos registrados!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de cuadro de control de activos intangibles.`).subscribe();
   }
 
    activosXAnio() {
@@ -545,12 +606,24 @@ export class ReportesCatalogosComponent implements OnInit {
    }
 
    codigoBarraActivosPDF() {
-    this.http.get(environment.urlService+"api/Reporte/codigoBarraGeneralPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+    this.controlService.validarCodigoBarra().subscribe(res=> {
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/codigoBarraGeneralPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de código de barra de activos.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay activos registrados!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de código de barra de activos.`).subscribe();
   }
 
    activosRevalorizadosXAnioPdf() {
@@ -786,7 +859,7 @@ export class ReportesCatalogosComponent implements OnInit {
 });
   }
   noasignadosdebajapdf() {
-    this.bajaService.validarHistorialParaBaja().subscribe(res => {
+    this.bajaService.validarHistorialBajaNoAsig().subscribe(res => {
       if (res == 1) {
     this.http.get(environment.urlService+"api/ReportesBaja/noasignadosdebajapdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
@@ -858,12 +931,24 @@ export class ReportesCatalogosComponent implements OnInit {
 
   //MÉTODOS PARA REPORTES DE SEGURIDAD
   bitacoraPdf() {
-    this.http.get(environment.urlService+"api/Reporte/bitacoraPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+    this.usuarioService.validarBitacora().subscribe(res=> {
+      if(res==1) {
+        this.http.get(environment.urlService+"api/Reporte/bitacoraPdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+          const blod=new Blob([pdf],{type:"application/pdf"});
+          const url= window.URL.createObjectURL(blod);
+           window.open(url);
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de bitácora.`).subscribe();
+      } else {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: '¡No hay datos registrados!',
+          showConfirmButton: false,
+          timer: 3000
+        })
+      }
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de bitácora.`).subscribe();
    }
 
    bitacoraAnioPdf() {

@@ -106,6 +106,10 @@ public buscarActivoNoAsig(buscador) {
      public validarHistorialParaBaja(){
       return this.http.get(environment.urlService + "api/SolicitudBaja/validarHistorialParaBaja"  ).map(res=>res.json());
      }
+
+     public validarHistorialBajaNoAsig(){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/validarHistorialBajaNoAsig"  ).map(res=>res.json());
+     }
      
     ///// DESGARGO DE BIEN
     public listarBienesAsignadosBajas() {

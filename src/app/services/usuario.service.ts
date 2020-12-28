@@ -119,4 +119,8 @@ export class UsuarioService {
     return this.http.get(environment.urlService + "api/Seguridad/listarBitacora").map(res => res.json());
   }
 
+  public validarBitacora() {
+    return this.http.get(environment.urlService  + "api/Seguridad/validarBitacora").map(res => res.json());
+  }
+
 }
