@@ -52,7 +52,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'No se encontraron activos en mantenimiento.',
+        title: 'No se encontraron solicitudes de traspaso.',
         showConfirmButton: false,
         timer: 4000
       });
