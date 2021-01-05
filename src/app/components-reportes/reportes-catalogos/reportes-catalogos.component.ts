@@ -313,7 +313,7 @@ export class ReportesCatalogosComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: 'error',
-      title: '¡No hay empleados!',
+      title: '¡No hay empleados en esta área de negocio!',
       showConfirmButton: false,
       timer: 3000
     })
