@@ -52,7 +52,7 @@ export class BackupComponent implements OnInit {
               Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: '!Backup generado con exito¡',
+                title: '!Backup generado con éxito¡',
                 showConfirmButton: false,
                 timer: 3000
               });
