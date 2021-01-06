@@ -91,7 +91,7 @@
                             <button title="Revalorizar" class="btn btn-warning btn-xs"
                             (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
                             <button title="Ver revalorización" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
-                              (click)="open6()"></i></button>  
+                              (click)="open6(bien.idBien)"></i></button>  
                           </td>
                         </tr>
                       </tbody>
@@ -140,7 +140,7 @@
                               <button title="Revalorizar" class="btn btn-warning btn-xs"
                               (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
                               <button title="Ver revalorización" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
-                                (click)="open6()"></i></button>  
+                                (click)="open6(bien.idBien)"></i></button>  
                             </td>
                             
                         </tbody>
@@ -190,7 +190,7 @@
                               <button title="Revalorizar" class="btn btn-warning btn-xs"
                               (click)="open(bien.idBien,bien.vidautil,bien.fechacadena)"><i class="icon-arrow-up"></i></button>
                               <button title="Ver revalorización" class="btn btn-primary btn-xs"><i class=" icon-eye-open"
-                                (click)="open6()"></i></button>                          
+                                (click)="open6(bien.idBien)"></i></button>                          
                             
                             </td>
                             
@@ -507,7 +507,7 @@ class="modal" [ngStyle]="{'display':display}">
                       <td>{{revalorizar.concepto}}</td>
                       <td>${{revalorizar.valorRevalorizacion}}</td>
                       <td class="center hidden-phone">
-                        <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar()"><i
+                        <button title="Eliminar" class="btn btn-danger btn-xs" (click)="eliminar(revalorizar.idTarjeta)"><i
                           class="icon-trash "></i></button>
                       </td>
                     </tr>

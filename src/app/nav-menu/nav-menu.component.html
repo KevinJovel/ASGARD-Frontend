@@ -68,7 +68,7 @@
           <span>Mantenimientos</span>
         </a>
         <ul class="sub"> 
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-solicitud-mantenimiento"]' (click)='limiarSolicitud()'>Nueva solicitud</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-solicitud-mantenimiento"]' (click)='limiarSolicitud()'>Nueva solicitud de mantenimiento</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/tabla-informe"]' (click)='collapse()'>Activos en mantenimiento</a></li> 
           <li *ngIf="admin==true" [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-informe-mantenimiento"]' (click)='collapse()'>Informes de mantenimiento</a></li>             
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/historial-mantenimiento"]' (click)='collapse()'>Historial de mantenimientos</a></li>  
@@ -80,7 +80,7 @@
           <span>Traspasos</span>
         </a>
         <ul class="sub">
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-solicitud-traspaso"]' (click)='collapse()'>Nueva solicitud</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/form-solicitud-traspaso"]' (click)='collapse()'>Nueva solicitud de traspaso</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/historial-solicitud-traspaso"]' (click)='collapse()'>Historial de traspasos</a></li>
          
         </ul>
@@ -91,7 +91,7 @@
           <span>Descargo de activos</span>
         </a>
         <ul class="sub">
-          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cuadro-solicitud/ver"]' (click)='collapse()'>Nueva solicitud</a></li>
+          <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/cuadro-solicitud/ver"]' (click)='collapse()'>Nueva solicitud de descargo</a></li>
           <li [routerLinkActive]='["link-active"]'><a href="javascript:;" [routerLink]='["/gestion-descargo/ver"]' (click)='collapse()'>Historial de descargos</a></li>
         </ul>
       </li>

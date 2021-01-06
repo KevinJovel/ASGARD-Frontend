@@ -80,7 +80,8 @@ export class TablaRevalorizarComponent implements OnInit {
 
     //form para la revalorización 
     this.revalorizacion = new FormGroup({
-      'idBien': new FormControl(""),
+      'idBien': new FormControl("0"),
+      'idTarjeta': new FormControl("0"),
       'valorRevalorizacion': new FormControl("", [Validators.required, Validators.pattern("^[0-9.]+$")]),
       'idinformematenimiento': new FormControl(""),
       'vidaUtil': new FormControl("", [Validators.pattern("^[0-9]+$")]),
@@ -98,7 +99,7 @@ export class TablaRevalorizarComponent implements OnInit {
           this.tablaMuebles = 'block';
         });
         this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
-        this.mantenimientoService.listarRevalorizacion().subscribe(data => { this.revalorizaciones = data });
+       // this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"]).subscribe(data => { this.revalorizaciones = data });
       } else {
         Swal.fire({
           position: 'center',
@@ -169,14 +170,16 @@ export class TablaRevalorizarComponent implements OnInit {
     });
   }
 
-  open6() {
+  open6(id) {
     this.titulo6 = "Eliminar revalorizaciones";
     this.display6 = 'block';
+    this.revalorizacion.controls["idBien"].setValue(id);
+    this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"].value).subscribe(data => { this.revalorizaciones = data });
   }
 
-  eliminar(){}
- /* eliminar(idempleado) {
-    this.catalogosServices.noEliminarEmpleado(idempleado).subscribe(data => {
+  
+  eliminar(idtran) {
+   /* this.catalogosServices.noEliminarEmpleado(idempleado).subscribe(data => {
       if (data == 1) {
         Swal.fire({
           icon: 'error',
@@ -185,7 +188,7 @@ export class TablaRevalorizarComponent implements OnInit {
           confirmButtonText: 'Aceptar'
         });
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
-      } else {
+      } else {*/
         Swal.fire({
           title: '¿Estas seguro de eliminar este registro?',
           text: "¡No podrás revertir esta acción!",
@@ -197,7 +200,7 @@ export class TablaRevalorizarComponent implements OnInit {
           cancelButtonText: "Cancelar"
         }).then((result) => {
           if (result.value) {
-            this.catalogosServices.eliminarEmpleado(idempleado).subscribe(data => {
+            this.mantenimientoService.eliminarRevalorizacion(idtran).subscribe(data => {
               if (data == 1) {
                 Swal.fire({
                   icon: 'success',
@@ -205,8 +208,8 @@ export class TablaRevalorizarComponent implements OnInit {
                   text: '¡El registro ha sido eliminado con éxito!',
                   confirmButtonText: 'Aceptar'
                 });
-                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó un empleado en el sistema.`).subscribe();
-                this.catalogosServices.getEmpleado().subscribe(data => { this.empleados = data });
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó una revalorización.`).subscribe();
+                this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"].value).subscribe(data => { this.revalorizaciones = data });
               } else {
                 Swal.fire({
                   icon: 'success',
@@ -214,14 +217,14 @@ export class TablaRevalorizarComponent implements OnInit {
                   text: '¡Ocurrió un error al eliminar el registro!',
                   confirmButtonText: 'Aceptar'
                 });
-                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar una revalorización en el sistema.`).subscribe();
               }
             });
           }
         })
-      }
-    })
-  }*/
+      //}
+   // })
+  }
   guardarDatos() {
     this.mantenimientoService.insertarRevalorizacion(this.revalorizacion.value).subscribe(res => {
       if (res == 1) {
@@ -231,6 +234,10 @@ export class TablaRevalorizarComponent implements OnInit {
           title: '¡Revalorización guardada con éxito!',
           showConfirmButton: false,
           timer: 3000
+        });
+        this.controlService.listarActivosRevalorizar().subscribe(data => {
+          this.bienes = data
+         // this.tablaMuebles = 'block';
         });
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Realizó una revalorización de activos.`).subscribe();
       } else {
@@ -243,10 +250,11 @@ export class TablaRevalorizarComponent implements OnInit {
         })
       }
     });
-    this.revalorizacion.controls["idBien"].setValue("0");
-    this.revalorizacion.controls["valorRevalorizacion"].setValue("");
-    this.revalorizacion.controls["fecha"].setValue("");
-    this.revalorizacion.controls["vidaUtil"].setValue("");
+    this.controlService.listarActivosRevalorizar().subscribe(data => {
+      this.bienes = data
+     // this.tablaMuebles = 'block';
+    });
+  
     this.display = 'none';
   }
   open(idBien, vidaUtil, fecha) {
