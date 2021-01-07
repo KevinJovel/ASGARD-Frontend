@@ -114,7 +114,7 @@
             <label>* Área de negocio:</label>
             <select class="form-control" (change)="filtrarCargo()" formControlName="idareadenegocio">
               <option value="">---Seleccione---</option>
-              <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
+              <option [disabled]="this.edit==1" [value]="area.idAreaNegocio" *ngFor="let area of areas">
                 {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
             </select>
           </div>
