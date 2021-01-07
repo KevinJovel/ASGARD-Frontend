@@ -27,11 +27,15 @@ export class ReportesCatalogosComponent implements OnInit {
   areas: any;
   idcla:any;
   idmarca:any;
+  iidmarca:any;
   idArea:any;
+  iidArea:any;
   anio:any;
   combos: FormGroup;
   combomarca: FormGroup;
   comboArea: FormGroup;
+  empleadoArea:FormGroup;
+  activoxMarca:FormGroup;
   display = 'none';
   display2 = 'none';
   display3= 'none';
@@ -60,16 +64,25 @@ export class ReportesCatalogosComponent implements OnInit {
     this._cargarScript.cargar(["/barCode", "/ClearBarcode"]);
 
     this.combos = new FormGroup({
-      'idclasificacion': new FormControl("0"),
-     
+      'idclasificacion': new FormControl("",[Validators.required]),
+      'bandera': new FormControl("0"),
     });
     this.comboArea = new FormGroup({
       'idAreaNegocio': new FormControl("0"),
       'bandera': new FormControl("0"),
       'anio':new FormControl("",[Validators.required]),
-      
-  
     });
+
+    this.empleadoArea = new FormGroup({
+      'idAreaNegocio': new FormControl("",[Validators.required]),
+      'bandera': new FormControl("0"),
+    });
+
+    this.activoxMarca = new FormGroup({
+      'IdMarca': new FormControl("",[Validators.required]),
+      'bandera': new FormControl("0"),
+    });
+
     this.combomarca = new FormGroup({
       'IdMarca': new FormControl("0"),
       'bandera': new FormControl("0"),
@@ -92,15 +105,15 @@ export class ReportesCatalogosComponent implements OnInit {
   }
   close() {
     this.display = 'none';
-    this.combos.controls['idclasificacion'].setValue("0");
+    this.combos.controls['idclasificacion'].setValue("");
   }
   close2() {
     this.display2 = 'none';
-    this.comboArea.controls['idAreaNegocio'].setValue("0");
+    this.empleadoArea.controls['idAreaNegocio'].setValue("");
   }
   close3() {
     this.display3 = 'none';
-    this.combomarca.controls['IdMarca'].setValue("0");
+    this.activoxMarca.controls['IdMarca'].setValue("");
   }
   close4() {
     this.display4 = 'none';
@@ -298,10 +311,10 @@ export class ReportesCatalogosComponent implements OnInit {
   //faltaria este
   
   empleadosPorClasificacionPdf(id) {
-   this.idArea= this.comboArea.controls['idAreaNegocio'].value;
-   this.catalogoService.validarempleadosPorAreapdf(this.idArea).subscribe(res => {
+   this.iidArea= this.empleadoArea.controls['idAreaNegocio'].value;
+   this.catalogoService.validarempleadosPorAreapdf(this.iidArea).subscribe(res => {
     if (res == 1) {
-    this.http.get(environment.urlService+"api/Reporte/empleadosPorAreapdf/" + parseInt(this.idArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+    this.http.get(environment.urlService+"api/Reporte/empleadosPorAreapdf/" + parseInt(this.iidArea),{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
@@ -883,7 +896,6 @@ export class ReportesCatalogosComponent implements OnInit {
   //reporte de activos según clasificación
 
   reportesClasificacionPdf(id) {
-    
    this.idcla= this.combos.controls['idclasificacion'].value;
    this.controlService.validarcomboClasificaciones(this.idcla).subscribe(res => {
     if (res == 1) {  
@@ -906,10 +918,10 @@ export class ReportesCatalogosComponent implements OnInit {
 });
   }
   reportesMarcaPdf(id) {
-    this.idmarca= this.combomarca.controls['IdMarca'].value;
-    this.controlService.validarcomboMarcas(this.idmarca).subscribe(res => {
+    this.iidmarca= this.activoxMarca.controls['IdMarca'].value;
+    this.controlService.validarcomboMarcas(this.iidmarca).subscribe(res => {
       if (res == 1) {            
-    this.http.get(environment.urlService+"api/ReportesSeguridad/activospormarcapdf/" + parseInt(this.idmarca),{responseType: 'arraybuffer'}).subscribe(pdf=>{
+    this.http.get(environment.urlService+"api/ReportesSeguridad/activospormarcapdf/" + parseInt(this.iidmarca),{responseType: 'arraybuffer'}).subscribe(pdf=>{
       const blod=new Blob([pdf],{type:"application/pdf"});
       const url= window.URL.createObjectURL(blod);
        window.open(url);
