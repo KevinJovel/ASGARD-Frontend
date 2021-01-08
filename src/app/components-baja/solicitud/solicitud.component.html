@@ -32,14 +32,14 @@
       </header>
       <div class="panel-body">
         <div class="adv-table">
-          <table class="display table table-bordered table-striped">
+          <table class="display table table-bordered table-striped" >
             <thead>
               <tr>
                   <th>N°</th>
                   <th>Folio</th>
                   <th>Fecha</th>
                   <th>Motivo</th>
-                  <th>Observaciones</th>
+                  <th style="width: 250px">Observaciones</th>
                   <th class="hidden-phone">Dar de baja</th>
                 </tr>
               </thead>
@@ -50,7 +50,7 @@
                   <td>{{activos.folio}}</td>
                   <td>{{activos.fechacadena}}</td>
                   <td>{{activos.nombredescargo}}</td>
-                  <td>{{activos.observaciones}}</td>
+                  <td >{{activos.observaciones}}</td>
                   <td class="center hidden-phone">
                     <button class="btn btn-primary btn-xs" (click)="verSolicitud(activos.idsolicitud,activos.fechacadena)"><i class="glyphicon glyphicon-import"></i></button>
                   </td>
@@ -96,21 +96,22 @@
             
 
             <div class="form-group col-md-6">
-              <label ><strong>Observaciones:</strong></label> {{ observaciones}}
+             <label ><strong>Observaciones:</strong></label> {{ observaciones}} 
             </div>
-            <div class="form-group col-md-12">
-              <label ></label> 
+            
+           
+             
+            <div class="form-group col-md-6">
+              <label for="inputPassword4"><strong>* Acuerdo:</strong></label>
+              <input type="file" (change)="changeArchivo()" id="futArchivo" class="form-control" accept="image/*" />
+
             </div>
-            <br>
+
             <div class="form-group col-md-6">
-              <label for="exampleInputEmail1">*Acuerdo:</label>
-              <input size=35  type="text" class="form-control" formControlName="acuerdo" maxlength="31"  placeholder="Ingrese número de acuerdo"  autocomplete="off">
-            </div> 
-            <div class="form-group col-md-6">
-              <label for="exampleInputEmail1">*Fecha de baja:</label>
+              <label for="exampleInputEmail1"><strong>* Fecha de baja:</strong></label>
               <input type="date" class="form-control"  formControlName="fecha2"  autocomplete="off" min="{{fechaMinima}}" max="{{fechaMaxima}}">
             </div>  <!---->
-            <br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br>
             <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.maxlength">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>

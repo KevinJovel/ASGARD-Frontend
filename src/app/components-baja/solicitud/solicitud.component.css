@@ -1,7 +1,9 @@
 /* Structure */
 
 table {
+  table-layout: fixed; /*para ajustar la columna*/
     width: 100%;
+    
   }
   .panel-body {
     padding: 12px 0px;
