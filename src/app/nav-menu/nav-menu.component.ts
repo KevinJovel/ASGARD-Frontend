@@ -189,5 +189,6 @@ export class NavMenuComponent implements OnInit{
       }
     });
   }
+
   }
 

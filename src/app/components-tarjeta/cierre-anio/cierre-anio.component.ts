@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class CierreAnioComponent implements OnInit {
   displayCierre = 'none';
+  displayOpcion = 'none';
+  displayRevertir = 'none';
   aceptacion: boolean = false;
   anio: string;
   cooperativa: string;
@@ -25,13 +27,29 @@ export class CierreAnioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.displayCierre = 'block';
+    
+    //cuando los anios activos sean mayor a 1 se mostrara la opcion
+   // this.displayOpcion='block';
+    // this.displayCierre = 'block';
     this.depreciacionService.DatosCierre().subscribe(data => {
       this.anio = data.anio;
       this.cooperativa = data.cooperativa;
       this.periodo.controls["idPeriodo"].setValue(data.idPeriodo);
-    });
+      // this.displayCierre = 'block';
+      this.depreciacionService.validarCierre(data.anio).subscribe(data => {
+        if(data.anioAnterior==0&& data.anioSiguiente==0){
+          this.displayCierre = 'block';
+        }else if(data.anioAnterior==1&& data.anioSiguiente==0){
+          this.displayOpcion = 'block';
+        }else if(data.anioAnterior==0&& data.anioSiguiente==1){
+          this.displayCierre = 'block';
+        }else if(data.anioAnterior==1&& data.anioSiguiente==1){
+          this.displayCierre = 'block';
+        }
+      });
 
+
+    });
   }
   cierre() {
     this.depreciacionService.validarDatosDepreciar().subscribe(data => {
@@ -112,6 +130,26 @@ export class CierreAnioComponent implements OnInit {
     })
 
   }
+  close2() {
+    this.displayCierre = 'none';
+    this.router.navigate(["./"]);
+  }
+  opcionCierre(){
+    this.depreciacionService.DatosCierre().subscribe(data => {
+      this.anio = data.anio;
+      this.cooperativa = data.cooperativa;
+      this.periodo.controls["idPeriodo"].setValue(data.idPeriodo);
+      this.displayCierre = 'block';
+    });
+  }
+  opcionRevertir(){
+    this.depreciacionService.DatosCierre().subscribe(data => {
+      this.anio = data.anio;
+      this.cooperativa = data.cooperativa;
+      this.periodo.controls["idPeriodo"].setValue(data.idPeriodo);
+      this.displayRevertir = 'block';
+    });
+  }
   Aceptar(aceptar) {
     if (aceptar) {
       this.aceptacion = true;
@@ -119,4 +157,5 @@ export class CierreAnioComponent implements OnInit {
       this.aceptacion = false;
     }
   }
+
 }

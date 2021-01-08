@@ -1,4 +1,30 @@
-<div #basicModal aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':displayOpcion}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">Cierre de año activo</h4>
+      </div>
+      <div class="modal-body">
+
+          <!-- <input type="hidden" class="form-control" formControlName="idPeriodo" autocomplete="off"> -->
+            <!-- <h5 style="text-align: center;">S</h5> -->
+          <br>
+          <div style="text-align: center;">
+            <button style="margin-right: 10px" type="submit" class="btn btn-primary" (click)="opcionCierre()">Ejecutar cierre</button>
+            <button style="margin-right: 10px" type="submit" class="btn btn-primary" (click)="opcionRevertir()">Revertir cierre</button>
+          </div>
+        <br>
+          <div style="text-align: center;">
+            <button type="button" class="btn btn-default" (click)="close2()"><i class="icon-remove-sign"></i>
+                Cancelar</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
   class="modal" [ngStyle]="{'display':displayCierre}">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -20,6 +46,38 @@
           <div style="text-align: center;">
             <button [disabled]="this.aceptacion==false" type="submit" class="btn btn-primary"><i class="icon-check-sign"></i>
               Ejecutar Cierre </button>
+            <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
+              Cancelar</button>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
+  class="modal" [ngStyle]="{'display':displayRevertir}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
+        <h4 class="modal-title">{{cooperativa}} - Revertir año actual {{anio}} </h4>
+      </div>
+      <div class="modal-body">
+
+        <form role="form" [formGroup]="periodo" (ngSubmit)="cierre()">
+
+          <input type="hidden" class="form-control" formControlName="idPeriodo" autocomplete="off">
+          <p>*Al revertir el cierre del sistema usted como usuario administrador adquiere la responsabilidad de asegurarse que todos los procesos estén realizados bajo la supervisión y auditoria de las autoridades.</p>
+          <p> *A partir de hoy todos los procesos que realice como: Depreciación, revalorización, traspasos, bajas, etc. Serán registrados en el año que está apunto de apertura.</p>
+          <p> *Es responsabilidad del administrador mantener la información debidamente auditada en todo momento.</p>
+          <label><input #aceptar type="checkbox" (click)="Aceptar(aceptar)"> Acepto los términos
+            y condiciones</label><br>
+
+          <div style="text-align: center;">
+            <button [disabled]="this.aceptacion==false" type="submit" class="btn btn-primary"><i class="icon-check-sign"></i>
+              Revertir Cierre </button>
             <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
               Cancelar</button>
           </div>
