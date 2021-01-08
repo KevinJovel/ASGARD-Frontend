@@ -113,7 +113,7 @@
           <div class="form-group col-md-6">
             <label>* Área de negocio:</label>
             <select class="form-control" (change)="filtrarCargo()" formControlName="idareadenegocio">
-              <option value="">---Seleccione---</option>
+              <option value="0">---Seleccione---</option>
               <option [disabled]="this.edit==1" [value]="area.idAreaNegocio" *ngFor="let area of areas">
                 {{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
             </select>
@@ -121,8 +121,8 @@
           <div class="form-group col-md-6">
             <label>* Cargo:</label>
             <select class="form-control" formControlName="idcargo">
-              <option value="">---Seleccione---</option>
-              <option [value]="cargo.idcargo" *ngFor="let cargo of cargos">{{cargo.cargo}}</option>
+              <option value="0">---Seleccione---</option>
+              <option [disabled]="this.edit==1" [value]="cargo.idcargo" *ngFor="let cargo of cargos">{{cargo.cargo}}</option>
             </select>
           </div>
           <div class="form-group col-md-6">

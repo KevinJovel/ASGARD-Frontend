@@ -41,8 +41,8 @@ export class FormEmpleadoComponent implements OnInit {
       'email': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       'telefono': new FormControl("", [Validators.required]),
       'telefonopersonal': new FormControl("", [Validators.required]),
-      'idareadenegocio': new FormControl("", [Validators.required]),
-      'idcargo': new FormControl("", [Validators.required]),
+      'idareadenegocio': new FormControl("0", [Validators.required]),
+      'idcargo': new FormControl("0", [Validators.required]),
       'cargo': new FormControl(""),
       'idsucursal': new FormControl("")
     });
