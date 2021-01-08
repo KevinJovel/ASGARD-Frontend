@@ -163,3 +163,7 @@ input[type=search] {
   background-color: #5cb85c;
   border-color: #4cae4c;
   } 
+.required{
+    font-size: 18px;
+    color: black;
+  }
