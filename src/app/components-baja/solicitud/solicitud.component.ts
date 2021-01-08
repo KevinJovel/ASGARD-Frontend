@@ -27,14 +27,15 @@ export class SolicitudComponent implements OnInit {
 
   fecha2:string; marca:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
-  cargo:string; folio:string; solicitud: string; acuerdo: string;
+  cargo:string; folio:string; solicitud: string;
+   acuerdo: any;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
     private bajaService:BajaService, private controlService: ControlService, private usuarioService:UsuarioService)
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
-      'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(30), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ #°.-]+$")],this.noRepetirAcuerdo.bind(this)),
+      'acuerdo': new FormControl(''),
       'fecha2': new FormControl("",[Validators.required])
     });
   }
@@ -103,7 +104,7 @@ export class SolicitudComponent implements OnInit {
      //en id 
     var id=this.idsolicitud;
     //var idsolicitud=this.idsolicitud;
-    this.acuerdo = this.solicitudes.value.acuerdo;
+    //this.acuerdo = this.solicitudes.value.acuerdo;
     this.fecha2 = this.solicitudes.value.fecha2;
     //console.log("Este de Acuerdo: "+this.fecha2);
     Swal.fire({
@@ -118,6 +119,8 @@ export class SolicitudComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
     this.bajaService.aceptarSolicitud(id).subscribe(res=>{
+      //Pasamos la foto
+    this.solicitudes.controls['acuerdo'].setValue(this.acuerdo);
          if(res==1){
           Swal.fire({
             icon: 'success',
@@ -175,6 +178,18 @@ negarSolicitud() {
   }// del result
   })//de la alerta
 }//fin negar solicitud
+
+//Evento para guardar archivo
+changeArchivo() {
+  var file = (<HTMLInputElement>document.getElementById('futArchivo')).files[0];
+  var fileReader = new FileReader();
+
+  fileReader.onloadend = () => {
+    this.acuerdo = fileReader.result;
+  };
+
+  fileReader.readAsDataURL(file);
+}
 
 noRepetirAcuerdo(control: FormControl) {
 
