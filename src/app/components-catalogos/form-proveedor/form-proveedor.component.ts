@@ -38,7 +38,7 @@ export class FormProveedorComponent implements OnInit {
 
   open() {
     //limpia cache
-    this.titulo = "Formulario registro de proveedores";
+    this.titulo = "Formulario proveedores";
     this.proveedores.controls["idProveedor"].setValue("0");
     this.proveedores.controls["bandera"].setValue("0");
     this.proveedores.controls["nombre"].setValue("");
@@ -146,7 +146,7 @@ export class FormProveedorComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'ERROR',
-          text: 'No es posible eliminar este dato, este proveedor ya tiene activos registrados',
+          text: 'No es posible eliminar este registro, este proveedor ya tiene activos registrados',
           confirmButtonText: 'Aceptar'
         });
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un proveedor en el sistema.`).subscribe();
@@ -174,7 +174,7 @@ export class FormProveedorComponent implements OnInit {
                 this.catalogoService.getProveedores().subscribe(data => { this.proveedor = data });
               }else{
                 Swal.fire({
-                  icon: 'success',
+                  icon: 'error',
                   title: '¡Error!',
                   text: '¡Ocurrió un error al eliminar el registro!',
                   confirmButtonText: 'Aceptar'

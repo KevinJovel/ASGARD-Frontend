@@ -56,7 +56,7 @@ export class FormMarcaComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: '¡Registro Guardado con éxito!',
+              title: '¡Registro guardado con éxito!',
               showConfirmButton: false,
               timer: 3000
             });
@@ -153,7 +153,7 @@ export class FormMarcaComponent implements OnInit {
                 this.catalogoService.getMarcas().subscribe(res => { this.marcas = res });
               }else{
                 Swal.fire({
-                  icon: 'success',
+                  icon: 'error',
                   title: '¡Error!',
                   text: '¡Ocurrió un error al eliminar el registro!',
                   confirmButtonText: 'Aceptar'

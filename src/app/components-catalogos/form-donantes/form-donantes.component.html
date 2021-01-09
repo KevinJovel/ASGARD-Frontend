@@ -87,8 +87,18 @@
                     <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
                     <div class="form-group">
-                        <label>* Nombre:</label>
+                      <label><strong class="required">*</strong> Nombre:</label>
                         <input type="text" class="form-control" formControlName="nombre"placeholder="Ingrese nombre" autocomplete="off"  maxlength="51">
+                    </div>
+
+                    <div class="form-group">
+                      <label><strong class="required">*</strong> Teléfono:</label>
+                        <input type="text"  mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" placeholder="Ingrese teléfono" autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                      <label><strong class="required">*</strong> Dirección:</label>
+                        <textarea class="form-control rounded-0" formControlName="direccion" rows="1" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101"></textarea>
                     </div>
 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.yaExisteDonante">
@@ -112,22 +122,12 @@
                         <strong>¡Error!</strong> El campo nombre no acepta caracteres especiales.
                       </div>
 
-                    <div class="form-group">
-                        <label>* Teléfono:</label>
-                        <input type="text"  mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" placeholder="Ingrese teléfono" autocomplete="off">
-                    </div>
-
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['telefono'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">
                           <i class="icon-remove"></i>
                         </button>
                         <strong>¡Error!</strong> Tamaño máximo permitido en campo teléfono.
                       </div>
-
-                    <div class="form-group">
-                        <label>* Dirección:</label>
-                        <textarea class="form-control rounded-0" formControlName="direccion" rows="1" placeholder="Ingrese dirección" autocomplete="off"  maxlength="101"></textarea>
-                    </div>
 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['direccion'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">

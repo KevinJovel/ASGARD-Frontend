@@ -63,7 +63,7 @@ export class FormDonantesComponent implements OnInit {
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: '¡Registro Guardado con éxito!',
+              title: '¡Registro guardado con éxito!',
               showConfirmButton: false,
               timer: 3000
             });
@@ -118,8 +118,8 @@ export class FormDonantesComponent implements OnInit {
   }
   eliminar(iddonante) {
     Swal.fire({
-      title: '¿Estas seguro de eliminar este registro?',
-      text: "¡No podras revertir esta acción!",
+      title: '¿Estás seguro de eliminar este registro?',
+      text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -140,7 +140,7 @@ export class FormDonantesComponent implements OnInit {
             this.catalogoService.getDonantes().subscribe(data => { this.dontes = data });
           } else {
             Swal.fire({
-              icon: 'success',
+              icon: 'error',
               title: '¡Error!',
               text: '¡Ocurrió un error al eliminar el registro!',
               confirmButtonText: 'Aceptar'

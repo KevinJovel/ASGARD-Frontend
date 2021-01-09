@@ -162,7 +162,7 @@ export class FormSucursalComponent implements OnInit {
                                 this.catalogoService.getSucursales().subscribe(res => { this.sucursales = res });
                             }else{
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: 'error',
                                     title: '¡Error!',
                                     text: '¡Ocurrió un error al eliminar el registro!',
                                     confirmButtonText: 'Aceptar'
