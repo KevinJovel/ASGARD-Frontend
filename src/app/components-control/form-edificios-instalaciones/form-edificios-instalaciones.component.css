@@ -170,3 +170,8 @@
       opacity: 1;
     }
   }
+
+  .required{
+    font-size: 18px;
+    color: black;
+  }

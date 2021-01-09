@@ -339,7 +339,7 @@ export class FormActivoIntangibleComponent implements OnInit {
               this.controlService.agregarBien(this.activoIntangible.value).subscribe((res) => {
                 if (res == 1) {
                   Swal.fire({
-                    title: '¡Activo Guardado con éxito!',
+                    title: '¡Activo guardado con éxito!',
                     icon: 'success',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: '¡OK!',
@@ -733,7 +733,7 @@ export class FormActivoIntangibleComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: '¡Registro Guardado con éxito!',
+          title: '¡Registro guardado con éxito!',
           showConfirmButton: false,
           timer: 3000
         });

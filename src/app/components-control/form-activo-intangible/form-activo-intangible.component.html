@@ -58,12 +58,12 @@
 
                 <div class="form-row">
                       <div class="form-group col-md-4" >
-                      <label>* Fecha de Ingreso</label>
+                        <label><strong class="required">*</strong> Fecha de Ingreso</label>
                       <input [readOnly]="this.edit==1" type="date" class="form-control" formControlName="fechaingreso" min="{{fechaMinima}}" max="{{fechaMaxima}}">
                     </div>
 
                     <div class="form-group col-md-4">
-                      <label>* Tipo Adquisición</label>
+                      <label><strong class="required">*</strong> Tipo Adquisición</label>
                       <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
                         <option value="0">--Seleccione--</option>
                         <option value="1">Contado</option>
@@ -76,7 +76,7 @@
 
                 <div class="form-row">
                   <div class="form-group col-md-3">
-                    <label>*{{tipocombo}}</label >
+                    <label><strong class="required">*</strong> {{tipocombo}}</label >
                       <select  class="form-control" formControlName="idproveedor">
                     <option value="0">--Seleccione--</option >
                       <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
@@ -90,7 +90,7 @@
                   </div>
 
                   <div class="form-group col-md-3">
-                    <label>* Clasificación</label>
+                    <label><strong class="required">*</strong> Clasificación</label>
                     <select  class="form-control" formControlName="idclasificacion">
                       <option value="0">--Seleccione--</option>
                       <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones"> {{clasificacion.clasificacion}} </option>
@@ -104,7 +104,7 @@
                   </div>
 
                    <div class="form-group col-md-3">
-                    <label>* Área de negocio</label>
+                    <label><strong class="required">*</strong> Área de negocio</label>
                     <select  class="form-control" formControlName="idarea" [attr.disabled]="disabledd ? '' : null">
                       <option value="0">{{selectionDisable}}</option>
                       <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
@@ -121,12 +121,12 @@
                 <div class="row">
 
                   <div class="form-group col-md-4">
-                    <label>* Vida útil (en años)</label>
+                    <label><strong class="required">*</strong> Vida útil (en años)</label>
                     <input type="text" class="form-control" placeholder="Ingrese vida útil" formControlName="vidautil" maxlength="3" autocomplete="off">
                   </div>
                 
                     <div class="col-lg-8">
-                      <label>* Descripción </label>
+                      <label><strong class="required">*</strong> Descripción </label>
                       <textarea class="form-control"
                        rows="1" placeholder="Ingrese descripción" autocomplete="off" formControlName="descripcion" maxlength="101"></textarea>
                       </div>
@@ -195,18 +195,18 @@
               <legend> </legend>
               <div class="form-row">
                 <div class="form-group col-md-4">
-                <label>* Costo</label>
+                  <label><strong class="required">*</strong> Costo</label>
                 <input [readOnly]="this.edit==1" type="text" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion" maxlength="11" autocomplete="off">
               </div>
                 <div class="form-group col-md-4">
-                  <label>* Prima</label>
+                  <label><strong class="required">*</strong> Prima</label>
                   <input type="text" class="form-control" placeholder="{{disabledPrima}}" formControlName="prima" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                 </div>
                 </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                <label>* Plazo en meses</label>
+                  <label><strong class="required">*</strong> Plazo en meses</label>
                 <input type="text" class="form-control" id="inputEmail4" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                </div>
                 <div class="form-group col-md-4">
@@ -214,7 +214,7 @@
                     <input type="text" class="form-control" id="inputEmail4" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                    </div>
                     <div class="form-group col-md-4">
-                      <label>* Interes en %</label>
+                      <label><strong class="required">*</strong> Interes en %</label>
                       <input type="text" class="form-control" placeholder="{{disabledInteres}}" formControlName="interes" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                     </div>
             </div>
@@ -229,11 +229,11 @@
               <div class="form-row">
 
                 <div class="form-group col-md-6">
-                  <label>* Persona que entrega</label>
+                  <label><strong class="required">*</strong> Persona que entrega</label>
                   <input type="text" class="form-control" placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51" autocomplete="off">
                  </div>
                   <div class="form-group col-md-6">
-                  <label>* Persona que recibe</label>
+                    <label><strong class="required">*</strong> Persona que recibe</label>
                   <input type="text" class="form-control" placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51" autocomplete="off">
                  </div>
                                 
@@ -440,29 +440,29 @@
          
     
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Nombre:</label>
+            <label><strong class="required">*</strong> Nombre:</label>
             <input size=35 type="text"  class="form-control" formControlName="nombre" id="nombre" placeholder="Ingrese nombre" maxlength="51" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Teléfono:</label>
+            <label><strong class="required">*</strong> Teléfono:</label>
             <input size=35 type="text" mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefono" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
           </div>
        
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Dirección:</label>
+            <label><strong class="required">*</strong> Dirección:</label>
             <input type="text" class="form-control" formControlName="direccion" id="direccion" placeholder="Ingrese dirección" maxlength="101" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Rubro:</label>
+            <label><strong class="required">*</strong> Rubro:</label>
             <input type="text"  class="form-control" formControlName="rubro" id="rubro" placeholder=" Ingrese rubro" maxlength="51" autocomplete="off">
           </div>
         
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Encargado:</label>
+            <label><strong class="required">*</strong> Encargado:</label>
             <input type="text"  class="form-control" formControlName="encargado" id="encargado" placeholder="Ingrese encargado" maxlength="51" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Teléfono encargado:</label>
+            <label><strong class="required">*</strong> Teléfono encargado:</label>
             <input type="text" mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" formControlName="telefonoencargado" id="exampleInputEmail3" placeholder="Ingrese teléfono" maxlength="10" autocomplete="off">
           </div>
  
@@ -600,18 +600,18 @@
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
-            <label>* Correlativo:</label>
+            <label><strong class="required">*</strong> Correlativo:</label>
             <input [readOnly]="this.edit==1" type="text" class="form-control" formControlName="correlativo"
               placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
           </div>
 
           <div class="form-group">
-            <label>* Clasificación:</label>
+            <label><strong class="required">*</strong> Clasificación:</label>
             <input type="text" class="form-control" formControlName="clasificacion" placeholder="Ingrese clasificación"
               autocomplete="off" maxlength="51">
           </div>
           <div class="form-group">
-            <label>* Categoria:</label>
+            <label><strong class="required">*</strong> Categoria:</label>
             <select class="form-control" formControlName="idcategoria" aria-readonly="false" maxlength="51">
               <option value="">---Seleccione---</option>
               <option [disabled]="this.edit==1" [value]="categoria.idCategoria" *ngFor="let categoria of categorias">
@@ -737,12 +737,12 @@
           <input type="hidden" class="form-control" formControlName="idAreaNegocio" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
           <div class="form-group">
-            <label>* Área de Negocio:</label>
+            <label><strong class="required">*</strong> Área de negocio:</label>
             <input type="text" class="form-control" formControlName="nombre" (keyup)="validarArea()"
               placeholder="Ingrese área de negocio" autocomplete="off" maxlength="51">
           </div>
           <div class="form-group">
-            <label>* Sucursal:</label>
+            <label><strong class="required">*</strong> Sucursal:</label>
             <select class="form-control" formControlName="idSucursal" (change)="validarArea()">
               <option value="">---Seleccione---</option>
               <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">
@@ -750,7 +750,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>* Correlativo:</label>
+            <label><strong class="required">*</strong> Correlativo:</label>
             <input [readOnly]="this.modif==1" type="text" class="form-control" formControlName="correlativo"
               id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="11">
           </div>
