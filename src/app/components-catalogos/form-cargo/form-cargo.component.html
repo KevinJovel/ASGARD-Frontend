@@ -80,7 +80,7 @@
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
-            <label>* Cargo:</label>
+            <label><strong class="required">*</strong> Cargo:</label>
             <input type="text" class="form-control" formControlName="cargo" placeholder="Ingrese cargo"
               autocomplete="off" maxlength="26">
           </div>
@@ -96,7 +96,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> El cargo ingresado ya existe.
+            <strong>¡Advertencia!</strong> El cargo ingresado ya existe.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.maxlength">
@@ -132,7 +132,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> El campo cargo es obligatorio.
+            <strong>¡Advertencia!</strong> El campo cargo es obligatorio.
           </div>
 
           <!--  END-WARNING-->
@@ -140,7 +140,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Excelente!</strong> Datos ingresados correctamente.
+            <strong>¡Exelente!</strong> Datos ingresados correctamente.
           </div>
 
           <button [disabled]="!cargo.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>

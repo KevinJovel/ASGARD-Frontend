@@ -150,7 +150,7 @@ export class FormCategoriaComponent implements OnInit {
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar una categoría en el sistema.`).subscribe();
       } else {
         Swal.fire({
-          title: '¿Estas seguro de eliminar este registro?',
+          title: '¿Estás seguro de eliminar este registro?',
           text: "¡No podrás revertir esta acción!",
           icon: 'warning',
           showCancelButton: true,
@@ -172,7 +172,7 @@ export class FormCategoriaComponent implements OnInit {
                 this.catalogosServices.getCategorias().subscribe(data => { this.categorias = data });
               } else {
                 Swal.fire({
-                  icon: 'success',
+                  icon: 'error',
                   title: '¡Error!',
                   text: '¡Ocurrió un error al eliminar el registro!',
                   confirmButtonText: 'Aceptar'

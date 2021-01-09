@@ -187,7 +187,7 @@ export class FormAreasNegocioComponent implements OnInit {
               this.catalogosServices.getAreas().subscribe(res => { this.areas = res });
               }else{
                 Swal.fire({
-                  icon: 'success',
+                  icon: 'error',
                   title: '¡Error!',
                   text: '¡Ocurrió un error al eliminar el registro!',
                   confirmButtonText: 'Aceptar'
