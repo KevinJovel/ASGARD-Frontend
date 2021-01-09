@@ -125,9 +125,9 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
     this.activateRoute.params.subscribe(parametro => {
       this.parametro = parametro["id"];
       if (this.parametro == "nuevo") {
-        this.titulo = "Ingreso de Edificios e Instalaciones";
+        this.titulo = "Ingreso de edificios e instalaciones";
       } else {
-        this.titulo = "Editar Edificios e Instalaciones";
+        this.titulo = "Editar edificios e instalaciones";
       }
     });
 
