@@ -29,7 +29,7 @@ export class FormTipoDescargoComponent implements OnInit {
   }
   open() {
     //limpia cache
-    this.titulo = "Formulario registro tipos de descargo";
+    this.titulo = "Formulario tipos de descargo";
     this.descargos.controls["idTipo"].setValue("0");
     this.descargos.controls["bandera"].setValue("0");
     this.descargos.controls["nombre"].setValue("");
@@ -142,7 +142,7 @@ export class FormTipoDescargoComponent implements OnInit {
           this.catalogoService.getTipoDescargo().subscribe(data => { this.descargo = data });
           }else{
             Swal.fire({
-              icon: 'success',
+              icon: 'error',
               title: '¡Error!',
               text: '¡Ocurrió un error al eliminar el registro!',
               confirmButtonText: 'Aceptar'

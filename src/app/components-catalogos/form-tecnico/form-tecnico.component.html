@@ -14,7 +14,8 @@
     <div class="col-lg-6">
 
       <header class="panel-heading form-in-line">
-        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal"><i class="icon-plus-sign-alt"></i> Agregar nuevo tecnico</button>
+        <button type="button" class="btn btn-success" (click)="open()" data-toggle="modal" data-target="#myModal">
+          <i class="icon-plus-sign-alt"></i> Agregar nuevo técnico</button>
       </header>
     </div>
     <div class="col-lg-3">
@@ -80,27 +81,27 @@
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
 
           <div class="form-group">
-            <label>* Nombre:</label>
+            <label><strong class="required">*</strong> Nombre:</label>
             <input type="text" class="form-control" formControlName="nombre" placeholder="Ingrese nombre" autocomplete="off" maxlength="61">
           </div>
 
           
           <div class="form-group">
-            <label>* Empresa:</label>
+            <label><strong class="required">*</strong> Empresa:</label>
             <input type="text" class="form-control" formControlName="empresa" placeholder="Ingrese empresa" autocomplete="off" maxlength="51">
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="tecnico.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Error!</strong> Tamaño máximo permitido en campo nombre.
+            <strong>¡Error!</strong> Tamaño máximo permitido en campo nombre.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="tecnico.controls['nombre'].errors?.yaExisteTecnico">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> El técnico ingresado ya existe.
+            <strong>¡Advertencia!</strong> El técnico ingresado ya existe.
           </div>
           
           <div class="alert alert-block alert-danger fade in" *ngIf="tecnico.controls['nombre'].errors?.pattern">
@@ -127,7 +128,7 @@
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
-                            <strong>Advertencia!</strong> Todos los campos son obligatorios.
+                            <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
                           </div>
                 
                            <!--  END-WARNING-->
@@ -135,7 +136,7 @@
                             <button data-dismiss="alert" class="close close-sm" type="button">
                               <i class="icon-remove"></i>
                             </button>
-                            <strong>Excelente!</strong> Datos ingresados correctamente.
+                            <strong>¡Exelente!</strong> Datos ingresados correctamente.
                           </div>
 
             <button [disabled]="!tecnico.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>

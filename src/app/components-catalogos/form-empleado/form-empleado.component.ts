@@ -197,7 +197,7 @@ export class FormEmpleadoComponent implements OnInit {
       if (data == 1) {
         this.edit = 1;
       }
-      this.titulo = "Modificar Empleado";
+      this.titulo = "Modificar empleado";
       this.display = 'block';
       this.catalogosServices.RecuperarEmpleado(id).subscribe(data => {
         this.empleado.controls["idempleado"].setValue(data.idempleado);
@@ -226,7 +226,7 @@ export class FormEmpleadoComponent implements OnInit {
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
       } else {
         Swal.fire({
-          title: '¿Estas seguro de eliminar este registro?',
+          title: '¿Estás seguro de eliminar este registro?',
           text: "¡No podrás revertir esta acción!",
           icon: 'warning',
           showCancelButton: true,
@@ -248,7 +248,7 @@ export class FormEmpleadoComponent implements OnInit {
                 this.catalogosServices.getEmpleado().subscribe(data => { this.empleados = data });
               } else {
                 Swal.fire({
-                  icon: 'success',
+                  icon: 'error',
                   title: '¡Error!',
                   text: '¡Ocurrió un error al eliminar el registro!',
                   confirmButtonText: 'Aceptar'
