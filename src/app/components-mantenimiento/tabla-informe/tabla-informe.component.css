@@ -181,3 +181,8 @@ table {
 	  -o-user-select: none;
 	  user-select: none;
   }
+
+  .required{
+    font-size: 18px;
+    color: black;
+  }

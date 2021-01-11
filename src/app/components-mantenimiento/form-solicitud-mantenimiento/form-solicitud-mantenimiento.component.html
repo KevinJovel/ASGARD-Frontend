@@ -59,18 +59,18 @@
     <input type="hidden" class="form-control" formControlName="idsolicitud" autocomplete="off">
     <div class="form-row">
       <div class="form-group col-md-4">
-        <label>* Fecha:</label>
+        <label><strong class="required">*</strong> Fecha:</label>
         <input type="date" formControlName="fechasolicitud" class="form-control" min="{{fechaMinima}}" max="{{fechaMaxima}}">
       </div>
          <!--[ngModel]='fecha | date:"yyyy-MM-dd"' (ngModelChange)='fecha=$event'-->
       <div class="form-group col-md-4">
-        <label>* Folio:</label>
+        <label><strong class="required">*</strong> Folio:</label>
         <input type="text" class="form-control" formControlName="folio" maxlength="11" (keyup)=" ValidarDatosArray()"
           placeholder="Ingrese folio" autocomplete="off">
       </div>
 
       <div class="form-group col-md-4">
-        <label>* Descripción:</label>
+        <label><strong class="required">*</strong> Descripción:</label>
         <textarea class="form-control rounded-0" formControlName="descripcion" maxlength="251"
           (keyup)=" ValidarDatosArray()" rows="1" placeholder="Ingrese descripción" autocomplete="off"></textarea>
       </div>
@@ -130,7 +130,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+            <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>
         </div>
       </div>
@@ -217,13 +217,13 @@
             <input type="hidden" class="form-control" formControlName="descripcionbien" autocomplete="off">
             <br>
             <div class="col-md-12">
-              <label for="exampleInputEmail1">* Razones del mantenimiento:</label>
+              <label><strong class="required">*</strong> Razones del mantenimiento:</label>
               <textarea type="text" class="form-control" formControlName="razonesMantenimiento"
                 placeholder="Ingrese razones del mantenimiento" rows="2" autocomplete="off" maxlength="101"></textarea>
             </div>
             <br>
             <div class="col-md-12">
-              <label for="exampleInputEmail1">* Periodo de mantenimiento estimado:</label>
+              <label><strong class="required">*</strong> Periodo de mantenimiento estimado:</label>
               <input type="text" class="form-control" formControlName="periodoMantenimiento"
                 placeholder="Ingrese período de mantenimiento estimado" autocomplete="off" maxlength="26">
             </div>

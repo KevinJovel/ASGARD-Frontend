@@ -95,19 +95,19 @@
 
 
           <div class="form-group col-md-6">
-            <label for="inputPassword4">* Fecha:</label>
+            <label><strong class="required">*</strong> Fecha:</label>
             <input type="date" formControlName="fechainforme" class="form-control" min="{{fechaMinima}}"
               max="{{fechaMaxima}}">
           </div>
 
 
           <div class="form-group col-md-6">
-            <label for="formGroupExampleInput2">* Costo de mano de obra ($):</label>
+            <label><strong class="required">*</strong> Costo de mano de obra ($):</label>
             <input maxlength="7" type="text" class="form-control" formControlName="costomo" id="inputEmail4"
               ng-model="Property.Field1" placeholder="Ingrese costo de mano de obra" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleFormControlTextarea1">* Técnico:</label>
+            <label><strong class="required">*</strong> Técnico:</label>
             <select class="form-control" formControlName="idtecnico" id="exampleFormControlTextarea1" maxlength="51">
               <option value="">---Seleccione---</option>
               <option [value]="te.idtecnico" *ngFor="let te of tecnicos">{{te.nombre}}</option>
@@ -115,14 +115,14 @@
           </div>
 
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">* Costo de materiales ($):</label>
+            <label><strong class="required">*</strong> Costo de materiales ($):</label>
             <input maxlength="7" type="text" class="form-control" formControlName="costomateriales"
               id="exampleInputEmail3" ng-model="Property.Field2" placeholder="Ingrese costo de materiales"
               autocomplete="off">
           </div>
 
           <div class="form-group col-md-12">
-            <label for="exampleFormControlTextarea2">* Descripción:</label>
+            <label><strong class="required">*</strong> Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="descripcion" id="exampleFormControlTextarea2"
               rows="2" placeholder="Ingrese descripción" autocomplete="off" maxlength="101"></textarea>
           </div>
@@ -166,7 +166,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+            <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>
           <div>
             <button type="submit" [disabled]="!informe.valid" class="btn btn-primary"><i class="icon-save"></i>
