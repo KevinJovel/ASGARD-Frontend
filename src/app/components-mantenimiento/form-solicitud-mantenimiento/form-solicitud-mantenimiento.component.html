@@ -136,9 +136,9 @@
       </div>
     </div>
   </form>
-  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
+  <div aria-hidden="true" aria-labelledby="myModalLabel" tabindex="-1" id="myModal" class="modal"
     [ngStyle]="{'display':display2}">
-    <div class="modal-dialog modal-lg" style="width:1000px;">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close()">×</button>
@@ -172,8 +172,8 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 3, currentPage: p }; let i = index">
-                          <th scope="col">{{ 3 * (p - 1) + i+1 }}</th>
+                        <tr *ngFor="let bien of bienes; let i = index">
+                          <th scope="col">{{ i+1 }}</th>
                           <td>{{bien.codigobien}}</td>
                           <td>{{bien.descripcionbien}}</td>
                           <td class="center hidden-phone">
@@ -185,8 +185,6 @@
                         </tr>
                       </tbody>
                     </table>
-                    <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
-                      nextLabel="Siguiente"></pagination-controls>
                   </div>
                 </div>
               </section>
