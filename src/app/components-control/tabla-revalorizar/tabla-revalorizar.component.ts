@@ -190,7 +190,7 @@ export class TablaRevalorizarComponent implements OnInit {
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
       } else {*/
         Swal.fire({
-          title: '¿Estas seguro de eliminar este registro?',
+          title: '¿Estás seguro de eliminar este registro?',
           text: "¡No podrás revertir esta acción!",
           icon: 'warning',
           showCancelButton: true,

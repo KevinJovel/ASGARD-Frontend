@@ -135,7 +135,7 @@ export class FormAsignancionComponent implements OnInit {
         text: 'Por favor, seleccione el empleado a asignar para poder generar el código'
       });
     } else {
-      this.titulo = "Codigo de barras generado";
+      this.titulo = "Código de barras generado";
       this.controlService.DatosCodigoBarras(this.activo.controls["idBien"].value).subscribe(res => {
         this.idactivo= res.idactivo;
         this.nombreActivo = res.nombre;
@@ -163,7 +163,7 @@ export class FormAsignancionComponent implements OnInit {
       Swal.fire({
         icon: 'error',
         title: 'ERROR',
-        text: 'Seleccione un empleado para generar el codigo',
+        text: 'Seleccione un empleado para generar el código',
       })
     }
   }

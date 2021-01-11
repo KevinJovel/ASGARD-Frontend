@@ -72,24 +72,24 @@
           <input type="hidden" class="form-control" formControlName="idBien" autocomplete="off">
           <div class="form-group">
             <div class="col-lg-12">
-              <label>Fecha asignación:</label>
+              <label><strong class="required">*</strong> Fecha asignación:</label>
               <input type="date" class="form-control" formControlName="fecha" min="{{fechaMinima}}" max="{{fechaMaxima}}"> 
               </div>
         
             </div>
             <div class="form-group">
             <div class="col-lg-6">
-              <label>Numero de Serie:</label>
+              <label><strong class="required">*</strong> Número de serie:</label>
               <input type="text" class="form-control" formControlName="noSerie" maxlength="51" placeholder="Ingrese numero de serie" autocomplete="off">
               </div>
               <div class="col-lg-6">
-                <label>Vida útil estimada:</label>
+                <label><strong class="required">*</strong> Vida útil estimada:</label>
                 <input #vida type="text" class="form-control" formControlName="vidaUtil" (keyup)="validarVidaUtil(vida)" maxlength="3" placeholder="Vida útil en años" autocomplete="off">
               </div>
             </div>
             <!-- (change)="filtrar(tipo)" -->
             <div class="form-group">
-              <label>Asignar responsable:</label>
+              <label><strong class="required">*</strong> Asignar responsable:</label>
               <select class="form-control" formControlName="idEmpleado" (change)="Gcodigo()">
                 <option value="0">---Seleccione---</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	

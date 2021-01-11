@@ -55,12 +55,12 @@
 
                 <div class="form-row">
                       <div class="form-group col-md-6" >
-                      <label>* Fecha de Ingreso</label>
+                        <label><strong class="required">*</strong> Fecha de Ingreso</label>
                       <input [readOnly]="this.edit==1" type="date"  class="form-control" formControlName="fechaingreso" min="{{fechaMinima}}" max="{{fechaMaxima}}"> 
                     </div>
 
                     <div class="form-group col-md-6">
-                      <label>* Estado</label>
+                      <label><strong class="required">*</strong> Estado</label>
                       <select name="miselect"  class="form-control" formControlName="estadoingreso">
                           <option value="0">Seleccione...</option>
                           <option value="1">Nuevo</option>
@@ -74,7 +74,7 @@
                 <div class="form-row">
                     
                   <div class="form-group col-md-4">
-                    <label>* Tipo Adquisición</label>
+                    <label><strong class="required">*</strong> Tipo Adquisición</label>
                     <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
                       <option value="0">--Seleccione--</option>
                       <option value="1">Contado</option>
@@ -83,7 +83,7 @@
                       </select>
                   </div>
                   <div class="form-group col-md-4">
-                    <label>* {{tipocombo}}</label >
+                    <label><strong class="required">*</strong> {{tipocombo}}</label >
                   <select  class="form-control" formControlName="idproveedor">
                     <option value="0">--Seleccione--</option >
                     <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
@@ -91,7 +91,7 @@
                   </div>
 
                   <div class="col-lg-4">
-                    <label>* Descripción </label>
+                    <label><strong class="required">*</strong> Descripción </label>
                     <textarea class="form-control"
                      rows="1" placeholder="Descripcion" autocomplete="off" formControlName="descripcion" maxlength="101"></textarea>
                     </div>
@@ -101,12 +101,12 @@
                 <div class="row">
                    
                     <div class="col-lg-4">
-                    <label>* Cantidad</label>
+                      <label><strong class="required">*</strong> Cantidad</label>
                     <input type="text" class="form-control" placeholder="Ingrese cantidad" formControlName="cantidad" maxlength="3" autocomplete="off" [attr.disabled]="disabledd ? '' : null">
                   </div>
                     
                     <div class="col-lg-4">
-                      <label>* Color</label>
+                      <label><strong class="required">*</strong> Color</label>
                       <input type="text" class="form-control" placeholder="Ingrese color" formControlName="color" maxlength="21" autocomplete="off">
                       </div>
 
@@ -122,7 +122,7 @@
                 <div></div>     
                 <div class="row">
                     <div class="form-group col-md-4">
-                      <label>* Clasificación</label>
+                      <label><strong class="required">*</strong> Clasificación</label>
                       <select  class="form-control" formControlName="idclasificacion">
                         <option value="0">--Seleccione--</option>
                         <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones">{{clasificacion.clasificacion}}</option>
@@ -236,37 +236,37 @@
                 <input type="text" class="form-control" placeholder="Ingrese # de factura" formControlName="nofactura" maxlength="31" autocomplete="off">
                </div>
                 <div class="form-group col-md-4">
-                <label>* Costo</label>
+                  <label><strong class="required">*</strong> Costo</label>
                 <input type="text"  [readOnly]="this.edit==1" class="form-control" placeholder="Ingrese costo" formControlName="valoradquicicion" maxlength="11" autocomplete="off">
               </div>
                 <div class="form-group col-md-4">
-                  <label>* Prima</label>
+                  <label><strong class="required">*</strong> Prima</label>
                   <input type="text" class="form-control" placeholder="{{disabledPrima}}" formControlName="prima" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                 </div>
                 </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                <label >* Plazo en meses</label>
+                  <label><strong class="required">*</strong> Plazo en meses</label>
                 <input type="text" class="form-control" formControlName="plazopago" placeholder="{{disabledPlazo}}" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                </div>
                 <div class="form-group col-md-4">
-                    <label>* Cuota</label>
+                  <label><strong class="required">*</strong> Cuota</label>
                     <input type="text" class="form-control" formControlName="cuotaasignada" placeholder="{{disabledCuota}}" [attr.disabled]="disabled ? '' : null" maxlength="8" autocomplete="off">
                    </div>
                     <div class="form-group col-md-4">
-                      <label>* Interes en %</label>
+                      <label><strong class="required">*</strong> Interes en %</label>
                       <input type="text" class="form-control" placeholder="{{disabledInteres}}" formControlName="interes" [attr.disabled]="disabled ? '' : null" maxlength="3" autocomplete="off">
                     </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                <label>* Persona que entrega</label>
+                  <label><strong class="required">*</strong> Persona que entrega</label>
                 <input type="text" class="form-control" placeholder="Ingrese persona que entrega" formControlName="personaentrega" maxlength="51" autocomplete="off">
                </div>
                 <div class="form-group col-md-4">
-                <label>* Persona que recibe</label>
+                  <label><strong class="required">*</strong> Persona que recibe</label>
                 <input type="text" class="form-control" placeholder="Ingrese persona que recibe" formControlName="personarecibe" maxlength="51" autocomplete="off">
                </div>
 

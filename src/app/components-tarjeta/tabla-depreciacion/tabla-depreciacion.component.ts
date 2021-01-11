@@ -292,7 +292,7 @@ export class TablaDepreciacionComponent implements OnInit {
       });
       let timerInterval
       Swal.fire({
-        title: '¡Ejecutando Depreciación!',
+        title: '¡Ejecutando depreciación!',
         html: 'Espere un momento',
         timer: 5000,
         timerProgressBar: true,
@@ -317,7 +317,7 @@ export class TablaDepreciacionComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title: '¡Depreciacion realizada con exito!',
+            title: '¡Depreciacion realizada con éxito!',
             showConfirmButton: false,
             timer: 3000
           });

@@ -288,7 +288,7 @@ export class FormModificarAsignadosComponent implements OnInit {
             this.controlService.agregarBien(this.nuevobien.value).subscribe((res) => {
               if (res == 1) {
                 Swal.fire({
-                  title: '¡Registro Guardado con éxito!',
+                  title: '¡Registro guardado con éxito!',
                   icon: 'success',
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: '¡OK!',
@@ -338,7 +338,7 @@ export class FormModificarAsignadosComponent implements OnInit {
             this.controlService.modificarActivoAsignado(this.nuevobien.value).subscribe((res) => {
               if (res == 1) {
                 Swal.fire({
-                  title: '¡Registro Modificado con éxito!',
+                  title: '¡Registro modificado con éxito!',
                   icon: 'success',
                   confirmButtonColor: '#3085d6',
                   confirmButtonText: '¡OK!',
