@@ -118,7 +118,7 @@
                   <section class="panel panel-default">
             
                     <header class="panel-heading">
-                      <h5>Registros de Edificios</h5>
+                      <h5>Registros de edificios</h5>
                     </header>
                     <div class="panel-body">
                       <div class="adv-table">
@@ -261,13 +261,13 @@
      
          
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Fecha:</label>
+            <label><strong class="required">*</strong> Fecha:</label>
           
             <input type="date" class="form-control"  formControlName="fechasolicitud"  min="{{fechaMinima}}" max="{{fechaMaxima}}" autocomplete="off">
           </div>
 
           <div class="form-group col-md-6">
-            <label  for="formGroupExampleInput2">*Motivo</label>
+            <label><strong class="required">*</strong> Motivo</label>
             <select class="form-control"  formControlName="idTipo" maxlength="51">
               <option value="0">--Seleccione--</option>
               <option [value]="descargo.idTipo" *ngFor="let descargo of descargo">{{descargo.nombre}}</option>	
@@ -276,7 +276,7 @@
             
           <br> <br>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Folio:</label>
+            <label><strong class="required">*</strong> Folio:</label>
             <input size=28  type="text" class="form-control" formControlName="folio" maxlength="11" id="direccion" placeholder="Ingrese folio"  autocomplete="off">
           </div>
           <div class="form-group col-md-6">
@@ -301,7 +301,7 @@
           </div>  
          
           <div class="form-group col-md-6">
-            <label>* Observaciones:</label>
+            <label><strong class="required">*</strong> Observaciones:</label>
             <textarea class="form-control rounded-0" formControlName="observaciones" maxlength="151"
                rows="2" placeholder="Ingrese observación" autocomplete="off"></textarea>
           </div>
@@ -391,7 +391,7 @@
   <button data-dismiss="alert" class="close close-sm" type="button">
     <i class="icon-remove"></i>
   </button>
-  <strong>¡Exelente!</strong> Datos ingresados correctamente.
+  <strong>¡Excelente!</strong> Datos ingresados correctamente.
 </div>
 
 

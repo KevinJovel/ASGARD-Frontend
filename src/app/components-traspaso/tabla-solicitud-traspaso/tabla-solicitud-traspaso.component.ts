@@ -121,7 +121,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
    // console.log("Este de Acuerdo: "+this.acuerdo);
     
     Swal.fire({
-      title: '¿Estas seguro de aprobar esta solicitud?',
+      title: '¿Estás seguro de aprobar esta solicitud?',
       text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,
@@ -171,7 +171,7 @@ denegarSolicitud() {
  // this.fechasolicitud = this.solicitudes.value.fecha2;
     //console.log("Este de Acuerdo: "+this.acuerdo);
     Swal.fire({
-      title: '¿Estas seguro de denegar esta solicitud?',
+      title: '¿Estás seguro de denegar esta solicitud?',
       text: "¡No podrás revertir esta acción!",
       icon: 'warning',
       showCancelButton: true,

@@ -116,18 +116,18 @@
      
          
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Fecha:</label>         
+            <label><strong class="required">*</strong> Fecha:</label>         
             <input type="date" class="form-control"  formControlName="fechasolicitud"  min="{{fechaMinima}}" max="{{fechaMaxima}}" autocomplete="off">
           </div>
 
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">*Folio:</label>
+            <label><strong class="required">*</strong>Folio:</label>
             <input size=25  type="text"  class="form-control" formControlName="folio" placeholder="Ingrese folio"  maxlength="11" autocomplete="off">
           </div> 
             
           <br> <br>
           <div class="form-group col-md-6">
-            <label>* Nueva área de negocio:</label>
+            <label><strong class="required">*</strong> Nueva área de negocio:</label>
             <select class="form-control" (change)="FiltrarEmpleado()"  formControlName="nuevaarea" >
               <option value="0">---Seleccione---</option>
               <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
@@ -135,7 +135,7 @@
             </select>
           </div>
             <div class="form-group col-md-6">
-              <label>* Nuevo responsable:</label>
+              <label><strong class="required">*</strong> Nuevo responsable:</label>
               <select class="form-control"  formControlName="idresponsable">
                 <option value="0">---Seleccione---</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
@@ -147,7 +147,7 @@
           <br> <br>
          
           <div class="form-group col-md-6">
-            <label>* Descripción:</label>
+            <label><strong class="required">*</strong> Descripción:</label>
             <textarea class="form-control rounded-0" formControlName="descripcion" maxlength="251"
                rows="2" placeholder="Ingrese descripción" autocomplete="off"></textarea>
           </div>
@@ -201,7 +201,7 @@
   <button data-dismiss="alert" class="close close-sm" type="button">
     <i class="icon-remove"></i>
   </button>
-  <strong>¡Exelente!</strong> Datos ingresados correctamente.
+  <strong>¡Excelente!</strong> Datos ingresados correctamente.
 </div>
 
 

@@ -80,7 +80,7 @@ banderaBuscador:number=1;
       Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'No se encontraron activos en mantenimiento.',
+        title: 'No se encontraron activos.',
         showConfirmButton: false,
         timer: 4000
       });
@@ -105,7 +105,7 @@ banderaBuscador:number=1;
             Swal.fire({
               position: 'center',
               icon: 'success',
-              title: 'Solicitud Guardada con éxito',
+              title: 'Solicitud guardada con éxito',
               showConfirmButton: false,
               timer: 3000
             });
@@ -235,7 +235,7 @@ banderaBuscador:number=1;
       Swal.fire({
         icon: 'error',
         title: 'ERROR',
-        text: 'Seleccione un empleado para generar el codigos',
+        text: 'Seleccione un empleado para generar el código',
       })
     } else {
       var idempleado = this.activos.controls["idEmpleado"].value;
