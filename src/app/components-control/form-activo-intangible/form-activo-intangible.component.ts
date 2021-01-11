@@ -70,11 +70,11 @@ export class FormActivoIntangibleComponent implements OnInit {
       bandera: new FormControl('0'),
       tipoactivo: new FormControl('3'),
       noformulario: new FormControl('0'),
-      fechaingreso: new FormControl(''),
-      tipoadquicicion: new FormControl('0', [Validators.required]), //contado o donado
-      idclasificacion: new FormControl('0', [Validators.required]),
-      idproveedor: new FormControl('0', [Validators.required]),
-      idarea: new FormControl('0', [Validators.required]),
+      fechaingreso: new FormControl('',[Validators.required]),
+      tipoadquicicion: new FormControl('', [Validators.required]), //contado o donado
+      idclasificacion: new FormControl('', [Validators.required]),
+      idproveedor: new FormControl('', [Validators.required]),
+      idarea: new FormControl('', [Validators.required]),
       descripcion: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
       vidautil: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern("^[0-9´´ ]+$")]),
       valoradquicicion: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9.´´ ]+$")]), //Costo
@@ -307,7 +307,7 @@ export class FormActivoIntangibleComponent implements OnInit {
         //condición para validar si el valor residual es mayor al costo
         var vResidual = this.activoIntangible.controls['valorresidual'].value;
         var vCosto = this.activoIntangible.controls['valoradquicicion'].value;
-        if (vResidual > vCosto) {
+        if (vResidual >= vCosto) {
           Swal.fire({
             position: 'center',
             icon: 'error',

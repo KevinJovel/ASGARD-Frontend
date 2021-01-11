@@ -85,9 +85,9 @@ export class FormNuevoBienComponent implements OnInit {
       modelo: new FormControl('', [Validators.maxLength(30), Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
       tipoadquicicion: new FormControl('0', [Validators.required]), //contado credito o donado
       idmarca: new FormControl('0'),
-      idclasificacion: new FormControl('0', [Validators.required]),
-      idproveedor: new FormControl('0', [Validators.required]),
-      estadoingreso: new FormControl('0', [Validators.required]),
+      idclasificacion: new FormControl('', [Validators.required]),
+      idproveedor: new FormControl('', [Validators.required]),
+      estadoingreso: new FormControl('', [Validators.required]),
       valoradquicicion: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9.´´ ]+$")]),
       plazopago: new FormControl('', [Validators.maxLength(2), Validators.pattern("^[0-9´´ ]+$")]),
       prima: new FormControl('', [Validators.maxLength(7), Validators.pattern("^[0-9.´´ ]+$")]),
@@ -95,7 +95,7 @@ export class FormNuevoBienComponent implements OnInit {
       interes: new FormControl('', [Validators.maxLength(2), Validators.pattern("^[0-9´´ ]+$")]),
       noformulario: new FormControl('0'),
       nofactura: new FormControl('', [Validators.maxLength(30), Validators.pattern("^[a-zA-Z0-9.´´,#+° ]+$")]),
-      fechaingreso: new FormControl(''),
+      fechaingreso: new FormControl('',[Validators.required]),
       personaentrega: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       personarecibe: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern("^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$")]),
       valorresidual: new FormControl('', [Validators.maxLength(10), Validators.pattern("^[0-9.´´ ]+$")]),
@@ -302,7 +302,7 @@ export class FormNuevoBienComponent implements OnInit {
         //condición para validar si el valor residual es mayor al costo
         var vResidual = this.nuevobien.controls['valorresidual'].value;
         var vCosto = this.nuevobien.controls['valoradquicicion'].value;
-        if (vResidual > vCosto) {
+        if (vResidual >= vCosto) {
           Swal.fire({
             position: 'center',
             icon: 'error',

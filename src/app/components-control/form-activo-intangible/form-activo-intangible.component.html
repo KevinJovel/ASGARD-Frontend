@@ -65,7 +65,7 @@
                     <div class="form-group col-md-4">
                       <label><strong class="required">*</strong> Tipo Adquisición</label>
                       <select formControlName="tipoadquicicion" class="form-control" (change)="ProveedorDonante()">
-                        <option value="0">--Seleccione--</option>
+                        <option value="">--Seleccione--</option>
                         <option value="1">Contado</option>
                         <option value="2">Crédito</option>
                         <option value="3">Donado</option>
@@ -78,7 +78,7 @@
                   <div class="form-group col-md-3">
                     <label><strong class="required">*</strong> {{tipocombo}}</label >
                       <select  class="form-control" formControlName="idproveedor">
-                    <option value="0">--Seleccione--</option >
+                    <option value="">--Seleccione--</option >
                       <option [value]="prov.id" *ngFor="let prov of comboProvDon">{{prov.nombre}}</option>
                     </select>
                   </div>
@@ -92,7 +92,7 @@
                   <div class="form-group col-md-3">
                     <label><strong class="required">*</strong> Clasificación</label>
                     <select  class="form-control" formControlName="idclasificacion">
-                      <option value="0">--Seleccione--</option>
+                      <option value="">--Seleccione--</option>
                       <option [value]="clasificacion.idclasificacion" *ngFor="let clasificacion of clasificaciones"> {{clasificacion.clasificacion}} </option>
                     </select>
                    </div>
@@ -106,7 +106,7 @@
                    <div class="form-group col-md-3">
                     <label><strong class="required">*</strong> Área de negocio</label>
                     <select  class="form-control" formControlName="idarea" [attr.disabled]="disabledd ? '' : null">
-                      <option value="0">{{selectionDisable}}</option>
+                      <option value="">{{selectionDisable}}</option>
                       <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre +" - "+area.nombreSucursal +" - "+area.ubicacion}} </option>
                     </select>
                    </div>

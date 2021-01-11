@@ -70,12 +70,12 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
       bandera: new FormControl('0'),
       tipoactivo: new FormControl('1'),
       noformulario: new FormControl('0'),
-      fechaingreso: new FormControl(''),
-      estadoingreso: new FormControl('0', [Validators.required]),
-      tipoadquicicion: new FormControl('0', [Validators.required]), //contado credito o donado
-      idproveedor: new FormControl('0', [Validators.required]),
+      fechaingreso: new FormControl('', [Validators.required]),
+      estadoingreso: new FormControl('', [Validators.required]),
+      tipoadquicicion: new FormControl('', [Validators.required]), //contado credito o donado
+      idproveedor: new FormControl('', [Validators.required]),
       descripcion: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9ñÑáéíóú ]+$")]),
-      idclasificacion: new FormControl('0', [Validators.required]),
+      idclasificacion: new FormControl('', [Validators.required]),
       idsucursal: new FormControl('0'),
       vidautil: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern("^[0-9´´ ]+$")]),
       valoradquicicion: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("^[0-9.´´ ]+$")]), //Costo
@@ -316,7 +316,7 @@ export class FormEdificiosInstalacionesComponent implements OnInit {
         //condición para validar si el valor residual es mayor al costo
         var vResidual = this.activoEdiInsta.controls['valorresidual'].value;
         var vCosto = this.activoEdiInsta.controls['valoradquicicion'].value;
-        if (vResidual > vCosto) {
+        if (vResidual >= vCosto) {
           Swal.fire({
             position: 'center',
             icon: 'error',
