@@ -187,7 +187,7 @@ this.seguridadService.verificarCodigo(codigo).subscribe(data=>{
       position: 'center',
       icon: 'error',
       title: '¡Error!',
-      text:'El código ingresado no existe o esta caducado.',
+      text:'El código ingresado no existe o está caducado.',
       showConfirmButton: false,
       timer: 3000
   })
@@ -207,7 +207,7 @@ recuperarContrasena(){
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: '¡Exelenete!',
+        title: '¡Excelente!',
         text:'Contraseña modificada con éxito',
         showConfirmButton: false,
         timer: 3000

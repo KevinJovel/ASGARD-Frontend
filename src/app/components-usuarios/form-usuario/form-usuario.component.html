@@ -97,14 +97,14 @@
             autocomplete="off">
 
           <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
-            <label for="exampleFormControlTextarea2">* Empleado:</label>
+            <label><strong class="required">*</strong> Empleado:</label>
             <select class="form-control" formControlName="iidEmpleado" maxlength="51">
               <option value="">--Seleccione--</option>
               <option [value]="empleado.id" *ngFor="let empleado of empleados">{{empleado.nombre}}</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleFormControlTextarea2">* Tipo usuario:</label>
+            <label><strong class="required">*</strong> Tipo usuario:</label>
             <select class="form-control" formControlName="iidTipousuario" maxlength="51"
               [attr.disabled]="editar ? '' : null">
               <option value="">--Seleccione--</option>
@@ -114,7 +114,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">* Nombre de usuario:</label>
+            <label><strong class="required">*</strong> Nombre de usuario:</label>
             <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario"
               placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
           </div>
@@ -135,7 +135,7 @@
 
 
           <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
-            <label for="exampleInputEmail1">* Ingrese Contraseña:</label>
+            <label><strong class="required">*</strong> Ingrese Contraseña:</label>
             <input size=35 type="password" class="form-control" formControlName="contra" id="contra"
               placeholder="Ingrese Contraseña" maxlength="31" autocomplete="off">
           </div>
@@ -147,7 +147,7 @@
           </div>
 
           <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
-            <label for="exampleInputEmail1">* Repita contraseña:</label>
+            <label><strong class="required">*</strong> Repita contraseña:</label>
             <input size=35 type="password" class="form-control" formControlName="contra2" id="contra2"
               placeholder="Repita Contraseña" maxlength="31" autocomplete="off">
           </div>
@@ -167,14 +167,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> Todos los campos son obligatorios
+            <strong>Advertencia!</strong> Todos los campos son obligatorios.
           </div>
 
           <div class="alert alert-success fade in" *ngIf="usuario.valid&&usuario.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Exelente!</strong> Datos ingresados correctamente
+            <strong>Excelente!</strong> Datos ingresados correctamente.
           </div>
 
           <button type="submit" [disabled]="!usuario.valid" class="btn btn-primary"><i class="icon-save"></i>
@@ -214,7 +214,7 @@
           </div>
 
           <div class="form-group">
-            <label for="exampleInputEmail1">* Nombre de usuario:</label>
+            <label><strong class="required">*</strong> Nombre de usuario:</label>
             <input type="text" class="form-control" formControlName="nombreusuario" id="nombreusuario"
               placeholder="Ingrese Nombre" maxlength="51" autocomplete="off">
           </div>
@@ -247,7 +247,7 @@
           </div>
 
           <div class="form-group" *ngIf="usuario.controls['bandera'].value==0">
-            <label for="exampleInputEmail1">* Repita contraseña:</label>
+            <label><strong class="required">*</strong> Repita contraseña:</label>
             <input size=35 type="password" class="form-control" formControlName="contra2" id="contra2"
               placeholder="Repita Contraseña" maxlength="31" autocomplete="off">
           </div>
@@ -267,14 +267,14 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Advertencia!</strong> Todos los campos son obligatorios
+            <strong>Advertencia!</strong> Todos los campos son obligatorios.
           </div>
 
           <div class="alert alert-success fade in" *ngIf="usuario.valid&&usuario.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Exelente!</strong> Datos ingresados correctamente
+            <strong>Exelente!</strong> Datos ingresados correctamente.
           </div>
 
           <button type="submit" [disabled]="!usuario.valid" class="btn btn-primary"><i class="icon-save"></i>

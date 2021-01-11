@@ -26,7 +26,7 @@ export class BackupComponent implements OnInit {
     this.seguridadService.generarbackup().subscribe(res => {
       let timerInterval
         Swal.fire({
-          title: '¡Generando Backup!',
+          title: '¡Generando backup!',
           html: 'Procesando',
           timer: 5000,
           timerProgressBar: true,
@@ -60,7 +60,7 @@ export class BackupComponent implements OnInit {
               Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: '!Ocurrió un error al generar el Backup¡',
+                title: '!Ocurrió un error al generar el backup¡',
                 showConfirmButton: false,
                 timer: 3000
               });

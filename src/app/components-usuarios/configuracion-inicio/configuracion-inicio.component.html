@@ -42,24 +42,24 @@
                         autocomplete="off">
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">* Nombre de la cooperativa:</label>
+                      <label><strong class="required">*</strong> Nombre de la cooperativa:</label>
                         <input type="text" class="form-control" formControlName="nombre" id="exampleInputEmail3"
                             placeholder="Ingrese nombre" autocomplete="off" maxlength="36">
                     </div>
 
                     <div class="form-group">
-                        <label for="inputPassword4">* Logo</label>
+                      <label><strong class="required">*</strong> Logo</label>
                         <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" />
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputEmail1">* Año de inicio:</label>
+                      <label><strong class="required">*</strong> Año de inicio:</label>
                         <input type="text" class="form-control" formControlName="anio" id="exampleInputEmail3"
                             placeholder="Ingrese año" mask="0000" autocomplete="off">
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea2">* Descripción:</label>
+                      <label><strong class="required">*</strong> Descripción:</label>
                         <textarea type="text" class="form-control" formControlName="descripcion" placeholder="Ingrese descripción" autocomplete="off"
                             maxlength="151" rows="1"></textarea>
                     </div>
@@ -70,7 +70,7 @@
                         <button data-dismiss="alert" class="close close-sm" type="button">
                             <i class="icon-remove"></i>
                         </button>
-                        <strong>¡ADVERTENCIA!</strong> El nombre de la cooperativa ya está en uso.
+                        <strong>¡Advertencia!</strong> El nombre de la cooperativa ya está en uso.
                     </div>
 
                     <div class="alert alert-block alert-danger fade in"
@@ -78,7 +78,7 @@
                         <button data-dismiss="alert" class="close close-sm" type="button">
                             <i class="icon-remove"></i>
                         </button>
-                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo.
+                        <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
                     </div>
 
                     <div class="alert alert-block alert-danger fade in"
@@ -86,7 +86,7 @@
                         <button data-dismiss="alert" class="close close-sm" type="button">
                             <i class="icon-remove"></i>
                         </button>
-                        <strong>¡ERROR!</strong> Este campo no acepta caracteres especiales.
+                        <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
                     </div>
                     <!-- Fin de Alertas para campo nombre-->
 
@@ -96,7 +96,7 @@
                         <button data-dismiss="alert" class="close close-sm" type="button">
                             <i class="icon-remove"></i>
                         </button>
-                        <strong>¡ERROR!</strong> Tamaño máximo permitido en este campo
+                        <strong>¡Error!</strong> Tamaño máximo permitido en este campo.
                     </div>
 
                     <div class="alert alert-block alert-danger fade in"
@@ -112,7 +112,7 @@
                         <button data-dismiss="alert" class="close close-sm" type="button">
                             <i class="icon-remove"></i>
                         </button>
-                        <strong>¡ADVERTENCIA!</strong> Los campos con * son obligatorios
+                        <strong>¡ADVERTENCIA!</strong> Los campos con * son obligatorios.
                     </div>
 
                     <div class="alert alert-success fade in"
@@ -120,7 +120,7 @@
                         <button data-dismiss="alert" class="close close-sm" type="button">
                             <i class="icon-remove"></i>
                         </button>
-                        <strong>¡EXCELENTE!</strong> Datos ingresados correctamente
+                        <strong>¡Excelente!</strong> Datos ingresados correctamente.
                     </div>
 
 
@@ -149,18 +149,18 @@
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
           <!-- El input tiene el metodo para validar en cada tyup -->
           <div class="form-group">
-            <label>* Sucursal:</label>
+            <label><strong class="required">*</strong> Sucursal:</label>
             <input type="text" class="form-control" formControlName="nombre"
               placeholder="Ingrese sucursal" autocomplete="off" maxlength="51">
           </div>
          <!-- Input ubicación -->
           <div class="form-group">
-            <label>* Ubicación:</label>
+            <label><strong class="required">*</strong> Ubicación:</label>
             <input type="text" class="form-control" formControlName="ubicacion"
               placeholder="Ingrese ubicación" autocomplete="off" maxlength="51">
           </div>
           <div class="form-group">
-            <label>*Correlativo:</label>
+            <label><strong class="required">*</strong> Correlativo:</label>
             <input type="text" class="form-control" formControlName="correlativo"
               placeholder="Ingrese correlativo" autocomplete="off" maxlength="6">
           </div>
@@ -225,7 +225,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+            <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>
           <button [disabled]="!sucursal.valid" type="submit" class="btn btn-primary"><i class="icon-save"></i>
             Guardar</button>
@@ -250,12 +250,12 @@
           <input type="hidden" class="form-control" formControlName="idAreaNegocio" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
           <div class="form-group">
-            <label>* Área de Negocio:</label>
+            <label><strong class="required">*</strong> Área de negocio:</label>
             <input type="text" class="form-control" formControlName="nombre"
               placeholder="Ingrese área de negocio" autocomplete="off" maxlength="51">
           </div>
           <div class="form-group">
-            <label>* Sucursal:</label>
+            <label><strong class="required">*</strong> Sucursal:</label>
             <select class="form-control" formControlName="idSucursal">
               <option value="0">---Seleccione---</option>
               <option [value]="sucursal.idSucursal" *ngFor="let sucursal of sucursales">
@@ -263,7 +263,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>* Correlativo:</label>
+            <label><strong class="required">*</strong> Correlativo:</label>
             <input  type="text" class="form-control" formControlName="correlativo"
               id="exampleInputEmail3" placeholder="Ingrese correlativo" autocomplete="off" maxlength="6">
           </div>
@@ -317,7 +317,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>¡Exelente!</strong> Datos ingresados correctamente.
+            <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>
           <button [disabled]="!area.valid" type="submit" class="btn btn-primary"><i
               class="icon-save"></i> Guardar</button>
@@ -342,32 +342,32 @@
           <input type="hidden" class="form-control" formControlName="idempleado" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="bandera" autocomplete="off">
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">* Nombres:</label>
+            <label><strong class="required">*</strong> Nombres:</label>
             <input type="text" class="form-control" formControlName="nombres" placeholder="Ingrese nombres"
               autocomplete="off" maxlength="51">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleFormControlTextarea2">* Apellidos:</label>
+            <label><strong class="required">*</strong> Apellidos:</label>
             <input type="text" class="form-control" formControlName="apellidos" placeholder="Ingrese apellidos"
               autocomplete="off" maxlength="51">
           </div>
           <div class="form-group col-md-6">
-            <label>* DUI:</label>
+            <label><strong class="required">*</strong> DUI:</label>
             <input type="text" [dropSpecialCharacters]="false" mask="00000000-0" class="form-control"
               formControlName="dui" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
           </div>
           <div class="form-group col-md-6">
-            <label>* Dirección:</label>
+            <label><strong class="required">*</strong> Dirección:</label>
             <input class="form-control rounded-0" formControlName="direccion" rows="3" placeholder="Ingrese dirección"
               autocomplete="off" maxlength="101">
           </div>
           <div class="form-group col-md-12">
-            <label>* Correo electrónico:</label>
+            <label><strong class="required">*</strong> Correo electrónico:</label>
             <input class="form-control rounded-0" formControlName="email" rows="3" placeholder="Ingrese correo electrónico"
               autocomplete="off" maxlength="101">
           </div>
           <div class="form-group col-md-6">
-            <label>* Área de negocio:</label>
+            <label><strong class="required">*</strong> Área de negocio:</label>
             <select class="form-control" (change)="filtrarCargo()" formControlName="idareadenegocio">
               <option value="">---Seleccione---</option>
               <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
@@ -375,19 +375,19 @@
             </select>
           </div>
           <div class="form-group col-md-6">
-            <label>* Cargo:</label>
+            <label><strong class="required">*</strong> Cargo:</label>
             <select class="form-control" formControlName="idcargo">
               <option value="">---Seleccione---</option>
               <option [value]="cargo.idcargo" *ngFor="let cargo of cargos">{{cargo.cargo}}</option>
             </select>
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleFormControlTextarea2">* Teléfono:</label>
+            <label><strong class="required">*</strong> Teléfono:</label>
             <input type="text" [dropSpecialCharacters]="false" mask="0000-0000" class="form-control"
               formControlName="telefono" placeholder="Ingrese teléfono" autocomplete="off">
           </div>
           <div class="form-group col-md-6">
-            <label for="exampleFormControlTextarea2">* Teléfono personal:</label>
+            <label><strong class="required">*</strong> Teléfono personal:</label>
             <input type="text" [dropSpecialCharacters]="false" mask="0000-0000" class="form-control"
               formControlName="telefonopersonal" placeholder="Ingrese teléfono" autocomplete="off">
           </div>
@@ -452,7 +452,7 @@
             <button data-dismiss="alert" class="close close-sm" type="button">
               <i class="icon-remove"></i>
             </button>
-            <strong>Exelente!</strong> Datos ingresados correctamente
+            <strong>Excelente!</strong> Datos ingresados correctamente
           </div>
           <button type="submit" [disabled]="!empleado.valid" class="btn btn-primary"><i class="icon-save"></i>
             Guardar</button>
@@ -559,7 +559,7 @@ class="modal" [ngStyle]="{'display':displayUsuarios}">
           <button data-dismiss="alert" class="close close-sm" type="button">
             <i class="icon-remove"></i>
           </button>
-          <strong>Exelente!</strong> Datos ingresados correctamente
+          <strong>Excelente!</strong> Datos ingresados correctamente
         </div>
 
         <button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>

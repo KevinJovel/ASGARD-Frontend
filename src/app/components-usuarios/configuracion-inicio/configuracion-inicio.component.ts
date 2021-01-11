@@ -226,7 +226,7 @@ export class ConfiguracionInicioComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title:'¡Ocurrio un error al guardar el registro!',
+            title:'¡Ocurrió un error al guardar el registro!',
             showConfirmButton: false,
             timer: 3000
           })
@@ -252,7 +252,7 @@ export class ConfiguracionInicioComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title:'¡Ocurrio un error al guardar el registro!',
+            title:'¡Ocurrió un error al guardar el registro!',
             showConfirmButton: false,
             timer: 3000
           })
@@ -287,7 +287,7 @@ export class ConfiguracionInicioComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title:'¡Ocurrio un error al guardar el registro!',
+            title:'¡Ocurrió un error al guardar el registro!',
             showConfirmButton: false,
             timer: 3000
           })
@@ -383,7 +383,7 @@ export class ConfiguracionInicioComponent implements OnInit {
           Swal.fire({
             position: 'center',
             icon: 'success',
-            title:'¡Ocurrio un error al guardar el registro!',
+            title:'¡Ocurrió un error al guardar el registro!',
             showConfirmButton: false,
             timer: 3000
           })
