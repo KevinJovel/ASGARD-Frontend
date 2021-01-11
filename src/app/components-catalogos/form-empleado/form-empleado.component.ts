@@ -66,6 +66,7 @@ export class FormEmpleadoComponent implements OnInit {
     this.empleado.controls["nombres"].setValue("");
     this.empleado.controls["apellidos"].setValue("");
     this.empleado.controls["direccion"].setValue("");
+    this.empleado.controls["email"].setValue("");
     this.empleado.controls["telefono"].setValue("");
     this.empleado.controls["telefonopersonal"].setValue("");
     this.empleado.controls["idareadenegocio"].setValue("");
@@ -205,10 +206,25 @@ export class FormEmpleadoComponent implements OnInit {
         this.empleado.controls["nombres"].setValue(data.nombres);
         this.empleado.controls["apellidos"].setValue(data.apellidos);
         this.empleado.controls["direccion"].setValue(data.direccion);
+        this.empleado.controls["email"].setValue(data.email);
         this.empleado.controls["telefono"].setValue(data.telefono);
         this.empleado.controls["telefonopersonal"].setValue(data.telefonopersonal);
         this.empleado.controls["idareadenegocio"].setValue(data.idareadenegocio);
+
+        var isJefe = this.empleado.controls['idareadenegocio'].setValue(data.idareadenegocio);
+        this.catalogosServices.ValidarAreaJefe(isJefe).subscribe(res => {
+      if (res == 1) {
+        this.catalogosServices.listarCargoCombosinJ().subscribe(res => { 
+          this.cargos = res 
+        });
         this.empleado.controls["idcargo"].setValue(data.idcargo);
+      } else {
+        this.catalogosServices.listarCargoCombo().subscribe(res => { 
+          this.cargos = res 
+        });
+        this.empleado.controls["idcargo"].setValue(data.idcargo);
+      }
+    });
         this.empleado.controls["bandera"].setValue("1");
         this.catalogosServices.getEmpleado().subscribe(res => { this.empleados = res });
       });
