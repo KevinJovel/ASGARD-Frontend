@@ -160,23 +160,60 @@ export class CierreAnioComponent implements OnInit {
   }
   Revertir() {
     this.seguridadService.ListarTransacciones(this.anio).subscribe(data => {
-      if(data.length>0){
+      if (data.length > 0) {
         data.forEach(item => {
-          this.seguridadService.EliminarTransacciones(item.id).subscribe(res=>{
-            if(res==1){
-              alert("eliminaTransacciones")
-              this.seguridadService.EliminarActivos(item.idBien).subscribe(res=>{
-                if(res==1){
-                  alert("funciona");
+          this.seguridadService.EliminarTransacciones(item.id).subscribe(res => {
+            if (res == 1) {
+              this.seguridadService.EliminarActivos(item.idBien).subscribe(res => {
+                if (res == 1) {
+                  this.seguridadService.Revertir(this.anio).subscribe(res => {
+                    if (res == 1) {
+                      let anioNuevo = parseInt(this.anio) - 1;
+                      this.seguridadService.ListarTransaccionesrevertir(anioNuevo).subscribe(data1 => {
+                        data1.forEach(element => {
+                          this.seguridadService.EliminarTransaccionesRevertir(element.id).subscribe(res => {
+                            if (res == 1) {
+                              Swal.fire({
+                                position: 'center',
+                                icon: 'info',
+                                title: 'El proceso de reversion fue ejcutado con exito.',
+                                showConfirmButton: false,
+                                timer: 3000
+                              })
+                            }
+                          });
+                        });
+                      })
+                    }
+                  });
                 }
               });
             }
           })
         });
-      }else{
-        alert("cierra");
+      } else {
+        this.seguridadService.Revertir(this.anio).subscribe(res => {
+          if (res == 1) {
+            let anioNuevo = parseInt(this.anio) - 1;
+            this.seguridadService.ListarTransaccionesrevertir(anioNuevo).subscribe(data1 => {
+              data1.forEach(element => {
+                this.seguridadService.EliminarTransaccionesRevertir(element.id).subscribe(res => {
+                  if (res == 1) {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'info',
+                      title: 'El proceso de reversion fue ejcutado con exito.',
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
+                  }
+                });
+              });
+            })
+          }
+        });
       }
- 
+
     });
   }
 
