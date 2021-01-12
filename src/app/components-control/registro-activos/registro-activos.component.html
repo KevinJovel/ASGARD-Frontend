@@ -90,7 +90,7 @@
                       <table class="display table table-bordered table-striped">
                         <thead>
                           <tr>
-                            <th>N°</th>
+                            <th style="width:30px">N°</th>
                             <th>Código</th>
                             <th>Fecha ingreso</th>
                             <th>Descripción</th>
@@ -103,7 +103,7 @@
                         <tbody>
                           <tr *ngFor="let combo of activos | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
 
-                            <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                            <th style="width:30px" scope="col">{{ 5 * (p - 1) + i+1 }}</th>
 
                             <td>{{combo.codigo}}</td>
                             <td>{{combo.fechacadena}}</td>
@@ -148,7 +148,7 @@
                       <table class="display table table-bordered table-striped">
                         <thead>
                           <tr>
-                            <th>N°</th>
+                            <th style="width:30px">N°</th>
                             <th>Código</th>
                             <th>Fecha ingreso</th>
                             <th>Descripción</th>
@@ -159,7 +159,7 @@
                         <tbody>
                           <tr *ngFor="let combo of activos | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
 
-                            <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                            <th style="width:30px" scope="col">{{ 4 * (p - 1) + i+1 }}</th>
 
                             <td>{{combo.codigo}}</td>
                             <td>{{combo.fechacadena}}</td>
@@ -196,7 +196,7 @@
                       <table class="display table table-bordered table-striped">
                         <thead>
                           <tr>
-                            <th>N°</th>
+                            <th style="width:30px">N°</th>
                             <th>Código</th>
                             <th>Fecha ingreso</th>
                             <th>Descripción</th>
@@ -208,7 +208,7 @@
                         <tbody>
                           <tr *ngFor="let combo of activos | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
 
-                            <th scope="col">{{ 4 * (p - 1) + i+1 }}</th>
+                            <th style="width:30px" scope="col">{{ 4 * (p - 1) + i+1 }}</th>
 
                             <td>{{combo.codigo}}</td>
                             <td>{{combo.fechacadena}}</td>
@@ -247,7 +247,7 @@
                       <table class="display table table-bordered table-striped">
                         <thead>
                           <tr>
-                            <th>N°</th>
+                            <th style="width:30px">N°</th>
                             <th>No. Formulario</th>
                             <th>Fecha ingreso</th>
                             <th>Descripción</th>
@@ -257,7 +257,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let combo of activos | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
+                          <tr style="width:30px" *ngFor="let combo of activos | paginate: { itemsPerPage: 5, currentPage: p}; let i=index">
 
                             <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
 
