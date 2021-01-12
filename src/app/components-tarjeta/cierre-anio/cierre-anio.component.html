@@ -66,7 +66,7 @@
       </div>
       <div class="modal-body">
 
-        <form role="form" [formGroup]="periodo" (ngSubmit)="cierre()">
+        <form role="form" [formGroup]="periodo" (ngSubmit)="Revertir()">
 
           <input type="hidden" class="form-control" formControlName="idPeriodo" autocomplete="off">
           <p>*Al revertir el cierre del sistema usted como usuario administrador adquiere la responsabilidad de asegurarse que todos los procesos estén realizados bajo la supervisión y auditoria de las autoridades.</p>
@@ -76,7 +76,7 @@
             y condiciones</label><br>
 
           <div style="text-align: center;">
-            <button [disabled]="this.aceptacion==false" type="submit" class="btn btn-primary"><i class="icon-check-sign"></i>
+            <button [disabled]="this.aceptacion==false" type="submit" class="btn btn-primary" ><i class="icon-check-sign"></i>
               Revertir Cierre </button>
             <button type="button" class="btn btn-default" (click)="close()"><i class="icon-remove-sign"></i>
               Cancelar</button>
