@@ -1,7 +1,18 @@
 .form-signin h2.form-signin-heading {
     /* background: #2a3542; */
+    /* max-width: 400px; */
     background: #35404D;
 }
+.form-signin {
+  max-width: 400px;
+  box-shadow: 0 15px 25px
+}
+.container{
+  background: #49b05f
+}
+/* element.style {
+      background-color: #49b05f
+} */
 /* Structure */
 .forgotlink{
     margin: 4px;
@@ -29,7 +40,7 @@ table {
     z-index: 1;
     overflow: auto;
     left: 0;
-    top: 50px;
+    top: 0px;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.452);
@@ -134,7 +145,7 @@ table {
     box-shadow: none;
     color: #797474;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 25px;
   }
   input, select, textarea {
     font-family: inherit;
@@ -167,3 +178,9 @@ table {
     background-color: #5cb85c;
     border-color: #4cae4c;
     } 
+    @media (min-width: 1200px){
+      .container {
+        width: 100%;
+        height: 723px;
+      }
+    }
