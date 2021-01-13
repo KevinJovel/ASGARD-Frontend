@@ -31,26 +31,16 @@ export class MontoPorAnioComponent implements OnInit {
   constructor(private graficasService: GraficasService) { }
 
   ngOnInit(): void {
-    this.graficasService.getPeriodos().subscribe(data => {
-      data.forEach(item => {
-        console.log(item.anio);
-       this.graficasService.getDatosGraficaMontoActivosPorAnio(item.anio).subscribe(res => {
-         console.log(res.monto);
-         setTimeout(() => {
-          this.barChartData[0].data.push(res.monto);
-          this.barChartLabels.push(res.anio);
-         }, 500);
-          
+    this.graficasService.getDatosGraficaMontoActivosPorAnio().subscribe(res => {
+      res.forEach(item => {
+          this.barChartData[0].data.push(item.monto);
+          this.barChartLabels.push(item.anio);
           this.barChartData[0].backgroundColor = 'rgba(75, 198, 192, 0.2)';
           this.barChartData[0].borderColor = 'rgba(75, 192, 192, 1)';
           this.barChartData[0].hoverBackgroundColor = 'rgba(90, 900, 100, 0.1)'
           this.barChartData[0].hoverBorderColor = 'rgba(75, 192, 192, 1)'
         });
       });
-      console.log(this.barChartData[0].data);
-
-    });
-
   }
 
 }

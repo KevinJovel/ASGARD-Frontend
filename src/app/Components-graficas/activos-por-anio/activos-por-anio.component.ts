@@ -32,25 +32,19 @@ export class ActivosPorAnioComponent implements OnInit {
   constructor(private graficasService: GraficasService) { }
 
   ngOnInit(): void {
-    this.graficasService.getPeriodos().subscribe(data => {
-      data.forEach(item => {
-        console.log(item.anio);
-       this.graficasService.getDatosGraficaActivosPorAnio(item.anio).subscribe(res => {
-         console.log(res.anio);
-         setTimeout(() => {
-          this.barChartData[0].data.push(res.numero);
-          this.barChartLabels.push(res.anio);
-         }, 500);
-          
-          this.barChartData[0].backgroundColor = 'rgba(0, 204, 102, 0.2)';
-          this.barChartData[0].borderColor = 'rgba(75, 192, 192, 1)';
-          this.barChartData[0].hoverBackgroundColor = 'rgba(90, 900, 100, 0.1)'
-          this.barChartData[0].hoverBorderColor = 'rgba(75, 192, 192, 1)'
-        });
+    this.graficasService.getDatosGraficaActivosPorAnio().subscribe(res => {
+      console.log(res);
+      res.forEach(item => {
+         console.log(item.anio);
+         this.barChartData[0].data.push(item.numero);
+         this.barChartLabels.push(item.anio);
+         this.barChartData[0].backgroundColor = 'rgba(0, 204, 102, 0.2)';
+         this.barChartData[0].borderColor = 'rgba(75, 192, 192, 1)';
+         this.barChartData[0].hoverBackgroundColor = 'rgba(90, 900, 100, 0.1)'
+         this.barChartData[0].hoverBorderColor = 'rgba(75, 192, 192, 1)'
+       });
       });
-      console.log(this.barChartData[0].data);
-
-    });
+      // console.log(this.barChartData[0].data);
 
     //  this.barChartLabels.push('2009');
     //  this.barChartData[0].data.push(10);
@@ -59,7 +53,6 @@ export class ActivosPorAnioComponent implements OnInit {
   generarNumero(numero){
     return (Math.random()*numero).toFixed(0);
   }
-  
   colorRGB(){
     var coolor = "("+this.generarNumero(255)+"," + this.generarNumero(255) + "," + this.generarNumero(255) +")";
     return "rgb" + coolor;

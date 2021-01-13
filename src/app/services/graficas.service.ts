@@ -10,13 +10,13 @@ import { environment } from '../../environments/environment'
 export class GraficasService {
 
   constructor(private http: Http) { }
-  public getPeriodos() {
-    return this.http.get(environment.urlService + "api/Graficas/ListarPeriodos").map(res => res.json());
+  // public getPeriodos() {
+  //   return this.http.get(environment.urlService + "api/Graficas/ListarPeriodos").map(res => res.json());
+  // }
+  public getDatosGraficaActivosPorAnio() {
+    return this.http.get(environment.urlService + "api/Graficas/ActivosRegistradosXAnio").map(res => res.json());
   }
-  public getDatosGraficaActivosPorAnio(anio) {
-    return this.http.get(environment.urlService + "api/Graficas/ActivosRegistradosXAnio/"+anio).map(res => res.json());
-  }
-  public getDatosGraficaMontoActivosPorAnio(anio) {
-    return this.http.get(environment.urlService + "api/Graficas/montoPorAnio/"+anio).map(res => res.json());
+  public getDatosGraficaMontoActivosPorAnio() {
+    return this.http.get(environment.urlService + "api/Graficas/montoPorAnio").map(res => res.json());
   }
 }
