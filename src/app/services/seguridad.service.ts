@@ -88,7 +88,24 @@ export class SeguridadService {
   public changePassword(id,pass) {
     return this.http.get(environment.urlService + "api/Seguridad/recoveryPassword/"+id+"/"+pass).map(res => res.json());
   }
-  
+  public ListarTransacciones(anio) {
+    return this.http.get(environment.urlService + "api/Revertir/listarTransaccionesActivo/"+anio).map(res => res.json());
+  }
+  public EliminarTransacciones(id) {
+    return this.http.get(environment.urlService + "api/Revertir/EliminarTransaccionesActivo/"+id).map(res => res.json());
+  }
+  public EliminarActivos(id) {
+    return this.http.get(environment.urlService + "api/Revertir/EliminarActivos/"+id).map(res => res.json());
+  }
+  public Revertir(anio) {
+    return this.http.get(environment.urlService + "api/Depreciacion/Revertir/"+anio).map(res => res.json());
+  }
+  public ListarTransaccionesrevertir(anio) {
+    return this.http.get(environment.urlService + "api/Revertir/listarTransaccionesReversion/"+anio).map(res => res.json());
+  }
+  public EliminarTransaccionesRevertir(id) {
+    return this.http.get(environment.urlService + "api/Revertir/EliminarTransaccionesRevertir/"+id).map(res => res.json());
+  }
 
 
 }

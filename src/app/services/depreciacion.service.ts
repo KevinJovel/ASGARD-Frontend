@@ -125,4 +125,7 @@ export class DepreciacionService {
     public recuperarFoto(id) {
       return this.http.get(environment.urlService  + "api/Depreciacion/recuperarFoto/" + id).map(res => res.json());
     }
+    public validarCierre(anio) {
+      return this.http.get(environment.urlService  + "api/Depreciacion/ValidarCierre/"+anio).map(res => res.json());
+    }
 }
