@@ -168,22 +168,52 @@ export class CierreAnioComponent implements OnInit {
                 if (res == 1) {
                   this.seguridadService.Revertir(this.anio).subscribe(res => {
                     if (res == 1) {
-                      let anioNuevo = parseInt(this.anio) - 1;
-                      this.seguridadService.ListarTransaccionesrevertir(anioNuevo).subscribe(data1 => {
-                        data1.forEach(element => {
-                          this.seguridadService.EliminarTransaccionesRevertir(element.id).subscribe(res => {
-                            if (res == 1) {
-                              Swal.fire({
-                                position: 'center',
-                                icon: 'info',
-                                title: 'El proceso de reversion fue ejcutado con exito.',
-                                showConfirmButton: false,
-                                timer: 3000
-                              })
+                      this.displayRevertir = 'none';
+                      this.displayCierre = 'none';
+                      this.router.navigate(["./"]);
+                      let timerInterval
+                      Swal.fire({
+                        title: 'Ejecutando reversión!',
+                        html: 'Procesando',
+                        timer: 5000,
+                        timerProgressBar: true,
+                        onBeforeOpen: () => {
+                          Swal.showLoading()
+                          timerInterval = setInterval(() => {
+                            const content = Swal.getContent()
+                            if (content) {
+                              const b = content.querySelector('b')
+                              if (b) {
+                                Swal.getTimerLeft()
+                              }
                             }
-                          });
-                        });
-                      })
+                          }, 100)
+                        },
+                        onClose: () => {
+                          clearInterval(timerInterval)
+                        }
+                      }).then((result) => {
+                        /* Read more about handling dismissals below */
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                          let anioNuevo = parseInt(this.anio) - 1;
+                          this.seguridadService.ListarTransaccionesrevertir(anioNuevo).subscribe(data1 => {
+                            data1.forEach(element => {
+                              this.seguridadService.EliminarTransaccionesRevertir(element.id).subscribe(res => {
+                                if (res == 1) {
+                                  Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'El proceso de reversión fue ejcutado con éxito.',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                  })
+                                }
+                              });
+                            });
+                          })
+                          this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Realizó reversión de año activo.`).subscribe();
+                        }
+                      });
                     }
                   });
                 }
@@ -194,22 +224,52 @@ export class CierreAnioComponent implements OnInit {
       } else {
         this.seguridadService.Revertir(this.anio).subscribe(res => {
           if (res == 1) {
-            let anioNuevo = parseInt(this.anio) - 1;
-            this.seguridadService.ListarTransaccionesrevertir(anioNuevo).subscribe(data1 => {
-              data1.forEach(element => {
-                this.seguridadService.EliminarTransaccionesRevertir(element.id).subscribe(res => {
-                  if (res == 1) {
-                    Swal.fire({
-                      position: 'center',
-                      icon: 'info',
-                      title: 'El proceso de reversion fue ejcutado con exito.',
-                      showConfirmButton: false,
-                      timer: 3000
-                    })
+            this.displayRevertir = 'none';
+            this.displayCierre = 'none';
+            this.router.navigate(["./"]);
+            let timerInterval
+            Swal.fire({
+              title: 'Ejecutando reversión!',
+              html: 'Procesando',
+              timer: 5000,
+              timerProgressBar: true,
+              onBeforeOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                  const content = Swal.getContent()
+                  if (content) {
+                    const b = content.querySelector('b')
+                    if (b) {
+                      Swal.getTimerLeft()
+                    }
                   }
-                });
-              });
-            })
+                }, 100)
+              },
+              onClose: () => {
+                clearInterval(timerInterval)
+              }
+            }).then((result) => {
+              /* Read more about handling dismissals below */
+              if (result.dismiss === Swal.DismissReason.timer) {
+                let anioNuevo = parseInt(this.anio) - 1;
+                this.seguridadService.ListarTransaccionesrevertir(anioNuevo).subscribe(data1 => {
+                  data1.forEach(element => {
+                    this.seguridadService.EliminarTransaccionesRevertir(element.id).subscribe(res => {
+                      if (res == 1) {
+                        Swal.fire({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'El proceso de reversión fue ejcutado con éxito.',
+                          showConfirmButton: false,
+                          timer: 3000
+                        })
+                      }
+                    });
+                  });
+                })
+                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Realizó reversión de año activo.`).subscribe();
+              }
+            });
           }
         });
       }
