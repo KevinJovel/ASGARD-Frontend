@@ -110,7 +110,6 @@
         <form role="form" [formGroup]="solicitud" (ngSubmit)="guardarDatos()">
           <input type="hidden" class="form-control" formControlName="idsolicitud" autocomplete="off">
           <input type="hidden" class="form-control" formControlName="idbien" autocomplete="off">
-        
           
           
      
@@ -129,7 +128,7 @@
           <div class="form-group col-md-6">
             <label><strong class="required">*</strong> Nueva área de negocio:</label>
             <select class="form-control" (change)="FiltrarEmpleado()"  formControlName="nuevaarea" >
-              <option value="0">---Seleccione---</option>
+              <option value="0">Seleccione</option>
               <option [value]="area.idAreaNegocio" *ngFor="let area of areas">
                 {{area.nombre}} </option>
             </select>
@@ -137,7 +136,7 @@
             <div class="form-group col-md-6">
               <label><strong class="required">*</strong> Nuevo responsable:</label>
               <select class="form-control"  formControlName="idresponsable">
-                <option value="0">---Seleccione---</option>
+                <option value="0" selected>Seleccione</option>
                 <option [value]="empleado.idempleado" *ngFor="let empleado of empleados">{{empleado.nombres+" "+empleado.apellidos}}</option>	
               </select>
               </div>

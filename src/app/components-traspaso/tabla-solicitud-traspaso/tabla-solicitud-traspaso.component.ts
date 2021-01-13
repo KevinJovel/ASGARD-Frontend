@@ -36,7 +36,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
-       'acuerdo': new FormControl("",[Validators.required,Validators.maxLength(50), Validators.pattern("^[a-z A-Z 0-9 ñÑáÁéÉíÍóÓúÚ ,.]+$")],this.noRepetirAcuerdo.bind(this)),
+       'acuerdo': new FormControl("",[Validators.required]),
        'fechasolicitud': new FormControl("",[Validators.required]),
        'idEmpleado': new FormControl(""),
     });

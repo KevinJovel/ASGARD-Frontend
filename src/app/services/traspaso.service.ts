@@ -77,7 +77,9 @@ public  historialSolicitudesTraspasos (idactivo){
  public buscarActivosTraspaso(buscador) {
   return this.http.get(environment.urlService  + "api/SolicitudTraspaso/buscarActivosTraspaso/" + buscador).map(res => res.json());
 }
-
+public comboAreaDeSucursal(id) {
+  return this.http.get(environment.urlService + "api/SolicitudTraspaso/comboAreaDeSucursal/" + id).map(res => res.json());
+}
  
  
 }

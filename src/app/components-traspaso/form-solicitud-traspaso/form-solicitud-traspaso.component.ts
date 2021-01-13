@@ -188,7 +188,7 @@ banderaBuscador:number=1;
  
   FiltrarArea(){
     var id= this.solicitud.controls['idSucursal'].value;
-    this.controlService.comboAreaDeSucursal(id).subscribe(data=>{this.areas=data});
+    this.TraspasoService.comboAreaDeSucursal(id).subscribe(data=>{this.areas=data});
   }
 
   Filtrar(){
