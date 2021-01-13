@@ -29,7 +29,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
 
   fechasolicitud:string; nuevoresponsable:string;  nuevaarea:string; area:string;  responsable:string; 
   codigo:string; descripcion:string;  nombredescargo:string; entidad:string; observaciones:string; ubicacion:string;
-  cargo:string; folio:string; solicitud: string; acuerdo: string; idresponsable: any;
+  cargo:string; folio:string; solicitud: string; acuerdo: any; idresponsable: any;
  
   constructor(private router: Router, private activateRoute: ActivatedRoute, 
     private bajaService:BajaService, private TraspasoService: TraspasoService, private controlService: ControlService,private usuarioService:UsuarioService)
@@ -110,6 +110,17 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   
     this.idsolicitud=id;
    
+  }
+
+  changeArchivo() {
+    var file = (<HTMLInputElement>document.getElementById('futArchivo')).files[0];
+    var fileReader = new FileReader();
+  
+    fileReader.onloadend = () => {
+      this.acuerdo = fileReader.result;
+    };
+  
+    fileReader.readAsDataURL(file);
   }
 
    aprobarSolicitud() {

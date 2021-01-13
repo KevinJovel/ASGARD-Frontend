@@ -262,7 +262,6 @@
          
           <div class="form-group col-md-6">
             <label><strong class="required">*</strong> Fecha:</label>
-          
             <input type="date" class="form-control"  formControlName="fechasolicitud"  min="{{fechaMinima}}" max="{{fechaMaxima}}" autocomplete="off">
           </div>
 
@@ -274,39 +273,42 @@
             </select>
             </div>
             
-          <br> <br>
           <div class="form-group col-md-6">
             <label><strong class="required">*</strong> Folio:</label>
-            <input size=28  type="text" class="form-control" formControlName="folio" maxlength="11" id="direccion" placeholder="Ingrese folio"  autocomplete="off">
+            <input  type="text" class="form-control" formControlName="folio" maxlength="11" id="direccion" placeholder="Ingrese folio"  autocomplete="off">
           </div>
-          <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Entidad beneficiaria:</label>
-            <input size=26  type="text"  class="form-control"  formControlName="entidadbeneficiaria" placeholder="Ingrese entidad beneficiaria" maxlength="81" autocomplete="off">
-          </div> 
-
           <br> <br>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Nombre de contacto:</label>
-            <input size=25  type="text"  class="form-control" formControlName="contacto" placeholder="Ingrese nombre de contacto"  maxlength="51" autocomplete="off">
+            <label><strong class="required"></strong>Entidad beneficiaria:</label>
+            <input  type="text"  class="form-control"  formControlName="entidadbeneficiaria" placeholder="Ingrese entidad beneficiaria" maxlength="81" autocomplete="off">
           </div> 
+
+          
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Domicilio:</label>
-            <input size=25 type="text" class="form-control" formControlName="domicilio" placeholder="Ingrese domicilio"   maxlength="101" autocomplete="off">
+            <label><strong class="required"></strong>Nombre de contacto:</label>
+            <input  type="text"  class="form-control" formControlName="contacto" placeholder="Ingrese nombre de contacto"  maxlength="51" autocomplete="off">
+          </div>
+          
+          <div class="form-group col-md-6">
+            <label><strong class="required"></strong>Domicilio:</label>
+            <input type="text" class="form-control" formControlName="domicilio" placeholder="Ingrese domicilio"   maxlength="101" autocomplete="off">
           </div>
 
-          <br> <br>
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Teléfono: </label>
-            <input size=26 type="text"mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" placeholder="Ingrese teléfono" formControlName="telefono"  maxlength="10" autocomplete="off">
-          </div>  
-         
+            <label><strong class="required"></strong>Teléfono: </label>
+            <input type="text"mask="0000-0000" [dropSpecialCharacters]="false" class="form-control" placeholder="Ingrese teléfono" formControlName="telefono"  maxlength="10" autocomplete="off">
+          </div>
           <div class="form-group col-md-6">
             <label><strong class="required">*</strong> Observaciones:</label>
             <textarea class="form-control rounded-0" formControlName="observaciones" maxlength="151"
                rows="2" placeholder="Ingrese observación" autocomplete="off"></textarea>
           </div>
+          
+
+            
+          
           <!--Alert-->
-<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div class="alert alert-block alert-danger fade in" *ngIf="solicitud.controls['folio'].errors?.maxlength">
   <button data-dismiss="alert" class="close close-sm" type="button">
     <i class="icon-remove"></i>
