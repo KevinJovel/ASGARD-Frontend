@@ -53,6 +53,7 @@ export class GestionDescargoComponent implements OnInit {
   private router: Router, private activateRoute: ActivatedRoute,private seguridadService:SeguridadService) {
     this.solicitud2 = new FormGroup({
       'idsolicitud': new FormControl("0"),
+      'acuerdo': new FormControl(""),
       //para filtro
       'idArea': new FormControl("0"),
       'idSucursal': new FormControl("0"),
@@ -177,14 +178,18 @@ export class GestionDescargoComponent implements OnInit {
 
   verAcuerdo(id) {
     //this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó el informe de baja de un activo.`).subscribe()
-    this.display2 = 'block';
-    this.bajaService.verAcuerdo(id).subscribe((data) => {
-      if (data.acuerdo == null) {
-        this.acuerdo = "";
-      } else {
-        this.acuerdo = data.logo;
-      }
-    });
+      this.display2 = 'block';
+      this.bajaService.verDescargos(id).subscribe(data => {
+        this.solicitud2.controls["acuerdo"].setValue(data.acuerdo);
+        this.solicitud2.controls["idsolicitud"].setValue(data.idsolicitud);
+        if (data.acuerdo == null) {
+          this.acuerdo = "";
+        } else {
+          this.acuerdo = data.acuerdo;
+        }
+  
+      });
+    
   }
 
   FiltrarArea() {

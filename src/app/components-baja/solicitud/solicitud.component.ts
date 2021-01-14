@@ -125,7 +125,7 @@ export class SolicitudComponent implements OnInit {
     this.bajaService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
           this.bajaService.cambiarEstadoAceptoBaja(this.solicitudes.value).subscribe(rest=>{ 
-          if(res==1){
+          if(rest==1){
           Swal.fire({
             icon: 'success',
             title: '¡Aprobada!',
