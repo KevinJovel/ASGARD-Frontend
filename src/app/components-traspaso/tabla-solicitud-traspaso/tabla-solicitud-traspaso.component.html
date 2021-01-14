@@ -123,25 +123,6 @@
               <input type="date" class="form-control"  formControlName="fechasolicitud"  autocomplete="off"  min="{{fechaMinima}}" max="{{fechaMaxima}}">
             </div>  <!---->
             <br><br><br><br><br> 
-            <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.maxlength">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Error!</strong> Tamaño máximo permitido en el campo acuerdo.
-            </div>
-            <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.pattern">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Error!</strong> El campo acuerdo no acepta caracteres especiales.
-            </div>
-
-            <div class="alert alert-block alert-danger fade in" *ngIf="solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
-              <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
-              </button>
-              <strong>¡Advertencia!</strong> ya existe el numero de acuerdo ingresado, por favor intente con un nuevo.
-            </div>
            <!-- <div class="alert alert-warning fade in" *ngIf="!solicitudes.valid&&!solicitudes.controls['acuerdo'].errors?.yaExisteAcuerdo">
               <button data-dismiss="alert" class="close close-sm" type="button">
                 <i class="icon-remove"></i>

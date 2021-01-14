@@ -124,6 +124,8 @@ export class SolicitudComponent implements OnInit {
       if (result.value) {
     this.bajaService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
+          this.bajaService.cambiarEstadoAceptoBaja(this.solicitudes.value).subscribe(rest=>{ 
+          if(res==1){
           Swal.fire({
             icon: 'success',
             title: '¡Aprobada!',
@@ -134,12 +136,22 @@ export class SolicitudComponent implements OnInit {
           this.display = 'none'; 
           this.bajaService.listarSolicitud().subscribe(res=>{ this.activo2=res });
         //  console.log("IdSoliiii: "+id);
-         }      
+         }  else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'Ocurrió un error.',
+            confirmButtonText: 'Aceptar'
+        })
+        }
+      });
+      }
+            
    });   
    this.bienesS=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoAceptoBaja(this.solicitudes.value).subscribe(rest=>{ });
+       
       
-  }// del result
+  }// dif
   })//de la alerta
 
   }//fin aprobar solicitud

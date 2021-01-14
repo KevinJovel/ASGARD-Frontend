@@ -143,7 +143,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       confirmButtonText: '¡Si, aprobar!'
     }).then((result) => {
       if (result.value) {
-      console.log(this.solicitudes.value);
+      //console.log(this.solicitudes.value);
     this.TraspasoService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
         this.TraspasoService.cambiarEstadoAceptoTraspaso(this.solicitudes.value).subscribe(rest=>{ 
@@ -172,7 +172,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
    this.idactivado=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
     
     
-  }// del result
+  }// del if
   })//de la alerta
 
   }//fin aprobar solicitud
