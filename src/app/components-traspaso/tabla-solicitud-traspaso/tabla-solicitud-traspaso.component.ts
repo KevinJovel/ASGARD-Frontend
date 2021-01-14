@@ -36,7 +36,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
-       'acuerdo': new FormControl("",[Validators.required]),
+       'acuerdo': new FormControl(""),
        'fechasolicitud': new FormControl("",[Validators.required]),
        'idEmpleado': new FormControl(""),
     });
@@ -59,7 +59,6 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       this.router.navigate(["/"]);
     }
   })
-    
    
   }
 
@@ -127,8 +126,10 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
      //en id 
     var id=this.idsolicitud;
     //vamos a guardar el acuerdo y la solicitud
-    this.acuerdo = this.solicitudes.value.acuerdo;
+   // this.acuerdo = this.solicitudes.value.acuerdo;
+  
     this.fechasolicitud = this.solicitudes.value.fechasolicitud;
+    this.solicitudes.controls["acuerdo"].setValue(this.acuerdo);
    // console.log("Este de Acuerdo: "+this.acuerdo);
     
     Swal.fire({
@@ -146,6 +147,7 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.TraspasoService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
         this.TraspasoService.cambiarEstadoAceptoTraspaso(this.solicitudes.value).subscribe(rest=>{ 
+          
           if(rest==1){
             Swal.fire({
               icon: 'success',

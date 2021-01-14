@@ -152,6 +152,7 @@
                         <th scope="row">Área de negocios anterior</th>
                         <th scope="row">Nuevo responsable</th>
                         <th scope="row">Nueva área de negocios</th>
+                        <th scope="row">Acuerdo</th>
                         
                        <!-- <th scope="row" class="hidden-phone">Enviar</th>-->
                       </tr>
@@ -168,7 +169,9 @@
                <td>{{solicitud.areaanterior}}</td>
                <td>{{solicitud.nuevoresponsable}}</td>
                <td>{{solicitud.nuevaarea}}</td>
-               
+               <td class="center hidden-phone">
+                <button title="Ver solicitud" class="btn btn-primary btn-xs" (click)="mostrarAcuerdo(solicitud.idSolicitud)"><i class="glyphicon glyphicon-eye-open"></i></button>
+              </td>
               </tr>
                     </tbody>
                   </table>
@@ -196,6 +199,36 @@
  </div>
 
 <!--FIN DEL MODAL PARA LA TABLA DE HISTORIAL DE MANTENIMIENOT-->
+
+
+<!--modal para mostrar acuerdo-->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal" [ngStyle]="{'display':display4}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
+        <h4 class="modal-title">Acuerdo</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" [formGroup]="solicitudes">
+          <input type="text" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
+         
+          <div class="form-group" >
+            <div align="center"> 
+            <img src="{{acuerdo}}" width="350" height="200" />
+           <!-- <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" /> -->
+          </div>
+        </div>
+
+        <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
+          Salir</button>
+
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!--modal para ayuda con pdf-->
