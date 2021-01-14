@@ -145,12 +145,8 @@ export class FormAsignancionComponent implements OnInit {
       this.display2 = 'block';
     }
   }
-  codigoDeBarrasPdf(id) {
-
-    this.controlService.DatosCodigoBarras(id).subscribe(data => {
-      this.idactivo = data.idactivo
-    });
-    this.http.get(environment.urlService + "api/ReportesSeguridad/codigoBarraActivoPdf/" + parseInt(this.idactivo), { responseType: 'arraybuffer' }).subscribe(pdf => {
+  codigoDeBarrasPdf() {
+    this.http.get(environment.urlService + "api/ReportesSeguridad/codigoBarraGeneradoPdf/" + this.activo.controls["codigo"].value+"/"+this.nombreActivo+"/"+this.marca+"/"+this.modelo, { responseType: 'arraybuffer' }).subscribe(pdf => {
       const blod = new Blob([pdf], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blod);
       window.open(url);

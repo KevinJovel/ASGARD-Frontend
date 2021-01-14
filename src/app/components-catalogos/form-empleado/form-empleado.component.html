@@ -53,7 +53,7 @@
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
                   <td>{{empleado.dui}}</td>
                   <td>{{empleado.nombres + " " + empleado.apellidos}}</td>
-                  <td>{{empleado.nombrearea}}</td>
+                  <td>{{empleado.nombrearea+ " -  " + empleado.nombresucursal}}</td>
                   <td class="center hidden-phone">
                     <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(empleado.idempleado)"><i
                         class="icon-pencil"></i></button>
