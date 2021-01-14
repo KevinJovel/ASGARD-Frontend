@@ -35,7 +35,7 @@ export class SolicitudComponent implements OnInit {
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
-      'acuerdo': new FormControl(''),
+      'acuerdo': new FormControl(""),
       'fecha2': new FormControl("",[Validators.required])
     });
   }
@@ -106,7 +106,11 @@ export class SolicitudComponent implements OnInit {
     //var idsolicitud=this.idsolicitud;
     //this.acuerdo = this.solicitudes.value.acuerdo;
     this.fecha2 = this.solicitudes.value.fecha2;
-    //console.log("Este de Acuerdo: "+this.fecha2);
+    console.log("fecha: "+ this.fecha2);
+    //Pasamos el archivo
+    this.solicitudes.controls["acuerdo"].setValue(this.acuerdo);
+    console.log("Archivo de Acuerdo: "+this.acuerdo);
+    
     Swal.fire({
       title: '¿Estás seguro de aprobar esta solicitud?',
       text: "¡No podrás revertir esta acción!",
@@ -119,8 +123,6 @@ export class SolicitudComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
     this.bajaService.aceptarSolicitud(id).subscribe(res=>{
-      //Pasamos la foto
-    this.solicitudes.controls['acuerdo'].setValue(this.acuerdo);
          if(res==1){
           Swal.fire({
             icon: 'success',
@@ -135,8 +137,8 @@ export class SolicitudComponent implements OnInit {
          }      
    });   
    this.bienesS=id;// este cambio se hace para guardar el id de la solicitud en lugar del bien
-       this.bajaService.cambiarEstadoAceptado(this.bienesS, this.acuerdo, this.fecha2).subscribe(rest=>{ });
-      // console.log("fecha: "+ this.fecha2);
+       this.bajaService.cambiarEstadoAceptoBaja(this.solicitudes.value).subscribe(rest=>{ });
+      
   }// del result
   })//de la alerta
 

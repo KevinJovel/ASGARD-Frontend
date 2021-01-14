@@ -29,19 +29,21 @@ export class GestionDescargoComponent implements OnInit {
   datosbien: FormGroup;
   activo: any;
   display = 'none';
+  display2 = 'none';
   display5 = 'none'; // para ayuda
   p: number = 1;
   //para filtro
   areas: any;
   sucursal: any;
   solicitud2: FormGroup;
+  acuerdos: FormGroup;
   //Variable para redireccionar
   parametro: string;
 
   //para ver los datos
   fecha: string; fecha2: string; marca: string; area: string; proveedor: string; donante: string; clasificacion: string;
   responsable: string; codigo: string; descripcion: string; folio: string; entidad: string;
-  tipoadqui: string; color: string; estado: string; valor: string; valoractual: string; acuerdo: string; 
+  tipoadqui: string; color: string; estado: string; valor: string; valoractual: string; acuerdo: any; 
   motivo: string; depreciacion: string;
  //variables para division
  isAdmin: boolean = false;
@@ -173,6 +175,17 @@ export class GestionDescargoComponent implements OnInit {
     });
   }
 
+  verAcuerdo(id) {
+    //this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó el informe de baja de un activo.`).subscribe()
+    this.display2 = 'block';
+    this.bajaService.verAcuerdo(id).subscribe((data) => {
+      if (data.acuerdo == null) {
+        this.acuerdo = "";
+      } else {
+        this.acuerdo = data.logo;
+      }
+    });
+  }
 
   FiltrarArea() {
     var id = this.solicitud2.controls['idSucursal'].value;
@@ -287,6 +300,10 @@ export class GestionDescargoComponent implements OnInit {
   }
   close5() { //para modal de ayuda
     this.display5 = "none";
+  }
+
+  close2() { //para modalde archivo
+    this.display2 = "none";
   }
 
   historialActivosJefePDF() {
