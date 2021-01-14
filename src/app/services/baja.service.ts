@@ -113,6 +113,9 @@ public buscarActivoNoAsig(buscador) {
      public validarSolicitudesParaBaja(){
       return this.http.get(environment.urlService + "api/SolicitudBaja/validarSolicitudesParaBaja"  ).map(res=>res.json());
      }
+     public validarInformesBaja(){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/validarInformesBaja"  ).map(res=>res.json());
+     }
      public validarHistorialParaBaja(){
       return this.http.get(environment.urlService + "api/SolicitudBaja/validarHistorialParaBaja"  ).map(res=>res.json());
      }

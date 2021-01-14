@@ -851,6 +851,26 @@ export class ReportesCatalogosComponent implements OnInit {
   }
 });
   }
+  informebajapdf() {
+    this.bajaService.validarInformesBaja().subscribe(res => {
+      if (res == 1) {
+    this.http.get(environment.urlService+"api/ReportesBaja/informebajapdf",{responseType: 'arraybuffer'}).subscribe(pdf=>{
+      const blod=new Blob([pdf],{type:"application/pdf"});
+      const url= window.URL.createObjectURL(blod);
+       window.open(url);
+    });
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió un reporte de informe de solicitudes de baja.`).subscribe();
+  } else {
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: '¡No hay informes de descargos!',
+      showConfirmButton: false,
+      timer: 3000
+    })
+  }
+});
+  }
   asignadosdebajapdf() {
     this.bajaService.validarHistorialParaBaja().subscribe(res => {
       if (res == 1) {

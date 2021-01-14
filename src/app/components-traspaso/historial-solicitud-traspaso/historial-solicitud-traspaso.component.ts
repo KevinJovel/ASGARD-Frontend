@@ -33,6 +33,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   anio: string;
   //para mostrar datos de historial
   idbien: any;
+  idsolicitud: any;
   descripcion: string;
   codigo: string;
   encargado: string;
@@ -70,6 +71,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
       
     });
     this.solicitudes = new FormGroup({
+      'idbien': new FormControl("0"),
       'idsolicitud': new FormControl("0"),
       'acuerdo': new FormControl(""),
     });
@@ -141,13 +143,17 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
           this.descripcion = data.descripcion;
           this.encargado = data.encargado;
           this.areadenegocio = data.areadenegocio;
-          this.idbien = data.idBien
-        
+          this.idbien = data.idBien;
+          this.acuerdo= data.acuerdo;
+          this.idsolicitud= data.idsolicitud;
 
         });
         //para recuperar el id del bien 
-        this.TraspasoService.historialSolicitudesTraspasos(id).subscribe(res => {
-          this.solicitudes = res;
+        this.TraspasoService.historialSolicitudesTraspasos(id).subscribe(data => {
+          this.solicitudes = data;
+          this.solicitudes.controls["acuerdo"].setValue(data.acuerdo);
+          this.solicitudes.controls["idsolicitud"].setValue(data.idsolicitud);
+          this.solicitudes.controls["idbien"].setValue(data.idbien);
         });
       }
     })//cierre de no ay historial
@@ -167,6 +173,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
     this.TraspasoService.acuerdoTraspaso(id).subscribe(data => {
       this.solicitudes.controls["acuerdo"].setValue(data.acuerdo);
       this.solicitudes.controls["idsolicitud"].setValue(data.idsolicitud);
+      this.solicitudes.controls["idbien"].setValue(data.idbien);
       if (data.acuerdo == null) {
         this.acuerdo = "";
       } else {
