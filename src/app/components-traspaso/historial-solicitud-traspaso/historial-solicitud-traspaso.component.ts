@@ -26,6 +26,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   datos: FormGroup;
   display = 'none';
   display2 = 'none';
+  display4 = 'none';
   display5 = 'none'; // para ayuda
   //Datos del modal
   coopertativa: string;
@@ -39,6 +40,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   // para listar el historial
   solicitudes: any;
   tecnicos: any;
+  acuerdos: FormGroup;
   solicitud: FormGroup;
   revalorizacion: FormGroup;
   display3 = 'none';
@@ -46,6 +48,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   bienid: any;
   idmante: any;
   parametro: any;
+  acuerdo: any;
   //variables para division
   isAdmin: boolean = false;
   tipoUsuario = sessionStorage.getItem("tipo");
@@ -63,9 +66,15 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
       'descripcion': new FormControl(""),
       'valorAdquicicion': new FormControl(""),
       'valorActual': new FormControl(""),
-      'valorDepreciacion': new FormControl("")
+      'valorDepreciacion': new FormControl(""),
+      
+    });
+    this.solicitudes = new FormGroup({
+      'idsolicitud': new FormControl("0"),
+      'acuerdo': new FormControl(""),
     });
   }
+
 
   ngOnInit(): void {
   
@@ -110,10 +119,6 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
     this.combos.controls['idArea'].setValue(0);
     this.depreciacionService.TablaDepreciacion().subscribe(data => { this.bienes = data });
   }
-  AplicarDepreciacion() {
-
-
-  }
 
   open(id) {
     //this.TraspasoService.historialSolicitudesTraspasos(id).subscribe(data=>{this.sucursales=data});
@@ -137,6 +142,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
           this.encargado = data.encargado;
           this.areadenegocio = data.areadenegocio;
           this.idbien = data.idBien
+        
 
         });
         //para recuperar el id del bien 
@@ -152,7 +158,23 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   close() {
     this.display = 'none';
   }
+  close2() {
+    this.display4 = 'none';
+  }
 
+  mostrarAcuerdo(id) {
+    this.display4 = 'block';
+    this.TraspasoService.acuerdoTraspaso(id).subscribe(data => {
+      this.solicitudes.controls["acuerdo"].setValue(data.acuerdo);
+      this.solicitudes.controls["idsolicitud"].setValue(data.idsolicitud);
+      if (data.acuerdo == null) {
+        this.acuerdo = "";
+      } else {
+        this.acuerdo = data.acuerdo;
+      }
+
+    });
+  }
  
   buscar(buscador) {
     this.p = 1;

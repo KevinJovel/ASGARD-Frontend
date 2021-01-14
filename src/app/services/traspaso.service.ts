@@ -65,6 +65,11 @@ export class TraspasoService {
 public  historialSolicitudesTraspasos (idactivo){
   return this.http.get(environment.urlService + "api/SolicitudTraspaso/historialSolicitudesTraspasos/" + idactivo ).map(res=>res.json());
  }
+ public  acuerdoTraspaso (idsolicitud){
+  return this.http.get(environment.urlService + "api/SolicitudTraspaso/acuerdoTraspaso/" + idsolicitud ).map(res=>res.json());
+ }
+
+ 
  public validarActivosAsignados(){
   return this.http.get(environment.urlService + "api/SolicitudTraspaso/validarActivosAsignados"  ).map(res=>res.json());
  } 
