@@ -185,10 +185,6 @@
           <!--<button type="submit" class="btn btn-primary"><i class="icon-save"></i> Guardar</button>-->
           <button title="Cerrar"   (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
            <button title="Imprimir reporte de historial de traspasos" class="btn btn-success" (click)="reportesTraspasoPdf(idbien)"><i class="icon-print"></i> Imprimir</button>
-             
-
-           
-       
           </div>
 
          
@@ -216,6 +212,7 @@
          
           <div class="form-group" >
             <div align="center"> 
+            <input type="text" class="form-control" value="{{idsolicitud}}">
             <img src="{{acuerdo}}" width="350" height="200" />
            <!-- <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" /> -->
           </div>

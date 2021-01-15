@@ -50,6 +50,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   idmante: any;
   parametro: any;
   acuerdo: any;
+  
   //variables para division
   isAdmin: boolean = false;
   tipoUsuario = sessionStorage.getItem("tipo");
@@ -151,6 +152,12 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
         //para recuperar el id del bien 
         this.TraspasoService.historialSolicitudesTraspasos(id).subscribe(data => {
           this.solicitudes = data;
+          this.solicitudes.controls["acuerdo"].setValue(data.acuerdo);
+          this.solicitudes.controls["idsolicitud"].setValue(data.idsolicitud);
+          this.solicitudes.controls["idbien"].setValue(data.idbien);
+        });
+
+        this.TraspasoService.acuerdoTraspaso(id).subscribe(data => {
           this.solicitudes.controls["acuerdo"].setValue(data.acuerdo);
           this.solicitudes.controls["idsolicitud"].setValue(data.idsolicitud);
           this.solicitudes.controls["idbien"].setValue(data.idbien);
