@@ -177,6 +177,8 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   }
   close2() {
     this.display4 = 'none';
+    this.solicitudes.controls["acuerdo"].setValue("");
+    this.solicitudes.controls["idsolicitud"].setValue("");
   }
 
   mostrarAcuerdo(id) {

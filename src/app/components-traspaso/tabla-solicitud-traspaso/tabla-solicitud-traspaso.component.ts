@@ -67,6 +67,8 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
  
 
   close() {
+    this.solicitudes.controls["acuerdo"].setValue("");
+    this.solicitudes.controls["fechasolicitud"].setValue("");
     this.display = 'none';
   }
  // me falta el buscar
