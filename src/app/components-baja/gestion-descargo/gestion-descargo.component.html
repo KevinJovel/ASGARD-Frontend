@@ -153,6 +153,8 @@
                               <td class="center hidden-phone">
                                 <button title="Ver" class="btn btn-primary btn-xs" (click)="ver(solicitud2.idBien)">
                                   <i class="glyphicon glyphicon-eye-open"></i></button>
+                                  <button  title="Ver" class="btn btn-success btn-xs" (click)="verAcuerdo(solicitud2.idBien)" >
+                                    <i class="glyphicon glyphicon-folder-close"></i></button>
                             </tr>
                               
                           </tbody>
@@ -198,6 +200,8 @@
                               <td class="center hidden-phone">
                                 <button title="Ver" class="btn btn-primary btn-xs" (click)="ver(solicitud2.idBien)">
                                   <i class="glyphicon glyphicon-eye-open"></i></button>
+                                  <button  title="Ver" class="btn btn-success btn-xs" (click)="verAcuerdo(solicitud2.idBien)" >
+                                    <i class="glyphicon glyphicon-folder-close"></i></button>
                             </tr>
                               
                           </tbody>
@@ -243,6 +247,8 @@
                 <td class="center hidden-phone">
                   <button title="Ver" class="btn btn-primary btn-xs" (click)="ver(solicitud2.idBien)">
                     <i class="glyphicon glyphicon-eye-open"></i></button>
+                    <button  title="Ver" class="btn btn-success btn-xs" (click)="verAcuerdo(solicitud2.idBien)" >
+                      <i class="glyphicon glyphicon-folder-close"></i></button>
               </tr>
             </tbody>
           </table>
@@ -267,19 +273,14 @@
                <div class="col-lg-6">
                 <p>
                   <span class="text-bold"><strong>Fecha de ingreso:</strong></span>  {{ fecha }}<br/><br/>
-                  
-                  
                   <label><strong>Código:</strong></label> {{ codigo}}<br/><br/>
                   <label><strong>Motivo:</strong></label> {{ motivo}}<br/><br/>
                   <label><strong>Marca:</strong></label> {{ marca}}<br/><br/>
                   <label><strong>Clasificación:</strong></label> {{ clasificacion}}<br/><br/>
-                  
                 </p>
-             
               </div>
 
                <div class="col-lg-6">
-                  
                 <p>
                    
                   <span class="text-bold"><strong>Fecha de baja:</strong></span>  {{ fecha2 }}<br/><br/>
@@ -291,10 +292,7 @@
                   <!--<label ><strong>Valor actual:</strong></label> ${{ valoractual}}<br/><br/>-->
                   
                 </p>
-             
             </div>
-
-         
 
              <div class="row">
               <div class="col-xs-3">
@@ -304,27 +302,44 @@
 <!-- aca -->
 
 <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i> Cerrar</button>
- 
+<button title="Imprimir reporte de historial de traspasos" class="btn btn-success" ><i class="icon-print"></i> Imprimir</button>
+            
                </div>
             </div>
           </div>
         </div>
    
 <!--modal para mostrar-->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"
-  [ngStyle]="{'display':display2}">
-  <div class="modal-dialog modal-lg" role="document">
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal"
+ [ngStyle]="{'display':display2}">
+  <div class="modal-dialog modal-llg">
     <div class="modal-content">
       <div class="modal-header">
         <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close2()">×</button>
         <h4 class="modal-title">Acuerdo</h4>
       </div>
       <div class="modal-body">
-        <div style="text-align: center;">
-          <img src="{{acuerdo}}" style="width:700px; height:415px;">
-        </div>
+   <!--Para la imagen-->
+   <div class="row" [ngStyle]="{'display':displayfoto}"><div class="col-lg-12" style="text-align: center;">
+      <img src="{{fotoAcuerdo}}" width="300" height="300" />
+    </div>
+  </div>
+  <div class="row" [ngStyle]="{'display':displayMensaje}"><div class="col-lg-12" style="text-align: center;">
+      <p><strong>Acuerdo no disponible</strong></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-3">
+
+    </div>
+  </div>
+  <!-- aca -->
+
+  <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
+    Cerrar</button>
+
       </div>
-    
     </div>
   </div>
 </div>     

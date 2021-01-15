@@ -68,36 +68,31 @@ public buscarActivoNoAsig(buscador) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/listarSolicitudBaja").map(res => res.json());
     }
   
-    public aceptarSolicitud(idsolicitud) {
+
+    public aceptarSolicitudBaja(idsolicitud) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/aceptarSolicitudBaja/"+idsolicitud).map(res => res.json());
     }
-
-   // public cambiarEstadoAceptado(idbien, acuerdo, fecha2) {
-    //  return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoAceptado/"+idbien + "/" + acuerdo + "/" + fecha2 ).map(res => res.json());
-   // }
 
     public cambiarEstadoAceptoBaja(baja) {
       return this.http.post(environment.urlService  + "api/SolicitudBaja/cambiarEstadoAceptoBaja",baja).map(res => res.json());
     }
 
-    public guardarAcuerdo(acuerdo) {
-      return this.http.post(environment.urlService + "api/SolicitudBaja/guardarAcuerdo", acuerdo).map(res => res.json());
+    public verAcuerdo(id){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/verAcuerdo/"+id).map(res=>res.json());
     }
+
+
     public denegarSolicitud(idsolicitud) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/denegarSolicitudBaja/"+idsolicitud).map(res => res.json());
     }
     public cambiarEstadoDenegado(idbien) {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/cambiarEstadoDenegado/"+idbien).map(res => res.json());
     }
-    public verSolicitud(idSolicitud){
-      return this.http.get(environment.urlService + "api/SolicitudBaja/verSolicitudBaja/"+idSolicitud).map(res=>res.json());
+    public verDetallesSolicitud(idSolicitud){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/verDetallesSolicitudBaja/"+idSolicitud).map(res=>res.json());
     }
-    public verDescargos(idSolicitud){
-      return this.http.get(environment.urlService + "api/SolicitudBaja/verDescargos/"+idSolicitud).map(res=>res.json());
-    }
-
-    public verAcuerdo(idSolicitud){
-      return this.http.get(environment.urlService + "api/SolicitudBaja/verAcuerdo/"+idSolicitud).map(res=>res.json());
+    public verDetallesDescargos(idSolicitud){
+      return this.http.get(environment.urlService + "api/SolicitudBaja/verDetallesDescargos/"+idSolicitud).map(res=>res.json());
     }
 
     public validarSolicitud(idsolicitud, id){

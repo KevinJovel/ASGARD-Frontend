@@ -39,7 +39,9 @@ export class GestionDescargoComponent implements OnInit {
   acuerdos: FormGroup;
   //Variable para redireccionar
   parametro: string;
-
+  displayfoto = 'none';
+  displayMensaje = 'none';
+  fotoAcuerdo: string;
   //para ver los datos
   fecha: string; fecha2: string; marca: string; area: string; proveedor: string; donante: string; clasificacion: string;
   responsable: string; codigo: string; descripcion: string; folio: string; entidad: string;
@@ -152,7 +154,7 @@ export class GestionDescargoComponent implements OnInit {
   ver(id: any) {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó el informe de baja de un activo.`).subscribe()
     this.display = 'block';
-    this.bajaService.verDescargos(id).subscribe((data) => {
+    this.bajaService.verDetallesDescargos(id).subscribe((data) => {
       this.codigo = data.codigo;
       this.folio = data.folio;
       this.fecha = data.fechacadena;
@@ -179,13 +181,17 @@ export class GestionDescargoComponent implements OnInit {
   verAcuerdo(id) {
     //this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Consultó el informe de baja de un activo.`).subscribe()
       this.display2 = 'block';
-      this.bajaService.verDescargos(id).subscribe(data => {
-        this.solicitud2.controls["acuerdo"].setValue(data.acuerdo);
-        this.solicitud2.controls["idsolicitud"].setValue(data.idsolicitud);
-        if (data.acuerdo == null) {
-          this.acuerdo = "";
+      this.bajaService.verAcuerdo(id).subscribe(data => {
+        //Mensaje cuando no hay imagen
+        this.displayfoto = 'none';
+        this.displayMensaje = 'none';
+        if (data.acuerdo != null) {
+          this.fotoAcuerdo = data.acuerdo;
+          this.displayfoto = 'block';
+          this.displayMensaje = 'none';
         } else {
-          this.acuerdo = data.acuerdo;
+          this.displayMensaje = 'block';
+          this.displayfoto = 'none';
         }
   
       });

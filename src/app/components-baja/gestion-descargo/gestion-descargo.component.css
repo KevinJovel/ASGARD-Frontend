@@ -49,6 +49,12 @@ table {
   padding-top: 40px;
   padding-bottom: 40px;
 }
+.modal-llg {
+  width: 600px;
+  height:415px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
   @keyframes modal {
     from {
       top: -330px;
@@ -75,6 +81,10 @@ table {
     color: #797979;
     font-family: 'Open Sans', sans-serif;
     font-size: 14px; 
+  }
+
+  button{
+    margin: 0px 5px;
   }
   .btn-primary {
     background-color: #41cac0;

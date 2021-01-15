@@ -74,7 +74,7 @@ export class SolicitudComponent implements OnInit {
     this.titulo = "Autorización de solicitud para dar de baja";
     this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
     this.solicitudes.controls["fecha2"].setValue("");
-    this.bajaService.verSolicitud(id).subscribe((data) => {
+    this.bajaService.verDetallesSolicitud(id).subscribe((data) => {
  
       this.fecha2 = data.fechacadena;
       this.codigo = data.codigo;
@@ -103,6 +103,7 @@ export class SolicitudComponent implements OnInit {
    aprobarSolicitud() {
      //en id 
     var id=this.idsolicitud;
+    console.log("ID: "+ this.idsolicitud);
     //var idsolicitud=this.idsolicitud;
     //this.acuerdo = this.solicitudes.value.acuerdo;
     this.fecha2 = this.solicitudes.value.fecha2;
@@ -122,7 +123,7 @@ export class SolicitudComponent implements OnInit {
       confirmButtonText: '¡Si, aprobar!'
     }).then((result) => {
       if (result.value) {
-    this.bajaService.aceptarSolicitud(id).subscribe(res=>{
+    this.bajaService.aceptarSolicitudBaja(id).subscribe(res=>{
          if(res==1){
           this.bajaService.cambiarEstadoAceptoBaja(this.solicitudes.value).subscribe(rest=>{
              
