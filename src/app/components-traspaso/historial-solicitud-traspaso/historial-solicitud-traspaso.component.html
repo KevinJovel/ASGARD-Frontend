@@ -206,22 +206,28 @@
         <h4 class="modal-title">Acuerdo</h4>
       </div>
       <div class="modal-body">
-        <form role="form" [formGroup]="solicitudes">
-          <input type="text" class="form-control" formControlName="idbien" id="exampleInputEmail3" autocomplete="off">
-          <input type="text" class="form-control" formControlName="idsolicitud" id="exampleInputEmail3" autocomplete="off">
-         
-          <div class="form-group" >
-            <div align="center"> 
-            <input type="text" class="form-control" value="{{idsolicitud}}">
-            <img src="{{acuerdo}}" width="350" height="200" />
-           <!-- <input type="file" (change)="changeFoto()" id="futFoto" class="form-control" accept="image/*" /> -->
+
+        <!--Para la imagen-->
+        <div class="row" [ngStyle]="{'display':displayfoto}">
+          <div class="col-lg-12" style="text-align: center;">
+            <img src="{{fotoAcuerdo}}" width="350" height="500" />
+          </div>
+        </div>
+        <div class="row" [ngStyle]="{'display':displayMensaje}">
+          <div class="col-lg-12" style="text-align: center;">
+            <p><strong>Acuerdo no disponible</strong></p>
           </div>
         </div>
 
-        <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
-          Salir</button>
+        <div class="row">
+          <div class="col-xs-3">
 
-      </form>
+          </div>
+        </div>
+        <!-- aca -->
+
+        <button type="button" (click)="close2()" class="btn btn-default"><i class="icon-remove-sign"></i>
+          Cerrar</button>
 
       </div>
     </div>

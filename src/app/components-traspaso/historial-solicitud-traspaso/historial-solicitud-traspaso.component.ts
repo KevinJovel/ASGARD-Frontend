@@ -28,6 +28,9 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   display2 = 'none';
   display4 = 'none';
   display5 = 'none'; // para ayuda
+  //Para acuerdo
+  displayfoto = 'none';
+  displayMensaje = 'none';
   //Datos del modal
   coopertativa: string;
   anio: string;
@@ -50,6 +53,7 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   idmante: any;
   parametro: any;
   acuerdo: any;
+  fotoAcuerdo: string;
   
   //variables para division
   isAdmin: boolean = false;
@@ -177,14 +181,17 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
 
   mostrarAcuerdo(id) {
     this.display4 = 'block';
-    this.TraspasoService.acuerdoTraspaso(id).subscribe(data => {
-      this.solicitudes.controls["acuerdo"].setValue(data.acuerdo);
-      this.solicitudes.controls["idsolicitud"].setValue(data.idsolicitud);
-      this.solicitudes.controls["idbien"].setValue(data.idbien);
-      if (data.acuerdo == null) {
-        this.acuerdo = "";
+    this.TraspasoService.verAcuerdo(id).subscribe(data => {
+      //Mensaje cuando no hay imagen
+      this.displayfoto = 'none';
+      this.displayMensaje = 'none';
+      if (data.acuerdo != null) {
+        this.fotoAcuerdo = data.acuerdo;
+        this.displayfoto = 'block';
+        this.displayMensaje = 'none';
       } else {
-        this.acuerdo = data.acuerdo;
+        this.displayMensaje = 'block';
+        this.displayfoto = 'none';
       }
 
     });

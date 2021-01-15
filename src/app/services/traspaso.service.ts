@@ -69,6 +69,10 @@ public  historialSolicitudesTraspasos (idactivo){
   return this.http.get(environment.urlService + "api/SolicitudTraspaso/acuerdoTraspaso/" + idsolicitud ).map(res=>res.json());
  }
 
+ public  verAcuerdo (id){
+  return this.http.get(environment.urlService + "api/SolicitudTraspaso/verAcuerdo/" + id ).map(res=>res.json());
+ }
+
  
  public validarActivosAsignados(){
   return this.http.get(environment.urlService + "api/SolicitudTraspaso/validarActivosAsignados"  ).map(res=>res.json());
