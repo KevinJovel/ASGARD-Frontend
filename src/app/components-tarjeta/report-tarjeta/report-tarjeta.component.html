@@ -13,7 +13,7 @@
                     <button title="Regresar" style="margin-top: 10px; margin-right: 20px;" class="btn btn-warning"
                         [routerLink]="['/tabla-tarjeta']"><i class="icon-mail-reply"></i></button>
 
-                    <button title="Imprimir tarjeta de depreciación" style="margin-top: 10px; margin-right: 20px;"
+                    <button title="Imprimir tarjeta de depreciación" (click)="reporteTarjetaPdf()" style="margin-top: 10px; margin-right: 20px;"
                         class="btn btn-success"><i class="icon-print"></i></button>
                 </div>
                 <h3 style="text-align: center;">ACAASS de R.L.</h3>
