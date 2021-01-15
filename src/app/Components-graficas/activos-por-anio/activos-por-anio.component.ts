@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { GraficasService } from '../../services/graficas.service';
+import { Router} from '@angular/router'
 @Component({
   selector: 'app-activos-por-anio',
   templateUrl: './activos-por-anio.component.html',
@@ -27,9 +28,9 @@ export class ActivosPorAnioComponent implements OnInit {
   public barChartPlugins = [];
 
   public barChartData: ChartDataSets[] = [
-    { data: [], label: 'Activos registrados', borderWidth: 1,}]
+    { data: [], label: 'Activos registrados', borderWidth: 1, backgroundColor:'rgba(0, 204, 102, 0.2)'}]
     // { data: [], label: 'Activos registrados', borderWidth: 1 }];
-  constructor(private graficasService: GraficasService) { }
+  constructor(private graficasService: GraficasService,private router:Router) { }
 
   ngOnInit(): void {
     this.graficasService.getDatosGraficaActivosPorAnio().subscribe(res => {
@@ -57,6 +58,10 @@ export class ActivosPorAnioComponent implements OnInit {
     var coolor = "("+this.generarNumero(255)+"," + this.generarNumero(255) + "," + this.generarNumero(255) +")";
     return "rgb" + coolor;
   }
+  volver(){
+    this.router.navigate(["/app-menu-graficas"]);
+  }
+ 
 
 
 }

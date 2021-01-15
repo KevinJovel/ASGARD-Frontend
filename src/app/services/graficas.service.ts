@@ -19,4 +19,7 @@ export class GraficasService {
   public getDatosGraficaMontoActivosPorAnio() {
     return this.http.get(environment.urlService + "api/Graficas/montoPorAnio").map(res => res.json());
   }
+  public getGastosMattoPorAnio() {
+    return this.http.get(environment.urlService + "api/Graficas/GastosMttoPorAnio").map(res => res.json());
+  }
 }

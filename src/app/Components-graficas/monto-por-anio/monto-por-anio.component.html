@@ -1,11 +1,15 @@
 <div class="grafica" style="display: block;">
-    <h2 style="text-align: center; margin-top: 20px; margin-bottom: 0px;">Gráfico de monto de aquisición de activos por año</h2>
-      <canvas baseChart 
-        [datasets]="barChartData"
-        [labels]="barChartLabels"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [chartType]="barChartType">
-      </canvas>
-    </div>
+  <div style="text-align:right;">
+    <button title="Regresar" style="margin-top: -15px; margin-right: 20px;" (click)="volver()" class="btn btn-warning"
+      ><i class="icon-mail-reply"></i></button>
+  </div>
+  <h2 style="text-align: center; margin-top: 20px; margin-bottom: 0px;">Gráfico de monto de aquisición de activos por año</h2>
+    <canvas baseChart 
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [legend]="barChartLegend"
+      [chartType]="barChartType">
+    </canvas>
+  </div>

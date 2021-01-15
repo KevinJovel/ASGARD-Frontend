@@ -104,6 +104,7 @@ import { ChartsModule } from 'ng2-charts';
 import { ActivosPorAnioComponent } from './Components-graficas/activos-por-anio/activos-por-anio.component';
 import { MenuGraficasComponent } from './Components-graficas/menu-graficas/menu-graficas.component';
 import { MontoPorAnioComponent } from './Components-graficas/monto-por-anio/monto-por-anio.component';
+import { GastosMttoAnioComponent } from './Components-graficas/gastos-mtto-anio/gastos-mtto-anio.component';
 
 
 @NgModule({
@@ -168,6 +169,7 @@ import { MontoPorAnioComponent } from './Components-graficas/monto-por-anio/mont
     ActivosPorAnioComponent,
     MenuGraficasComponent,
     MontoPorAnioComponent,
+    GastosMttoAnioComponent,
 
 
 
@@ -233,6 +235,7 @@ import { MontoPorAnioComponent } from './Components-graficas/monto-por-anio/mont
       { path: 'app-menu-graficas', component: MenuGraficasComponent, canActivate: [SeguridadGuard] },
       { path: 'graph-activos-anio', component: ActivosPorAnioComponent, canActivate: [SeguridadGuard] },
       { path: 'graph-monto-anio', component: MontoPorAnioComponent, canActivate: [SeguridadGuard] },
+      { path: 'graph-gastos-monto-anio', component: GastosMttoAnioComponent, canActivate: [SeguridadGuard] },
       { path: 'pagina-error-login', component: PaginaErrorLoginComponent },
       { path: '', redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
 

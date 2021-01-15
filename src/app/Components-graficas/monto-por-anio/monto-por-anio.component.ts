@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { GraficasService } from '../../services/graficas.service';
+import { Router} from '@angular/router'
 @Component({
   selector: 'app-monto-por-anio',
   templateUrl: './monto-por-anio.component.html',
@@ -28,7 +29,7 @@ export class MontoPorAnioComponent implements OnInit {
   public barChartData: ChartDataSets[] = [
     { data: [], label: 'Monto de aquisición por año en $', borderWidth: 1,}]
     // { data: [], label: 'Activos registrados', borderWidth: 1 }];
-  constructor(private graficasService: GraficasService) { }
+  constructor(private graficasService: GraficasService,private router:Router) { }
 
   ngOnInit(): void {
     this.graficasService.getDatosGraficaMontoActivosPorAnio().subscribe(res => {
@@ -42,5 +43,9 @@ export class MontoPorAnioComponent implements OnInit {
         });
       });
   }
+  volver(){
+    this.router.navigate(["/app-menu-graficas"]);
+  }
+ 
 
 }

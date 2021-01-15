@@ -19,11 +19,15 @@ export class MenuGraficasComponent implements OnInit {
   }
   close(){
     this.displayGraficas='none';
+    this.router.navigate(["/"]);
   }
   GraficaActivosAquiridosPorAnio(){
     this.router.navigate(["/graph-activos-anio"]);
   }
   GraficaMontoActivosAquiridosPorAnio(){
     this.router.navigate(["/graph-monto-anio"]);
+  }
+  GastosMattoPorAnio(){
+    this.router.navigate(["/graph-gastos-monto-anio"]);
   }
 }
