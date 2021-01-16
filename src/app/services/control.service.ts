@@ -91,6 +91,14 @@ public validarActivoxAnio(anio) {
   return this.http.get(environment.urlService + "api/ActivoFijo/validarActivo/" + anio).map(res => res.json());
 }
 
+public validarActivoDepreciadoAnio(anio) {
+  return this.http.get(environment.urlService + "api/ActivoFijo/validarActivoDepreciadoAnio/" + anio).map(res => res.json());
+}
+
+public validarActivoRevalorizadoAnio(anio) {
+  return this.http.get(environment.urlService + "api/ActivoFijo/validarActivoRevalorizadoAnio/" + anio).map(res => res.json());
+}
+
 public validarActivoMes(mes,anio) {
   return this.http.get(environment.urlService + "api/ActivoFijo/validarActivoMes/" + mes +"/"+ anio).map(res => res.json());
 }

@@ -641,7 +641,7 @@ export class ReportesCatalogosComponent implements OnInit {
 
    activosRevalorizadosXAnioPdf() {
     let anio=this.comboArea.controls['anio'].value;
-    this.controlService.validarActivoxAnio(anio).subscribe(res => {
+    this.controlService.validarActivoRevalorizadoAnio(anio).subscribe(res => {
       if (res == 1) {
         this.idArea= this.comboArea.controls['anio'].value;
         this.http.get(environment.urlService+"api/Reporte/activosRevalorizadosAnioPdf/" + parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
@@ -667,7 +667,7 @@ export class ReportesCatalogosComponent implements OnInit {
 
    activosDepreciadosXAnioPdf() {
     let anio=this.comboArea.controls['anio'].value;
-    this.controlService.validarActivoxAnio(anio).subscribe(res => {
+    this.controlService.validarActivoDepreciadoAnio(anio).subscribe(res => {
       if (res == 1) {
         this.idArea= this.comboArea.controls['anio'].value;
         this.http.get(environment.urlService+"api/Reporte/depreciacionAnualPdf/" + parseInt(anio),{responseType: 'arraybuffer'}).subscribe(pdf=>{
