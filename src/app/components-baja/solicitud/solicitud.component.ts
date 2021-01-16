@@ -61,6 +61,8 @@ export class SolicitudComponent implements OnInit {
   }
 
   verSolicitud(id, fecha) {
+    this.display = 'block';
+    this.titulo = "Autorización de solicitud para dar de baja";
     this.solicitudes.controls["fecha2"].setValue(fecha);
     var fecharecup = this.solicitudes.controls["fecha2"].value.split("-");
     let dia=fecharecup[0];
@@ -70,10 +72,6 @@ export class SolicitudComponent implements OnInit {
       this.fechaMaxima=`${res.anio}-12-31`;
       this.fechaMinima=`${anio}-${mes}-${dia}`;
     });
-    this.display = 'block';
-    this.titulo = "Autorización de solicitud para dar de baja";
-    this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
-    this.solicitudes.controls["fecha2"].setValue("");
     this.bajaService.verDetallesSolicitud(id).subscribe((data) => {
  
       this.fecha2 = data.fechacadena;
@@ -85,7 +83,8 @@ export class SolicitudComponent implements OnInit {
       this.solicitud = data.noSolicitud;  
      this.bienesS = data.idbien;
     });
-   
+    this.solicitudes.controls["acuerdo"].setValue("");//limpia cache
+    this.solicitudes.controls["idsolicitud"].setValue(id);
 //para la aprobacion
     this.idsolicitud=id;
  
@@ -100,17 +99,25 @@ export class SolicitudComponent implements OnInit {
    this.bajaService.buscarSolicitud(buscador.value).subscribe(res => { this.activo2 = res });
    }
 
+   //Evento para guardar archivo
+changeArchivo() {
+  var file = (<HTMLInputElement>document.getElementById('futArchivo')).files[0];
+  var fileReader = new FileReader();
+
+  fileReader.onloadend = () => {
+    this.acuerdo = fileReader.result;
+  };
+
+  fileReader.readAsDataURL(file);
+}
+
    aprobarSolicitud() {
      //en id 
     var id=this.idsolicitud;
-    console.log("ID: "+ this.idsolicitud);
-    //var idsolicitud=this.idsolicitud;
-    //this.acuerdo = this.solicitudes.value.acuerdo;
+
     this.fecha2 = this.solicitudes.value.fecha2;
-    console.log("fecha: "+ this.fecha2);
     //Pasamos el archivo
     this.solicitudes.controls["acuerdo"].setValue(this.acuerdo);
-    console.log("Archivo de Acuerdo: "+this.acuerdo);
     
     Swal.fire({
       title: '¿Estás seguro de aprobar esta solicitud?',
@@ -195,17 +202,7 @@ negarSolicitud() {
   })//de la alerta
 }//fin negar solicitud
 
-//Evento para guardar archivo
-changeArchivo() {
-  var file = (<HTMLInputElement>document.getElementById('futArchivo')).files[0];
-  var fileReader = new FileReader();
 
-  fileReader.onloadend = () => {
-    this.acuerdo = fileReader.result;
-  };
-
-  fileReader.readAsDataURL(file);
-}
 
 noRepetirAcuerdo(control: FormControl) {
 

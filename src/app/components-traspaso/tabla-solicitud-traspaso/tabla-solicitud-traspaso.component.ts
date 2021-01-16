@@ -61,11 +61,6 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
   })
    
   }
-
-  guardarDatos(){ }
-
- 
-
   close() {
     this.solicitudes.controls["acuerdo"].setValue("");
     this.solicitudes.controls["fechasolicitud"].setValue("");
@@ -127,8 +122,6 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
    aprobarSolicitud() {
      //en id 
     var id=this.idsolicitud;
-    //vamos a guardar el acuerdo y la solicitud
-   // this.acuerdo = this.solicitudes.value.acuerdo;
   
     this.fechasolicitud = this.solicitudes.value.fechasolicitud;
     this.solicitudes.controls["acuerdo"].setValue(this.acuerdo);
@@ -145,7 +138,6 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
       confirmButtonText: '¡Si, aprobar!'
     }).then((result) => {
       if (result.value) {
-      //console.log(this.solicitudes.value);
     this.TraspasoService.aceptarSolicitud(id).subscribe(res=>{
          if(res==1){
         this.TraspasoService.cambiarEstadoAceptoTraspaso(this.solicitudes.value).subscribe(rest=>{ 

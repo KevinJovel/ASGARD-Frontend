@@ -70,7 +70,7 @@ public buscarActivoNoAsig(buscador) {
   
 
     public aceptarSolicitudBaja(idsolicitud) {
-      return this.http.get(environment.urlService  + "api/SolicitudBaja/aceptarSolicitudBaja/"+idsolicitud).map(res => res.json());
+      return this.http.get(environment.urlService  + "api/SolicitudBaja/aceptarSolicitudBaja/" + idsolicitud).map(res => res.json());
     }
 
     public cambiarEstadoAceptoBaja(baja) {
