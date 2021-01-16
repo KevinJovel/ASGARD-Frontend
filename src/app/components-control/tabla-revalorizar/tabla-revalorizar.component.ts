@@ -171,10 +171,22 @@ export class TablaRevalorizarComponent implements OnInit {
   }
 
   open6(id) {
+    this.mantenimientoService.listarRevalorizacion(id).subscribe(res => {
+      if (res == 0) {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: '¡El activo seleccionado no tiene ninguna revalorización realizada!',
+          showConfirmButton: false,
+          timer: 3000
+        });
+      }else{
     this.titulo6 = "Eliminar revalorizaciones";
     this.display6 = 'block';
     this.revalorizacion.controls["idBien"].setValue(id);
     this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"].value).subscribe(data => { this.revalorizaciones = data });
+  }
+  });
   }
 
   
