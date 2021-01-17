@@ -105,6 +105,8 @@ import { ActivosPorAnioComponent } from './Components-graficas/activos-por-anio/
 import { MenuGraficasComponent } from './Components-graficas/menu-graficas/menu-graficas.component';
 import { MontoPorAnioComponent } from './Components-graficas/monto-por-anio/monto-por-anio.component';
 import { GastosMttoAnioComponent } from './Components-graficas/gastos-mtto-anio/gastos-mtto-anio.component';
+import { CargosDescargosAnioComponent } from './Components-graficas/cargos-descargos-anio/cargos-descargos-anio.component';
+import { ProvisionAnioComponent } from './Components-graficas/provision-anio/provision-anio.component';
 
 
 @NgModule({
@@ -170,6 +172,8 @@ import { GastosMttoAnioComponent } from './Components-graficas/gastos-mtto-anio/
     MenuGraficasComponent,
     MontoPorAnioComponent,
     GastosMttoAnioComponent,
+    CargosDescargosAnioComponent,
+    ProvisionAnioComponent,
 
 
 
@@ -236,6 +240,8 @@ import { GastosMttoAnioComponent } from './Components-graficas/gastos-mtto-anio/
       { path: 'graph-activos-anio', component: ActivosPorAnioComponent, canActivate: [SeguridadGuard] },
       { path: 'graph-monto-anio', component: MontoPorAnioComponent, canActivate: [SeguridadGuard] },
       { path: 'graph-gastos-monto-anio', component: GastosMttoAnioComponent, canActivate: [SeguridadGuard] },
+      { path: 'graph-cargos-descargos-anio', component: CargosDescargosAnioComponent, canActivate: [SeguridadGuard] },
+      { path: 'graph-provision', component: ProvisionAnioComponent, canActivate: [SeguridadGuard] },
       { path: 'pagina-error-login', component: PaginaErrorLoginComponent },
       { path: '', redirectTo: 'tabla-activos', pathMatch: 'full' }, // redirect to `first
 

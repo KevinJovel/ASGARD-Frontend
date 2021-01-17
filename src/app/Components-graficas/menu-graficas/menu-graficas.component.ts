@@ -30,4 +30,10 @@ export class MenuGraficasComponent implements OnInit {
   GastosMattoPorAnio(){
     this.router.navigate(["/graph-gastos-monto-anio"]);
   }
+  CargosDescargosPorAnio(){
+    this.router.navigate(["/graph-cargos-descargos-anio"]);
+  }
+  ProvisionAnio(){
+    this.router.navigate(["/graph-provision"]);
+  }
 }

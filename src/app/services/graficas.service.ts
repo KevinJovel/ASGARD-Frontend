@@ -22,4 +22,10 @@ export class GraficasService {
   public getGastosMattoPorAnio() {
     return this.http.get(environment.urlService + "api/Graficas/GastosMttoPorAnio").map(res => res.json());
   }
+  public getCargosDescargosPorAnio() {
+    return this.http.get(environment.urlService + "api/Graficas/CargosDescargosRegistradosXAnio").map(res => res.json());
+  }
+  public geprovisionAnio() {
+    return this.http.get(environment.urlService + "api/Graficas/ProvisionAnual").map(res => res.json());
+  }
 }
