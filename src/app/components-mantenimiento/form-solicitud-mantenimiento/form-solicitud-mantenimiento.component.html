@@ -101,8 +101,8 @@
                 </thead>
                 <tbody>
 
-                  <tr *ngFor="let datos of matriz | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
-                    <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
+                  <tr *ngFor="let datos of matriz let i = index">
+                    <th scope="col">{{ i+1 }}</th>
                     <td>{{datos[1]}}</td>
                     <td>{{datos[2]}}</td>
                     <td>{{datos[3]}}</td>
@@ -172,8 +172,8 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let bien of bienes; let i = index">
-                          <th scope="col">{{ i+1 }}</th>
+                        <tr *ngFor="let bien of bienes | paginate: { itemsPerPage: 3, currentPage: p };  let i = index">
+                          <th scope="col">{{ 3 * (p - 1) + i+1 }}</th>
                           <td>{{bien.codigobien}}</td>
                           <td>{{bien.descripcionbien}}</td>
                           <td class="center hidden-phone">
@@ -185,6 +185,8 @@
                         </tr>
                       </tbody>
                     </table>
+                    <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"
+                    class="my-cuadro"></pagination-controls>
                   </div>
                 </div>
               </section>

@@ -139,6 +139,11 @@ export class HistorialMantenimientoComponent implements OnInit {
   }
   close() {
     this.display = 'none';
+    this.encargado="";
+    this.descripcion = "";
+    this.areadenegocio = "";
+    this.codigo ="";
+    
   }
 
   buscar(buscador) {
