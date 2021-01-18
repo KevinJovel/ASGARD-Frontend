@@ -119,6 +119,16 @@ export class FormTipoDescargoComponent implements OnInit {
   }
 
   eliminar(idTipo) {
+    this.catalogoService.validarDependeActivoBaja(idTipo).subscribe(data => {
+      if (data == 1) {
+        Swal.fire({
+          icon: 'error',
+          title: 'ERROR',
+          text: 'No es posible eliminar este registro, este tipo de descargo ya está asignado a un activo',
+          confirmButtonText: 'Aceptar'
+        });
+        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un proveedor en el sistema.`).subscribe();
+      } else {
     Swal.fire({
       title: '¿Estás seguro de eliminar este registro?',
       text: "¡No podrás revertir esta acción!",
@@ -151,6 +161,8 @@ export class FormTipoDescargoComponent implements OnInit {
           }
         });
       }
+    })
+    }
   }) 
 }
   buscar(buscador) {
