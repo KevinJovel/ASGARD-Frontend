@@ -174,6 +174,10 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
 
   close() {
     this.display = 'none';
+    this.encargado="";
+    this.descripcion = "";
+    this.areadenegocio = "";
+    this.codigo ="";
   }
   close2() {
     this.display4 = 'none';
