@@ -62,9 +62,8 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
    
   }
   close() {
-    this.solicitudes.controls["acuerdo"].setValue("");
-    this.solicitudes.controls["fechasolicitud"].setValue("");
     this.fechasolicitud = "";
+    this.acuerdo="";
     this.codigo = "";
     this.descripcion = "";
     this.nombredescargo = "";
