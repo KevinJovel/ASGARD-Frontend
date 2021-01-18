@@ -4,12 +4,13 @@ export const environment = {
   urlService: 'https://appservice-webapp-asgard.azurewebsites.net/',
   production: true,
   firebaseConfig : {
-    apiKey: "AIzaSyCeKy2jucoh5VlfKJgWoCgyQ0M72dQqM3o",
-    authDomain: "asgard-app-5bf63.firebaseapp.com",
-    projectId: "asgard-app-5bf63",
-    storageBucket: "asgard-app-5bf63.appspot.com",
-    messagingSenderId: "189057629526",
-    appId: "1:189057629526:web:615aa6c10e413c880daaf7",
-    measurementId: "G-0M8400Q1GG",
+    apiKey: "AIzaSyD13HQr9NiIKhHIuidkFXi3HYjTJh0R3N0",
+    authDomain: "asgard-app-c5e78.firebaseapp.com",
+    projectId: "asgard-app-c5e78",
+    storageBucket: "asgard-app-c5e78.appspot.com",
+    messagingSenderId: "433710890994",
+    appId: "1:433710890994:web:30d6b8e094efa5c187356b",
+    measurementId: "G-YJY86LMGCJ",
   }
+
 }
