@@ -93,7 +93,14 @@ export class SolicitudComponent implements OnInit {
   }
 
   close() {
- 
+    this.fecha2 = "";
+    this.codigo = "";
+    this.descripcion = "";
+    this.nombredescargo = "";
+    this.observaciones = "";
+    this.folio = "";
+    this.solicitud = "";  
+    this.acuerdo="";
     this.display = 'none';
   }
 
