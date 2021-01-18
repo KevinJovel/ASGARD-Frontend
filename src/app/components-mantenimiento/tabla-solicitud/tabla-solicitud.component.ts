@@ -161,6 +161,10 @@ export class TablaSolicitudComponent implements OnInit {
   }
   close() {
     this.display = 'none';
+    this.noSolicitud = "";
+    this.area = "";
+    this.jefe = "";
+    this.fecha = "";
   }
 
   open5() { //para modal de ayuda
