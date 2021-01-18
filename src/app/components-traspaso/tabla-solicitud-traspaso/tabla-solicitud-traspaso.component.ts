@@ -113,7 +113,9 @@ export class TablaSolicitudTraspasoComponent implements OnInit {
     this.solicitudes.controls["idsolicitud"].setValue(id);
   
     this.idsolicitud=id;
-   
+
+    this.fechasolicitud = "";  
+    this.acuerdo="";
   }
 
   changeArchivo() {

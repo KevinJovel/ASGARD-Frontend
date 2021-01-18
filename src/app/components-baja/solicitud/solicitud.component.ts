@@ -88,17 +88,12 @@ export class SolicitudComponent implements OnInit {
 //para la aprobacion
     this.idsolicitud=id;
  
+    this.fecha2 = "";  
+    this.acuerdo="";
   }
 
   close() {
-    this.fecha2 = "";
-    this.codigo = "";
-    this.descripcion = "";
-    this.nombredescargo = "";
-    this.observaciones = "";
-    this.folio = "";
-    this.solicitud = "";  
-    this.acuerdo="";
+ 
     this.display = 'none';
   }
 
