@@ -98,6 +98,7 @@ export class SolicitudComponent implements OnInit {
     this.observaciones = "";
     this.folio = "";
     this.solicitud = "";  
+    this.acuerdo="";
     this.display = 'none';
   }
 
