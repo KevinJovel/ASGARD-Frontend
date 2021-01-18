@@ -10,6 +10,6 @@ export const environment = {
     storageBucket: "asgard-app-5bf63.appspot.com",
     messagingSenderId: "189057629526",
     appId: "1:189057629526:web:615aa6c10e413c880daaf7",
-    measurementId: "G-EFXFBRX7ZV",
+    measurementId: "G-0M8400Q1GG",
   }
 }
