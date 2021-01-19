@@ -24,7 +24,6 @@ public FiltroTablaActivos(id) {
 return this.http.get(environment.urlService + "api/SolicitudBaja/listarActivosFiltro/"+id).map(res => res.json());
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////
     public listarBienesAsignados() {
       return this.http.get(environment.urlService  + "api/SolicitudBaja/listarBienesAsignados").map(res => res.json());
     }
