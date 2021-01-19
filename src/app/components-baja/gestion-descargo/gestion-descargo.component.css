@@ -50,10 +50,11 @@ table {
   padding-bottom: 40px;
 }
 .modal-llg {
-  width: 600px;
-  height:415px;
+  width: 700px;
+  height:500px;
   padding-top: 40px;
   padding-bottom: 40px;
+  
 }
   @keyframes modal {
     from {

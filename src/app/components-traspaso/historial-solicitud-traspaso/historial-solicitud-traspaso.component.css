@@ -47,7 +47,13 @@ table {
     padding-top: 40px;
     padding-bottom: 40px;
   }
-  
+  .modal-llg {
+    width: 700px;
+    height:500px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
   @keyframes modal {
     from {
       top: -330px;
