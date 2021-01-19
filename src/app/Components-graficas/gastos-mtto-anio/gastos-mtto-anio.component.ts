@@ -88,7 +88,9 @@ export class GastosMttoAnioComponent  {
   ngOnInit(): void {
     this.graficasService.getGastosMattoPorAnio().subscribe(res => {
       res.forEach(item => {
-        this.lineChartData[0].data.push(item.monto);
+        let valor = Math.round(item.monto * 100) / 100;
+        valor.toFixed(2);
+        this.lineChartData[0].data.push(valor);
         this.lineChartLabels.push(item.anio);
         });
       });

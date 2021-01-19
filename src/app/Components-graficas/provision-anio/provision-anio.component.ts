@@ -38,8 +38,9 @@ export class ProvisionAnioComponent implements OnInit {
     this.graficasService.geprovisionAnio().subscribe(res => {
       console.log(res);
       res.forEach(item => {
-         console.log(item.anio);
-         this.barChartData[0].data.push(item.monto);
+        let valor = Math.round(item.monto * 100) / 100;
+        valor.toFixed(2);
+         this.barChartData[0].data.push(valor);
          this.barChartLabels.push(item.anio);
          this.barChartData[0].backgroundColor = 'rgba(0, 204, 102, 0.2)';
          this.barChartData[0].borderColor = 'rgba(75, 192, 192, 1)';

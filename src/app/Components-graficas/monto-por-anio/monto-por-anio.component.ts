@@ -34,7 +34,9 @@ export class MontoPorAnioComponent implements OnInit {
   ngOnInit(): void {
     this.graficasService.getDatosGraficaMontoActivosPorAnio().subscribe(res => {
       res.forEach(item => {
-          this.barChartData[0].data.push(item.monto);
+        let valor = Math.round(item.monto * 100) / 100;
+        valor.toFixed(2);
+          this.barChartData[0].data.push(valor);
           this.barChartLabels.push(item.anio);
           this.barChartData[0].backgroundColor = 'rgba(75, 198, 192, 0.2)';
           this.barChartData[0].borderColor = 'rgba(75, 192, 192, 1)';
