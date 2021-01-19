@@ -12,7 +12,7 @@ export class GastosMttoAnioComponent  {
   constructor(private graficasService: GraficasService,private router:Router) { }
   
   public lineChartData: ChartDataSets[] = [
-    { data: [], label: 'Gastos en $' },
+    { data: [], label: 'Gastos en $', borderWidth: 1, borderColor:'rgba(75, 192, 192, 1)', backgroundColor:'rgba(0, 204, 102, 0.2)' },
     //{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
   //  { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
   ];

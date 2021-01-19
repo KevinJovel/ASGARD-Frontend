@@ -27,7 +27,7 @@ export class MontoPorAnioComponent implements OnInit {
   public barChartPlugins = [];
 
   public barChartData: ChartDataSets[] = [
-    { data: [], label: 'Monto de aquisición por año en $', borderWidth: 1,}]
+    { data: [], label: 'Monto de aquisición por año en $', borderWidth: 1, borderColor:'rgba(75, 192, 192, 1)', backgroundColor:'rgba(0, 204, 102, 0.2)'}]
     // { data: [], label: 'Activos registrados', borderWidth: 1 }];
   constructor(private graficasService: GraficasService,private router:Router) { }
 
