@@ -35,7 +35,7 @@ export class SolicitudComponent implements OnInit {
   { 
     this.solicitudes = new FormGroup({
       'idsolicitud': new FormControl("0"),
-      'acuerdo': new FormControl("",[Validators.required]),
+      'acuerdo': new FormControl(""),
       'fecha2': new FormControl("",[Validators.required])
     });
   }
