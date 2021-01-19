@@ -4,226 +4,234 @@
 <br />
 
 <section class="panel">
-    <div style="text-align:right;">
-</div>
-<h4 style="text-align: center;">{{descripcionC}} </h4>
-  <h3 style="text-align: center;">{{nombreC}}</h3> 
+  <div style="text-align:right;">
+  </div>
+  <div class="row" style="margin-left: 120px;">
+    <div class="col-lg-9">
+      <button type="button" class="btn btn-warning margin-left" (click)="open5()" data-toggle="modal"
+        data-target="#myModal2"><i class="glyphicon glyphicon-question-sign"></i></button>
+    </div>
+  </div>
+  <h4 style="text-align: center;">{{descripcionC}} </h4>
+  <h3 style="text-align: center;">{{nombreC}}</h3>
 
-<div class="row" style="margin-left: 120px;">
-  <div class="col-lg-9">
-    <button type="button" class="btn btn-warning margin-left" (click)="open5()" data-toggle="modal" data-target="#myModal2"><i
-      class="glyphicon glyphicon-question-sign"></i></button>
-  </div>    
-</div> 
-    
-    <div class="row">
-        <div class="col-lg-14">
+ 
+
+  <div class="row">
+    <div class="col-lg-14">
+      <section class="panel panel-default">
+        <div class="form-row">
+
+          <form class="form-inline" id="default" [formGroup]="combo">
+
+            <div class="row">
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label *ngIf="isAdmin">Tipo activo</label>
+                <select *ngIf="isAdmin" [attr.disabled]="disabledFiltroBotonAsignacion ? '' : null" class="form-control"
+                  (change)="CambiarTipo()" formControlName="idTipo">
+                  <option value="0">Seleccione</option>
+                  <option [value]="1">Bienes Muebles</option>
+                  <option [value]="2">Edificios</option>
+                  <option [value]="3">Intangibles</option>
+                </select>
+              </div>
+
+
+
+              <div class="form-group col-md-3">
+              </div>
+
+              <div class="col-md-3">
+                <input type="search" style="padding-left: 20px" class="form-control" #nombre (keyup)="buscar(nombre)"
+                  placeholder="Buscar por código">
+              </div>
+            </div>
+          </form>
+
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+
             <section class="panel panel-default">
-                <div class="form-row">
 
-                  <form class="form-inline" id="default" [formGroup]="combo">
+              <header class="panel-heading">
+                <h5 style="text-align: center;">CUADRO DE CONTROL DE BIENES DE LA PROPIEDAD PLANTA Y EQUIPO</h5>
+              </header>
+              <div class="panel-body">
+                <div class="row" [ngStyle]="{'display':tablaMuebles}">
+                  <div class="adv-table">
+                    <table class="display table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <th>Código</th>
+                          <th>Descripción del bien</th>
+                          <th>Fecha de adquisición</th>
+                          <th>Valor de adquisición</th>
+                          <th>Depreciación</th>
+                          <th>Depreciación acumulada</th>
+                          <th>Valor actual</th>
+                          <th>Ubicación</th>
+                          <th>Responsable</th>
+                        </tr>
+                      </thead>
+                      <tbody>
 
-                    <div class="row">
-                              </div>
-        
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label *ngIf="isAdmin">Tipo activo</label>
-                        <select *ngIf="isAdmin" [attr.disabled]="disabledFiltroBotonAsignacion ? '' : null" class="form-control" (change)="CambiarTipo()" formControlName="idTipo">
-                          <option value="0">Seleccione</option>
-                          <option [value]="1" >Bienes Muebles</option> 
-                          <option [value]="2" >Edificios</option>
-                          <option [value]="3" >Intangibles</option>    
-                        </select>  
-                      </div>
-        
-                 
+                        <tr
+                          *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 20, currentPage: p }; let i=index">
+                          <td>{{cuadro.codigo}}</td>
+                          <td>{{cuadro.descripcion}}</td>
+                          <td>{{cuadro.fechaadquisicion}}</td>
+                          <td>${{cuadro.valoradquisicion}}</td>
+                          <td>${{cuadro.depreciacion}}</td>
+                          <td>${{cuadro.depreciacionacumulada}}</td>
+                          <td>${{cuadro.valoractual}}</td>
+                          <td>{{cuadro.ubicacion}}</td>
+                          <td>{{cuadro.responsable}}</td>
 
-                  <div class="form-group col-md-3">          
-                </div>
-
-                      <div class="col-md-3">
-                        <input type="search" style="padding-left: 20px" class="form-control" #nombre  (keyup)="buscar(nombre)" placeholder="Buscar por código">
-                     </div>
-                    </div>
-                    </form>
-                 
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        
-                        <section class="panel panel-default">
-
-                            <header class="panel-heading">
-                                <h5 style="text-align: center;">CUADRO DE CONTROL DE BIENES DE LA PROPIEDAD PLANTA Y EQUIPO</h5>
-                            </header>
-                            <div class="panel-body">
-                                <div class="row" [ngStyle]="{'display':tablaMuebles}">
-                                <div class="adv-table">
-                                    <table class="display table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Código</th>
-                                                <th>Descripción del bien</th>
-                                                <th>Fecha de adquisición</th>
-                                                <th>Valor de adquisición</th>
-                                                <th>Depreciación</th>
-                                                <th>Depreciación acumulada</th>
-                                                <th>Valor actual</th>
-                                                <th>Ubicación</th>
-                                                <th>Responsable</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 20, currentPage: p }; let i=index">
-                                                <td>{{cuadro.codigo}}</td>
-                                                <td>{{cuadro.descripcion}}</td>
-                                                <td>{{cuadro.fechaadquisicion}}</td>
-                                                <td>${{cuadro.valoradquisicion}}</td>
-                                                <td>${{cuadro.depreciacion}}</td>
-                                                <td>${{cuadro.depreciacionacumulada}}</td>
-                                                <td>${{cuadro.valoractual}}</td>
-                                                <td>{{cuadro.ubicacion}}</td>
-                                                <td>{{cuadro.responsable}}</td>
-                                                
-                                              </tr>
-                            
-                                        
-                                        </tbody>
-                                    </table>
-                                    <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                                </div>
-
-                                <button title="Imprimir tarjeta de depreciación" *ngIf="!isAdmin" (click)="cuadroControlJefePDF()"
-                                            style="margin-top: 20px; margin-bottom: 50px; margin-left: 370px;"
-                                            class="btn btn-success"><i
-                                            class="icon-print"></i> Imprimir</button>
-
-                                <button (click)="exportAsXLSX()" *ngIf="isAdmin"  style="margin-top: 20px; margin-bottom: 50px; margin-left: 420px;" 
-                                class="btn btn-success"><span 
-                                class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+                        </tr>
 
 
-                                <button (click)="exportExcelJefe()" *ngIf="!isAdmin" style="margin-top: 20px; margin-bottom: 50px; margin-left: 10px;" 
-                                class="btn btn-success"><span 
-                                class="glyphicon glyphicon-export"></span>Ver en Excel</button>
-                             
-                                
-                            </div>
-
-
-                                <!-- Inicia tabla de bienes edificios  -->
-            <div class="row" [ngStyle]="{'display':tablaEdificios}">
-                <div class="col-lg-12">
-                  <section class="panel panel-default">
-                    <div class="panel-body">
-                      <div class="adv-table">
-                        <table class="display table table-bordered table-striped">
-                          <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Descripción del bien</th>
-                                <th>Fecha de adquisición</th>
-                                <th>Valor de adquisición</th>
-                                <th>Depreciación</th>
-                                <th>Depreciación acumulada</th>
-                                <th>Valor actual</th>               
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
-
-                                                <td>{{cuadro.codigo}}</td>
-                                                <td>{{cuadro.descripcion}}</td>
-                                                <td>{{cuadro.fechaadquisicion}}</td>
-                                                <td>${{cuadro.valoradquisicion}}</td>
-                                                <td>${{cuadro.depreciacion}}</td>
-                                                <td>${{cuadro.depreciacionacumulada}}</td>
-                                                <td>${{cuadro.valoractual}}</td>       
-                          </tbody>
-                        </table>
-                        <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                      </div>
-                      <button (click)="exportarExcelEdi()" style="margin-top: 20px; margin-bottom: 50px; margin-left: 420px;" class="btn btn-success"><span class="glyphicon glyphicon-export"></span>Ver en Excel</button>
-                    </div>
-                  </section>
-                </div>
-              </div>
-
-               <!-- inicia la tabla de intagibles -->
-             <div class="row" [ngStyle]="{'display':tablaIntengibles}">
-              <div class="col-lg-12">
-                <section class="panel panel-default">
-          
-                  <div class="panel-body">
-                    <div class="adv-table">
-                      <table class="display table table-bordered table-striped">
-                        <thead>
-                          <tr>
-                                <th>Código</th>
-                                <th>Descripción del bien</th>
-                                <th>Fecha de adquisición</th>
-                                <th>Valor de adquisición</th>
-                                <th>Depreciación</th>
-                                <th>Depreciación acumulada</th>
-                                <th>Valor actual</th> 
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
-
-                                                <td>{{cuadro.codigo}}</td>
-                                                <td>{{cuadro.descripcion}}</td>
-                                                <td>{{cuadro.fechaadquisicion}}</td>
-                                                <td>${{cuadro.valoradquisicion}}</td>
-                                                <td>${{cuadro.depreciacion}}</td>
-                                                <td>${{cuadro.depreciacionacumulada}}</td>
-                                                <td>${{cuadro.valoractual}}</td>    
-                      
-                        </tbody>
-                      </table>
-                      <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                    </div>
-                    <button (click)="exportarExcelIntan()" style="margin-top: 20px; margin-bottom: 50px; margin-left: 420px;" class="btn btn-success"><span class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+                      </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+                      nextLabel="Siguiente"></pagination-controls>
                   </div>
-                </section>
-              </div>
-            </div>
-                               
-                             </div>
-                        </section>
-                        <ngx-spinner
-                        bdColor="rgba(51,51,51,0.8)"
-                        size="medium"
-                        color="#fff"
-                        type="ball-scale-multiple"
-                      >
-                        <p style="font-size: 20px; color: white">Cargando...</p>
-                      </ngx-spinner>
-                    </div>
+
+                  <button title="Imprimir tarjeta de depreciación" *ngIf="!isAdmin" (click)="cuadroControlJefePDF()"
+                    style="margin-top: 20px; margin-bottom: 50px; margin-left: 370px;" class="btn btn-success"><i
+                      class="icon-print"></i> Imprimir</button>
+
+                  <button (click)="exportAsXLSX()" *ngIf="isAdmin"
+                    style="margin-top: 20px; margin-bottom: 50px; margin-left: 420px;" class="btn btn-success"><span
+                      class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+
+
+                  <button (click)="exportExcelJefe()" *ngIf="!isAdmin"
+                    style="margin-top: 20px; margin-bottom: 50px; margin-left: 10px;" class="btn btn-success"><span
+                      class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+
+
                 </div>
+
+
+                <!-- Inicia tabla de bienes edificios  -->
+                <div class="row" [ngStyle]="{'display':tablaEdificios}">
+                  <div class="col-lg-12">
+                    <section class="panel panel-default">
+                      <div class="panel-body">
+                        <div class="adv-table">
+                          <table class="display table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th>Código</th>
+                                <th>Descripción del bien</th>
+                                <th>Fecha de adquisición</th>
+                                <th>Valor de adquisición</th>
+                                <th>Depreciación</th>
+                                <th>Depreciación acumulada</th>
+                                <th>Valor actual</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr
+                                *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+
+                                <td>{{cuadro.codigo}}</td>
+                                <td>{{cuadro.descripcion}}</td>
+                                <td>{{cuadro.fechaadquisicion}}</td>
+                                <td>${{cuadro.valoradquisicion}}</td>
+                                <td>${{cuadro.depreciacion}}</td>
+                                <td>${{cuadro.depreciacionacumulada}}</td>
+                                <td>${{cuadro.valoractual}}</td>
+                            </tbody>
+                          </table>
+                          <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+                            nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                        <button (click)="exportarExcelEdi()"
+                          style="margin-top: 20px; margin-bottom: 50px; margin-left: 420px;"
+                          class="btn btn-success"><span class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+
+                <!-- inicia la tabla de intagibles -->
+                <div class="row" [ngStyle]="{'display':tablaIntengibles}">
+                  <div class="col-lg-12">
+                    <section class="panel panel-default">
+
+                      <div class="panel-body">
+                        <div class="adv-table">
+                          <table class="display table table-bordered table-striped">
+                            <thead>
+                              <tr>
+                                <th>Código</th>
+                                <th>Descripción del bien</th>
+                                <th>Fecha de adquisición</th>
+                                <th>Valor de adquisición</th>
+                                <th>Depreciación</th>
+                                <th>Depreciación acumulada</th>
+                                <th>Valor actual</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr
+                                *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 4, currentPage: p}; let i=index">
+
+                                <td>{{cuadro.codigo}}</td>
+                                <td>{{cuadro.descripcion}}</td>
+                                <td>{{cuadro.fechaadquisicion}}</td>
+                                <td>${{cuadro.valoradquisicion}}</td>
+                                <td>${{cuadro.depreciacion}}</td>
+                                <td>${{cuadro.depreciacionacumulada}}</td>
+                                <td>${{cuadro.valoractual}}</td>
+
+                            </tbody>
+                          </table>
+                          <pagination-controls (pageChange)="p = $event" class="my-cuadro" previousLabel="Anterior"
+                            nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                        <button (click)="exportarExcelIntan()"
+                          style="margin-top: 20px; margin-bottom: 50px; margin-left: 420px;"
+                          class="btn btn-success"><span class="glyphicon glyphicon-export"></span>Ver en Excel</button>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+
+              </div>
             </section>
-            </div>
-            </div>
-    </section>
-          
-    <!--modal para ayuda con pdf-->
+            <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+              <p style="font-size: 20px; color: white">Cargando...</p>
+            </ngx-spinner>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!--modal para ayuda con pdf-->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal3" class="modal"
-[ngStyle]="{'display':display5}">
-<div class="modal-dialog modal-lg" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close5()">×</button>
-      <h4 class="modal-title">Ayuda</h4>
+  [ngStyle]="{'display':display5}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button" (click)="close5()">×</button>
+        <h4 class="modal-title">Ayuda</h4>
+      </div>
+      <div class="modal-body">
+        <div style="text-align: center;">
+          <iframe src="assets/img/Imagenes/Cuadro de control.pdf" style="width:700px; height:415px;"
+            frameborder="0"></iframe>
+        </div>
+      </div>
+
     </div>
-    <div class="modal-body">
-      <div style="text-align: center;">
-<iframe src="assets/img/Imagenes/Cuadro de control.pdf" style="width:700px; height:415px;" frameborder="0"></iframe>
-</div>
-    </div>
-  
   </div>
 </div>
-</div>  

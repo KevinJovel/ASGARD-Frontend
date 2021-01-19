@@ -27,6 +27,7 @@ export class CuadroControlComponent implements OnInit {
   nombreC: any;
   descripcionC:any;
   p: number = 1;
+  p2: number = 1;
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
   tablaEdificios = 'none';
