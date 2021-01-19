@@ -59,13 +59,13 @@ table {
    h5, label {
     color: #797979;
     font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
   }
   
   th, td {
     color: #797979;
     font-family: 'Open Sans', sans-serif;
-    font-size: 14px; 
+    font-size: 13px; 
   }
   .btn-primary {
     background-color: #41cac0;
