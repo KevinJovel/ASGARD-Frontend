@@ -263,7 +263,7 @@ export class TablaDepreciacionComponent implements OnInit {
                     Swal.fire({
                       position: 'center',
                       icon: 'error',
-                      title: '¡Ocurrio un error 1!',
+                      title: '¡¡Ocurrió un error al aplicar la depreciación!!',
                       showConfirmButton: false,
                       timer: 3000
                     })
