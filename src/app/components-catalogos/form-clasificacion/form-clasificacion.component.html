@@ -119,13 +119,13 @@
           <div class="alert alert-block alert-danger fade in"
             *ngIf="clasificacion.controls['correlativo'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo correlativo no acepta caracteres especiales.
           </div>
           <div class="alert alert-warning fade in" *ngIf="this.edit==1">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> El correlativo y la categoría no se pueden modificar porque hay activos
             referenciados.
@@ -133,14 +133,14 @@
           <div class="alert alert-block alert-danger fade in"
             *ngIf="clasificacion.controls['correlativo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo correlativo.
           </div>
           <div class="alert alert-block alert-danger fade in"
             *ngIf="clasificacion.controls['correlativo'].errors?.yaExisteCorrelativo">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Ya existe el correlativo ingresado, por favor intente con uno nuevo.
           </div>
@@ -149,14 +149,14 @@
           <div class="alert alert-block alert-danger fade in"
             *ngIf="clasificacion.controls['clasificacion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo clasificación no acepta caracteres especiales.
           </div>
           <div class="alert alert-block alert-danger fade in"
             *ngIf="clasificacion.controls['clasificacion'].errors?.yaExisteClasificacion">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Ya existe la clasificación ingresada, por favor intente con una nueva.
           </div>
@@ -164,7 +164,7 @@
           <div class="alert alert-block alert-danger fade in"
             *ngIf="clasificacion.controls['clasificacion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo clasificación.
           </div>
@@ -172,14 +172,14 @@
           <div class="alert alert-block alert-danger fade in"
             *ngIf="clasificacion.controls['descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo descripción no acepta algunos caracteres especiales.
           </div>
           <div class="alert alert-block alert-danger fade in"
             *ngIf="clasificacion.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
           </div>
@@ -189,7 +189,7 @@
           <div class="alert alert-warning fade in"
             *ngIf="!clasificacion.valid&&!clasificacion.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
           </div>
@@ -197,7 +197,7 @@
           <div class="alert alert-success fade in"
             *ngIf="clasificacion.valid&&clasificacion.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>

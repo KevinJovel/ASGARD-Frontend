@@ -102,33 +102,33 @@
            <!-- Alertas sucursal -->
            <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo sucursal.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo sucursal no acepta caracteres especiales y letras en minúscula.
           </div>
           <!-- Alertas ubicación -->
           <div class="alert alert-block alert-danger fade in" *ngIf="this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Esta combinación de sucursal y ubicación ya existe.
           </div>
           <!-- Validacion de tamaño maximo de cadena -->
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo ubicación.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['ubicacion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo ubicación no acepta caracteres especiales.
           </div>
@@ -142,14 +142,14 @@
           <div class="alert alert-block alert-danger fade in"
             *ngIf="sucursal.controls['correlativo'].errors?.yaExisteCorrelativo">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Ya existe el correlativo ingresado.
 
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="sucursal.controls['correlativo'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo correlativo no acepta caracteres especiales.
           </div>
@@ -157,13 +157,13 @@
           <div class="alert alert-warning fade in"
             *ngIf="!sucursal.valid&&!sucursal.controls['correlativo'].errors?.yaExisteCorrelativo||this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
           </div>
           <div class="alert alert-warning fade in" *ngIf="this.modif==1">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> El correlativo no se puede modificar, porque hay activos referenciados.
           </div>
@@ -171,7 +171,7 @@
           <!--  END-WARNING-->
           <div class="alert alert-success fade in" *ngIf="sucursal.valid&&sucursal.controls['bandera'].value==0&&this.yaExiste==false">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>

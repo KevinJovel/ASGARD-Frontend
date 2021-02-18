@@ -94,47 +94,47 @@
       <br>
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en el campo nombre.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['nombre'].errors?.yaExisteDescargo">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> ya existe el nombre ingresado, por favor intente con un nuevo.
           </div> 
 
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo nombre no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en el campo descripción.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="descargos.controls['descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
           </div>
           <div class="alert alert-warning fade in" *ngIf="!descargos.valid&&!descargos.controls['nombre'].errors?.yaExisteDescargo">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> El campo nombre es obligatorio.
           </div>
 
           <div class="alert alert-success fade in" *ngIf="descargos.valid&&descargos.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>

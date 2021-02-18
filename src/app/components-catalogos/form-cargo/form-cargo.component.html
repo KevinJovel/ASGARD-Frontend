@@ -94,35 +94,35 @@
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.yaExisteCargo">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> El cargo ingresado ya existe.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo cargo.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['cargo'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="cargo.controls['descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Este campo no acepta caracteres especiales.
           </div>
@@ -130,7 +130,7 @@
           <!--  WARNING-->
           <div class="alert alert-warning fade in" *ngIf="!cargo.valid">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> El campo cargo es obligatorio.
           </div>
@@ -138,7 +138,7 @@
           <!--  END-WARNING-->
           <div class="alert alert-success fade in" *ngIf="cargo.valid&&cargo.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>

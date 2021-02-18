@@ -109,46 +109,46 @@
           <!-- Alertas campo areas de negocio -->
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['nombre'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo área de negocio.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['nombre'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo área de negocio no acepta caracteres especiales y letras en minúscula.
           </div>
           <!-- Alertas de campo sucursal -->
           <div class="alert alert-block alert-danger fade in" *ngIf="this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Esta combinación de área de negocio y sucursal ya existe.
           </div>
           <!-- Alertas de campo correlativo correlativo -->
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo correlativo.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="area.controls['correlativo'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo correlativo no acepta caracteres especiales.
           </div>
           <div class="alert alert-block alert-danger fade in"
             *ngIf="area.controls['correlativo'].errors?.yaExisteCorrelativo">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Ya existe el correlativo ingresado.
           </div>
           <div class="alert alert-warning fade in" *ngIf="this.modif==1">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> El correlativo no se puede modificar, porque hay activos referenciados.
           </div>
@@ -156,7 +156,7 @@
           <div class="alert alert-warning fade in"
             *ngIf="!area.valid&&!area.controls['correlativo'].errors?.yaExisteCorrelativo||this.yaExiste==true">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
           </div>
@@ -164,13 +164,13 @@
           <div class="alert alert-success fade in"
             *ngIf="area.valid&&area.controls['bandera'].value==0&&this.yaExiste==false">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>
           <button [disabled]="!area.valid||this.yaExiste==true" type="submit" class="btn btn-primary"><i
               class="icon-save"></i> Guardar</button>
-          <button type="button" (click)="close()" class="btn btn-default"><i class="icon-remove-sign"></i>
+          <button type="button" (click)="close()" class="btn btn-default">
             Cancelar</button>
         </form>
       </div>

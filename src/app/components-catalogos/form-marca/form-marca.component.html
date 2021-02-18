@@ -91,7 +91,7 @@
             <!--  WARNING-->
             <div class="alert alert-warning fade in" *ngIf="marca.controls['marca'].errors?.required">
               <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
+                
               </button>
               <strong>¡Advertencia!</strong> El campo marca es obligatorio.
             </div>
@@ -103,19 +103,19 @@
             </div>
             <div class="alert alert-success fade in" *ngIf="marca.valid&&marca.controls['bandera'].value==0">
               <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
+                
               </button>
               <strong>¡Excelente!</strong> Asegúrese de ingresar el nombre correctamente.
             </div>
             <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['marca'].errors?.pattern">
               <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
+                
               </button>
               <strong>¡Error!</strong> El campo marca no acepta caracteres especiales.
             </div>
             <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['marca'].errors?.yaExisteMarca">
               <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
+                
               </button>
               <strong>¡Error!</strong> La marca ingresada ya éxiste.
   
@@ -123,7 +123,7 @@
             <!--  END-WARNING-->
           <div class="alert alert-block alert-danger fade in" *ngIf="marca.controls['descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo descripción no acepta caracteres especiales.
           </div>
