@@ -100,7 +100,7 @@
           <div class="form-group col-md-6">
             <label><strong class="required">*</strong> DUI:</label>
             <input type="text" [dropSpecialCharacters]="false" mask="00000000-0" class="form-control"
-              formControlName="dui" placeholder="Ingrese DUI" autocomplete="off" maxlength="11">
+              formControlName="dui" placeholder="Ingrese DUI" autocomplete="off" minlength="10">
           </div>
           <div class="form-group col-md-6">
             <label><strong class="required">*</strong> Dirección:</label>
@@ -130,12 +130,12 @@
           <div class="form-group col-md-6">
             <label><strong class="required">*</strong> Teléfono:</label>
             <input type="text" [dropSpecialCharacters]="false" mask="0000-0000" class="form-control"
-              formControlName="telefono" placeholder="Ingrese teléfono" autocomplete="off">
+              formControlName="telefono" placeholder="Ingrese teléfono" autocomplete="off" minlength="9">
           </div>
           <div class="form-group col-md-6">
             <label><strong class="required">*</strong> Teléfono personal:</label>
             <input type="text" [dropSpecialCharacters]="false" mask="0000-0000" class="form-control"
-              formControlName="telefonopersonal" placeholder="Ingrese teléfono" autocomplete="off">
+              formControlName="telefonopersonal" placeholder="Ingrese teléfono" autocomplete="off" minlength="9">
           </div>
           <div>
             <br><br> <br><br> <br><br> <br> <br><br>
@@ -143,61 +143,81 @@
           <!-- Validacion de pattern no acepta caracteres especiales -->
           <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
-            <strong>¡Error!</strong> El campo nombres no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo nombres no acepta caracteres especiales y letras en minúscula.
           </div>
           <!-- Validacion de pattern no acepta caracteres especiales -->
           <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
-            <strong>¡Error!</strong> El campo apellidos no acepta caracteres especiales.
+            <strong>¡Error!</strong> El campo apellidos no acepta caracteres especiales y letras en minúscula.
           </div>
           <!-- Validacion de pattern no acepta caracteres especiales -->
+
+          <!--Validación para dui y teléfono-->
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['dui'].errors?.minlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+            </button>
+            <strong>¡Error!</strong> Completar el campo dui.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['telefonopersonal'].errors?.minlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+            </button>
+            <strong>¡Error!</strong> Completar el campo teléfono personal.
+          </div>
+
+          <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['telefono'].errors?.minlength">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+            </button>
+            <strong>¡Error!</strong> Completar el campo teléfono.
+          </div>
+          <!--Fin de validación para dui y teléfono-->
 
             <!--Validación correo-->
             <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['email'].errors?.pattern">
               <button data-dismiss="alert" class="close close-sm" type="button">
-                <i class="icon-remove"></i>
+                
               </button>
               <strong>¡Error!</strong> Ingresar correo electrónico válido.
             </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo dirección no acepta algunos caracteres especiales.
           </div>
           <div class="alert alert-warning fade in" *ngIf="this.edit==1">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> El área no se puede modificar porque hay activos referenciados al empleado.
             Para poder modificar el área de negocios, el empleado no debe de tener activos referenciados.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['nombres'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo nombres.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['apellidos'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo apellidos.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['direccion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo dirección.
           </div>
           <div class="alert alert-block alert-danger fade in" *ngIf="empleado.controls['dui'].errors?.yaExisteDui">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Ya existe el DUI ingresado, por favor intente con uno nuevo.
           </div>
@@ -205,13 +225,13 @@
           <div class="alert alert-warning fade in"
             *ngIf="!empleado.valid&&!empleado.controls['dui'].errors?.yaExisteDui">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
           </div>
           <div class="alert alert-success fade in" *ngIf="empleado.valid&&empleado.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Excelente!</strong> Datos ingresados correctamente
           </div>

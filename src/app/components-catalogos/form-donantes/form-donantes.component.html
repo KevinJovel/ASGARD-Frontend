@@ -103,42 +103,42 @@
 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.yaExisteDonante">
                       <button data-dismiss="alert" class="close close-sm" type="button">
-                        <i class="icon-remove"></i>
+                        
                       </button>
                       <strong>¡Advertencia!</strong> El donante ingresado ya existe.
                     </div>
 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
+                          
                         </button>
                         <strong>¡Error!</strong> Tamaño máximo permitido en campo nombre.
                       </div>
 
                       <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['nombre'].errors?.pattern">
                         <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
+                          
                         </button>
                         <strong>¡Error!</strong> El campo nombre no acepta caracteres especiales.
                       </div>
 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['telefono'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
+                          
                         </button>
                         <strong>¡Error!</strong> Tamaño máximo permitido en campo teléfono.
                       </div>
 
                     <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['direccion'].errors?.maxlength">
                         <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
+                          
                         </button>
                         <strong>¡Error!</strong> Tamaño máximo permitido en campo dirección.
                       </div>
 
                       <div class="alert alert-block alert-danger fade in" *ngIf="donantes.controls['direccion'].errors?.pattern">
                         <button data-dismiss="alert" class="close close-sm" type="button">
-                          <i class="icon-remove"></i>
+                          
                         </button>
                         <strong>¡Error!</strong> El campo dirección no acepta caracteres especiales.
                       </div>
@@ -146,7 +146,7 @@
                            <!--  WARNING-->
           <div class="alert alert-warning fade in" *ngIf="!donantes.valid">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Todos los campos son obligatorios.
           </div>
@@ -154,7 +154,7 @@
            <!--  END-WARNING-->
            <div class="alert alert-success fade in" *ngIf="donantes.valid&&donantes.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>

@@ -106,20 +106,20 @@
           <!-- Validacion de pattern no acepta caracteres especiales -->
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo categoía no acepta caracteres especiales.
           </div>
           <div class="alert alert-block alert-danger fade in"
             *ngIf="categoria.controls['Categoria'].errors?.yaExisteCategoria">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Ya existe la categoría ingresada, por favor intente con una nueva.
           </div>
           <div class="alert alert-warning fade in" *ngIf="this.edit==1">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> La categoria y la vida útil no se pueden modificar porque hay clasificaciones
             referenciadas.
@@ -127,7 +127,7 @@
 
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Categoria'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo categoría.
           </div>
@@ -136,28 +136,28 @@
           <!-- Validacion de pattern no acepta caracteres especiales -->
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['VidaUtil'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo vida útil solo acepta números.
           </div>
 
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['VidaUtil'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo vida útil-
           </div>
           <!-- Validacion de pattern no acepta caracteres especiales -->
           <div class="alert alert-block alert-danger fade in" *ngIf="categoria.controls['Descripcion'].errors?.pattern">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> El campo descripción no acepta algunos caracteres especiales.
           </div>
           <div class="alert alert-block alert-danger fade in"
             *ngIf="categoria.controls['Descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Error!</strong> Tamaño máximo permitido en campo descripción.
           </div>
@@ -166,14 +166,14 @@
           <div class="alert alert-warning fade in"
             *ngIf="!categoria.valid&&!categoria.controls['Descripcion'].errors?.maxlength">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Advertencia!</strong> Todos los campos con * son obligatorios.
           </div>
 
           <div class="alert alert-success fade in" *ngIf="categoria.valid&&categoria.controls['bandera'].value==0">
             <button data-dismiss="alert" class="close close-sm" type="button">
-              <i class="icon-remove"></i>
+              
             </button>
             <strong>¡Excelente!</strong> Datos ingresados correctamente.
           </div>

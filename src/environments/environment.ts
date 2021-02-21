@@ -1,8 +1,9 @@
 
 export const environment = {
- // urlService: 'https://localhost:44378/',
+
+  urlService: 'https://localhost:44378/',
   //urlService: 'https://appservice-webapp-asgard.azurewebsites.net/',
-    urlService: 'https://webapiasgard.azurewebsites.net/',
+  //urlService: 'https://webapiasgard.azurewebsites.net/',
   
   production: false,
   firebaseConfig : {
