@@ -18,7 +18,7 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe]
 })
 export class CuadroSolicitudComponent implements OnInit {
-
+  disabledFiltroAreas: boolean = true;
   tablaEdificios = 'none';
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
@@ -326,7 +326,24 @@ export class CuadroSolicitudComponent implements OnInit {
   }
   FiltrarArea() {
     var id = this.solicitud.controls['idSucursal'].value;
-    this.bajaService.ComboArea(id).subscribe(data => { this.areas = data });
+    if (id == 0) {
+      this.disabledFiltroAreas = true;
+    } else {
+      this.disabledFiltroAreas = false;
+      this.bajaService.ComboArea(id).subscribe(data  => {
+        if (data.length == 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La sucursal seleccionada no posee áreas de negocios',
+            confirmButtonText: 'Aceptar'
+          });
+          this.disabledFiltroAreas = true;
+        } else {
+          this.areas = data
+        }
+      });
+    }
   }
 
   Filtrar() {

@@ -5,9 +5,11 @@ import { UsuarioService } from './../../services/usuario.service';
 import { SeguridadService } from './../../services/seguridad.service';
 import { CatalogosService } from './../../services/catalogos.service';//filtro
 import { Router, ActivatedRoute } from '@angular/router';
-import {HttpClient} from '@angular/common/http'
-import {environment} from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http'
+import { environment } from '../../../environments/environment';
 import { State, StateService } from './../../services/state.service';//para compartir entre componentes
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-registro-activos',
   templateUrl: './registro-activos.component.html',
@@ -21,6 +23,7 @@ export class RegistroActivosComponent implements OnInit {
   tablaMueblesNoAsig = 'none';
   disabledFiltro: boolean;
   disabledFiltroBotonAsignacion: boolean;
+  disabledFiltroArea: boolean = true;
   banderaBuscador: any = 1;
   BanderaAsignados: boolean = true;
   BtnAsinacion: string;
@@ -66,7 +69,7 @@ export class RegistroActivosComponent implements OnInit {
   tipoUsuario = sessionStorage.getItem("tipo");
   idEmpleado = sessionStorage.getItem("empleado");
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private stateService: StateService, private controlService: ControlService,
-    private catalogosServices: CatalogosService, private usuarioService: UsuarioService, private seguridadService: SeguridadService, private http:HttpClient) {
+    private catalogosServices: CatalogosService, private usuarioService: UsuarioService, private seguridadService: SeguridadService, private http: HttpClient) {
 
     this.combo = new FormGroup({
       'idArea': new FormControl("0"),
@@ -84,7 +87,6 @@ export class RegistroActivosComponent implements OnInit {
 
   ngOnInit() {
     this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Consultó el registro de activos.`).subscribe();
-
     if (this.tipoUsuario == "1") {
       this.isAdmin = true;
       if (this.parametro == "ver") {
@@ -172,14 +174,14 @@ export class RegistroActivosComponent implements OnInit {
       case '3':
         this.tablaEdificios = 'none'
         this.tablaMuebles = 'none'
-        if(this.tipoUsuario=="1"){
+        if (this.tipoUsuario == "1") {
           this.controlService.getBienesAsignadosIntengibles().subscribe(res => {
             this.activos = res
             this.tablaIntengibles = 'block'
           });
           this.disabledFiltro = true;
           this.banderaBuscador = 3;
-        }else{
+        } else {
           this.controlService.getBienesAsignadosIntengibles().subscribe(res => {
             this.activos = res
             this.tablaIntengibles = 'block'
@@ -187,9 +189,9 @@ export class RegistroActivosComponent implements OnInit {
           this.disabledFiltro = true;
           this.banderaBuscador = 3;
         }
-      
 
-       
+
+
         break;
       default:
         console.log("ocurrio un error en la consulta de datos");
@@ -225,7 +227,24 @@ export class RegistroActivosComponent implements OnInit {
   }
   FiltrarArea() {
     var id = this.combo.controls['idSucursal'].value;
-    this.controlService.comboAreaDeSucursal(id).subscribe(data => { this.areas = data });
+    if (id == 0) {
+      this.disabledFiltroArea = true;
+    } else {
+      this.disabledFiltroArea = false;
+      this.controlService.comboAreaDeSucursal(id).subscribe(data => {
+        if (data.length == 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La sucursal seleccionada no posee áreas de negocios',
+            confirmButtonText: 'Aceptar'
+          });
+          this.disabledFiltroArea = true;
+        } else {
+          this.areas = data
+        }
+      });
+    }
   }
 
   Filtrar() {
@@ -262,12 +281,12 @@ export class RegistroActivosComponent implements OnInit {
   }
 
   activosAsignadosJefePDF() {
-    this.http.get(environment.urlService+"api/Reporte/activosJefePdf/" + parseInt(this.idEmpleado),{responseType: 'arraybuffer'}).subscribe(pdf=>{
-      const blod=new Blob([pdf],{type:"application/pdf"});
-      const url= window.URL.createObjectURL(blod);
-       window.open(url);
+    this.http.get(environment.urlService + "api/Reporte/activosJefePdf/" + parseInt(this.idEmpleado), { responseType: 'arraybuffer' }).subscribe(pdf => {
+      const blod = new Blob([pdf], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blod);
+      window.open(url);
     });
-    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")),`Imprimió reporte de activos.`).subscribe();
+    this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Imprimió reporte de activos.`).subscribe();
   }
 
   codigoDeBarrasPdf(id) {
@@ -495,7 +514,7 @@ export class RegistroActivosComponent implements OnInit {
     }
     //buscadores en division de roles
     else if (this.banderaBuscador == 5) {
-      this.seguridadService.buscarActivoAsigJefe(this.idEmpleado,buscador.value).subscribe(res => { this.activos = res });
+      this.seguridadService.buscarActivoAsigJefe(this.idEmpleado, buscador.value).subscribe(res => { this.activos = res });
     }
   }
 

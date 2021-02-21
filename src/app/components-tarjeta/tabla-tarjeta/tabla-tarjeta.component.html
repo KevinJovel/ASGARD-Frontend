@@ -44,7 +44,7 @@
 
           <div class="form-group col-md-3">
             <label *ngIf="isAdmin">Área de negocio:</label>
-            <select *ngIf="isAdmin" [attr.disabled]="disabledFiltro ? '' : null" class="form-control" formControlName="idArea" (change)="Filtrar()">
+            <select *ngIf="isAdmin" [attr.disabled]="disabledFiltro||disabledFiltroAreas ? '' : null" class="form-control" formControlName="idArea" (change)="Filtrar()">
               <option value="0" selected>Seleccione</option>
               <option [value]="area.idAreaNegocio" *ngFor="let area of areas">{{area.nombre}}</option>	
             </select> 

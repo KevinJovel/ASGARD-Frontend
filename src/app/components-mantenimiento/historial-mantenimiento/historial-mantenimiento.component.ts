@@ -27,6 +27,7 @@ export class HistorialMantenimientoComponent implements OnInit {
   display = 'none';
   display2 = 'none';
   display5 = 'none'; // para ayuda
+  disabledFiltroAreas: boolean = true;
   //Datos del modal
   coopertativa: string;
   anio: string;
@@ -72,13 +73,13 @@ export class HistorialMantenimientoComponent implements OnInit {
         if (this.tipoUsuario == "1") {
           this.mantenimientoService.listarActivosHistorial().subscribe(data => { this.bienes = data });
           this.banderaBuscador = 1;
-          this.isAdmin=true;
-          this.banderaBuscador=1;
+          this.isAdmin = true;
+          this.banderaBuscador = 1;
         } else {
           this.seguridadService.getHisorialMttoJefe(this.idEmpleado).subscribe(data => { this.bienes = data });
           this.banderaBuscador = 2;
-          this.isAdmin=false;
-          this.banderaBuscador=2;
+          this.isAdmin = false;
+          this.banderaBuscador = 2;
         }
       } else {
         Swal.fire({
@@ -96,7 +97,24 @@ export class HistorialMantenimientoComponent implements OnInit {
   }
   FiltrarArea() {
     var id = this.combos.controls['idSucursal'].value;
-    this.depreciacionService.ComboArea(id).subscribe(data => { this.areas = data });
+    if (id == 0) {
+      this.disabledFiltroAreas = true;
+    } else {
+      this.disabledFiltroAreas = false;
+      this.depreciacionService.ComboArea(id).subscribe(data => {
+        if (data.length == 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La sucursal seleccionada no posee áreas de negocios',
+            confirmButtonText: 'Aceptar'
+          });
+          this.disabledFiltroAreas = true;
+        } else {
+          this.areas = data
+        }
+      });
+    }
   }
   Filtrar() {
     var id = this.combos.controls['idArea'].value;
@@ -139,11 +157,11 @@ export class HistorialMantenimientoComponent implements OnInit {
   }
   close() {
     this.display = 'none';
-    this.encargado="";
+    this.encargado = "";
     this.descripcion = "";
     this.areadenegocio = "";
-    this.codigo ="";
-    
+    this.codigo = "";
+
   }
 
   buscar(buscador) {

@@ -36,6 +36,7 @@ export class FormSolicitudTraspasoComponent implements OnInit {
  fechaMaxima: any;
  fechaMinima: any;
  empleados: any;
+ disabledFiltroAreas: boolean = true;
  //variables para division
  isAdmin: boolean = false;
  tipoUsuario = sessionStorage.getItem("tipo");
@@ -187,13 +188,31 @@ banderaBuscador:number=1;
    }
  
   FiltrarArea(){
-    var id= this.solicitud.controls['idSucursal'].value;
-    this.TraspasoService.comboAreaDeSucursal(id).subscribe(data=>{this.areas=data});
+    var id = this.solicitud.controls['idSucursal'].value;
+    if (id == 0) {
+      this.disabledFiltroAreas = true;
+    } else {
+      this.disabledFiltroAreas = false;
+      this.TraspasoService.comboAreaDeSucursal(id).subscribe(data => {
+        if (data.length == 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La sucursal seleccionada no posee áreas de negocios',
+            confirmButtonText: 'Aceptar'
+          });
+          this.disabledFiltroAreas = true;
+        } else {
+          this.areas = data
+        }
+      });
+    }
   }
 
   Filtrar(){
     var id= this.solicitud.controls['idArea'].value;
     this.TraspasoService.listarActivosFiltroT(id).subscribe(data=>{this.activos=data});
+    
   }
 
   

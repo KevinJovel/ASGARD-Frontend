@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./historial-solicitud-traspaso.component.css']
 })
 export class HistorialSolicitudTraspasoComponent implements OnInit {
+  disabledFiltroAreas: boolean = true;
   bienes: any;
   sucursales: any;
   areas: any;
@@ -115,7 +116,24 @@ export class HistorialSolicitudTraspasoComponent implements OnInit {
   }
   FiltrarArea() {
     var id = this.combos.controls['idSucursal'].value;
-    this.depreciacionService.ComboArea(id).subscribe(data => { this.areas = data });
+    if (id == 0) {
+      this.disabledFiltroAreas = true;
+    } else {
+      this.disabledFiltroAreas = false;
+      this.depreciacionService.ComboArea(id).subscribe(data  => {
+        if (data.length == 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La sucursal seleccionada no posee áreas de negocios',
+            confirmButtonText: 'Aceptar'
+          });
+          this.disabledFiltroAreas = true;
+        } else {
+          this.areas = data
+        }
+      });
+    }
   }
   Filtrar() {
     var id = this.combos.controls['idArea'].value;

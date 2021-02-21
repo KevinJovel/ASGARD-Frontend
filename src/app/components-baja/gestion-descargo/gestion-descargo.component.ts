@@ -16,6 +16,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./gestion-descargo.component.css']
 })
 export class GestionDescargoComponent implements OnInit {
+
+  disabledFiltroAreas: boolean = true;
   tablaEdificios = 'none';
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
@@ -200,7 +202,24 @@ export class GestionDescargoComponent implements OnInit {
 
   FiltrarArea() {
     var id = this.solicitud2.controls['idSucursal'].value;
-    this.bajaService.ComboArea(id).subscribe(data => { this.areas = data });
+    if (id == 0) {
+      this.disabledFiltroAreas = true;
+    } else {
+      this.disabledFiltroAreas = false;
+      this.bajaService.ComboArea(id).subscribe(data   => {
+        if (data.length == 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La sucursal seleccionada no posee áreas de negocios',
+            confirmButtonText: 'Aceptar'
+          });
+          this.disabledFiltroAreas = true;
+        } else {
+          this.areas = data
+        }
+      });
+    }
   }
 
   Filtrar() {

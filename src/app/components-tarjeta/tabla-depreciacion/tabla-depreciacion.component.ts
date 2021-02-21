@@ -23,6 +23,7 @@ export class TablaDepreciacionComponent implements OnInit {
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
   disabledFiltroBotonAsignacion: boolean;
+  disabledFiltroAreas: boolean = true;
   banderaBuscador: any = 1;//bandera para cambiar el buscador
   disabledFiltro: boolean;//Esta bandera sirve para inhabilitar los filtros en edificios e intangibles
   p: number = 1;
@@ -125,7 +126,24 @@ export class TablaDepreciacionComponent implements OnInit {
   }
   FiltrarArea() {
     var id = this.combos.controls['idSucursal'].value;
-    this.depreciacionService.ComboArea(id).subscribe(data => { this.areas = data });
+    if (id == 0) {
+      this.disabledFiltroAreas = true;
+    } else {
+      this.disabledFiltroAreas = false;
+      this.controlService.comboAreaDeSucursal(id).subscribe(data => {
+        if (data.length == 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La sucursal seleccionada no posee áreas de negocios',
+            confirmButtonText: 'Aceptar'
+          });
+          this.disabledFiltroAreas = true;
+        } else {
+          this.areas = data
+        }
+      });
+    }
   }
   Filtrar() {
     var id = this.combos.controls['idArea'].value;

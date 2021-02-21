@@ -26,6 +26,7 @@ export class TablaRevalorizarComponent implements OnInit {
   tablaMuebles = 'none';
   tablaIntengibles = 'none';
   disabledFiltroBotonAsignacion: boolean;
+  disabledFiltroAreas: boolean = true;
   banderaBuscador: any = 1;//bandera para cambiar el buscador
   disabledFiltro: boolean;//Esta bandera sirve para inhabilitar los filtros en edificios e intangibles
   p: number = 1;
@@ -35,7 +36,7 @@ export class TablaRevalorizarComponent implements OnInit {
   display = 'none';
   display2 = 'none';
   display3 = 'none';
-  display4= 'none';
+  display4 = 'none';
   display5 = 'none';
   display6 = 'none';
   displayfoto = 'none';
@@ -99,7 +100,7 @@ export class TablaRevalorizarComponent implements OnInit {
           this.tablaMuebles = 'block';
         });
         this.catalogosServices.getComboSucursal().subscribe(data => { this.sucursales = data });
-       // this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"]).subscribe(data => { this.revalorizaciones = data });
+        // this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"]).subscribe(data => { this.revalorizaciones = data });
       } else {
         Swal.fire({
           position: 'center',
@@ -151,7 +152,24 @@ export class TablaRevalorizarComponent implements OnInit {
   }
   FiltrarArea() {
     var id = this.combos.controls['idSucursal'].value;
-    this.controlService.comboAreaDeSucursal(id).subscribe(data => { this.areas = data });
+    if (id == 0) {
+      this.disabledFiltroAreas = true;
+    } else {
+      this.disabledFiltroAreas = false;
+      this.controlService.comboAreaDeSucursal(id).subscribe(data => {
+        if (data.length == 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: 'La sucursal seleccionada no posee áreas de negocios',
+            confirmButtonText: 'Aceptar'
+          });
+          this.disabledFiltroAreas = true;
+        } else {
+          this.areas = data
+        }
+      });
+    }
   }
   Filtrar() {
     var id = this.combos.controls['idArea'].value;
@@ -180,62 +198,62 @@ export class TablaRevalorizarComponent implements OnInit {
           showConfirmButton: false,
           timer: 3000
         });
-      }else{
-    this.titulo6 = "Eliminar revalorizaciones";
-    this.display6 = 'block';
-    this.revalorizacion.controls["idBien"].setValue(id);
-    this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"].value).subscribe(data => { this.revalorizaciones = data });
-  }
-  });
+      } else {
+        this.titulo6 = "Eliminar revalorizaciones";
+        this.display6 = 'block';
+        this.revalorizacion.controls["idBien"].setValue(id);
+        this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"].value).subscribe(data => { this.revalorizaciones = data });
+      }
+    });
   }
 
-  
+
   eliminar(idtran) {
-   /* this.catalogosServices.noEliminarEmpleado(idempleado).subscribe(data => {
-      if (data == 1) {
-        Swal.fire({
-          icon: 'error',
-          title: '¡ERROR!',
-          text: 'No es posible eliminar este registro, ya existen activos denominados a este empleado',
-          confirmButtonText: 'Aceptar'
-        });
-        this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
-      } else {*/
-        Swal.fire({
-          title: '¿Estás seguro de eliminar este registro?',
-          text: "¡No podrás revertir esta acción!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: '¡Si, eliminar!',
-          cancelButtonText: "Cancelar"
-        }).then((result) => {
-          if (result.value) {
-            this.mantenimientoService.eliminarRevalorizacion(idtran).subscribe(data => {
-              if (data == 1) {
-                Swal.fire({
-                  icon: 'success',
-                  title: '¡ELIMINADO!',
-                  text: '¡El registro ha sido eliminado con éxito!',
-                  confirmButtonText: 'Aceptar'
-                });
-                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó una revalorización.`).subscribe();
-                this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"].value).subscribe(data => { this.revalorizaciones = data });
-              } else {
-                Swal.fire({
-                  icon: 'success',
-                  title: '¡Error!',
-                  text: '¡Ocurrió un error al eliminar el registro!',
-                  confirmButtonText: 'Aceptar'
-                });
-                this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar una revalorización en el sistema.`).subscribe();
-              }
+    /* this.catalogosServices.noEliminarEmpleado(idempleado).subscribe(data => {
+       if (data == 1) {
+         Swal.fire({
+           icon: 'error',
+           title: '¡ERROR!',
+           text: 'No es posible eliminar este registro, ya existen activos denominados a este empleado',
+           confirmButtonText: 'Aceptar'
+         });
+         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar un empleado en el sistema.`).subscribe();
+       } else {*/
+    Swal.fire({
+      title: '¿Estás seguro de eliminar este registro?',
+      text: "¡No podrás revertir esta acción!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '¡Si, eliminar!',
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.value) {
+        this.mantenimientoService.eliminarRevalorizacion(idtran).subscribe(data => {
+          if (data == 1) {
+            Swal.fire({
+              icon: 'success',
+              title: '¡ELIMINADO!',
+              text: '¡El registro ha sido eliminado con éxito!',
+              confirmButtonText: 'Aceptar'
             });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Eliminó una revalorización.`).subscribe();
+            this.mantenimientoService.listarRevalorizacion(this.revalorizacion.controls["idBien"].value).subscribe(data => { this.revalorizaciones = data });
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: '¡Error!',
+              text: '¡Ocurrió un error al eliminar el registro!',
+              confirmButtonText: 'Aceptar'
+            });
+            this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Intentó eliminar una revalorización en el sistema.`).subscribe();
           }
-        })
-      //}
-   // })
+        });
+      }
+    })
+    //}
+    // })
   }
   guardarDatos() {
     this.mantenimientoService.insertarRevalorizacion(this.revalorizacion.value).subscribe(res => {
@@ -249,7 +267,7 @@ export class TablaRevalorizarComponent implements OnInit {
         });
         this.controlService.listarActivosRevalorizar().subscribe(data => {
           this.bienes = data
-         // this.tablaMuebles = 'block';
+          // this.tablaMuebles = 'block';
         });
         this.usuarioService.BitacoraTransaccion(parseInt(sessionStorage.getItem("idUser")), `Realizó una revalorización de activos.`).subscribe();
       } else {
@@ -264,9 +282,9 @@ export class TablaRevalorizarComponent implements OnInit {
     });
     this.controlService.listarActivosRevalorizar().subscribe(data => {
       this.bienes = data
-     // this.tablaMuebles = 'block';
+      // this.tablaMuebles = 'block';
     });
-  
+
     this.display = 'none';
   }
   open(idBien, vidaUtil, fecha) {
@@ -366,23 +384,23 @@ export class TablaRevalorizarComponent implements OnInit {
   close6() {
     this.display6 = 'none';
   }
- /* ValidarActivosRevalorizacion() {
-    this.controlService.ValidarActivosARevalorizar().subscribe(data => {
-      if (data == 1) {
-
-        this.router.navigate(["/tabla-revalorizar"]);
-      } else {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: '¡Los activos ya han sido depreciados en el periodo actual!',
-          showConfirmButton: false,
-          timer: 3000
-        })
-        this.close();
-      }
-    });
-  }*/
+  /* ValidarActivosRevalorizacion() {
+     this.controlService.ValidarActivosARevalorizar().subscribe(data => {
+       if (data == 1) {
+ 
+         this.router.navigate(["/tabla-revalorizar"]);
+       } else {
+         Swal.fire({
+           position: 'center',
+           icon: 'error',
+           title: '¡Los activos ya han sido depreciados en el periodo actual!',
+           showConfirmButton: false,
+           timer: 3000
+         })
+         this.close();
+       }
+     });
+   }*/
   buscar(buscador) {
     this.p = 1;
     if (this.banderaBuscador == 1) {
