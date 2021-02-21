@@ -4,7 +4,7 @@
 
 
 ## Equipo de desarrolladores
-* Kevin Alexander Jovel Arevalo [**LinkEdin**](https://www.linkedin.com/in/kevin-alexander-jovel-arevalo-324327195/ "ver LinkedIn")
+* Kevin Alexander Jovel Arevalo [**LinkEdin**](https://www.linkedin.com/in/kevin-jovel/ "ver LinkedIn")
 * Kevin Reinaldo Montano Orantes [**LinkEdin**](https://www.linkedin.com/in/kevin-reinaldo-montano-orantes-6a14571a5/ "ver LinkedIn")
 * Saul Alfredo Reyes Alvarado.[**LinkEdin**](https://www.linkedin.com/in/sa%C3%BAl-reyes-4757021a5/ "ver LinkedIn")
 * Mayra Beatriz Quintanilla Guzman.
