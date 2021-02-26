@@ -47,9 +47,9 @@
                   <tr *ngFor="let sucursal of sucursales | paginate: { itemsPerPage: 5, currentPage: p }; let i=index">
                     <!-- <td>{{sucursal.idSucursal}}</td> -->
                     <th scope="col">{{i+(5*p)-4}}</th>
-                    <td>{{sucursal.correlativo}}</td>
-                    <td>{{sucursal.nombre}}</td>
-                    <td>{{sucursal.ubicacion}}</td>
+                    <td>{{sucursal.correlativo | uppercase}}</td>
+                    <td>{{sucursal.nombre | uppercase}}</td>
+                    <td>{{sucursal.ubicacion | uppercase}}</td>
                     <td class="center hidden-phone">
                       <button title="Modificar" class="btn btn-primary btn-xs"
                         (click)="modificar(sucursal.idSucursal)"><i class="icon-pencil"></i></button>

@@ -51,9 +51,9 @@
 
                 <tr *ngFor="let empleado of empleados | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
                   <th scope="col">{{ 5 * (p - 1) + i+1 }}</th>
-                  <td>{{empleado.dui}}</td>
-                  <td>{{empleado.nombres + " " + empleado.apellidos}}</td>
-                  <td>{{empleado.nombrearea+ " -  " + empleado.nombresucursal}}</td>
+                  <td>{{empleado.dui | uppercase}}</td>
+                  <td>{{empleado.nombres + " " + empleado.apellidos | uppercase}}</td>
+                  <td>{{empleado.nombrearea + " -  " + empleado.nombresucursal | uppercase}}</td>
                   <td class="center hidden-phone">
                     <button title="Modificar" class="btn btn-primary btn-xs" (click)="modif(empleado.idempleado)"><i
                         class="icon-pencil"></i></button>

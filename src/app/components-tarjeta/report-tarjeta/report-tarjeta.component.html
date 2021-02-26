@@ -85,7 +85,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label>Valor residual:</label>
-                            <p>${{valorresidual}}</p>
+                            <p>{{valorresidual |currency}}</p>
                         </div>
                         <div class="form-group col-md-12">
                             <label>Observaciones:</label>
@@ -114,7 +114,7 @@
                         <!-- segunda columna -->
                         <div class="form-group col-md-4">
                             <label>Valor de adquisicion:</label>
-                            <p>$ {{valor}}</p>
+                            <p>{{valor | currency}}</p>
                         </div>
                         <div class="form-group col-md-4">
                             <label>{{ProvDon}}:</label>
@@ -127,7 +127,7 @@
                         <!-- tercera columna -->
                         <div class="form-group col-md-4">
                             <label>Prima:</label>
-                            <p>${{prima}}</p>
+                            <p>{{prima | currency}}</p>
                         </div>
 
                         <div class="form-group col-md-4">
@@ -154,7 +154,7 @@
                         <!--Quinta columna-->
                         <div class="form-group col-md-4">
                             <label>Valor residual:</label>
-                            <p>${{valorresidual}}</p>
+                            <p>{{valorresidual | currency}}</p>
                         </div>
                         <div class="form-group col-md-12">
                             <label>Observaciones:</label>
@@ -191,11 +191,11 @@
                                             <tr *ngFor="let bien of bienes">
                                                 <td>{{bien.fecha}}</td>
                                                 <td>{{bien.concepto}}</td>
-                                                <td>$ {{bien.valorTransaccion}}</td>
-                                                <td>$ {{bien.montoTransaccion}}</td>
-                                                <td>$ {{bien.depreciacionAnual}}</td>
-                                                <td>$ {{bien.depreciacionAcumulada}}</td>
-                                                <td>$ {{bien.valorActual}}</td>
+                                                <td>{{bien.valorTransaccion | currency}}</td>
+                                                <td>{{bien.montoTransaccion | currency}}</td>
+                                                <td>{{bien.depreciacionAnual| currency}}</td>
+                                                <td>{{bien.depreciacionAcumulada | currency}}</td>
+                                                <td>{{bien.valorActual | currency}}</td>
                                             </tr>
 
                                         </tbody>

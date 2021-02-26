@@ -83,14 +83,14 @@
                         <tr
                           *ngFor="let cuadro of cuadros | paginate: { itemsPerPage: 20, currentPage: p }; let i=index">
                           <td>{{cuadro.codigo}}</td>
-                          <td>{{cuadro.descripcion}}</td>
+                          <td>{{cuadro.descripcion | titlecase}}</td>
                           <td>{{cuadro.fechaadquisicion}}</td>
-                          <td>${{cuadro.valoradquisicion}}</td>
-                          <td>${{cuadro.depreciacion}}</td>
-                          <td>${{cuadro.depreciacionacumulada}}</td>
-                          <td>${{cuadro.valoractual}}</td>
-                          <td>{{cuadro.ubicacion}}</td>
-                          <td>{{cuadro.responsable}}</td>
+                          <td>{{cuadro.valoradquisicion| currency}}</td>
+                          <td>{{cuadro.depreciacion| currency}}</td>
+                          <td>{{cuadro.depreciacionacumulada| currency}}</td>
+                          <td>{{cuadro.valoractual| currency}}</td>
+                          <td>{{cuadro.ubicacion | uppercase}}</td>
+                          <td>{{cuadro.responsable | uppercase}}</td>
 
                         </tr>
 
